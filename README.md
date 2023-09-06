@@ -13,6 +13,18 @@
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker containers making installation trivial and results highly reproducible.
 
+## Flow chart
+
+The **phaseimpute** pipeline is constituted of 5 main steps:
+
+- **Pre-processing**: Phasing, QC, variant filtering, variant annotation of the reference panel
+- **Phase**: Phasing of the target dataset on the reference panel
+- **Simulate**: Simulation of the target dataset from high quality target data
+- **Concordance**: Concordance between the target dataset and a truth dataset
+- **Post-processing**: Variant filtering based on their imputation quality
+
+![Flow chart](docs/images/MetroMap.png)
+
 ## Quick Start
 
 i. Install [`nextflow`](https://nf-co.re/usage/installation)
