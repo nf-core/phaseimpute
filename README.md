@@ -13,17 +13,13 @@
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker containers making installation trivial and results highly reproducible.
 
-## Flow chart
+## Main steps of the pipeline
 
 The **phaseimpute** pipeline is constituted of 5 main steps:
 
-- **Pre-processing**: Phasing, QC, variant filtering, variant annotation of the reference panel
-- **Phase**: Phasing of the target dataset on the reference panel
-- **Simulate**: Simulation of the target dataset from high quality target data
-- **Concordance**: Concordance between the target dataset and a truth dataset
-- **Post-processing**: Variant filtering based on their imputation quality
-
-![Flow chart](docs/images/MetroMap.png)
+| Metro map |    Modes    |
+|-----------|-------------|
+| <img src="docs/images/metro/MetroMap.png" alt="metromap" width="800"/> | - **Pre-processing**: Phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Phase**: Phasing of the target dataset on the reference panel <br> - **Simulate**: Simulation of the target dataset from high quality target data <br> - **Concordance**: Concordance between the target dataset and a truth dataset <br> - **Post-processing**: Variant filtering based on their imputation quality |
 
 ## Quick Start
 
@@ -55,9 +51,9 @@ The nf-core/phaseimpute pipeline comes with documentation about the pipeline, fo
 
 1. [Installation](https://nf-co.re/usage/installation)
 2. Pipeline configuration
-    * [Local installation](https://nf-co.re/usage/local_installation)
-    * [Adding your own system config](https://nf-co.re/usage/adding_own_config)
-    * [Reference genomes](https://nf-co.re/usage/reference_genomes)
+    - [Local installation](https://nf-co.re/usage/local_installation)
+    - [Adding your own system config](https://nf-co.re/usage/adding_own_config)
+    - [Reference genomes](https://nf-co.re/usage/reference_genomes)
 3. [Running the pipeline](docs/usage.md)
 4. [Output and how to interpret the results](docs/output.md)
 5. [Troubleshooting](https://nf-co.re/usage/troubleshooting)
@@ -77,7 +73,7 @@ For more information please refer to the [documentation](https://nf-core.github.
 
 ## Credits
 
-nf-core/phaseimpute was originally written by @louislenezet.
+nf-core/phaseimpute was originally written by [@louislenezet](https://github.com/LouisLeNezet).
 
 ## Contributions and Support
 
