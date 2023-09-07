@@ -1,0 +1,42 @@
+Changes in module 'nf-core/samtools/view'
+--- modules/nf-core/samtools/view/main.nf
++++ modules/nf-core/samtools/view/main.nf
+@@ -8,8 +8,7 @@
+         'biocontainers/samtools:1.17--h00cdaf9_0' }"
+ 
+     input:
+-    tuple val(meta), path(input), path(index)
+-    tuple val(meta2), path(fasta)
++    tuple val(meta), path(input), path(index), path(fasta), val(region), val(depth)
+     path qname
+ 
+     output:
+@@ -25,11 +24,13 @@
+     task.ext.when == null || task.ext.when
+ 
+     script:
+-    def args = task.ext.args ?: ''
+-    def args2 = task.ext.args2 ?: ''
++    def args   = task.ext.args   ?: ''
++    def args2  = task.ext.args2  ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
+-    def reference = fasta ? "--reference ${fasta}" : ""
+-    def readnames = qname ? "--qname-file ${qname}": ""
++    def reference  = fasta  ? "--reference ${fasta}" : ""
++    def readnames  = qname  ? "--qname-file ${qname}": ""
++    def region_cmd = region ? "-r ${region}"         : ""
++    def depth_cmd  = depth  ? "-s ${depth}"          : ""
+     def file_type = args.contains("--output-fmt sam") ? "sam" :
+                     args.contains("--output-fmt bam") ? "bam" :
+                     args.contains("--output-fmt cram") ? "cram" :
+@@ -42,6 +43,8 @@
+         ${reference} \\
+         ${readnames} \\
+         $args \\
++        ${region_cmd} \\
++        ${depth_cmd} \\
+         -o ${prefix}.${file_type} \\
+         $input \\
+         $args2
+
+************************************************************
