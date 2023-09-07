@@ -73,6 +73,14 @@ nextflow run nf-core/phaseimpute \
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage) and the [parameter documentation](https://nf-co.re/phaseimpute/parameters).
 
+### Simple test
+
+To run a simple test with the example dataset, install Nextflow and run the following command:
+
+```bash
+nextflow run main.nf -profile test,mamba
+```
+
 ## Pipeline output
 
 To see the results of an example test run with a full size dataset refer to the [results](https://nf-co.re/phaseimpute/results) tab on the nf-core website pipeline page.
