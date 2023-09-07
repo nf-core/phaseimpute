@@ -7,12 +7,12 @@
                 "nf-core": {
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
+                        "git_sha": "05c280924b6c768d484c7c443dad5e605c4ff4b4",
                         "installed_by": ["modules"]
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "9a4517e720bc812e95b56d23d15a1653b6db4f53",
                         "installed_by": ["modules"]
                     },
                     "glimpse/chunk": {
@@ -22,8 +22,24 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "f2d63bd5b68925f98f572eed70993d205cc694b7",
+                        "git_sha": "a6e11ac655e744f7ebc724be669dd568ffdc0e80",
                         "installed_by": ["modules"]
+                    },
+                    "samtools/coverage": {
+                        "branch": "master",
+                        "git_sha": "2fe9363ae3b3ab1c79f43dae9b1a4074694c57d6",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/index": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/view": {
+                        "branch": "master",
+                        "git_sha": "3ffae3598260a99e8db3207dead9f73f87f90d1f",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/view/samtools-view.diff"
                     }
                 }
             }
