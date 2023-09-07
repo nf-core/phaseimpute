@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
+    "title": "nf-core/phaseimpute pipeline - params.input_simulate schema",
+    "description": "Schema for the file provided with params.input_simulate",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "sample": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "BAM": {
+                "type": "string",
+                "pattern": "^\\S+\\.bam$",
+                "errorMessage": "BAM file must be provided, cannot contain spaces and must have extension '.bam'"
+            },
+            "BAI": {
+                "errorMessage": "BAI file must be provided, cannot contain spaces and must have extension '.bai'",
+                "type": "string",
+                "pattern": "^\\S+\\.bai$"
+            },
+            "ref": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Genome reference meta name must be provided and cannot contain spaces",
+                "meta": ["reference"]
+            }
+        },
+        "required": ["sample", "BAM", "BAI", "ref"]
+    }
+}

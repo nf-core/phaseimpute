@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
+    "title": "nf-core/phaseimpute pipeline - params.input_region schema",
+    "description": "Schema for the file provided with params.input_region",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "chr": {
+                "type": "integer",
+                "pattern": "^\\d+$",
+                "errorMessage": "Chromosome name must be provided, cannot contain spaces and must be numeric"
+            },
+            "start": {
+                "type": "integer",
+                "pattern": "^\\d+$",
+                "errorMessage": "Region start name must be provided, cannot contain spaces and must be numeric"
+            },
+            "end": {
+                "type": "integer",
+                "pattern": "^\\d+$",
+                "errorMessage": "Region end name must be provided, cannot contain spaces and must be numeric"
+            },
+            "fasta": {
+                "type": "string",
+                "pattern": "^\\S+\\.fa$",
+                "errorMessage": "Genome reference file must be provided, cannot contain spaces and must have extension '.fa'"
+            },
+            "ref": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Genome reference meta name must be provided and cannot contain spaces",
+                "meta": ["reference"]
+            }
+        },
+        "required": ["chr", "start", "end", "fasta", "ref"]
+    }
+}
