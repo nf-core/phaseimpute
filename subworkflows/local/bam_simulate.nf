@@ -28,46 +28,55 @@ workflow BAM_SIMULATE {
         }
         .combine(Channel.of([[]])) // depth parameter
 
+    // Extract region of interest
     VIEW_REGION(ch_input_region, [])
     ch_versions = ch_versions.mix(VIEW_REGION.out.versions.first())
 
+    // Index region of interest
     INDEX1 (VIEW_REGION.out.bam)
     ch_versions = ch_versions.mix(INDEX1.out.versions.first())
 
+    // Add region to channel
     ch_coverage = VIEW_REGION.out.bam
         .combine(INDEX1.out.bai, by:0)
         .map{ metaIR, bam, index ->
-            [metaIR, bam, index, metaIR["region"]]]
+            [metaIR, bam, index, metaIR["region"]]
         }
-        .view()
 
-    SAMTOOLS_COVERAGE ( ch_coverage )
+    // Get coverage of the region
+    SAMTOOLS_COVERAGE ( ch_coverage ) // meta, bam, bai, region
     ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE.out.versions.first())
 
+    // Compute mean depth of the region
     ch_mean_depth = SAMTOOLS_COVERAGE.out.coverage.view()
         .splitCsv(header: true, sep:'\t')
         .map{metaIR, row -> [metaIR,"${row.meandepth}" as Float]}
+
+    // Compute downsampling factor
     ch_depth_factor = ch_mean_depth
         .combine(ch_depth)
         .map{metaIR, mean, depth ->
             [metaIR, metaIR + ["depth":depth], depth as Float / mean + 1]
         }
 
+    // Add all necessary channel for downsampling
     ch_input_downsample = ch_coverage
-        .map{ metaIR, bam, index ->
-            [metaIR.subMap(["region"]), metaIR, bam, index]}
+        .map{ metaIR, bam, index, region ->
+            [metaIR.subMap(["region"]), metaIR, bam, index, region]}
         .combine(Channel.fromPath(fasta).collect())
-        .combine(ch_region, by: 0)
-        .map{metaR, metaIR, bam, index, fasta, region ->
+        .map{metaR, metaIR, bam, index, region, fasta ->
             [metaIR, bam, index, fasta, region ] }
         .combine(ch_depth_factor, by:0)
         .map{ metaIR, bam, index, fasta, region, metaIRD, depth ->
             [metaIRD, bam, index, fasta, region, depth]}
 
+    // Downsample
     VIEW_DEPTH(ch_input_downsample, [])
     ch_versions = ch_versions.mix(VIEW_DEPTH.out.versions.first())
 
+    // Index result
     INDEX2(VIEW_DEPTH.out.bam)
+    ch_versions = ch_versions.mix(INDEX2.out.versions.first())
 
     emit:
     bam_region        = VIEW_REGION.out.bam
