@@ -8,7 +8,7 @@ process SAMTOOLS_COVERAGE {
         'biocontainers/samtools:1.17--h00cdaf9_0' }"
 
     input:
-    tuple val(meta), path(input), path(input_index), value(region)
+    tuple val(meta), path(input), path(input_index), val(region)
 
     output:
     tuple val(meta), path("*.txt"), emit: coverage
