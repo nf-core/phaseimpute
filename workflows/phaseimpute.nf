@@ -93,25 +93,24 @@ workflow PHASEIMPUTE {
         //
         // Read in samplesheet, validate and stage input_simulate files
         //
-        ch_input_sim = Channel.fromSamplesheet("input_simulate")
-        ch_input_sim.view()
+        ch_input_sim = Channel.fromSamplesheet("input")
 
         // Create channel from "string given"
         ch_depth = Channel.fromList(params.depth)
 
         // Create genome / region channel
-        ch_region = Channel.fromSamplesheet(params.input_region)
+        ch_region = Channel.fromSamplesheet("input_region")
 
-        BAM_SIMULATE(ch_input_sim, ch_depth, ch_region)
+        BAM_SIMULATE(ch_input_sim, ch_region, ch_depth, params.fasta)
         ch_versions = ch_versions.mix(BAM_SIMULATE.out.versions.first())
     }
 
     //
     // MODULE : dump softwares versions
     //
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
+    //CUSTOM_DUMPSOFTWAREVERSIONS (
+    //    ch_versions.unique().collectFile(name: 'collated_versions.yml')
+    //)
 
     //
     // MODULE: MultiQC
@@ -125,16 +124,15 @@ workflow PHASEIMPUTE {
     ch_multiqc_files = Channel.empty()
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    //ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
-    MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList()
-    )
-    multiqc_report = MULTIQC.out.report.toList()
+    //MULTIQC (
+    //    ch_multiqc_files.collect(),
+    //    ch_multiqc_config.toList(),
+    //    ch_multiqc_custom_config.toList(),
+    //    ch_multiqc_logo.toList()
+    //)
+    //multiqc_report = MULTIQC.out.report.toList()
 }
 
 /*
@@ -145,7 +143,7 @@ workflow PHASEIMPUTE {
 
 workflow.onComplete {
     if (params.email || params.email_on_fail) {
-        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
+        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log) //, multiqc_report)
     }
     NfcoreTemplate.summary(workflow, params, log)
     if (params.hook_url) {

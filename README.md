@@ -78,7 +78,7 @@ For more details and further functionality, please refer to the [usage documenta
 To run a simple test with the example dataset, install Nextflow and run the following command:
 
 ```bash
-nextflow run main.nf -profile test,mamba
+nextflow run main.nf -profile test,mamba --outdir test
 ```
 
 ## Pipeline output

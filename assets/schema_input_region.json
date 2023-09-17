@@ -21,19 +21,8 @@
                 "type": "integer",
                 "pattern": "^\\d+$",
                 "errorMessage": "Region end name must be provided, cannot contain spaces and must be numeric"
-            },
-            "fasta": {
-                "type": "string",
-                "pattern": "^\\S+\\.fa$",
-                "errorMessage": "Genome reference file must be provided, cannot contain spaces and must have extension '.fa'"
-            },
-            "ref": {
-                "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Genome reference meta name must be provided and cannot contain spaces",
-                "meta": ["reference"]
             }
         },
-        "required": ["chr", "start", "end", "fasta", "ref"]
+        "required": ["chr", "start", "end"]
     }
 }

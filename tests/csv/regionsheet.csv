@@ -1,2 +1,2 @@
-chr,start,end,fasta,ref
-20,20000000,2200000,/groups/dog/data/canFam3/sequence/seq_by_chr/38.fa,canFam3
+chr,start,end
+21,16600000,16800000

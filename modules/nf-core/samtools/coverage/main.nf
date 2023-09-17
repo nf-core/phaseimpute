@@ -8,7 +8,7 @@ process SAMTOOLS_COVERAGE {
         'biocontainers/samtools:1.17--h00cdaf9_0' }"
 
     input:
-    tuple val(meta), path(input), path(input_index)
+    tuple val(meta), path(input), path(input_index), value(region)
 
     output:
     tuple val(meta), path("*.txt"), emit: coverage
@@ -18,12 +18,15 @@ process SAMTOOLS_COVERAGE {
     task.ext.when == null || task.ext.when
 
     script:
-    def args   = task.ext.args   ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    def args       = task.ext.args   ?: ''
+    def prefix     = task.ext.prefix ?: "${meta.id}"
+    def region_cmd = region          ? "--region ${region}" : ''
+
     """
     samtools \\
         coverage \\
         $args \\
+        $region_cmd \\
         -o ${prefix}.txt \\
         $input
 
