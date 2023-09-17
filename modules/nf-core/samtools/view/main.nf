@@ -29,7 +29,7 @@ process SAMTOOLS_VIEW {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def reference  = fasta  ? "--reference ${fasta}" : ""
     def readnames  = qname  ? "--qname-file ${qname}": ""
-    def region_cmd = region ? "-r ${region}"         : ""
+    def region_cmd = region ? "${region}"            : ""
     def depth_cmd  = depth  ? "-s ${depth}"          : ""
     def file_type = args.contains("--output-fmt sam") ? "sam" :
                     args.contains("--output-fmt bam") ? "bam" :
@@ -43,11 +43,11 @@ process SAMTOOLS_VIEW {
         ${reference} \\
         ${readnames} \\
         $args \\
-        ${region_cmd} \\
         ${depth_cmd} \\
         -o ${prefix}.${file_type} \\
         $input \\
-        $args2
+        $args2  \\
+        ${region_cmd} \\
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
