@@ -8,23 +8,19 @@ workflow BAM_SIMULATE {
 
     take:
     ch_bam    // channel: [ [id, ref], bam, bai ]
-    ch_region // channel: [ [ref, region], val(chr), val(start), val(end)]
-    ch_depth  // channel: val(depth)
-    fasta     // fasta file
-
+    ch_region // channel: [ [ref, region], val(chr:start-end) ]
+    ch_depth  // channel: [ val(depth) ]
+    ch_fasta  // channel: [ fasta ]
     main:
 
     ch_versions = Channel.empty()
 
-    // Set region to chr:start-end
-    ch_region = ch_region.map{ chr, start, end -> [chr + ":" + start + "-" + end]}
-
     // Add fasta and region to bam channel
     ch_input_region = ch_bam
-        .combine(Channel.fromPath(fasta).collect())
+        .combine(ch_fasta)
         .combine(ch_region)
-        .map{ meta, bam, index, fasta, region ->
-            [meta + ["region": region], bam, index, fasta, region]
+        .map{ meta, bam, index, fasta, metaR, region ->
+            [meta + metaR, bam, index, fasta, region]
         }
         .combine(Channel.of([[]])) // depth parameter
 
