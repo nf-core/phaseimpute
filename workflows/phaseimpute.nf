@@ -86,6 +86,14 @@ workflow PHASEIMPUTE {
     // To gather used softwares versions for MultiQC
     ch_versions = Channel.empty()
 
+    // Gather regions to use
+    ch_region = Channel.fromSamplesheet("input_region")
+        .map{ chr, start, end -> [chr + ":" + start + "-" + end]}
+        .map{ region -> [["region": region], region]}
+
+    // Create fasta channel
+    ch_fasta = Channel.fromPath(fasta).collect()
+
     //
     // Simulate data if asked
     //
@@ -98,11 +106,20 @@ workflow PHASEIMPUTE {
         // Create channel from "string given"
         ch_depth = Channel.fromList(params.depth)
 
-        // Create genome / region channel
-        ch_region = Channel.fromSamplesheet("input_region")
-
         BAM_SIMULATE(ch_input_sim, ch_region, ch_depth, params.fasta)
         ch_versions = ch_versions.mix(BAM_SIMULATE.out.versions.first())
+    }
+
+    //
+    // Prepare panel
+    //
+    if (params.step == 'prep_panel') {
+        ch_panel = Channel.fromSamplesheet("input")
+        GET_PANEL(
+            ch_panel,
+            ch_region,
+            "./assets/chr_rename.txt"
+        )
     }
 
     //
