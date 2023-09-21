@@ -4,7 +4,7 @@ include { SAMTOOLS_INDEX as INDEX2     } from '../../modules/nf-core/samtools/in
 include { SAMTOOLS_VIEW as VIEW_REGION } from '../../modules/nf-core/samtools/view/main.nf'
 include { SAMTOOLS_VIEW as VIEW_DEPTH  } from '../../modules/nf-core/samtools/view/main.nf'
 
-workflow BAM_SIMULATE {
+workflow BAM_DOWNSAMPLELE {
 
     take:
     ch_bam    // channel: [ [id, ref], bam, bai ]
