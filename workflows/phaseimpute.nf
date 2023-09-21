@@ -36,7 +36,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { BAM_SIMULATE                     } from '../subworkflows/local/bam_simulate'
+include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/BAM_DOWNSAMPLE'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,23 +103,54 @@ workflow PHASEIMPUTE {
         //
         ch_input_sim = Channel.fromSamplesheet("input")
 
-        // Create channel from "string given"
-        ch_depth = Channel.fromList(params.depth)
+        if (params.depth) {
+            // Create channel from depth parameter
+            ch_depth = Channel.fromList(params.depth)
 
-        BAM_SIMULATE(ch_input_sim, ch_region, ch_depth, params.fasta)
-        ch_versions = ch_versions.mix(BAM_SIMULATE.out.versions.first())
+            // Downsample input to desired depth
+            BAM_DOWNSAMPLE(ch_input_sim, ch_region, ch_depth, ch_fasta)
+            ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
+
+            ch_input_to_phase = BAM_DOWNSAMPLE.out.bam_emul
+                .combine(BAM_DOWNSAMPLE.out.bam_emul_index)
+        }
+
+        if (params.genotype) {
+            // Create channel from samplesheet giving the chips snp position
+            ch_chip_snp = Channel.fromSamplesheet("input_chip_snp")
+            BAM_TO_GENOTYPE(ch_input_sim, ch_region, ch_chip_snp, ch_fasta)
+            ch_input_to_phase = ch_input_to_phase
+                .combine(BAM_TO_GENOTYPE.out.bam_emul)
+                .combine(BAM_TO_GENOTYPE.out.bam_emul_index)
+        }
     }
 
     //
     // Prepare panel
     //
-    if (params.step == 'prep_panel') {
+    if (params.step == 'panelprep') {
         ch_panel = Channel.fromSamplesheet("input")
         GET_PANEL(
             ch_panel,
             ch_region,
             "./assets/chr_rename.txt"
         )
+        ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
+
+        // Register all panel preparation to csv
+    }
+
+    if (params.step.contains("impute")) {
+        // Read from panel preparation csv
+
+        if (params.tools.contains("glimpse1")){
+            print("Impute with Glimpse1")
+            // Glimpse1 subworkflow
+        }
+        if (params.tools.contains("glimpse2")){
+            print("Impute with Glimpse2")
+            // Glimpse2 subworkflow
+        }
     }
 
     //

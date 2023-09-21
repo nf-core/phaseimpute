@@ -26,6 +26,24 @@
                 }
             }
         },
+        "panelprep": {
+            "title": "Panel preparation",
+            "type": "object",
+            "description": "Argument for the preparation of the reference panel",
+            "default": "",
+            "properties": {
+                "panel": {
+                    "type": "string",
+                    "fa_icon": "far fa-file-code",
+                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
+                    "format": "file-path"
+                },
+                "to_phase": {
+                    "type": "boolean",
+                    "pattern": "true|false"
+                }
+            }
+        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -64,7 +82,7 @@
                     "description": "Step to run.",
                     "default": "all",
                     "fa_icon": "fas fa-step-forward",
-                    "enum": ["all", "simulate", "prepare_ref", "impute", "validate"]
+                    "enum": ["simulate", "panelprep", "impute", "validate"]
                 }
             }
         },
