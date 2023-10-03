@@ -16,10 +16,10 @@ include { VCF_PHASE_SHAPEIT5                     } from '../../subworkflows/nf-c
 
 workflow GET_PANEL {
     take:
-    ch_vcf          // channel: [ [id, ref], vcf ]
+    ch_vcf          // channel: [ [id, ref], vcf, index ]
     ch_region       // channel: [ [ref, region], val(region) ]
     ch_fasta        // channel: [ fasta ]
-    file_chr_rename // file
+    file_chr_rename // file rename
 
     main:
 
@@ -66,7 +66,10 @@ workflow GET_PANEL {
     VCF_INDEX3(VIEW_VCF_SNPS.out.vcf)
     ch_versions = ch_versions.mix(VCF_INDEX3.out.versions.first())
 
+    ch_panel_norm = VIEW_VCF_SNPS.out.vcf
+        .combine(VCF_INDEX3, by:0)
 
+    // Extract sites positions
     vcf_region = VIEW_VCF_SNPS.out.vcf
         .combine(VCF_INDEX3.out.csi, by:0)
     VIEW_VCF_SITES( vcf_region
@@ -76,6 +79,9 @@ workflow GET_PANEL {
 
     VCF_INDEX4(VIEW_VCF_SITES.out.vcf)
     ch_versions = ch_versions.mix(VCF_INDEX4.out.versions.first())
+
+    ch_panel_sites = VIEW_VCF_SITES.out.vcf
+        .combine(VCF_INDEX4, by:0)
 
     // Convert to TSV
     BCFTOOLS_QUERY(VIEW_VCF_SITES.out.vcf
@@ -89,24 +95,29 @@ workflow GET_PANEL {
     TABIX_TABIX(TABIX_BGZIP.out.output)
     ch_versions = ch_versions.mix(TABIX_TABIX.out.versions.first())
 
+    ch_panel_tsv = TABIX_BGZIP.out.output
+        .combine(TABIX_TABIX.out.tbi, by: 0)
+
     // Phase panel
-    vcf_region.view()
-    VCF_PHASE_SHAPEIT5(vcf_region
+    if (params.phase_panel == true) {
+        VCF_PHASE_SHAPEIT5(vcf_region
             .map { meta, vcf, csi -> [meta, vcf, csi, [], meta.region] },
         Channel.of([[],[],[]]).collect(),
         Channel.of([[],[],[]]).collect(),
         Channel.of([[],[]]).collect())
-    ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions.first())
+        ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions.first())
+        ch_panel_phased = VCF_PHASE_SHAPEIT5.out.variants_phased
+            .combine(VCF_PHASE_SHAPEIT5.out.variants_index, by: 0)
+    } else {
+        ch_panel_phased = VIEW_VCF_SNPS.out.vcf
+            .combine(VCF_INDEX3.out.csi, by: 0)
+    }
 
     emit:
-    panel_norm          = VIEW_VCF_SNPS.out.vcf
-    panel_norm_index    = VCF_INDEX2.out.csi
-    panel_sites         = VIEW_VCF_SITES.out.vcf
-    panel_sites_index   = VCF_INDEX3.out.csi
-    panel_tsv           = TABIX_BGZIP.out.output
-    panel_tsv_index     = TABIX_TABIX.out.tbi
-    panel_phased        = VCF_PHASE_SHAPEIT5.out.variants_phased
-    panel_phased_index  = VCF_PHASE_SHAPEIT5.out.variants_index
+    panel_norm          = ch_panel_norm    // channel: [ meta, vcf, index ]
+    panel_sites         = ch_panel_sites   // channel: [ meta, bcf, index ]
+    panel_tsv           = ch_panel_tsv     // channel: [ meta, tsv, index ]
+    panel_phased        = ch_panel_phased  // channel: [ meta, vcf, index ]
 
     versions            = ch_versions      // channel: [ versions.yml ]
 }
