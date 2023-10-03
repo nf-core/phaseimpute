@@ -8,7 +8,7 @@ process SAMTOOLS_VIEW {
         'biocontainers/samtools:1.17--h00cdaf9_0' }"
 
     input:
-    tuple val(meta), path(input), path(index), path(fasta), val(region), val(depth)
+    tuple val(meta), path(input), path(index), path(fasta), val(region), val(subsample)
     path qname
 
     output:
@@ -27,12 +27,12 @@ process SAMTOOLS_VIEW {
     def args   = task.ext.args   ?: ''
     def args2  = task.ext.args2  ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def reference  = fasta  ? "--reference ${fasta}" : ""
-    def readnames  = qname  ? "--qname-file ${qname}": ""
-    def region_cmd = region ? "${region}"            : ""
-    def depth_cmd  = depth  ? "-s ${depth}"          : ""
-    def file_type = args.contains("--output-fmt sam") ? "sam" :
-                    args.contains("--output-fmt bam") ? "bam" :
+    def reference      = fasta      ? "--reference ${fasta}"     : ""
+    def readnames      = qname      ? "--qname-file ${qname}"    : ""
+    def region_cmd     = region     ? "${region}"                : ""
+    def subsample_cmd  = subsample  ? "--subsample ${subsample}" : ""
+    def file_type = args.contains("--output-fmt sam")  ? "sam"  :
+                    args.contains("--output-fmt bam")  ? "bam"  :
                     args.contains("--output-fmt cram") ? "cram" :
                     input.getExtension()
     if ("$input" == "${prefix}.${file_type}") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
@@ -43,11 +43,11 @@ process SAMTOOLS_VIEW {
         ${reference} \\
         ${readnames} \\
         $args \\
-        ${depth_cmd} \\
+        ${subsample_cmd} \\
         -o ${prefix}.${file_type} \\
         $input \\
-        $args2  \\
-        ${region_cmd} \\
+        $args2 \\
+        ${region_cmd}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
