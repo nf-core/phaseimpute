@@ -1,2 +1,2 @@
-chr,start,end,fasta
-20,20000000,2200000,/path/to/.fa
+chr,start,end
+20,20000000,2200000

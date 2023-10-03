@@ -16,13 +16,11 @@
                     "default": [0.2, 0.5, 1],
                     "fa_icon": "fas fa-list-ol"
                 },
-                "input_region": {
+                "genotype": {
                     "type": "string",
-                    "fa_icon": "fas fa-file-csv",
-                    "pattern": "^\\S+\\.(csv|tsv|yaml)$",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
                     "format": "file-path",
-                    "mimetype": "test/csv",
-                    "schema": "assets/schema_input_region.json"
+                    "mimetype": "text/csv"
                 }
             }
         },
@@ -49,7 +47,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["outdir", "input"],
+            "required": ["outdir"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -58,6 +56,18 @@
                     "format": "file-path",
                     "mimetype": "text/csv",
                     "schema": "assets/schema_input.json"
+                },
+                "input_region_file": {
+                    "type": "string",
+                    "fa_icon": "fas fa-file-csv",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml)$",
+                    "format": "file-path",
+                    "mimetype": "test/csv",
+                    "schema": "assets/schema_input_region.json"
+                },
+                "input_region_string": {
+                    "type": "string",
+                    "pattern": "^(all|chr\\d+)$"
                 },
                 "outdir": {
                     "type": "string",
@@ -80,7 +90,6 @@
                 "step": {
                     "type": "string",
                     "description": "Step to run.",
-                    "default": "all",
                     "fa_icon": "fas fa-step-forward",
                     "enum": ["simulate", "panelprep", "impute", "validate"]
                 }
