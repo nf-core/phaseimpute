@@ -49,6 +49,7 @@ include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/BAM_D
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { BAM_REGION                  } from '../subworkflows/local/bam_region'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,25 +104,31 @@ workflow PHASEIMPUTE {
         //
         ch_input_sim = Channel.fromSamplesheet("input")
 
+        // Split the bam into the region specified
+        ch_bam_region = BAM_REGION(ch_input_sim, ch_region, fasta)
+
+        // Initialize channel to impute
+        ch_bam_to_impute = Channel.empty()
+
         if (params.depth) {
             // Create channel from depth parameter
             ch_depth = Channel.fromList(params.depth)
 
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(ch_input_sim, ch_region, ch_depth, ch_fasta)
+            BAM_DOWNSAMPLE(ch_bam_region, ch_depth, ch_fasta)
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
-            ch_input_to_phase = BAM_DOWNSAMPLE.out.bam_emul
-                .combine(BAM_DOWNSAMPLE.out.bam_emul_index)
+            ch_bam_to_impute = ch_bam_to_impute
+                .combine(BAM_DOWNSAMPLE.out.bam_emul)
         }
 
         if (params.genotype) {
             // Create channel from samplesheet giving the chips snp position
             ch_chip_snp = Channel.fromSamplesheet("input_chip_snp")
-            BAM_TO_GENOTYPE(ch_input_sim, ch_region, ch_chip_snp, ch_fasta)
-            ch_input_to_phase = ch_input_to_phase
+            BAM_TO_GENOTYPE(ch_input_sim, ch_chip_snp, ch_fasta)
+
+            ch_bam_to_impute = ch_bam_to_impute
                 .combine(BAM_TO_GENOTYPE.out.bam_emul)
-                .combine(BAM_TO_GENOTYPE.out.bam_emul_index)
         }
     }
 
@@ -130,11 +137,13 @@ workflow PHASEIMPUTE {
     //
     if (params.step == 'panelprep') {
         ch_panel = Channel.fromSamplesheet("input")
-        GET_PANEL(
-            ch_panel,
-            ch_region,
-            "./assets/chr_rename.txt"
-        )
+
+        // Remove if necessary "chr"
+        if (params.panel_rename = true) {
+            ch_panel = VCF_CHR_RENAME(ch_panel, "./assets/chr_rename.txt")
+        }
+
+        GET_PANEL(ch_panel)
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
         // Register all panel preparation to csv

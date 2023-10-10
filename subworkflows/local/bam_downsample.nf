@@ -1,40 +1,20 @@
 include { SAMTOOLS_COVERAGE            } from '../../modules/nf-core/samtools/coverage/main.nf'
-include { SAMTOOLS_INDEX as INDEX1     } from '../../modules/nf-core/samtools/index/main.nf'
-include { SAMTOOLS_INDEX as INDEX2     } from '../../modules/nf-core/samtools/index/main.nf'
+include { SAMTOOLS_INDEX as INDEX     } from '../../modules/nf-core/samtools/index/main.nf'
 include { SAMTOOLS_VIEW as VIEW_REGION } from '../../modules/nf-core/samtools/view/main.nf'
 include { SAMTOOLS_VIEW as VIEW_DEPTH  } from '../../modules/nf-core/samtools/view/main.nf'
 
-workflow BAM_DOWNSAMPLELE {
+workflow BAM_DOWNSAMPLE {
 
     take:
     ch_bam    // channel: [ [id, ref], bam, bai ]
-    ch_region // channel: [ [ref, region], val(chr:start-end) ]
     ch_depth  // channel: [ val(depth) ]
     ch_fasta  // channel: [ fasta ]
     main:
 
     ch_versions = Channel.empty()
 
-    // Add fasta and region to bam channel
-    ch_input_region = ch_bam
-        .combine(ch_fasta)
-        .combine(ch_region)
-        .map{ meta, bam, index, fasta, metaR, region ->
-            [meta + metaR, bam, index, fasta, region]
-        }
-        .combine(Channel.of([[]])) // depth parameter
-
-    // Extract region of interest
-    VIEW_REGION(ch_input_region, [])
-    ch_versions = ch_versions.mix(VIEW_REGION.out.versions.first())
-
-    // Index region of interest
-    INDEX1 (VIEW_REGION.out.bam)
-    ch_versions = ch_versions.mix(INDEX1.out.versions.first())
-
     // Add region to channel
-    ch_coverage = VIEW_REGION.out.bam
-        .combine(INDEX1.out.bai, by:0)
+    ch_coverage = ch_bam
         .map{ metaIR, bam, index ->
             [metaIR, bam, index, metaIR["region"]]
         }
@@ -57,13 +37,9 @@ workflow BAM_DOWNSAMPLELE {
 
     // Add all necessary channel for downsampling
     ch_input_downsample = ch_coverage
-        .map{ metaIR, bam, index, region ->
-            [metaIR.subMap(["region"]), metaIR, bam, index, region]}
-        .combine(Channel.fromPath(fasta).collect())
-        .map{metaR, metaIR, bam, index, region, fasta ->
-            [metaIR, bam, index, fasta, region ] }
+        .combine(ch_fasta)
         .combine(ch_depth_factor, by:0)
-        .map{ metaIR, bam, index, fasta, region, metaIRD, depth ->
+        .map{ metaIR, bam, index, region, fasta, metaIRD, depth ->
             [metaIRD, bam, index, fasta, region, depth]}
 
     // Downsample
@@ -71,13 +47,13 @@ workflow BAM_DOWNSAMPLELE {
     ch_versions = ch_versions.mix(VIEW_DEPTH.out.versions.first())
 
     // Index result
-    INDEX2(VIEW_DEPTH.out.bam)
-    ch_versions = ch_versions.mix(INDEX2.out.versions.first())
+    INDEX(VIEW_DEPTH.out.bam)
+    ch_versions = ch_versions.mix(INDEX.out.versions.first())
+
+    ch_bam_emul = VIEW_DEPTH.out.bam
+        .combine(INDEX.out.bai, by:0)
 
     emit:
-    bam_region        = VIEW_REGION.out.bam
-    bam_region_index  = INDEX1.out.bai
-    bam_emul          = VIEW_DEPTH.out.bam       // channel: [ val(meta), [ bam ] ]
-    bam_emul_index    = INDEX2.out.bai           // channel: [ val(meta), [ bai ] ]
+    bam_emul          = ch_bam_emul              // channel: [ metaIRD, bam, bai ]
     versions          = ch_versions              // channel: [ versions.yml ]
 }

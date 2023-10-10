@@ -1,9 +1,6 @@
-include { BCFTOOLS_VIEW as VIEW_VCF_REGION       } from '../../modules/nf-core/bcftools/view/main.nf'
-include { BCFTOOLS_ANNOTATE                      } from '../../modules/nf-core/bcftools/annotate/main.nf'
 include { BCFTOOLS_VIEW as VIEW_VCF_SNPS         } from '../../modules/nf-core/bcftools/view/main.nf'
 include { BCFTOOLS_VIEW as VIEW_VCF_SITES        } from '../../modules/nf-core/bcftools/view/main.nf'
 include { BCFTOOLS_INDEX as VCF_INDEX1           } from '../../modules/nf-core/bcftools/index/main.nf'
-include { BCFTOOLS_INDEX as VCF_INDEX2           } from '../../modules/nf-core/bcftools/index/main.nf'
 include { BCFTOOLS_INDEX as VCF_INDEX3           } from '../../modules/nf-core/bcftools/index/main.nf'
 include { BCFTOOLS_INDEX as VCF_INDEX4           } from '../../modules/nf-core/bcftools/index/main.nf'
 include { BCFTOOLS_INDEX as VCF_INDEX5           } from '../../modules/nf-core/bcftools/index/main.nf'
@@ -17,43 +14,15 @@ include { VCF_PHASE_SHAPEIT5                     } from '../../subworkflows/nf-c
 workflow GET_PANEL {
     take:
     ch_vcf          // channel: [ [id, ref], vcf ]
-    ch_region       // channel: [ [ref, region], val(region) ]
     ch_fasta        // channel: [ fasta ]
-    file_chr_rename // file
 
     main:
 
     ch_versions = Channel.empty()
 
-    // Filter the region of interest of the panel file
-    ch_input_region = ch_vcf
-        .combine(ch_fasta)
-        .combine(ch_region)
-        .map{ metaI, vcf, index, fasta, metaR, region ->
-            [metaI + metaR, vcf, index, region+",chr"+region]}
-
-    VIEW_VCF_REGION(ch_input_region, [], [], [])
-    ch_versions = ch_versions.mix(VIEW_VCF_REGION.out.versions.first())
-
-    VCF_INDEX1(VIEW_VCF_REGION.out.vcf)
-    ch_versions = ch_versions.mix(VCF_INDEX1.out.versions.first())
-
-    // Rename the chromosome without prefix
-    BCFTOOLS_ANNOTATE(VIEW_VCF_REGION.out.vcf
-        .combine(VCF_INDEX1.out.csi, by:0)
-        .combine(Channel.of([[],[], []])),
-        file_chr_rename)
-    
-    VCF_INDEX2(BCFTOOLS_ANNOTATE.out.vcf)
-    ch_versions = ch_versions.mix(VCF_INDEX2.out.versions.first())
-
     // Normalise the panel
-    ch_norm = BCFTOOLS_ANNOTATE.out.vcf
-        .combine(VCF_INDEX2.out.csi, by:0)
-        .map{metaIRR, vcf, index -> [metaIRR.subMap(["ref","region"]), metaIRR, vcf, index]}
-        .combine(ch_region, by:0)
-        .map{metaRR, metaIRR, vcf, index, fasta, region ->
-            [metaIRR, vcf, index, fasta]}
+    ch_norm = ch_vcf
+        .combine(ch_fasta)
 
     BCFTOOLS_NORM(ch_norm)
     ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
@@ -65,7 +34,6 @@ workflow GET_PANEL {
 
     VCF_INDEX3(VIEW_VCF_SNPS.out.vcf)
     ch_versions = ch_versions.mix(VCF_INDEX3.out.versions.first())
-
 
     vcf_region = VIEW_VCF_SNPS.out.vcf
         .combine(VCF_INDEX3.out.csi, by:0)
