@@ -1,3 +1,3 @@
 panel,vcf,index,legend,to_phase
-1000GP,/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz,/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz.tbi,,FALSE
-1000GP_RePhase,/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz,/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz.tbi,,TRUE
+1000GP,"/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz","/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz.tbi",,FALSE
+1000GP_RePhase,"/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz","/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz.tbi",,TRUE

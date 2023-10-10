@@ -18,10 +18,11 @@ process BCFTOOLS_ANNOTATE {
     task.ext.when == null || task.ext.when
 
     script:
-    def args    = task.ext.args ?: ''
+    def args    = task.ext.args   ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
-    def header_file = header_lines ? "--header-lines ${header_lines}" : ''
-    def annotations_file = annotations ? "--annotations ${annotations}" : ''
+    def header_file      = header_lines ? "--header-lines ${header_lines}" : ''
+    def annotations_file = annotations  ? "--annotations ${annotations}"   : ''
+    def rename_chr_cmd   = rename_chr   ? "--rename-chrs ${rename_chr}"    : ''
     def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
                     args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
                     args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
@@ -34,6 +35,7 @@ process BCFTOOLS_ANNOTATE {
         $args \\
         $annotations_file \\
         $header_file \\
+        $rename_chr_cmd \\
         --output ${prefix}.${extension} \\
         --threads $task.cpus \\
         $input

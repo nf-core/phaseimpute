@@ -1,3 +1,3 @@
-sample,BAM,BAI,Depth,SNP_file
-1_BAM_1X,/path/to/.bam,/path/to/.bai,1,
-1_BAM_SNP,/path/to/.bam,/path/to/.bai,,/path/to/.tsv
+sample,BAM,BAI
+1_BAM_1X,/path/to/.bam,/path/to/.bai
+1_BAM_SNP,/path/to/.bam,/path/to/.bai

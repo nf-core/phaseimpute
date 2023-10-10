@@ -36,7 +36,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/BAM_DOWNSAMPLE'
+include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/bam_downsample.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,6 +49,7 @@ include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/BAM_D
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { SAMTOOLS_FAIDX              } from '../modules/nf-core/samtools/faidx/main'
 include { BAM_REGION                  } from '../subworkflows/local/bam_region'
 
 /*
@@ -84,16 +85,26 @@ workflow PHASEIMPUTE {
 
     // To gather all QC reports for MultiQC
     reports = Channel.empty()
+
     // To gather used softwares versions for MultiQC
     ch_versions = Channel.empty()
 
-    // Gather regions to use
-    ch_region = Channel.fromSamplesheet("input_region")
-        .map{ chr, start, end -> [chr + ":" + start + "-" + end]}
-        .map{ region -> [["region": region], region]}
+    // Create single fasta channel
+    ch_fasta = Channel.of([[genome: params.genome]])
+        .combine(Channel.fromPath(params.fasta).collect())
 
-    // Create fasta channel
-    ch_fasta = Channel.fromPath(fasta).collect()
+    // Gather regions to use and create the meta map
+    if (params.input_region_string == "all") {
+        SAMTOOLS_FAIDX(ch_fasta, [[],[]])
+        ch_region = SAMTOOLS_FAIDX.output.fai
+            .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
+            .map{ meta, row -> [meta + ["chr": row.chr], row.chr + ":0-" + row.size]}
+            .map{ metaC, region -> [metaC + ["region": region], region]}
+    } else {
+        ch_region = Channel.fromSamplesheet("input_region_file")
+            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+            .map{ metaC, region -> [metaC + ["region": region], region]}
+    }
 
     //
     // Simulate data if asked
