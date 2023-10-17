@@ -37,6 +37,8 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 
 include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/bam_downsample.nf'
+include { COMPUTE_GL as GL_TRUTH             } from '../subworkflows/local/compute_gl.nf'
+include { COMPUTE_GL as GL_INPUT             } from '../subworkflows/local/compute_gl.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,6 +107,13 @@ workflow PHASEIMPUTE {
             .map{ metaC, region -> [metaC + ["region": region], region]}
     }
 
+    // Create map channel
+    if (params.map) {
+        ch_map = Channel.of([["map": params.map], params.map]).collect()
+    } else {
+        ch_map = Channel.of([[],[]])
+    }
+
     //
     // Simulate data if asked
     //
@@ -112,25 +121,27 @@ workflow PHASEIMPUTE {
         //
         // Read in samplesheet, validate and stage input_simulate files
         //
-        ch_input_sim = Channel.fromSamplesheet("input")
+        ch_sim_input = Channel.fromSamplesheet("input")
+
+        // Output channel of simulate process
+        ch_sim_output = Channel.empty()
 
         if (params.depth) {
             // Create channel from depth parameter
             ch_depth = Channel.fromList(params.depth)
 
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(ch_input_sim, ch_region, ch_depth, ch_fasta)
+            BAM_DOWNSAMPLE(ch_sim_input, ch_region, ch_depth, ch_fasta)
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
-            ch_input_to_phase = BAM_DOWNSAMPLE.out.bam_emul
+            ch_sim_output = ch_sim_output.mix(BAM_DOWNSAMPLE.out.bam_emul)
         }
 
         if (params.genotype) {
             // Create channel from samplesheet giving the chips snp position
             ch_chip_snp = Channel.fromSamplesheet("input_chip_snp")
-            BAM_TO_GENOTYPE(ch_input_sim, ch_region, ch_chip_snp, ch_fasta)
-            ch_input_to_phase = ch_input_to_phase
-                .concate(BAM_TO_GENOTYPE.out.bam_emul)
+            BAM_TO_GENOTYPE(ch_sim_input, ch_region, ch_chip_snp, ch_fasta)
+            ch_sim_output = ch_sim_output.mix(BAM_TO_GENOTYPE.out.bam_emul)
         }
     }
 
@@ -152,9 +163,27 @@ workflow PHASEIMPUTE {
     if (params.step.contains("impute")) {
         // Read from panel preparation csv
 
+        // Output channel of input process
+        ch_impute_output = Channel.empty()
+
         if (params.tools.contains("glimpse1")){
             print("Impute with Glimpse1")
             // Glimpse1 subworkflow
+            GL_INPUT(
+                ch_sim_output,
+                REGION_CHECK.out.region,
+                GET_PANEL.out.panel_sites,
+                GET_PANEL.out.panel_tsv
+            )
+            impute_input = GL_EMUL.out.vcf
+                | combine(Channel.of([[]]))
+                | map{meta, vcf, index, sample -> [meta, vcf, index, sample, meta.region]}
+
+            VCF_IMPUTE_GLIMPSE(impute_input,
+                GET_PANEL.out.panel_phased,
+                ch_map)
+            
+            ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.)
         }
         if (params.tools.contains("glimpse2")){
             print("Impute with Glimpse2")
