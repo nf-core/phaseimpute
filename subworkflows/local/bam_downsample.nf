@@ -1,14 +1,12 @@
 include { SAMTOOLS_COVERAGE            } from '../../modules/nf-core/samtools/coverage/main.nf'
-include { SAMTOOLS_INDEX as INDEX1     } from '../../modules/nf-core/samtools/index/main.nf'
-include { SAMTOOLS_INDEX as INDEX2     } from '../../modules/nf-core/samtools/index/main.nf'
+include { SAMTOOLS_INDEX as INDEX     } from '../../modules/nf-core/samtools/index/main.nf'
 include { SAMTOOLS_VIEW as VIEW_REGION } from '../../modules/nf-core/samtools/view/main.nf'
 include { SAMTOOLS_VIEW as VIEW_DEPTH  } from '../../modules/nf-core/samtools/view/main.nf'
 
-workflow BAM_DOWNSAMPLE {
+workflow BAM_DOWNSAMPLELE {
 
     take:
     ch_bam    // channel: [ [id, ref], bam, bai ]
-    ch_region // channel: [ [ref, region], val(chr:start-end) ]
     ch_depth  // channel: [ val(depth) ]
     ch_fasta  // channel: [ fasta ]
     main:
@@ -33,8 +31,7 @@ workflow BAM_DOWNSAMPLE {
     ch_versions = ch_versions.mix(INDEX1.out.versions.first())
 
     // Add region to channel
-    ch_coverage = VIEW_REGION.out.bam
-        .combine(INDEX1.out.bai, by:0)
+    ch_coverage = ch_bam
         .map{ metaIR, bam, index ->
             [ metaIR, bam, index, metaIR["region"] ]
         }
@@ -72,7 +69,7 @@ workflow BAM_DOWNSAMPLE {
     // Index result
     INDEX2(VIEW_DEPTH.out.bam)
     ch_versions = ch_versions.mix(INDEX2.out.versions.first())
-    
+
     // Aggregate bam and index
     ch_bam_region = VIEW_REGION.out.bam
         .combine(INDEX1.out.bai)

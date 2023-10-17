@@ -52,6 +52,7 @@ include { COMPUTE_GL as GL_INPUT             } from '../subworkflows/local/compu
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { SAMTOOLS_FAIDX              } from '../modules/nf-core/samtools/faidx/main'
+include { BAM_REGION                  } from '../subworkflows/local/bam_region'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,6 +127,12 @@ workflow PHASEIMPUTE {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
+        // Split the bam into the region specified
+        ch_bam_region = BAM_REGION(ch_input_sim, ch_region, fasta)
+
+        // Initialize channel to impute
+        ch_bam_to_impute = Channel.empty()
+
         if (params.depth) {
             // Create channel from depth parameter
             ch_depth = Channel.fromList(params.depth)
@@ -150,11 +157,13 @@ workflow PHASEIMPUTE {
     //
     if (params.step == 'panelprep') {
         ch_panel = Channel.fromSamplesheet("input")
-        GET_PANEL(
-            ch_panel,
-            ch_region,
-            "./assets/chr_rename.txt"
-        )
+
+        // Remove if necessary "chr"
+        if (params.panel_rename = true) {
+            ch_panel = VCF_CHR_RENAME(ch_panel, "./assets/chr_rename.txt")
+        }
+
+        GET_PANEL(ch_panel)
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
         // Register all panel preparation to csv
