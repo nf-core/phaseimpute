@@ -198,6 +198,10 @@ workflow PHASEIMPUTE {
             print("Impute with Glimpse2")
             // Glimpse2 subworkflow
         }
+        if (params.tools.contains("quilt")){
+            print("Impute with quilt")
+            // Quilt subworkflow
+        }
     }
 
     //
