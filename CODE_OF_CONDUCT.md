@@ -45,8 +45,10 @@ Questions, concerns, or ideas on what we can include? Contact members of the Saf
 ## Our Responsibilities
 
 Members of the Safety Team (the Safety Officers) are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behaviour.
+The safety officer is responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behaviour.
 
 The Safety Team, in consultation with the nf-core core team, have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this CoC, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+The safety officer in consultation with the nf-core core team have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
 
 Members of the core team or the Safety Team who violate the CoC will be required to recuse themselves pending investigation. They will not have access to any reports of the violations and will be subject to the same actions as others in violation of the CoC.
 

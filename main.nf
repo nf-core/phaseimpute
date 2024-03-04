@@ -6,6 +6,12 @@
     Github : https://github.com/nf-core/phaseimpute
     Website: https://nf-co.re/phaseimpute
     Slack  : https://nfcore.slack.com/channels/phaseimpute
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    nf-core/phaseimpute
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Github : https://github.com/nf-core/phaseimpute
+    Website: https://nf-co.re/phaseimpute
+    Slack  : https://nfcore.slack.com/channels/phaseimpute
 ----------------------------------------------------------------------------------------
 */
 

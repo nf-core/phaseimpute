@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
-    "title": "nf-core/phaseimpute pipeline - params.input schema",
+    "title": "nf-core/phaseimpute pipeline - params.input",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
@@ -13,21 +13,17 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "fastq_1": {
+            "BAM": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.bam$",
+                "errorMessage": "BAM file must be provided, cannot contain spaces and must have extension '.bam'"
             },
-            "fastq_2": {
+            "BAI": {
+                "errorMessage": "BAI file must be provided, cannot contain spaces and must have extension '.bai'",
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.bai$"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "BAM", "BAI"]
     }
 }

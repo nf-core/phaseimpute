@@ -5,12 +5,49 @@
     "description": "Phasing and imputation pipeline",
     "type": "object",
     "definitions": {
+        "simulate": {
+            "title": "Simulate",
+            "type": "object",
+            "description": "Argument for the simulation mode",
+            "default": "",
+            "properties": {
+                "depth": {
+                    "type": "array",
+                    "default": [0.2, 0.5, 1],
+                    "fa_icon": "fas fa-list-ol"
+                },
+                "genotype": {
+                    "type": "string",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "format": "file-path",
+                    "mimetype": "text/csv"
+                }
+            }
+        },
+        "panelprep": {
+            "title": "Panel preparation",
+            "type": "object",
+            "description": "Argument for the preparation of the reference panel",
+            "default": "",
+            "properties": {
+                "panel": {
+                    "type": "string",
+                    "fa_icon": "far fa-file-code",
+                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
+                    "format": "file-path"
+                },
+                "to_phase": {
+                    "type": "boolean",
+                    "pattern": "true|false"
+                }
+            }
+        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["outdir"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -40,6 +77,12 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                },
+                "step": {
+                    "type": "string",
+                    "description": "Step to run.",
+                    "fa_icon": "fas fa-step-forward",
+                    "enum": ["simulate", "panelprep", "impute", "validate"]
                 }
             }
         },
@@ -270,6 +313,9 @@
         }
     },
     "allOf": [
+        {
+            "$ref": "#/definitions/simulate"
+        },
         {
             "$ref": "#/definitions/input_output_options"
         },
