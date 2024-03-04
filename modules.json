@@ -87,7 +87,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "a6e11ac655e744f7ebc724be669dd568ffdc0e80",
+                        "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
                         "installed_by": ["modules"]
                     },
                     "samtools/coverage": {
@@ -148,6 +148,21 @@
                     "vcf_phase_shapeit5": {
                         "branch": "master",
                         "git_sha": "dedc0e31087f3306101c38835d051bf49789445a",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "utils_nextflow_pipeline": {
+                        "branch": "master",
+                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "utils_nfcore_pipeline": {
+                        "branch": "master",
+                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "utils_nfvalidation_plugin": {
+                        "branch": "master",
+                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
                         "installed_by": ["subworkflows"]
                     }
                 }

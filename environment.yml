@@ -1,5 +1,0 @@
-name: env_nf
-dependencies:
-  - bioconda::nextflow
-  - bioconda::nf-core
-  - conda-forge::prettier
