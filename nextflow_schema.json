@@ -60,6 +60,32 @@
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "input_region": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "description": "Entire genome",
+                            "pattern": "all"
+                        },
+                        {
+                            "type": "string",
+                            "description": "Chromosome name",
+                            "pattern": "^(chr)?[0-9XYM]+$"
+                        },
+                        {
+                            "type": "string",
+                            "description": "Chromosome name and start-end position",
+                            "pattern": "^(chr)?[0-9XYM]+:[0-9]+-[0-9]+$"
+                        },
+                        {
+                            "type": "string",
+                            "description": "Path to comma-separated file containing information about the regions to process.",
+                            "format": "file-path",
+                            "pattern": "^\\S+\\.csv$",
+                            "schema": "assets/schema_input_region.json"
+                        }
+                    ]
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
@@ -82,7 +108,13 @@
                     "type": "string",
                     "description": "Step to run.",
                     "fa_icon": "fas fa-step-forward",
-                    "enum": ["simulate", "panelprep", "impute", "validate"]
+                    "enum": ["all", "simulate", "panelprep", "impute", "validate"]
+                },
+                "tools": {
+                    "type": "string",
+                    "description": "Step to run.",
+                    "fa_icon": "fas fa-step-forward",
+                    "enum": ["glimpse1", "glimpse2", "quilt"]
                 }
             }
         },
@@ -106,6 +138,16 @@
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "map": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.gmap(sta)?(\\.gz)?$",
+                    "description": "Path to gmap genome file.",
+                    "help_text": "This parameter is *optional*. This is used to refine the imputation process to match the recombination event rate in your specie.",
                     "fa_icon": "far fa-file-code"
                 },
                 "igenomes_ignore": {

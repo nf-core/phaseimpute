@@ -6,13 +6,6 @@
     Github : https://github.com/nf-core/phaseimpute
     Website: https://nf-co.re/phaseimpute
     Slack  : https://nfcore.slack.com/channels/phaseimpute
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    nf-core/phaseimpute
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/nf-core/phaseimpute
-    Website: https://nf-co.re/phaseimpute
-    Slack  : https://nfcore.slack.com/channels/phaseimpute
-----------------------------------------------------------------------------------------
 */
 
 nextflow.enable.dsl = 2
@@ -23,7 +16,7 @@ nextflow.enable.dsl = 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PHASEIMPUTE  } from './workflows/phaseimpute'
+include { PHASEIMPUTE             } from './workflows/phaseimpute'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
@@ -38,7 +31,9 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_phas
 // TODO nf-core: Remove this line if you don't need a FASTA file
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
+params.fasta                   = getGenomeAttribute(params, 'fasta')
+params.fasta_fai               = getGenomeAttribute(params, 'fasta_fai')
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,6 +54,7 @@ workflow NFCORE_PHASEIMPUTE {
     //
     // WORKFLOW: Run pipeline
     //
+    print(params.fasta)
     PHASEIMPUTE (
         samplesheet
     )
@@ -89,6 +85,8 @@ workflow {
         params.outdir,
         params.input
     )
+
+    print(params.fasta)
 
     //
     // WORKFLOW: Run main workflow

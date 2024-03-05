@@ -1,9 +1,9 @@
 include { SAMTOOLS_COVERAGE            } from '../../modules/nf-core/samtools/coverage/main.nf'
-include { SAMTOOLS_INDEX as INDEX     } from '../../modules/nf-core/samtools/index/main.nf'
+include { SAMTOOLS_INDEX as INDEX      } from '../../modules/nf-core/samtools/index/main.nf'
 include { SAMTOOLS_VIEW as VIEW_REGION } from '../../modules/nf-core/samtools/view/main.nf'
 include { SAMTOOLS_VIEW as VIEW_DEPTH  } from '../../modules/nf-core/samtools/view/main.nf'
 
-workflow BAM_DOWNSAMPLELE {
+workflow BAM_DOWNSAMPLE {
 
     take:
     ch_bam    // channel: [ [id, ref], bam, bai ]

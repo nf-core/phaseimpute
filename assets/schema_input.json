@@ -13,17 +13,17 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "BAM": {
+            "bam": {
                 "type": "string",
                 "pattern": "^\\S+\\.bam$",
                 "errorMessage": "BAM file must be provided, cannot contain spaces and must have extension '.bam'"
             },
-            "BAI": {
+            "bai": {
                 "errorMessage": "BAI file must be provided, cannot contain spaces and must have extension '.bai'",
                 "type": "string",
                 "pattern": "^\\S+\\.bai$"
             }
         },
-        "required": ["sample", "BAM", "BAI"]
+        "required": ["sample", "bam", "bai"]
     }
 }
