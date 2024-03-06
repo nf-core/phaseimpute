@@ -2,13 +2,14 @@ process SAMTOOLS_VIEW {
     tag "$meta.id"
     label 'process_low'
 
-    conda "bioconda::samtools=1.17"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/samtools:1.17--h00cdaf9_0' :
-        'biocontainers/samtools:1.17--h00cdaf9_0' }"
+        'https://depot.galaxyproject.org/singularity/samtools:1.19.2--h50ea8bc_0' :
+        'biocontainers/samtools:1.19.2--h50ea8bc_0' }"
 
     input:
-    tuple val(meta), path(input), path(index), path(fasta), val(region), val(subsample)
+    tuple val(meta), path(input), path(index), val(region), val(subsample)
+    tuple val(meta2), path(fasta)
     path qname
 
     output:
@@ -24,15 +25,15 @@ process SAMTOOLS_VIEW {
     task.ext.when == null || task.ext.when
 
     script:
-    def args   = task.ext.args   ?: ''
-    def args2  = task.ext.args2  ?: ''
+    def args = task.ext.args ?: ''
+    def args2 = task.ext.args2 ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def reference      = fasta      ? "--reference ${fasta}"     : ""
     def readnames      = qname      ? "--qname-file ${qname}"    : ""
     def region_cmd     = region     ? "${region}"                : ""
     def subsample_cmd  = subsample  ? "--subsample ${subsample}" : ""
-    def file_type = args.contains("--output-fmt sam")  ? "sam"  :
-                    args.contains("--output-fmt bam")  ? "bam"  :
+    def file_type = args.contains("--output-fmt sam") ? "sam" :
+                    args.contains("--output-fmt bam") ? "bam" :
                     args.contains("--output-fmt cram") ? "cram" :
                     input.getExtension()
     if ("$input" == "${prefix}.${file_type}") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
@@ -49,6 +50,7 @@ process SAMTOOLS_VIEW {
         $args2 \\
         ${region_cmd}
 
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
@@ -56,10 +58,19 @@ process SAMTOOLS_VIEW {
     """
 
     stub:
+    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def file_type = args.contains("--output-fmt sam") ? "sam" :
+                    args.contains("--output-fmt bam") ? "bam" :
+                    args.contains("--output-fmt cram") ? "cram" :
+                    input.getExtension()
+    if ("$input" == "${prefix}.${file_type}") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+
+    def index = args.contains("--write-index") ? "touch ${prefix}.csi" : ""
+
     """
-    touch ${prefix}.bam
-    touch ${prefix}.cram
+    touch ${prefix}.${file_type}
+    ${index}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,42 +1,56 @@
 Changes in module 'nf-core/samtools/view'
+--- modules/nf-core/samtools/view/environment.yml
++++ modules/nf-core/samtools/view/environment.yml
+@@ -1,8 +1,10 @@
+ name: samtools_view
++
+ channels:
+   - conda-forge
+   - bioconda
+   - defaults
++
+ dependencies:
++  - bioconda::htslib=1.19.1
+   - bioconda::samtools=1.19.2
+-  - bioconda::htslib=1.19.1
+
 --- modules/nf-core/samtools/view/main.nf
 +++ modules/nf-core/samtools/view/main.nf
-@@ -8,8 +8,7 @@
-         'biocontainers/samtools:1.17--h00cdaf9_0' }"
+@@ -8,7 +8,7 @@
+         'biocontainers/samtools:1.19.2--h50ea8bc_0' }"
  
      input:
 -    tuple val(meta), path(input), path(index)
--    tuple val(meta2), path(fasta)
-+    tuple val(meta), path(input), path(index), path(fasta), val(region), val(depth)
++    tuple val(meta), path(input), path(index), val(region), val(subsample)
+     tuple val(meta2), path(fasta)
      path qname
  
-     output:
-@@ -25,11 +24,13 @@
-     task.ext.when == null || task.ext.when
- 
-     script:
--    def args = task.ext.args ?: ''
--    def args2 = task.ext.args2 ?: ''
-+    def args   = task.ext.args   ?: ''
-+    def args2  = task.ext.args2  ?: ''
+@@ -28,8 +28,10 @@
+     def args = task.ext.args ?: ''
+     def args2 = task.ext.args2 ?: ''
      def prefix = task.ext.prefix ?: "${meta.id}"
 -    def reference = fasta ? "--reference ${fasta}" : ""
 -    def readnames = qname ? "--qname-file ${qname}": ""
-+    def reference  = fasta  ? "--reference ${fasta}" : ""
-+    def readnames  = qname  ? "--qname-file ${qname}": ""
-+    def region_cmd = region ? "-r ${region}"         : ""
-+    def depth_cmd  = depth  ? "-s ${depth}"          : ""
++    def reference      = fasta      ? "--reference ${fasta}"     : ""
++    def readnames      = qname      ? "--qname-file ${qname}"    : ""
++    def region_cmd     = region     ? "${region}"                : ""
++    def subsample_cmd  = subsample  ? "--subsample ${subsample}" : ""
      def file_type = args.contains("--output-fmt sam") ? "sam" :
                      args.contains("--output-fmt bam") ? "bam" :
                      args.contains("--output-fmt cram") ? "cram" :
-@@ -42,6 +43,8 @@
+@@ -42,9 +44,12 @@
          ${reference} \\
          ${readnames} \\
          $args \\
-+        ${region_cmd} \\
-+        ${depth_cmd} \\
++        ${subsample_cmd} \\
          -o ${prefix}.${file_type} \\
          $input \\
-         $args2
+-        $args2
++        $args2 \\
++        ${region_cmd}
++
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
 
 ************************************************************
