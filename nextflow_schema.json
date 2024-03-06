@@ -13,11 +13,13 @@
             "properties": {
                 "depth": {
                     "type": "integer",
+                    "description": "Depth of coverage for the simulated data",
                     "default": 1,
                     "fa_icon": "fas fa-list-ol"
                 },
                 "genotype": {
                     "type": "string",
+                    "description": "Genotype position to use to simulate the data",
                     "pattern": "^\\S+\\.(csv|tsv|txt)$",
                     "format": "file-path",
                     "mimetype": "text/csv"
@@ -31,24 +33,23 @@
             "default": "",
             "properties": {
                 "panel": {
+                    "type": "string",
+                    "description": "Path to the reference panel or csv file with the list of panels",
+                    "fa_icon": "far fa-file-code",
+                    "format": "file-path",
                     "anyOf": [
                         {
-                            "type": "string",
-                            "fa_icon": "far fa-file-code",
-                            "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
-                            "format": "file-path"
+                            "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$"
                         },
                         {
-                            "type": "string",
-                            "fa_icon": "far fa-file-code",
                             "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                            "format": "file-path",
                             "mimetype": "text/csv",
                             "schema": "assets/schema_input_panel.json"
                         }
                     ]
                 },
-                "to_phase": {
+                "phased": {
+                    "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
                 }

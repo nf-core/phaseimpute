@@ -21,10 +21,6 @@
 
 **nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data. Different steps are available each corresponding to a dedicated modes.
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
 ### Main steps of the pipeline
 
 The **phaseimpute** pipeline is constituted of 5 main steps:
@@ -51,12 +47,14 @@ Each row represents a bam file with its index file.
 
 Now, you can run the pipeline using:
 
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
-
 ```bash
 nextflow run nf-core/phaseimpute \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
+   --genome "GRCh38" \
+   --panel <phased_reference_panel.vcf.gz> \
+   --steps "impute" \
+   --tools "glimpse1" \
    --outdir <OUTDIR>
 ```
 
@@ -101,7 +99,6 @@ If you would like to contribute to this pipeline, please see the [contributing g
 For further information or help, don't hesitate to get in touch on the [Slack `#phaseimpute` channel](https://nfcore.slack.com/channels/phaseimpute) (you can join with [this invite](https://nf-co.re/join/slack)).
 For further information or help, don't hesitate to get in touch on the [Slack `#phaseimpute` channel](https://nfcore.slack.com/channels/phaseimpute) (you can join with [this invite](https://nf-co.re/join/slack)).
 
-## Citations
 ## Citations
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
