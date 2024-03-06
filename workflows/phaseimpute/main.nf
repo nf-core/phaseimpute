@@ -33,7 +33,7 @@ include { COMPUTE_GL as GL_INPUT             } from '../subworkflows/local/compu
 // Initialize file channels based on params, defined in the params.genomes[params.genome] scope
 //
 
-map         = params.map                     ? Channel.of([["map": params.map], params.map]).collect()    : Channel.of([[],[]])
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,12 +57,13 @@ if (params.step.contains("impute")) {
 workflow PHASEIMPUTE {
 
     take:
-    ch_input // channel: samplesheet read in from --input
+    ch_input       // channel: samplesheet read in from --input
     ch_fasta       // channel: fasta file
     ch_regions     // channel: region to use [meta, region]
+    ch_map         // channel: genetic map
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
     /*
@@ -102,12 +103,12 @@ workflow PHASEIMPUTE {
             ch_sim_output = ch_sim_output.mix(BAM_TO_GENOTYPE.out.bam_emul)
         }
     }
-
+    */
     //
     // Prepare panel
     //
     if (params.step == 'panelprep') {
-        ch_panel = Channel.fromSamplesheet("input")
+        ch_panel = Channel.fromSamplesheet("panel")
 
         // Remove if necessary "chr"
         if (params.panel_rename = true) {
@@ -118,10 +119,14 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
         // Register all panel preparation to csv
+        ch_panel_sites  = GET_PANEL.out.panel_sites
+        ch_panel_tsv    = GET_PANEL.out.panel_tsv
+        ch_panel_phased = GET_PANEL.out.panel_phased
     }
 
     if (params.step.contains("impute")) {
         // Read from panel preparation csv
+        ch_panel = Channel.fromSamplesheet("panel")
 
         // Output channel of input process
         ch_impute_output = Channel.empty()
@@ -132,30 +137,32 @@ workflow PHASEIMPUTE {
             GL_INPUT(
                 ch_samplesheet,
                 ch_region,
-                GET_PANEL.out.panel_sites,
-                GET_PANEL.out.panel_tsv
+                ch_panel.sites,
+                ch_panel.tsv
             )
-            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_FAIDX.out.fai.collect{it[1]})
-            impute_input = GL_EMUL.out.vcf
+            
+            impute_input = GL_INPUT.out.vcf
                 | combine(Channel.of([[]]))
                 | map{meta, vcf, index, sample -> [meta, vcf, index, sample, meta.region]}
 
             VCF_IMPUTE_GLIMPSE(impute_input,
-                GET_PANEL.out.panel_phased,
+                ch_panel.phased,
                 ch_map)
             
             ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.merged_variants)
         }
         if (params.tools.contains("glimpse2")) {
             print("Impute with Glimpse2")
+            error "Glimpse2 not yet implemented"
             // Glimpse2 subworkflow
         }
         if (params.tools.contains("quilt")) {
             print("Impute with quilt")
+            error "Quilt not yet implemented"
             // Quilt subworkflow
         }
     }
-    */
+
     //
     // Collate and save software versions
     //
