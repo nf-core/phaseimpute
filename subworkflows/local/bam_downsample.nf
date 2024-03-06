@@ -9,8 +9,8 @@ workflow BAM_DOWNSAMPLE {
     ch_bam    // channel: [ [id, ref], bam, bai ]
     ch_depth  // channel: [ val(depth) ]
     ch_fasta  // channel: [ fasta ]
-    main:
 
+    main:
     ch_versions = Channel.empty()
 
     // Add fasta and region to bam channel
