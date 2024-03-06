@@ -40,7 +40,8 @@ workflow PIPELINE_INITIALISATION {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
+    ch_multiqc_files = Channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -84,9 +85,16 @@ workflow PIPELINE_INITIALISATION {
     genome = params.genome ? params.genome : file(params.fasta).getBaseName()
     ch_fasta = [
         [genome:genome],
-        file(params.fasta) ? file(params.fasta) : getGenomeAttribute('fasta'),
-        file(params.fasta) ? file(params.fasta_fai) : getGenomeAttribute('fasta_fai')
+        params.fasta ? file(params.fasta) : getGenomeAttribute('fasta'),
+        params.fasta ? params.fasta_fai ? file(params.fasta_fai): null : getGenomeAttribute('fasta_fai')
     ]
+
+    //
+    // Create map channel
+    //
+    ch_map   = params.map ?
+        Channel.of([["map": params.map], params.map]).collect() :
+        Channel.of([[],[]])
 
     //
     // Create channel from input file provided through params.input
@@ -111,16 +119,19 @@ workflow PIPELINE_INITIALISATION {
                 params.input_region,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(GET_REGION*.out.versions.first())
-            ch_regions = GET_REGION.out.ch_regions.view()
+            ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
+            ch_multiqc_files = ch_multiqc_files.mix(GET_REGION.out.multiqc_files)
+            ch_regions       = GET_REGION.out.ch_regions.view()
         }
     }
 
     emit:
-    samplesheet = ch_samplesheet
-    regions     = ch_regions
-    fasta       = ch_fasta
-    versions    = ch_versions
+    samplesheet   = ch_samplesheet
+    regions       = ch_regions
+    fasta         = ch_fasta
+    map           = ch_map
+    versions      = ch_versions
+    multiqc_files = ch_multiqc_files
 }
 
 /*
