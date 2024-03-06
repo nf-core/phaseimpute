@@ -19,6 +19,7 @@ include { nfCoreLogo                } from '../../nf-core/utils_nfcore_pipeline'
 include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { workflowCitation          } from '../../nf-core/utils_nfcore_pipeline'
+include { GET_REGION                } from '../get_region'
 
 /*
 ========================================================================================
@@ -78,26 +79,47 @@ workflow PIPELINE_INITIALISATION {
     validateInputParameters()
 
     //
+    // Create fasta channel
+    //
+    genome = params.genome ? params.genome : file(params.fasta).getBaseName()
+    ch_fasta = [
+        [genome:genome],
+        file(params.fasta) ? file(params.fasta) : getGenomeAttribute('fasta'),
+        file(params.fasta) ? file(params.fasta_fai) : getGenomeAttribute('fasta_fai')
+    ]
+
+    //
     // Create channel from input file provided through params.input
     //
-    Channel
+    ch_samplesheet = Channel
         .fromSamplesheet("input")
         .map {
             meta, bam, bai ->
-                [ meta.id, [ bam, bai ] ]
+                [ meta, bam, bai ]
         }
-        .groupTuple()
-        .map {
-            validateInputSamplesheet(it)
+    
+    //
+    // Create channel from region input
+    //
+    if (params.input_region) {
+        if (params.input_region.endsWith(".csv")) {
+            ch_regions = Channel.fromSamplesheet("input_region")
+                .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+                .map{ metaC, region -> [metaC + ["region": region], region]}
+        } else {
+            GET_REGION (
+                params.input_region,
+                ch_fasta
+            )
+            ch_versions = ch_versions.mix(GET_REGION*.out.versions.first())
+            ch_regions = GET_REGION.out.ch_regions.view()
         }
-        .map {
-            meta, bams ->
-                return [ meta, bams.flatten() ]
-        }
-        .set { ch_samplesheet }
+    }
 
     emit:
     samplesheet = ch_samplesheet
+    regions     = ch_regions
+    fasta       = ch_fasta
     versions    = ch_versions
 }
 
@@ -154,15 +176,9 @@ def validateInputParameters() {
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    def (metas, bams) = input[1..2]
-
+    def (meta, bam, bai) = input
     // Check that individual IDs are unique
-    def id_ok = metas.collect{ it.id }.unique().size == 1
-    if (!id_ok) {
-        error("Please check input samplesheet -> Some individuals are present more than once: ${metas[0].id}")
-    }
-
-    return [ metas[0], bams ]
+    // no validation for the moment
 }
 //
 // Get attribute from genome config file e.g. fasta

@@ -12,7 +12,7 @@ include { paramsSummaryMap            } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { SAMTOOLS_FAIDX              } from '../modules/nf-core/samtools/faidx/main'
+
 include { BAM_REGION                  } from '../subworkflows/local/bam_region'
 
 //
@@ -57,31 +57,14 @@ if (params.step.contains("impute")) {
 workflow PHASEIMPUTE {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    ch_input // channel: samplesheet read in from --input
+    ch_fasta       // channel: fasta file
+    ch_regions     // channel: region to use [meta, region]
 
     main:
-    print(params.fasta)
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    // Gather regions to use and create the meta map
-    if (params.input_region == "all") {
-        if (params.fasta_fai == null) {
-            print(params.fasta)
-            SAMTOOLS_FAIDX(params.fasta)
-            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_FAIDX.out.zip.collect{it[1]})
-            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
-            params.fasta_fai = SAMTOOLS_FAIDX.out.fai
-        }
-        ch_region = params.fasta_fai
-            .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
-            .map{ meta, row -> [meta + ["chr": row.chr], row.chr + ":0-" + row.size]}
-            .map{ metaC, region -> [metaC + ["region": region], region]}
-    } else {
-        ch_region = Channel.fromSamplesheet("input_region")
-            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-            .map{ metaC, region -> [metaC + ["region": region], region]}
-    }
     /*
     //
     // Simulate data if asked
@@ -152,6 +135,7 @@ workflow PHASEIMPUTE {
                 GET_PANEL.out.panel_sites,
                 GET_PANEL.out.panel_tsv
             )
+            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_FAIDX.out.fai.collect{it[1]})
             impute_input = GL_EMUL.out.vcf
                 | combine(Channel.of([[]]))
                 | map{meta, vcf, index, sample -> [meta, vcf, index, sample, meta.region]}

@@ -1,0 +1,57 @@
+{
+    "Should run with specified chr without fai": {
+        "content": [
+            [
+                [
+                    {
+                        "genome": "GRCh37",
+                        "chr": "chr22",
+                        "region": "chr22:0-40001"
+                    },
+                    "chr22:0-40001"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-05T17:12:53.77956"
+    },
+    "Should run with specified region without fasta": {
+        "content": [
+            [
+                [
+                    {
+                        "region": "chr22:0-4000"
+                    },
+                    "chr22:0-4000"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-05T17:12:58.890754"
+    },
+    "Should run with 'all' without fai": {
+        "content": [
+            [
+                [
+                    {
+                        "genome": "GRCh37",
+                        "chr": "chr22",
+                        "region": "chr22:0-40001"
+                    },
+                    "chr22:0-40001"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-05T17:12:46.317211"
+    }
+}

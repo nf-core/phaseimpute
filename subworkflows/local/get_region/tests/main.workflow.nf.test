@@ -1,0 +1,66 @@
+nextflow_workflow {
+
+    name "Test Workflow GET_REGION"
+    script "../main.nf"
+    workflow "GET_REGION"
+    tag 'subworkflows'
+    tag 'get_region'
+    tag 'subworkflows/get_region'
+
+    test("Should run with 'all' without fai") {
+
+        when {
+            workflow {
+                """
+                input[0] = "all"
+                input[1] = [[genome:"GRCh37"], "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta", null]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.ch_region).match() }
+            )
+        }
+    }
+
+    test("Should run with specified chr without fai") {
+
+        when {
+            workflow {
+                """
+                input[0] = "chr22"
+                input[1] = [[genome:"GRCh37"], "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta", null]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.ch_region).match() }
+            )
+        }
+    }
+
+    test("Should run with specified region without fasta") {
+
+        when {
+            workflow {
+                """
+                input[0] = "chr22:0-4000"
+                input[1] = [[],[],[]]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.ch_region).match() }
+            )
+        }
+    }
+}
