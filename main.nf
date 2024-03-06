@@ -33,19 +33,20 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_phas
 workflow NFCORE_PHASEIMPUTE {
 
     take:
-    ch_input // channel: samplesheet read in from --input
+    ch_input    // channel: samplesheet read in from --input
     ch_fasta    // channel: reference genome FASTA file with index
     ch_regions  // channel: regions to use [meta, region]
+    ch_map      // channel: map file for imputation
 
     main:
-
     //
     // WORKFLOW: Run pipeline
     //
     PHASEIMPUTE (
         ch_input,
         ch_fasta,
-        ch_regions
+        ch_regions,
+        ch_map
     )
 
     emit:
@@ -62,7 +63,6 @@ workflow NFCORE_PHASEIMPUTE {
 workflow {
 
     main:
-
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -76,14 +76,14 @@ workflow {
         params.input
     )
 
-
     //
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
         PIPELINE_INITIALISATION.out.samplesheet,
         PIPELINE_INITIALISATION.out.fasta,
-        PIPELINE_INITIALISATION.out.regions
+        PIPELINE_INITIALISATION.out.regions,
+        PIPELINE_INITIALISATION.out.map
     )
 
     //

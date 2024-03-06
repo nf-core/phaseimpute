@@ -12,8 +12,8 @@
             "default": "",
             "properties": {
                 "depth": {
-                    "type": "array",
-                    "default": [0.2, 0.5, 1],
+                    "type": "integer",
+                    "default": 1,
                     "fa_icon": "fas fa-list-ol"
                 },
                 "genotype": {
@@ -31,10 +31,22 @@
             "default": "",
             "properties": {
                 "panel": {
-                    "type": "string",
-                    "fa_icon": "far fa-file-code",
-                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
-                    "format": "file-path"
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "fa_icon": "far fa-file-code",
+                            "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
+                            "format": "file-path"
+                        },
+                        {
+                            "type": "string",
+                            "fa_icon": "far fa-file-code",
+                            "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                            "format": "file-path",
+                            "mimetype": "text/csv",
+                            "schema": "assets/schema_input_panel.json"
+                        }
+                    ]
                 },
                 "to_phase": {
                     "type": "boolean",
@@ -61,25 +73,19 @@
                     "fa_icon": "fas fa-file-csv"
                 },
                 "input_region": {
+                    "type": "string",
+                    "description": "Region of the genome to use, can be the entire genome (i.e. 'all') or a specific chromosome or region (e.g. 'chr1', 'chr1:1000-2000'). You can also specify a file containing a list of regions to process, one per line. The file should be a comma-separated file with 3 columns, and a header row.",
                     "anyOf": [
                         {
-                            "type": "string",
-                            "description": "Entire genome",
                             "pattern": "all"
                         },
                         {
-                            "type": "string",
-                            "description": "Chromosome name",
                             "pattern": "^(chr)?[0-9XYM]+$"
                         },
                         {
-                            "type": "string",
-                            "description": "Chromosome name and start-end position",
                             "pattern": "^(chr)?[0-9XYM]+:[0-9]+-[0-9]+$"
                         },
                         {
-                            "type": "string",
-                            "description": "Path to comma-separated file containing information about the regions to process.",
                             "format": "file-path",
                             "pattern": "^\\S+\\.csv$",
                             "schema": "assets/schema_input_region.json"
@@ -137,7 +143,17 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "fasta_fai": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?\\.fai$",
+                    "description": "Path to FASTA index genome file.",
+                    "help_text": "This parameter is *optional* even if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
                 },
                 "map": {
@@ -357,6 +373,9 @@
     "allOf": [
         {
             "$ref": "#/definitions/simulate"
+        },
+        {
+            "$ref": "#/definitions/panelprep"
         },
         {
             "$ref": "#/definitions/input_output_options"
