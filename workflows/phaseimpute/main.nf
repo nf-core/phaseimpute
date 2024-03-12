@@ -22,6 +22,7 @@ include { BAM_REGION                  } from '../../subworkflows/local/bam_regio
 include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downsample'
 include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
+include { VCF_CHR_RENAME              } from '../../subworkflows/local/vcf_chr_rename'
 
 
 /*
@@ -97,7 +98,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.step == 'panelprep') {
+    if (params.step == 'impute') {
         // Remove if necessary "chr"
         if (params.panel_rename = true) {
             ch_panel = VCF_CHR_RENAME(ch_panel, "./assets/chr_rename.txt")
