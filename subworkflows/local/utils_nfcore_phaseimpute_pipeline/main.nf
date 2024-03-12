@@ -134,7 +134,7 @@ workflow PIPELINE_INITIALISATION {
             )
             ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
             ch_multiqc_files = ch_multiqc_files.mix(GET_REGION.out.multiqc_files)
-            ch_regions       = GET_REGION.out.ch_regions.view()
+            ch_regions       = GET_REGION.out.ch_regions
         }
     }
 

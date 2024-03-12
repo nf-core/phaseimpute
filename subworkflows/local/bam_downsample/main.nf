@@ -41,7 +41,7 @@ workflow BAM_DOWNSAMPLE {
     ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE.out.versions.first())
 
     // Compute mean depth of the region
-    ch_mean_depth = SAMTOOLS_COVERAGE.out.coverage.view()
+    ch_mean_depth = SAMTOOLS_COVERAGE.out.coverage
         .splitCsv(header: true, sep:'\t')
         .map{ metaIR, row ->
             [ metaIR,"${row.meandepth}" as Float ]
