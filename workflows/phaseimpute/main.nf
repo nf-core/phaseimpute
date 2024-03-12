@@ -7,32 +7,21 @@
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { MULTIQC                     } from '../../modules/nf-core/multiqc/main'
 include { paramsSummaryMap            } from 'plugin/nf-validation'
-include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
-include { BAM_REGION                  } from '../subworkflows/local/bam_region'
+include { BAM_REGION                  } from '../../subworkflows/local/bam_region'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { BAM_DOWNSAMPLE                     } from '../subworkflows/local/bam_downsample.nf'
-include { COMPUTE_GL as GL_TRUTH             } from '../subworkflows/local/compute_gl.nf'
-include { COMPUTE_GL as GL_INPUT             } from '../subworkflows/local/compute_gl.nf'
-
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    INITIALIZE PARAMETERS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-//
-// Initialize file channels based on params, defined in the params.genomes[params.genome] scope
-//
-
+include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downsample'
+include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
+include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
 
 
 /*
@@ -59,7 +48,8 @@ workflow PHASEIMPUTE {
     take:
     ch_input       // channel: samplesheet read in from --input
     ch_fasta       // channel: fasta file
-    ch_regions     // channel: region to use [meta, region]
+    ch_panel       // channel: panel file
+    ch_region      // channel: region to use [meta, region]
     ch_map         // channel: genetic map
 
     main:
@@ -108,8 +98,6 @@ workflow PHASEIMPUTE {
     // Prepare panel
     //
     if (params.step == 'panelprep') {
-        ch_panel = Channel.fromSamplesheet("panel")
-
         // Remove if necessary "chr"
         if (params.panel_rename = true) {
             ch_panel = VCF_CHR_RENAME(ch_panel, "./assets/chr_rename.txt")
@@ -122,11 +110,6 @@ workflow PHASEIMPUTE {
         ch_panel_sites  = GET_PANEL.out.panel_sites
         ch_panel_tsv    = GET_PANEL.out.panel_tsv
         ch_panel_phased = GET_PANEL.out.panel_phased
-    }
-
-    if (params.step.contains("impute")) {
-        // Read from panel preparation csv
-        ch_panel = Channel.fromSamplesheet("panel")
 
         // Output channel of input process
         ch_impute_output = Channel.empty()
@@ -135,10 +118,10 @@ workflow PHASEIMPUTE {
             print("Impute with Glimpse1")
             // Glimpse1 subworkflow
             GL_INPUT(
-                ch_samplesheet,
+                ch_input,
                 ch_region,
-                ch_panel.sites,
-                ch_panel.tsv
+                ch_panel_sites,
+                ch_panel_tsv
             )
             
             impute_input = GL_INPUT.out.vcf

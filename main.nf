@@ -35,6 +35,7 @@ workflow NFCORE_PHASEIMPUTE {
     take:
     ch_input    // channel: samplesheet read in from --input
     ch_fasta    // channel: reference genome FASTA file with index
+    ch_panel    // channel: reference panel variants file
     ch_regions  // channel: regions to use [meta, region]
     ch_map      // channel: map file for imputation
 
@@ -45,6 +46,7 @@ workflow NFCORE_PHASEIMPUTE {
     PHASEIMPUTE (
         ch_input,
         ch_fasta,
+        ch_panel,
         ch_regions,
         ch_map
     )
@@ -80,8 +82,9 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
-        PIPELINE_INITIALISATION.out.samplesheet,
+        PIPELINE_INITIALISATION.out.input,
         PIPELINE_INITIALISATION.out.fasta,
+        PIPELINE_INITIALISATION.out.panel,
         PIPELINE_INITIALISATION.out.regions,
         PIPELINE_INITIALISATION.out.map
     )

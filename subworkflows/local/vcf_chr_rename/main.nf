@@ -1,5 +1,5 @@
-include { BCFTOOLS_ANNOTATE           } from '../../modules/nf-core/bcftools/annotate/main.nf'
-include { BCFTOOLS_INDEX as VCF_INDEX } from '../../modules/nf-core/bcftools/index/main.nf'
+include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/annotate/main.nf'
+include { BCFTOOLS_INDEX as VCF_INDEX } from '../../../modules/nf-core/bcftools/index/main.nf'
 
 workflow VCF_CHR_RENAME {
     take:

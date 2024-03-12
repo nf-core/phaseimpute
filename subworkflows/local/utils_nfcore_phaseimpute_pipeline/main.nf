@@ -99,13 +99,26 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from input file provided through params.input
     //
-    ch_samplesheet = Channel
+    ch_input = Channel
         .fromSamplesheet("input")
         .map {
             meta, bam, bai ->
                 [ meta, bam, bai ]
         }
     
+    //
+    // Create channel for panel
+    //
+    if (params.panel) {
+        if (params.panel.endsWith("csv|tsv|txt")) {
+            print("Panel file provided as input is a samplesheet")
+            ch_panel = Channel.fromSamplesheet("panel")
+        } else {
+            print("Panel file provided as input is a variant file")
+            ch_panel = Channel.of([["panel": params.panel], params.panel])
+        }
+    }
+
     //
     // Create channel from region input
     //
@@ -126,9 +139,10 @@ workflow PIPELINE_INITIALISATION {
     }
 
     emit:
-    samplesheet   = ch_samplesheet
-    regions       = ch_regions
+    input         = ch_input
     fasta         = ch_fasta
+    panel         = ch_panel
+    regions       = ch_regions
     map           = ch_map
     versions      = ch_versions
     multiqc_files = ch_multiqc_files

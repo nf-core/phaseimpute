@@ -1,5 +1,5 @@
-include { BCFTOOLS_MPILEUP            } from '../../modules/nf-core/bcftools/mpileup/main.nf'
-include { BCFTOOLS_INDEX            } from '../../modules/nf-core/bcftools/index/main.nf'
+include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup/main.nf'
+include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index/main.nf'
 
 
 workflow COMPUTE_GL {
