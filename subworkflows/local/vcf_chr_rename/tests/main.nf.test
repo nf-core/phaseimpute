@@ -1,11 +1,19 @@
 nextflow_workflow {
 
-    name "Test Workflow VCF_CHR_RENAME"
+    name "Test Subworkflow VCF_CHR_RENAME"
     script "../main.nf"
+    config "./nextflow.config"
+
     workflow "VCF_CHR_RENAME"
-    tag 'subworkflows'
-    tag 'vcf_chr_rename'
-    tag 'subworkflows/vcf_chr_rename'
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_chr_rename"
+    tag "vcf_chr_rename"
+
+    tag "bcftools"
+    tag "bcftools/annotate"
+    tag "bcftools/index"
 
     test("Should run without error") {
 
@@ -17,7 +25,7 @@ nextflow_workflow {
                     "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz",
                     "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi"
                 ])
-                input[1] = file("assets/chr_rename.txt", exist: true)
+                input[1] = file("../../../assets/chr_rename_add.txt", exist: true)
                 """
             }
         }
