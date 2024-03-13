@@ -1,0 +1,68 @@
+{
+    "fai add chr": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,dc360653d0d1848e6cc01661dbff389c"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0d85e18b9c36aa2db49ad51930d9a5e6"
+                ],
+                "annot_chr": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,dc360653d0d1848e6cc01661dbff389c"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0d85e18b9c36aa2db49ad51930d9a5e6"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-08T17:33:55.801913"
+    },
+    "fai remove chr": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,c8aa996df2a03384617fff85d911f401"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0d85e18b9c36aa2db49ad51930d9a5e6"
+                ],
+                "annot_chr": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,c8aa996df2a03384617fff85d911f401"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0d85e18b9c36aa2db49ad51930d9a5e6"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-08T17:34:01.901705"
+    }
+}
