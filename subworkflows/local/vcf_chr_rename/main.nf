@@ -12,7 +12,7 @@ workflow VCF_CHR_RENAME {
 
     // Rename the chromosome without prefix
     BCFTOOLS_ANNOTATE(ch_vcf
-        .combine(Channel.of([[], [], []])).view()
+        .combine(Channel.of([[], [], []]))
         .combine(Channel.of(file_chr_rename))
     )
     
