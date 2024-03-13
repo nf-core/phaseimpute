@@ -14,6 +14,12 @@ conda activate nf-core-phaseimpute-1.0dev
 nf-core modules install
 ```
 
+## Run tests
+
+```bash
+nextflow run main.nf -profile singularity,test --outdir results -resume
+```
+
 ## Open questions
 
 How to use different schema ?
