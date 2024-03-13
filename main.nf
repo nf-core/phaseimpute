@@ -38,6 +38,8 @@ workflow NFCORE_PHASEIMPUTE {
     ch_panel    // channel: reference panel variants file
     ch_regions  // channel: regions to use [meta, region]
     ch_map      // channel: map file for imputation
+    ch_versions // channel: versions of software used
+    ch_multiqc  // channel: multiqc report files
 
     main:
     //
@@ -48,8 +50,11 @@ workflow NFCORE_PHASEIMPUTE {
         ch_fasta,
         ch_panel,
         ch_regions,
-        ch_map
+        ch_map,
+        ch_versions,
+        ch_multiqc
     )
+
 
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -86,7 +91,9 @@ workflow {
         PIPELINE_INITIALISATION.out.fasta,
         PIPELINE_INITIALISATION.out.panel,
         PIPELINE_INITIALISATION.out.regions,
-        PIPELINE_INITIALISATION.out.map
+        PIPELINE_INITIALISATION.out.map,
+        PIPELINE_INITIALISATION.out.versions,
+        PIPELINE_INITIALISATION.out.multiqc_files
     )
 
     //

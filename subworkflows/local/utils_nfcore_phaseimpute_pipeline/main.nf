@@ -87,7 +87,7 @@ workflow PIPELINE_INITIALISATION {
         [genome:genome],
         params.fasta ? file(params.fasta, checkIfExists:true) : getGenomeAttribute('fasta'),
         params.fasta ? params.fasta_fai ? file(params.fasta_fai, checkIfExists:true): null : getGenomeAttribute('fasta_fai')
-    ]).collect()
+    ])
 
     //
     // Create map channel
@@ -128,11 +128,12 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.input_region) {
         if (params.input_region.endsWith(".csv")) {
+            println "Region file provided as input is a csv file"
             ch_regions = Channel.fromSamplesheet("input_region")
                 .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
                 .map{ metaC, region -> [metaC + ["region": region], region]}
         } else {
-            ch_fasta.view()
+            println "Region file provided is a single region"
             GET_REGION (
                 params.input_region,
                 ch_fasta
