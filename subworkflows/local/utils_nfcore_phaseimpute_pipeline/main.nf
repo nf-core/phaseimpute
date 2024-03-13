@@ -82,12 +82,12 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create fasta channel
     //
-    genome = params.genome ? params.genome : file(params.fasta).getBaseName()
-    ch_fasta = [
+    genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
+    ch_fasta = Channel.of([
         [genome:genome],
-        params.fasta ? file(params.fasta) : getGenomeAttribute('fasta'),
-        params.fasta ? params.fasta_fai ? file(params.fasta_fai): null : getGenomeAttribute('fasta_fai')
-    ]
+        params.fasta ? file(params.fasta, checkIfExists:true) : getGenomeAttribute('fasta'),
+        params.fasta ? params.fasta_fai ? file(params.fasta_fai, checkIfExists:true): null : getGenomeAttribute('fasta_fai')
+    ]).collect()
 
     //
     // Create map channel
@@ -115,7 +115,11 @@ workflow PIPELINE_INITIALISATION {
             ch_panel = Channel.fromSamplesheet("panel")
         } else {
             print("Panel file provided as input is a variant file")
-            ch_panel = Channel.of([["panel": params.panel], params.panel])
+            ch_panel = Channel.of([
+                ["panel": file(params.panel, checkIfExists:true).getBaseName()],
+                file(params.panel, checkIfExists:true),
+                params.panel_index ? file(params.panel_index, checkIfExists:true) : file(params.panel + ".csi", checkIfExists:true)
+            ])
         }
     }
 
@@ -128,12 +132,14 @@ workflow PIPELINE_INITIALISATION {
                 .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
                 .map{ metaC, region -> [metaC + ["region": region], region]}
         } else {
+            ch_fasta.view()
             GET_REGION (
                 params.input_region,
                 ch_fasta
             )
             ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
             ch_multiqc_files = ch_multiqc_files.mix(GET_REGION.out.multiqc_files)
+
             ch_regions       = GET_REGION.out.ch_regions
         }
     }
@@ -195,6 +201,15 @@ workflow PIPELINE_COMPLETION {
 //
 def validateInputParameters() {
     genomeExistsError()
+    // Check that only genome or fasta is provided
+    assert params.genome == null || params.fasta == null, "Either --genome or --fasta must be provided"
+    assert !(params.genome == null && params.fasta == null), "Only one of --genome or --fasta must be provided"
+
+    // Check that a step is provided
+    assert params.step, "A step must be provided"
+
+    // Check that at least one tool is provided
+    assert params.tools, "No tools provided"
 }
 
 //

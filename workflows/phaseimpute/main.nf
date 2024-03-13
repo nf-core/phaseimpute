@@ -23,20 +23,7 @@ include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downs
 include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
 include { VCF_CHR_RENAME              } from '../../subworkflows/local/vcf_chr_rename'
-
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    TEST PARAMETERS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-//
-// Assert that the different parameters are set correctly for each step
-//
-
-if (params.step.contains("impute")) {
-    assert params.tools, "You must specify at least one imputation tool to use"
-}
+include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,11 +87,14 @@ workflow PHASEIMPUTE {
     //
     if (params.step == 'impute') {
         // Remove if necessary "chr"
-        if (params.panel_rename = true) {
-            ch_panel = VCF_CHR_RENAME(ch_panel, "./assets/chr_rename.txt")
+        if (params.panel_chr_rename != null) {
+            ch_panel = VCF_CHR_RENAME(ch_panel, params.panel_chr_rename).out.vcf_rename
         }
-
-        GET_PANEL(ch_panel)
+        ch_panel.view()
+        ch_fasta.view()
+        /*
+        GET_PANEL(ch_panel, ch_fasta)
+        /*
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
         // Register all panel preparation to csv
@@ -114,7 +104,7 @@ workflow PHASEIMPUTE {
 
         // Output channel of input process
         ch_impute_output = Channel.empty()
-
+        /*
         if (params.tools.contains("glimpse1")) {
             print("Impute with Glimpse1")
             // Glimpse1 subworkflow
@@ -145,6 +135,7 @@ workflow PHASEIMPUTE {
             error "Quilt not yet implemented"
             // Quilt subworkflow
         }
+        */
     }
 
     //

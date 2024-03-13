@@ -48,10 +48,24 @@
                         }
                     ]
                 },
+                "panel_index":{
+                    "type": "string",
+                    "description": "Path to the reference panel index file",
+                    "fa_icon": "far fa-file-code",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(csi|tbi)$"
+                },
                 "phased": {
                     "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
+                },
+                "panel_chr_rename": {
+                    "type": "string",
+                    "description": "Rename the chromosome of the panel",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "format": "file-path",
+                    "mimetype": "text/csv"
                 }
             }
         },
