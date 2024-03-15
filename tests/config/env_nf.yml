@@ -1,0 +1,13 @@
+name: env_nf
+channels:
+  - conda-forge
+  - bioconda
+  - anaconda
+  - defaults
+dependencies:
+  - openjdk>=17.0
+  - nextflow>=23.10
+  - singularity>=3.8
+  - nf-core>=2.13.0
+  - prettier>=3.0
+  - nf-test>=0.8
