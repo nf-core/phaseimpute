@@ -44,7 +44,6 @@ workflow PHASEIMPUTE {
 
     main:
 
-    /*
     //
     // Simulate data if asked
     //
@@ -81,20 +80,18 @@ workflow PHASEIMPUTE {
             ch_sim_output = ch_sim_output.mix(BAM_TO_GENOTYPE.out.bam_emul)
         }
     }
-    */
+
     //
     // Prepare panel
     //
-    if (params.step == 'impute') {
+    if (params.step == 'impute' || params.step == 'panel_prep') {
         // Remove if necessary "chr"
         if (params.panel_chr_rename != null) {
             ch_panel = VCF_CHR_RENAME(ch_panel, params.panel_chr_rename).out.vcf_rename
         }
-        ch_panel.view()
-        ch_fasta.view()
-        /*
+
         GET_PANEL(ch_panel, ch_fasta)
-        /*
+
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
         // Register all panel preparation to csv
@@ -104,38 +101,49 @@ workflow PHASEIMPUTE {
 
         // Output channel of input process
         ch_impute_output = Channel.empty()
-        /*
-        if (params.tools.contains("glimpse1")) {
-            print("Impute with Glimpse1")
-            // Glimpse1 subworkflow
-            GL_INPUT(
-                ch_input,
-                ch_region,
-                ch_panel_sites,
-                ch_panel_tsv
-            )
-            
-            impute_input = GL_INPUT.out.vcf
-                | combine(Channel.of([[]]))
-                | map{meta, vcf, index, sample -> [meta, vcf, index, sample, meta.region]}
+        if (params.step == 'impute') {
+            if (params.tools.contains("glimpse1")) {
+                print("Impute with Glimpse1")
+                // Glimpse1 subworkflow
+                GL_INPUT(
+                    ch_input,
+                    ch_region,
+                    ch_panel_sites,
+                    ch_panel_tsv
+                )
+                
+                impute_input = GL_INPUT.out.vcf
+                    | combine(Channel.of([[]]))
+                    | map{meta, vcf, index, sample -> [meta, vcf, index, sample, meta.region]}
 
-            VCF_IMPUTE_GLIMPSE(impute_input,
-                ch_panel.phased,
-                ch_map)
+                VCF_IMPUTE_GLIMPSE(impute_input,
+                    ch_panel.phased,
+                    ch_map)
+                
+                ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.merged_variants)
+            }
+            if (params.tools.contains("glimpse2")) {
+                print("Impute with Glimpse2")
+                error "Glimpse2 not yet implemented"
+                // Glimpse2 subworkflow
+            }
+            if (params.tools.contains("quilt")) {
+                print("Impute with quilt")
+                error "Quilt not yet implemented"
+                // Quilt subworkflow
+            }
             
-            ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.merged_variants)
         }
-        if (params.tools.contains("glimpse2")) {
-            print("Impute with Glimpse2")
-            error "Glimpse2 not yet implemented"
-            // Glimpse2 subworkflow
-        }
-        if (params.tools.contains("quilt")) {
-            print("Impute with quilt")
-            error "Quilt not yet implemented"
-            // Quilt subworkflow
-        }
-        */
+    }
+
+    if (params.step == 'validate') {
+        print("Validate imputed data")
+        error "validate step not yet implemented"
+    }
+
+    if (params.step == 'refine') {
+        print("Refine imputed data")
+        error "refine step not yet implemented"
     }
 
     //
