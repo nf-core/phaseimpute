@@ -20,6 +20,24 @@ nf-core modules install
 nextflow run main.nf -profile singularity,test --outdir results -resume
 ```
 
+## Problematic
+
+### Channel management and combination
+
+If only one specie at a time, then only one fasta file and only one map file (normally ?)
+Do we want to be able to compute multiple panel at the same time ?
+If so we need to correctly combine the different channel depending on their meta map.
+
+All channel need to be identified by a meta map as follow:
+
+- I : individual id
+- P : panel id
+- R : region used
+- M : map used
+- T : tool used
+- G : reference genome used (is it needed ?)
+
+
 ## Open questions
 
 How to use different schema ?
