@@ -20,6 +20,7 @@ include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { workflowCitation          } from '../../nf-core/utils_nfcore_pipeline'
 include { GET_REGION                } from '../get_region'
+include { SAMTOOLS_FAIDX            } from '../../../modules/nf-core/samtools/faidx'
 
 /*
 ========================================================================================
@@ -83,17 +84,31 @@ workflow PIPELINE_INITIALISATION {
     // Create fasta channel
     //
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
-    ch_fasta = Channel.of([
-        [genome:genome],
-        params.fasta ? file(params.fasta, checkIfExists:true) : getGenomeAttribute('fasta'),
-        params.fasta ? params.fasta_fai ? file(params.fasta_fai, checkIfExists:true): null : getGenomeAttribute('fasta_fai')
-    ])
+    if (params.genome) {
+        genome = params.genome
+        fasta  = getGenomeAttribute('fasta')
+        fai    = getGenomeAttribute('fai')
+        if (fai == null) {
+            SAMTOOLS_FAIDX(fasta, Channel.of([[], []]))
+            fai = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
+        }
+    } else if (params.fasta) {
+        genome = file(params.fasta, checkIfExists:true).getBaseName()
+        ch_fasta  = Channel.of([[genome:genome], file(params.fasta, checkIfExists:true)])
+        if (params.fasta_fai) {
+            fai = file(params.fasta_fai, checkIfExists:true)
+        } else {
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            fai = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
+        }
+    }
+    ch_ref_gen = ch_fasta.combine(fai)
 
     //
     // Create map channel
     //
     ch_map   = params.map ?
-        Channel.of([["map": params.map], params.map]).collect() :
+        Channel.of([["map": params.map], params.map]) :
         Channel.of([[],[]])
 
     //
@@ -116,7 +131,7 @@ workflow PIPELINE_INITIALISATION {
         } else {
             print("Panel file provided as input is a variant file")
             ch_panel = Channel.of([
-                ["panel": file(params.panel, checkIfExists:true).getBaseName()],
+                [id: file(params.panel, checkIfExists:true).getBaseName()],
                 file(params.panel, checkIfExists:true),
                 params.panel_index ? file(params.panel_index, checkIfExists:true) : file(params.panel + ".csi", checkIfExists:true)
             ])
@@ -136,21 +151,19 @@ workflow PIPELINE_INITIALISATION {
             println "Region file provided is a single region"
             GET_REGION (
                 params.input_region,
-                ch_fasta
+                ch_ref_gen
             )
             ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
-            ch_multiqc_files = ch_multiqc_files.mix(GET_REGION.out.multiqc_files)
-
-            ch_regions       = GET_REGION.out.ch_regions
+            ch_regions       = GET_REGION.out.regions
         }
     }
 
     emit:
-    input         = ch_input
-    fasta         = ch_fasta
-    panel         = ch_panel
-    regions       = ch_regions
-    map           = ch_map
+    input         = ch_input         // [ [meta], bam, bai ]
+    fasta         = ch_ref_gen       // [ [genome], fasta, fai ]
+    panel         = ch_panel         // [ [panel], panel ]
+    regions       = ch_regions       // [ [chr, region], region ]
+    map           = ch_map           // [ [map], map ]
     versions      = ch_versions
     multiqc_files = ch_multiqc_files
 }
