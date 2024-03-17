@@ -22,6 +22,7 @@ include { BAM_REGION                  } from '../../subworkflows/local/bam_regio
 include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downsample'
 include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
+include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_impute_glimpse'
 include { VCF_CHR_RENAME              } from '../../subworkflows/local/vcf_chr_rename'
 include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
@@ -35,8 +36,8 @@ workflow PHASEIMPUTE {
 
     take:
     ch_input       // channel: samplesheet read in from --input
-    ch_fasta       // channel: fasta file
-    ch_panel       // channel: panel file
+    ch_fasta       // channel: fasta file [ [genome], fasta, fai ]
+    ch_panel       // channel: panel file [ [id], vcf, index ]
     ch_region      // channel: region to use [meta, region]
     ch_map         // channel: genetic map
     ch_versions    // channel: versions of software used
@@ -87,40 +88,53 @@ workflow PHASEIMPUTE {
     if (params.step == 'impute' || params.step == 'panel_prep') {
         // Remove if necessary "chr"
         if (params.panel_chr_rename != null) {
-            ch_panel = VCF_CHR_RENAME(ch_panel, params.panel_chr_rename).out.vcf_rename
+            print("Need to rename the chromosome prefix of the panel")
+            VCF_CHR_RENAME(ch_panel, params.panel_chr_rename)
+            ch_panel = VCF_CHR_RENAME.out.vcf_rename
         }
 
         GET_PANEL(ch_panel, ch_fasta)
 
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
-        // Register all panel preparation to csv
-        ch_panel_sites  = GET_PANEL.out.panel_sites
-        ch_panel_tsv    = GET_PANEL.out.panel_tsv
-        ch_panel_phased = GET_PANEL.out.panel_phased
-
         // Output channel of input process
         ch_impute_output = Channel.empty()
+
         if (params.step == 'impute') {
             if (params.tools.contains("glimpse1")) {
-                print("Impute with Glimpse1")
-                // Glimpse1 subworkflow
-                GL_INPUT(
-                    ch_input,
-                    ch_region,
-                    ch_panel_sites,
-                    ch_panel_tsv
-                )
-                
-                impute_input = GL_INPUT.out.vcf
-                    | combine(Channel.of([[]]))
-                    | map{meta, vcf, index, sample -> [meta, vcf, index, sample, meta.region]}
+                println "Impute with Glimpse1"
+                ch_panel_sites_tsv = GET_PANEL.out.panel
+                    .map{ metaP, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                        -> [metaP, sites, tsv]
+                    }
+                ch_panel_phased = GET_PANEL.out.panel
+                    .map{ metaP, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                        -> [metaP, phased, p_index]
+                    }
 
-                VCF_IMPUTE_GLIMPSE(impute_input,
-                    ch_panel.phased,
-                    ch_map)
+                // Glimpse1 subworkflow
+                GL_INPUT( // Compute GL for input data once per panel
+                    ch_input,
+                    ch_panel_sites_tsv,
+                    ch_fasta
+                )
+                ch_multiqc_files = ch_multiqc_files.mix(GL_INPUT.out.multiqc_files)
                 
-                ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.merged_variants)
+                impute_input = GL_INPUT.out.vcf // [metaIP, vcf, index]
+                    .map {metaIP, vcf, index -> [metaIP.subMap("panel"), metaIP, vcf, index] }
+                    .combine(ch_panel_phased, by: 0)
+                    .combine(Channel.of([[]]))
+                    .combine(ch_region)
+                    .combine(ch_map)
+                    .map{
+                        metaP, metaIP, vcf, index, panel, p_index, sample, metaR, region, metaM, map
+                        -> [metaIP+metaR, vcf, index, sample, region, panel, p_index, map]
+                    } //[ metaIPR, vcf, csi, sample, region, ref, ref_index, map ]
+
+                VCF_IMPUTE_GLIMPSE(impute_input)
+                output_glimpse1 = VCF_IMPUTE_GLIMPSE.out.merged_variants
+                    .map{ metaIPR, vcf -> [metaIPR + [tool: "Glimpse1"], vcf] }
+                ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
             if (params.tools.contains("glimpse2")) {
                 print("Impute with Glimpse2")
@@ -134,6 +148,7 @@ workflow PHASEIMPUTE {
             }
             
         }
+
     }
 
     if (params.step == 'validate') {

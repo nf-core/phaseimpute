@@ -13,7 +13,7 @@ include { VCF_PHASE_SHAPEIT5                     } from '../../../subworkflows/n
 
 workflow GET_PANEL {
     take:
-    ch_vcf          // channel: [ [id, ref], vcf, index ]
+    ch_vcf          // channel: [ [id], vcf, index ]
     ch_fasta        // channel: [ [genome], fasta, fai ]
 
     main:
@@ -24,8 +24,8 @@ workflow GET_PANEL {
     ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
     // Extract only the SNP
-    VIEW_VCF_SNPS(BCFTOOLS_NORM.out.vcf
-        .combine(Channel.of([[],[]])), [], [], [])
+    VIEW_VCF_SNPS(BCFTOOLS_NORM.out.vcf // [ meta, vcf ]
+        .combine(Channel.of([[]])), [], [], [])
     ch_versions = ch_versions.mix(VIEW_VCF_SNPS.out.versions.first())
 
     VCF_INDEX3(VIEW_VCF_SNPS.out.vcf)
@@ -37,8 +37,7 @@ workflow GET_PANEL {
     // Extract sites positions
     vcf_region = VIEW_VCF_SNPS.out.vcf
         .combine(VCF_INDEX3.out.csi, by:0)
-    VIEW_VCF_SITES( ch_panel_norm
-        .combine(Channel.of([[]])),
+    VIEW_VCF_SITES( ch_panel_norm,
         [], [], [])
     ch_versions = ch_versions.mix(VIEW_VCF_SITES.out.versions.first())
 
@@ -77,11 +76,15 @@ workflow GET_PANEL {
             .combine(VCF_INDEX3.out.csi, by: 0)
     }
 
-    emit:
-    panel_norm          = ch_panel_norm    // channel: [ meta, vcf, index ]
-    panel_sites         = ch_panel_sites   // channel: [ meta, bcf, index ]
-    panel_tsv           = ch_panel_tsv     // channel: [ meta, tsv, index ]
-    panel_phased        = ch_panel_phased  // channel: [ meta, vcf, index ]
+    ch_panel = ch_panel_norm
+        .combine(ch_panel_sites, by: 0)
+        .combine(ch_panel_tsv, by: 0)
+        .combine(ch_panel_phased, by: 0)
+        .map{ metaI, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+            -> [[panel:metaI.id], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
+        }
 
-    versions            = ch_versions      // channel: [ versions.yml ]
+    emit:
+    panel          = ch_panel         // channel: [ [panel], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
+    versions       = ch_versions      // channel: [ versions.yml ]
 }
