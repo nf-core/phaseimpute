@@ -7,34 +7,27 @@ workflow GET_REGION {
     
     main:
         ch_versions      = Channel.empty()
-        ch_multiqc_files = Channel.empty()
-        // Gather regions to use and create the meta map
-        if (input_region ==~ '^chr[0-9XYM]+$' || input_region == "all") {
-            if (ch_fasta.map{it -> it[2]} == null) {
 
-                SAMTOOLS_FAIDX(ch_fasta.map{it -> [it[0], it[1]]}, Channel.of([[],[]]))
-                ch_versions      = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
-                ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_FAIDX.out.fai.collect{it[1]})
-                ch_fasta         = ch_fasta.map{it -> [it[0], it[1]]}.combine(SAMTOOLS_FAIDX.out.fai).view()
-            }
+        // Gather regions to use and create the meta map
+        if (input_region ==~ '^(chr)?[0-9XYM]+$' || input_region == "all") {
             ch_regions = ch_fasta.map{it -> it[2]}
                 .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
+                .map{it -> [chr:it.chr, region:"0-"+it.size]}
             if (input_region != "all") {
-                ch_regions = ch_regions.filter{meta, rows -> rows.chr == input_region}
+                ch_regions = ch_regions.filter{it.chr == input_region}
             }
             ch_regions = ch_regions
-                .map{ meta, row -> [meta + ["chr": row.chr], row.chr + ":0-" + row.size]}
-                .map{ metaC, region -> [metaC + ["region": region], region]}
+                .map{ [[chr: it.chr, region: it.chr + ":" + it.region], it.chr + ":" + it.region]}
         } else {
             if (input_region ==~ '^chr[0-9XYM]+:[0-9]+-[0-9]+$') {
                 ch_regions = Channel.from([input_region])
-                    .map{ region -> [["region": region], region]}
+                    .map{ [[chr: it.split(":")[0], "region": it], it]}
             } else {
                 error "Invalid input_region: ${input_region}"
             }
         }
+
     emit:
-        ch_regions        = ch_regions       // channel: [ meta, region ]
+        regions           = ch_regions       // channel: [ meta, region ]
         versions          = ch_versions      // channel: [ versions.yml ]
-        multiqc_files     = ch_multiqc_files // channel: [ multiqc_report.html ]
 }

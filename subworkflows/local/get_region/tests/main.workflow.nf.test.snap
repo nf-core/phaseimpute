@@ -1,28 +1,10 @@
 {
-    "Should run with specified chr without fai": {
-        "content": [
-            [
-                [
-                    {
-                        "genome": "GRCh37",
-                        "chr": "chr22",
-                        "region": "chr22:0-40001"
-                    },
-                    "chr22:0-40001"
-                ]
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-03-05T17:12:53.77956"
-    },
     "Should run with specified region without fasta": {
         "content": [
             [
                 [
                     {
+                        "chr": "chr22",
                         "region": "chr22:0-4000"
                     },
                     "chr22:0-4000"
@@ -33,18 +15,17 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-05T17:12:58.890754"
+        "timestamp": "2024-03-17T15:20:16.458964814"
     },
-    "Should run with 'all' without fai": {
+    "Should run with specified chr": {
         "content": [
             [
                 [
                     {
-                        "genome": "GRCh37",
                         "chr": "chr22",
-                        "region": "chr22:0-40001"
+                        "region": "chr22:16570000-16610000"
                     },
-                    "chr22:0-40001"
+                    "chr22:16570000-16610000"
                 ]
             ]
         ],
@@ -52,6 +33,31 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-05T17:12:46.317211"
+        "timestamp": "2024-03-17T15:20:11.51328291"
+    },
+    "Should run with 'all'": {
+        "content": [
+            [
+                [
+                    {
+                        "chr": "chr21",
+                        "region": "chr21:16570000-16610000"
+                    },
+                    "chr21:16570000-16610000"
+                ],
+                [
+                    {
+                        "chr": "chr22",
+                        "region": "chr22:16570000-16610000"
+                    },
+                    "chr22:16570000-16610000"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-17T15:20:06.490072121"
     }
 }
