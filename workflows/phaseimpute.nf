@@ -154,7 +154,7 @@ workflow PHASEIMPUTE {
                 GET_PANEL.out.panel_phased,
                 ch_map)
 
-            ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.)
+            ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.merged_variants)
         }
         if (params.tools.contains("glimpse2")){
             print("Impute with Glimpse2")
