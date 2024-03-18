@@ -16,7 +16,7 @@ process FAITOCHR {
     def args   = task.ext.args   ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
 
-    """ 
+    """
     # Take the fai file and add the chr prefix to the chromosome names
     if [ "${addchr}" = true ]; then
         col1=""

@@ -29,7 +29,7 @@ nextflow_workflow {
             )
         }
     }
-    
+
     test("Should run with specified chr") {
 
         when {

@@ -28,7 +28,7 @@ workflow COMPUTE_GL {
 
     ch_output = BCFTOOLS_MPILEUP.out.vcf
         .combine(BCFTOOLS_MPILEUP.out.tbi, by:0)
-    
+
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
     emit:

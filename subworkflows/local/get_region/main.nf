@@ -4,7 +4,7 @@ workflow GET_REGION {
     take:
         input_region // Region string to use ["all", "chr1", "chr1:0-1000"]
         ch_fasta     // [[meta], fasta, fai]
-    
+
     main:
         ch_versions      = Channel.empty()
 

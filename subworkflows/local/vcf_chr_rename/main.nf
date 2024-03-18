@@ -15,7 +15,7 @@ workflow VCF_CHR_RENAME {
         .combine(Channel.of([[], [], []]))
         .combine(Channel.of(file_chr_rename))
     )
-    
+
     VCF_INDEX(BCFTOOLS_ANNOTATE.out.vcf)
     ch_versions = ch_versions.mix(VCF_INDEX.out.versions.first())
 

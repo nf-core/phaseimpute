@@ -119,7 +119,7 @@ workflow PHASEIMPUTE {
                     ch_fasta
                 )
                 ch_multiqc_files = ch_multiqc_files.mix(GL_INPUT.out.multiqc_files)
-                
+
                 impute_input = GL_INPUT.out.vcf // [metaIP, vcf, index]
                     .map {metaIP, vcf, index -> [metaIP.subMap("panel"), metaIP, vcf, index] }
                     .combine(ch_panel_phased, by: 0)
@@ -146,7 +146,7 @@ workflow PHASEIMPUTE {
                 error "Quilt not yet implemented"
                 // Quilt subworkflow
             }
-            
+
         }
 
     }

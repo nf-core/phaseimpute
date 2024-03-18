@@ -120,7 +120,7 @@ workflow PIPELINE_INITIALISATION {
             meta, bam, bai ->
                 [ meta, bam, bai ]
         }
-    
+
     //
     // Create channel for panel
     //
