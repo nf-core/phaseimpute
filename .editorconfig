@@ -35,3 +35,6 @@ indent_style = unset
 # ignore python
 [*.{py,md}]
 indent_style = unset
+
+[docs/**.yml]
+indent_style = unset
