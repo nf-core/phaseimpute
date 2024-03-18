@@ -36,5 +36,8 @@ indent_style = unset
 [*.{py,md}]
 indent_style = unset
 
-[docs/**.yml]
+[docs/*.yml]
+indent_style = unset
+
+[docs/images/*.yml]
 indent_style = unset
