@@ -1,19 +1,4 @@
 Changes in module 'nf-core/samtools/view'
---- modules/nf-core/samtools/view/environment.yml
-+++ modules/nf-core/samtools/view/environment.yml
-@@ -1,8 +1,10 @@
- name: samtools_view
-+
- channels:
-   - conda-forge
-   - bioconda
-   - defaults
-+
- dependencies:
-+  - bioconda::htslib=1.19.1
-   - bioconda::samtools=1.19.2
--  - bioconda::htslib=1.19.1
-
 --- modules/nf-core/samtools/view/main.nf
 +++ modules/nf-core/samtools/view/main.nf
 @@ -8,7 +8,7 @@
@@ -52,5 +37,20 @@ Changes in module 'nf-core/samtools/view'
  
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
+
+--- modules/nf-core/samtools/view/environment.yml
++++ modules/nf-core/samtools/view/environment.yml
+@@ -1,8 +1,10 @@
+ name: samtools_view
++
+ channels:
+   - conda-forge
+   - bioconda
+   - defaults
++
+ dependencies:
++  - bioconda::htslib=1.19.1
+   - bioconda::samtools=1.19.2
+-  - bioconda::htslib=1.19.1
 
 ************************************************************
