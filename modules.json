@@ -68,7 +68,7 @@
                     },
                     "glimpse2/chunk": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "14ba46490cae3c78ed8e8f48d2c0f8f3be1e7c03",
                         "installed_by": ["multiple_impute_glimpse2"]
                     },
                     "glimpse2/ligate": {
@@ -78,12 +78,12 @@
                     },
                     "glimpse2/phase": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "9c71d32e372650e8bb3e1fb15339017aad5e3f7f",
                         "installed_by": ["multiple_impute_glimpse2"]
                     },
                     "glimpse2/splitreference": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "fa12139827a18b324bd63fce654818586a8e9cc7",
                         "installed_by": ["multiple_impute_glimpse2"]
                     },
                     "multiqc": {
