@@ -20,7 +20,7 @@ workflow GET_PANEL {
 
     ch_versions = Channel.empty()
 
-    BCFTOOLS_NORM(ch_vcf, ch_fasta)
+    BCFTOOLS_NORM(ch_vcf, ch_fasta.map{ genome, fasta, fai -> [genome, fasta] })
     ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
     // Extract only the SNP
