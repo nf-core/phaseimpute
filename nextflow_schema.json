@@ -48,7 +48,7 @@
                         }
                     ]
                 },
-                "panel_index":{
+                "panel_index": {
                     "type": "string",
                     "description": "Path to the reference panel index file",
                     "fa_icon": "far fa-file-code",
