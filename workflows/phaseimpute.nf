@@ -7,13 +7,13 @@
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { SAMTOOLS_FAIDX              } from '../modules/nf-core/samtools/faidx/main'
-include { BAM_REGION                  } from '../subworkflows/local/bam_region'
+include { SAMTOOLS_FAIDX         } from '../modules/nf-core/samtools/faidx/main'
+include { BAM_REGION             } from '../subworkflows/local/bam_region'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -153,7 +153,7 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_GLIMPSE(impute_input,
                 GET_PANEL.out.panel_phased,
                 ch_map)
-            
+
             ch_impute_output = ch_impute_output.mix(VCF_IMPUTE_GLIMPSE.out.)
         }
         if (params.tools.contains("glimpse2")){
