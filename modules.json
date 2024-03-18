@@ -40,7 +40,8 @@
                     "bcftools/view": {
                         "branch": "master",
                         "git_sha": "1013101da4252623fd7acf19cc581bae91d4f839",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bcftools/view/bcftools-view.diff"
                     },
                     "bedtools/makewindows": {
                         "branch": "master",
