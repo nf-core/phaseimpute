@@ -18,7 +18,7 @@
                 "pattern": "^\\S+\\.vcf$",
                 "errorMessage": "Panel vcf file must be provided, cannot contain spaces and must have extension '.vcf'"
             },
-            "index":{
+            "index": {
                 "type": "string",
                 "pattern": "^\\S+\\.vcf\\.(tbi|csi)$",
                 "errorMessage": "Panel vcf index file must be provided, cannot contain spaces and must have extension '.vcf.tbi' or '.vcf.csi'"
@@ -33,7 +33,7 @@
                 "pattern": "^\\S+\\.tsv$",
                 "errorMessage": "Panel tsv file must be provided, cannot contain spaces and must have extension '.tsv'"
             },
-            "legend":{
+            "legend": {
                 "type": "string",
                 "pattern": "^\\S+\\.legend$",
                 "errorMessage": "Panel legend file must be provided, cannot contain spaces and must have extension '.legend'"

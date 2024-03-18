@@ -37,13 +37,13 @@ All channel need to be identified by a meta map as follow:
 - T : tool used
 - G : reference genome used (is it needed ?)
 
-
 ## Open questions
 
 How to use different schema ?
+
 - Use nf-validation
-For the moment use different input / step.
-In the futur, if/else logic will be added in the yml nf-core schema.
+  For the moment use different input / step.
+  In the futur, if/else logic will be added in the yml nf-core schema.
 
 What's the use of dumpcustomsoftware ?
 Will be deleted
