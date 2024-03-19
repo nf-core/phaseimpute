@@ -9,6 +9,10 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 ### `Added`
 
+### `Changed`
+
+[#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
+
 ### `Fixed`
 
 ### `Dependencies`
