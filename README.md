@@ -90,8 +90,9 @@ nf-core/phaseimpute was originally written by Louis Le Nézet.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-- Anabella Trigilla
+- Anabella Trigila
 - Saul Pierotti
+- Matias Romero Victorica
 
 ## Contributions and Support
 

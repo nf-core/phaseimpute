@@ -9,6 +9,10 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 ### `Added`
 
+### `Changed`
+
+- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
+
 ### `Fixed`
 
 ### `Dependencies`
