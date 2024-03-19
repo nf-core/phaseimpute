@@ -10,4 +10,3 @@ testing/
 testing*
 *.pyc
 bin/
-.github/workflows/ci.yml
