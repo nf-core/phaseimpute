@@ -42,7 +42,6 @@ workflow PIPELINE_INITIALISATION {
     main:
 
     ch_versions      = Channel.empty()
-    ch_multiqc_files = Channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -86,11 +85,12 @@ workflow PIPELINE_INITIALISATION {
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
     if (params.genome) {
         genome = params.genome
-        fasta  = getGenomeAttribute('fasta')
-        fai    = getGenomeAttribute('fai')
+        ch_fasta  = Channel.of([[genome:genome], getGenomeAttribute('fasta')])
+        fai       = getGenomeAttribute('fai')
         if (fai == null) {
-            SAMTOOLS_FAIDX(fasta, Channel.of([[], []]))
-            fai = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
+            fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }
     } else if (params.fasta) {
         genome = file(params.fasta, checkIfExists:true).getBaseName()
@@ -99,7 +99,8 @@ workflow PIPELINE_INITIALISATION {
             fai = file(params.fasta_fai, checkIfExists:true)
         } else {
             SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
-            fai = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
+            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
+            fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }
     }
     ch_ref_gen = ch_fasta.combine(fai)
@@ -165,7 +166,6 @@ workflow PIPELINE_INITIALISATION {
     regions       = ch_regions       // [ [chr, region], region ]
     map           = ch_map           // [ [map], map ]
     versions      = ch_versions
-    multiqc_files = ch_multiqc_files
 }
 
 /*

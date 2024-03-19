@@ -41,9 +41,10 @@ workflow PHASEIMPUTE {
     ch_region      // channel: region to use [meta, region]
     ch_map         // channel: genetic map
     ch_versions    // channel: versions of software used
-    ch_multiqc_files // channel: files to be included in multiqc report
 
     main:
+
+    ch_multiqc_files = Channel.empty()
 
     //
     // Simulate data if asked
