@@ -1,0 +1,38 @@
+Changes in module 'nf-core/bcftools/mpileup'
+--- modules/nf-core/bcftools/mpileup/main.nf
++++ modules/nf-core/bcftools/mpileup/main.nf
+@@ -8,8 +8,8 @@
+         'biocontainers/bcftools:1.18--h8b25389_0' }"
+ 
+     input:
+-    tuple val(meta), path(bam), path(intervals)
+-    tuple val(meta2), path(fasta)
++    tuple val(meta), path(bam), path(target_m), path(target_c)
++    tuple val(meta2), path(fasta), path(fai)
+     val save_mpileup
+ 
+     output:
+@@ -29,7 +29,8 @@
+     def prefix = task.ext.prefix ?: "${meta.id}"
+     def mpileup = save_mpileup ? "| tee ${prefix}.mpileup" : ""
+     def bgzip_mpileup = save_mpileup ? "bgzip ${prefix}.mpileup" : ""
+-    def intervals = intervals ? "-T ${intervals}" : ""
++    def target_m = target_m ? "-T ${target_m}" : ""
++    def target_c = target_c ? "-T ${target_c}" : ""
+     """
+     echo "${meta.id}" > sample_name.list
+ 
+@@ -38,9 +39,9 @@
+         --fasta-ref $fasta \\
+         $args \\
+         $bam \\
+-        $intervals \\
++        $target_m \\
+         $mpileup \\
+-        | bcftools call --output-type v $args2 \\
++        | bcftools call --output-type v $args2  $target_c \\
+         | bcftools reheader --samples sample_name.list \\
+         | bcftools view --output-file ${prefix}.vcf.gz --output-type z $args3
+ 
+
+************************************************************

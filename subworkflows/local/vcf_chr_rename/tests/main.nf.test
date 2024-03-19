@@ -1,0 +1,40 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_CHR_RENAME"
+    script "../main.nf"
+    config "./nextflow.config"
+
+    workflow "VCF_CHR_RENAME"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_chr_rename"
+    tag "vcf_chr_rename"
+
+    tag "bcftools"
+    tag "bcftools/annotate"
+    tag "bcftools/index"
+
+    test("Should run without error") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: "input", genome:"GRCh37"],
+                    "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz",
+                    "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi"
+                ])
+                input[1] = file("../../../assets/chr_rename_add.txt", exist: true)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.ch_region).match() }
+            )
+        }
+    }
+}

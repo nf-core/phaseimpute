@@ -6,13 +6,6 @@
     Github : https://github.com/nf-core/phaseimpute
     Website: https://nf-co.re/phaseimpute
     Slack  : https://nfcore.slack.com/channels/phaseimpute
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    nf-core/phaseimpute
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/nf-core/phaseimpute
-    Website: https://nf-co.re/phaseimpute
-    Slack  : https://nfcore.slack.com/channels/phaseimpute
-----------------------------------------------------------------------------------------
 */
 
 nextflow.enable.dsl = 2
@@ -23,22 +16,10 @@ nextflow.enable.dsl = 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PHASEIMPUTE  } from './workflows/phaseimpute'
+include { PHASEIMPUTE             } from './workflows/phaseimpute'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    GENOME PARAMETER VALUES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,21 +33,32 @@ params.fasta = getGenomeAttribute('fasta')
 workflow NFCORE_PHASEIMPUTE {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    ch_input    // channel: samplesheet read in from --input
+    ch_fasta    // channel: reference genome FASTA file with index
+    ch_panel    // channel: reference panel variants file
+    ch_regions  // channel: regions to use [meta, region]
+    ch_map      // channel: map file for imputation
+    ch_versions // channel: versions of software used
 
     main:
-
     //
     // WORKFLOW: Run pipeline
     //
     PHASEIMPUTE (
-        samplesheet
+        ch_input,
+        ch_fasta,
+        ch_panel,
+        ch_regions,
+        ch_map,
+        ch_versions
     )
+
 
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
 
 }
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -76,7 +68,6 @@ workflow NFCORE_PHASEIMPUTE {
 workflow {
 
     main:
-
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -94,7 +85,12 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.input,
+        PIPELINE_INITIALISATION.out.fasta,
+        PIPELINE_INITIALISATION.out.panel,
+        PIPELINE_INITIALISATION.out.regions,
+        PIPELINE_INITIALISATION.out.map,
+        PIPELINE_INITIALISATION.out.versions
     )
 
     //

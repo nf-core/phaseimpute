@@ -1,0 +1,4 @@
+sample,vcf,csi
+NA12878,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/individuals/NA12878/NA12878.s.1x.bcf,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/individuals/NA12878/NA12878.s.1x.bcf.csi
+NA19401,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/individuals/NA19401/NA19401.s.1x.bcf,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/individuals/NA19401/NA19401.s.1x.bcf.csi
+NA20359,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/individuals/NA20359/NA20359.s.1x.bcf,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/individuals/NA20359/NA20359.s.1x.bcf.csi

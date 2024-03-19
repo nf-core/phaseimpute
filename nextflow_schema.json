@@ -12,12 +12,14 @@
             "default": "",
             "properties": {
                 "depth": {
-                    "type": "array",
-                    "default": [0.2, 0.5, 1],
+                    "type": "integer",
+                    "description": "Depth of coverage for the simulated data",
+                    "default": 1,
                     "fa_icon": "fas fa-list-ol"
                 },
                 "genotype": {
                     "type": "string",
+                    "description": "Genotype position to use to simulate the data",
                     "pattern": "^\\S+\\.(csv|tsv|txt)$",
                     "format": "file-path",
                     "mimetype": "text/csv"
@@ -32,13 +34,38 @@
             "properties": {
                 "panel": {
                     "type": "string",
+                    "description": "Path to the reference panel or csv file with the list of panels",
                     "fa_icon": "far fa-file-code",
-                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
-                    "format": "file-path"
+                    "format": "file-path",
+                    "anyOf": [
+                        {
+                            "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$"
+                        },
+                        {
+                            "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                            "mimetype": "text/csv",
+                            "schema": "assets/schema_input_panel.json"
+                        }
+                    ]
                 },
-                "to_phase": {
+                "panel_index": {
+                    "type": "string",
+                    "description": "Path to the reference panel index file",
+                    "fa_icon": "far fa-file-code",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(csi|tbi)$"
+                },
+                "phased": {
+                    "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
+                },
+                "panel_chr_rename": {
+                    "type": "string",
+                    "description": "Rename the chromosome of the panel",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "format": "file-path",
+                    "mimetype": "text/csv"
                 }
             }
         },
@@ -59,6 +86,26 @@
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
+                },
+                "input_region": {
+                    "type": "string",
+                    "description": "Region of the genome to use, can be the entire genome (i.e. 'all') or a specific chromosome or region (e.g. 'chr1', 'chr1:1000-2000'). You can also specify a file containing a list of regions to process, one per line. The file should be a comma-separated file with 3 columns, and a header row.",
+                    "anyOf": [
+                        {
+                            "pattern": "all"
+                        },
+                        {
+                            "pattern": "^(chr)?[0-9XYM]+$"
+                        },
+                        {
+                            "pattern": "^(chr)?[0-9XYM]+:[0-9]+-[0-9]+$"
+                        },
+                        {
+                            "format": "file-path",
+                            "pattern": "^\\S+\\.csv$",
+                            "schema": "assets/schema_input_region.json"
+                        }
+                    ]
                 },
                 "outdir": {
                     "type": "string",
@@ -82,7 +129,13 @@
                     "type": "string",
                     "description": "Step to run.",
                     "fa_icon": "fas fa-step-forward",
-                    "enum": ["simulate", "panelprep", "impute", "validate"]
+                    "enum": ["all", "simulate", "panelprep", "impute", "validate"]
+                },
+                "tools": {
+                    "type": "string",
+                    "description": "Step to run.",
+                    "fa_icon": "fas fa-step-forward",
+                    "enum": ["glimpse1", "glimpse2", "quilt"]
                 }
             }
         },
@@ -105,7 +158,27 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "fasta_fai": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?\\.fai$",
+                    "description": "Path to FASTA index genome file.",
+                    "help_text": "This parameter is *optional* even if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "map": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.gmap(sta)?(\\.gz)?$",
+                    "description": "Path to gmap genome file.",
+                    "help_text": "This parameter is *optional*. This is used to refine the imputation process to match the recombination event rate in your specie.",
                     "fa_icon": "far fa-file-code"
                 },
                 "igenomes_ignore": {
@@ -315,6 +388,9 @@
     "allOf": [
         {
             "$ref": "#/definitions/simulate"
+        },
+        {
+            "$ref": "#/definitions/panelprep"
         },
         {
             "$ref": "#/definitions/input_output_options"

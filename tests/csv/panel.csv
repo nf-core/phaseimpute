@@ -1,3 +1,2 @@
-panel,vcf,index,legend,to_phase
-1000GP,"/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz","/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz.tbi",,FALSE
-1000GP_RePhase,"/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz","/groups/dog/llenezet/test-datasets/data/panel/21/panel_2020-08-05_chr21.phased.vcf.gz.tbi",,TRUE
+panel,vcf,index,sites,tsv,legend,phased
+1000GP.s.norel,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/panel/21_22/1000GP.chr21_22.s.norel.bcf,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/panel/21_22/1000GP.chr21_22.s.norel.bcf.csi,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/panel/21_22/1000GP.chr21_22.s.norel.sites.bcf,https://raw.githubusercontent.com/louislenezet/test-datasets/imputation/data/panel/21_22/1000GP.chr21_22.s.norel.tsv.gz,,TRUE
