@@ -103,14 +103,7 @@ workflow PIPELINE_INITIALISATION {
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }
     }
-    ch_ref_gen = ch_fasta.combine(fai)
-
-    //
-    // Create map channel
-    //
-    ch_map   = params.map ?
-        Channel.of([["map": params.map], params.map]) :
-        Channel.of([[],[]])
+    ch_ref_gen = ch_fasta.combine(fai).collect()
 
     //
     // Create channel from input file provided through params.input
@@ -126,43 +119,61 @@ workflow PIPELINE_INITIALISATION {
     // Create channel for panel
     //
     if (params.panel) {
-        if (params.panel.endsWith("csv|tsv|txt")) {
+        if (params.panel.endsWith("csv")) {
             print("Panel file provided as input is a samplesheet")
             ch_panel = Channel.fromSamplesheet("panel")
         } else {
             print("Panel file provided as input is a variant file")
+            error "Panel file as a single file not implemented yet, please separate your panel by chromosome and use the samplesheet format."
             ch_panel = Channel.of([
-                [id: file(params.panel, checkIfExists:true).getBaseName()],
+                [id: file(params.panel, checkIfExists:true).getBaseName(), chr: "all"],
                 file(params.panel, checkIfExists:true),
                 params.panel_index ? file(params.panel_index, checkIfExists:true) : file(params.panel + ".csi", checkIfExists:true)
             ])
         }
+    } else {
+        ch_panel = Channel.of([[],[],[]])
     }
 
     //
     // Create channel from region input
     //
-    if (params.input_region) {
-        if (params.input_region.endsWith(".csv")) {
-            println "Region file provided as input is a csv file"
-            ch_regions = Channel.fromSamplesheet("input_region")
-                .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-                .map{ metaC, region -> [metaC + ["region": region], region]}
+    if (params.input_region.endsWith(".csv")) {
+        println "Region file provided as input is a csv file"
+        ch_regions = Channel.fromSamplesheet("input_region")
+            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+            .map{ metaC, region -> [metaC + ["region": region], region]}
+    } else {
+        println "Region file provided is a single region"
+        GET_REGION (
+            params.input_region,
+            ch_ref_gen
+        )
+        ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
+        ch_regions       = GET_REGION.out.regions
+    }
+
+    //
+    // Create map channel
+    //
+    if (params.map) {
+        if (params.map.endsWith("csv|tsv|txt")) {
+            print("Map file provided as input is a samplesheet")
+            ch_map = Channel.fromSamplesheet("map")
         } else {
-            println "Region file provided is a single region"
-            GET_REGION (
-                params.input_region,
-                ch_ref_gen
-            )
-            ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
-            ch_regions       = GET_REGION.out.regions
+            print("Map file provided as input is a single file")
+            error "Map file as a single file not implemented yet"
+            ch_map = Channel.of([["map": params.map], params.map])
         }
+    } else {
+        ch_map = ch_regions
+            .map{ metaCR, regions -> [metaCR.subMap("chr"), []] }
     }
 
     emit:
     input         = ch_input         // [ [meta], bam, bai ]
     fasta         = ch_ref_gen       // [ [genome], fasta, fai ]
-    panel         = ch_panel         // [ [panel], panel ]
+    panel         = ch_panel         // [ [panel, chr], vcf, index ]
     regions       = ch_regions       // [ [chr, region], region ]
     map           = ch_map           // [ [map], map ]
     versions      = ch_versions

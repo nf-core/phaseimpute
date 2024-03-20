@@ -13,7 +13,7 @@ include { VCF_PHASE_SHAPEIT5                     } from '../../../subworkflows/n
 
 workflow GET_PANEL {
     take:
-    ch_vcf          // channel: [ [id], vcf, index ]
+    ch_vcf          // channel: [ [id, chr], vcf, index ]
     ch_fasta        // channel: [ [genome], fasta, fai ]
 
     main:
@@ -80,8 +80,8 @@ workflow GET_PANEL {
         .combine(ch_panel_sites, by: 0)
         .combine(ch_panel_tsv, by: 0)
         .combine(ch_panel_phased, by: 0)
-        .map{ metaI, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-            -> [[panel:metaI.id], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
+        .map{ metaIC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+            -> [[panel:metaIC.id, chr:metaIC.chr ], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
         }
 
     emit:
