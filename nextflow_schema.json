@@ -176,10 +176,19 @@
                     "format": "file-path",
                     "exists": true,
                     "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.gmap(sta)?(\\.gz)?$",
                     "description": "Path to gmap genome file.",
                     "help_text": "This parameter is *optional*. This is used to refine the imputation process to match the recombination event rate in your specie.",
-                    "fa_icon": "far fa-file-code"
+                    "fa_icon": "far fa-file-code",
+                    "anyOf": [
+                        {
+                            "pattern": "^\\S+\\.gmap(sta)?(\\.gz)?$"
+                        },
+                        {
+                            "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                            "mimetype": "text/csv",
+                            "schema": "assets/schema_map.json"
+                        }
+                    ]
                 },
                 "igenomes_ignore": {
                     "type": "boolean",

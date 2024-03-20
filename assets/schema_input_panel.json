@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
-    "title": "nf-core/phaseimpute pipeline - params.input_region schema",
-    "description": "Schema for the file provided with params.input_region",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input_panel.json",
+    "title": "nf-core/phaseimpute pipeline - params.panel schema",
+    "description": "Schema for the file provided with params.panel",
     "type": "array",
     "items": {
         "type": "object",
@@ -12,6 +12,12 @@
                 "pattern": "^\\S+$",
                 "errorMessage": "Panel name must be provided and cannot contain spaces",
                 "meta": ["panel"]
+            },
+            "chr" : {
+                "type": "string",
+                "pattern": "^(chr)?[0-9]+$",
+                "errorMessage": "Chromosome must be provided and must be a string containing only numbers, with or without the prefix 'chr'",
+                "meta": ["chr"]
             },
             "vcf": {
                 "type": "string",
@@ -43,6 +49,6 @@
                 "errorMessage": "Is the vcf given phased? Must be a boolean"
             }
         },
-        "required": ["panel", "vcf", "index", "phased"]
+        "required": ["panel", "chr", "vcf", "index", "phased"]
     }
 }
