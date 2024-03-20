@@ -37,16 +37,9 @@
                     "description": "Path to the reference panel or csv file with the list of panels",
                     "fa_icon": "far fa-file-code",
                     "format": "file-path",
-                    "anyOf": [
-                        {
-                            "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$"
-                        },
-                        {
-                            "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                            "mimetype": "text/csv",
-                            "schema": "assets/schema_input_panel.json"
-                        }
-                    ]
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "mimetype": "text/csv",
+                    "schema": "assets/schema_input_panel.json"
                 },
                 "panel_index": {
                     "type": "string",
