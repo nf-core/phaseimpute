@@ -92,6 +92,7 @@ We thank the following people for their extensive assistance in the development 
 
 - Anabella Trigila
 - Saul Pierotti
+- Eugenia Fontecha
 - Matias Romero Victorica
 
 ## Contributions and Support
