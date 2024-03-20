@@ -11,10 +11,12 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 ### `Changed`
 
-- [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
-- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
+- [#18](https://github.com/nf-core/phaseimpute/pull/18) - Panel by chromosome, update tools
 
 ### `Fixed`
+
+- [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
+- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
 
 ### `Dependencies`
 
