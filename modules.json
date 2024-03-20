@@ -112,7 +112,7 @@
                     },
                     "shapeit5/ligate": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "dcf17cc0ed8fd5ea57e61a13e0147cddb5c1ee30",
                         "installed_by": ["vcf_phase_shapeit5"]
                     },
                     "shapeit5/phasecommon": {
@@ -161,7 +161,7 @@
                     },
                     "vcf_phase_shapeit5": {
                         "branch": "master",
-                        "git_sha": "dedc0e31087f3306101c38835d051bf49789445a",
+                        "git_sha": "dcf17cc0ed8fd5ea57e61a13e0147cddb5c1ee30",
                         "installed_by": ["subworkflows"]
                     }
                 }
