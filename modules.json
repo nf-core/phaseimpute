@@ -55,12 +55,12 @@
                     },
                     "glimpse/ligate": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["vcf_impute_glimpse"]
                     },
                     "glimpse/phase": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["vcf_impute_glimpse"]
                     },
                     "glimpse2/chunk": {
@@ -156,7 +156,7 @@
                     },
                     "vcf_impute_glimpse": {
                         "branch": "master",
-                        "git_sha": "8dab3bf2aaa912730419080e96d2a7d98911db48",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_phase_shapeit5": {
