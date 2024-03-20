@@ -37,14 +37,14 @@
                     "description": "Path to the reference panel or csv file with the list of panels",
                     "fa_icon": "far fa-file-code",
                     "format": "file-path",
+                    "schema": "assets/schema_input_panel.json",
                     "anyOf": [
                         {
                             "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$"
                         },
                         {
                             "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                            "mimetype": "text/csv",
-                            "schema": "assets/schema_input_panel.json"
+                            "mimetype": "text/csv"
                         }
                     ]
                 },
@@ -90,9 +90,10 @@
                 "input_region": {
                     "type": "string",
                     "description": "Region of the genome to use, can be the entire genome (i.e. 'all') or a specific chromosome or region (e.g. 'chr1', 'chr1:1000-2000'). You can also specify a file containing a list of regions to process, one per line. The file should be a comma-separated file with 3 columns, and a header row.",
+                    "schema": "assets/schema_input_region.json",
                     "anyOf": [
                         {
-                            "pattern": "all"
+                            "pattern": "^all$"
                         },
                         {
                             "pattern": "^(chr)?[0-9XYM]+$"
@@ -102,8 +103,7 @@
                         },
                         {
                             "format": "file-path",
-                            "pattern": "^\\S+\\.csv$",
-                            "schema": "assets/schema_input_region.json"
+                            "pattern": "^\\S+\\.csv$"
                         }
                     ]
                 },

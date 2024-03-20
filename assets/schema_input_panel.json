@@ -11,7 +11,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Panel name must be provided and cannot contain spaces",
-                "meta": ["panel"]
+                "meta": ["id"]
             },
             "chr" : {
                 "type": "string",
@@ -21,34 +21,15 @@
             },
             "vcf": {
                 "type": "string",
-                "pattern": "^\\S+\\.vcf$",
+                "pattern": "^\\S+\\.(vcf|bcf)(.gz)?$",
                 "errorMessage": "Panel vcf file must be provided, cannot contain spaces and must have extension '.vcf'"
             },
             "index": {
                 "type": "string",
-                "pattern": "^\\S+\\.vcf\\.(tbi|csi)$",
+                "pattern": "^\\S+\\.(vcf|bcf)\\.(tbi|csi)$",
                 "errorMessage": "Panel vcf index file must be provided, cannot contain spaces and must have extension '.vcf.tbi' or '.vcf.csi'"
-            },
-            "sites": {
-                "type": "string",
-                "pattern": "^\\S+\\.sites$",
-                "errorMessage": "Panel sites file must be provided, cannot contain spaces and must have extension '.sites'"
-            },
-            "tsv": {
-                "type": "string",
-                "pattern": "^\\S+\\.tsv$",
-                "errorMessage": "Panel tsv file must be provided, cannot contain spaces and must have extension '.tsv'"
-            },
-            "legend": {
-                "type": "string",
-                "pattern": "^\\S+\\.legend$",
-                "errorMessage": "Panel legend file must be provided, cannot contain spaces and must have extension '.legend'"
-            },
-            "phased": {
-                "type": "boolean",
-                "errorMessage": "Is the vcf given phased? Must be a boolean"
             }
         },
-        "required": ["panel", "chr", "vcf", "index", "phased"]
+        "required": ["panel", "chr", "vcf", "index"]
     }
 }
