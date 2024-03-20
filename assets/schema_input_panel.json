@@ -15,22 +15,22 @@
             },
             "vcf": {
                 "type": "string",
-                "pattern": "^\\S+\\.vcf$",
+                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
                 "errorMessage": "Panel vcf file must be provided, cannot contain spaces and must have extension '.vcf'"
             },
             "index": {
                 "type": "string",
-                "pattern": "^\\S+\\.vcf\\.(tbi|csi)$",
+                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(tbi|csi)$",
                 "errorMessage": "Panel vcf index file must be provided, cannot contain spaces and must have extension '.vcf.tbi' or '.vcf.csi'"
             },
             "sites": {
                 "type": "string",
-                "pattern": "^\\S+\\.sites$",
+                "pattern": "^\\S+\\.sites(\\.bcf)?$",
                 "errorMessage": "Panel sites file must be provided, cannot contain spaces and must have extension '.sites'"
             },
             "tsv": {
                 "type": "string",
-                "pattern": "^\\S+\\.tsv$",
+                "pattern": "^\\S+\\.tsv(\\.gz)?$",
                 "errorMessage": "Panel tsv file must be provided, cannot contain spaces and must have extension '.tsv'"
             },
             "legend": {
