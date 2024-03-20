@@ -70,7 +70,7 @@
                     },
                     "glimpse2/ligate": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "ee7fee68281944b002bd27a8ff3f19200b4d3fad",
                         "installed_by": ["multiple_impute_glimpse2"]
                     },
                     "glimpse2/phase": {
@@ -136,7 +136,7 @@
                 "nf-core": {
                     "multiple_impute_glimpse2": {
                         "branch": "master",
-                        "git_sha": "dedc0e31087f3306101c38835d051bf49789445a",
+                        "git_sha": "cfd937a668919d948f6fcbf4218e79de50c2f36f",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nextflow_pipeline": {
