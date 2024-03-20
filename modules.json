@@ -50,7 +50,7 @@
                     },
                     "glimpse/chunk": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["vcf_impute_glimpse"]
                     },
                     "glimpse/ligate": {
