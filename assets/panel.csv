@@ -1,3 +1,3 @@
-panel,vcf,index,sites,tsv,legend,phased
-1000GP,1000GP.phased.vcf,1000GP.phased.vcf.csi,1000GP.sites,1000GP.tsv,,TRUE
-1000GP_RePhase,1000GP.vcf,1000GP.vcf.csi,,,,FALSE
+panel,chr,vcf,index,sites,tsv,legend,phased
+1000GP,chr21,1000GP_21.vcf,1000GP_21.vcf.csi,,,,FALSE
+1000GP,chr22,1000GP_22.vcf,1000GP_22.vcf.csi,,,,FALSE
