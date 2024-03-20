@@ -7,7 +7,7 @@
     "items": {
         "type": "object",
         "properties": {
-            "chr" : {
+            "chr": {
                 "type": "string",
                 "pattern": "^(chr)?[0-9]+$",
                 "errorMessage": "Chromosome must be provided and must be a string containing only numbers, with or without the prefix 'chr'",
