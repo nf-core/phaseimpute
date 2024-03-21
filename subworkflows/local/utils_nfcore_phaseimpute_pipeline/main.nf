@@ -155,23 +155,31 @@ workflow PIPELINE_INITIALISATION {
     // Create map channel
     //
     if (params.map) {
-        if (params.map.endsWith("csv|tsv|txt")) {
+        if (params.map.endsWith(".csv")) {
             print("Map file provided as input is a samplesheet")
             ch_map = Channel.fromSamplesheet("map")
         } else {
-            print("Map file provided as input is a single file")
-            error "Map file as a single file not implemented yet"
-            ch_map = Channel.of([["map": params.map], params.map])
+            error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
     } else {
         ch_map = ch_regions
             .map{ metaCR, regions -> [metaCR.subMap("chr"), []] }
     }
 
+    //
+    // Create depth channel
+    //
+    if (params.depth) {
+        ch_depth = Channel.of([[depth: params.depth], params.depth])
+    } else {
+        ch_depth = Channel.of([[],[]])
+    }
+
     emit:
     input         = ch_input         // [ [meta], bam, bai ]
     fasta         = ch_ref_gen       // [ [genome], fasta, fai ]
     panel         = ch_panel         // [ [panel, chr], vcf, index ]
+    depth         = ch_depth         // [ [depth], depth ]
     regions       = ch_regions       // [ [chr, region], region ]
     map           = ch_map           // [ [map], map ]
     versions      = ch_versions
@@ -232,7 +240,9 @@ def validateInputParameters() {
     assert params.step, "A step must be provided"
 
     // Check that at least one tool is provided
-    assert params.tools, "No tools provided"
+    if (params.step == "impute" || params.step == "panel_prep") {
+        assert params.tools, "No tools provided"
+    }
 }
 
 //

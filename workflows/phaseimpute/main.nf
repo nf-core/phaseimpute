@@ -38,6 +38,7 @@ workflow PHASEIMPUTE {
     ch_fasta       // channel: fasta file [ [genome], fasta, fai ]
     ch_panel       // channel: panel file [ [id, chr], chr, vcf, index ]
     ch_region      // channel: region to use [ [chr, region], region]
+    ch_depth       // channel: depth to downsample to [ [depth], depth ]
     ch_map         // channel: genetic map [ [chr], map]
     ch_versions    // channel: versions of software used
 
@@ -53,17 +54,18 @@ workflow PHASEIMPUTE {
         ch_sim_output = Channel.empty()
 
         // Split the bam into the region specified
-        ch_bam_region = BAM_REGION(ch_input, ch_region, fasta)
+        BAM_REGION(ch_input, ch_region, ch_fasta)
 
         // Initialize channel to impute
         ch_bam_to_impute = Channel.empty()
 
         if (params.depth) {
-            // Create channel from depth parameter
-            ch_depth = Channel.fromList(params.depth)
-
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(ch_bam_region, ch_depth, ch_fasta)
+            BAM_DOWNSAMPLE(
+                BAM_REGION.out.bam_region,
+                ch_depth,
+                ch_fasta
+            )
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
             ch_sim_output = ch_sim_output.mix(BAM_DOWNSAMPLE.out.bam_emul)
