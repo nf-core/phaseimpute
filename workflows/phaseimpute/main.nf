@@ -68,14 +68,11 @@ workflow PHASEIMPUTE {
             )
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
-            ch_sim_output = ch_sim_output.mix(BAM_DOWNSAMPLE.out.bam_emul)
+            ch_input = ch_input.mix(BAM_DOWNSAMPLE.out.bam_emul)
         }
 
         if (params.genotype) {
-            // Create channel from samplesheet giving the chips snp position
-            ch_chip_snp = Channel.fromSamplesheet("input_chip_snp")
-            BAM_TO_GENOTYPE(ch_bam_region, ch_chip_snp, ch_fasta)
-            ch_sim_output = ch_sim_output.mix(BAM_TO_GENOTYPE.out.bam_emul)
+            error "Genotype simulation not yet implemented"
         }
     }
 
@@ -156,12 +153,10 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step == 'validate') {
-        print("Validate imputed data")
         error "validate step not yet implemented"
     }
 
     if (params.step == 'refine') {
-        print("Refine imputed data")
         error "refine step not yet implemented"
     }
 
