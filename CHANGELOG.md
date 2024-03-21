@@ -13,6 +13,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 - [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
 - [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
+- [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
 
 ### `Fixed`
 

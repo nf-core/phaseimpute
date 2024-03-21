@@ -126,17 +126,12 @@ workflow PIPELINE_INITIALISATION {
     // Create channel for panel
     //
     if (params.panel) {
-        if (params.panel.endsWith("csv|tsv|txt")) {
-            print("Panel file provided as input is a samplesheet")
-            ch_panel = Channel.fromSamplesheet("panel")
-        } else {
-            print("Panel file provided as input is a variant file")
-            ch_panel = Channel.of([
-                [id: file(params.panel, checkIfExists:true).getBaseName()],
-                file(params.panel, checkIfExists:true),
-                params.panel_index ? file(params.panel_index, checkIfExists:true) : file(params.panel + ".csi", checkIfExists:true)
-            ])
-        }
+        ch_panel = Channel
+                .fromSamplesheet("panel")
+                .map {
+                    meta,vcf,index,sites,tsv,legend,phased ->
+                        [ meta, vcf, index ]
+                    }
     }
 
     //
