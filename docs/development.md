@@ -4,12 +4,12 @@
 
 - [] Add automatic detection of chromosome name to create a renaming file for the vcf
 - [] Make the different tests workflows work
-  - []  Simulation
-  - []  Validation
-  - []  Preprocessing
-  - [X] Imputation
-  - []  Validation
-  - []  Postprocessing
+  - [] Simulation
+  - [] Validation
+  - [] Preprocessing
+  - [x] Imputation
+  - [] Validation
+  - [] Postprocessing
 - [] Add support of `anyOf()` or `oneOf()` in the nf-core schema for the map, panel and region files
 - [] Add nf-test for all modules and subworkflows
 - [] Remove all TODOs
