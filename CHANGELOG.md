@@ -11,7 +11,8 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 ### `Changed`
 
-- [#18](https://github.com/nf-core/phaseimpute/pull/18) - Panel by chromosome, update modules and subwrokflows (glimpse1/2 and shapeit5), update tests config files, and correct meta map propagation
+- [#18](https://github.com/nf-core/phaseimpute/pull/18) - Maps and region by chromosome, update tests config files, and correct meta map propagation
+- [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
 
 ### `Fixed`
 

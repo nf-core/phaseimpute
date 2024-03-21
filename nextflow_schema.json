@@ -38,15 +38,8 @@
                     "fa_icon": "far fa-file-code",
                     "format": "file-path",
                     "schema": "assets/schema_input_panel.json",
-                    "anyOf": [
-                        {
-                            "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$"
-                        },
-                        {
-                            "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                            "mimetype": "text/csv"
-                        }
-                    ]
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "mimetype": "text/csv"
                 },
                 "panel_index": {
                     "type": "string",
@@ -91,21 +84,8 @@
                     "type": "string",
                     "description": "Region of the genome to use, can be the entire genome (i.e. 'all') or a specific chromosome or region (e.g. 'chr1', 'chr1:1000-2000'). You can also specify a file containing a list of regions to process, one per line. The file should be a comma-separated file with 3 columns, and a header row.",
                     "schema": "assets/schema_input_region.json",
-                    "anyOf": [
-                        {
-                            "pattern": "^all$"
-                        },
-                        {
-                            "pattern": "^(chr)?[0-9XYM]+$"
-                        },
-                        {
-                            "pattern": "^(chr)?[0-9XYM]+:[0-9]+-[0-9]+$"
-                        },
-                        {
-                            "format": "file-path",
-                            "pattern": "^\\S+\\.csv$"
-                        }
-                    ]
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.csv$"
                 },
                 "outdir": {
                     "type": "string",
@@ -175,20 +155,11 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "mimetype": "text/plain",
                     "description": "Path to gmap genome file.",
                     "help_text": "This parameter is *optional*. This is used to refine the imputation process to match the recombination event rate in your specie.",
                     "fa_icon": "far fa-file-code",
-                    "anyOf": [
-                        {
-                            "pattern": "^\\S+\\.gmap(sta)?(\\.gz)?$"
-                        },
-                        {
-                            "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                            "mimetype": "text/csv",
-                            "schema": "assets/schema_map.json"
-                        }
-                    ]
+                    "mimetype": "text/csv",
+                    "schema": "assets/schema_map.json"
                 },
                 "igenomes_ignore": {
                     "type": "boolean",
