@@ -34,7 +34,7 @@ include { GET_PANEL                   } from '../../subworkflows/local/get_panel
 workflow PHASEIMPUTE {
 
     take:
-    ch_input       // channel: samplesheet read in from --input
+    ch_input       // channel: input file [ [id, chr], bam, bai ]
     ch_fasta       // channel: fasta file [ [genome], fasta, fai ]
     ch_panel       // channel: panel file [ [id, chr], chr, vcf, index ]
     ch_region      // channel: region to use [ [chr, region], region]

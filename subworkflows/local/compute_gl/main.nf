@@ -11,10 +11,10 @@ workflow COMPUTE_GL {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    ch_mpileup = ch_input
+    ch_mpileup       = ch_input
         .combine(ch_target)
         .map{metaI, bam, bai, metaPC, sites, tsv ->
                 [metaI + metaPC, bam, sites, tsv]}

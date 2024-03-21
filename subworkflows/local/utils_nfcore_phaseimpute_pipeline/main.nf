@@ -123,15 +123,11 @@ workflow PIPELINE_INITIALISATION {
             print("Panel file provided as input is a samplesheet")
             ch_panel = Channel.fromSamplesheet("panel")
         } else {
-            print("Panel file provided as input is a variant file")
-            error "Panel file as a single file not implemented yet, please separate your panel by chromosome and use the samplesheet format."
-            ch_panel = Channel.of([
-                [id: file(params.panel, checkIfExists:true).getBaseName(), chr: "all"],
-                file(params.panel, checkIfExists:true),
-                params.panel_index ? file(params.panel_index, checkIfExists:true) : file(params.panel + ".csi", checkIfExists:true)
-            ])
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
+        // #TODO check if panel is required
         ch_panel = Channel.of([[],[],[]])
     }
 
@@ -144,13 +140,15 @@ workflow PIPELINE_INITIALISATION {
             .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
             .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
-        println "Region file provided is a single region"
+        error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
+        /* #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
         GET_REGION (
             params.input_region,
             ch_ref_gen
         )
         ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
         ch_regions       = GET_REGION.out.regions
+        */
     }
 
     //

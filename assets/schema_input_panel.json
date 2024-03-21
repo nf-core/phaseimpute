@@ -10,24 +10,24 @@
             "panel": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Panel name must be provided and cannot contain spaces",
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
                 "meta": ["id"]
             },
             "chr": {
                 "type": "string",
-                "pattern": "^(chr)?[0-9]+$",
-                "errorMessage": "Chromosome must be provided and must be a string containing only numbers, with or without the prefix 'chr'",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome must be provided as a string and cannot contain spaces",
                 "meta": ["chr"]
             },
             "vcf": {
                 "type": "string",
                 "pattern": "^\\S+\\.(vcf|bcf)(.gz)?$",
-                "errorMessage": "Panel vcf file must be provided, cannot contain spaces and must have extension '.vcf'"
+                "errorMessage": "Panel file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension"
             },
             "index": {
                 "type": "string",
                 "pattern": "^\\S+\\.(vcf|bcf)\\.(tbi|csi)$",
-                "errorMessage": "Panel vcf index file must be provided, cannot contain spaces and must have extension '.vcf.tbi' or '.vcf.csi'"
+                "errorMessage": "Panel index file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with '.csi' or '.tbi' extension"
             }
         },
         "required": ["panel", "chr", "vcf", "index"]
