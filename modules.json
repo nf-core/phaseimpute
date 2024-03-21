@@ -50,17 +50,17 @@
                     },
                     "glimpse/chunk": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["vcf_impute_glimpse"]
                     },
                     "glimpse/ligate": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["vcf_impute_glimpse"]
                     },
                     "glimpse/phase": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["vcf_impute_glimpse"]
                     },
                     "glimpse2/chunk": {
@@ -112,7 +112,7 @@
                     },
                     "shapeit5/ligate": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "dcf17cc0ed8fd5ea57e61a13e0147cddb5c1ee30",
                         "installed_by": ["vcf_phase_shapeit5"]
                     },
                     "shapeit5/phasecommon": {
@@ -156,12 +156,12 @@
                     },
                     "vcf_impute_glimpse": {
                         "branch": "master",
-                        "git_sha": "8dab3bf2aaa912730419080e96d2a7d98911db48",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_phase_shapeit5": {
                         "branch": "master",
-                        "git_sha": "dedc0e31087f3306101c38835d051bf49789445a",
+                        "git_sha": "dcf17cc0ed8fd5ea57e61a13e0147cddb5c1ee30",
                         "installed_by": ["subworkflows"]
                     }
                 }
