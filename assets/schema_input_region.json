@@ -8,16 +8,9 @@
         "type": "object",
         "properties": {
             "chr": {
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+$"
-                    },
-                    {
-                        "type": "integer",
-                        "pattern": "^\\d+$"
-                    }
-                ]
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces"
             },
             "start": {
                 "type": "integer",
