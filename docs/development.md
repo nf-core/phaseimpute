@@ -14,6 +14,8 @@
 - [] Add nf-test for all modules and subworkflows
 - [] Remove all TODOs
 - [] Check if panel is necessary depending on the tool selected
+- [] Set modules configuration as full path workflow:subworkflow:module
+- [] Where should the map file go (separate csv or in panel csv)
 
 ## Run tests
 
