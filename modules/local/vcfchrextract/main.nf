@@ -25,7 +25,7 @@ process VCFCHREXTRACT {
         $input \\
         \| grep -o -E '^##contig=<ID=([^,>]*)' | cut -d'=' -f3 \\
         > ${prefix}.txt
-    
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
