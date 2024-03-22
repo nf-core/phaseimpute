@@ -145,12 +145,10 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step == 'validate') {
-        print("Validate imputed data")
         error "validate step not yet implemented"
     }
 
     if (params.step == 'refine') {
-        print("Refine imputed data")
         error "refine step not yet implemented"
     }
 
