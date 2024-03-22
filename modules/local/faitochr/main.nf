@@ -3,7 +3,7 @@ process FAITOCHR {
     label 'process_single'
 
     input:
-    tuple val(meta), path(fai), val(addchr)
+    tuple val(meta), path(fai)
 
     output:
     tuple val(meta), path("*.txt"), emit: annot_chr
@@ -17,17 +17,24 @@ process FAITOCHR {
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
-    # Take the fai file and add the chr prefix to the chromosome names
-    if [ "${addchr}" = true ]; then
+    # Check if chr prefix is present in the chromosome names
+    col1="chr"
+    col2=""
+    if [ \$(awk 'NR==1 {print \$1}' ${fai} | grep -c '^chr') -eq 1 ]; then
         col1=""
         col2="chr"
-    else
-        col1="chr"
-        col2=""
     fi
+
+    # Take the fai file and add/remove the chr prefix to the chromosome names
+    # Keep only first column, remove chr prefix if present, add chr prefix if needed
+    # chr prefix is added only on number only chromosome names
     awk -F'\t' '{print \$1}'  ${fai} | \
-        sed 's/chr//g' | \
-        awk -v col1=\${col1} -v col2=\${col2} 'BEGIN {OFS=" "} {print col1\$1, col2\$1}' > ${prefix}.txt
+        sed 's/^chr//g' | \
+        awk -v col1=\${col1} -v col2=\${col2} \
+            'BEGIN {OFS=" "} {if (\$1 ~ /^[0-9]+\$/) print col1\$1, col2\$1; else print \$1, \$1}' \
+        > ${prefix}.txt
+
+    # We should have a file with the chromosome names in the second column corresponding to the fai format
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -81,16 +81,10 @@ workflow PHASEIMPUTE {
     //
     if (params.step == 'impute' || params.step == 'panel_prep') {
         // Remove if necessary "chr"
-        if (params.panel_chr_rename != null) {
-            print("Need to rename the chromosome prefix of the panel")
-            VCF_CHR_RENAME(ch_panel, params.panel_chr_rename)
-            ch_panel = VCF_CHR_RENAME.out.vcf_rename
-        }
+        //VCF_CHR_RENAME(ch_panel, ch_fasta)
 
-        if (ch_panel.map{it[3] == null}.any()) {
-            print("Need to compute the sites and tsv files for the panel")
-            GET_PANEL(ch_panel, ch_fasta)
-        }
+        // Prepare the panel
+        GET_PANEL(ch_panel, ch_fasta)
 
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
@@ -138,12 +132,10 @@ workflow PHASEIMPUTE {
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
             if (params.tools.contains("glimpse2")) {
-                print("Impute with Glimpse2")
                 error "Glimpse2 not yet implemented"
                 // Glimpse2 subworkflow
             }
             if (params.tools.contains("quilt")) {
-                print("Impute with quilt")
                 error "Quilt not yet implemented"
                 // Quilt subworkflow
             }
@@ -153,10 +145,12 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step == 'validate') {
+        print("Validate imputed data")
         error "validate step not yet implemented"
     }
 
     if (params.step == 'refine') {
+        print("Refine imputed data")
         error "refine step not yet implemented"
     }
 

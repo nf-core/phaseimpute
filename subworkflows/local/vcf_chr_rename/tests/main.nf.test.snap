@@ -1,10 +1,55 @@
 {
     "Should run without error": {
-        "content": null,
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi"
+                    ],
+                    [
+                        {
+                            "id": "multi"
+                        },
+                        "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
+                        "multi_chrrename.vcf.gz.csi:md5,5d175780d5611d962430bff3377f649f"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,176431a832f84d4c329f6d1e9c74d203",
+                    "versions.yml:md5,3698013e288e15d392e1cd3e22d2022a",
+                    "versions.yml:md5,924dd2e49d998f8f0da93799e62196f7"
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi"
+                    ],
+                    [
+                        {
+                            "id": "multi"
+                        },
+                        "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
+                        "multi_chrrename.vcf.gz.csi:md5,5d175780d5611d962430bff3377f649f"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,176431a832f84d4c329f6d1e9c74d203",
+                    "versions.yml:md5,3698013e288e15d392e1cd3e22d2022a",
+                    "versions.yml:md5,924dd2e49d998f8f0da93799e62196f7"
+                ]
+            }
+        ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-13T12:47:49.775995"
+        "timestamp": "2024-03-22T19:14:31.190183685"
     }
 }
