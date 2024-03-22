@@ -6,18 +6,18 @@ workflow COMPUTE_GL {
 
     take:
     ch_input   // channel: [ [id, ref], bam, bai ]
-    ch_target  // channel: [ [panel], sites, tsv]
+    ch_target  // channel: [ [panel, chr], sites, tsv]
     ch_fasta   // channel: [ [ref], fasta, fai]
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    ch_mpileup = ch_input
+    ch_mpileup       = ch_input
         .combine(ch_target)
-        .map{metaI, bam, bai, metaP, sites, tsv ->
-                [metaI + metaP, bam, sites, tsv]}
+        .map{metaI, bam, bai, metaPC, sites, tsv ->
+                [metaI + metaPC, bam, sites, tsv]}
 
     BCFTOOLS_MPILEUP(
         ch_mpileup,

@@ -11,11 +11,17 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 ### `Changed`
 
-- [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
-- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
+- [#18](https://github.com/nf-core/phaseimpute/pull/18)
+  - Maps and region by chromosome
+  - update tests config files
+  - correct meta map propagation
+  - Test impute and test sim works
 - [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
 
 ### `Fixed`
+
+- [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
+- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
 
 ### `Dependencies`
 

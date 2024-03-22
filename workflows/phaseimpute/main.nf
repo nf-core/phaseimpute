@@ -13,12 +13,11 @@ include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_n
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
-include { BAM_REGION                  } from '../../subworkflows/local/bam_region'
-
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
+include { BAM_REGION                  } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downsample'
 include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
@@ -35,11 +34,12 @@ include { GET_PANEL                   } from '../../subworkflows/local/get_panel
 workflow PHASEIMPUTE {
 
     take:
-    ch_input       // channel: samplesheet read in from --input
+    ch_input       // channel: input file [ [id, chr], bam, bai ]
     ch_fasta       // channel: fasta file [ [genome], fasta, fai ]
-    ch_panel       // channel: panel file [ [id], vcf, index ]
-    ch_region      // channel: region to use [meta, region]
-    ch_map         // channel: genetic map
+    ch_panel       // channel: panel file [ [id, chr], chr, vcf, index ]
+    ch_region      // channel: region to use [ [chr, region], region]
+    ch_depth       // channel: depth to downsample to [ [depth], depth ]
+    ch_map         // channel: genetic map [ [chr], map]
     ch_versions    // channel: versions of software used
 
     main:
@@ -50,36 +50,29 @@ workflow PHASEIMPUTE {
     // Simulate data if asked
     //
     if (params.step == 'simulate') {
-        //
-        // Read in samplesheet, validate and stage input_simulate files
-        //
-        ch_sim_input = Channel.fromSamplesheet("input")
-
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
         // Split the bam into the region specified
-        ch_bam_region = BAM_REGION(ch_input_sim, ch_region, fasta)
+        BAM_REGION(ch_input, ch_region, ch_fasta)
 
         // Initialize channel to impute
         ch_bam_to_impute = Channel.empty()
 
         if (params.depth) {
-            // Create channel from depth parameter
-            ch_depth = Channel.fromList(params.depth)
-
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(ch_sim_input, ch_region, ch_depth, ch_fasta)
+            BAM_DOWNSAMPLE(
+                BAM_REGION.out.bam_region,
+                ch_depth,
+                ch_fasta
+            )
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
-            ch_sim_output = ch_sim_output.mix(BAM_DOWNSAMPLE.out.bam_emul)
+            ch_input = ch_input.mix(BAM_DOWNSAMPLE.out.bam_emul)
         }
 
         if (params.genotype) {
-            // Create channel from samplesheet giving the chips snp position
-            ch_chip_snp = Channel.fromSamplesheet("input_chip_snp")
-            BAM_TO_GENOTYPE(ch_sim_input, ch_region, ch_chip_snp, ch_fasta)
-            ch_sim_output = ch_sim_output.mix(BAM_TO_GENOTYPE.out.bam_emul)
+            error "Genotype simulation not yet implemented"
         }
     }
 
@@ -94,7 +87,10 @@ workflow PHASEIMPUTE {
             ch_panel = VCF_CHR_RENAME.out.vcf_rename
         }
 
-        GET_PANEL(ch_panel, ch_fasta)
+        if (ch_panel.map{it[3] == null}.any()) {
+            print("Need to compute the sites and tsv files for the panel")
+            GET_PANEL(ch_panel, ch_fasta)
+        }
 
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
@@ -105,12 +101,12 @@ workflow PHASEIMPUTE {
             if (params.tools.contains("glimpse1")) {
                 println "Impute with Glimpse1"
                 ch_panel_sites_tsv = GET_PANEL.out.panel
-                    .map{ metaP, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                        -> [metaP, sites, tsv]
+                    .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                        -> [metaPC, sites, tsv]
                     }
                 ch_panel_phased = GET_PANEL.out.panel
-                    .map{ metaP, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                        -> [metaP, phased, p_index]
+                    .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                        -> [metaPC, phased, p_index]
                     }
 
                 // Glimpse1 subworkflow
@@ -121,20 +117,24 @@ workflow PHASEIMPUTE {
                 )
                 ch_multiqc_files = ch_multiqc_files.mix(GL_INPUT.out.multiqc_files)
 
-                impute_input = GL_INPUT.out.vcf // [metaIP, vcf, index]
-                    .map {metaIP, vcf, index -> [metaIP.subMap("panel"), metaIP, vcf, index] }
+                impute_input = GL_INPUT.out.vcf // [metaIPC, vcf, index]
+                    .map {metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
                     .combine(ch_panel_phased, by: 0)
                     .combine(Channel.of([[]]))
-                    .combine(ch_region)
-                    .combine(ch_map)
+                    .map { metaPC, metaIPC, vcf, index, panel, p_index, sample ->
+                        [metaPC.subMap("chr"), metaIPC, vcf, index, panel, p_index, sample]}
+                    .combine(ch_region
+                        .map {metaCR, region -> [metaCR.subMap("chr"), metaCR, region]},
+                        by: 0)
+                    .combine(ch_map, by: 0)
                     .map{
-                        metaP, metaIP, vcf, index, panel, p_index, sample, metaR, region, metaM, map
-                        -> [metaIP+metaR, vcf, index, sample, region, panel, p_index, map]
-                    } //[ metaIPR, vcf, csi, sample, region, ref, ref_index, map ]
+                        metaC, metaIPC, vcf, index, panel, p_index, sample, metaCR, region, map
+                        -> [metaIPC+metaCR.subMap("Region"), vcf, index, sample, region, panel, p_index, map]
+                    } //[ metaIPCR, vcf, csi, sample, region, ref, ref_index, map ]
 
                 VCF_IMPUTE_GLIMPSE(impute_input)
                 output_glimpse1 = VCF_IMPUTE_GLIMPSE.out.merged_variants
-                    .map{ metaIPR, vcf -> [metaIPR + [tool: "Glimpse1"], vcf] }
+                    .map{ metaIPCR, vcf -> [metaIPCR + [tool: "Glimpse1"], vcf] }
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
             if (params.tools.contains("glimpse2")) {
@@ -153,12 +153,10 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step == 'validate') {
-        print("Validate imputed data")
         error "validate step not yet implemented"
     }
 
     if (params.step == 'refine') {
-        print("Refine imputed data")
         error "refine step not yet implemented"
     }
 

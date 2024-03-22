@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
-    "title": "nf-core/phaseimpute pipeline - params.input_region schema",
-    "description": "Schema for the file provided with params.input_region",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input_panel.json",
+    "title": "nf-core/phaseimpute pipeline - params.panel schema",
+    "description": "Schema for the file provided with params.panel",
     "type": "array",
     "items": {
         "type": "object",
@@ -10,39 +10,26 @@
             "panel": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Panel name must be provided and cannot contain spaces",
-                "meta": ["panel"]
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "chr": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome must be provided as a string and cannot contain spaces",
+                "meta": ["chr"]
             },
             "vcf": {
                 "type": "string",
-                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?$",
-                "errorMessage": "Panel vcf file must be provided, cannot contain spaces and must have extension '.vcf'"
+                "pattern": "^\\S+\\.(vcf|bcf)(.gz)?$",
+                "errorMessage": "Panel file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension"
             },
             "index": {
                 "type": "string",
-                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(tbi|csi)$",
-                "errorMessage": "Panel vcf index file must be provided, cannot contain spaces and must have extension '.vcf.tbi' or '.vcf.csi'"
-            },
-            "sites": {
-                "type": "string",
-                "pattern": "^\\S+\\.sites(\\.bcf)?$",
-                "errorMessage": "Panel sites file must be provided, cannot contain spaces and must have extension '.sites'"
-            },
-            "tsv": {
-                "type": "string",
-                "pattern": "^\\S+\\.tsv(\\.gz)?$",
-                "errorMessage": "Panel tsv file must be provided, cannot contain spaces and must have extension '.tsv'"
-            },
-            "legend": {
-                "type": "string",
-                "pattern": "^\\S+\\.legend$",
-                "errorMessage": "Panel legend file must be provided, cannot contain spaces and must have extension '.legend'"
-            },
-            "phased": {
-                "type": "boolean",
-                "errorMessage": "Is the vcf given phased? Must be a boolean"
+                "pattern": "^\\S+\\.(vcf|bcf)\\.(tbi|csi)$",
+                "errorMessage": "Panel index file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with '.csi' or '.tbi' extension"
             }
         },
-        "required": ["panel", "vcf", "index", "phased"]
+        "required": ["panel", "chr", "vcf", "index"]
     }
 }

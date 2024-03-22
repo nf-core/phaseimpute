@@ -1,18 +1,21 @@
 # Development
 
-To contribute to this pipeline you will need to install the development environment:
-This is possible only on linux or MacOs machine as Nextflow only work on these platform.
+## Features and tasks
 
-```bash
-conda env create -f environment.yml
-conda activate nf-core-phaseimpute-1.0dev
-```
-
-## Add new module
-
-```bash
-nf-core modules install
-```
+- [] Add automatic detection of chromosome name to create a renaming file for the vcf
+- [] Make the different tests workflows work
+  - [] Simulation
+  - [] Validation
+  - [] Preprocessing
+  - [x] Imputation
+  - [] Validation
+  - [] Postprocessing
+- [] Add support of `anyOf()` or `oneOf()` in the nf-core schema for the map, panel and region files
+- [] Add nf-test for all modules and subworkflows
+- [] Remove all TODOs
+- [] Check if panel is necessary depending on the tool selected
+- [] Set modules configuration as full path workflow:subworkflow:module
+- [] Where should the map file go (separate csv or in panel csv)
 
 ## Run tests
 
@@ -36,6 +39,7 @@ All channel need to be identified by a meta map as follow:
 - M : map used
 - T : tool used
 - G : reference genome used (is it needed ?)
+- D : depth
 
 ## Open questions
 

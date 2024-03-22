@@ -1,37 +1,39 @@
-include { SAMTOOLS_INDEX as INDEX1     } from '../../../modules/nf-core/samtools/index/main.nf'
-include { SAMTOOLS_VIEW as VIEW_REGION } from '../../../modules/nf-core/samtools/view/main.nf'
+include { SAMTOOLS_INDEX  } from '../../../modules/nf-core/samtools/index/main.nf'
+include { SAMTOOLS_VIEW   } from '../../../modules/nf-core/samtools/view/main.nf'
 
 workflow BAM_REGION {
 
     take:
-    ch_bam    // channel: [ [id, ref], bam, bai ]
-    ch_region // channel: [ [ref, region], val(chr:start-end) ]
-    ch_fasta  // channel: [ fasta ]
+    ch_bam    // channel: [ [id], bam, bai ]
+    ch_region // channel: [ [chr, region], val(chr:start-end) ]
+    ch_fasta  // channel: [ [genome], fasta, fai ]
     main:
 
     ch_versions = Channel.empty()
 
     // Add fasta and region to bam channel
     ch_input_region = ch_bam
-        .combine(ch_fasta)
         .combine(ch_region)
-        .map{ meta, bam, index, fasta, metaR, region ->
-            [meta + metaR, bam, index, fasta, region]
+        .map{ metaI, bam, index, metaCR, region ->
+            [ metaI + metaCR, bam, index, region, [] ]
         }
-        .combine(Channel.of([[]])) // depth parameter
 
     // Extract region of interest
-    VIEW_REGION(ch_input_region, [])
-    ch_versions = ch_versions.mix(VIEW_REGION.out.versions.first())
+    SAMTOOLS_VIEW(
+        ch_input_region,
+        ch_fasta.map{ metaG, fasta, fai -> [metaG, fasta] },
+        []
+    )
+    ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
     // Index region of interest
-    INDEX1 (VIEW_REGION.out.bam)
-    ch_versions = ch_versions.mix(INDEX1.out.versions.first())
+    SAMTOOLS_INDEX(SAMTOOLS_VIEW.out.bam)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
 
-    ch_bam_region = VIEW_REGION.bam
-        .combine(INDEX1.out.bai, by: 0)
+    ch_bam_region = SAMTOOLS_VIEW.out.bam
+        .combine(SAMTOOLS_INDEX.out.bai, by: 0)
 
     emit:
-        bam_region        = ch_bam_region            // channel: [ metaIR, bam, index ]
+        bam_region        = ch_bam_region            // channel: [ metaIGCR, bam, index ]
         versions          = ch_versions              // channel: [ versions.yml ]
 }

@@ -103,14 +103,7 @@ workflow PIPELINE_INITIALISATION {
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }
     }
-    ch_ref_gen = ch_fasta.combine(fai)
-
-    //
-    // Create map channel
-    //
-    ch_map   = params.map ?
-        Channel.of([["map": params.map], params.map]) :
-        Channel.of([[],[]])
+    ch_ref_gen = ch_fasta.combine(fai).collect()
 
     //
     // Create channel from input file provided through params.input
@@ -126,38 +119,67 @@ workflow PIPELINE_INITIALISATION {
     // Create channel for panel
     //
     if (params.panel) {
-        ch_panel = Channel
-                .fromSamplesheet("panel")
-                .map {
-                    meta,vcf,index,sites,tsv,legend,phased ->
-                        [ meta, vcf, index ]
-                    }
+        if (params.panel.endsWith("csv")) {
+            print("Panel file provided as input is a samplesheet")
+            ch_panel = Channel.fromSamplesheet("panel")
+        } else {
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
+        }
+    } else {
+        // #TODO check if panel is required
+        ch_panel = Channel.of([[],[],[]])
     }
 
     //
     // Create channel from region input
     //
-    if (params.input_region) {
-        if (params.input_region.endsWith(".csv")) {
-            println "Region file provided as input is a csv file"
-            ch_regions = Channel.fromSamplesheet("input_region")
-                .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-                .map{ metaC, region -> [metaC + ["region": region], region]}
+    if (params.input_region.endsWith(".csv")) {
+        println "Region file provided as input is a csv file"
+        ch_regions = Channel.fromSamplesheet("input_region")
+            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+            .map{ metaC, region -> [metaC + ["region": region], region]}
+    } else {
+        error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
+        /* #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+        GET_REGION (
+            params.input_region,
+            ch_ref_gen
+        )
+        ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
+        ch_regions       = GET_REGION.out.regions
+        */
+    }
+
+    //
+    // Create map channel
+    //
+    if (params.map) {
+        if (params.map.endsWith(".csv")) {
+            print("Map file provided as input is a samplesheet")
+            ch_map = Channel.fromSamplesheet("map")
         } else {
-            println "Region file provided is a single region"
-            GET_REGION (
-                params.input_region,
-                ch_ref_gen
-            )
-            ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
-            ch_regions       = GET_REGION.out.regions
+            error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
+    } else {
+        ch_map = ch_regions
+            .map{ metaCR, regions -> [metaCR.subMap("chr"), []] }
+    }
+
+    //
+    // Create depth channel
+    //
+    if (params.depth) {
+        ch_depth = Channel.of([[depth: params.depth], params.depth])
+    } else {
+        ch_depth = Channel.of([[],[]])
     }
 
     emit:
     input         = ch_input         // [ [meta], bam, bai ]
     fasta         = ch_ref_gen       // [ [genome], fasta, fai ]
-    panel         = ch_panel         // [ [panel], panel ]
+    panel         = ch_panel         // [ [panel, chr], vcf, index ]
+    depth         = ch_depth         // [ [depth], depth ]
     regions       = ch_regions       // [ [chr, region], region ]
     map           = ch_map           // [ [map], map ]
     versions      = ch_versions
@@ -218,7 +240,9 @@ def validateInputParameters() {
     assert params.step, "A step must be provided"
 
     // Check that at least one tool is provided
-    assert params.tools, "No tools provided"
+    if (params.step == "impute" || params.step == "panel_prep") {
+        assert params.tools, "No tools provided"
+    }
 }
 
 //
