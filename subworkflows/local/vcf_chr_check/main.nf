@@ -42,7 +42,7 @@ workflow VCF_CHR_CHECK {
             error 'Some contig names in the VCF do not match the reference genome. Please set `rename_chr` to `true` to rename the contigs.'
         }
         ch_vcf_renamed = Channel.empty()
-    }    
+    }
 
     ch_vcf_out = chr_disjoint.no_rename
         .map{meta, vcf, csi, chr -> [meta, vcf, csi]}
