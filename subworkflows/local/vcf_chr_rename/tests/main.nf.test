@@ -3,6 +3,8 @@ nextflow_workflow {
     name "Test Subworkflow VCF_CHR_RENAME"
     script "../main.nf"
 
+    config "./nextflow.config"
+
     workflow "VCF_CHR_RENAME"
 
     tag "subworkflows"
@@ -16,7 +18,6 @@ nextflow_workflow {
     tag "faitochr"
 
     test("Should run without error") {
-        config "./nextflow_rename.config"
         when {
             workflow {
                 """
@@ -45,38 +46,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() }
-            )
-        }
-    }
-    test("Should run with error") {
-        config "./nextflow.config"
-        when {
-            workflow {
-                """
-                input[0] = Channel.fromList([
-                    [
-                        [id: "chr22"],
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/test.rnaseq.vcf.gz",checkIfExist:true),
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/test.rnaseq.vcf.gz.tbi",checkIfExist:true)
-                    ],
-                    [
-                        [id: "chr21"],
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true)
-                    ]
-                ])
-                input[1] = Channel.of([
-                    [id:"GRCh37"],
-                    file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta",checkIfExist:true),
-                    file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta.fai",checkIfExist:true)
-                ])
-                """
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.failed },
             )
         }
     }

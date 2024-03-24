@@ -22,7 +22,7 @@ include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downs
 include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
 include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_impute_glimpse'
-include { VCF_CHR_RENAME              } from '../../subworkflows/local/vcf_chr_rename'
+include { VCF_CHR_CHECK               } from '../../subworkflows/local/vcf_chr_check'
 include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
 /*
@@ -81,10 +81,10 @@ workflow PHASEIMPUTE {
     //
     if (params.step == 'impute' || params.step == 'panel_prep') {
         // Remove if necessary "chr"
-        //VCF_CHR_RENAME(ch_panel, ch_fasta)
+        VCF_CHR_CHECK(ch_panel, ch_fasta)
 
         // Prepare the panel
-        GET_PANEL(ch_panel, ch_fasta)
+        GET_PANEL(VCF_CHR_CHECK.out.vcf, ch_fasta)
 
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 

@@ -1,0 +1,51 @@
+{
+    "Should run without error": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
+                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                    ],
+                    [
+                        {
+                            "id": "chr22"
+                        },
+                        "chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
+                        "chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
+                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                    ],
+                    [
+                        {
+                            "id": "chr22"
+                        },
+                        "chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
+                        "chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-24T14:19:22.618820686"
+    }
+}
