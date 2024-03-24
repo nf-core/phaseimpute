@@ -82,10 +82,10 @@ workflow PHASEIMPUTE {
     if (params.step == 'impute' || params.step == 'panel_prep') {
         // Remove if necessary "chr"
         VCF_CHR_CHECK(ch_panel, ch_fasta)
+        ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions.first())
 
         // Prepare the panel
         GET_PANEL(VCF_CHR_CHECK.out.vcf, ch_fasta)
-
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
         // Output channel of input process
