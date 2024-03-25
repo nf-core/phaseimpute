@@ -15,7 +15,39 @@ nextflow_workflow {
     tag "bcftools/index"
     tag "faitochr"
 
-    test("Should run without error") {
+    test("Rename: panel chr + fasta chr") {
+        config "./nextflow_rename.config"
+        when {
+            workflow {
+                """
+                fai_file = Channel.of('chr22\t10000\t7\t60\t61', 'chr21\t10000\t7\t60\t61').collectFile(name: 'chr21_22.fai', newLine: true)
+                input[0] = Channel.fromList([
+                    [
+                        [id: "chr22"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz",checkIfExist:true),
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi",checkIfExist:true)
+                    ],
+                    [
+                        [id: "chr21"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true)
+                    ]
+                ])
+                input[1] = Channel.of([[id:"GRCh37"],[]])
+                    .combine(fai_file)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("Rename: panel chr + fasta no chr") {
         config "./nextflow_rename.config"
         when {
             workflow {
@@ -46,7 +78,41 @@ nextflow_workflow {
             )
         }
     }
-    test("Should run with error due to missing renaming params") {
+
+    test("Rename: panel no chr + fasta chr") {
+        config "./nextflow_rename.config"
+        when {
+            workflow {
+                """
+                fai_file = Channel.of(
+                    'chr1\t10000\t7\t60\t61','chr2\t10000\t7\t60\t61','chr3\t10000\t7\t60\t61','chr4\t10000\t7\t60\t61','chr5\t10000\t7\t60\t61','chr6\t10000\t7\t60\t61',
+                    'chr7\t10000\t7\t60\t61','chr8\t10000\t7\t60\t61','chr9\t10000\t7\t60\t61','chr10\t10000\t7\t60\t61','chr11\t10000\t7\t60\t61','chr12\t10000\t7\t60\t61',
+                    'chr13\t10000\t7\t60\t61','chr14\t10000\t7\t60\t61','chr15\t10000\t7\t60\t61','chr16\t10000\t7\t60\t61','chr17\t10000\t7\t60\t61','chr18\t10000\t7\t60\t61',
+                    'chr19\t10000\t7\t60\t61','chr20\t10000\t7\t60\t61','chr21\t10000\t7\t60\t61','chr22\t10000\t7\t60\t61',
+                    'chrX\t10000\t7\t60\t61','chrY\t10000\t7\t60\t61', 'chrMT\t10000\t7\t60\t61'
+                ).collectFile(name: 'chr.fai', newLine: true)
+                input[0] = Channel.fromList([
+                    [
+                        [id: "22"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/test_models.vcf.gz",checkIfExist:true),
+                        []
+                    ]
+                ])
+                input[1] = Channel.of([[id:"GRCh37"],[]])
+                    .combine(fai_file)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("Error : missing renaming params") {
         config "./nextflow.config"
         when {
             workflow {
@@ -63,9 +129,7 @@ nextflow_workflow {
                         file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true)
                     ]
                 ])
-                input[1] = Channel.of([
-                    [id:"GRCh37"],
-                    file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta",checkIfExist:true),
+                input[1] = Channel.of([[id:"GRCh37"],[],
                     file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta.fai",checkIfExist:true)
                 ])
                 """
@@ -79,7 +143,7 @@ nextflow_workflow {
             )
         }
     }
-    test("Should run with error after renaming"){
+    test("Error : still difference after renaming"){
         config "./nextflow_rename.config"
         when {
             workflow {

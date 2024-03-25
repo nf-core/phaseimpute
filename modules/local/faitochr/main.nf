@@ -27,11 +27,11 @@ process FAITOCHR {
 
     # Take the fai file and add/remove the chr prefix to the chromosome names
     # Keep only first column, remove chr prefix if present, add chr prefix if needed
-    # chr prefix is added only on number only chromosome names
+    # chr prefix is added only on number only chromosome names or XYMT
     awk -F'\t' '{print \$1}'  ${fai} | \
         sed 's/^chr//g' | \
         awk -v col1=\${col1} -v col2=\${col2} \
-            'BEGIN {OFS=" "} {if (\$1 ~ /^[0-9]+\$/) print col1\$1, col2\$1; else print \$1, \$1}' \
+            'BEGIN {OFS=" "} {if (\$1 ~ /^[0-9]+|[XYMT]\$/) print col1\$1, col2\$1; else print \$1, \$1}' \
         > ${prefix}.txt
 
     # We should have a file with the chromosome names in the second column corresponding to the fai format
