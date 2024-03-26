@@ -18,7 +18,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
   - Test impute and test sim works
 - [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
 - [#20](https://github.com/nf-core/phaseimpute/pull/20) - Add validation step for concordance analysis. Input channels changed to
-match inputs steps.
+  match inputs steps.
 
 ### `Fixed`
 
