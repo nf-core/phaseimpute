@@ -14,7 +14,12 @@ process ADD_COLUMNS {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    awk '(NR>=2) && (NR<=10)' $input | \\
+    # Find the header line
+    HEADER_STR="#Genotype concordance by allele frequency bin (Variants: SNPs + indels)"
+    HEADER_LINE=\$(grep -n -m 1 "^\${HEADER_STR}" $input | cut -d: -f1 )
+    HEADER_START=\$((HEADER_LINE + 1))
+
+    tail -n +\$HEADER_START $input | \\
     awk 'NR==1{\$(NF+1)="ID"} NR>1{\$(NF+1)="${meta.id}"}1' | \\
     awk 'NR==1{\$(NF+1)="Region"} NR>1{\$(NF+1)="${meta.region}"}1' | \\
     awk 'NR==1{\$(NF+1)="Depth"} NR>1{\$(NF+1)="${meta.depth}"}1' | \\

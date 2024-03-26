@@ -41,6 +41,7 @@ All channel need to be identified by a meta map as follow:
 - T : tool used
 - G : reference genome used (is it needed ?)
 - S : simulation (depth or genotype array)
+
 ## Open questions
 
 How to use different schema ?
