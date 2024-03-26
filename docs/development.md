@@ -21,6 +21,7 @@
 
 ```bash
 nextflow run main.nf -profile singularity,test --outdir results -resume
+nextflow run main.nf -profile singularity,test_sim --outdir results -resume
 ```
 
 ## Problematic
@@ -39,8 +40,7 @@ All channel need to be identified by a meta map as follow:
 - M : map used
 - T : tool used
 - G : reference genome used (is it needed ?)
-- D : depth
-
+- S : simulation (depth or genotype array)
 ## Open questions
 
 How to use different schema ?

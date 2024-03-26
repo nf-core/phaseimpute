@@ -17,11 +17,12 @@ include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfc
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
+include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_impute_glimpse'
 include { BAM_REGION                  } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downsample'
 include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
-include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_impute_glimpse'
+include { VCF_CONCORDANCE_GLIMPSE     } from '../../subworkflows/local/vcf_concordance_glimpse'
 include { VCF_CHR_RENAME              } from '../../subworkflows/local/vcf_chr_rename'
 include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
@@ -34,27 +35,31 @@ include { GET_PANEL                   } from '../../subworkflows/local/get_panel
 workflow PHASEIMPUTE {
 
     take:
-    ch_input       // channel: input file [ [id, chr], bam, bai ]
-    ch_fasta       // channel: fasta file [ [genome], fasta, fai ]
-    ch_panel       // channel: panel file [ [id, chr], chr, vcf, index ]
-    ch_region      // channel: region to use [ [chr, region], region]
-    ch_depth       // channel: depth to downsample to [ [depth], depth ]
-    ch_map         // channel: genetic map [ [chr], map]
-    ch_versions    // channel: versions of software used
+    ch_input_impute   // channel: input file    [ [id, chr], bam, bai ]
+    ch_input_sim      // channel: input file    [ [id, chr], bam, bai ]
+    ch_input_validate // channel: input file    [ [id, chr], bam, bai ]
+    ch_fasta          // channel: fasta file    [ [genome], fasta, fai ]
+    ch_panel          // channel: panel file    [ [id, chr], chr, vcf, index ]
+    ch_region         // channel: region to use [ [chr, region], region]
+    ch_depth          // channel: depth select  [ [depth], depth ]
+    ch_map            // channel: genetic map   [ [chr], map]
+    ch_versions       // channel: versions of software used
 
     main:
 
     ch_multiqc_files = Channel.empty()
 
+    ch_validate_truth = Channel.empty()
+
     //
     // Simulate data if asked
     //
-    if (params.step == 'simulate') {
+    if (params.step == 'simulate' || params.step == 'all') {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
         // Split the bam into the region specified
-        BAM_REGION(ch_input, ch_region, ch_fasta)
+        BAM_REGION(ch_input_sim, ch_region, ch_fasta)
 
         // Initialize channel to impute
         ch_bam_to_impute = Channel.empty()
@@ -68,7 +73,8 @@ workflow PHASEIMPUTE {
             )
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
-            ch_input = ch_input.mix(BAM_DOWNSAMPLE.out.bam_emul)
+            ch_input_impute   = ch_input_impute.mix(BAM_DOWNSAMPLE.out.bam_emul)
+            ch_validate_truth = ch_validate_truth.mix(BAM_REGION.out.bam_region)
         }
 
         if (params.genotype) {
@@ -79,7 +85,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.step == 'impute' || params.step == 'panel_prep') {
+    if (params.step == 'impute' || params.step == 'panel_prep' || params.step == 'all') {
         // Remove if necessary "chr"
         if (params.panel_chr_rename != null) {
             print("Need to rename the chromosome prefix of the panel")
@@ -92,26 +98,30 @@ workflow PHASEIMPUTE {
             GET_PANEL(ch_panel, ch_fasta)
         }
 
+        ch_panel_sites_tsv = GET_PANEL.out.panel
+            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                -> [metaPC, sites, tsv]
+            }
+        ch_panel_sites = GET_PANEL.out.panel
+            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                -> [metaPC, sites, s_index]
+            }
+        ch_panel_phased = GET_PANEL.out.panel
+            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                -> [metaPC, phased, p_index]
+            }
+
         ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
 
-        // Output channel of input process
-        ch_impute_output = Channel.empty()
-
-        if (params.step == 'impute') {
+        if (params.step == 'impute' || params.step == 'all') {
+            // Output channel of input process
+            ch_impute_output = Channel.empty()
             if (params.tools.contains("glimpse1")) {
                 println "Impute with Glimpse1"
-                ch_panel_sites_tsv = GET_PANEL.out.panel
-                    .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                        -> [metaPC, sites, tsv]
-                    }
-                ch_panel_phased = GET_PANEL.out.panel
-                    .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                        -> [metaPC, phased, p_index]
-                    }
 
                 // Glimpse1 subworkflow
                 GL_INPUT( // Compute GL for input data once per panel
-                    ch_input,
+                    ch_input_impute,
                     ch_panel_sites_tsv,
                     ch_fasta
                 )
@@ -134,7 +144,8 @@ workflow PHASEIMPUTE {
 
                 VCF_IMPUTE_GLIMPSE(impute_input)
                 output_glimpse1 = VCF_IMPUTE_GLIMPSE.out.merged_variants
-                    .map{ metaIPCR, vcf -> [metaIPCR + [tool: "Glimpse1"], vcf] }
+                    .combine(VCF_IMPUTE_GLIMPSE.out.merged_variants_index, by: 0)
+                    .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
             if (params.tools.contains("glimpse2")) {
@@ -147,13 +158,25 @@ workflow PHASEIMPUTE {
                 error "Quilt not yet implemented"
                 // Quilt subworkflow
             }
-
+            ch_input_validate = ch_input_validate.mix(ch_impute_output)
         }
 
     }
 
-    if (params.step == 'validate') {
-        error "validate step not yet implemented"
+    if (params.step == 'validate' || params.step == 'all') {
+        // Compute truth genotypes likelihoods
+        GL_TRUTH(
+            ch_validate_truth,
+            ch_panel_sites_tsv,
+            ch_fasta
+        )
+
+        // Compute concordance analysis
+        VCF_CONCORDANCE_GLIMPSE(
+            ch_input_validate,
+            GL_TRUTH.out.vcf,
+            ch_panel_sites
+        )
     }
 
     if (params.step == 'refine') {

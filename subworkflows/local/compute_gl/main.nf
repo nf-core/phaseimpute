@@ -5,7 +5,7 @@ include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/in
 workflow COMPUTE_GL {
 
     take:
-    ch_input   // channel: [ [id, ref], bam, bai ]
+    ch_input   // channel: [ [id, chr, region], bam, bai ]
     ch_target  // channel: [ [panel, chr], sites, tsv]
     ch_fasta   // channel: [ [ref], fasta, fai]
 
@@ -14,10 +14,10 @@ workflow COMPUTE_GL {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    ch_mpileup       = ch_input
-        .combine(ch_target)
-        .map{metaI, bam, bai, metaPC, sites, tsv ->
-                [metaI + metaPC, bam, sites, tsv]}
+    ch_mpileup       = ch_input.map{metaICR, bam, bai -> [metaICR.subMap("chr"), metaICR, bam, bai]}
+        .combine(ch_target.map{metaPC, sites, tsv -> [metaPC.subMap("chr"), metaPC, sites, tsv]}, by:0)
+        .map{metaC, metaICR, bam, bai, metaPC, sites, tsv ->
+                [metaICR + metaPC, bam, sites, tsv]}
 
     BCFTOOLS_MPILEUP(
         ch_mpileup,

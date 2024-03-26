@@ -1,0 +1,35 @@
+{
+    "vcf_concordance_glimpse": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "TestQuality"
+                        },
+                        "TestQuality.txt:md5,910b294df62dbe64e8f16379428d93ad"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "stats": [
+                    [
+                        {
+                            "id": "TestQuality"
+                        },
+                        "TestQuality.txt:md5,910b294df62dbe64e8f16379428d93ad"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-25T12:44:54.967846019"
+    }
+}
