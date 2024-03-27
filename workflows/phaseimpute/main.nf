@@ -25,6 +25,11 @@ include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_imp
 include { VCF_CHR_CHECK               } from '../../subworkflows/local/vcf_chr_check'
 include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
+
+include { MAKE_CHUNKS                } from '../../subworkflows/local/quilt_subworkflows/make_chunks'
+include { IMPUTE_QUILT               } from '../../subworkflows/local/quilt_subworkflows/impute_quilt'
+include { CONCATENATE_VCF            } from '../../subworkflows/local/quilt_subworkflows/concatenate_vcf'
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -136,8 +141,20 @@ workflow PHASEIMPUTE {
                 // Glimpse2 subworkflow
             }
             if (params.tools.contains("quilt")) {
-                error "Quilt not yet implemented"
+                print("Impute with quilt")
+
                 // Quilt subworkflow
+
+                    // Create chunks from reference VCF
+                    MAKE_CHUNKS(ch_panel)
+
+                    // Impute BAMs
+                    IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input, MAKE_CHUNKS.out.ch_chunks)
+
+                    // Concatenate results
+                    CONCATENATE_VCF(IMPUTE_QUILT.out.ch_imputedvcf)
+
+
             }
 
         }
