@@ -13,7 +13,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/annotate"
     tag "bcftools/index"
-    tag "faitochr"
+    tag "gawk"
 
     test("Rename: panel chr + fasta chr") {
         config "./nextflow_rename.config"

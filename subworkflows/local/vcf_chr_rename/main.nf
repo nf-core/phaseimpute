@@ -1,6 +1,6 @@
 include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/annotate/main.nf'
 include { BCFTOOLS_INDEX              } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { FAITOCHR                    } from '../../../modules/local/faitochr/main.nf'
+include { GAWK as FAITOCHR            } from '../../../modules/nf-core/gawk/main.nf'
 
 workflow VCF_CHR_RENAME {
     take:
@@ -12,14 +12,18 @@ workflow VCF_CHR_RENAME {
     ch_versions = Channel.empty()
 
     // Generate the chromosome renaming file
-    FAITOCHR(ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] })
+    FAITOCHR(
+        ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] },
+        Channel.of(
+            'BEGIN {FS="\\t"} NR==1 { if ($1 ~ /^chr/) { col1=""; col2="chr" } else { col1="chr"; col2="" } } { sub(/^chr/, "", $1); if ($1 ~ /^[0-9]+|[XYMT]$/) print col1$1, col2$1; else print $1, $1 }'
+        ).collectFile(name:"program.txt"))
     ch_versions = ch_versions.mix(FAITOCHR.out.versions)
 
     // Rename the chromosome without prefix
     BCFTOOLS_ANNOTATE(
         ch_vcf // channel: [ [id], vcf, index ]
             .combine(Channel.of([[],[],[]]))
-            .combine(FAITOCHR.out.annot_chr.map{it[1]})
+            .combine(FAITOCHR.out.output.map{it[1]})
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 

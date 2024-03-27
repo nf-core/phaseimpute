@@ -15,7 +15,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/annotate"
     tag "bcftools/index"
-    tag "faitochr"
+    tag "gawk"
 
     test("Should run without error") {
         when {
