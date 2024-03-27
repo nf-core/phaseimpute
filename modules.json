@@ -93,6 +93,11 @@
                         "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
                         "installed_by": ["modules"]
                     },
+                    "quilt/quilt": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
                     "samtools/coverage": {
                         "branch": "master",
                         "git_sha": "38afbe42f7db7f19c7a89607c0a71c68f3be3131",
