@@ -1,0 +1,35 @@
+{
+    "Extract chr from vcf": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7e6d75a47df5ce3a975172dcd47fd247"
+                ],
+                "chr": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7e6d75a47df5ce3a975172dcd47fd247"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-22T15:09:21.585363234"
+    }
+}

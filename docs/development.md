@@ -2,7 +2,8 @@
 
 ## Features and tasks
 
-- [] Add automatic detection of chromosome name to create a renaming file for the vcf
+- [x] Add automatic detection of chromosome name to create a renaming file for the vcf files
+- [] Add automatic detection of chromosome name to create a renaming file for the bam files
 - [] Make the different tests workflows work
   - [] Simulation
   - [] Validation

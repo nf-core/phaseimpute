@@ -1,0 +1,145 @@
+{
+    "Rename: panel chr + fasta chr": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi"
+                    ],
+                    [
+                        {
+                            "id": "chr22"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
+                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42"
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi"
+                    ],
+                    [
+                        {
+                            "id": "chr22"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
+                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-27T17:21:13.588561053"
+    },
+    "Rename: panel no chr + fasta chr": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "22"
+                        },
+                        "22_chrrename.vcf.gz:md5,070a96d1053a64f2de2132ee8800847c",
+                        "22_chrrename.vcf.gz.csi:md5,e190b690b4b0a4d088231862e5408582"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
+                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
+                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "22"
+                        },
+                        "22_chrrename.vcf.gz:md5,070a96d1053a64f2de2132ee8800847c",
+                        "22_chrrename.vcf.gz.csi:md5,e190b690b4b0a4d088231862e5408582"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
+                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
+                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-27T17:21:39.92481538"
+    },
+    "Rename: panel chr + fasta no chr": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
+                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                    ],
+                    [
+                        {
+                            "id": "chr22"
+                        },
+                        "chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
+                        "chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
+                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
+                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
+                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                    ],
+                    [
+                        {
+                            "id": "chr22"
+                        },
+                        "chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
+                        "chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
+                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
+                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-27T17:21:28.214969089"
+    }
+}

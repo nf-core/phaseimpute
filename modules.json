@@ -48,6 +48,11 @@
                         "git_sha": "de45447d060b8c8b98575bc637a4a575fd0638e1",
                         "installed_by": ["modules"]
                     },
+                    "gawk": {
+                        "branch": "master",
+                        "git_sha": "dc3527855e7358c6d8400828754c0caa5f11698f",
+                        "installed_by": ["modules"]
+                    },
                     "glimpse/chunk": {
                         "branch": "master",
                         "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
