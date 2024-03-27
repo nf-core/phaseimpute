@@ -42,11 +42,31 @@ workflow NFCORE_PHASEIMPUTE {
     ch_versions // channel: versions of software used
 
     main:
+
+    //
+    // Initialise input channels
+    //
+
+    input_impute         = Channel.empty()
+    input_simulate       = Channel.empty()
+    input_validate       = Channel.empty()
+
+    if (params.step == "impute") {
+        input_impute   = ch_input
+    } else if (params.step == "simulate" || params.step == "all") {
+        input_simulate = ch_input
+    } else if (params.step == "validate") {
+        input_validate = ch_input
+    }
+
+
     //
     // WORKFLOW: Run pipeline
     //
     PHASEIMPUTE (
-        ch_input,
+        input_impute,
+        input_simulate,
+        input_validate,
         ch_fasta,
         ch_panel,
         ch_regions,

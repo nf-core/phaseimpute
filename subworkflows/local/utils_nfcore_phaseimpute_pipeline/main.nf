@@ -175,14 +175,24 @@ workflow PIPELINE_INITIALISATION {
         ch_depth = Channel.of([[],[]])
     }
 
+    //
+    // Create genotype array channel
+    //
+    if (params.genotype) {
+        ch_genotype = Channel.of([[gparray: params.genotype], params.genotype])
+    } else {
+        ch_genotype = Channel.of([[],[]])
+    }
+
+
     emit:
-    input         = ch_input         // [ [meta], bam, bai ]
-    fasta         = ch_ref_gen       // [ [genome], fasta, fai ]
-    panel         = ch_panel         // [ [panel, chr], vcf, index ]
-    depth         = ch_depth         // [ [depth], depth ]
-    regions       = ch_regions       // [ [chr, region], region ]
-    map           = ch_map           // [ [map], map ]
-    versions      = ch_versions
+    input                = ch_input         // [ [meta], bam, bai ]
+    fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
+    panel                = ch_panel         // [ [panel, chr], vcf, index ]
+    depth                = ch_depth         // [ [depth], depth ]
+    regions              = ch_regions       // [ [chr, region], region ]
+    map                  = ch_map           // [ [map], map ]
+    versions             = ch_versions
 }
 
 /*
