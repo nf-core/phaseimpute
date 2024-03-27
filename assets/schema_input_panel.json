@@ -26,8 +26,8 @@
             },
             "index": {
                 "type": "string",
-                "pattern": "^\\S+\\.(vcf|bcf)\\.(tbi|csi)$",
-                "errorMessage": "Panel index file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with '.csi' or '.tbi' extension"
+                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(tbi|csi)$",
+                "errorMessage": "Panel index file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension and with '.csi' or '.tbi' extension"
             }
         },
         "required": ["panel", "chr", "vcf", "index"]
