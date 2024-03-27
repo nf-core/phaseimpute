@@ -1,5 +1,5 @@
-include { BAMTOOLS_SPLIT } from '../../modules/nf-core/bamtools/split/main'
-include { SAMTOOLS_INDEX } from '../../modules/nf-core/samtools/index/main'
+include { BAMTOOLS_SPLIT } from '../../../modules/nf-core/bamtools/split/main'
+include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index/main'
 
 workflow BAM_SPLIT_INDEX {
 

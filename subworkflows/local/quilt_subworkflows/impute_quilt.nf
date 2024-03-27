@@ -1,4 +1,4 @@
-include { QUILT_QUILT     } from '../../modules/nf-core/quilt/quilt/main'
+include { QUILT_QUILT     } from '../../../modules/nf-core/quilt/quilt/main'
 
 workflow IMPUTE_QUILT {
 

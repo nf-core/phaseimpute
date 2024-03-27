@@ -1,5 +1,5 @@
-include { BCFTOOLS_INDEX  } from '../../modules/nf-core/bcftools/index/main'
-include { BCFTOOLS_CONCAT } from '../../modules/nf-core/bcftools/concat/main'
+include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index/main'
+include { BCFTOOLS_CONCAT } from '../../../modules/nf-core/bcftools/concat/main'
 
 workflow CONCATENATE_VCF {
 
