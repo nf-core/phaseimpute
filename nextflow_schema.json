@@ -52,13 +52,6 @@
                     "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
-                },
-                "panel_chr_rename": {
-                    "type": "string",
-                    "description": "Rename the chromosome of the panel",
-                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                    "format": "file-path",
-                    "mimetype": "text/csv"
                 }
             }
         },
@@ -92,6 +85,11 @@
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "rename_chr": {
+                    "type": "boolean",
+                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
+                    "pattern": "true|false"
                 },
                 "email": {
                     "type": "string",
