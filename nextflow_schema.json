@@ -88,7 +88,7 @@
                 },
                 "rename_chr": {
                     "type": "boolean",
-                    "description": "Should the vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
+                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
                     "pattern": "true|false"
                 },
                 "email": {
