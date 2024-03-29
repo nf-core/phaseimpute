@@ -17,7 +17,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
   - correct meta map propagation
   - Test impute and test sim works
 - [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
-- [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs and automatic renaming available
+- [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs for the reference panel and automatic renaming available
 
 ### `Fixed`
 
