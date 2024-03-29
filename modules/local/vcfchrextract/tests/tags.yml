@@ -1,0 +1,2 @@
+vcfchrextract:
+  - "modules/local/vcfchrextract/**"
