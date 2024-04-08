@@ -26,7 +26,7 @@ workflow MAKE_CHUNKS {
                     .map { metamap, line ->
                         def fields = line.split("\t")
                         def startEnd = fields[2].split(':')[1].split('-')
-                        [metamap, metamap.id, startEnd[0], startEnd[1]]
+                        [metamap, metamap.chr, startEnd[0], startEnd[1]]
                     }
 
     ch_fasta = Channel.value([file(params.fasta,checkIfExists: true)])
