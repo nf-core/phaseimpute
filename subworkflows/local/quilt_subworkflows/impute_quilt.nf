@@ -17,8 +17,9 @@ workflow IMPUTE_QUILT {
     posfile_phasefile = [[id: null], posfile, phasefile]
     genetic_map_file = []
     fasta = [[id:'test'], []]
-    def ngen = 100
-    def buffer = 10000
+
+    ngen = params.ngen
+    buffer = params.buffer
 
     ch_bam_bamlist = ch_input
 
