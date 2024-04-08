@@ -12,15 +12,6 @@ workflow IMPUTE_QUILT {
 
     ch_versions = Channel.empty()
 
-
-    // Make bamlist from bam input
-
-    ch_bamlist = ch_input
-                .map { it[1].tokenize('/').last() }
-                .collectFile( name: "bamlist.txt", newLine: true, sort: true )
-
-    // Create input channel for quilt
-
     posfile = []
     phasefile = []
     posfile_phasefile = [[id: null], posfile, phasefile]
@@ -29,14 +20,14 @@ workflow IMPUTE_QUILT {
     def ngen = 100
     def buffer = 10000
 
-    ch_bam_bamlist = ch_input.combine(ch_bamlist)
+    ch_bam_bamlist = ch_input
 
     if (genetic_map_file.isEmpty()) {
         ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).map { it + ngen + buffer + [[]] }
     } else {
         println "genetic_map_file is not empty"
         // Add ngen and buffer
-        ch_hap_chunks = ch_hap_legend.join(ch_chunks).join(genetic_map_file)
+        ch_hap_chunks = ch_hap_legend.join(ch_chunks, by:0).join(genetic_map_file)
     }
 
     ch_quilt = ch_bam_bamlist.combine(ch_hap_chunks)
@@ -57,7 +48,6 @@ workflow IMPUTE_QUILT {
 
 
     emit:
-    ch_bamlist                 = ch_bamlist                              // channel: [ chr, val(meta), bam, bai ]
     ch_imputedvcf              = QUILT_QUILT.out.vcf                    // channel:  [ meta, vcf ]
     versions                   = ch_versions                           // channel:   [ versions.yml ]
 }
