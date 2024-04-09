@@ -12,37 +12,48 @@ The directories listed below will be created in the results directory after the 
 
 <!-- TODO nf-core: Write this documentation describing your workflow's output -->
 
-## Pipeline overview
+## Pipeline overview: QUILT imputation mode
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
-The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [FastQC](#fastqc) - Raw read QC
+- [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
+- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites from the reference panel
+- [Convert](#convert) - Convert reference panel to .hap and .legend files
+- [QUILT](#quilt) - Perform imputation
+- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### FastQC
+### Glimpse Chunk
 
-<details markdown="1">
-<summary>Output files</summary>
+- `quilt_impute/glimpse/`
+  - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
 
-- `fastqc/`
-  - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+[Glimpse chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation step and directly submit this file for imputation.
 
-</details>
+### Convert
 
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+- `quilt_impute/bcftools/convert/`
+  - `*.hap`: a .hap file for the reference panel.
+  - `*.legend*`: a .legend file for the reference panel.
 
-![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
+[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation step and directly submit these files for imputation (to be developed).
 
-![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
+### QUILT
 
-![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
+- `quilt_impute/quilt/`
+- `quilt.*.vcf.gz`: Imputed VCF for a specific chunk.
+- `quilt.*.vcf.gz.tbi`: TBI for the Imputed VCF for a specific chunk.
 
-:::note
-The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
-:::
+[quilt](https://github.com/rwdavies/QUILT) performs the imputation. This step will contain the VCF for each of the chunks.
+
+### Concat
+
+- `quilt_impute/bcftools/concat`
+- `.*.vcf.gz`: Imputed and ligated VCF for all the input samples.
+
+[bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs in chunks.
 
 ### MultiQC
 

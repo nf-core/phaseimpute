@@ -109,6 +109,14 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
+You can cite one of the main imputation methods ([`QUILT`](https://github.com/rwdavies/QUILT)) as follows:
+
+> **Rapid genotype imputation from sequence with reference panels.**
+>
+> Davies, R. W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C. M., Chan, Y. F., & Myers, S.
+>
+> _Nature genetics_ 2021 June 03. doi: [10.1038/s41588-021-00877-0](https://doi.org/10.1038/s41588-021-00877-0)
+
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 You can cite the `nf-core` publication as follows:
