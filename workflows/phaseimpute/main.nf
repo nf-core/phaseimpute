@@ -26,9 +26,9 @@ include { VCF_CHR_CHECK               } from '../../subworkflows/local/vcf_chr_c
 include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
 
-include { MAKE_CHUNKS                } from '../../subworkflows/local/quilt_subworkflows/make_chunks'
-include { IMPUTE_QUILT               } from '../../subworkflows/local/quilt_subworkflows/impute_quilt'
-include { CONCATENATE_VCF            } from '../../subworkflows/local/quilt_subworkflows/concatenate_vcf'
+include { MAKE_CHUNKS                } from '../../subworkflows/local/make_chunks/make_chunks'
+include { IMPUTE_QUILT               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+include { CONCATENATE_VCF            } from '../../subworkflows/local/concatenate_vcf/concatenate_vcf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
