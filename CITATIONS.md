@@ -18,7 +18,11 @@
 
   > Rubinacci, S., Ribeiro, D. M., Hofmeister, R. J., & Delaneau, O. (2021). Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nature Genetics, 53(1), 120-126.
 
-  - [bcftools](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3198575/)
+- [Shapeit](https://odelaneau.github.io/shapeit5/)
+
+  > Hofmeister RJ, Ribeiro DM, Rubinacci S., Delaneau O. (2023). Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nature Genetics doi: https://doi.org/10.1038/s41588-023-01415-w
+
+- [bcftools](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3198575/)
 
   > Li, H. (2011). A statistical framework for SNP calling, mutation discovery, association mapping and population genetical parameter estimation from sequencing data. Bioinformatics, 27(21), 2987-2993.
 
