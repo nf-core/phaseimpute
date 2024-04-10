@@ -13,7 +13,6 @@ workflow CONCATENATE_VCF {
 
     // Join VCFs and TBIs
     ch_vcf_tbi = ch_imputedvcf.join(BCFTOOLS_INDEX.out.tbi)
-    ch_vcf_tbi.dump(tag:"ch_vcf_tbi")
 
     // Remove chromosome from meta
     ch_vcf_tbi_grouped = ch_vcf_tbi.map{ meta, vcf, tbi ->
