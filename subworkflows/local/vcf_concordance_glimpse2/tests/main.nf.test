@@ -1,15 +1,15 @@
 nextflow_workflow {
 
-    name "Test Subworkflow VCF_CONCORDANCE_GLIMPSE"
+    name "Test Subworkflow VCF_CONCORDANCE_GLIMPSE2"
     script "../main.nf"
     config "./nextflow.config"
 
-    workflow "VCF_CONCORDANCE_GLIMPSE"
+    workflow "VCF_CONCORDANCE_GLIMPSE2"
 
     tag "subworkflows"
     tag "subworkflows_local"
-    tag "subworkflows/vcf_concordance_glimpse"
-    tag "vcf_concordance_glimpse"
+    tag "subworkflows/vcf_concordance_glimpse2"
+    tag "vcf_concordance_glimpse2"
 
     tag "bcftools"
     tag "bcftools/index"
@@ -17,7 +17,7 @@ nextflow_workflow {
     tag "glimpse/phase"
     tag "glimpse/concordance"
 
-    test("vcf_concordance_glimpse") {
+    test("vcf_concordance_glimpse2") {
         setup {
             run("GLIMPSE_PHASE") {
                 script "../../../../modules/nf-core/glimpse/phase/main.nf"

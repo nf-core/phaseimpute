@@ -17,14 +17,14 @@ include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfc
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_impute_glimpse'
-include { BAM_REGION                  } from '../../subworkflows/local/bam_region'
-include { BAM_DOWNSAMPLE              } from '../../subworkflows/local/bam_downsample'
-include { COMPUTE_GL as GL_TRUTH      } from '../../subworkflows/local/compute_gl'
-include { COMPUTE_GL as GL_INPUT      } from '../../subworkflows/local/compute_gl'
-include { VCF_CONCORDANCE_GLIMPSE     } from '../../subworkflows/local/vcf_concordance_glimpse'
-include { VCF_CHR_CHECK               } from '../../subworkflows/local/vcf_chr_check'
-include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
+include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
+include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
+include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
+include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
+include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
+include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
+include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
+include { GET_PANEL                                  } from '../../subworkflows/local/get_panel'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,9 +137,9 @@ workflow PHASEIMPUTE {
                         -> [metaIPC+metaCR.subMap("Region"), vcf, index, sample, region, panel, p_index, map]
                     } //[ metaIPCR, vcf, csi, sample, region, ref, ref_index, map ]
 
-                VCF_IMPUTE_GLIMPSE(impute_input)
-                output_glimpse1 = VCF_IMPUTE_GLIMPSE.out.merged_variants
-                    .combine(VCF_IMPUTE_GLIMPSE.out.merged_variants_index, by: 0)
+                VCF_IMPUTE_GLIMPSE1(impute_input)
+                output_glimpse1 = VCF_IMPUTE_GLIMPSE1.out.merged_variants
+                    .combine(VCF_IMPUTE_GLIMPSE1.out.merged_variants_index, by: 0)
                     .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
@@ -165,7 +165,7 @@ workflow PHASEIMPUTE {
         )
 
         // Compute concordance analysis
-        VCF_CONCORDANCE_GLIMPSE(
+        VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
             GL_TRUTH.out.vcf,
             ch_panel_sites

@@ -1,9 +1,9 @@
 include { GLIMPSE2_CONCORDANCE        } from '../../../modules/nf-core/glimpse2/concordance'
-include { CONCATENATE                 } from '../../../modules/local/concatenate'
+include { GAWK as CONCATENATE         } from '../../../modules/nf-core/gawk'
 include { ADD_COLUMNS                 } from '../../../modules/local/addcolumns'
 include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 
-workflow VCF_CONCORDANCE_GLIMPSE {
+workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     take:
         ch_vcf_emul   // VCF file with imputed genotypes [[id, chr, region, panel, simulate, tools], vcf, csi]
@@ -38,11 +38,14 @@ workflow VCF_CONCORDANCE_GLIMPSE {
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
     ADD_COLUMNS(GUNZIP.out.gunzip)
 
-    CONCATENATE(ADD_COLUMNS.out.txt
+    CONCATENATE(
+        ADD_COLUMNS.out.txt
                     .map{meta, txt -> [["id":"TestQuality"], txt]}
-                    .groupTuple()
+                    .groupTuple(),
+        Channel.of(
+            '(NR == 1) || (FNR > 1)'
+        ).collectFile(name:"program.txt")
     )
-
 
     emit:
     stats     = CONCATENATE.out.txt         // [ meta, txt ]

@@ -1,6 +1,6 @@
-include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/annotate/main.nf'
-include { BCFTOOLS_INDEX              } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { GAWK as FAITOCHR            } from '../../../modules/nf-core/gawk/main.nf'
+include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/annotate'
+include { BCFTOOLS_INDEX              } from '../../../modules/nf-core/bcftools/index'
+include { GAWK as FAITOCHR            } from '../../../modules/nf-core/gawk'
 
 workflow VCF_CHR_RENAME {
     take:
@@ -16,7 +16,8 @@ workflow VCF_CHR_RENAME {
         ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] },
         Channel.of(
             'BEGIN {FS="\\t"} NR==1 { if ($1 ~ /^chr/) { col1=""; col2="chr" } else { col1="chr"; col2="" } } { sub(/^chr/, "", $1); if ($1 ~ /^[0-9]+|[XYMT]$/) print col1$1, col2$1; else print $1, $1 }'
-        ).collectFile(name:"program.txt"))
+        ).collectFile(name:"program.txt")
+    )
     ch_versions = ch_versions.mix(FAITOCHR.out.versions)
 
     // Rename the chromosome without prefix
