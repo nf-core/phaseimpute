@@ -1,7 +1,7 @@
 include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index/main'
 include { BCFTOOLS_CONCAT } from '../../../modules/nf-core/bcftools/concat/main'
 
-workflow CONCATENATE_VCF {
+workflow VCF_CONCATENATE_BCFTOOLS {
 
     take:
     ch_imputedvcf                            // channel: [ val(meta),bam ]
