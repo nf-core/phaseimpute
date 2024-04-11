@@ -11,6 +11,7 @@ workflow MAKE_CHUNKS {
 
     take:
     ch_reference                           // channel: [ val(meta),vcf ]
+    ch_fasta_fai                           // channel: [meta, fasta, fai]
 
     main:
 
@@ -29,8 +30,7 @@ workflow MAKE_CHUNKS {
                         [metamap, metamap.chr, startEnd[0], startEnd[1]]
                     }
 
-    ch_fasta = Channel.value([file(params.fasta,checkIfExists: true)])
-                            .map { file -> [[id: 'genome'], file] }
+    ch_fasta = ch_fasta_fai.map { meta, fasta, fai -> [meta, fasta] }
 
     // Join duplicated biallelic sites into multiallelic records
     BCFTOOLS_NORM(ch_reference, ch_fasta)

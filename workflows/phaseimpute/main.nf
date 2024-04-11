@@ -146,7 +146,7 @@ workflow PHASEIMPUTE {
                 // Quilt subworkflow
 
                     // Create chunks from reference VCF
-                    MAKE_CHUNKS(ch_panel)
+                    MAKE_CHUNKS(ch_panel, ch_fasta)
 
                     // Make bamlist from bam input
                     ch_bamlist = ch_input
