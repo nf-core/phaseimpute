@@ -28,7 +28,7 @@ include { GET_PANEL                   } from '../../subworkflows/local/get_panel
 
 include { MAKE_CHUNKS                } from '../../subworkflows/local/make_chunks/make_chunks'
 include { IMPUTE_QUILT               } from '../../subworkflows/local/impute_quilt/impute_quilt'
-include { CONCATENATE_VCF            } from '../../subworkflows/local/concatenate_vcf/concatenate_vcf'
+include { VCF_CONCATENATE_BCFTOOLS   } from '../../subworkflows/local/vcf_concatenate_bcftools/vcf_concatenate_bcftools'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,24 +148,23 @@ workflow PHASEIMPUTE {
                     // Create chunks from reference VCF
                     MAKE_CHUNKS(ch_panel)
 
-
                     // Make bamlist from bam input
                     ch_bamlist = ch_input
                                 .map { it[1].tokenize('/').last() }
                                 .collectFile( name: "bamlist.txt", newLine: true, sort: true )
 
-                    // create input quilt
+                    // Create input QUILT
                     ch_input_quilt = ch_input
                                 .map { meta, bam, bai -> [["id": "all_samples"], bam, bai] }
                                 .groupTuple ()
                                 .combine ( ch_bamlist )
                                 .collect ()
 
-                    // Impute BAMs
+                    // Impute BAMs with QUILT
                     IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_quilt, MAKE_CHUNKS.out.ch_chunks)
 
                     // Concatenate results
-                    CONCATENATE_VCF(IMPUTE_QUILT.out.ch_imputedvcf)
+                    VCF_CONCATENATE_BCFTOOLS(IMPUTE_QUILT.out.ch_imputedvcf)
 
 
             }
