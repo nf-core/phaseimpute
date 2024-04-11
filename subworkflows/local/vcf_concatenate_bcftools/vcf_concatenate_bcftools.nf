@@ -4,7 +4,7 @@ include { BCFTOOLS_CONCAT } from '../../../modules/nf-core/bcftools/concat/main'
 workflow VCF_CONCATENATE_BCFTOOLS {
 
     take:
-    ch_imputedvcf                            // channel: [ val(meta),bam ]
+    ch_imputedvcf                            // channel: [ val(meta), vcf ]
 
     main:
 

@@ -1,0 +1,48 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_CONCATENATE_BCFTOOLS"
+    script "./vcf_concatenate_bcftools.nf"
+    workflow "VCF_CONCATENATE_BCFTOOLS"
+
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_concatenate_bcftools"
+    tag "vcf_concatenate_bcftools"
+
+    tag "bcftools"
+    tag "bcftools/concat"
+    tag "bcftools/index"
+
+    test("Should run without failures") {
+    config "./tests/nextflow.config"
+        when {
+            workflow {
+                """
+                // define inputs of the workflow here. Example:
+                // input[0] = file("test-file.txt")
+
+                input[0] = Channel.fromList([
+                    [
+                        [id: "chr21"],
+                        file("https://github.com/atrigila/test-datasets/raw/phaseimpute/data/quilt/quilt.chr21.16570070.16609998.vcf.gz",checkIfExist:true)
+                    ],
+                    [
+                        [id: "chr22"],
+                        file("https://github.com/atrigila/test-datasets/raw/phaseimpute/data/quilt/quilt.chr22.16570065.16609999.vcf.gz",checkIfExist:true)
+                    ]
+                ])
+
+
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
