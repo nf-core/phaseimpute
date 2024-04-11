@@ -1,0 +1,2 @@
+sample,bam,bai
+NA12878,s3://gatk-test-data/wgs_bam/NA12878_20k_b37/NA12878.b37.bam,s3://gatk-test-data/wgs_bam/NA12878_20k_b37/NA12878.b37.bam.bai
