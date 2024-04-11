@@ -8,7 +8,7 @@
         "simulate": {
             "title": "Simulate",
             "type": "object",
-            "description": "Argument for the simulation mode",
+            "description": "Arguments for the simulation mode",
             "default": "",
             "properties": {
                 "depth": {
@@ -29,7 +29,7 @@
         "panelprep": {
             "title": "Panel preparation",
             "type": "object",
-            "description": "Argument for the preparation of the reference panel",
+            "description": "Arguments for the preparation of the reference panel",
             "default": "",
             "properties": {
                 "panel": {
@@ -52,6 +52,29 @@
                     "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
+                }
+            }
+        },
+        "validation": {
+            "title": "Concordance analysis",
+            "type": "object",
+            "description": "Arguments for the concordance analysis of the imputed data",
+            "default": "",
+            "properties": {
+                "bins": {
+                    "type": "string",
+                    "description": "User-defined allele count bins used for rsquared computations.",
+                    "pattern": "^(\\d+ )+\\d+$"
+                },
+                "min_val_gl": {
+                    "type": "number",
+                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using –gt-validation",
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                },
+                "min_val_dp": {
+                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and –min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using –gt-validation",
+                    "type": "integer",
+                    "pattern": "^\\d+$"
                 }
             }
         },
