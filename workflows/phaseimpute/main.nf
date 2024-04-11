@@ -35,21 +35,20 @@ include { GET_PANEL                                  } from '../../subworkflows/
 workflow PHASEIMPUTE {
 
     take:
-    ch_input_impute   // channel: input file    [ [id, chr], bam, bai ]
-    ch_input_sim      // channel: input file    [ [id, chr], bam, bai ]
-    ch_input_validate // channel: input file    [ [id, chr], bam, bai ]
-    ch_fasta          // channel: fasta file    [ [genome], fasta, fai ]
-    ch_panel          // channel: panel file    [ [id, chr], chr, vcf, index ]
-    ch_region         // channel: region to use [ [chr, region], region]
-    ch_depth          // channel: depth select  [ [depth], depth ]
-    ch_map            // channel: genetic map   [ [chr], map]
-    ch_versions       // channel: versions of software used
+    ch_input_impute         // channel: input file    [ [id], file, index ]
+    ch_input_sim            // channel: input file    [ [id], file, index ]
+    ch_input_validate       // channel: input file    [ [id], file, index ]
+    ch_input_validate_truth // channel: truth file    [ [id], file, index ]
+    ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
+    ch_panel                // channel: panel file    [ [id, chr], chr, vcf, index ]
+    ch_region               // channel: region to use [ [chr, region], region]
+    ch_depth                // channel: depth select  [ [depth], depth ]
+    ch_map                  // channel: genetic map   [ [chr], map]
+    ch_versions             // channel: versions of software used
 
     main:
 
     ch_multiqc_files = Channel.empty()
-
-    ch_validate_truth = Channel.empty()
 
     //
     // Simulate data if asked
@@ -73,8 +72,8 @@ workflow PHASEIMPUTE {
             )
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
 
-            ch_input_impute   = ch_input_impute.mix(BAM_DOWNSAMPLE.out.bam_emul)
-            ch_validate_truth = ch_validate_truth.mix(BAM_REGION.out.bam_region)
+            ch_input_impute         = ch_input_impute.mix(BAM_DOWNSAMPLE.out.bam_emul)
+            ch_input_validate_truth = ch_input_validate_truth.mix(BAM_REGION.out.bam_region)
         }
 
         if (params.genotype) {
@@ -85,7 +84,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.step == 'impute' || params.step == 'panel_prep' || params.step == 'all') {
+    if (params.step == 'impute' || params.step == 'panel_prep' || params.step == 'validate' || params.step == 'all') {
         // Remove if necessary "chr"
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions.first())
@@ -157,17 +156,30 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step == 'validate' || params.step == 'all') {
-        // Compute truth genotypes likelihoods
-        GL_TRUTH(
-            ch_validate_truth,
-            ch_panel_sites_tsv,
-            ch_fasta
-        )
+        ch_truth_vcf = Channel.empty()
+        // Check if all files are bam
+        /*
+        ch_input_validate_truth
+            .map{it[1].getBaseName().split("\\.").last() == "bam"}
+            .view()
 
+        if (ch_input_validate_truth.map{it[1].getBaseName().split("\\.").last() == "bam"}.toSet() == true) {
+            // Compute truth genotypes likelihoods
+            GL_TRUTH(
+                ch_input_validate_truth,
+                ch_panel_sites_tsv,
+                ch_fasta
+            )
+            ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
+            ch_truth_vcf = GL_TRUTH.out.vcf
+        } else {
+            ch_truth_vcf = ch_input_validate_truth
+        }*/
+        ch_truth_vcf = ch_input_validate_truth
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            GL_TRUTH.out.vcf,
+            ch_truth_vcf,
             ch_panel_sites
         )
     }

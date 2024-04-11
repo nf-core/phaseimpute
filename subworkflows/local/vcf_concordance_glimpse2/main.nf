@@ -17,18 +17,18 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ch_concordance = ch_vcf_emul
         .map{
             metaICRPST, vcf, csi ->
-            [metaICRPST.subMap(["id", "chr", "region", "panel"]), metaICRPST, vcf, csi]
+            [metaICRPST.subMap(["id", "chr", "region"]), metaICRPST, vcf, csi]
         }
         .combine(ch_vcf_truth, by:0)
-        .map{metaICRP, metaIPCRTS, emul, e_csi, truth, t_csi ->
-            [metaICRP.subMap(["chr"]), metaIPCRTS, emul, e_csi, truth, t_csi]
+        .map{metaICR, metaIPCRTS, emul, e_csi, truth, t_csi ->
+            [metaICR.subMap(["chr"]), metaIPCRTS, emul, e_csi, truth, t_csi]
         }
         .combine(ch_vcf_freq.map{metaCRP, vcf, csi ->
                     [metaCRP.subMap(["chr"]), metaCRP, vcf, csi]},
                 by:0)
         .map{metaC, metaIPCRTS, emul, e_csi, truth, t_csi, metaCRP, freq, f_csi ->
             [metaIPCRTS, emul, e_csi, truth, t_csi, freq, f_csi, [], metaIPCRTS.region]
-        }
+        }.view()
 
     GLIMPSE2_CONCORDANCE (
         ch_concordance,
@@ -40,14 +40,14 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     CONCATENATE(
         ADD_COLUMNS.out.txt
-                    .map{meta, txt -> [["id":"TestQuality"], txt]}
-                    .groupTuple(),
+            .map{meta, txt -> [["id":"TestQuality"], txt]}
+            .groupTuple(),
         Channel.of(
             '(NR == 1) || (FNR > 1)'
         ).collectFile(name:"program.txt")
     )
 
     emit:
-    stats     = CONCATENATE.out.txt         // [ meta, txt ]
+    stats     = CONCATENATE.out.output      // [ meta, txt ]
     versions  = ch_versions                 // channel: [ versions.yml ]
 }

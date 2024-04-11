@@ -24,6 +24,6 @@
                 "pattern": "^\\S+\\.(bai|tbi|csi)$"
             }
         },
-        "required": ["sample", "bam", "bai"]
+        "required": ["sample", "file", "index"]
     }
 }

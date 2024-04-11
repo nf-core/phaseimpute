@@ -33,13 +33,14 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_phas
 workflow NFCORE_PHASEIMPUTE {
 
     take:
-    ch_input    // channel: samplesheet read in from --input
-    ch_fasta    // channel: reference genome FASTA file with index
-    ch_panel    // channel: reference panel variants file
-    ch_regions  // channel: regions to use [[chr, region], region]
-    ch_depth    // channel: depth of coverage file [[depth], depth]
-    ch_map      // channel: map file for imputation
-    ch_versions // channel: versions of software used
+    ch_input       // channel: samplesheet read in from --input
+    ch_input_truth // channel: samplesheet read in from --input-truth
+    ch_fasta       // channel: reference genome FASTA file with index
+    ch_panel       // channel: reference panel variants file
+    ch_regions     // channel: regions to use [[chr, region], region]
+    ch_depth       // channel: depth of coverage file [[depth], depth]
+    ch_map         // channel: map file for imputation
+    ch_versions    // channel: versions of software used
 
     main:
 
@@ -57,8 +58,16 @@ workflow NFCORE_PHASEIMPUTE {
         input_simulate = ch_input
     } else if (params.step == "validate") {
         input_validate = ch_input
+            .combine(ch_regions)
+            .map { metaI, file, index, metaCR, region ->
+                [ metaI+metaCR, file, index ]
+            }
+        ch_input_truth = ch_input_truth
+            .combine(ch_regions)
+            .map { metaI, file, index, metaCR, region ->
+                [ metaI+metaCR, file, index ]
+            }
     }
-
 
     //
     // WORKFLOW: Run pipeline
@@ -67,6 +76,7 @@ workflow NFCORE_PHASEIMPUTE {
         input_impute,
         input_simulate,
         input_validate,
+        ch_input_truth,
         ch_fasta,
         ch_panel,
         ch_regions,
@@ -108,6 +118,7 @@ workflow {
     //
     NFCORE_PHASEIMPUTE (
         PIPELINE_INITIALISATION.out.input,
+        PIPELINE_INITIALISATION.out.input_truth,
         PIPELINE_INITIALISATION.out.fasta,
         PIPELINE_INITIALISATION.out.panel,
         PIPELINE_INITIALISATION.out.regions,

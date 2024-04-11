@@ -111,9 +111,33 @@ workflow PIPELINE_INITIALISATION {
     ch_input = Channel
         .fromSamplesheet("input")
         .map {
-            meta, bam, bai ->
-                [ meta, bam, bai ]
+            meta, file, index ->
+                [ meta, file, index ]
         }
+
+    // Check if all extension are identical
+    ch_input
+        .map{ it[1].split("\\.").last()}
+        .distinct()
+        .view()
+    /*if (ch_input.map{ it[1].getBaseName().split("\\.").last() }.distinct().size() > 1) {
+        error "All input files must have the same extension"
+    }
+    */
+    //
+    // Create channel from input file provided through params.input_truth
+    //
+    ch_input_truth = Channel
+        .fromSamplesheet("input_truth")
+        .map {
+            meta, file, index ->
+                [ meta, file, index ]
+        }
+    /*
+    // Check if all extension are identical
+    if (ch_input_truth.map{ it[1].getBaseName().split("\\.").last() }.distinct().size() > 1) {
+        error "All input files must have the same extension"
+    }*/
 
     //
     // Create channel for panel
@@ -186,7 +210,8 @@ workflow PIPELINE_INITIALISATION {
 
 
     emit:
-    input                = ch_input         // [ [meta], bam, bai ]
+    input                = ch_input         // [ [meta], file, index ]
+    input_truth          = ch_input_truth   // [ [meta], file, index ]
     fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
     panel                = ch_panel         // [ [panel, chr], vcf, index ]
     depth                = ch_depth         // [ [depth], depth ]
