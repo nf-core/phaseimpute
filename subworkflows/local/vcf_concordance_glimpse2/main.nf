@@ -32,8 +32,8 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GLIMPSE2_CONCORDANCE (
         ch_concordance,
-        [[], [], "0 0.01 0.05 0.1 0.2 0.5", [], []],
-        0.9, 5
+        [[], [], params.bins, [], []],
+        params.min_val_gl, params.min_val_dp
     )
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
     ADD_COLUMNS(GUNZIP.out.gunzip)
