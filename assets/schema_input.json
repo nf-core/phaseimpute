@@ -13,15 +13,15 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "bam": {
+            "file": {
                 "type": "string",
-                "pattern": "^\\S+\\.bam$",
-                "errorMessage": "BAM file must be provided, cannot contain spaces and must have extension '.bam'"
+                "pattern": "^\\S+\\.(bam)|((vcf|bcf)(\\.gz))?$",
+                "errorMessage": "BAM, VCF or BCF file must be provided, cannot contain spaces and must have extension '.bam' or '.vcf', '.bcf' with optional '.gz' extension"
             },
-            "bai": {
-                "errorMessage": "BAI file must be provided, cannot contain spaces and must have extension '.bai'",
+            "index": {
+                "errorMessage": "Input file index must be provided, cannot contain spaces and must have extension '.bai', '.tbi' or '.csi'",
                 "type": "string",
-                "pattern": "^\\S+\\.bai$"
+                "pattern": "^\\S+\\.(bai|tbi|csi)$"
             }
         },
         "required": ["sample", "bam", "bai"]
