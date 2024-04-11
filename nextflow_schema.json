@@ -394,6 +394,9 @@
             "$ref": "#/definitions/panelprep"
         },
         {
+            "$ref": "#/definitions/validation"
+        },
+        {
             "$ref": "#/definitions/input_output_options"
         },
         {
