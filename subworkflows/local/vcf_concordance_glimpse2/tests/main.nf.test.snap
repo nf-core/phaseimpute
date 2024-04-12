@@ -20,7 +20,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-04-12T12:40:51.934575693"
+        "timestamp": "2024-04-12T16:24:33.217544644"
     },
     "vcf_concordance_glimpse2": {
         "content": [
@@ -30,7 +30,7 @@
                         {
                             "id": "TestQuality"
                         },
-                        "TestQuality.txt:md5,b8ae89fd25598adc1f96b011a2a79646"
+                        "TestQuality.txt:md5,865f1cf1a32256467010c10bfef1fa04"
                     ]
                 ],
                 "1": [
@@ -41,7 +41,7 @@
                         {
                             "id": "TestQuality"
                         },
-                        "TestQuality.txt:md5,b8ae89fd25598adc1f96b011a2a79646"
+                        "TestQuality.txt:md5,865f1cf1a32256467010c10bfef1fa04"
                     ]
                 ],
                 "versions": [
@@ -53,6 +53,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-04-12T12:31:24.442985966"
+        "timestamp": "2024-04-12T16:22:59.476875738"
     }
 }

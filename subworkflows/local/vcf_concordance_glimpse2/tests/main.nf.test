@@ -101,8 +101,8 @@ nextflow_workflow {
                 allele_freq = Channel.fromList([
                     [
                         [panel:'1000GP', chr:'21'], // meta map
-                        file(params.phaseimpute_testdata_path + "panel/21/1000GP.chr21.s.norel.bcf",checkIfExists:true),
-                        file(params.phaseimpute_testdata_path + "panel/21/1000GP.chr21.s.norel.bcf.csi",checkIfExists:true)
+                        file(params.phaseimpute_testdata_path + "panel/21/1000GP.chr21.s.norel.sites.vcf.gz",checkIfExists:true),
+                        file(params.phaseimpute_testdata_path + "panel/21/1000GP.chr21.s.norel.sites.vcf.gz.csi",checkIfExists:true)
                     ],
                     [
                         [panel:'1000GP', chr:'22'], // meta map
@@ -111,16 +111,16 @@ nextflow_workflow {
                     ]
                 ])
                 truth = Channel.fromList([
-                    [[id:'NA12878', chr:'21', region:'chr21:16650000-16700000'], // meta map
+                    [[id:'NA12878', chr:'21', region:'chr21:16570000-16610000'], // meta map
                     file(params.phaseimpute_testdata_path + "individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
                     file(params.phaseimpute_testdata_path + "individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA12878', chr:'22', region:'chr22:16650000-16700000'], // meta map
+                    [[id:'NA12878', chr:'22', region:'chr22:16570000-16610000'], // meta map
                     file(params.phaseimpute_testdata_path + "individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
                     file(params.phaseimpute_testdata_path + "individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401', chr:'21', region:'chr21:16650000-16700000'], // meta map
+                    [[id:'NA19401', chr:'21', region:'chr21:16570000-16610000'], // meta map
                     file(params.phaseimpute_testdata_path + "individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
                     file(params.phaseimpute_testdata_path + "individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401', chr:'22', region:'chr22:16650000-16700000'], // meta map
+                    [[id:'NA19401', chr:'22', region:'chr22:16570000-16610000'], // meta map
                     file(params.phaseimpute_testdata_path + "individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
                     file(params.phaseimpute_testdata_path + "individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)]
                 ])
