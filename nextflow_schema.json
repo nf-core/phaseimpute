@@ -61,7 +61,7 @@
             "description": "Arguments for the concordance analysis of the imputed data",
             "default": "",
             "properties": {
-                "input_truth" :{
+                "input_truth": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
