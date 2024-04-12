@@ -1,5 +1,5 @@
 {
-    "vcf_concordance_glimpse2": {
+    "vcf_concordance_glimpse2 direct": {
         "content": [
             {
                 "0": [
@@ -20,6 +20,39 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-26T10:07:33.413253799"
+        "timestamp": "2024-04-12T12:40:51.934575693"
+    },
+    "vcf_concordance_glimpse2": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "TestQuality"
+                        },
+                        "TestQuality.txt:md5,b8ae89fd25598adc1f96b011a2a79646"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "stats": [
+                    [
+                        {
+                            "id": "TestQuality"
+                        },
+                        "TestQuality.txt:md5,b8ae89fd25598adc1f96b011a2a79646"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-12T12:31:24.442985966"
     }
 }

@@ -28,7 +28,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
                 by:0)
         .map{metaC, metaIPCRTS, emul, e_csi, truth, t_csi, metaCRP, freq, f_csi ->
             [metaIPCRTS, emul, e_csi, truth, t_csi, freq, f_csi, [], metaIPCRTS.region]
-        }.view()
+        }
 
     GLIMPSE2_CONCORDANCE (
         ch_concordance,
