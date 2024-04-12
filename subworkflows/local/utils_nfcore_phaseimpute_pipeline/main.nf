@@ -116,28 +116,45 @@ workflow PIPELINE_INITIALISATION {
         }
 
     // Check if all extension are identical
-    ch_input
+    all_ext_input = ch_input
         .map{ it[1].split("\\.").last()}
         .distinct()
-        .view()
-    /*if (ch_input.map{ it[1].getBaseName().split("\\.").last() }.distinct().size() > 1) {
+        .toList()
+        .size()
+    println(all_ext_input.getClass())
+    println(all_ext_input == 1)
+    /*
+    if (all_ext_input.size() != 1) {
         error "All input files must have the same extension"
-    }
-    */
+    }*/
     //
     // Create channel from input file provided through params.input_truth
     //
-    ch_input_truth = Channel
-        .fromSamplesheet("input_truth")
-        .map {
-            meta, file, index ->
-                [ meta, file, index ]
+    if (params.input_truth) {
+        if (params.input_truth.endsWith("csv")) {
+            ch_input_truth = Channel
+                .fromSamplesheet("input_truth")
+                .map {
+                    meta, file, index ->
+                        [ meta, file, index ]
+                }
+            // Check if all extension are identical
+            all_ext_input_truth = ch_input_truth
+                .map{ it[1].split("\\.").last()}
+                .distinct()
+                .collect()
+                .toList()
+            /*
+            if (all_ext_input_truth.size() > 1) {
+                error "All input truth files must have the same extension"
+            }*/
+        } else {
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
-    /*
-    // Check if all extension are identical
-    if (ch_input_truth.map{ it[1].getBaseName().split("\\.").last() }.distinct().size() > 1) {
-        error "All input files must have the same extension"
-    }*/
+    } else {
+        ch_input_truth = Channel.of([[],[],[]])
+    }
 
     //
     // Create channel for panel

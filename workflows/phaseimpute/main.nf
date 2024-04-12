@@ -158,12 +158,12 @@ workflow PHASEIMPUTE {
     if (params.step == 'validate' || params.step == 'all') {
         ch_truth_vcf = Channel.empty()
         // Check if all files are bam
-        /*
-        ch_input_validate_truth
-            .map{it[1].getBaseName().split("\\.").last() == "bam"}
-            .view()
+        all_ext_input_truth = ch_input_validate_truth
+            .map{ it[1].split("\\.").last()}
+            .distinct()
+            .collect()
 
-        if (ch_input_validate_truth.map{it[1].getBaseName().split("\\.").last() == "bam"}.toSet() == true) {
+        if (all_ext_input_truth == "bam") {
             // Compute truth genotypes likelihoods
             GL_TRUTH(
                 ch_input_validate_truth,
@@ -174,7 +174,7 @@ workflow PHASEIMPUTE {
             ch_truth_vcf = GL_TRUTH.out.vcf
         } else {
             ch_truth_vcf = ch_input_validate_truth
-        }*/
+        }
         ch_truth_vcf = ch_input_validate_truth
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
