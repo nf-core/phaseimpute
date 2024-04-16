@@ -12,14 +12,20 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
+    ch_multiqc_files = Channel.empty()
 
     ch_concordance = ch_vcf_emul
         .map{
             metaICRPST, vcf, csi ->
             [metaICRPST.subMap(["id", "chr", "region"]), metaICRPST, vcf, csi]
         }
-        .combine(ch_vcf_truth, by:0)
+        .combine(ch_vcf_truth.map{
+                metaICRP, vcf, csi ->
+                [metaICRP.subMap(["id", "chr", "region"]), vcf, csi]
+            },
+            by:0
+        )
         .map{metaICR, metaIPCRTS, emul, e_csi, truth, t_csi ->
             [metaICR.subMap(["chr"]), metaIPCRTS, emul, e_csi, truth, t_csi]
         }
@@ -35,6 +41,14 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         [[], [], params.bins, [], []],
         params.min_val_gl, params.min_val_dp
     )
+
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_cal.map{meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_grp.map{meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_spl.map{meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_grp.map{meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_spl.map{meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_per_site.map{meta, txt -> [txt]})
+
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
     ADD_COLUMNS(GUNZIP.out.gunzip)
 
@@ -48,6 +62,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     )
 
     emit:
-    stats     = CONCATENATE.out.output      // [ meta, txt ]
-    versions  = ch_versions                 // channel: [ versions.yml ]
+    stats           = CONCATENATE.out.output      // [ meta, txt ]
+    versions        = ch_versions                 // channel: [ versions.yml ]
+    multiqc_files   = ch_multiqc_files
 }

@@ -14,10 +14,12 @@ workflow COMPUTE_GL {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    ch_mpileup       = ch_input.map{metaICR, bam, bai -> [metaICR.subMap("chr"), metaICR, bam, bai]}
+    ch_mpileup       = ch_input
+        .map{metaICR, bam, bai -> [metaICR.subMap("chr"), metaICR, bam, bai]}
         .combine(ch_target.map{metaPC, sites, tsv -> [metaPC.subMap("chr"), metaPC, sites, tsv]}, by:0)
         .map{metaC, metaICR, bam, bai, metaPC, sites, tsv ->
-                [metaICR + metaPC, bam, sites, tsv]}
+                [metaICR + metaPC, bam, sites, tsv]
+        }
 
     BCFTOOLS_MPILEUP(
         ch_mpileup,

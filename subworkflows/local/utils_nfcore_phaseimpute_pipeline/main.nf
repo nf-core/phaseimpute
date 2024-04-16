@@ -116,17 +116,7 @@ workflow PIPELINE_INITIALISATION {
         }
 
     // Check if all extension are identical
-    all_ext_input = ch_input
-        .map{ it[1].split("\\.").last()}
-        .distinct()
-        .toList()
-        .size()
-    println(all_ext_input.getClass())
-    println(all_ext_input == 1)
-    /*
-    if (all_ext_input.size() != 1) {
-        error "All input files must have the same extension"
-    }*/
+    getAllFilesExtension(ch_input)
     //
     // Create channel from input file provided through params.input_truth
     //
@@ -139,21 +129,13 @@ workflow PIPELINE_INITIALISATION {
                         [ meta, file, index ]
                 }
             // Check if all extension are identical
-            all_ext_input_truth = ch_input_truth
-                .map{ it[1].split("\\.").last()}
-                .distinct()
-                .collect()
-                .toList()
-            /*
-            if (all_ext_input_truth.size() > 1) {
-                error "All input truth files must have the same extension"
-            }*/
+            getAllFilesExtension(ch_input_truth)
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
-        ch_input_truth = Channel.of([[],[],[]])
+        ch_input_truth = Channel.empty()
     }
 
     //
@@ -296,6 +278,38 @@ def validateInputParameters() {
         assert params.tools, "No tools provided"
     }
 }
+
+//
+// Check if all input files have the same extension
+//
+def getAllFilesExtension(ch_input) {
+    files_ext = ch_input
+        .map {
+            if (it[1] instanceof String) {
+                return it[1].split("\\.").last()
+            } else if (it[1] instanceof Path) {
+                return it[1].getName().split("\\.").last()
+            } else if (it[1] instanceof ArrayList) {
+                if (it[1] == []) {
+                    return null
+                } else {
+                    error "Array not supported"
+                }
+            } else {
+                println it[1].getClass()
+                error "Type not supported"
+            }
+        }  // Extract files extensions
+        .toList()  // Collect extensions into a list
+        .map { extensions ->
+            if (extensions.unique().size() != 1) {
+                println "Extensions: ${extensions}"
+                error "All input files must have the same extension"
+            }
+            return extensions[0]
+        }
+}
+
 
 //
 // Validate channels from input samplesheet

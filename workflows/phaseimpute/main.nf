@@ -121,6 +121,7 @@ workflow PHASEIMPUTE {
                     ch_fasta
                 )
                 ch_multiqc_files = ch_multiqc_files.mix(GL_INPUT.out.multiqc_files)
+                ch_versions = ch_versions.mix(GL_INPUT.out.versions.first())
 
                 impute_input = GL_INPUT.out.vcf // [metaIPC, vcf, index]
                     .map {metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
@@ -142,6 +143,8 @@ workflow PHASEIMPUTE {
                     .combine(VCF_IMPUTE_GLIMPSE1.out.merged_variants_index, by: 0)
                     .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
+                ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.chunk_chr.map{ [it[1]]})
+                ch_versions      = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions.first())
             }
             if (params.tools.contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
@@ -162,12 +165,12 @@ workflow PHASEIMPUTE {
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
 
         // Channels for branching
-        ch_input_validate_truth
+        ch_truth = ch_input_validate_truth
             .combine(truth_ext)
             .branch {
-                bam: it[2] == 'bam'
-                vcf: it[2] == 'vcf'
-            } set { ch_truth }
+                bam: it[3] == 'bam'
+                vcf: it[3] =~ 'vcf|bcf'
+            }
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
@@ -175,6 +178,9 @@ workflow PHASEIMPUTE {
             ch_fasta
         )
         ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
+        ch_versions = ch_versions.mix(GL_TRUTH.out.versions.first())
+
+        // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
             .map { [it[0], it[1], it[2]] }
             .mix(GL_TRUTH.out.vcf)
@@ -185,6 +191,8 @@ workflow PHASEIMPUTE {
             ch_truth_vcf,
             ch_panel_sites
         )
+        ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
+        ch_versions = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions.first())
     }
 
     if (params.step == 'refine') {
