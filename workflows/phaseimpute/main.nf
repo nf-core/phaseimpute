@@ -12,6 +12,7 @@ include { paramsSummaryMap            } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -157,25 +158,27 @@ workflow PHASEIMPUTE {
 
     if (params.step == 'validate' || params.step == 'all') {
         ch_truth_vcf = Channel.empty()
-        // Check if all files are bam
-        all_ext_input_truth = ch_input_validate_truth
-            .map{ it[1].split("\\.").last()}
-            .distinct()
-            .collect()
+        // Get extension of input files
+        truth_ext = getAllFilesExtension(ch_input_validate_truth)
 
-        if (all_ext_input_truth == "bam") {
-            // Compute truth genotypes likelihoods
-            GL_TRUTH(
-                ch_input_validate_truth,
-                ch_panel_sites_tsv,
-                ch_fasta
-            )
-            ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
-            ch_truth_vcf = GL_TRUTH.out.vcf
-        } else {
-            ch_truth_vcf = ch_input_validate_truth
-        }
-        ch_truth_vcf = ch_input_validate_truth
+        // Channels for branching
+        ch_input_validate_truth
+            .combine(truth_ext)
+            .branch {
+                bam: it[2] == 'bam'
+                vcf: it[2] == 'vcf'
+            } set { ch_truth }
+
+        GL_TRUTH(
+            ch_truth.bam.map { [it[0], it[1], it[2]] },
+            ch_panel_sites_tsv,
+            ch_fasta
+        )
+        ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
+        ch_truth_vcf = ch_truth.vcf
+            .map { [it[0], it[1], it[2]] }
+            .mix(GL_TRUTH.out.vcf)
+
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
