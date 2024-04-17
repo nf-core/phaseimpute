@@ -58,6 +58,14 @@ workflow PHASEIMPUTE {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
+        // Test if the input are all bam files
+        input_ext = getAllFilesExtension(ch_input_sim)
+
+        // Channels for branching
+        if (input_ext.size() != 1 && input_ext[0] != 'bam') {
+            error "All input files must be in BAM format to perform simulation"
+        }
+
         // Split the bam into the region specified
         BAM_REGION(ch_input_sim, ch_region, ch_fasta)
 
@@ -72,9 +80,8 @@ workflow PHASEIMPUTE {
                 ch_fasta
             )
             ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
-
-            ch_input_impute         = ch_input_impute.mix(BAM_DOWNSAMPLE.out.bam_emul)
-            ch_input_validate_truth = ch_input_validate_truth.mix(BAM_REGION.out.bam_region)
+            ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
+            ch_input_validate_truth = BAM_REGION.out.bam_region
         }
 
         if (params.genotype) {
@@ -113,7 +120,6 @@ workflow PHASEIMPUTE {
             ch_impute_output = Channel.empty()
             if (params.tools.contains("glimpse1")) {
                 println "Impute with Glimpse1"
-
                 // Glimpse1 subworkflow
                 GL_INPUT( // Compute GL for input data once per panel
                     ch_input_impute,
