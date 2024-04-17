@@ -72,8 +72,7 @@ workflow GET_PANEL {
         ch_panel_phased = VCF_PHASE_SHAPEIT5.out.variants_phased
             .combine(VCF_PHASE_SHAPEIT5.out.variants_index, by: 0)
     } else {
-        ch_panel_phased = VIEW_VCF_SNPS.out.vcf
-            .combine(VCF_INDEX3.out.csi, by: 0)
+        ch_panel_phased = vcf_region
     }
 
     ch_panel = ch_panel_norm
