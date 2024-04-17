@@ -5,8 +5,8 @@
 - [x] Add automatic detection of chromosome name to create a renaming file for the vcf files
 - [] Add automatic detection of chromosome name to create a renaming file for the bam files
 - [] Make the different tests workflows work
-  - [] Simulation
-  - [] Validation
+  - [x] Simulation
+  - [x] Validation
   - [] Preprocessing
   - [x] Imputation
   - [] Validation
@@ -15,7 +15,7 @@
 - [] Add nf-test for all modules and subworkflows
 - [] Remove all TODOs
 - [] Check if panel is necessary depending on the tool selected
-- [] Set modules configuration as full path workflow:subworkflow:module
+- [x] Set modules configuration as full path workflow:subworkflow:module
 - [] Where should the map file go (separate csv or in panel csv)
 
 ## Run tests
@@ -23,6 +23,8 @@
 ```bash
 nextflow run main.nf -profile singularity,test --outdir results -resume
 nextflow run main.nf -profile singularity,test_sim --outdir results -resume
+nextflow run main.nf -profile singularity,test_validate --outdir results -resume
+nextflow run main.nf -profile singularity,test_all --outdir results -resume
 ```
 
 ## Problematic
