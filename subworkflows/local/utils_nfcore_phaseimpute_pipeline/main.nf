@@ -168,7 +168,7 @@ workflow PIPELINE_INITIALISATION {
             "all",
             ch_ref_gen
         )
-        ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
+        ch_versions      = ch_versions.mix(GET_REGION.out.versions)
         ch_regions       = GET_REGION.out.regions
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."

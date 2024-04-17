@@ -66,7 +66,7 @@ workflow PHASEIMPUTE {
 
         // Split the bam into the region specified
         BAM_REGION(ch_input_sim, ch_region, ch_fasta)
-        ch_versions = ch_versions.mix(BAM_REGION.out.versions.first())
+        ch_versions = ch_versions.mix(BAM_REGION.out.versions)
 
         // Initialize channel to impute
         ch_bam_to_impute = Channel.empty()
@@ -78,7 +78,7 @@ workflow PHASEIMPUTE {
                 ch_depth,
                 ch_fasta
             )
-            ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
+            ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
             ch_multiqc_files        = ch_multiqc_files.mix(BAM_DOWNSAMPLE.out.coverage.map{ [it[1]] })
             ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
             ch_input_validate_truth = BAM_REGION.out.bam_region
@@ -95,11 +95,11 @@ workflow PHASEIMPUTE {
     if (params.step == 'impute' || params.step == 'panel_prep' || params.step == 'validate' || params.step == 'all') {
         // Remove if necessary "chr"
         VCF_CHR_CHECK(ch_panel, ch_fasta)
-        ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions.first())
+        ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
 
         // Prepare the panel
         GET_PANEL(VCF_CHR_CHECK.out.vcf, ch_fasta)
-        ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
+        ch_versions = ch_versions.mix(GET_PANEL.out.versions)
         ch_panel_sites_tsv = GET_PANEL.out.panel
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, sites, tsv]
@@ -113,7 +113,7 @@ workflow PHASEIMPUTE {
                 -> [metaPC, phased, p_index]
             }
 
-        ch_versions = ch_versions.mix(GET_PANEL.out.versions.first())
+        ch_versions = ch_versions.mix(GET_PANEL.out.versions)
 
         if (params.step == 'impute' || params.step == 'all') {
             // Output channel of input process
@@ -127,7 +127,7 @@ workflow PHASEIMPUTE {
                     ch_fasta
                 )
                 ch_multiqc_files = ch_multiqc_files.mix(GL_INPUT.out.multiqc_files)
-                ch_versions = ch_versions.mix(GL_INPUT.out.versions.first())
+                ch_versions = ch_versions.mix(GL_INPUT.out.versions)
 
                 impute_input = GL_INPUT.out.vcf // [metaIPC, vcf, index]
                     .map {metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
@@ -150,7 +150,7 @@ workflow PHASEIMPUTE {
                     .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
                 ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.chunk_chr.map{ [it[1]]})
-                ch_versions      = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions.first())
+                ch_versions      = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
             }
             if (params.tools.contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
@@ -184,7 +184,7 @@ workflow PHASEIMPUTE {
             ch_fasta
         )
         ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
-        ch_versions      = ch_versions.mix(GL_TRUTH.out.versions.first())
+        ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)
 
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
@@ -198,7 +198,7 @@ workflow PHASEIMPUTE {
             ch_panel_sites
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
-        ch_versions = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions.first())
+        ch_versions = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
     }
 
     if (params.step == 'refine') {

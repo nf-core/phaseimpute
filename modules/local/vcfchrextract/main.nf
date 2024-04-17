@@ -30,7 +30,7 @@ process VCFCHREXTRACT {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bcftools: \$( bcftools --version |& sed '1!d; s/^.*bcftools //' )
-        grep: \$( grep --help |& grep -o -E '[0-9]+\\.[0-9]+\\.[0-9]+' )
+        grep: \$( grep --version |& grep -o -E '[0-9]+\\.[0-9]+' )
     END_VERSIONS
     """
 

@@ -13,7 +13,7 @@ workflow VCF_CHR_CHECK {
 
     // Get contig names from the VCF
     VCFCHRBFR(ch_vcf.map{ metaV, vcf, csi -> [metaV, vcf] })
-    ch_versions = ch_versions.mix(VCFCHRBFR.out.versions.first())
+    ch_versions = ch_versions.mix(VCFCHRBFR.out.versions)
 
     // Check if the contig names are the same as the reference
     chr_disjoint = check_chr(VCFCHRBFR.out.chr, ch_vcf, ch_fasta)
@@ -24,11 +24,11 @@ workflow VCF_CHR_CHECK {
             chr_disjoint.to_rename.map{meta, vcf, index, nb -> [meta, vcf, index]},
             ch_fasta
         )
-        ch_versions = ch_versions.mix(VCF_CHR_RENAME.out.versions.first())
+        ch_versions = ch_versions.mix(VCF_CHR_RENAME.out.versions)
 
         // Check if modification has solved the problem
         VCFCHRAFT(VCF_CHR_RENAME.out.vcf_renamed.map{ metaV, vcf, csi -> [metaV, vcf] })
-        ch_versions = ch_versions.mix(VCFCHRAFT.out.versions.first())
+        ch_versions = ch_versions.mix(VCFCHRAFT.out.versions)
 
         chr_disjoint_after = check_chr(VCFCHRAFT.out.chr, VCF_CHR_RENAME.out.vcf_renamed, ch_fasta)
 
