@@ -162,16 +162,16 @@ workflow PIPELINE_INITIALISATION {
         ch_regions = Channel.fromSamplesheet("input_region")
             .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
             .map{ metaC, region -> [metaC + ["region": region], region]}
-    } else {
-        error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
-        /* #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+    } else if (params.input_region == null){
+        // #TODO Add support for string input
         GET_REGION (
-            params.input_region,
+            "all",
             ch_ref_gen
         )
         ch_versions      = ch_versions.mix(GET_REGION.out.versions.first())
         ch_regions       = GET_REGION.out.regions
-        */
+    } else {
+        error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
     }
 
     //

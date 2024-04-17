@@ -54,6 +54,10 @@ workflow NFCORE_PHASEIMPUTE {
 
     if (params.step == "impute") {
         input_impute   = ch_input
+            .combine(ch_regions)
+            .map { metaI, file, index, metaCR, region ->
+                [ metaI+metaCR, file, index ]
+            }
     } else if (params.step == "simulate" || params.step == "all") {
         input_simulate = ch_input
     } else if (params.step == "validate") {
