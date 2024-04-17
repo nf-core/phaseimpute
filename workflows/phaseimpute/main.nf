@@ -59,12 +59,10 @@ workflow PHASEIMPUTE {
         ch_sim_output = Channel.empty()
 
         // Test if the input are all bam files
-        input_ext = getAllFilesExtension(ch_input_sim)
-
-        // Channels for branching
-        if (input_ext.size() != 1 && input_ext[0] != 'bam') {
-            error "All input files must be in BAM format to perform simulation"
-        }
+        getAllFilesExtension(ch_input_sim)
+            .map{ if (it != "bam") {
+                error "All input files must be in BAM format to perform simulation"
+            } }
 
         // Split the bam into the region specified
         BAM_REGION(ch_input_sim, ch_region, ch_fasta)
