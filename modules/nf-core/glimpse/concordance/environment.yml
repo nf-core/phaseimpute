@@ -1,7 +1,0 @@
-name: glimpse_concordance
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - bioconda::glimpse-bio=1.1.1
