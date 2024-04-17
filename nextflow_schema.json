@@ -41,13 +41,6 @@
                     "pattern": "^\\S+\\.(csv|tsv|txt)$",
                     "mimetype": "text/csv"
                 },
-                "panel_index": {
-                    "type": "string",
-                    "description": "Path to the reference panel index file",
-                    "fa_icon": "far fa-file-code",
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(csi|tbi)$"
-                },
                 "phased": {
                     "description": "Is the reference panel phased",
                     "type": "boolean",
@@ -75,16 +68,19 @@
                 "bins": {
                     "type": "string",
                     "description": "User-defined allele count bins used for rsquared computations.",
+                    "default": "0 0.01 0.05 0.1 0.2 0.5",
                     "pattern": "^(\\d+(\\.\\d+)? )+(\\d+(\\.\\d+)?)$"
                 },
                 "min_val_gl": {
                     "type": "number",
                     "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using –gt-validation",
+                    "default": 0.9,
                     "pattern": "^\\d+(\\.\\d+)?$"
                 },
                 "min_val_dp": {
-                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and –min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using –gt-validation",
                     "type": "integer",
+                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and –min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using –gt-validation",
+                    "default": 5,
                     "pattern": "^\\d+$"
                 }
             }
@@ -109,8 +105,9 @@
                 },
                 "input_region": {
                     "type": "string",
-                    "description": "Region of the genome to use, can be the entire genome (i.e. 'all') or a specific chromosome or region (e.g. 'chr1', 'chr1:1000-2000'). You can also specify a file containing a list of regions to process, one per line. The file should be a comma-separated file with 3 columns, and a header row.",
+                    "description": "Region of the genome to use (optional: if no file given, the whole genome will be used). The file should be a comma-separated file with 3 columns, and a header row.",
                     "schema": "assets/schema_input_region.json",
+                    "default": null,
                     "format": "file-path",
                     "pattern": "^\\S+\\.csv$"
                 },
