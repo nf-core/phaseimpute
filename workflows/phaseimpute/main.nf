@@ -66,6 +66,7 @@ workflow PHASEIMPUTE {
 
         // Split the bam into the region specified
         BAM_REGION(ch_input_sim, ch_region, ch_fasta)
+        ch_versions = ch_versions.mix(BAM_REGION.out.versions.first())
 
         // Initialize channel to impute
         ch_bam_to_impute = Channel.empty()
@@ -77,7 +78,8 @@ workflow PHASEIMPUTE {
                 ch_depth,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
+            ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions.first())
+            ch_multiqc_files        = ch_multiqc_files.mix(BAM_DOWNSAMPLE.out.coverage.map{ [it[1]] })
             ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
             ch_input_validate_truth = BAM_REGION.out.bam_region
         }
@@ -182,7 +184,7 @@ workflow PHASEIMPUTE {
             ch_fasta
         )
         ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
-        ch_versions = ch_versions.mix(GL_TRUTH.out.versions.first())
+        ch_versions      = ch_versions.mix(GL_TRUTH.out.versions.first())
 
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
