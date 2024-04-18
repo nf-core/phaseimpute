@@ -21,11 +21,14 @@ process BCFTOOLS_CONCAT {
     def args = task.ext.args   ?: ''
     prefix   = task.ext.prefix ?: "${meta.id}"
     """
+
+    ls -1v ${vcfs} > order_files.txt
+
     bcftools concat \\
         --output ${prefix}.vcf.gz \\
         $args \\
         --threads $task.cpus \\
-        ${vcfs}
+        -f order_files.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
