@@ -1,4 +1,6 @@
 include { QUILT_QUILT     } from '../../../modules/nf-core/quilt/quilt/main'
+include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index/main'
+
 
 workflow IMPUTE_QUILT {
 
@@ -42,7 +44,13 @@ workflow IMPUTE_QUILT {
     // Run QUILT
     QUILT_QUILT ( ch_quilt_input, posfile_phasefile, fasta )
 
+    // Index imputed VCF
+    BCFTOOLS_INDEX(QUILT_QUILT.out.vcf)
+
+    // Join VCFs and TBIs
+    ch_vcf_tbi = QUILT_QUILT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
+
     emit:
-    ch_imputedvcf              = QUILT_QUILT.out.vcf                    // channel:  [ meta, vcf ]
+    ch_vcf_tbi                                            // channel:  [ meta, vcf, tbi ]
     versions                   = ch_versions                           // channel:   [ versions.yml ]
 }

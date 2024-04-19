@@ -164,7 +164,7 @@ workflow PHASEIMPUTE {
                     IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_quilt, MAKE_CHUNKS.out.ch_chunks)
 
                     // Concatenate results
-                    VCF_CONCATENATE_BCFTOOLS(IMPUTE_QUILT.out.ch_imputedvcf)
+                    VCF_CONCATENATE_BCFTOOLS(IMPUTE_QUILT.out.ch_vcf_tbi)
 
 
             }
