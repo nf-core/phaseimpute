@@ -1,4 +1,5 @@
 include { BCFTOOLS_CONCAT } from '../../../modules/nf-core/bcftools/concat/main'
+include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index/main'
 
 workflow VCF_CONCATENATE_BCFTOOLS {
 
@@ -17,7 +18,13 @@ workflow VCF_CONCATENATE_BCFTOOLS {
     // Ligate and concatenate chunks
     BCFTOOLS_CONCAT(ch_vcf_tbi_grouped)
 
+    // Index concatenated VCF
+    BCFTOOLS_INDEX(BCFTOOLS_CONCAT.out.vcf)
+
+    // Join VCFs and TBIs
+    ch_imputed_vcf_tbi = BCFTOOLS_CONCAT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
+
     emit:
-    ch_concat_vcf =  BCFTOOLS_CONCAT.out.vcf
+    ch_imputed_vcf_tbi                          // channel:  [ meta, vcf, tbi ]
 
     }
