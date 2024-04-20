@@ -25,6 +25,11 @@ include { VCF_IMPUTE_GLIMPSE          } from '../../subworkflows/nf-core/vcf_imp
 include { VCF_CHR_CHECK               } from '../../subworkflows/local/vcf_chr_check'
 include { GET_PANEL                   } from '../../subworkflows/local/get_panel'
 
+
+include { MAKE_CHUNKS                } from '../../subworkflows/local/make_chunks/make_chunks'
+include { IMPUTE_QUILT               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+include { VCF_CONCATENATE_BCFTOOLS   } from '../../subworkflows/local/vcf_concatenate_bcftools/vcf_concatenate_bcftools'
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -136,8 +141,32 @@ workflow PHASEIMPUTE {
                 // Glimpse2 subworkflow
             }
             if (params.tools.contains("quilt")) {
-                error "Quilt not yet implemented"
+                print("Impute with quilt")
+
                 // Quilt subworkflow
+
+                    // Create chunks from reference VCF
+                    MAKE_CHUNKS(ch_panel, ch_fasta)
+
+                    // Make bamlist from bam input
+                    ch_bamlist = ch_input
+                                .map { it[1].tokenize('/').last() }
+                                .collectFile( name: "bamlist.txt", newLine: true, sort: true )
+
+                    // Create input QUILT
+                    ch_input_quilt = ch_input
+                                .map { meta, bam, bai -> [["id": "all_samples"], bam, bai] }
+                                .groupTuple ()
+                                .combine ( ch_bamlist )
+                                .collect ()
+
+                    // Impute BAMs with QUILT
+                    IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_quilt, MAKE_CHUNKS.out.ch_chunks)
+
+                    // Concatenate results
+                    VCF_CONCATENATE_BCFTOOLS(IMPUTE_QUILT.out.ch_vcf_tbi)
+
+
             }
 
         }
