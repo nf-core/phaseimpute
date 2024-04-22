@@ -19,54 +19,78 @@
 ## Samplesheet input
 
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
 ```
 
-### Multiple runs of the same sample
+### Structure
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for at least 3 columns to match those defined in the table below.
 
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+A final samplesheet file may look something like the one below. This is for 6 samples.
+
+```console
+sample,bam,bai
+SAMPLE1,AEG588A1.bam,AEG588A1.bai
+SAMPLE2,AEG588A2.bam,AEG588A2.bai
+SAMPLE3,AEG588A3.bam,AEG588A3.bai
+SAMPLE4,AEG588A4.bam,AEG588A4.bai
+SAMPLE5,AEG588A5.bam,AEG588A5.bai
+SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
-### Full samplesheet
-
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
-
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
-
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
-```
-
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column   | Description                                                                                  |
+| -------- | -------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`). |
+| `bam`    | Full path to a BAM file. File has to be gzipped and have the extension ".bam.gz".gz".        |
+| `bai`    | Full path to a BAI file. File has to be gzipped and have the extension ".bam" or ".fq.gz".   |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+## Samplesheet reference panel
+
+You will need to create a samplesheet with information about the reference panel you would like to use. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+
+```bash
+--panel '[path to samplesheet file]'
+```
+
+### Structure
+
+A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
+
+```console
+chr,vcf
+1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+```
+
+| Column | Description                                                                                               |
+| ------ | --------------------------------------------------------------------------------------------------------- |
+| `chr`  | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                |
+| `vcf`  | Full path to a VCF file for that chromosome. File has to be gzipped and have the extension ".vcf.gz".gz". |
+
+An [example samplesheet](../assets/samplesheet_reference.csv) has been provided with the pipeline.
+
+Remember to use the same reference genome for all the files. You can specify the [reference genome](https://nf-co.re/docs/usage/reference_genomes) using:
+
+```bash
+--genome GRCh37
+```
+
+or you can specify a custom genome using:
+
+```bash
+--fasta Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
+```
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/phaseimpute --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
 nextflow run nf-core/phaseimpute --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
 ```
 
@@ -108,6 +132,18 @@ genome: 'GRCh37'
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+
+### Imputation modes
+
+You can choose different software to perform the imputation.
+
+#### QUILT
+
+The typical command for running the pipeline with this software is as follows:
+
+```bash
+nextflow run nf-core/phaseimpute --input ./samplesheet.csv --panel ./samplesheet_reference.csv --step impute --tool quilt --outdir ./results --genome GRCh37 -profile docker
+```
 
 ### Updating the pipeline
 

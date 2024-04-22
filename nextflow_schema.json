@@ -419,5 +419,15 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "ngen": {
+            "type": "integer",
+            "default": 100
+        },
+        "buffer": {
+            "type": "integer",
+            "default": 10000
+        }
+    }
 }

@@ -157,12 +157,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from region input
     //
-    if (params.input_region.endsWith(".csv")) {
-        println "Region file provided as input is a csv file"
-        ch_regions = Channel.fromSamplesheet("input_region")
-            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-            .map{ metaC, region -> [metaC + ["region": region], region]}
-    } else if (params.input_region == null){
+    if (params.input_region == null){
         // #TODO Add support for string input
         GET_REGION (
             "all",
@@ -170,6 +165,11 @@ workflow PIPELINE_INITIALISATION {
         )
         ch_versions      = ch_versions.mix(GET_REGION.out.versions)
         ch_regions       = GET_REGION.out.regions
+    }  else  if (params.input_region.endsWith(".csv")) {
+        println "Region file provided as input is a csv file"
+        ch_regions = Channel.fromSamplesheet("input_region")
+            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+            .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
     }
