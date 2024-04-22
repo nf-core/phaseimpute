@@ -36,7 +36,7 @@ process ADD_COLUMNS {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        awk: \$(awk --version | head -1 | grep -o -E '([0-9]+.){1,2}[0-9]')
+        gawk: \$(awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//')
     END_VERSIONS
     """
 }
