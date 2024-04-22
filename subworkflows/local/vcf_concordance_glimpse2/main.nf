@@ -9,6 +9,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         ch_vcf_emul   // VCF file with imputed genotypes [[id, chr, region, panel, simulate, tools], vcf, csi]
         ch_vcf_truth  // VCF file with truth genotypes   [[id, chr, region], vcf, csi]
         ch_vcf_freq   // VCF file with panel frequencies [[panel, chr], vcf, csi]
+        ch_region     // Regions to process              [[chr, region], region]
 
     main:
 
@@ -16,24 +17,11 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ch_multiqc_files = Channel.empty()
 
     ch_concordance = ch_vcf_emul
-        .map{
-            metaICRPST, vcf, csi ->
-            [metaICRPST.subMap(["id", "chr", "region"]), metaICRPST, vcf, csi]
-        }
-        .combine(ch_vcf_truth.map{
-                metaICRP, vcf, csi ->
-                [metaICRP.subMap(["id", "chr", "region"]), vcf, csi]
-            },
-            by:0
-        )
-        .map{metaICR, metaIPCRTS, emul, e_csi, truth, t_csi ->
-            [metaICR.subMap(["chr"]), metaIPCRTS, emul, e_csi, truth, t_csi]
-        }
-        .combine(ch_vcf_freq.map{metaCRP, vcf, csi ->
-                    [metaCRP.subMap(["chr"]), metaCRP, vcf, csi]},
-                by:0)
-        .map{metaC, metaIPCRTS, emul, e_csi, truth, t_csi, metaCRP, freq, f_csi ->
-            [metaIPCRTS, emul, e_csi, truth, t_csi, freq, f_csi, [], metaIPCRTS.region]
+        .join(ch_vcf_truth)
+        .combine(ch_vcf_freq)
+        .combine(ch_region.map{[it[1]]}.collect().toList())
+        .map{metaI, emul, e_csi, truth, t_csi, metaP, freq, f_csi, regions ->
+            [metaI, emul, e_csi, truth, t_csi, freq, f_csi, [], regions]
         }
 
     GLIMPSE2_CONCORDANCE (
