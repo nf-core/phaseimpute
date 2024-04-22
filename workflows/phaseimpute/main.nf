@@ -153,9 +153,13 @@ workflow PHASEIMPUTE {
                 output_glimpse1 = VCF_IMPUTE_GLIMPSE1.out.merged_variants
                     .combine(VCF_IMPUTE_GLIMPSE1.out.merged_variants_index, by: 0)
                     .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
-                ch_impute_output = ch_impute_output.mix(output_glimpse1)
                 ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.chunk_chr.map{ [it[1]]})
                 ch_versions      = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
+
+                VCF_CONCATENATE_BCFTOOLS(output_glimpse1)
+                ch_impute_output = ch_impute_output.mix(VCF_CONCATENATE_BCFTOOLS.out.vcf_tbi_join)
+                ch_versions      = ch_versions.mix(VCF_CONCATENATE_BCFTOOLS.out.versions)
+
             }
             if (params.tools.contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
@@ -186,7 +190,6 @@ workflow PHASEIMPUTE {
 
                     // Concatenate results
                     VCF_CONCATENATE_BCFTOOLS(IMPUTE_QUILT.out.ch_vcf_tbi)
-
 
             }
             ch_input_validate = ch_input_validate.mix(ch_impute_output)
