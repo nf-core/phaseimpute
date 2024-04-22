@@ -178,12 +178,12 @@ workflow PHASEIMPUTE {
                     MAKE_CHUNKS(ch_panel, ch_fasta)
 
                     // Make bamlist from bam input
-                    ch_bamlist = ch_input
+                    ch_bamlist = ch_input_impute
                                 .map { it[1].tokenize('/').last() }
                                 .collectFile( name: "bamlist.txt", newLine: true, sort: true )
 
                     // Create input QUILT
-                    ch_input_quilt = ch_input
+                    ch_input_quilt = ch_input_impute
                                 .map { meta, bam, bai -> [["id": "all_samples"], bam, bai] }
                                 .groupTuple ()
                                 .combine ( ch_bamlist )
