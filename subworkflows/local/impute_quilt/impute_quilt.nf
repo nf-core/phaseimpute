@@ -31,17 +31,20 @@ workflow IMPUTE_QUILT {
         ch_hap_chunks = ch_hap_legend.join(ch_chunks, by:0).join(genetic_map_file)
     }
 
-    ch_quilt = ch_input.combine(ch_hap_chunks)
-    ch_quilt_input = ch_quilt.map { it.take(3) + it.drop(4) }
-
-    // Add metamap with chromosome information
-    ch_quilt_input = ch_quilt_input
-        .map{ meta, bam, bai, hap, legend, chr, start, end, ngen2, buffer2, genetic ->
-            [['id': meta.id, 'chr': chr], bam, bai, hap, legend, chr, start, end, ngen2, buffer2, genetic]
+    ch_quilt = ch_input
+        .map{ metaIC, bam, bai -> [metaIC.subMap("chr"), metaIC, bam, bai]}
+        .join(ch_hap_chunks
+            .map{ metaIC, hap, legend, chr, start, end, ngen, buffer, gmap ->
+                [metaIC.subMap("chr"), metaIC, hap, legend, chr, start, end, ngen, buffer, gmap]
+            }
+        )
+        .map {
+            metaC, metaIC, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
+            [metaIC + ["panel": metaPC.id], bam, bai, hap, legend, chr, start, end, ngen, buffer, gmap]
         }
 
     // Run QUILT
-    QUILT_QUILT ( ch_quilt_input, posfile_phasefile, fasta )
+    QUILT_QUILT ( ch_quilt, posfile_phasefile, fasta )
 
     // Index imputed VCF
     BCFTOOLS_INDEX(QUILT_QUILT.out.vcf)
