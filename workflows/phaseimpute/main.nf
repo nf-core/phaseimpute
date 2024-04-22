@@ -187,7 +187,7 @@ workflow PHASEIMPUTE {
                     ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
 
                     // Add to output channel
-                    ch_impute_output = ch_impute_output.mix(IMPUTE_QUILT.out.ch_vcf_tbi)
+                    ch_impute_output = ch_impute_output.mix(IMPUTE_QUILT.out.vcf_tbi)
             }
             // Concatenate by chromosomes
             CONCAT_IMPUT(ch_impute_output)
