@@ -177,17 +177,10 @@ workflow PHASEIMPUTE {
                     // Create chunks from reference VCF
                     MAKE_CHUNKS(ch_panel, ch_fasta)
 
-                    // Make bamlist from bam input
-                    ch_bamlist = ch_input_impute
-                                .map { it[1].tokenize('/').last() }
-                                .collectFile( name: "bamlist.txt", newLine: true, sort: true )
-
                     // Create input QUILT
                     ch_input_quilt = ch_input_impute
-                                .map { meta, bam, bai -> [["id": "all_samples"], bam, bai] }
+                                .map { meta, bam, bai -> [["id": "all_samples"] + meta.subMap("chr", "region"), bam, bai] }
                                 .groupTuple ()
-                                .combine ( ch_bamlist )
-                                .collect ()
 
                     // Impute BAMs with QUILT
                     IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_quilt, MAKE_CHUNKS.out.ch_chunks)
