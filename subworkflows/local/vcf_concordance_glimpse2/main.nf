@@ -41,6 +41,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         [[], [], params.bins, [], []],
         params.min_val_gl, params.min_val_dp
     )
+    ch_versions = ch_versions.mix(GLIMPSE2_CONCORDANCE.out.versions.first())
 
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_cal.map{meta, txt -> [txt]})
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_grp.map{meta, txt -> [txt]})
@@ -50,7 +51,9 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_per_site.map{meta, txt -> [txt]})
 
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
+    ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
     ADD_COLUMNS(GUNZIP.out.gunzip)
+    ch_versions = ch_versions.mix(ADD_COLUMNS.out.versions.first())
 
     CONCATENATE(
         ADD_COLUMNS.out.txt
@@ -60,6 +63,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
             '(NR == 1) || (FNR > 1)'
         ).collectFile(name:"program.txt")
     )
+    ch_versions = ch_versions.mix(CONCATENATE.out.versions.first())
 
     emit:
     stats           = CONCATENATE.out.output      // [ meta, txt ]
