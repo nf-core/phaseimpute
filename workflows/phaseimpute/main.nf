@@ -28,9 +28,11 @@ include { VCF_CHR_CHECK                              } from '../../subworkflows/
 include { GET_PANEL                                  } from '../../subworkflows/local/get_panel'
 
 
-include { MAKE_CHUNKS                } from '../../subworkflows/local/make_chunks/make_chunks'
-include { IMPUTE_QUILT               } from '../../subworkflows/local/impute_quilt/impute_quilt'
-include { VCF_CONCATENATE_BCFTOOLS   } from '../../subworkflows/local/vcf_concatenate_bcftools/vcf_concatenate_bcftools'
+include { MAKE_CHUNKS                                } from '../../subworkflows/local/make_chunks/make_chunks'
+include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_IMPUT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,10 +111,14 @@ workflow PHASEIMPUTE {
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, sites, tsv]
             }
-        ch_panel_sites = GET_PANEL.out.panel
+        CONCAT_PANEL(GET_PANEL.out.panel
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                -> [metaPC, sites, s_index]
+                -> [[id:metaPC.panel], sites, s_index]
             }
+        )
+        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
+        ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
+        
         ch_panel_phased = GET_PANEL.out.panel
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, phased, p_index]
@@ -156,10 +162,8 @@ workflow PHASEIMPUTE {
                 ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.chunk_chr.map{ [it[1]]})
                 ch_versions      = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 
-                VCF_CONCATENATE_BCFTOOLS(output_glimpse1)
-                ch_impute_output = ch_impute_output.mix(VCF_CONCATENATE_BCFTOOLS.out.vcf_tbi_join)
-                ch_versions      = ch_versions.mix(VCF_CONCATENATE_BCFTOOLS.out.versions)
-
+                // Add to output channel
+                ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
             if (params.tools.contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
@@ -187,12 +191,15 @@ workflow PHASEIMPUTE {
 
                     // Impute BAMs with QUILT
                     IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_quilt, MAKE_CHUNKS.out.ch_chunks)
+                    ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
 
-                    // Concatenate results
-                    VCF_CONCATENATE_BCFTOOLS(IMPUTE_QUILT.out.ch_vcf_tbi)
-
+                    // Add to output channel
+                    ch_impute_output = ch_impute_output.mix(IMPUTE_QUILT.out.ch_vcf_tbi)
             }
-            ch_input_validate = ch_input_validate.mix(ch_impute_output)
+            // Concatenate by chromosomes
+            CONCAT_IMPUT(ch_impute_output)
+            ch_versions       = ch_versions.mix(CONCAT_IMPUT.out.versions)
+            ch_input_validate = ch_input_validate.mix(CONCAT_IMPUT.out.vcf_tbi_join)
         }
 
     }
@@ -223,11 +230,16 @@ workflow PHASEIMPUTE {
             .map { [it[0], it[1], it[2]] }
             .mix(GL_TRUTH.out.vcf)
 
+        // Concatenate by chromosomes
+        CONCAT_TRUTH(ch_truth_vcf)
+        ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            ch_truth_vcf,
-            ch_panel_sites
+            CONCAT_TRUTH.out.vcf_tbi_join,
+            ch_panel_sites,
+            ch_region
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
         ch_versions = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
