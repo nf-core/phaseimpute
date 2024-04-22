@@ -118,7 +118,7 @@ workflow PHASEIMPUTE {
         )
         ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
-        
+
         ch_panel_phased = GET_PANEL.out.panel
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, phased, p_index]
