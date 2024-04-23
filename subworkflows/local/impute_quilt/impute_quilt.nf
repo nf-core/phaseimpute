@@ -1,5 +1,7 @@
-include { QUILT_QUILT     } from '../../../modules/nf-core/quilt/quilt/main'
-include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index/main'
+include { QUILT_QUILT              } from '../../../modules/nf-core/quilt/quilt'
+include { BCFTOOLS_ANNOTATE        } from '../../../modules/nf-core/bcftools/annotate'
+include { BCFTOOLS_INDEX as INDEX1 } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as INDEX2 } from '../../../modules/nf-core/bcftools/index'
 
 
 workflow IMPUTE_QUILT {
@@ -33,10 +35,10 @@ workflow IMPUTE_QUILT {
 
     ch_quilt = ch_input
         .map{ metaIC, bam, bai -> [metaIC.subMap("chr"), metaIC, bam, bai]}
-        .join(ch_hap_chunks
+        .combine(ch_hap_chunks
             .map{ metaIC, hap, legend, chr, start, end, ngen, buffer, gmap ->
                 [metaIC.subMap("chr"), metaIC, hap, legend, chr, start, end, ngen, buffer, gmap]
-            }
+            }, by:0
         )
         .map {
             metaC, metaIC, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
@@ -45,12 +47,25 @@ workflow IMPUTE_QUILT {
 
     // Run QUILT
     QUILT_QUILT ( ch_quilt, posfile_phasefile, fasta )
+    ch_versions = ch_versions.mix(QUILT_QUILT.out.versions.first())
 
     // Index imputed VCF
-    BCFTOOLS_INDEX(QUILT_QUILT.out.vcf)
+    INDEX1(QUILT_QUILT.out.vcf)
+    ch_versions = ch_versions.mix(INDEX1.out.versions.first())
+
+    // Annotate the variants
+    BCFTOOLS_ANNOTATE(QUILT_QUILT.out.vcf
+        .join(INDEX1.out.tbi)
+        .combine(Channel.of([[], [], [], []]))
+    )
+    ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
+
+    // Index imputed annotated VCF
+    INDEX2(BCFTOOLS_ANNOTATE.out.vcf)
+    ch_versions = ch_versions.mix(INDEX2.out.versions.first())
 
     // Join VCFs and TBIs
-    ch_vcf_tbi = QUILT_QUILT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
+    ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf.join(INDEX2.out.tbi)
 
     emit:
     vcf_tbi     = ch_vcf_tbi               // channel:  [ meta, vcf, tbi ]
