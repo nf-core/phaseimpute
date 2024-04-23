@@ -1,6 +1,6 @@
 include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup/main.nf'
 include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index/main.nf'
-
+include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate/main.nf'
 
 workflow COMPUTE_GL {
 
@@ -28,8 +28,20 @@ workflow COMPUTE_GL {
     )
     ch_versions = ch_versions.mix(BCFTOOLS_MPILEUP.out.versions.first())
 
-    ch_output = BCFTOOLS_MPILEUP.out.vcf
-        .combine(BCFTOOLS_MPILEUP.out.tbi, by:0)
+    // Annotate the variants
+    BCFTOOLS_ANNOTATE(BCFTOOLS_MPILEUP.out.vcf
+        .join(BCFTOOLS_MPILEUP.out.tbi)
+        .combine(Channel.of([[], [], [], []]))
+    )
+    ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
+
+    // Index annotated VCF
+    BCFTOOLS_INDEX(BCFTOOLS_ANNOTATE.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
+
+    // Output
+    ch_output = BCFTOOLS_ANNOTATE.out.vcf
+        .join(BCFTOOLS_INDEX.out.tbi)
 
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
