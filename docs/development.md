@@ -17,6 +17,7 @@
 - [] Check if panel is necessary depending on the tool selected
 - [x] Set modules configuration as full path workflow:subworkflow:module
 - [] Where should the map file go (separate csv or in panel csv)
+- [] Add support for imputation by individuals or by groups of individuals
 
 ## Run tests
 
@@ -25,6 +26,7 @@ nextflow run main.nf -profile singularity,test --outdir results -resume
 nextflow run main.nf -profile singularity,test_sim --outdir results -resume
 nextflow run main.nf -profile singularity,test_validate --outdir results -resume
 nextflow run main.nf -profile singularity,test_all --outdir results -resume
+nextflow run main.nf -profile singularity,test_quilt --outdir results -resume
 ```
 
 ## Problematic

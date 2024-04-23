@@ -177,13 +177,8 @@ workflow PHASEIMPUTE {
                     // Create chunks from reference VCF
                     MAKE_CHUNKS(ch_panel, ch_fasta)
 
-                    // Create input QUILT
-                    ch_input_quilt = ch_input_impute
-                                .map { meta, bam, bai -> [["id": "all_samples"] + meta.subMap("chr", "region"), bam, bai] }
-                                .groupTuple ()
-
                     // Impute BAMs with QUILT
-                    IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_quilt, MAKE_CHUNKS.out.ch_chunks)
+                    IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_impute, MAKE_CHUNKS.out.ch_chunks)
                     ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
 
                     // Add to output channel
