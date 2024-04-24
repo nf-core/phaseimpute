@@ -169,8 +169,33 @@ workflow PHASEIMPUTE {
                 error "Glimpse2 not yet implemented"
                 // Glimpse2 subworkflow
             }
+
+            if (params.tools.contains("stitch")) {
+                print("Impute with STITCH")
+                // STITCH subworkflow
+
+                // Make bamlist from bam input
+                ch_bamlist = ch_input
+                            .map { it[1].tokenize('/').last() }
+                            .collectFile( name: "bamlist.txt", newLine: true, sort: true )
+
+                // Get chromosomes
+                ch_chromosomes = ch_fasta.map{it -> it[2]}
+                .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
+                .map{it -> [chr:it.chr]}
+
+                ch_chromosomes.dump(tag:"ch_chromosomes")
+
+                // Prepare input for STITCH
+
+                // Impute with STITCH
+                //BAM_IMPUTE_STITCH ( ch_input_stitch, GET_PANEL.out.ch_panel_sites )
+
+
+            }
+
             if (params.tools.contains("quilt")) {
-                print("Impute with quilt")
+                print("Impute with QUILT")
 
                 // Quilt subworkflow
 
