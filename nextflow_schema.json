@@ -113,7 +113,7 @@
                     "type": "string",
                     "description": "Step to run.",
                     "fa_icon": "fas fa-step-forward",
-                    "enum": ["glimpse1", "glimpse2", "quilt"]
+                    "enum": ["glimpse1", "glimpse2", "quilt", "stitch"]
                 }
             }
         },
