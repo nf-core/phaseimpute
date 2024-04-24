@@ -111,9 +111,32 @@ workflow PIPELINE_INITIALISATION {
     ch_input = Channel
         .fromSamplesheet("input")
         .map {
-            meta, bam, bai ->
-                [ meta, bam, bai ]
+            meta, file, index ->
+                [ meta, file, index ]
         }
+
+    // Check if all extension are identical
+    getAllFilesExtension(ch_input)
+    //
+    // Create channel from input file provided through params.input_truth
+    //
+    if (params.input_truth) {
+        if (params.input_truth.endsWith("csv")) {
+            ch_input_truth = Channel
+                .fromSamplesheet("input_truth")
+                .map {
+                    meta, file, index ->
+                        [ meta, file, index ]
+                }
+            // Check if all extension are identical
+            getAllFilesExtension(ch_input_truth)
+        } else {
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
+        }
+    } else {
+        ch_input_truth = Channel.empty()
+    }
 
     //
     // Create channel for panel
@@ -175,14 +198,25 @@ workflow PIPELINE_INITIALISATION {
         ch_depth = Channel.of([[],[]])
     }
 
+    //
+    // Create genotype array channel
+    //
+    if (params.genotype) {
+        ch_genotype = Channel.of([[gparray: params.genotype], params.genotype])
+    } else {
+        ch_genotype = Channel.of([[],[]])
+    }
+
+
     emit:
-    input         = ch_input         // [ [meta], bam, bai ]
-    fasta         = ch_ref_gen       // [ [genome], fasta, fai ]
-    panel         = ch_panel         // [ [panel, chr], vcf, index ]
-    depth         = ch_depth         // [ [depth], depth ]
-    regions       = ch_regions       // [ [chr, region], region ]
-    map           = ch_map           // [ [map], map ]
-    versions      = ch_versions
+    input                = ch_input         // [ [meta], file, index ]
+    input_truth          = ch_input_truth   // [ [meta], file, index ]
+    fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
+    panel                = ch_panel         // [ [panel, chr], vcf, index ]
+    depth                = ch_depth         // [ [depth], depth ]
+    regions              = ch_regions       // [ [chr, region], region ]
+    map                  = ch_map           // [ [map], map ]
+    versions             = ch_versions
 }
 
 /*
@@ -244,6 +278,38 @@ def validateInputParameters() {
         assert params.tools, "No tools provided"
     }
 }
+
+//
+// Check if all input files have the same extension
+//
+def getAllFilesExtension(ch_input) {
+    files_ext = ch_input
+        .map {
+            if (it[1] instanceof String) {
+                return it[1].split("\\.").last()
+            } else if (it[1] instanceof Path) {
+                return it[1].getName().split("\\.").last()
+            } else if (it[1] instanceof ArrayList) {
+                if (it[1] == []) {
+                    return null
+                } else {
+                    error "Array not supported"
+                }
+            } else {
+                println it[1].getClass()
+                error "Type not supported"
+            }
+        }  // Extract files extensions
+        .toList()  // Collect extensions into a list
+        .map { extensions ->
+            if (extensions.unique().size() != 1) {
+                println "Extensions: ${extensions}"
+                error "All input files must have the same extension"
+            }
+            return extensions[0]
+        }
+}
+
 
 //
 // Validate channels from input samplesheet

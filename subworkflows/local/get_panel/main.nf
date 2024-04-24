@@ -48,8 +48,7 @@ workflow GET_PANEL {
         .combine(VCF_INDEX4.out.csi, by:0)
 
     // Convert to TSV
-    BCFTOOLS_QUERY(ch_panel_sites,
-        [], [], [])
+    BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
@@ -68,12 +67,11 @@ workflow GET_PANEL {
         Channel.of([[],[],[]]).collect(),
         Channel.of([[],[],[]]).collect(),
         Channel.of([[],[]]).collect())
-        ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions.first())
+        ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
         ch_panel_phased = VCF_PHASE_SHAPEIT5.out.variants_phased
             .combine(VCF_PHASE_SHAPEIT5.out.variants_index, by: 0)
     } else {
-        ch_panel_phased = VIEW_VCF_SNPS.out.vcf
-            .combine(VCF_INDEX3.out.csi, by: 0)
+        ch_panel_phased = vcf_region
     }
 
     ch_panel = ch_panel_norm
@@ -85,6 +83,6 @@ workflow GET_PANEL {
         }
 
     emit:
-    panel          = ch_panel         // channel: [ [panel], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
+    panel          = ch_panel         // channel: [ [panel, chr], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
     versions       = ch_versions      // channel: [ versions.yml ]
 }
