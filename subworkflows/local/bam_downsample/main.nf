@@ -10,7 +10,7 @@ workflow BAM_DOWNSAMPLE {
     ch_fasta  // channel: [ [genome], fasta, fai ]
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
 
     // Add region to channel
     ch_coverage = ch_bam
@@ -60,6 +60,7 @@ workflow BAM_DOWNSAMPLE {
         .combine(SAMTOOLS_INDEX.out.bai, by:0)
 
     emit:
-    bam_emul          = ch_bam_emul       // channel: [ [id, genome, chr, region, depth], bam, bai ]
-    versions          = ch_versions       // channel: [ versions.yml ]
+    bam_emul          = ch_bam_emul                    // channel: [ [id, genome, chr, region, depth], bam, bai ]
+    coverage          = SAMTOOLS_COVERAGE.out.coverage // channel: [ [id, genome, chr, region, depth], txt ]
+    versions          = ch_versions                    // channel: [ versions.yml ]
 }
