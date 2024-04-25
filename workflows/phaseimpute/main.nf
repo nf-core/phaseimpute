@@ -34,6 +34,10 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_IMPUT   } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
+include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
+include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch/bam_impute_stitch'
+
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -172,25 +176,17 @@ workflow PHASEIMPUTE {
 
             if (params.tools.contains("stitch")) {
                 print("Impute with STITCH")
-                // STITCH subworkflow
 
-                // Make bamlist from bam input
-                ch_bamlist = ch_input
-                            .map { it[1].tokenize('/').last() }
-                            .collectFile( name: "bamlist.txt", newLine: true, sort: true )
-
-                // Get chromosomes
-                ch_chromosomes = ch_fasta.map{it -> it[2]}
-                .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
-                .map{it -> [chr:it.chr]}
-
-                ch_chromosomes.dump(tag:"ch_chromosomes")
-
-                // Prepare input for STITCH
+                // Prepare inputs
+                PREPARE_INPUT_STITCH(GET_PANEL.out.panel_sites, ch_fasta, ch_input_impute)
 
                 // Impute with STITCH
-                //BAM_IMPUTE_STITCH ( ch_input_stitch, GET_PANEL.out.ch_panel_sites )
+                BAM_IMPUTE_STITCH ( PREPARE_INPUT_STITCH.out.stitch_parameters,
+                                    PREPARE_INPUT_STITCH.out.stitch_samples,
+                                    ch_fasta )
 
+                // Output channel to concat
+                ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_STITCH.out.vcf_tbi)
 
             }
 
