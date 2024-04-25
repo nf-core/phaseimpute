@@ -12,7 +12,7 @@ workflow VCF_CONCATENATE_BCFTOOLS {
 
     // Remove chromosome from meta
     ch_vcf_tbi_grouped = ch_vcf_tbi
-        .map{ meta, vcf, tbi -> [['id' : meta.id], vcf, tbi] }
+                    .map{ meta, vcf, tbi -> [['id' : meta.id], vcf, tbi] }
 
     // Group by ID
     ch_vcf_tbi_grouped = ch_vcf_tbi_grouped.groupTuple( by:0 )
