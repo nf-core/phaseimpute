@@ -1,28 +1,31 @@
-include { BCFTOOLS_QUERY     } from '../../../modules/nf-core/bcftools/query/main'
 include { STITCH             } from '../../../modules/nf-core/stitch/main'
+include { BCFTOOLS_INDEX     } from '../../../modules/nf-core/bcftools/index/main'
+
 
 workflow BAM_IMPUTE_STITCH {
 
     take:
-    ch_input                                 //  channel: [ val(meta), bam, bai ]
-    ch_panel_sites
+    ch_parameters                                //  channel: [ val(meta), bam, bai ]
+    ch_samples
+    ch_fasta
 
     main:
 
     ch_versions      = Channel.empty()
 
-    // Convert position file to tab-separated file
-    BCFTOOLS_QUERY(ch_panel_sites)
-    ch_posfile = BCFTOOLS_QUERY.out.output
-
-
     // Run STITCH
-    STITCH( stitch_input, GET_READS.out, reference, seed )
+    seed = params.seed
+    STITCH( ch_parameters, ch_samples, ch_fasta, seed )
 
+    // Index imputed annotated VCF
+    BCFTOOLS_INDEX(STITCH.out.vcf)
+
+    // Join VCFs and TBIs
+    ch_vcf_tbi = STITCH.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
 
 
     emit:
-    ch_vcf_tbi                                                          // channel:  [ meta, vcf, tbi ]
+    vcf_tbi                    = ch_vcf_tbi                            // channel:   [ meta, vcf, tbi ]
     versions                   = ch_versions                           // channel:   [ versions.yml ]
 
 }
