@@ -84,5 +84,6 @@ workflow GET_PANEL {
 
     emit:
     panel          = ch_panel         // channel: [ [panel, chr], norm, n_index, sites, s_index, tsv, t_index, phased, p_index]
+    panel_sites    = ch_panel_sites
     versions       = ch_versions      // channel: [ versions.yml ]
 }
