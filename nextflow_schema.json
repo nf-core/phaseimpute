@@ -73,13 +73,13 @@
                 },
                 "min_val_gl": {
                     "type": "number",
-                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using –gt-validation",
+                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using \u2013gt-validation",
                     "default": 0.9,
                     "pattern": "^\\d+(\\.\\d+)?$"
                 },
                 "min_val_dp": {
                     "type": "integer",
-                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and –min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using –gt-validation",
+                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and \u2013min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using \u2013gt-validation",
                     "default": 5,
                     "pattern": "^\\d+$"
                 }
@@ -428,6 +428,14 @@
         "buffer": {
             "type": "integer",
             "default": 10000
+        },
+        "k_val": {
+            "type": "integer",
+            "default": 2
+        },
+        "seed": {
+            "type": "integer",
+            "default": 1
         }
     }
 }
