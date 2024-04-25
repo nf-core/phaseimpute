@@ -2,17 +2,14 @@
 
 ## Introduction
 
-## Introduction
-
 This document describes the output produced by the pipeline. Most of the plots are taken from the MultiQC report, which summarises results at the end of the pipeline.
-
-The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
 <!-- TODO nf-core: Write this documentation describing your workflow's output -->
 
-## Pipeline overview: QUILT imputation mode
+## Pipeline overview
+## QUILT imputation mode
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
@@ -21,20 +18,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Convert](#convert) - Convert reference panel to .hap and .legend files
 - [QUILT](#quilt) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
-- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
-- [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
-- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+
 
 ### Glimpse Chunk
 
-- `quilt_impute/glimpse/`
+- `imputation/glimpse_chunk/`
   - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
 
 [Glimpse chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation step and directly submit this file for imputation.
 
 ### Convert
 
-- `quilt_impute/bcftools/convert/`
+- `imputation/bcftools/convert/`
   - `*.hap`: a .hap file for the reference panel.
   - `*.legend*`: a .legend file for the reference panel.
 
@@ -42,7 +37,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### QUILT
 
-- `quilt_impute/quilt/`
+- `imputation/quilt/`
 - `quilt.*.vcf.gz`: Imputed VCF for a specific chunk.
 - `quilt.*.vcf.gz.tbi`: TBI for the Imputed VCF for a specific chunk.
 
@@ -50,10 +45,34 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Concat
 
-- `quilt_impute/bcftools/concat`
+- `imputation/bcftools/concat`
 - `.*.vcf.gz`: Imputed and ligated VCF for all the input samples.
 
 [bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs in chunks.
+
+## STITCH imputation mode
+
+The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
+
+- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites
+- [STITCH](#quilt) - Perform imputation
+- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
+
+### Concat
+
+- `imputation/bcftools/concat`
+- `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
+
+[bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs.
+
+
+## Reports
+
+Reports contain useful metrics and pipeline information for the different modes.
+
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+- [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
 ### MultiQC
 

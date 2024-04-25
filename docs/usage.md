@@ -4,17 +4,10 @@
 
 > _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
 
-## :warning: Please read this documentation on the nf-core website: [https://nf-co.re/phaseimpute/usage](https://nf-co.re/phaseimpute/usage)
-
-> _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
-
 ## Introduction
 
 <!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
-## Samplesheet input
-
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
 ## Samplesheet input
 
@@ -135,14 +128,26 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 
 ### Imputation modes
 
-You can choose different software to perform the imputation.
+You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
+
 
 #### QUILT
 
-The typical command for running the pipeline with this software is as follows:
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step impute --tool quilt --outdir results --genome GRCh37 -profile docker
+```
+
+#### STITCH
 
 ```bash
-nextflow run nf-core/phaseimpute --input ./samplesheet.csv --panel ./samplesheet_reference.csv --step impute --tool quilt --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --tool stitch --outdir results --genome GRCh37 -profile docker
+```
+Notice that no reference panel is needed when running STITCH.
+
+#### GLIMPSE1
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker
 ```
 
 ### Updating the pipeline
