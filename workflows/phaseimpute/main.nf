@@ -27,6 +27,11 @@ include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
 include { GET_PANEL                                  } from '../../subworkflows/local/get_panel'
 
+include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools/vcf_normalize_bcftools'
+include { PANEL_PREPARE_CHANNELS                     } from '../../subworkflows/local/panel_prepare_channels'
+include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
+include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
+
 
 include { MAKE_CHUNKS                                } from '../../subworkflows/local/make_chunks/make_chunks'
 include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
@@ -104,31 +109,40 @@ workflow PHASEIMPUTE {
     // Prepare panel
     //
     if (params.step == 'impute' || params.step == 'panel_prep' || params.step == 'validate' || params.step == 'all') {
-        // Remove if necessary "chr"
+        // Check chr prefix and remove if necessary
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
 
-        // Prepare the panel
-        GET_PANEL(VCF_CHR_CHECK.out.vcf, ch_fasta)
-        ch_versions = ch_versions.mix(GET_PANEL.out.versions)
-        ch_panel_sites_tsv = GET_PANEL.out.panel
-            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                -> [metaPC, sites, tsv]
-            }
-        CONCAT_PANEL(GET_PANEL.out.panel
-            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                -> [[id:metaPC.panel], sites, s_index]
-            }
+        // Normalize indels in panel
+        VCF_NORMALIZE_BCFTOOLS(VCF_CHR_CHECK.out.vcf, ch_fasta)
+
+        // Extract sites from normalized vcf
+        VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
+
+        // Phase panel
+        VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
+                        VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
+                        VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites,
+                        VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
+                        VCF_PHASE_PANEL.out.panel.dump(tag:"VCF_PHASE_PANEL")
+
+        // Generate channels (to be simplified)
+        ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
+                        .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                        -> [metaPC, sites, tsv]
+                        }
+        CONCAT_PANEL(VCF_PHASE_PANEL.out.panel
+                        .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                        -> [[id:metaPC.panel], sites, s_index]
+                        }
         )
         ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
 
-        ch_panel_phased = GET_PANEL.out.panel
+        ch_panel_phased = VCF_PHASE_PANEL.out.panel
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, phased, p_index]
             }
-
-        ch_versions = ch_versions.mix(GET_PANEL.out.versions)
 
         if (params.step == 'impute' || params.step == 'all') {
             // Output channel of input process
@@ -178,7 +192,7 @@ workflow PHASEIMPUTE {
                 print("Impute with STITCH")
 
                 // Prepare inputs
-                PREPARE_INPUT_STITCH(GET_PANEL.out.panel_sites, ch_fasta, ch_input_impute)
+                PREPARE_INPUT_STITCH(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta, ch_input_impute)
 
                 // Impute with STITCH
                 BAM_IMPUTE_STITCH ( PREPARE_INPUT_STITCH.out.stitch_parameters,
