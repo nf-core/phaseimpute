@@ -8,7 +8,6 @@
 
 <!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
-
 ## Samplesheet input
 
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
@@ -130,7 +129,6 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
 
-
 #### QUILT
 
 ```bash
@@ -142,6 +140,7 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_ref
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --tool stitch --outdir results --genome GRCh37 -profile docker
 ```
+
 Notice that no reference panel is needed when running STITCH.
 
 #### GLIMPSE1

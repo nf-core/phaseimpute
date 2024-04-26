@@ -9,6 +9,7 @@ The directories listed below will be created in the results directory after the 
 <!-- TODO nf-core: Write this documentation describing your workflow's output -->
 
 ## Pipeline overview
+
 ## QUILT imputation mode
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
@@ -18,7 +19,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Convert](#convert) - Convert reference panel to .hap and .legend files
 - [QUILT](#quilt) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
-
 
 ### Glimpse Chunk
 
@@ -64,7 +64,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
 
 [bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs.
-
 
 ## Reports
 
