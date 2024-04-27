@@ -32,7 +32,6 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
     // Join biallelic VCF and TBI
     ch_biallelic_vcf_tbi = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
-    ch_biallelic_vcf_tbi.dump(tag:"ch_biallelic_vcf_tbi")
 
     emit:
     vcf_tbi        = ch_biallelic_vcf_tbi
