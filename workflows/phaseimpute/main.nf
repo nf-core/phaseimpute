@@ -123,15 +123,18 @@ workflow PHASEIMPUTE {
 
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(VCF_CHR_CHECK.out.vcf, ch_fasta)
+        ch_versions = ch_versions.mix(VCF_NORMALIZE_BCFTOOLS.out.versions)
 
         // Extract sites from normalized vcf
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
+        ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Phase panel
         VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
+        ch_versions = ch_versions.mix(VCF_PHASE_PANEL.out.versions)
 
         // Generate channels (to be simplified)
         ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
