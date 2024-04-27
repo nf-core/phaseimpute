@@ -73,7 +73,7 @@
                 },
                 "min_val_gl": {
                     "type": "number",
-                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using \u2013gt-validation",
+                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using gt-validation",
                     "default": 0.9,
                     "pattern": "^\\d+(\\.\\d+)?$"
                 },
