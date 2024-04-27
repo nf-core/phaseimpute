@@ -18,29 +18,37 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
+// Simulate subworkflows
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
-include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
-include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
-include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
-include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
-include { GET_PANEL                                  } from '../../subworkflows/local/get_panel'
 
+// Panelprep subworkflows
+include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools/vcf_normalize_bcftools'
 include { PANEL_PREPARE_CHANNELS                     } from '../../subworkflows/local/panel_prepare_channels'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
 
+// GLIMPSE subworkflows
+include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
+include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
+include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 
+// QUILT subworkflows
 include { MAKE_CHUNKS                                } from '../../subworkflows/local/make_chunks/make_chunks'
 include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+
+// STITCH subworkflows
+include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
+include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch/bam_impute_stitch'
+
+// CONCAT subworkflows
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_IMPUT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
-include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
-include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch/bam_impute_stitch'
+// Concordance subworkflows
+include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
 
 
 /*
@@ -124,7 +132,6 @@ workflow PHASEIMPUTE {
                         VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
-                        VCF_PHASE_PANEL.out.panel.dump(tag:"VCF_PHASE_PANEL")
 
         // Generate channels (to be simplified)
         ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
