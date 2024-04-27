@@ -147,7 +147,7 @@ workflow PHASEIMPUTE {
         if (params.step == 'impute' || params.step == 'all') {
             // Output channel of input process
             ch_impute_output = Channel.empty()
-            if (params.tools.contains("glimpse1")) {
+            if (params.tools.split(',').contains("glimpse1")) {
                 println "Impute with Glimpse1"
                 // Glimpse1 subworkflow
                 GL_INPUT( // Compute GL for input data once per panel
@@ -183,28 +183,40 @@ workflow PHASEIMPUTE {
                 // Add to output channel
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
             }
-            if (params.tools.contains("glimpse2")) {
+            if (params.tools.split(',').contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
                 // Glimpse2 subworkflow
             }
 
-            if (params.tools.contains("stitch")) {
+            if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
+                ch_panel_sites = []
+                // Obtain the user's posfile if provided or calculate it from ref panel file
+                if (params.posfile) {
+                    ch_panel_sites = params.posfile
+                } else if (params.panel) {
+                    // It should do all the panelprep functions if a panel is provided
+                    ch_panel_sites = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+                } else {
+                    error "No posfile or reference panel was included"
+                }
                 // Prepare inputs
-                PREPARE_INPUT_STITCH(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta, ch_input_impute)
+                PREPARE_INPUT_STITCH(ch_panel_sites, ch_fasta, ch_input_impute)
+                ch_versions    = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
                 // Impute with STITCH
                 BAM_IMPUTE_STITCH ( PREPARE_INPUT_STITCH.out.stitch_parameters,
                                     PREPARE_INPUT_STITCH.out.stitch_samples,
                                     ch_fasta )
+                ch_versions    = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
                 // Output channel to concat
                 ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_STITCH.out.vcf_tbi)
 
             }
 
-            if (params.tools.contains("quilt")) {
+            if (params.tools.split(',').contains("quilt")) {
                 print("Impute with QUILT")
 
                 // Quilt subworkflow
