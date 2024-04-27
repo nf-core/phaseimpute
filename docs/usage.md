@@ -125,7 +125,7 @@ genome: 'GRCh37'
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
 
-### Imputation modes
+### Imputation tools `--mode impute --tools`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
 
@@ -137,11 +137,19 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_ref
 
 #### STITCH
 
+[STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a tsv file with the list of positions to genotype (`--posfile`).
+
+If you do not have a list of position to genotype, you can provide a reference panel to run the `--mode panelprep` which produces a tsv with this list.
+
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --tool stitch --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute --input samplesheet.csv --step panelprep --panel samplesheet_reference.csv --outdir results --genome GRCh37 -profile docker
 ```
 
-Notice that no reference panel is needed when running STITCH.
+Otherwise, you can provide your own position file in the `--mode impute` with STITCH using the the `--posfile` parameter.
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile posfile.txt  --tool stitch --outdir results --genome GRCh37 -profile docker
+```
 
 #### GLIMPSE1
 
