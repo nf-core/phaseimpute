@@ -5,7 +5,7 @@ include { BCFTOOLS_INDEX     } from '../../../modules/nf-core/bcftools/index/mai
 workflow BAM_IMPUTE_STITCH {
 
     take:
-    ch_parameters                                //  channel: [ val(meta), bam, bai ]
+    ch_parameters
     ch_samples
     ch_fasta
 
@@ -15,7 +15,7 @@ workflow BAM_IMPUTE_STITCH {
 
     // Run STITCH
     seed = params.seed
-    STITCH( ch_parameters, ch_samples, ch_fasta, seed )
+    STITCH( ch_samples, ch_parameters, ch_fasta, seed )
 
     // Index imputed annotated VCF
     BCFTOOLS_INDEX(STITCH.out.vcf)
