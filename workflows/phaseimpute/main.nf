@@ -201,18 +201,18 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                ch_panel_sites = []
+                ch_posfile = []
                 // Obtain the user's posfile if provided or calculate it from ref panel file
                 if (params.posfile) {
-                    ch_panel_sites = params.posfile
+                    ch_posfile = params.posfile
                 } else if (params.panel) {
                     // It should do all the panelprep functions if a panel is provided
-                    ch_panel_sites = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+                    ch_posfile = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
                 } else {
                     error "No posfile or reference panel was included"
                 }
                 // Prepare inputs
-                PREPARE_INPUT_STITCH(ch_panel_sites, ch_fasta, ch_input_impute)
+                PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
                 ch_versions    = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
                 // Impute with STITCH
