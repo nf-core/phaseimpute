@@ -40,34 +40,30 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     // Join extracted sites and index
     ch_panel_sites = VIEW_VCF_SITES.out.vcf.combine(BCFTOOLS_INDEX_2.out.csi, by:0)
 
-    // Create empty channel
-
-    ch_panel_tsv = []
-
     // Create TSVs for different tools
 
-        // Convert to TSV with structure for Glimpse
-        BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
-        ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
+    // Convert to TSV with structure for Glimpse
+    BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
-        // Compress TSV
-        TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
-        ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
+    // Compress TSV
+    TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
+    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
-        // Index compressed TSV
-        TABIX_TABIX(TABIX_BGZIP.out.output)
-        ch_versions = ch_versions.mix(TABIX_TABIX.out.versions.first())
+    // Index compressed TSV
+    TABIX_TABIX(TABIX_BGZIP.out.output)
+    ch_versions = ch_versions.mix(TABIX_TABIX.out.versions.first())
 
-        // Join compressed TSV and index
-        ch_panel_tsv = TABIX_BGZIP.out.output.combine(TABIX_TABIX.out.tbi, by: 0)
+    // Join compressed TSV and index
+    ch_panel_tsv = TABIX_BGZIP.out.output.combine(TABIX_TABIX.out.tbi, by: 0)
 
-        // TSV for STITCH
-        // Convert position file to tab-separated file
-        BCFTOOLS_QUERY_STITCH(ch_panel_sites, [], [], [])
-        ch_posfile = BCFTOOLS_QUERY_STITCH.out.output
+    // TSV for STITCH
+    // Convert position file to tab-separated file
+    BCFTOOLS_QUERY_STITCH(ch_panel_sites, [], [], [])
+    ch_posfile = BCFTOOLS_QUERY_STITCH.out.output
 
-        // Remove multiallelic positions from tsv
-        GAWK_STITCH(ch_posfile, [])
+    // Remove multiallelic positions from tsv
+    GAWK_STITCH(ch_posfile, [])
 
     emit:
     panel_tsv      = ch_panel_tsv
