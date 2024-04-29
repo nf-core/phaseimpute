@@ -203,11 +203,12 @@ workflow PHASEIMPUTE {
 
                 ch_posfile = []
                 // Obtain the user's posfile if provided or calculate it from ref panel file
-                if (params.posfile) {
-                    ch_posfile = params.posfile
+                if (params.posfile) { // Untested
+                    ch_posfile = Channel.of([id:'posfile'], file(params.posfile), checkIfExists:true)
                 } else if (params.panel) {
                     // It should do all the panelprep functions if a panel is provided
-                    ch_posfile = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
+                    // Currently: the panelprep functions are run by default
+                    ch_posfile = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
                 } else {
                     error "No posfile or reference panel was included"
                 }

@@ -6,7 +6,7 @@ include { GAWK                              } from '../../../modules/nf-core/gaw
 workflow PREPARE_INPUT_STITCH {
 
     take:
-    ch_posfile
+    ch_panel_sites
     ch_fasta
     ch_input_impute
 
@@ -14,8 +14,17 @@ workflow PREPARE_INPUT_STITCH {
 
     ch_versions      = Channel.empty()
 
+    // Prepare posfile and parameters for STITCH
+    // Convert position file to tab-separated file
+    BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
+    ch_posfile = BCFTOOLS_QUERY.out.output
+
+    // Remove multiallelic positions from tsv
+    GAWK(ch_posfile, [])
+    GAWK.out.output.dump(tag:"GAWK.out.output")
+
     // Get chromosomes of posfile
-    ch_posfile = ch_posfile.map{meta, posfile -> return[['chr': meta.chr], posfile]}
+    ch_posfile = GAWK.out.output.map{meta, posfile -> return[['chr': meta.chr], posfile]}
 
     // Get chromosomes of fasta
     ch_chromosomes = ch_fasta.map{it -> it[2]}
