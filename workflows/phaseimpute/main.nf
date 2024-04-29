@@ -25,7 +25,6 @@ include { BAM_DOWNSAMPLE                             } from '../../subworkflows/
 // Panelprep subworkflows
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools/vcf_normalize_bcftools'
-include { PANEL_PREPARE_CHANNELS                     } from '../../subworkflows/local/panel_prepare_channels'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
 
