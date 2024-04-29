@@ -7,19 +7,18 @@ Changes in module 'nf-core/stitch'
      input:
 -    tuple val(meta) , path(posfile), path(input, stageAs: "input"), path(rdata, stageAs: "RData_in"), val(chromosome_name), val(K), val(nGen)
 -    tuple val(meta2), path(collected_crams), path(collected_crais), path(cramlist)
-+    tuple val(meta2), path(posfile), path(input, stageAs: "input"), path(rdata, stageAs: "RData_in"), val(chromosome_name), val(K), val(nGen)
 +    tuple val(meta), path(collected_crams), path(collected_crais), path(cramlist)
++    tuple val(meta2), path(posfile), path(input, stageAs: "input"), path(rdata, stageAs: "RData_in"), val(chromosome_name), val(K), val(nGen)
      tuple val(meta3), path(fasta), path(fasta_fai)
      val seed
  
 
 --- modules/nf-core/stitch/meta.yml
 +++ modules/nf-core/stitch/meta.yml
-@@ -1,5 +1,3 @@
-----
--# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
- name: "stitch"
- description: "STITCH is an R program for reference panel free, read aware, low coverage sequencing genotype imputation. STITCH runs on a set of samples with sequencing reads in BAM format, as well as a list of positions to genotype, and outputs imputed genotypes in VCF format."
- keywords:
-
+@@ -117,4 +117,4 @@
+ authors:
+   - "@saulpierotti"
+ maintainers:
+-  - "@saulpierotti"
++  - "@saulpierotti"
 ************************************************************
