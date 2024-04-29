@@ -138,13 +138,14 @@
                     "type": "string",
                     "description": "Step to run.",
                     "fa_icon": "fas fa-step-forward",
-                    "enum": ["all", "simulate", "panelprep", "impute", "validate"]
+                    "pattern": "^((all|simulate|panelprep|impute|validate)?,?)*(?<!,)$"
                 },
                 "tools": {
                     "type": "string",
-                    "description": "Step to run.",
+                    "description": "Imputation tool to use.",
+                    "help_text": "Multiple tools separated with commas. Used when starting from `--step impute` or `--step all`.",
                     "fa_icon": "fas fa-step-forward",
-                    "enum": ["glimpse1", "glimpse2", "quilt", "stitch"]
+                    "pattern": "^((glimpse1|glimpse2|quilt|stitch)?,?)*(?<!,)$"
                 }
             }
         },
