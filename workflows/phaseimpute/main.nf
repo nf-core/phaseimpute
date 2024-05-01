@@ -156,8 +156,9 @@ workflow PHASEIMPUTE {
         // Prepare posfile stitch
         PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
         ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
+    }
 
-        if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
+    if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
             // Output channel of input process
             ch_impute_output = Channel.empty()
             if (params.tools.split(',').contains("glimpse1")) {
@@ -206,9 +207,9 @@ workflow PHASEIMPUTE {
 
                 ch_posfile = []
                 // Obtain the user's posfile if provided or calculate it from ref panel file
-                if (params.posfile) { // Untested
-                    ch_posfile = Channel.of([id:'posfile'], file(params.posfile), checkIfExists:true)
-                } else if (params.panel && params.step.split(',').contains("panelprep")) {
+                if (params.posfile) {  // User supplied posfile
+                ch_posfile  = Channel.of([['id':'posfile'], file(params.posfile, checkIfExists:true)])
+                } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
                 } else {
                     error "No posfile or reference panel preparation was included"
@@ -248,8 +249,6 @@ workflow PHASEIMPUTE {
             ch_versions       = ch_versions.mix(CONCAT_IMPUT.out.versions)
             ch_input_validate = ch_input_validate.mix(CONCAT_IMPUT.out.vcf_tbi_join)
         }
-
-    }
 
     if (params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
         ch_truth_vcf = Channel.empty()
