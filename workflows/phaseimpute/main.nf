@@ -278,13 +278,13 @@ workflow PHASEIMPUTE {
             .mix(GL_TRUTH.out.vcf)
 
         // Concatenate by chromosomes
-        CONCAT_TRUTH(ch_truth_vcf)
-        ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+        // CONCAT_TRUTH(ch_truth_vcf)
+        // ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
 
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            CONCAT_TRUTH.out.vcf_tbi_join,
+            ch_truth_vcf,
             ch_panel_sites,
             ch_region
         )
