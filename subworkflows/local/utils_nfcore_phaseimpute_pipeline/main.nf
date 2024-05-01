@@ -274,7 +274,7 @@ def validateInputParameters() {
     assert params.step, "A step must be provided"
 
     // Check that at least one tool is provided
-    if (params.step == "impute" || params.step == "panel_prep") {
+    if (params.step.split(',').contains("impute") || params.step.split(',').contains("panelprep")) {
         assert params.tools, "No tools provided"
     }
 }

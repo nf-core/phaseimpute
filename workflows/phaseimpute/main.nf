@@ -77,7 +77,7 @@ workflow PHASEIMPUTE {
     //
     // Simulate data if asked
     //
-    if (params.step == 'simulate' || params.step == 'all') {
+    if (params.step.split(',').contains("simulate") || params.step.split(',').contains("all")) {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
@@ -115,7 +115,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.step == 'impute' || params.step == 'panel_prep' || params.step == 'validate' || params.step == 'all') {
+    if (params.step.split(',').contains("panelprep") || params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
         // Check chr prefix and remove if necessary
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
@@ -153,7 +153,7 @@ workflow PHASEIMPUTE {
                 -> [metaPC, phased, p_index]
             }
 
-        if (params.step == 'impute' || params.step == 'all') {
+        if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
             // Output channel of input process
             ch_impute_output = Channel.empty()
             if (params.tools.split(',').contains("glimpse1")) {
@@ -249,7 +249,7 @@ workflow PHASEIMPUTE {
 
     }
 
-    if (params.step == 'validate' || params.step == 'all') {
+    if (params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
         ch_truth_vcf = Channel.empty()
         // Get extension of input files
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
@@ -290,7 +290,7 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
     }
 
-    if (params.step == 'refine') {
+    if (params.step.split(',').contains("refine")) {
         error "refine step not yet implemented"
     }
 
