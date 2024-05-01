@@ -150,6 +150,16 @@ Otherwise, you can provide your own position file in the `--mode impute` with ST
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile posfile.txt  --tool stitch --outdir results --genome GRCh37 -profile docker
 ```
+The tsv with the list of positions provided in `--posfile` should have the following structure, from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md)
+
+As an example:
+
+```console
+chr22	16570065	A	G
+chr22	16570067	A	C
+chr22	16570176	C	A
+chr22	16570211	T	C
+```
 
 #### GLIMPSE1
 
