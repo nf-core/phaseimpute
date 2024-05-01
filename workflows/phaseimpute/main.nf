@@ -27,6 +27,7 @@ include { VCF_CHR_CHECK                              } from '../../subworkflows/
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
+include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_input_stitch/prepare_posfile_tsv'
 
 // GLIMPSE subworkflows
 include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
@@ -152,6 +153,9 @@ workflow PHASEIMPUTE {
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, phased, p_index]
             }
+        // Prepare posfile stitch
+        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
+        ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
 
         if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
             // Output channel of input process
@@ -204,12 +208,10 @@ workflow PHASEIMPUTE {
                 // Obtain the user's posfile if provided or calculate it from ref panel file
                 if (params.posfile) { // Untested
                     ch_posfile = Channel.of([id:'posfile'], file(params.posfile), checkIfExists:true)
-                } else if (params.panel) {
-                    // It should do all the panelprep functions if a panel is provided
-                    // Currently: the panelprep functions are run by default
-                    ch_posfile = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+                } else if (params.panel && params.step.split(',').contains("panelprep")) {
+                    ch_posfile = PREPARE_POSFILE_TSV.out.posfile
                 } else {
-                    error "No posfile or reference panel was included"
+                    error "No posfile or reference panel preparation was included"
                 }
                 // Prepare inputs
                 PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
