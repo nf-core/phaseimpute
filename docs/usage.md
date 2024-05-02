@@ -125,7 +125,7 @@ genome: 'GRCh37'
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
 
-### Imputation tools `--mode impute --tools`
+### Imputation tools `--step impute --tools [glimpse1, quilt, stitch]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
 
