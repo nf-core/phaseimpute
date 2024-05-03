@@ -33,17 +33,19 @@ include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/
 include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
 include { MAKE_CHUNKS                                } from '../../subworkflows/local/make_chunks/make_chunks'
 include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch/bam_impute_stitch'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // CONCAT subworkflows
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_IMPUT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
@@ -201,6 +203,14 @@ workflow PHASEIMPUTE {
 
                 // Add to output channel
                 ch_impute_output = ch_impute_output.mix(output_glimpse1)
+
+                // Concatenate by chromosomes
+                CONCAT_GLIMPSE1(output_glimpse1)
+                ch_versions       = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
+
+                // Add results to input validate
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi_join)
+
             }
             if (params.tools.split(',').contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
@@ -231,6 +241,13 @@ workflow PHASEIMPUTE {
                 // Output channel to concat
                 ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_STITCH.out.vcf_tbi)
 
+                // Concatenate by chromosomes
+                CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
+                ch_versions       = ch_versions.mix(CONCAT_STITCH.out.versions)
+
+                // Add results to input validate
+                ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi_join)
+
             }
 
             if (params.tools.split(',').contains("quilt")) {
@@ -242,11 +259,14 @@ workflow PHASEIMPUTE {
 
                 // Add to output channel
                 ch_impute_output = ch_impute_output.mix(IMPUTE_QUILT.out.vcf_tbi)
+
+                // Concatenate by chromosomes
+                CONCAT_QUILT(IMPUTE_QUILT.out.vcf_tbi)
+                ch_versions       = ch_versions.mix(CONCAT_QUILT.out.versions)
+
+                // Add results to input validate
+                ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi_join)
             }
-            // Concatenate by chromosomes
-            CONCAT_IMPUT(ch_impute_output)
-            ch_versions       = ch_versions.mix(CONCAT_IMPUT.out.versions)
-            ch_input_validate = ch_input_validate.mix(CONCAT_IMPUT.out.vcf_tbi_join)
         }
 
     if (params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
