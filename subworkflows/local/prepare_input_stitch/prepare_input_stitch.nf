@@ -15,32 +15,18 @@ workflow PREPARE_INPUT_STITCH {
     k_val                   = params.k_val
     ngen                    = params.ngen
 
-    if  (params.panel && params.step.split(',').contains("panelprep")) {
-        // Get chromosomes of posfile
-        ch_posfile = ch_posfile.map{meta, posfile -> return[['chr': meta.chr], posfile]}
+    // Get chromosomes of posfile
+    ch_posfile = ch_posfile.map{meta, posfile -> return[['chr': meta.chr], posfile]}
 
-        // Get chromosomes of fasta
-        ch_chromosomes = ch_fasta.map{it -> it[2]}
-                        .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
-                        .map{it -> return [[chr: it.chr], it.chr]}
+    // Get chromosomes of fasta
+    ch_chromosomes = ch_fasta.map{it -> it[2]}
+                    .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
+                    .map{it -> return [[chr: it.chr], it.chr]}
 
-        // Make final channel with parameters
-        stitch_parameters = ch_posfile.map { it + input_empty + rdata_empty}
-                        .join(ch_chromosomes)
-                        .map { it + k_val + ngen}
-    } else if (params.posfile){
-        // Get unique chromosomes in posfile
-        ch_chromosomes_posfile = ch_posfile.map{it -> it[1]}
-                .splitCsv(header: ["chr", "pos", "ref", "alt"], sep: "\t")
-                .map{it -> return [it.chr]}
-
-        ch_chromosomes_posfile = ch_chromosomes_posfile.unique()
-
-        // Make final channel with parameters
-        stitch_parameters = ch_posfile.map { it + input_empty + rdata_empty}
-                        .combine(ch_chromosomes_posfile)
-                        .map { it + k_val + ngen}
-    }
+    // Make final channel with parameters
+    stitch_parameters = ch_posfile.map { it + input_empty + rdata_empty}
+                    .join(ch_chromosomes)
+                    .map { it + k_val + ngen}
 
     // Prepare sample files for STITCH
     // Group input by ID

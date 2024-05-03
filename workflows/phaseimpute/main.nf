@@ -206,10 +206,9 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                ch_posfile.dump(tag:"ch_posfile_stitch")
                 // Obtain the user's posfile if provided or calculate it from ref panel file
                 if (params.posfile) {  // User supplied posfile
-                ch_posfile  = Channel.of([['id':'posfile'], file(params.posfile, checkIfExists:true)])
+                ch_posfile  = ch_posfile
                 } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
                 } else {

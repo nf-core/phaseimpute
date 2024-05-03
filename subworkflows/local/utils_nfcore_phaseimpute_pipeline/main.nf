@@ -211,14 +211,15 @@ workflow PIPELINE_INITIALISATION {
     // Create posfile channel
     //
 
+    if (params.posfile) {
     ch_posfile = Channel
     .fromSamplesheet("posfile")
     .map {
         meta, file ->
             [ meta, file ]
+    }} else {
+    ch_posfile = [[]]
     }
-    ch_posfile.dump(tag:"ch_posfile_initialisation")
-
 
     emit:
     input                = ch_input         // [ [meta], file, index ]

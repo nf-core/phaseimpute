@@ -10,7 +10,8 @@
             "chr": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces"
+                "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces",
+                "meta": ["chr"]
             },
             "file": {
                 "type": "string",
