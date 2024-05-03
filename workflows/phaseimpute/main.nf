@@ -235,10 +235,10 @@ workflow PHASEIMPUTE {
                 // Quilt subworkflow
 
                     // Create chunks from reference VCF
-                    MAKE_CHUNKS(ch_panel, ch_fasta)
+                    MAKE_CHUNKS(ch_panel)
 
                     // Impute BAMs with QUILT
-                    IMPUTE_QUILT(MAKE_CHUNKS.out.ch_hap_legend, ch_input_impute, MAKE_CHUNKS.out.ch_chunks)
+                    IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, MAKE_CHUNKS.out.ch_chunks)
                     ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
 
                     // Add to output channel

@@ -3,6 +3,7 @@ include { BCFTOOLS_VIEW                     } from '../../../modules/nf-core/bcf
 include { BCFTOOLS_INDEX                    } from '../../../modules/nf-core/bcftools/index/main'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2} from '../../../modules/nf-core/bcftools/index/main'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3} from '../../../modules/nf-core/bcftools/index/main'
+include { BCFTOOLS_CONVERT                  } from '../../../modules/nf-core/bcftools/convert/main'
 
 
 workflow VCF_NORMALIZE_BCFTOOLS {
@@ -33,7 +34,15 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     // Join biallelic VCF and TBI
     ch_biallelic_vcf_tbi = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
 
+    // Convert VCF to Hap and Legend files
+    BCFTOOLS_CONVERT(ch_biallelic_vcf_tbi, ch_fasta, [])
+
+    // Output hap and legend files
+    ch_hap_legend = BCFTOOLS_CONVERT.out.hap.join(BCFTOOLS_CONVERT.out.legend)
+    ch_hap_legend.dump(tag:"ch_hap_legend_vcfnormalize")
+
     emit:
-    vcf_tbi        = ch_biallelic_vcf_tbi
-    versions       = ch_versions      // channel: [ versions.yml ]
+    vcf_tbi        = ch_biallelic_vcf_tbi           // channel: [ [id, chr], vcf, tbi ]
+    hap_legend     = ch_hap_legend                  // channel: [ [id, chr] '.hap', '.legend' ]
+    versions       = ch_versions                    // channel: [ versions.yml ]
 }
