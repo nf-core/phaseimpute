@@ -69,6 +69,7 @@ workflow PHASEIMPUTE {
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
+    ch_posfile              // channel: posfile       [ [chr], txt]
     ch_versions             // channel: versions of software used
 
     main:
@@ -205,7 +206,7 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                ch_posfile = []
+                ch_posfile.dump(tag:"ch_posfile_stitch")
                 // Obtain the user's posfile if provided or calculate it from ref panel file
                 if (params.posfile) {  // User supplied posfile
                 ch_posfile  = Channel.of([['id':'posfile'], file(params.posfile, checkIfExists:true)])

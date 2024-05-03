@@ -13,7 +13,7 @@
                 "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces"
             },
             "file": {
-                "type": "integer",
+                "type": "string",
                 "pattern": "^\\S+\\.txt$",
                 "errorMessage": "Posfile per chromosome must be provided. Must have .txt extension"
             }

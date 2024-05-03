@@ -40,6 +40,7 @@ workflow NFCORE_PHASEIMPUTE {
     ch_regions     // channel: regions to use [[chr, region], region]
     ch_depth       // channel: depth of coverage file [[depth], depth]
     ch_map         // channel: map file for imputation
+    ch_posfile     // channel: samplesheet read in from --posfile
     ch_versions    // channel: versions of software used
 
     main:
@@ -86,6 +87,7 @@ workflow NFCORE_PHASEIMPUTE {
         ch_regions,
         ch_depth,
         ch_map,
+        ch_posfile,
         ch_versions
     )
 
@@ -128,6 +130,7 @@ workflow {
         PIPELINE_INITIALISATION.out.regions,
         PIPELINE_INITIALISATION.out.depth,
         PIPELINE_INITIALISATION.out.map,
+        PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.versions
     )
 

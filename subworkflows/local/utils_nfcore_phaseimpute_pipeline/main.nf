@@ -207,6 +207,18 @@ workflow PIPELINE_INITIALISATION {
         ch_genotype = Channel.of([[],[]])
     }
 
+    //
+    // Create posfile channel
+    //
+
+    ch_posfile = Channel
+    .fromSamplesheet("posfile")
+    .map {
+        meta, file ->
+            [ meta, file ]
+    }
+    ch_posfile.dump(tag:"ch_posfile_initialisation")
+
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -216,6 +228,7 @@ workflow PIPELINE_INITIALISATION {
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
     map                  = ch_map           // [ [map], map ]
+    posfile              = ch_posfile       // [ [chr], txt ]
     versions             = ch_versions
 }
 

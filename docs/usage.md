@@ -148,11 +148,20 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --step panelprep --pane
 Otherwise, you can provide your own position file in the `--mode impute` with STITCH using the the `--posfile` parameter.
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile posfile.txt  --tool stitch --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker
 ```
-The tsv with the list of positions provided in `--posfile` should have the following structure, from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md)
+The csv provided in `--posfile` must contain two columns [chr, file]. The first column is the chromosome and the file column are tsvs with the list of positions, unique to each chromosome.
 
-As an example:
+```console
+chr,file
+chr1,posfile_chr1.txt
+chr2,posfile_chr2.txt
+chr3,posfile_chr3.txt
+```
+
+The file column should contain a TSV with the following structure, from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md).
+
+As an example, chr22 tsv file:
 
 ```console
 chr22	16570065	A	G
