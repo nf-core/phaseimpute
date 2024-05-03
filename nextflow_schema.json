@@ -396,7 +396,7 @@
         "quilt_parameters": {
             "title": "QUILT parameters",
             "type": "object",
-            "description": "",
+            "description": "Arguments to customize QUILT run",
             "default": "",
             "properties": {
                 "buffer": {
@@ -407,15 +407,14 @@
                 "ngen": {
                     "type": "integer",
                     "default": 100,
-                    "description": "Number of generations since founding of the population to use for imputation.",
-                    "help_text": ""
+                    "description": "Number of generations since founding of the population to use for imputation."
                 }
             }
         },
         "stitch_parameters": {
             "title": "STITCH parameters",
             "type": "object",
-            "description": "",
+            "description": "Arguments to customize STITCH run",
             "default": "",
             "properties": {
                 "seed": {
@@ -424,7 +423,12 @@
                 },
                 "posfile": {
                     "type": "string",
-                    "description": "Tab-separated file describing the variable positions to be used for imputation. Refer to the documentation for the `--posfile` argument of STITCH for more information."
+                    "description": "Path to comma-separated file containing tab-separated files describing the variable positions to be used for imputation. Refer to the documentation for the `--posfile` argument of STITCH for more information.",
+                    "format": "file-path",
+                    "schema": "assets/schema_posfile.json",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "mimetype": "text/csv",
+                    "help_text": ""
                 },
                 "k_val": {
                     "type": "integer",
