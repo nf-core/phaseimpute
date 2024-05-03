@@ -12,8 +12,9 @@ workflow MAKE_CHUNKS {
     // Make chunks
     ch_vcf_csi_chr = ch_reference.map{meta, vcf, csi -> [meta, vcf, csi, meta.chr]}
     GLIMPSE_CHUNK(ch_vcf_csi_chr)
+    ch_versions = ch_versions.mix(GLIMPSE_CHUNK.out.versions)
 
-    // Rearrange chunks into channel
+    // Rearrange chunks into channel for QUILT
     ch_chunks = GLIMPSE_CHUNK.out.chunk_chr
                     .splitText()
                     .map { metamap, line ->
@@ -23,6 +24,6 @@ workflow MAKE_CHUNKS {
                     }
 
     emit:
-    ch_chunks                 = ch_chunks                              // channel: [ chr, val(meta), start, end, number ]
+    chunks                    = ch_chunks                              // channel: [ chr, val(meta), start, end, number ]
     versions                  = ch_versions                           // channel:  [ versions.yml ]
 }
