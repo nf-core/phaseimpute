@@ -39,7 +39,6 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
     // Output hap and legend files
     ch_hap_legend = BCFTOOLS_CONVERT.out.hap.join(BCFTOOLS_CONVERT.out.legend)
-    ch_hap_legend.dump(tag:"ch_hap_legend_vcfnormalize")
 
     emit:
     vcf_tbi        = ch_biallelic_vcf_tbi           // channel: [ [id, chr], vcf, tbi ]
