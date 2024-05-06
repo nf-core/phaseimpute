@@ -41,6 +41,10 @@
                     "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
                     "pattern": "true|false"
                 },
+                "remove_samples": {
+                    "type": "string",
+                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes."
+                },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
@@ -427,8 +431,7 @@
                     "format": "file-path",
                     "schema": "assets/schema_posfile.json",
                     "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                    "mimetype": "text/csv",
-                    "help_text": ""
+                    "mimetype": "text/csv"
                 },
                 "k_val": {
                     "type": "integer",
