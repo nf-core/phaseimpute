@@ -150,6 +150,7 @@ Otherwise, you can provide your own position file in the `--mode impute` with ST
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker
 ```
+
 The csv provided in `--posfile` must contain two columns [chr, file]. The first column is the chromosome and the file column are tsvs with the list of positions, unique to each chromosome.
 
 ```console
