@@ -20,6 +20,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs for the reference panel and automatic renaming available
 - [#22](https://github.com/nf-core/phaseimpute/pull/20) - Add validation step for concordance analysis. Input channels changed to match inputs steps. Outdir folder organised by steps. Modules config by subworkflows.
 - [#26](https://github.com/nf-core/phaseimpute/pull/26) - Added QUILT method
+- [#40](https://github.com/nf-core/phaseimpute/pull/26) - Add STITCH method. Reorganize panelprep subworkflows.
 
 ### `Fixed`
 
