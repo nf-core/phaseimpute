@@ -132,7 +132,12 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
-        // Phase panel
+        // Prepare posfile stitch
+        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
+        ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
+
+        // If required, phase panel (currently not working, a test should be added)
+        // Phase panel with tool of choice (e.g. SHAPEIT5)
         VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites,
@@ -156,12 +161,9 @@ workflow PHASEIMPUTE {
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, phased, p_index]
             }
-        // Prepare posfile stitch
-        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
-        ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
 
         // Create chunks from reference VCF
-        MAKE_CHUNKS(ch_panel)
+        MAKE_CHUNKS(ch_panel_phased)
         ch_versions    = ch_versions.mix(MAKE_CHUNKS.out.versions)
     }
 
@@ -221,7 +223,7 @@ workflow PHASEIMPUTE {
                 print("Impute with STITCH")
 
                 // Obtain the user's posfile if provided or calculate it from ref panel file
-                if (params.posfile) {  // User supplied posfile
+                if (params.posfile ) {  // User supplied posfile
                 ch_posfile  = ch_posfile
                 } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
