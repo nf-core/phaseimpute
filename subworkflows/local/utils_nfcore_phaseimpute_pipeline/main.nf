@@ -207,6 +207,19 @@ workflow PIPELINE_INITIALISATION {
         ch_genotype = Channel.of([[],[]])
     }
 
+    //
+    // Create posfile channel
+    //
+
+    if (params.posfile) {
+    ch_posfile = Channel
+    .fromSamplesheet("posfile")
+    .map {
+        meta, file ->
+            [ meta, file ]
+    }} else {
+    ch_posfile = [[]]
+    }
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -216,6 +229,7 @@ workflow PIPELINE_INITIALISATION {
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
     map                  = ch_map           // [ [map], map ]
+    posfile              = ch_posfile       // [ [chr], txt ]
     versions             = ch_versions
 }
 
@@ -274,7 +288,7 @@ def validateInputParameters() {
     assert params.step, "A step must be provided"
 
     // Check that at least one tool is provided
-    if (params.step == "impute" || params.step == "panel_prep") {
+    if (params.step.split(',').contains("impute") || params.step.split(',').contains("panelprep")) {
         assert params.tools, "No tools provided"
     }
 }

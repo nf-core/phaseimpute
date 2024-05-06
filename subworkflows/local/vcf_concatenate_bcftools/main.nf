@@ -11,8 +11,7 @@ workflow VCF_CONCATENATE_BCFTOOLS {
     ch_versions = Channel.empty()
 
     // Remove chromosome from meta
-    ch_vcf_tbi_grouped = ch_vcf_tbi
-        .map{ meta, vcf, tbi -> [['id' : meta.id], vcf, tbi] }
+    ch_vcf_tbi_grouped = ch_vcf_tbi.map{ meta, vcf, tbi -> [['id' : meta.id], vcf, tbi] }
 
     // Group by ID
     ch_vcf_tbi_grouped = ch_vcf_tbi_grouped.groupTuple( by:0 )

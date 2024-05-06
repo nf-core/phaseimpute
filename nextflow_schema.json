@@ -5,6 +5,69 @@
     "description": "Phasing and imputation pipeline",
     "type": "object",
     "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "required": ["outdir"],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_input.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "input_region": {
+                    "type": "string",
+                    "description": "Region of the genome to use (optional: if no file given, the whole genome will be used). The file should be a comma-separated file with 3 columns, and a header row.",
+                    "schema": "assets/schema_input_region.json",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.csv$"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "rename_chr": {
+                    "type": "boolean",
+                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
+                    "pattern": "true|false"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address for completion summary.",
+                    "fa_icon": "fas fa-envelope",
+                    "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
+                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                },
+                "multiqc_title": {
+                    "type": "string",
+                    "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
+                    "fa_icon": "fas fa-file-signature"
+                },
+                "step": {
+                    "type": "string",
+                    "description": "Step to run.",
+                    "fa_icon": "fas fa-step-forward",
+                    "pattern": "^((all|simulate|panelprep|impute|validate)?,?)*(?<!,)$"
+                },
+                "tools": {
+                    "type": "string",
+                    "description": "Imputation tool to use.",
+                    "help_text": "Multiple tools separated with commas. Used when starting from `--step impute` or `--step all`.",
+                    "fa_icon": "fas fa-step-forward",
+                    "pattern": "^((glimpse1|glimpse2|quilt|stitch)?,?)*(?<!,)$"
+                }
+            }
+        },
         "simulate": {
             "title": "Simulate",
             "type": "object",
@@ -73,78 +136,15 @@
                 },
                 "min_val_gl": {
                     "type": "number",
-                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using –gt-validation",
+                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using gt-validation",
                     "default": 0.9,
                     "pattern": "^\\d+(\\.\\d+)?$"
                 },
                 "min_val_dp": {
                     "type": "integer",
-                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and –min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using –gt-validation",
+                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and -min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using \u2013gt-validation",
                     "default": 5,
                     "pattern": "^\\d+$"
-                }
-            }
-        },
-        "input_output_options": {
-            "title": "Input/output options",
-            "type": "object",
-            "fa_icon": "fas fa-terminal",
-            "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["outdir"],
-            "properties": {
-                "input": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "schema": "assets/schema_input.json",
-                    "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "input_region": {
-                    "type": "string",
-                    "description": "Region of the genome to use (optional: if no file given, the whole genome will be used). The file should be a comma-separated file with 3 columns, and a header row.",
-                    "schema": "assets/schema_input_region.json",
-                    "default": null,
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.csv$"
-                },
-                "outdir": {
-                    "type": "string",
-                    "format": "directory-path",
-                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "rename_chr": {
-                    "type": "boolean",
-                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
-                    "pattern": "true|false"
-                },
-                "email": {
-                    "type": "string",
-                    "description": "Email address for completion summary.",
-                    "fa_icon": "fas fa-envelope",
-                    "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
-                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
-                },
-                "multiqc_title": {
-                    "type": "string",
-                    "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
-                    "fa_icon": "fas fa-file-signature"
-                },
-                "step": {
-                    "type": "string",
-                    "description": "Step to run.",
-                    "fa_icon": "fas fa-step-forward",
-                    "enum": ["all", "simulate", "panelprep", "impute", "validate"]
-                },
-                "tools": {
-                    "type": "string",
-                    "description": "Step to run.",
-                    "fa_icon": "fas fa-step-forward",
-                    "enum": ["glimpse1", "glimpse2", "quilt"]
                 }
             }
         },
@@ -392,9 +392,56 @@
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
+        },
+        "quilt_parameters": {
+            "title": "QUILT parameters",
+            "type": "object",
+            "description": "Arguments to customize QUILT run",
+            "default": "",
+            "properties": {
+                "buffer": {
+                    "type": "integer",
+                    "default": 10000,
+                    "description": "Buffer of region to perform imputation over. So imputation is run form regionStart-buffer to regionEnd+buffer, and reported for regionStart to regionEnd, including the bases of regionStart and regionEnd."
+                },
+                "ngen": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Number of generations since founding of the population to use for imputation."
+                }
+            }
+        },
+        "stitch_parameters": {
+            "title": "STITCH parameters",
+            "type": "object",
+            "description": "Arguments to customize STITCH run",
+            "default": "",
+            "properties": {
+                "seed": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "posfile": {
+                    "type": "string",
+                    "description": "Path to comma-separated file containing tab-separated files describing the variable positions to be used for imputation. Refer to the documentation for the `--posfile` argument of STITCH for more information.",
+                    "format": "file-path",
+                    "schema": "assets/schema_posfile.json",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "mimetype": "text/csv",
+                    "help_text": ""
+                },
+                "k_val": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Number of ancestral haplotypes to use for imputation. Refer to the documentation for the `--K` argument of STITCH for more information."
+                }
+            }
         }
     },
     "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
         {
             "$ref": "#/definitions/simulate"
         },
@@ -403,9 +450,6 @@
         },
         {
             "$ref": "#/definitions/validation"
-        },
-        {
-            "$ref": "#/definitions/input_output_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
@@ -418,16 +462,12 @@
         },
         {
             "$ref": "#/definitions/generic_options"
-        }
-    ],
-    "properties": {
-        "ngen": {
-            "type": "integer",
-            "default": 100
         },
-        "buffer": {
-            "type": "integer",
-            "default": 10000
+        {
+            "$ref": "#/definitions/quilt_parameters"
+        },
+        {
+            "$ref": "#/definitions/stitch_parameters"
         }
-    }
+    ]
 }

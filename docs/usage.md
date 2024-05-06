@@ -4,15 +4,7 @@
 
 > _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
 
-## :warning: Please read this documentation on the nf-core website: [https://nf-co.re/phaseimpute/usage](https://nf-co.re/phaseimpute/usage)
-
-> _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
-
 ## Introduction
-
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
-
-## Samplesheet input
 
 <!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
@@ -133,16 +125,56 @@ genome: 'GRCh37'
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
 
-### Imputation modes
+### Imputation tools `--step impute --tools [glimpse1, quilt, stitch]`
 
-You can choose different software to perform the imputation.
+You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
 
 #### QUILT
 
-The typical command for running the pipeline with this software is as follows:
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step impute --tool quilt --outdir results --genome GRCh37 -profile docker
+```
+
+#### STITCH
+
+[STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a tsv file with the list of positions to genotype (`--posfile`).
+
+If you do not have a list of position to genotype, you can provide a reference panel to run the `--mode panelprep` which produces a tsv with this list.
 
 ```bash
-nextflow run nf-core/phaseimpute --input ./samplesheet.csv --panel ./samplesheet_reference.csv --step impute --tool quilt --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute --input samplesheet.csv --step panelprep --panel samplesheet_reference.csv --outdir results --genome GRCh37 -profile docker
+```
+
+Otherwise, you can provide your own position file in the `--mode impute` with STITCH using the the `--posfile` parameter.
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker
+```
+
+The csv provided in `--posfile` must contain two columns [chr, file]. The first column is the chromosome and the file column are tsvs with the list of positions, unique to each chromosome.
+
+```console
+chr,file
+chr1,posfile_chr1.txt
+chr2,posfile_chr2.txt
+chr3,posfile_chr3.txt
+```
+
+The file column should contain a TSV with the following structure, from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md).
+
+As an example, chr22 tsv file:
+
+```console
+chr22	16570065	A	G
+chr22	16570067	A	C
+chr22	16570176	C	A
+chr22	16570211	T	C
+```
+
+#### GLIMPSE1
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker
 ```
 
 ### Updating the pipeline

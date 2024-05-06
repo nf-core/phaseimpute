@@ -40,6 +40,7 @@ workflow NFCORE_PHASEIMPUTE {
     ch_regions     // channel: regions to use [[chr, region], region]
     ch_depth       // channel: depth of coverage file [[depth], depth]
     ch_map         // channel: map file for imputation
+    ch_posfile     // channel: samplesheet read in from --posfile
     ch_versions    // channel: versions of software used
 
     main:
@@ -52,15 +53,15 @@ workflow NFCORE_PHASEIMPUTE {
     input_simulate       = Channel.empty()
     input_validate       = Channel.empty()
 
-    if (params.step == "impute") {
+    if (params.step.split(',').contains("impute")) {
         input_impute   = ch_input
             .combine(ch_regions)
             .map { metaI, file, index, metaCR, region ->
                 [ metaI+metaCR, file, index ]
             }
-    } else if (params.step == "simulate" || params.step == "all") {
+    } else if (params.step.split(',').contains("simulate") || params.step.split(',').contains("all")) {
         input_simulate = ch_input
-    } else if (params.step == "validate") {
+    } else if (params.step.split(',').contains("validate")) {
         input_validate = ch_input
             .combine(ch_regions)
             .map { metaI, file, index, metaCR, region ->
@@ -86,6 +87,7 @@ workflow NFCORE_PHASEIMPUTE {
         ch_regions,
         ch_depth,
         ch_map,
+        ch_posfile,
         ch_versions
     )
 
@@ -128,6 +130,7 @@ workflow {
         PIPELINE_INITIALISATION.out.regions,
         PIPELINE_INITIALISATION.out.depth,
         PIPELINE_INITIALISATION.out.map,
+        PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.versions
     )
 
