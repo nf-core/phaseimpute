@@ -10,30 +10,57 @@ The directories listed below will be created in the results directory after the 
 
 ## Pipeline overview
 
+## Panel preparation outputs `--step panelprep`
+This step of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--step impute`). It has two optional modes: reference panel phasing with SHAPEIT5 and removal of specified samples from reference panel.
+
+- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites from the reference panel
+- [Convert](#convert) - Convert reference panel to .hap and .legend files
+- [Posfile](#posfile) - Produce a TSV with the list of positions to genotype (for STITCH/QUILT)
+- [Sites](#sites) - Produce a TSV with the list of positions to genotype (for GLIMPSE1)
+- [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
+
+### Convert
+
+- `prep_panel/haplegend/`
+  - `*.hap`: a .hap file for the reference panel.
+  - `*.legend*`: a .legend file for the reference panel.
+
+[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation step and directly submit these files for imputation (to be developed). The hap and legend files are input files used with `--tools quilt`.
+
+### Posfile
+
+- `prep_panel/posfile/`
+  - `*.hap`: a .txt file with the list of position to genotype.
+
+[bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files per chromosome that can be gathered into a samplesheet and directly submitted for imputation with  `--tools stitch` using the parameter `--posfile`.
+
+### Sites
+
+- `prep_panel/sites/`
+  - `vcf/`
+      - `*.vcf.gz`: VCF with biallelic SNPs only.
+      - `*.csi`: Index file for VCF.
+  - `tsv/`
+    - `*.txt.gz`: TXT file for biallelic SNPs.
+    - `*.tbi`: Index file for TSV.
+
+[bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCFs can be gathered into a csv and used with all the tools in `--step impute` using the flag `--panel`.
+
+In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files (`*_tsv.txt`) and, together with the VCFs, they can be gathered into a samplesheet and directly submitted for imputation with `--tools glimpse1` and `--posfile` (not yet implemented).
+
+### Glimpse Chunk
+
+- `prep_panel/chunks/`
+  - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
+
+[Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation step and directly submit this file for imputation.
+
 ## QUILT imputation mode
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
-- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites from the reference panel
-- [Convert](#convert) - Convert reference panel to .hap and .legend files
 - [QUILT](#quilt) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
-
-### Glimpse Chunk
-
-- `imputation/glimpse_chunk/`
-  - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
-
-[Glimpse chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation step and directly submit this file for imputation.
-
-### Convert
-
-- `imputation/bcftools/convert/`
-  - `*.hap`: a .hap file for the reference panel.
-  - `*.legend*`: a .legend file for the reference panel.
-
-[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation step and directly submit these files for imputation (to be developed).
 
 ### QUILT
 
@@ -45,7 +72,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Concat
 
-- `imputation/bcftools/concat`
+- `imputation/quilt/bcftools/concat`
 - `.*.vcf.gz`: Imputed and ligated VCF for all the input samples.
 
 [bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs in chunks.
@@ -54,13 +81,20 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites
 - [STITCH](#quilt) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
 
+### STITCH
+
+- `imputation/stitch/`
+- `stitch.*.vcf.gz`: Imputed VCF for a specific chunk.
+- `stitch.*.vcf.gz.tbi`: TBI for the Imputed VCF for a specific chunk.
+
+[STITCH](https://github.com/rwdavies/STITCH) performs the imputation. This step will contain the VCF for each of the chunks.
+
 ### Concat
 
-- `imputation/bcftools/concat`
+- `imputation/stitch/bcftools/concat`
 - `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
 
 [bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs.

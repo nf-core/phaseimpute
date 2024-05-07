@@ -125,6 +125,26 @@ genome: 'GRCh37'
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
 
+### Starting the pipeline
+Phaseimpute can be started at different points in the analysis by setting the flag `--step` and the available options `[simulate, panelprep, impute, validate, all]`.
+
+### Start with panel preparation `--step panelprep`
+
+There are a few quality control steps that are applied to reference panels. These include actions such as removing multiallelic SNPs and indels, removing certain samples from the reference panel (such as related samples). In addition, chunks are produced which are then used in the imputation steps. The flag `--step panelprep` produces the filtered output files that are used as input in the subsequent imputation steps, such as `--step impute`.
+
+For starting from panel preparation, the required flags are `--step panelprep` and`--panel samplesheet_reference.csv`.
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step panelprep --outdir results --genome GRCh37 -profile docker
+```
+### Start from imputation tools `--step impute`
+
+For starting from the imputation step, the required flags are:
+- `--step impute`
+- `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
+- `--panel samplesheet_reference.csv`: The files in `samplesheet_reference.csv` are the filtered, quality controlled, bi-allelic VCFs obtained from `--step panelprep`.
+- `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These are produced by `--step panelprep`.
+
 ### Imputation tools `--step impute --tools [glimpse1, quilt, stitch]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
@@ -139,13 +159,13 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_ref
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a tsv file with the list of positions to genotype (`--posfile`).
 
-If you do not have a list of position to genotype, you can provide a reference panel to run the `--mode panelprep` which produces a tsv with this list.
+If you do not have a list of position to genotype, you can provide a reference panel to run the `--step panelprep` which produces a tsv with this list.
 
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --step panelprep --panel samplesheet_reference.csv --outdir results --genome GRCh37 -profile docker
 ```
 
-Otherwise, you can provide your own position file in the `--mode impute` with STITCH using the the `--posfile` parameter.
+Otherwise, you can provide your own position file in the `--step impute` with STITCH using the the `--posfile` parameter.
 
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --step impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker

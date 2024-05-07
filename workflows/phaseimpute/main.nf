@@ -163,7 +163,7 @@ workflow PHASEIMPUTE {
             }
 
         // Create chunks from reference VCF
-        MAKE_CHUNKS(ch_panel_phased)
+        MAKE_CHUNKS(ch_panel_phased, ch_map)
         ch_versions    = ch_versions.mix(MAKE_CHUNKS.out.versions)
     }
 
