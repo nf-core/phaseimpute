@@ -14,7 +14,6 @@ workflow VCF_CHUNK_GLIMPSE {
 
     // Add chromosome to channel
     ch_vcf_csi_chr = ch_reference.map{meta, vcf, csi -> [meta, vcf, csi, meta.chr]}
-    ch_vcf_csi_chr.dump(tag:"ch_vcf_csi_chr")
 
     // Make chunks with Glimpse1
     GLIMPSE_CHUNK(ch_vcf_csi_chr)
@@ -28,7 +27,6 @@ workflow VCF_CHUNK_GLIMPSE {
                         def startEnd = fields[2].split(':')[1].split('-')
                         [metamap, metamap.chr, startEnd[0], startEnd[1]]
                     }
-    ch_chunks_glimpse1.dump(tag:"ch_chunks_glimpse1")
 
     // Make chunks with Glimpse2 (does not work with "sequential" mode)
     chunk_model = "recursive"
@@ -42,7 +40,6 @@ workflow VCF_CHUNK_GLIMPSE {
                                     'WindowMb', 'NbTotVariants', 'NbComVariants'],
                                     sep: "\t", skip: 0)
                             .map { meta, it -> [meta, it["RegionBuf"], it["RegionCnk"]]}
-    ch_chunks_glimpse2.dump(tag:"ch_chunks_glimpse2")
 
     // Split reference panel in bin files
     // Segmentation fault occurs in small-sized panels
