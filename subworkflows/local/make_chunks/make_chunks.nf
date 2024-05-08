@@ -2,7 +2,7 @@ include { GLIMPSE_CHUNK                     } from '../../../modules/nf-core/gli
 include { GLIMPSE2_CHUNK                    } from '../../../modules/nf-core/glimpse2/chunk/main'
 include { GLIMPSE2_SPLITREFERENCE           } from '../../../modules/nf-core/glimpse2/splitreference/main'
 
-workflow MAKE_CHUNKS {
+workflow VCF_CHUNK_GLIMPSE {
 
     take:
     ch_reference                           // channel: [ val(meta),vcf ]

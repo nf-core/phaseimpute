@@ -36,7 +36,7 @@ include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
-include { MAKE_CHUNKS                                } from '../../subworkflows/local/make_chunks/make_chunks'
+include { VCF_CHUNK_GLIMPSE                                } from '../../subworkflows/local/vcf_chunk_glimpse/vcf_chunk_glimpse'
 include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
@@ -163,8 +163,8 @@ workflow PHASEIMPUTE {
             }
 
         // Create chunks from reference VCF
-        MAKE_CHUNKS(ch_panel_phased, ch_map)
-        ch_versions    = ch_versions.mix(MAKE_CHUNKS.out.versions)
+        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
+        ch_versions    = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
     }
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
@@ -256,7 +256,7 @@ workflow PHASEIMPUTE {
                 print("Impute with QUILT")
 
                 // Impute BAMs with QUILT
-                IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, MAKE_CHUNKS.out.chunks)
+                IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks)
                 ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
 
                 // Add to output channel
