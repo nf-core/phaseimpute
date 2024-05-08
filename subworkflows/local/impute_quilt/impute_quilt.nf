@@ -4,7 +4,7 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bc
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
 
-workflow IMPUTE_QUILT {
+workflow BAM_IMPUTE_QUILT {
 
     take:
     ch_hap_legend        // channel: [ [panel, chr], hap, legend ]

@@ -37,7 +37,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                                } from '../../subworkflows/local/vcf_chunk_glimpse/vcf_chunk_glimpse'
-include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+include { BAM_IMPUTE_QUILT                               } from '../../subworkflows/local/bam_impute_quilt/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
@@ -256,14 +256,14 @@ workflow PHASEIMPUTE {
                 print("Impute with QUILT")
 
                 // Impute BAMs with QUILT
-                IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks)
-                ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
+                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks)
+                ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Add to output channel
-                ch_impute_output = ch_impute_output.mix(IMPUTE_QUILT.out.vcf_tbi)
+                ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_QUILT.out.vcf_tbi)
 
                 // Concatenate by chromosomes
-                CONCAT_QUILT(IMPUTE_QUILT.out.vcf_tbi)
+                CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
                 ch_versions       = ch_versions.mix(CONCAT_QUILT.out.versions)
 
                 // Add results to input validate
