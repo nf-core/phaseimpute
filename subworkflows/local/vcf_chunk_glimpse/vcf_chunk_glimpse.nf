@@ -20,13 +20,18 @@ workflow VCF_CHUNK_GLIMPSE {
     ch_versions = ch_versions.mix(GLIMPSE_CHUNK.out.versions)
 
     // Rearrange chunks into channel for QUILT
-    ch_chunks_glimpse1 = GLIMPSE_CHUNK.out.chunk_chr
+    ch_chunks_quilt = GLIMPSE_CHUNK.out.chunk_chr
                     .splitText()
                     .map { metamap, line ->
                         def fields = line.split("\t")
                         def startEnd = fields[2].split(':')[1].split('-')
                         [metamap, metamap.chr, startEnd[0], startEnd[1]]
                     }
+
+    // Rearrange chunks into channel for GLIMPSE1
+    ch_chunks_glimpse1 = GLIMPSE_CHUNK.out.chunk_chr
+                                .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
+                                .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
 
     // Make chunks with Glimpse2 (does not work with "sequential" mode)
     chunk_model = "recursive"
@@ -59,8 +64,9 @@ workflow VCF_CHUNK_GLIMPSE {
     }
 
     emit:
-    chunks                    = ch_chunks_glimpse1                    // channel: [ chr, val(meta), start, end, number ]
-    chunks_glimpse2           = ch_chunks_glimpse2
+    chunks_quilt              = ch_chunks_quilt                       // channel:  [ val(meta), chr,  start, end ]
+    chunks_glimpse1           = ch_chunks_glimpse1                    // channel:  [ val(meta), chr,  region1, region2 ]
+    chunks_glimpse2           = ch_chunks_glimpse2                    // channel:  [ val(meta), chr,  region1, region2 ]
     binary                    = ch_bins                               // channel:  [ [meta], bin]
     versions                  = ch_versions                           // channel:  [ versions.yml ]
 }

@@ -112,6 +112,22 @@
                     "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
+                },
+                "binaryref": {
+                    "type": "string",
+                    "description": "Whether to generate a binary reference file to be used with GLIMPSE2"
+                }
+            }
+        },
+        "imputation_options": {
+            "title": "Imputation options",
+            "type": "object",
+            "description": "Arguments for the imputation step",
+            "default": "",
+            "properties": {
+                "chunks": {
+                    "type": "string",
+                    "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation."
                 }
             }
         },
@@ -450,6 +466,9 @@
         },
         {
             "$ref": "#/definitions/panelprep"
+        },
+        {
+            "$ref": "#/definitions/imputation_options"
         },
         {
             "$ref": "#/definitions/validation"

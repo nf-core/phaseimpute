@@ -34,6 +34,7 @@ include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                                } from '../../subworkflows/local/vcf_chunk_glimpse/vcf_chunk_glimpse'
@@ -215,8 +216,23 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
-                error "Glimpse2 not yet implemented"
-                // Glimpse2 subworkflow
+                //error "Glimpse2 not yet implemented"
+
+                // Use previous chunks if --step panelprep
+                if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
+                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+
+                    VCF_IMPUTE_GLIMPSE2(ch_input_impute,
+                                    ch_panel_phased,
+                                    ch_chunks,
+                                    ch_fasta)
+                } else if (params.chunks) {
+                    // use provided chunks
+                } else {
+                    error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
+                }
+
+
             }
 
             if (params.tools.split(',').contains("stitch")) {
@@ -256,7 +272,7 @@ workflow PHASEIMPUTE {
                 print("Impute with QUILT")
 
                 // Impute BAMs with QUILT
-                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks)
+                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Add to output channel
