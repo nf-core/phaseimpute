@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/nextflow_schema.json",
     "title": "nf-core/phaseimpute pipeline parameters",
     "description": "Phasing and imputation pipeline",
     "type": "object",
-    "definitions": {
+    "defs": {
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -459,37 +459,37 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/input_output_options"
+            "$ref": "#/defs/input_output_options"
         },
         {
-            "$ref": "#/definitions/simulate"
+            "$ref": "#/defs/simulate"
         },
         {
-            "$ref": "#/definitions/panelprep"
+            "$ref": "#/defs/panelprep"
         },
         {
-            "$ref": "#/definitions/imputation_options"
+            "$ref": "#/defs/imputation_options"
         },
         {
-            "$ref": "#/definitions/validation"
+            "$ref": "#/defs/validation"
         },
         {
-            "$ref": "#/definitions/reference_genome_options"
+            "$ref": "#/defs/reference_genome_options"
         },
         {
-            "$ref": "#/definitions/institutional_config_options"
+            "$ref": "#/defs/institutional_config_options"
         },
         {
-            "$ref": "#/definitions/max_job_request_options"
+            "$ref": "#/defs/max_job_request_options"
         },
         {
-            "$ref": "#/definitions/generic_options"
+            "$ref": "#/defs/generic_options"
         },
         {
-            "$ref": "#/definitions/quilt_parameters"
+            "$ref": "#/defs/quilt_parameters"
         },
         {
-            "$ref": "#/definitions/stitch_parameters"
+            "$ref": "#/defs/stitch_parameters"
         }
     ]
 }
