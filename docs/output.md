@@ -11,6 +11,7 @@ The directories listed below will be created in the results directory after the 
 ## Pipeline overview
 
 ## Panel preparation outputs `--step panelprep`
+
 This step of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--step impute`). It has two optional modes: reference panel phasing with SHAPEIT5 and removal of specified samples from reference panel.
 
 - [Remove Multiallelics](#multiallelics) - Remove multiallelic sites from the reference panel
@@ -32,14 +33,14 @@ This step of the pipeline performs a QC of the reference panel data and produces
 - `prep_panel/posfile/`
   - `*.hap`: a .txt file with the list of position to genotype.
 
-[bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files per chromosome that can be gathered into a samplesheet and directly submitted for imputation with  `--tools stitch` using the parameter `--posfile`.
+[bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files per chromosome that can be gathered into a samplesheet and directly submitted for imputation with `--tools stitch` using the parameter `--posfile`.
 
 ### Sites
 
 - `prep_panel/sites/`
   - `vcf/`
-      - `*.vcf.gz`: VCF with biallelic SNPs only.
-      - `*.csi`: Index file for VCF.
+    - `*.vcf.gz`: VCF with biallelic SNPs only.
+    - `*.csi`: Index file for VCF.
   - `tsv/`
     - `*.txt.gz`: TXT file for biallelic SNPs.
     - `*.tbi`: Index file for TSV.

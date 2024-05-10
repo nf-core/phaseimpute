@@ -136,7 +136,9 @@ This step of the pipeline allows to create synthetic low-coverage input files by
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --step simulate --depth 1 --outdir results --genome GRCh37 -profile docker
 ```
+
 The required flags for this mode are:
+
 - `--step simulate`: The step to run.
 - `--input samplesheet.csv`: The samplesheet containing the input sample files in `bam` format.
 - `--depth`: The final depth of the file [default: 1].
@@ -158,6 +160,7 @@ You can find an overview of the results produced by this steps in the [Output](o
 ### Start with imputation `--step impute`
 
 For starting from the imputation step, the required flags are:
+
 - `--step impute`
 - `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
 - `--panel samplesheet_reference.csv`: The files in `samplesheet_reference.csv` are the filtered, quality controlled, bi-allelic VCFs obtained from `--step panelprep`.
@@ -218,6 +221,7 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_ref
 ```
 
 ### Start with validation `--step validate`
+
 This step compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
 
 ### Updating the pipeline
