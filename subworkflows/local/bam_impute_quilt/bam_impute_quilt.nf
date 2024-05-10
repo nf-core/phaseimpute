@@ -14,6 +14,7 @@ workflow BAM_IMPUTE_QUILT {
 
     main:
 
+
     ch_versions = Channel.empty()
 
     posfile             = []
@@ -25,6 +26,8 @@ workflow BAM_IMPUTE_QUILT {
     ngen                = params.ngen
     buffer              = params.buffer
 
+    // Rename panel to id
+    ch_chunks = ch_chunks.map{meta, chr, start, end -> return[['id': meta.panel, 'chr': meta.chr], chr, start, end]}
 
     if (genetic_map_file.isEmpty()) {
         ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).map { it + ngen + buffer + [[]] }

@@ -1,6 +1,6 @@
 name: "vcf_normalize_bcftools"
-description: Normalize VCF files (bcftools norm -m -any).
-  Keep only SNPs and remove multiallelic records (bcftools view -m 2 -M 2 -v snps).
+description: Normalize VCF files (bcftools norm -m +any). Combine records spanning different lines into a single line.
+  Keep only biallelic SNPs and remove multiallelic records (bcftools view -m 2 -M 2 -v snps).
   Convert to hap/legend format (bcftools convert --haplegendsample).
   Optionally, remove samples from the reference panel (bcftools view -s ^SAMPLENAME).
 keywords:
