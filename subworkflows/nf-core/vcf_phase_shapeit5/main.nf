@@ -1,8 +1,8 @@
-include { BEDTOOLS_MAKEWINDOWS              } from '../../../modules/nf-core/bedtools/makewindows/main.nf'
-include { SHAPEIT5_PHASECOMMON              } from '../../../modules/nf-core/shapeit5/phasecommon/main'
-include { SHAPEIT5_LIGATE                   } from '../../../modules/nf-core/shapeit5/ligate/main'
-include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_1      } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_2      } from '../../../modules/nf-core/bcftools/index/main.nf'
+include { BEDTOOLS_MAKEWINDOWS                   } from '../../../modules/nf-core/bedtools/makewindows/main.nf'
+include { SHAPEIT5_PHASECOMMON                   } from '../../../modules/nf-core/shapeit5/phasecommon/main'
+include { SHAPEIT5_LIGATE                        } from '../../../modules/nf-core/shapeit5/ligate/main'
+include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index/main.nf'
+include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index/main.nf'
 
 workflow VCF_PHASE_SHAPEIT5 {
 
@@ -90,7 +90,7 @@ workflow VCF_PHASE_SHAPEIT5 {
     emit:
     bed                 = BEDTOOLS_MAKEWINDOWS.out.bed           // channel: [ val(meta), bed ]
     variants_phased     = SHAPEIT5_LIGATE.out.merged_variants    // channel: [ val(meta), vcf ]
-    variants_index      = VCF_BCFTOOLS_INDEX_2.out.csi                     // channel: [ val(meta), csi ]
+    variants_index      = VCF_BCFTOOLS_INDEX_2.out.csi           // channel: [ val(meta), csi ]
     versions            = ch_versions                            // channel: [ versions.yml ]
 }
 
