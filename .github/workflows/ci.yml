@@ -1,5 +1,6 @@
 name: nf-core CI
 # This workflow runs the pipeline with the minimal test dataset to check that it completes without any syntax errors
+
 on:
   push:
     branches:
@@ -26,6 +27,11 @@ jobs:
         NXF_VER:
           - "23.04.0"
           - "latest-everything"
+        TEST_PROFILE:
+          - "test"
+          - "test_sim"
+          - "test_quilt"
+          - "test_stitch"
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
@@ -43,4 +49,4 @@ jobs:
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile "${{ matrix.TEST_PROFILE }}",docker --outdir ./results

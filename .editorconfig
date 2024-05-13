@@ -31,3 +31,9 @@ indent_size = unset
 # ignore python and markdown
 [*.{py,md}]
 indent_style = unset
+
+[/docs/*.xml]
+indent_style = unset
+
+[/docs/images/metro/*.xml]
+indent_style = unset

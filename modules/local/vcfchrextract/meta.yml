@@ -1,0 +1,41 @@
+name: vcfchrextract
+description: Extract all contigs name into txt file
+keywords:
+  - bcftools
+  - vcf
+  - head
+  - contig
+tools:
+  - head:
+      description: Extract header from variant calling file.
+      homepage: http://samtools.github.io/bcftools/bcftools.html
+      documentation: https://samtools.github.io/bcftools/bcftools.html#head
+      doi: 10.1093/bioinformatics/btp352
+      licence: ["MIT"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - input:
+      type: file
+      description: Query VCF or BCF file, can be either uncompressed or compressed
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - chr:
+      type: file
+      description: List of contigs in the VCF file
+      pattern: "*{txt}"
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

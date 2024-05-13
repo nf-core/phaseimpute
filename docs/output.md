@@ -10,34 +10,68 @@ The directories listed below will be created in the results directory after the 
 
 ## Pipeline overview
 
+## QUILT imputation mode
+
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [FastQC](#fastqc) - Raw read QC
+- [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
+- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites from the reference panel
+- [Convert](#convert) - Convert reference panel to .hap and .legend files
+- [QUILT](#quilt) - Perform imputation
+- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
+
+### Glimpse Chunk
+
+- `imputation/glimpse_chunk/`
+  - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
+
+[Glimpse chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation step and directly submit this file for imputation.
+
+### Convert
+
+- `imputation/bcftools/convert/`
+  - `*.hap`: a .hap file for the reference panel.
+  - `*.legend*`: a .legend file for the reference panel.
+
+[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation step and directly submit these files for imputation (to be developed).
+
+### QUILT
+
+- `imputation/quilt/`
+- `quilt.*.vcf.gz`: Imputed VCF for a specific chunk.
+- `quilt.*.vcf.gz.tbi`: TBI for the Imputed VCF for a specific chunk.
+
+[quilt](https://github.com/rwdavies/QUILT) performs the imputation. This step will contain the VCF for each of the chunks.
+
+### Concat
+
+- `imputation/bcftools/concat`
+- `.*.vcf.gz`: Imputed and ligated VCF for all the input samples.
+
+[bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs in chunks.
+
+## STITCH imputation mode
+
+The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
+
+- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites
+- [STITCH](#quilt) - Perform imputation
+- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
+
+### Concat
+
+- `imputation/bcftools/concat`
+- `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
+
+[bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs.
+
+## Reports
+
+Reports contain useful metrics and pipeline information for the different modes.
+
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
-
-### FastQC
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `fastqc/`
-  - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
-
-</details>
-
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
-
-![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
-
-![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
-
-![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
-
-:::note
-The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
-:::
 
 ### MultiQC
 
@@ -51,6 +85,7 @@ The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They m
 
 </details>
 
+[MultiQC](http://multiqc.info) is a visualization tool that generates a single HTML report summarising all samples in your project. Most of the pipeline QC results are visualised in the report and further statistics are available in the report data directory.
 [MultiQC](http://multiqc.info) is a visualization tool that generates a single HTML report summarising all samples in your project. Most of the pipeline QC results are visualised in the report and further statistics are available in the report data directory.
 
 Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQC. The pipeline has special steps which also allow the software versions to be reported in the MultiQC output for future traceability. For more information about how to use MultiQC reports, see <http://multiqc.info>.
