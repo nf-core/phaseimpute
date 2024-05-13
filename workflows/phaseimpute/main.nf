@@ -216,21 +216,21 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
-                //error "Glimpse2 not yet implemented"
+                error "Glimpse2 not yet implemented"
 
                 // Use previous chunks if --step panelprep
-                if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
-                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+                // if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
+                //     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
 
-                    VCF_IMPUTE_GLIMPSE2(ch_input_impute,
-                                    ch_panel_phased,
-                                    ch_chunks,
-                                    ch_fasta)
-                } else if (params.chunks) {
-                    // use provided chunks
-                } else {
-                    error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
-                }
+                //     VCF_IMPUTE_GLIMPSE2(ch_input_impute,
+                //                     ch_panel_phased,
+                //                     ch_chunks,
+                //                     ch_fasta)
+                // } else if (params.chunks) {
+                //     // use provided chunks
+                // } else {
+                //     error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
+                // }
 
 
             }
