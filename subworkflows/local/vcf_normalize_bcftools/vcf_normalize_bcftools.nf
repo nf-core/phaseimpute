@@ -22,10 +22,10 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     BCFTOOLS_NORM(ch_vcf, ch_fasta)
 
     // Index multiallelic VCF
-    BCFTOOLS_INDEX(BCFTOOLS_NORM.out.vcf)
+    BCFTOOLS_INDEX_1(BCFTOOLS_NORM.out.vcf)
 
     // Join multiallelic VCF and TBI
-    ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
+    ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
 
     // Remove all multiallelic records:
     BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])

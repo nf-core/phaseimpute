@@ -1,6 +1,6 @@
 include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/annotate'
 include { BCFTOOLS_INDEX              } from '../../../modules/nf-core/bcftools/index'
-include { GAWK as FAITOCHR            } from '../../../modules/nf-core/gawk'
+include { GAWK                        } from '../../../modules/nf-core/gawk'
 
 workflow VCF_CHR_RENAME {
     take:
@@ -12,7 +12,7 @@ workflow VCF_CHR_RENAME {
     ch_versions = Channel.empty()
 
     // Generate the chromosome renaming file
-    FAITOCHR(
+    GAWK(
         ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] },
         Channel.of(
             'BEGIN {FS="\\t"} NR==1 { if ($1 ~ /^chr/) { col1=""; col2="chr" } else { col1="chr"; col2="" } } { sub(/^chr/, "", $1); if ($1 ~ /^[0-9]+|[XYMT]$/) print col1$1, col2$1; else print $1, $1 }'
