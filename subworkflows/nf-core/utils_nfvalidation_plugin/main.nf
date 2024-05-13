@@ -8,7 +8,9 @@
 ========================================================================================
 */
 
-include { validateParameters; paramsHelp; paramsSummaryLog } from 'plugin/nf-schema'
+include { paramsHelp         } from 'plugin/nf-validation'
+include { paramsSummaryLog   } from 'plugin/nf-validation'
+include { validateParameters } from 'plugin/nf-validation'
 
 /*
 ========================================================================================
