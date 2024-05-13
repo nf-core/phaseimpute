@@ -1,5 +1,5 @@
 include { GLIMPSE2_CONCORDANCE        } from '../../../modules/nf-core/glimpse2/concordance'
-include { GAWK as CONCATENATE         } from '../../../modules/nf-core/gawk'
+include { GAWK                        } from '../../../modules/nf-core/gawk'
 include { ADD_COLUMNS                 } from '../../../modules/local/addcolumns'
 include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 
@@ -43,18 +43,16 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ADD_COLUMNS(GUNZIP.out.gunzip)
     ch_versions = ch_versions.mix(ADD_COLUMNS.out.versions.first())
 
-    CONCATENATE(
+    GAWK(
         ADD_COLUMNS.out.txt
             .map{meta, txt -> [["id":"TestQuality"], txt]}
             .groupTuple(),
-        Channel.of(
-            '(NR == 1) || (FNR > 1)'
-        ).collectFile(name:"program.txt")
+        []
     )
-    ch_versions = ch_versions.mix(CONCATENATE.out.versions.first())
+    ch_versions = ch_versions.mix(GAWK.out.versions.first())
 
     emit:
-    stats           = CONCATENATE.out.output      // [ meta, txt ]
+    stats           = GAWK.out.output             // [ meta, txt ]
     versions        = ch_versions                 // channel: [ versions.yml ]
     multiqc_files   = ch_multiqc_files
 }
