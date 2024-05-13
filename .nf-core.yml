@@ -1,2 +1,4 @@
 repository_type: pipeline
+lint:
+  subworkflow_changes: false
 nf_core_version: "2.14.1"
