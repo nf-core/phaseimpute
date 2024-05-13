@@ -4,7 +4,7 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bc
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
 
-workflow IMPUTE_QUILT {
+workflow BAM_IMPUTE_QUILT {
 
     take:
     ch_hap_legend        // channel: [ [panel, chr], hap, legend ]
@@ -13,6 +13,7 @@ workflow IMPUTE_QUILT {
 
 
     main:
+
 
     ch_versions = Channel.empty()
 
@@ -25,6 +26,8 @@ workflow IMPUTE_QUILT {
     ngen                = params.ngen
     buffer              = params.buffer
 
+    // Rename panel to id
+    ch_chunks = ch_chunks.map{meta, chr, start, end -> return[['id': meta.panel, 'chr': meta.chr], chr, start, end]}
 
     if (genetic_map_file.isEmpty()) {
         ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).map { it + ngen + buffer + [[]] }

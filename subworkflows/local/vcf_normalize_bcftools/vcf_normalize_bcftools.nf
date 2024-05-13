@@ -4,6 +4,8 @@ include { BCFTOOLS_INDEX                    } from '../../../modules/nf-core/bcf
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2} from '../../../modules/nf-core/bcftools/index/main'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3} from '../../../modules/nf-core/bcftools/index/main'
 include { BCFTOOLS_CONVERT                  } from '../../../modules/nf-core/bcftools/convert/main'
+include { BCFTOOLS_VIEW as BCFTOOLS_REMOVE  } from '../../../modules/nf-core/bcftools/view/main'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_4} from '../../../modules/nf-core/bcftools/index/main'
 
 
 workflow VCF_NORMALIZE_BCFTOOLS {
@@ -33,6 +35,13 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
     // Join biallelic VCF and TBI
     ch_biallelic_vcf_tbi = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
+
+    // (Optional) Remove benchmarking samples (e.g. NA12878) from the reference panel
+    if (!(params.remove_samples == null)){
+        BCFTOOLS_REMOVE(ch_biallelic_vcf_tbi, [], [], [])
+        BCFTOOLS_INDEX_4(BCFTOOLS_REMOVE.out.vcf)
+        ch_biallelic_vcf_tbi = BCFTOOLS_REMOVE.out.vcf.join(BCFTOOLS_INDEX_4.out.tbi)
+    }
 
     // Convert VCF to Hap and Legend files
     BCFTOOLS_CONVERT(ch_biallelic_vcf_tbi, ch_fasta, [])

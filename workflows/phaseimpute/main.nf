@@ -34,10 +34,11 @@ include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
 
 // QUILT subworkflows
-include { MAKE_CHUNKS                                } from '../../subworkflows/local/make_chunks/make_chunks'
-include { IMPUTE_QUILT                               } from '../../subworkflows/local/impute_quilt/impute_quilt'
+include { VCF_CHUNK_GLIMPSE                                } from '../../subworkflows/local/vcf_chunk_glimpse/vcf_chunk_glimpse'
+include { BAM_IMPUTE_QUILT                               } from '../../subworkflows/local/bam_impute_quilt/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
@@ -132,7 +133,12 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
-        // Phase panel
+        // Prepare posfile stitch
+        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
+        ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
+
+        // If required, phase panel (currently not working, a test should be added)
+        // Phase panel with tool of choice (e.g. SHAPEIT5)
         VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
                         VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites,
@@ -156,13 +162,10 @@ workflow PHASEIMPUTE {
             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 -> [metaPC, phased, p_index]
             }
-        // Prepare posfile stitch
-        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
-        ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
 
         // Create chunks from reference VCF
-        MAKE_CHUNKS(ch_panel)
-        ch_versions    = ch_versions.mix(MAKE_CHUNKS.out.versions)
+        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
+        ch_versions    = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
     }
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
@@ -214,14 +217,29 @@ workflow PHASEIMPUTE {
             }
             if (params.tools.split(',').contains("glimpse2")) {
                 error "Glimpse2 not yet implemented"
-                // Glimpse2 subworkflow
+
+                // Use previous chunks if --step panelprep
+                // if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
+                //     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+
+                //     VCF_IMPUTE_GLIMPSE2(ch_input_impute,
+                //                     ch_panel_phased,
+                //                     ch_chunks,
+                //                     ch_fasta)
+                // } else if (params.chunks) {
+                //     // use provided chunks
+                // } else {
+                //     error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
+                // }
+
+
             }
 
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
                 // Obtain the user's posfile if provided or calculate it from ref panel file
-                if (params.posfile) {  // User supplied posfile
+                if (params.posfile ) {  // User supplied posfile
                 ch_posfile  = ch_posfile
                 } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
@@ -254,14 +272,14 @@ workflow PHASEIMPUTE {
                 print("Impute with QUILT")
 
                 // Impute BAMs with QUILT
-                IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, MAKE_CHUNKS.out.chunks)
-                ch_versions = ch_versions.mix(IMPUTE_QUILT.out.versions)
+                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
+                ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Add to output channel
-                ch_impute_output = ch_impute_output.mix(IMPUTE_QUILT.out.vcf_tbi)
+                ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_QUILT.out.vcf_tbi)
 
                 // Concatenate by chromosomes
-                CONCAT_QUILT(IMPUTE_QUILT.out.vcf_tbi)
+                CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
                 ch_versions       = ch_versions.mix(CONCAT_QUILT.out.versions)
 
                 // Add results to input validate

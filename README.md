@@ -44,17 +44,26 @@ sample,bam,bai
 1_BAM_1X,/path/to/.bam,/path/to/.bai
 ```
 
-Each row represents a bam file with its index file.
+Each row represents a bam file with its index file. For some tools and steps, you will also need to submit a samplesheet with the reference panel.
+
+A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
+
+```console
+chr,vcf
+1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+```
 
 Now, you can run the pipeline using:
 
 ```bash
 nextflow run nf-core/phaseimpute \
    -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
+   --input <samplesheet.csv>  \
    --genome "GRCh38" \
    --panel <phased_reference_panel.vcf.gz> \
-   --steps "impute" \
+   --step "panelprep,impute" \
    --tools "glimpse1" \
    --outdir <OUTDIR>
 ```
@@ -65,18 +74,18 @@ nextflow run nf-core/phaseimpute \
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage) and the [parameter documentation](https://nf-co.re/phaseimpute/parameters).
 
-## Description of the different mode of the pipeline
+## Description of the different steps of the pipeline
 
-Here is a short description of the different mode of the pipeline.
+Here is a short description of the different steps of the pipeline.
 For more information please refer to the [documentation](https://nf-core.github.io/phaseimpute/usage/).
 
-| Mode               | Flow chart                                                                               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Preprocessing**  | <img src="docs/images/metro/PreProcessing.png" alt="phase_metro" width="600"/>           | The preprocessing mode is responsible to the preparation of the multiple input file that will be used by the phasing process. <br> The main processes are : <br> - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/). <br> - **Filter** the reference panel to select only the necessary variants. <br> - **Chunking the reference panel** in a subset of region for all the chromosomes. <br> - **Extract** the positions where to perform the imputation.                                                                                                                                                                                                                                                                                                                                                                   |
-| **Phasing**        | <img src="docs/images/metro/Phase.png" alt="phase_metro" width="600"/>                   | The phasing mode is the core mode of this pipeline. <br> It is constituted of 3 main steps: <br> - **Phasing**: Phasing of the target dataset on the reference panel using either: <br> &emsp; - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html) <br> &emsp; It's come with the necessety to compute the genotype likelihoods of the target dataset. <br> &emsp; This step is done using [BCFTOOLS_mpileup](https://samtools.github.io/bcftools/bcftools.html#mpileup) <br> &emsp; - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/glimpse2/index.html) For this step the reference panel is transformed to binary chunks. <br> &emsp; - [**Stitch**](https://github.com/rwdavies/stitch) <br> &emsp; - [**Quilt**](https://github.com/rwdavies/QUILT) <br> - **Ligation**: all the different chunks are merged together. <br> - **Sampling** (optional) |
-| **Simulate**       | <img src="docs/images/metro/Simulate.png" alt="simulate_metro" width="600"/>             | The simulation mode is used to create artificial low informative genetic information from high density data. This allow to compare the imputed result to a _truth_ and therefore evaluate the quality of the imputation. <br> For the moment it is possible to simulate: <br> - Low-pass data by **downsample** BAM or CRAM using [SAMTOOLS_view -s]() at different depth <br> - Genotype data by **SNP selecting** the position used by a designated SNP chip. <br> The simulation mode will also compute the **Genotype likelihoods** of the high density data.                                                                                                                                                                                                                                                                                                                     |
-| **Concordance**    | <img src="docs/images/metro/Concordance.png" alt="concordance_metro" width="600"/>       | This mode compare two vcf together to compute a summary of the differences between them. <br> To do so it use either: <br> - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html) concordance process. <br> - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/glimpse2/index.html) concordance process <br> - Or convert the two vcf fill to `.zarr` using [**Scikit allele**](https://scikit-allel.readthedocs.io/en/stable/) and [**anndata**](https://anndata.readthedocs.io/en/latest/) before comparing the SNPs.                                                                                                                                                                                                                                                                                                                                          |
-| **Postprocessing** | <img src="docs/images/metro/PostProcessing.png" alt="postprocessing_metro" width="600"/> | This final process unable to loop the whole pipeline for increasing the performance of the imputation. To do so it filter out the best imputed position and rerun the analysis using this positions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Step               | Flow chart                                                                               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Panel prep**     | <img src="docs/images/metro/PreProcessing.png" alt="phase_metro" width="600"/>           | The preprocessing mode is responsible to the preparation of the multiple input file that will be used by the phasing process. <br> The main processes are : <br> - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/). <br> - **Filter** the reference panel to select only the necessary variants. <br> - **Chunking the reference panel** in a subset of region for all the chromosomes. <br> - **Extract** the positions where to perform the imputation.                                                                                                                                                                                                                                                                                                                                                                      |
+| **Impute**         | <img src="docs/images/metro/Phase.png" alt="phase_metro" width="600"/>                   | The imputation mode is the core mode of this pipeline. <br> It is constituted of 3 main steps: <br> - **Phasing**: Phasing of the target dataset on the reference panel using either: <br> &emsp; - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html) <br> &emsp; It's come with the necessety to compute the genotype likelihoods of the target dataset. <br> &emsp; This step is done using [BCFTOOLS_mpileup](https://samtools.github.io/bcftools/bcftools.html#mpileup) <br> &emsp; - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/glimpse2/index.html) For this step the reference panel is transformed to binary chunks. <br> &emsp; - [**Stitch**](https://github.com/rwdavies/stitch) <br> &emsp; - [**Quilt**](https://github.com/rwdavies/QUILT) <br> - **Ligation**: all the different chunks are merged together. <br> - **Sampling** (optional) |
+| **Simulate**       | <img src="docs/images/metro/Simulate.png" alt="simulate_metro" width="600"/>             | The simulation mode is used to create artificial low informative genetic information from high density data. This allow to compare the imputed result to a _truth_ and therefore evaluate the quality of the imputation. <br> For the moment it is possible to simulate: <br> - Low-pass data by **downsample** BAM or CRAM using [SAMTOOLS_view -s]() at different depth <br> - Genotype data by **SNP selecting** the position used by a designated SNP chip. <br> The simulation mode will also compute the **Genotype likelihoods** of the high density data.                                                                                                                                                                                                                                                                                                                        |
+| **Validate**       | <img src="docs/images/metro/Concordance.png" alt="concordance_metro" width="600"/>       | This mode compare two vcf together to compute a summary of the differences between them. <br> To do so it use either: <br> - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html) concordance process. <br> - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/glimpse2/index.html) concordance process <br> - Or convert the two vcf fill to `.zarr` using [**Scikit allele**](https://scikit-allel.readthedocs.io/en/stable/) and [**anndata**](https://anndata.readthedocs.io/en/latest/) before comparing the SNPs.                                                                                                                                                                                                                                                                                                                                             |
+| **Postprocessing** | <img src="docs/images/metro/PostProcessing.png" alt="postprocessing_metro" width="600"/> | This final process unable to loop the whole pipeline for increasing the performance of the imputation. To do so it filter out the best imputed position and rerun the analysis using this positions [to be developed].                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 ## Pipeline output
 
@@ -100,7 +109,6 @@ We thank the following people for their extensive assistance in the development 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
 
 For further information or help, don't hesitate to get in touch on the [Slack `#phaseimpute` channel](https://nfcore.slack.com/channels/phaseimpute) (you can join with [this invite](https://nf-co.re/join/slack)).
-For further information or help, don't hesitate to get in touch on the [Slack `#phaseimpute` channel](https://nfcore.slack.com/channels/phaseimpute) (you can join with [this invite](https://nf-co.re/join/slack)).
 
 ## Citations
 
@@ -116,6 +124,28 @@ You can cite one of the main imputation methods ([`QUILT`](https://github.com/rw
 > Davies, R. W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C. M., Chan, Y. F., & Myers, S.
 >
 > _Nature genetics_ 2021 June 03. doi: [10.1038/s41588-021-00877-0](https://doi.org/10.1038/s41588-021-00877-0)
+
+You can cite one of the main imputation methods ([`GLIMPSE`](https://github.com/odelaneau/GLIMPSE)) as follows:
+
+> **Efficient phasing and imputation of low-coverage sequencing data using large reference panels.**
+>
+> Rubinacci, S., Ribeiro, D. M., Hofmeister, R. J., & Delaneau, O.
+>
+> _Nature genetics_ 2021. doi:[]()
+
+> **Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes**
+>
+> Rubinacci, S., Hofmeister, R. J., Sousa da Mota, B., & Delaneau, O.
+>
+> _Nature genetics_ 2023. doi:[]()
+
+You can cite one of the main imputation methods ([`STITCH`](https://github.com/rwdavies/STITCH)) as follows:
+
+> **Rapid genotype imputation from sequence without reference panels.**
+>
+> Davies, R. W., Flint, J., Myers, S., & Mott, R.
+>
+> _Nature genetics_ 2016 . doi: []().
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

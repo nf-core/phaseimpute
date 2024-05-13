@@ -41,6 +41,10 @@
                     "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
                     "pattern": "true|false"
                 },
+                "remove_samples": {
+                    "type": "string",
+                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes."
+                },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
@@ -108,6 +112,22 @@
                     "description": "Is the reference panel phased",
                     "type": "boolean",
                     "pattern": "true|false"
+                },
+                "binaryref": {
+                    "type": "string",
+                    "description": "Whether to generate a binary reference file to be used with GLIMPSE2"
+                }
+            }
+        },
+        "imputation_options": {
+            "title": "Imputation options",
+            "type": "object",
+            "description": "Arguments for the imputation step",
+            "default": "",
+            "properties": {
+                "chunks": {
+                    "type": "string",
+                    "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation."
                 }
             }
         },
@@ -434,8 +454,7 @@
                     "format": "file-path",
                     "schema": "assets/schema_posfile.json",
                     "pattern": "^\\S+\\.(csv|tsv|txt)$",
-                    "mimetype": "text/csv",
-                    "help_text": ""
+                    "mimetype": "text/csv"
                 },
                 "k_val": {
                     "type": "integer",
@@ -454,6 +473,9 @@
         },
         {
             "$ref": "#/definitions/panelprep"
+        },
+        {
+            "$ref": "#/definitions/imputation_options"
         },
         {
             "$ref": "#/definitions/validation"
