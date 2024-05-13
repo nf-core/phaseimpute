@@ -9,6 +9,10 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 
 ### `Added`
 
+- [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs for the reference panel and automatic renaming available
+- [#22](https://github.com/nf-core/phaseimpute/pull/20) - Add validation step for concordance analysis. Input channels changed to match inputs steps. Outdir folder organised by steps. Modules config by subworkflows.
+- [#26](https://github.com/nf-core/phaseimpute/pull/26) - Added QUILT method
+
 ### `Changed`
 
 - [#18](https://github.com/nf-core/phaseimpute/pull/18)
@@ -17,9 +21,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
   - correct meta map propagation
   - Test impute and test sim works
 - [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
-- [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs for the reference panel and automatic renaming available
-- [#22](https://github.com/nf-core/phaseimpute/pull/20) - Add validation step for concordance analysis. Input channels changed to match inputs steps. Outdir folder organised by steps. Modules config by subworkflows.
-- [#26](https://github.com/nf-core/phaseimpute/pull/26) - Added QUILT method
+- [#51](https://github.com/nf-core/phaseimpute/pull/51) - Update all process and fix linting errors. Remove fastqc added by the template.
 
 ### `Fixed`
 
