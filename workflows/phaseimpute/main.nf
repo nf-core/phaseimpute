@@ -43,7 +43,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 
 // STITCH subworkflows
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
-include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch/bam_impute_stitch'
+include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // CONCAT subworkflows
