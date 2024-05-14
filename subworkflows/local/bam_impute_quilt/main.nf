@@ -1,5 +1,5 @@
-include { QUILT_QUILT              } from '../../../modules/nf-core/quilt/quilt'
-include { BCFTOOLS_ANNOTATE        } from '../../../modules/nf-core/bcftools/annotate'
+include { QUILT_QUILT                        } from '../../../modules/nf-core/quilt/quilt'
+include { BCFTOOLS_ANNOTATE                  } from '../../../modules/nf-core/bcftools/annotate'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
