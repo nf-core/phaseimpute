@@ -24,11 +24,11 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_panel_sites = BCFTOOLS_VIEW.out.vcf.combine(BCFTOOLS_INDEX.out.csi, by:0)
 
     // Convert to TSV with structure for Glimpse
-    BCFTOOLS_QUERY_TSV(ch_panel_sites, [], [], [])
-    ch_versions = ch_versions.mix(BCFTOOLS_QUERY_TSV.out.versions.first())
+    BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     // Compress TSV
-    TABIX_BGZIP(BCFTOOLS_QUERY_TSV.out.output)
+    TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
     ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
     // Index compressed TSV
