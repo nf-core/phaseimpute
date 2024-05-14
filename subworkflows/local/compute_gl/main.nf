@@ -1,6 +1,6 @@
-include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup/main.nf'
-include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate/main.nf'
+include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup'
+include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate'
 
 workflow COMPUTE_GL {
 

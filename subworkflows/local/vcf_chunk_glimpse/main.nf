@@ -1,6 +1,6 @@
-include { GLIMPSE_CHUNK                     } from '../../../modules/nf-core/glimpse/chunk/main'
-include { GLIMPSE2_CHUNK                    } from '../../../modules/nf-core/glimpse2/chunk/main'
-include { GLIMPSE2_SPLITREFERENCE           } from '../../../modules/nf-core/glimpse2/splitreference/main'
+include { GLIMPSE_CHUNK                     } from '../../../modules/nf-core/glimpse/chunk'
+include { GLIMPSE2_CHUNK                    } from '../../../modules/nf-core/glimpse2/chunk'
+include { GLIMPSE2_SPLITREFERENCE           } from '../../../modules/nf-core/glimpse2/splitreference'
 
 workflow VCF_CHUNK_GLIMPSE {
 

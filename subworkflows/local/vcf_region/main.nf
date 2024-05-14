@@ -1,5 +1,5 @@
-include { BCFTOOLS_VIEW as VIEW_VCF_REGION } from '../../../modules/nf-core/bcftools/view/main.nf'
-include { BCFTOOLS_INDEX                   } from '../../../modules/nf-core/bcftools/index/main.nf'
+include { BCFTOOLS_VIEW as VIEW_VCF_REGION } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX                   } from '../../../modules/nf-core/bcftools/index'
 
 
 workflow VCF_REGION {

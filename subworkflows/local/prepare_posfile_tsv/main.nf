@@ -1,4 +1,4 @@
-include { BCFTOOLS_QUERY                    } from '../../../modules/nf-core/bcftools/query/main'
+include { BCFTOOLS_QUERY                    } from '../../../modules/nf-core/bcftools/query'
 include { GAWK                              } from '../../../modules/nf-core/gawk'
 
 

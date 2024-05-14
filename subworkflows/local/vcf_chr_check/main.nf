@@ -1,6 +1,6 @@
-include { VCFCHREXTRACT as VCFCHRBFR  } from '../../../modules/local/vcfchrextract/main.nf'
-include { VCFCHREXTRACT as VCFCHRAFT  } from '../../../modules/local/vcfchrextract/main.nf'
-include { VCF_CHR_RENAME              } from '../vcf_chr_rename/main.nf'
+include { VCFCHREXTRACT as VCFCHRBFR  } from '../../../modules/local/vcfchrextract'
+include { VCFCHREXTRACT as VCFCHRAFT  } from '../../../modules/local/vcfchrextract'
+include { VCF_CHR_RENAME              } from '../vcf_chr_rename'
 
 workflow VCF_CHR_CHECK {
     take:

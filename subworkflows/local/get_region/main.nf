@@ -1,4 +1,4 @@
-include { SAMTOOLS_FAIDX              } from '../../../modules/nf-core/samtools/faidx/main'
+include { SAMTOOLS_FAIDX              } from '../../../modules/nf-core/samtools/faidx'
 
 workflow GET_REGION {
     take:

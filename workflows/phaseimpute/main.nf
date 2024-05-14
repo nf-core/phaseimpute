@@ -7,7 +7,7 @@
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC                     } from '../../modules/nf-core/multiqc/main'
+include { MULTIQC                     } from '../../modules/nf-core/multiqc'
 include { paramsSummaryMap            } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -24,25 +24,27 @@ include { BAM_DOWNSAMPLE                             } from '../../subworkflows/
 
 // Panelprep subworkflows
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
-include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools/vcf_normalize_bcftools'
+include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
-include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_input_stitch/prepare_posfile_tsv'
+include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_posfile_tsv'
 
-// GLIMPSE subworkflows
+// GLIMPSE1 subworkflows
 include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+
+// GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
 
 // QUILT subworkflows
-include { VCF_CHUNK_GLIMPSE                                } from '../../subworkflows/local/vcf_chunk_glimpse/vcf_chunk_glimpse'
-include { BAM_IMPUTE_QUILT                               } from '../../subworkflows/local/bam_impute_quilt/bam_impute_quilt'
+include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
+include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/local/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
-include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
+include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
