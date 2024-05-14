@@ -1,4 +1,4 @@
-include { VCF_PHASE_SHAPEIT5                     } from '../../../subworkflows/nf-core/vcf_phase_shapeit5/main'
+include { VCF_PHASE_SHAPEIT5                     } from '../../../subworkflows/nf-core/vcf_phase_shapeit5'
 
 workflow VCF_PHASE_PANEL {
     take:

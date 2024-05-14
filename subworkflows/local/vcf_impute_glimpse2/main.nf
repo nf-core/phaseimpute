@@ -1,7 +1,7 @@
-include { GLIMPSE2_PHASE                 } from '../../../modules/nf-core/glimpse2/phase/main'
-include { GLIMPSE2_LIGATE                } from '../../../modules/nf-core/glimpse2/ligate/main'
-include { BCFTOOLS_INDEX as INDEX_PHASE  } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { BCFTOOLS_INDEX as INDEX_LIGATE } from '../../../modules/nf-core/bcftools/index/main.nf'
+include { GLIMPSE2_PHASE                 } from '../../../modules/nf-core/glimpse2/phase'
+include { GLIMPSE2_LIGATE                } from '../../../modules/nf-core/glimpse2/ligate'
+include { BCFTOOLS_INDEX as INDEX_PHASE  } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as INDEX_LIGATE } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_IMPUTE_GLIMPSE2 {
 

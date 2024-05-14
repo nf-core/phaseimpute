@@ -1,5 +1,5 @@
-include { SAMTOOLS_INDEX  } from '../../../modules/nf-core/samtools/index/main.nf'
-include { SAMTOOLS_VIEW   } from '../../../modules/nf-core/samtools/view/main.nf'
+include { SAMTOOLS_INDEX  } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_VIEW   } from '../../../modules/nf-core/samtools/view'
 
 workflow BAM_REGION {
 

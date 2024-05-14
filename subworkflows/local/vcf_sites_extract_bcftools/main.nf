@@ -1,8 +1,8 @@
-include { BCFTOOLS_VIEW as VIEW_VCF_SITES        } from '../../../modules/nf-core/bcftools/view/main.nf'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2     } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { TABIX_BGZIP                            } from '../../../modules/nf-core/tabix/bgzip/main'
-include { TABIX_TABIX                            } from '../../../modules/nf-core/tabix/tabix/main'
-include { BCFTOOLS_QUERY                         } from '../../../modules/nf-core/bcftools/query/main.nf'
+include { BCFTOOLS_VIEW as VIEW_VCF_SITES        } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2     } from '../../../modules/nf-core/bcftools/index'
+include { TABIX_BGZIP                            } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_TABIX                            } from '../../../modules/nf-core/tabix/tabix'
+include { BCFTOOLS_QUERY                         } from '../../../modules/nf-core/bcftools/query'
 
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:

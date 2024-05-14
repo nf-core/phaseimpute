@@ -1,11 +1,11 @@
-include { BCFTOOLS_NORM                     } from '../../../modules/nf-core/bcftools/norm/main'
-include { BCFTOOLS_VIEW                     } from '../../../modules/nf-core/bcftools/view/main'
-include { BCFTOOLS_INDEX                    } from '../../../modules/nf-core/bcftools/index/main'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2} from '../../../modules/nf-core/bcftools/index/main'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3} from '../../../modules/nf-core/bcftools/index/main'
-include { BCFTOOLS_CONVERT                  } from '../../../modules/nf-core/bcftools/convert/main'
-include { BCFTOOLS_VIEW as BCFTOOLS_REMOVE  } from '../../../modules/nf-core/bcftools/view/main'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_4} from '../../../modules/nf-core/bcftools/index/main'
+include { BCFTOOLS_NORM                     } from '../../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_VIEW                     } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX                    } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2} from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3} from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_CONVERT                  } from '../../../modules/nf-core/bcftools/convert'
+include { BCFTOOLS_VIEW as BCFTOOLS_REMOVE  } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_4} from '../../../modules/nf-core/bcftools/index'
 
 
 workflow VCF_NORMALIZE_BCFTOOLS {

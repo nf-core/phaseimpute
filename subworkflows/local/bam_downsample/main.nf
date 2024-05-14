@@ -1,6 +1,6 @@
-include { SAMTOOLS_COVERAGE   } from '../../../modules/nf-core/samtools/coverage/main.nf'
-include { SAMTOOLS_INDEX      } from '../../../modules/nf-core/samtools/index/main.nf'
-include { SAMTOOLS_VIEW       } from '../../../modules/nf-core/samtools/view/main.nf'
+include { SAMTOOLS_COVERAGE   } from '../../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_INDEX      } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_VIEW       } from '../../../modules/nf-core/samtools/view'
 
 workflow BAM_DOWNSAMPLE {
 
