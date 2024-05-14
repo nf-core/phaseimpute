@@ -1,6 +1,6 @@
-include { GLIMPSE_CHUNK                     } from '../../../modules/nf-core/glimpse/chunk'
-include { GLIMPSE2_CHUNK                    } from '../../../modules/nf-core/glimpse2/chunk'
-include { GLIMPSE2_SPLITREFERENCE           } from '../../../modules/nf-core/glimpse2/splitreference'
+include { GLIMPSE_CHUNK           } from '../../../modules/nf-core/glimpse/chunk'
+include { GLIMPSE2_CHUNK          } from '../../../modules/nf-core/glimpse2/chunk'
+include { GLIMPSE2_SPLITREFERENCE } from '../../../modules/nf-core/glimpse2/splitreference'
 
 workflow VCF_CHUNK_GLIMPSE {
 
@@ -21,17 +21,20 @@ workflow VCF_CHUNK_GLIMPSE {
 
     // Rearrange chunks into channel for QUILT
     ch_chunks_quilt = GLIMPSE_CHUNK.out.chunk_chr
-                    .splitText()
-                    .map { metamap, line ->
-                        def fields = line.split("\t")
-                        def startEnd = fields[2].split(':')[1].split('-')
-                        [metamap, metamap.chr, startEnd[0], startEnd[1]]
-                    }
+        .splitText()
+        .map { metamap, line ->
+            def fields = line.split("\t")
+            def startEnd = fields[2].split(':')[1].split('-')
+            [metamap, metamap.chr, startEnd[0], startEnd[1]]
+        }
 
     // Rearrange chunks into channel for GLIMPSE1
     ch_chunks_glimpse1 = GLIMPSE_CHUNK.out.chunk_chr
-                                .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
-                                .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
+        .splitCsv(
+            header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'],
+            sep: "\t", skip: 0
+        )
+        .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
 
     // Make chunks with Glimpse2 (does not work with "sequential" mode)
     chunk_model = "recursive"
@@ -41,10 +44,13 @@ workflow VCF_CHUNK_GLIMPSE {
 
     // Rearrange channels
     ch_chunks_glimpse2 = GLIMPSE2_CHUNK.out.chunk_chr
-                            .splitCsv(header: ['ID', 'Chr', 'RegionBuf', 'RegionCnk', 'WindowCm',
-                                    'WindowMb', 'NbTotVariants', 'NbComVariants'],
-                                    sep: "\t", skip: 0)
-                            .map { meta, it -> [meta, it["RegionBuf"], it["RegionCnk"]]}
+        .splitCsv(
+            header: [
+                'ID', 'Chr', 'RegionBuf', 'RegionCnk', 'WindowCm',
+                'WindowMb', 'NbTotVariants', 'NbComVariants'
+            ], sep: "\t", skip: 0
+        )
+        .map { meta, it -> [meta, it["RegionBuf"], it["RegionCnk"]]}
 
     // Split reference panel in bin files
     // Segmentation fault occurs in small-sized panels
@@ -53,14 +59,14 @@ workflow VCF_CHUNK_GLIMPSE {
     ch_bins = [[]]
 
     if (params.binaryref == true) {
-    // Create channel to split reference
-    split_input = ch_reference.combine(ch_chunks_glimpse2, by: 0)
+        // Create channel to split reference
+        split_input = ch_reference.combine(ch_chunks_glimpse2, by: 0)
 
-    // Create a binary reference panel for quick reading time
-    GLIMPSE2_SPLITREFERENCE( split_input, ch_map )
-    ch_versions = ch_versions.mix( GLIMPSE2_SPLITREFERENCE.out.versions.first() )
+        // Create a binary reference panel for quick reading time
+        GLIMPSE2_SPLITREFERENCE( split_input, ch_map )
+        ch_versions = ch_versions.mix( GLIMPSE2_SPLITREFERENCE.out.versions.first() )
 
-    ch_bins = GLIMPSE2_SPLITREFERENCE.out.bin_ref
+        ch_bins = GLIMPSE2_SPLITREFERENCE.out.bin_ref
     }
 
     emit:

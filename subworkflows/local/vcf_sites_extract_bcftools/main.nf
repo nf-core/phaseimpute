@@ -1,8 +1,8 @@
-include { BCFTOOLS_VIEW as VIEW_VCF_SITES        } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2     } from '../../../modules/nf-core/bcftools/index'
-include { TABIX_BGZIP                            } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_TABIX                            } from '../../../modules/nf-core/tabix/tabix'
-include { BCFTOOLS_QUERY                         } from '../../../modules/nf-core/bcftools/query'
+include { BCFTOOLS_VIEW  } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX } from '../../../modules/nf-core/bcftools/index'
+include { TABIX_BGZIP    } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_TABIX    } from '../../../modules/nf-core/tabix/tabix'
+include { BCFTOOLS_QUERY } from '../../../modules/nf-core/bcftools/query'
 
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:
@@ -13,22 +13,22 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_versions = Channel.empty()
 
     // Extract sites positions
-    VIEW_VCF_SITES( ch_vcf,[], [], [])
-    ch_versions = ch_versions.mix(VIEW_VCF_SITES.out.versions.first())
+    BCFTOOLS_VIEW(ch_vcf, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
     // Index extracted sites
-    BCFTOOLS_INDEX_2(VIEW_VCF_SITES.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions.first())
+    BCFTOOLS_INDEX(BCFTOOLS_VIEW.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     // Join extracted sites and index
-    ch_panel_sites = VIEW_VCF_SITES.out.vcf.combine(BCFTOOLS_INDEX_2.out.csi, by:0)
+    ch_panel_sites = BCFTOOLS_VIEW.out.vcf.combine(BCFTOOLS_INDEX.out.csi, by:0)
 
     // Convert to TSV with structure for Glimpse
-    BCFTOOLS_QUERY_TSV(ch_panel_sites, [], [], [])
-    ch_versions = ch_versions.mix(BCFTOOLS_QUERY_TSV.out.versions.first())
+    BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     // Compress TSV
-    TABIX_BGZIP(BCFTOOLS_QUERY_TSV.out.output)
+    TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
     ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
     // Index compressed TSV

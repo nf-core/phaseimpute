@@ -1,5 +1,5 @@
-include { STITCH             } from '../../../modules/nf-core/stitch/main'
-include { BCFTOOLS_INDEX     } from '../../../modules/nf-core/bcftools/index/main'
+include { STITCH             } from '../../../modules/nf-core/stitch'
+include { BCFTOOLS_INDEX     } from '../../../modules/nf-core/bcftools/index'
 
 
 workflow BAM_IMPUTE_STITCH {

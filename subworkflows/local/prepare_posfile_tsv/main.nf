@@ -1,5 +1,5 @@
-include { BCFTOOLS_QUERY                    } from '../../../modules/nf-core/bcftools/query'
-include { GAWK                              } from '../../../modules/nf-core/gawk'
+include { BCFTOOLS_QUERY } from '../../../modules/nf-core/bcftools/query'
+include { GAWK           } from '../../../modules/nf-core/gawk'
 
 
 workflow PREPARE_POSFILE_TSV {

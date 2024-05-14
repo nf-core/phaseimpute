@@ -1,11 +1,10 @@
-include { BCFTOOLS_NORM                     } from '../../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_VIEW                     } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_INDEX                    } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2} from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3} from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_CONVERT                  } from '../../../modules/nf-core/bcftools/convert'
-include { BCFTOOLS_VIEW as BCFTOOLS_REMOVE  } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_4} from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_NORM                         } from '../../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2    } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3    } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_VIEW as BCFTOOLS_DEL_MLT_ALL } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW as BCFTOOLS_DEL_SPL     } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_CONVERT                      } from '../../../modules/nf-core/bcftools/convert'
 
 
 workflow VCF_NORMALIZE_BCFTOOLS {
@@ -28,19 +27,19 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
 
     // Remove all multiallelic records:
-    BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
+    BCFTOOLS_DEL_MLT_ALL(ch_multiallelic_vcf_tbi, [], [], [])
 
     // Index biallelic VCF
-    BCFTOOLS_INDEX_2(BCFTOOLS_VIEW.out.vcf)
+    BCFTOOLS_INDEX_2(BCFTOOLS_DEL_MLT_ALL.out.vcf)
 
     // Join biallelic VCF and TBI
-    ch_biallelic_vcf_tbi = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
+    ch_biallelic_vcf_tbi = BCFTOOLS_DEL_MLT_ALL.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
 
     // (Optional) Remove benchmarking samples (e.g. NA12878) from the reference panel
     if (!(params.remove_samples == null)){
         BCFTOOLS_REMOVE(ch_biallelic_vcf_tbi, [], [], [])
-        BCFTOOLS_INDEX_4(BCFTOOLS_REMOVE.out.vcf)
-        ch_biallelic_vcf_tbi = BCFTOOLS_REMOVE.out.vcf.join(BCFTOOLS_INDEX_4.out.tbi)
+        BCFTOOLS_INDEX_3(BCFTOOLS_REMOVE.out.vcf)
+        ch_biallelic_vcf_tbi = BCFTOOLS_REMOVE.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
     }
 
     // Convert VCF to Hap and Legend files
