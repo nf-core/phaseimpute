@@ -35,7 +35,6 @@ include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
 // GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
@@ -47,7 +46,7 @@ include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
-include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch/prepare_input_stitch'
+include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
