@@ -221,6 +221,20 @@ workflow PIPELINE_INITIALISATION {
     ch_posfile = [[]]
     }
 
+    //
+    // Create chunks channel
+    //
+
+    if (params.chunks) {
+    ch_chunks = Channel
+    .fromSamplesheet("chunks")
+    .map {
+        meta, file ->
+            [ meta, file ]
+    }} else {
+    ch_chunks = [[]]
+    }
+
     emit:
     input                = ch_input         // [ [meta], file, index ]
     input_truth          = ch_input_truth   // [ [meta], file, index ]
@@ -230,6 +244,7 @@ workflow PIPELINE_INITIALISATION {
     regions              = ch_regions       // [ [chr, region], region ]
     map                  = ch_map           // [ [map], map ]
     posfile              = ch_posfile       // [ [chr], txt ]
+    chunks               = ch_chunks        // [ [chr], txt ]
     versions             = ch_versions
 }
 

@@ -73,6 +73,7 @@ workflow PHASEIMPUTE {
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
     ch_posfile              // channel: posfile       [ [chr], txt]
+    ch_chunks               // channel: chunks       [ [chr], txt]
     ch_versions             // channel: versions of software used
 
     main:
