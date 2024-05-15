@@ -1,2 +1,2 @@
 chr,file
-chr22,"assets/chr_22_sample_chunks.txt"
+chr22,"https://github.com/nf-core/test-datasets/raw/f0622133837c9494a965d6cd3957629d4c7415f0/data/panel/22/chr22_chunks_glimpse1.txt"
