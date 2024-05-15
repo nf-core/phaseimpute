@@ -7,7 +7,7 @@ workflow COMPUTE_GL {
     take:
     ch_input   // channel: [ [id, chr, region], bam, bai ]
     ch_target  // channel: [ [panel, chr], sites, tsv]
-    ch_fasta   // channel: [ [ref], fasta, fai]
+    ch_fasta   // channel: [ [genome], fasta, fai]
 
     main:
 
@@ -46,7 +46,7 @@ workflow COMPUTE_GL {
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
     emit:
-    vcf           = ch_output                    // channel: [ [id, panel], vcf, tbi ]
-    versions      = ch_versions                  // channel: [ versions.yml ]
+    vcf           = ch_output        // channel: [ [id, panel, chr, region], vcf, tbi ]
+    versions      = ch_versions      // channel: [ versions.yml ]
     multiqc_files = ch_multiqc_files
 }

@@ -19,37 +19,46 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
     // Join duplicated biallelic sites into multiallelic records
     BCFTOOLS_NORM(ch_vcf, ch_fasta)
+    ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions)
 
     // Index multiallelic VCF
     BCFTOOLS_INDEX_1(BCFTOOLS_NORM.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
 
     // Join multiallelic VCF and TBI
     ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
 
     // Remove all multiallelic records:
     BCFTOOLS_DEL_MLT_ALL(ch_multiallelic_vcf_tbi, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_DEL_MLT_ALL.out.versions)
 
     // Index biallelic VCF
     BCFTOOLS_INDEX_2(BCFTOOLS_DEL_MLT_ALL.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions)
 
     // Join biallelic VCF and TBI
     ch_biallelic_vcf_tbi = BCFTOOLS_DEL_MLT_ALL.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
 
     // (Optional) Remove benchmarking samples (e.g. NA12878) from the reference panel
     if (!(params.remove_samples == null)){
-        BCFTOOLS_REMOVE(ch_biallelic_vcf_tbi, [], [], [])
-        BCFTOOLS_INDEX_3(BCFTOOLS_REMOVE.out.vcf)
-        ch_biallelic_vcf_tbi = BCFTOOLS_REMOVE.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
+        BCFTOOLS_DEL_SPL(ch_biallelic_vcf_tbi, [], [], [])
+        ch_versions = ch_versions.mix(BCFTOOLS_DEL_SPL.out.versions)
+
+        BCFTOOLS_INDEX_3(BCFTOOLS_DEL_SPL.out.vcf)
+        ch_versions = ch_versions.mix(BCFTOOLS_INDEX_3.out.versions)
+
+        ch_biallelic_vcf_tbi = BCFTOOLS_DEL_SPL.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
     }
 
     // Convert VCF to Hap and Legend files
     BCFTOOLS_CONVERT(ch_biallelic_vcf_tbi, ch_fasta, [])
+    ch_versions = ch_versions.mix(BCFTOOLS_CONVERT.out.versions)
 
     // Output hap and legend files
     ch_hap_legend = BCFTOOLS_CONVERT.out.hap.join(BCFTOOLS_CONVERT.out.legend)
 
     emit:
     vcf_tbi        = ch_biallelic_vcf_tbi           // channel: [ [id, chr], vcf, tbi ]
-    hap_legend     = ch_hap_legend                  // channel: [ [id, chr] '.hap', '.legend' ]
+    hap_legend     = ch_hap_legend                  // channel: [ [id, chr], '.hap', '.legend' ]
     versions       = ch_versions                    // channel: [ versions.yml ]
 }

@@ -136,8 +136,8 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Prepare posfile stitch
-        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites, ch_fasta)
-        ch_versions    = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
+        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
+        ch_versions = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
 
         // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
@@ -167,7 +167,7 @@ workflow PHASEIMPUTE {
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
-        ch_versions    = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
+        ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
     }
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
@@ -211,7 +211,7 @@ workflow PHASEIMPUTE {
 
                 // Concatenate by chromosomes
                 CONCAT_GLIMPSE1(output_glimpse1)
-                ch_versions       = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
+                ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
                 // Add results to input validate
                 ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi_join)
@@ -242,7 +242,7 @@ workflow PHASEIMPUTE {
 
                 // Obtain the user's posfile if provided or calculate it from ref panel file
                 if (params.posfile ) {  // User supplied posfile
-                ch_posfile  = ch_posfile
+                    ch_posfile = ch_posfile
                 } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
                 } else {
@@ -250,20 +250,20 @@ workflow PHASEIMPUTE {
                 }
                 // Prepare inputs
                 PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
-                ch_versions    = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
+                ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
                 // Impute with STITCH
                 BAM_IMPUTE_STITCH ( PREPARE_INPUT_STITCH.out.stitch_parameters,
                                     PREPARE_INPUT_STITCH.out.stitch_samples,
                                     ch_fasta )
-                ch_versions    = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
+                ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
                 // Output channel to concat
                 ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_STITCH.out.vcf_tbi)
 
                 // Concatenate by chromosomes
                 CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
-                ch_versions       = ch_versions.mix(CONCAT_STITCH.out.versions)
+                ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
                 // Add results to input validate
                 ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi_join)
@@ -282,7 +282,7 @@ workflow PHASEIMPUTE {
 
                 // Concatenate by chromosomes
                 CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
-                ch_versions       = ch_versions.mix(CONCAT_QUILT.out.versions)
+                ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
                 // Add results to input validate
                 ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi_join)
@@ -327,7 +327,7 @@ workflow PHASEIMPUTE {
             ch_region
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
-        ch_versions = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
+        ch_versions      = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
     }
 
     if (params.step.split(',').contains("refine")) {

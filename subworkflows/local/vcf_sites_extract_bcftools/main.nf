@@ -39,8 +39,8 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_panel_tsv = TABIX_BGZIP.out.output.combine(TABIX_TABIX.out.tbi, by: 0)
 
     emit:
-    panel_tsv      = ch_panel_tsv
-    vcf_tbi        = ch_vcf
-    panel_sites    = ch_panel_sites
+    panel_tsv      = ch_panel_tsv     // channel: [ [id, chr], tsv, tbi ]
+    vcf_tbi        = ch_vcf           // channel: [ [id, chr], vcf, tbi ]
+    panel_sites    = ch_panel_sites   // channel: [ [id, chr], vcf, csi ]
     versions       = ch_versions      // channel: [ versions.yml ]
 }
