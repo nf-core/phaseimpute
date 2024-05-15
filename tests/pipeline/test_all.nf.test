@@ -1,0 +1,142 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+
+
+    test("Check test_glimpse1") {
+        config "../../conf/test.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip().size() == 1756 }
+            )
+        }
+
+    }
+
+    /*test("Check test_glimpse2") {
+        config "../../conf/test_glimpse2.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert path("$outputDir/imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz").linesGzip().size() == 1756 }
+            )
+        }
+
+    }*/
+
+    test("Check test_quilt") {
+        config "../../conf/test_quilt.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert path("$outputDir/imputation/quilt/concat/NA12878_quilt.vcf.gz").linesGzip().size() == 1756 }
+            )
+        }
+
+    }
+
+    test("Check test_stitch") {
+        config "../../conf/test_stitch.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert path("$outputDir/imputation/stitch/concat/NA12878_stitch.vcf.gz").linesGzip().size() == 1756 }
+            )
+        }
+
+    }
+
+    test("Check test_sim") {
+        config "../../conf/test_sim.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    path("$outputDir/simulation/"),
+                ).match() }
+            )
+        }
+
+    }
+
+    test("Check test_validate") {
+        config "../../conf/test_validate.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    path("$outputDir/validate/"),
+                ).match() }
+            )
+        }
+
+    }
+
+    test("Check test_all") {
+        config "../../conf/test_all.config"
+        when {
+            params {
+                outdir = "$outputDir"
+                max_memory = "5.GB"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip().size() == 1756 }
+                { assert snapshot(
+                    path("$outputDir/simulation/"),
+                ).match() }
+            )
+        }
+
+    }
+
+}
