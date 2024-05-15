@@ -40,7 +40,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
     ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
-    
+
     ADD_COLUMNS(GUNZIP.out.gunzip)
     ch_versions = ch_versions.mix(ADD_COLUMNS.out.versions.first())
 
