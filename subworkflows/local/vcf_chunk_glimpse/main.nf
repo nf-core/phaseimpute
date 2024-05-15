@@ -11,8 +11,6 @@ workflow VCF_CHUNK_GLIMPSE {
     main:
 
     ch_versions = Channel.empty()
-    ch_reference.view()
-    ch_map.view()
     // Add chromosome to channel
     ch_vcf_csi_chr = ch_reference.map{metaPC, vcf, csi -> [metaPC, vcf, csi, metaPC.chr]}
 
