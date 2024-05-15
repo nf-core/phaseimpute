@@ -8,7 +8,7 @@ workflow BAM_IMPUTE_QUILT {
 
     take:
     ch_hap_legend        // channel: [ [panel, chr], hap, legend ]
-    ch_input             // channel: [ [id, chr], bam, bai ]
+    ch_input             // channel: [ [id, chr, region], bam, bai ]
     ch_chunks            // channel: [ [panel, chr], start_coordinate, end_coordinate, number ]
 
 
@@ -37,15 +37,15 @@ workflow BAM_IMPUTE_QUILT {
     }
 
     ch_quilt = ch_input
-        .map{ metaIC, bam, bai -> [metaIC.subMap("chr"), metaIC, bam, bai]}
+        .map{ metaICR, bam, bai -> [metaICR.subMap("chr"), metaICR, bam, bai]}
         .combine(ch_hap_chunks
-            .map{ metaIC, hap, legend, chr, start, end, ngen, buffer, gmap ->
-                [metaIC.subMap("chr"), metaIC, hap, legend, chr, start, end, ngen, buffer, gmap]
+            .map{ metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
+                [metaPC.subMap("chr"), metaPC, hap, legend, chr, start, end, ngen, buffer, gmap]
             }, by:0
         )
         .map {
-            metaC, metaIC, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
-            [metaIC + ["panel": metaPC.id], bam, bai, hap, legend, chr, start, end, ngen, buffer, gmap]
+            metaC, metaICR, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
+            [metaICR + ["panel": metaPC.id], bam, bai, hap, legend, chr, start, end, ngen, buffer, gmap]
         }
 
     // Run QUILT
@@ -71,6 +71,6 @@ workflow BAM_IMPUTE_QUILT {
     ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
 
     emit:
-    vcf_tbi     = ch_vcf_tbi               // channel:  [ meta, vcf, tbi ]
-    versions    = ch_versions              // channel:   [ versions.yml ]
+    vcf_tbi     = ch_vcf_tbi               // channel:  [ [id, panel, chr, region], vcf, tbi ]
+    versions    = ch_versions              // channel:  [ versions.yml ]
 }

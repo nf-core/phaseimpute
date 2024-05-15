@@ -30,6 +30,6 @@ workflow VCF_CHR_RENAME {
         .combine(BCFTOOLS_INDEX.out.csi, by:0)
 
     emit:
-    vcf_renamed    = ch_vcf_renamed        // [ meta, vcf, csi ]
+    vcf_renamed    = ch_vcf_renamed        // [ [id], vcf, csi ]
     versions       = ch_versions           // channel: [ versions.yml ]
 }

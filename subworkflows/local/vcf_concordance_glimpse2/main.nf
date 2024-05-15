@@ -6,10 +6,10 @@ include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     take:
-        ch_vcf_emul   // VCF file with imputed genotypes [[id, chr, region, panel, simulate, tools], vcf, csi]
-        ch_vcf_truth  // VCF file with truth genotypes   [[id, chr, region], vcf, csi]
-        ch_vcf_freq   // VCF file with panel frequencies [[panel, chr], vcf, csi]
-        ch_region     // Regions to process              [[chr, region], region]
+        ch_vcf_emul   // VCF file with imputed genotypes [ [id], vcf, csi]
+        ch_vcf_truth  // VCF file with truth genotypes   [ [id], vcf, csi]
+        ch_vcf_freq   // VCF file with panel frequencies [ [panel], vcf, csi]
+        ch_region     // Regions to process              [ [chr, region], region]
 
     main:
 
@@ -40,6 +40,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
     ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
+    
     ADD_COLUMNS(GUNZIP.out.gunzip)
     ch_versions = ch_versions.mix(ADD_COLUMNS.out.versions.first())
 
@@ -52,7 +53,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ch_versions = ch_versions.mix(GAWK.out.versions.first())
 
     emit:
-    stats           = GAWK.out.output             // [ meta, txt ]
+    stats           = GAWK.out.output             // [ [all], txt ]
     versions        = ch_versions                 // channel: [ versions.yml ]
     multiqc_files   = ch_multiqc_files
 }

@@ -34,6 +34,6 @@ workflow BAM_REGION {
         .combine(SAMTOOLS_INDEX.out.bai, by: 0)
 
     emit:
-        bam_region        = ch_bam_region            // channel: [ metaIGCR, bam, index ]
-        versions          = ch_versions              // channel: [ versions.yml ]
+        bam_region = ch_bam_region // channel: [ metaIGCR, bam, index ]
+        versions   = ch_versions   // channel: [ versions.yml ]
 }

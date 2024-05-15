@@ -5,19 +5,19 @@ include { BCFTOOLS_INDEX                   } from '../../../modules/nf-core/bcft
 workflow VCF_REGION {
     take:
     ch_vcf          // channel: [ [id], vcf ]
-    ch_region       // channel: [ [region], val(region) ]
-    ch_fasta        // channel: [ fasta ]
+    ch_region       // channel: [ [chr, region], region ]
 
     main:
 
     ch_versions = Channel.empty()
 
-    // Filter the region of interest of the panel file
+    // Filter the region of interest of the vcf file
     ch_input_region = ch_vcf
-        .combine(ch_fasta)
         .combine(ch_region)
-        .map{ metaI, vcf, index, fasta, metaR, region ->
-            [metaI + metaR, vcf, index, region+",chr"+region]}
+        .map{
+            metaI, vcf, index, metaCR, region ->
+            [metaI + metaCR, vcf, index, region+",chr"+region]
+        }
 
     VIEW_VCF_REGION(ch_input_region, [], [], [])
     ch_versions = ch_versions.mix(VIEW_VCF_REGION.out.versions.first())
@@ -29,7 +29,7 @@ workflow VCF_REGION {
         .combine(BCFTOOLS_INDEX.out.csi)
 
     emit:
-    vcf_region    = ch_vcf_region   // channel: [ metaIR, vcf, index ]
+    vcf_region    = ch_vcf_region   // channel: [ [id, chr, region], vcf, index ]
     versions      = ch_versions     // channel: [ versions.yml ]
 
 }
