@@ -170,6 +170,13 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
+
+        // if (params.chunks) {
+        // ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
+        //         .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
+        //         .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
+        //         // Use channel ch_chunks for GLIMPSE1 imputation
+        // }
             // Output channel of input process
             ch_impute_output = Channel.empty()
             if (params.tools.split(',').contains("glimpse1")) {
@@ -228,7 +235,10 @@ workflow PHASEIMPUTE {
                 //                     ch_chunks,
                 //                     ch_fasta)
                 // } else if (params.chunks) {
-                //     // use provided chunks
+                // ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
+                //         .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
+                //         .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
+                // Use channel ch_chunks for GLIMPSE2 imputation
                 // } else {
                 //     error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
                 // }
@@ -272,8 +282,21 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("quilt")) {
                 print("Impute with QUILT")
 
+                //Use previous chunks if --step panelprep
+                if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
+                    ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
+                //Use provided chunks if --chunks
+                } else if (params.chunks) {
+                    ch_chunks_quilt = ch_chunks.map { chr, txt -> [chr, file(txt)]}
+                    .splitText()
+                    .map { metamap, line ->
+                        def fields = line.split("\t")
+                        def startEnd = fields[2].split(':')[1].split('-')
+                        [metamap, metamap.chr, startEnd[0], startEnd[1]]
+                    }
+                }
                 // Impute BAMs with QUILT
-                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
+                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, ch_chunks_quilt)
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Add to output channel
