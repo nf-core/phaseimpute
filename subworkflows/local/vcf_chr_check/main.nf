@@ -1,18 +1,18 @@
-include { VCFCHREXTRACT as VCFCHRBFR  } from '../../../modules/local/vcfchrextract/main.nf'
-include { VCFCHREXTRACT as VCFCHRAFT  } from '../../../modules/local/vcfchrextract/main.nf'
-include { VCF_CHR_RENAME              } from '../vcf_chr_rename/main.nf'
+include { VCFCHREXTRACT as VCFCHRBFR  } from '../../../modules/local/vcfchrextract'
+include { VCFCHREXTRACT as VCFCHRAFT  } from '../../../modules/local/vcfchrextract'
+include { VCF_CHR_RENAME              } from '../vcf_chr_rename'
 
 workflow VCF_CHR_CHECK {
     take:
     ch_vcf          // channel: [ [id], vcf, index ]
-    ch_fasta        // channel: [ [id], fasta, fai ]
+    ch_fasta        // channel: [ [genome], fasta, fai ]
 
     main:
 
     ch_versions = Channel.empty()
 
     // Get contig names from the VCF
-    VCFCHRBFR(ch_vcf.map{ metaV, vcf, csi -> [metaV, vcf] })
+    VCFCHRBFR(ch_vcf.map{ meta, vcf, csi -> [meta, vcf] })
     ch_versions = ch_versions.mix(VCFCHRBFR.out.versions)
 
     // Check if the contig names are the same as the reference
@@ -27,7 +27,7 @@ workflow VCF_CHR_CHECK {
         ch_versions = ch_versions.mix(VCF_CHR_RENAME.out.versions)
 
         // Check if modification has solved the problem
-        VCFCHRAFT(VCF_CHR_RENAME.out.vcf_renamed.map{ metaV, vcf, csi -> [metaV, vcf] })
+        VCFCHRAFT(VCF_CHR_RENAME.out.vcf_renamed.map{ meta, vcf, csi -> [meta, vcf] })
         ch_versions = ch_versions.mix(VCFCHRAFT.out.versions)
 
         chr_disjoint_after = check_chr(VCFCHRAFT.out.chr, VCF_CHR_RENAME.out.vcf_renamed, ch_fasta)
@@ -49,7 +49,7 @@ workflow VCF_CHR_CHECK {
         .mix(ch_vcf_renamed)
 
     emit:
-    vcf            = ch_vcf_out            // [ meta, vcf, csi ]
+    vcf            = ch_vcf_out            // [ [id], vcf, csi ]
     versions       = ch_versions           // channel: [ versions.yml ]
 }
 

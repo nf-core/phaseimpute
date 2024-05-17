@@ -1,0 +1,15 @@
+Changes in module 'nf-core/glimpse2/chunk'
+--- modules/nf-core/glimpse2/chunk/main.nf
++++ modules/nf-core/glimpse2/chunk/main.nf
+@@ -17,8 +17,7 @@
+         'biocontainers/glimpse-bio:2.0.0--hf340a29_0' }"
+ 
+     input:
+-    tuple val(meta) , path(input), path(input_index), val(region)
+-    tuple val(meta2), path(map)
++    tuple val(meta) , path(input), path(input_index), val(region), path(map)
+     val(model)
+ 
+     output:
+
+************************************************************

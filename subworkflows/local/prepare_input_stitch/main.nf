@@ -1,9 +1,9 @@
 workflow PREPARE_INPUT_STITCH {
 
     take:
-    ch_posfile
-    ch_fasta
-    ch_input_impute
+    ch_posfile       // channel:   [ [chr], posfile ]
+    ch_fasta         // channel:   [ [genome], fa, fai ]
+    ch_input_impute  // channel:   [ [id, chr, region], bam, bai ]
 
     main:
 
@@ -44,8 +44,8 @@ workflow PREPARE_INPUT_STITCH {
                     .collect()
 
     emit:
-    stitch_parameters
-    stitch_samples
-    versions                   = ch_versions                           // channel:   [ versions.yml ]
+    stitch_parameters = stitch_parameters // channel:   [ [chr], posfile, [], [], chr, k_val, ngen ]
+    stitch_samples    = stitch_samples    // channel:   [ [id], bam, bai, bamlist ]
+    versions          = ch_versions       // channel:   [ versions.yml ]
 
 }
