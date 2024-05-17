@@ -7,6 +7,12 @@
     "items": {
         "type": "object",
         "properties": {
+            "panel": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
+                "meta": ["panel"]
+            },
             "chr": {
                 "type": "string",
                 "pattern": "^\\S+$",
@@ -19,6 +25,6 @@
                 "errorMessage": "File with chunks per chromosome must be provided. Must have .txt or .bin extension"
             }
         },
-        "required": ["chr", "file"]
+        "required": ["panel", "chr", "file"]
     }
 }
