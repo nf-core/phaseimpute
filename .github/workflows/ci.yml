@@ -52,14 +52,5 @@ jobs:
           sudo mv nf-test /usr/local/bin/
 
       - name: Run pipeline with test data
-        # TODO nf-core: You can customise CI pipeline run tests as required
-        # For example: adding multiple test runs with different parameters
-        # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nf-test test --tag "${{ matrix.TEST_PROFILE }}"" --profile docker --junitxml=test.xml
-
-      - name: Output log on failure
-        if: failure()
-        run: |
-          sudo apt install bat > /dev/null
-          batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/tests/*/output/pipeline_info/software_versions.yml
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile docker
