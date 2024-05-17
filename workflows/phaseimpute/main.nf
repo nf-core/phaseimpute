@@ -169,6 +169,13 @@ workflow PHASEIMPUTE {
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
 
+        if (params.panel && params.chunks) {
+            log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--impute` mode.")
+        }
+        if (params.panel && params.posfile) {
+            log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--impute` mode.")
+        }
+
         // if (params.chunks) {
         // ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
         //         .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
@@ -284,12 +291,12 @@ workflow PHASEIMPUTE {
                 //Use provided chunks if --chunks
                 } else if (params.chunks) {
                     ch_chunks_quilt = ch_chunks.map { chr, txt -> [chr, file(txt)]}
-                    .splitText()
-                    .map { metamap, line ->
-                        def fields = line.split("\t")
-                        def startEnd = fields[2].split(':')[1].split('-')
-                        [metamap, metamap.chr, startEnd[0], startEnd[1]]
-                    }
+                        .splitText()
+                        .map { metamap, line ->
+                            def fields = line.split("\t")
+                            def startEnd = fields[2].split(':')[1].split('-')
+                            [metamap, metamap.chr, startEnd[0], startEnd[1]]
+                        }
                 }
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(ch_input_impute, VCF_NORMALIZE_BCFTOOLS.out.hap_legend, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
