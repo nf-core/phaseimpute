@@ -11,7 +11,7 @@ workflow VCF_CONCATENATE_BCFTOOLS {
     ch_versions = Channel.empty()
 
     // Keep only id from meta
-    ch_vcf_tbi_grouped = ch_vcf_tbi.map{ metaI, vcf, tbi -> [metaI.subMap("id"), vcf, tbi] }
+    ch_vcf_tbi_grouped = ch_vcf_tbi.map{ metaI, vcf, tbi -> [metaI.subMap("id") + ["chr": "all"], vcf, tbi] }
 
     // Group by ID
     ch_vcf_tbi_grouped = ch_vcf_tbi_grouped.groupTuple( by:0 )

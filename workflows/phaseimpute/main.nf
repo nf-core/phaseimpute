@@ -310,14 +310,14 @@ workflow PHASEIMPUTE {
         ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
         ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)
 
+        // Concatenate by chromosomes
+        CONCAT_TRUTH(GL_TRUTH.out.vcf)
+        ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
             .map { [it[0], it[1], it[2]] }
-            .mix(GL_TRUTH.out.vcf)
-
-        // Concatenate by chromosomes
-        // CONCAT_TRUTH(ch_truth_vcf)
-        // ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+            .mix(CONCAT_TRUTH.out.vcf_tbi_join)
 
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(

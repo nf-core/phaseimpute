@@ -6,8 +6,8 @@ include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     take:
-        ch_vcf_emul   // VCF file with imputed genotypes [ [id], vcf, csi]
-        ch_vcf_truth  // VCF file with truth genotypes   [ [id], vcf, csi]
+        ch_vcf_emul   // VCF file with imputed genotypes [ [id, chr, region, panel], vcf, csi]
+        ch_vcf_truth  // VCF file with truth genotypes   [ [id, chr, region, panel], vcf, csi]
         ch_vcf_freq   // VCF file with panel frequencies [ [panel], vcf, csi]
         ch_region     // Regions to process              [ [chr, region], region]
 
@@ -21,7 +21,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         .combine(ch_vcf_freq)
         .combine(ch_region.map{[it[1]]}.collect().toList())
         .map{metaI, emul, e_csi, truth, t_csi, metaP, freq, f_csi, regions ->
-            [metaI, emul, e_csi, truth, t_csi, freq, f_csi, [], regions]
+            [metaI + ["panel":metaP.id], emul, e_csi, truth, t_csi, freq, f_csi, [], regions]
         }
 
     GLIMPSE2_CONCORDANCE (
