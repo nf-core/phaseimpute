@@ -212,7 +212,7 @@ workflow PIPELINE_INITIALISATION {
         ch_posfile = Channel
             .fromSamplesheet("posfile")
             .map {meta, file -> [ meta, file ]}
-    }} else {
+    } else {
         ch_posfile = [[]]
     }
 
