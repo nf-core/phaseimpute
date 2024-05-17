@@ -34,7 +34,7 @@ nextflow run main.nf -profile singularity,test_quilt --outdir results -resume
 ### Launch with nf-test
 
 ```bash
-nf-test test --verbose --profile singularity
+nf-test test --verbose --profile singularity --tag test_all
 ```
 
 ## Problematic

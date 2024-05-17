@@ -111,26 +111,8 @@
                 "prep_panel/sites/vcf/versions.yml"
             ],
             [
-                "validation/NA12878.concordance.error.cal.txt.gz",
-                "validation/NA12878.concordance.error.grp.txt.gz",
-                "validation/NA12878.concordance.error.spl.txt.gz",
-                "validation/NA12878.concordance.rsquare.grp.txt.gz",
-                "validation/NA12878.concordance.rsquare.spl.txt.gz",
-                "validation/NA12878.concordance_r2_sites.txt.gz",
                 "validation/NA12878_Dnull_P1000GP.s.norel_Call_SNP.txt",
-                "validation/NA19401.concordance.error.cal.txt.gz",
-                "validation/NA19401.concordance.error.grp.txt.gz",
-                "validation/NA19401.concordance.error.spl.txt.gz",
-                "validation/NA19401.concordance.rsquare.grp.txt.gz",
-                "validation/NA19401.concordance.rsquare.spl.txt.gz",
-                "validation/NA19401.concordance_r2_sites.txt.gz",
                 "validation/NA19401_Dnull_P1000GP.s.norel_Call_SNP.txt",
-                "validation/NA20359.concordance.error.cal.txt.gz",
-                "validation/NA20359.concordance.error.grp.txt.gz",
-                "validation/NA20359.concordance.error.spl.txt.gz",
-                "validation/NA20359.concordance.rsquare.grp.txt.gz",
-                "validation/NA20359.concordance.rsquare.spl.txt.gz",
-                "validation/NA20359.concordance_r2_sites.txt.gz",
                 "validation/NA20359_Dnull_P1000GP.s.norel_Call_SNP.txt",
                 "validation/TestQuality.txt",
                 "validation/concat/NA12878_truth_concat.vcf.gz",
@@ -146,33 +128,15 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-05-17T20:26:31.380656045"
+        "timestamp": "2024-05-17T21:48:07.027867847"
     },
     "Check test_validate": {
         "content": [
             [
-                "validation/NA12878.concordance.error.cal.txt.gz",
-                "validation/NA12878.concordance.error.grp.txt.gz",
-                "validation/NA12878.concordance.error.spl.txt.gz",
-                "validation/NA12878.concordance.rsquare.grp.txt.gz",
-                "validation/NA12878.concordance.rsquare.spl.txt.gz",
-                "validation/NA12878.concordance_r2_sites.txt.gz",
                 "validation/NA12878_Dnull_P1000GP.s.norel_Cchr21_SNP.txt",
                 "validation/NA12878_Dnull_P1000GP.s.norel_Cchr22_SNP.txt",
-                "validation/NA19401.concordance.error.cal.txt.gz",
-                "validation/NA19401.concordance.error.grp.txt.gz",
-                "validation/NA19401.concordance.error.spl.txt.gz",
-                "validation/NA19401.concordance.rsquare.grp.txt.gz",
-                "validation/NA19401.concordance.rsquare.spl.txt.gz",
-                "validation/NA19401.concordance_r2_sites.txt.gz",
                 "validation/NA19401_Dnull_P1000GP.s.norel_Cchr21_SNP.txt",
                 "validation/NA19401_Dnull_P1000GP.s.norel_Cchr22_SNP.txt",
-                "validation/NA20359.concordance.error.cal.txt.gz",
-                "validation/NA20359.concordance.error.grp.txt.gz",
-                "validation/NA20359.concordance.error.spl.txt.gz",
-                "validation/NA20359.concordance.rsquare.grp.txt.gz",
-                "validation/NA20359.concordance.rsquare.spl.txt.gz",
-                "validation/NA20359.concordance_r2_sites.txt.gz",
                 "validation/NA20359_Dnull_P1000GP.s.norel_Cchr21_SNP.txt",
                 "validation/NA20359_Dnull_P1000GP.s.norel_Cchr22_SNP.txt",
                 "validation/TestQuality.txt"
@@ -182,7 +146,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-05-17T19:38:29.792086544"
+        "timestamp": "2024-05-17T21:42:10.644445872"
     },
     "Check test_quilt": {
         "content": [

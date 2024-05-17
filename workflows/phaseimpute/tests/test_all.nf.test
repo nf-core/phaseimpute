@@ -9,7 +9,7 @@ nextflow_pipeline {
 
     test("Check test_glimpse1") {
         tag "test_glimpse1"
-        config "../../conf/test.config"
+        config "../../../conf/test.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
@@ -36,7 +36,7 @@ nextflow_pipeline {
     /*
     test("Check test_glimpse2") {
         tag "test_glimpse2"
-        config "../../conf/test_glimpse2.config"
+        config "../../../conf/test_glimpse2.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
@@ -62,7 +62,7 @@ nextflow_pipeline {
 
     test("Check test_quilt") {
         tag "test_quilt"
-        config "../../conf/test_quilt.config"
+        config "../../../conf/test_quilt.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
@@ -89,7 +89,7 @@ nextflow_pipeline {
 
     test("Check test_stitch") {
         tag "test_stitch"
-        config "../../conf/test_stitch.config"
+        config "../../../conf/test_stitch.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
@@ -116,7 +116,7 @@ nextflow_pipeline {
 
     test("Check test_sim") {
         tag "test_sim"
-        config "../../conf/test_sim.config"
+        config "../../../conf/test_sim.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
@@ -140,7 +140,7 @@ nextflow_pipeline {
 
     test("Check test_validate") {
         tag "test_validate"
-        config "../../conf/test_validate.config"
+        config "../../../conf/test_validate.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
@@ -165,7 +165,7 @@ nextflow_pipeline {
 
     test("Check test_all") {
         tag "test_all"
-        config "../../conf/test_all.config"
+        config "../../../conf/test_all.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
