@@ -15,6 +15,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
@@ -42,6 +43,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
@@ -68,6 +70,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
@@ -95,6 +98,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
@@ -122,6 +126,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
@@ -146,6 +151,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
@@ -171,6 +177,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_cpus = 4
+                max_memory = '5.GB'
             }
         }
 
