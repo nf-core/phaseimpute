@@ -82,7 +82,8 @@
                     "glimpse2/chunk": {
                         "branch": "master",
                         "git_sha": "14ba46490cae3c78ed8e8f48d2c0f8f3be1e7c03",
-                        "installed_by": ["multiple_impute_glimpse2"]
+                        "installed_by": ["multiple_impute_glimpse2"],
+                        "patch": "modules/nf-core/glimpse2/chunk/glimpse2-chunk.diff"
                     },
                     "glimpse2/concordance": {
                         "branch": "master",

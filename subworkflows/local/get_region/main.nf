@@ -1,9 +1,9 @@
-include { SAMTOOLS_FAIDX              } from '../../../modules/nf-core/samtools/faidx/main'
+include { SAMTOOLS_FAIDX              } from '../../../modules/nf-core/samtools/faidx'
 
 workflow GET_REGION {
     take:
         input_region // Region string to use ["all", "chr1", "chr1:0-1000"]
-        ch_fasta     // [[meta], fasta, fai]
+        ch_fasta     // [[genome], fasta, fai]
 
     main:
         ch_versions      = Channel.empty()
@@ -28,6 +28,6 @@ workflow GET_REGION {
         }
 
     emit:
-        regions           = ch_regions       // channel: [ meta, region ]
+        regions           = ch_regions       // channel: [ [chr, region], region ]
         versions          = ch_versions      // channel: [ versions.yml ]
 }

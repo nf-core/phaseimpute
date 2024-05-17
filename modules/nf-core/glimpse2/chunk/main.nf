@@ -17,8 +17,7 @@ process GLIMPSE2_CHUNK {
         'biocontainers/glimpse-bio:2.0.0--hf340a29_0' }"
 
     input:
-    tuple val(meta) , path(input), path(input_index), val(region)
-    tuple val(meta2), path(map)
+    tuple val(meta) , path(input), path(input_index), val(region), path(map)
     val(model)
 
     output:
