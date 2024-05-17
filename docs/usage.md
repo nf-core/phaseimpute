@@ -165,6 +165,8 @@ For starting from the imputation step, the required flags are:
 - `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
 - `--panel samplesheet_reference.csv`: The files in `samplesheet_reference.csv` are the filtered, quality controlled, bi-allelic VCFs obtained from `--step panelprep`.
 - `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These are produced by `--step panelprep`.
+- `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--step panelprep` using `GLIMPSE1`.
+- `--posfile posfile.csv`: A samplesheet containing a TSV with the list of positions to genotype per chromosome. These are required by tools (for STITCH/GLIMPSE1). The posfile can be generated with `--step panelprep`.
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
