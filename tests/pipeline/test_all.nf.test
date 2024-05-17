@@ -6,10 +6,13 @@ nextflow_pipeline {
     tag "pipeline/phaseimpute"
 
 
+
     test("Check test_glimpse1") {
+        tag "test_glimpse1"
         config "../../conf/test.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -18,16 +21,25 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip().size() == 1756 }
+                { assert snapshot(
+                    path("${outputDir}/imputation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip.size()
+                ).match()
+                }
             )
         }
 
     }
-
-    /*test("Check test_glimpse2") {
+    /*
+    test("Check test_glimpse2") {
+        tag "test_glimpse2"
         config "../../conf/test_glimpse2.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -36,16 +48,24 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert path("$outputDir/imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz").linesGzip().size() == 1756 }
+                { assert snapshot(
+                    path("${outputDir}/imputation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("$outputDir/imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz").linesGzip.size()
+                ).match()
+                }
             )
         }
-
     }*/
 
     test("Check test_quilt") {
+        tag "test_quilt"
         config "../../conf/test_quilt.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -54,16 +74,25 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert path("$outputDir/imputation/quilt/concat/NA12878_quilt.vcf.gz").linesGzip().size() == 1756 }
+                { assert snapshot(
+                    path("${outputDir}/imputation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("$outputDir/imputation/quilt/concat/NA12878_quilt.vcf.gz").linesGzip.size()
+                ).match()
+                }
             )
         }
 
     }
 
     test("Check test_stitch") {
+        tag "test_stitch"
         config "../../conf/test_stitch.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -72,16 +101,25 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert path("$outputDir/imputation/stitch/concat/NA12878_stitch.vcf.gz").linesGzip().size() == 1756 }
+                { assert snapshot(
+                    path("${outputDir}/imputation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("$outputDir/imputation/stitch/concat/all_samples_stitch.vcf.gz").linesGzip.size()
+                ).match()
+                }
             )
         }
 
     }
 
     test("Check test_sim") {
+        tag "test_sim"
         config "../../conf/test_sim.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -91,17 +129,21 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    path("$outputDir/simulation/"),
+                    path("${outputDir}/simulation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
                 ).match() }
             )
         }
-
     }
 
     test("Check test_validate") {
+        tag "test_validate"
         config "../../conf/test_validate.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -111,7 +153,10 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    path("$outputDir/validate/"),
+                    path("${outputDir}/validation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten()
                 ).match() }
             )
         }
@@ -119,9 +164,11 @@ nextflow_pipeline {
     }
 
     test("Check test_all") {
+        tag "test_all"
         config "../../conf/test_all.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/'
                 outdir = "$outputDir"
                 max_memory = "5.GB"
             }
@@ -130,13 +177,34 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip().size() == 1756 }
                 { assert snapshot(
-                    path("$outputDir/simulation/"),
-                ).match() }
+                    path("${outputDir}/simulation")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("${outputDir}/imputation")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("${outputDir}/prep_panel")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("${outputDir}/validation")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip.size()
+                ).match()
+                }
             )
         }
-
     }
+}
 
+def getRecursiveFileNames(fileOrDir, outputDir) {
+    if(file(fileOrDir.toString()).isDirectory()) {
+        return fileOrDir.list().collect { getRecursiveFileNames(it, outputDir) }
+    }
+    return fileOrDir.toString().replace("${outputDir}/", "")
 }
