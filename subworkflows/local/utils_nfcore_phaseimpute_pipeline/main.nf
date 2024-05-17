@@ -212,13 +212,13 @@ workflow PIPELINE_INITIALISATION {
     //
 
     if (params.posfile) {
-    ch_posfile = Channel
-    .fromSamplesheet("posfile")
-    .map {
-        meta, file ->
-            [ meta, file ]
+        ch_posfile = Channel
+        .fromSamplesheet("posfile")
+        .map {
+            meta, file ->
+                [ meta, file ]
     }} else {
-    ch_posfile = [[]]
+        ch_posfile = [[]]
     }
 
     //
@@ -226,13 +226,13 @@ workflow PIPELINE_INITIALISATION {
     //
 
     if (params.chunks) {
-    ch_chunks = Channel
-    .fromSamplesheet("chunks")
-    .map {
-        meta, file ->
-            [ meta, file ]
+        ch_chunks = Channel
+        .fromSamplesheet("chunks")
+        .map {
+            meta, file ->
+                [ meta, file ]
     }} else {
-    ch_chunks = [[]]
+        ch_chunks = [[]]
     }
 
     emit:
