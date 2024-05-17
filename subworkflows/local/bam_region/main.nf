@@ -1,5 +1,5 @@
-include { SAMTOOLS_INDEX  } from '../../../modules/nf-core/samtools/index/main.nf'
-include { SAMTOOLS_VIEW   } from '../../../modules/nf-core/samtools/view/main.nf'
+include { SAMTOOLS_INDEX  } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_VIEW   } from '../../../modules/nf-core/samtools/view'
 
 workflow BAM_REGION {
 
@@ -34,6 +34,6 @@ workflow BAM_REGION {
         .combine(SAMTOOLS_INDEX.out.bai, by: 0)
 
     emit:
-        bam_region        = ch_bam_region            // channel: [ metaIGCR, bam, index ]
-        versions          = ch_versions              // channel: [ versions.yml ]
+        bam_region = ch_bam_region // channel: [ metaIGCR, bam, index ]
+        versions   = ch_versions   // channel: [ versions.yml ]
 }
