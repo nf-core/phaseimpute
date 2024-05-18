@@ -168,20 +168,25 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
-
-        if (params.panel && params.chunks) {
-            log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--impute` mode.")
-        }
-        if (params.panel && params.posfile) {
-            log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--impute` mode.")
-        }
-
         // if (params.chunks) {
         // ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
         //         .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
         //         .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
         //         // Use channel ch_chunks for GLIMPSE1 imputation
         // }
+
+        // Params posfile should replace part of ch_panel_sites_tsv (specifically, the .txt)
+        // The VCF with the sites and post-prepared panel should be used as input in --panel.
+
+        // if (params.posfile) {
+        //         // Use channel ch_posfile for GLIMPSE1 imputation
+        //              ch_panel_sites_tsv = ch_posfile
+        // } else if (params.panel && params.step.split(',').contains("panelprep") && !params.posfile) {
+                // ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
+                //             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                //             -> [metaPC, sites, tsv]
+                //             }
+        //}
             // Output channel of input process
             ch_impute_output = Channel.empty()
             if (params.tools.split(',').contains("glimpse1")) {
@@ -285,10 +290,10 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("quilt")) {
                 print("Impute with QUILT")
 
-                //Use previous chunks if --step panelprep
+                // Use previous chunks if --step panelprep
                 if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
-                //Use provided chunks if --chunks
+                // Use provided chunks if --chunks
                 } else if (params.chunks) {
                     ch_chunks_quilt = ch_chunks.map { chr, txt -> [chr, file(txt)]}
                         .splitText()
@@ -315,6 +320,17 @@ workflow PHASEIMPUTE {
         }
 
     if (params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
+
+        // if (params.posfile) {
+        // Use channel ch_posfile for validation
+        //      ch_panel_sites_tsv = ch_posfile
+        // } else if (params.panel && params.step.split(',').contains("panelprep") && !params.posfile) {
+        // ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
+        //             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+        //             -> [metaPC, sites, tsv]
+        //             }
+        //}
+
         ch_truth_vcf = Channel.empty()
         // Get extension of input files
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
