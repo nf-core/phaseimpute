@@ -108,15 +108,18 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from input file provided through params.input
     //
-    ch_input = Channel
+    if (params.input) {
+        ch_input = Channel
         .fromSamplesheet("input")
         .map {
             meta, file, index ->
                 [ meta, file, index ]
         }
-
-    // Check if all extension are identical
-    getAllFilesExtension(ch_input)
+        // Check if all extension are identical
+        getAllFilesExtension(ch_input)
+    } else {
+        ch_input = Channel.of([[],[]])
+    }
     //
     // Create channel from input file provided through params.input_truth
     //
@@ -302,9 +305,35 @@ def validateInputParameters() {
     assert params.step, "A step must be provided"
 
     // Check that at least one tool is provided
-    if (params.step.split(',').contains("impute") || params.step.split(',').contains("panelprep")) {
+    if (params.step.split(',').contains("impute")) {
         assert params.tools, "No tools provided"
     }
+
+    // Check that input is provided for all steps, except panelprep
+    if (params.step.split(',').contains("all") || params.step.split(',').contains("impute") || params.step.split(',').contains("simulate") || params.step.split(',').contains("validate")) {
+        assert params.input, "No input provided"
+    }
+
+    // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
+    if (params.step.split(',').contains("impute") && !params.step.split(',').find { it in ["all", "panelprep"] }) {
+        // Required by all tools except glimpse2
+        if (!params.tools.split(',').contains("glimpse2")) {
+                assert params.posfile, "No posfile provided for impute"
+        }
+        // Required by all tools except STITCH
+        if (!params.tools.split(',').contains("stitch")) {
+                assert params.chunks, "No chunks provided for impute"
+        }
+    }
+
+    // Emit a warning if both panel and (chunks || posfile) are used as input
+    if (params.panel && params.chunks) {
+        log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--step impute` mode.")
+    }
+    if (params.panel && params.posfile) {
+        log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--step impute` mode.")
+    }
+
 }
 
 //
