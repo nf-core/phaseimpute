@@ -266,10 +266,10 @@ workflow PHASEIMPUTE {
                 // Obtain the user's posfile if provided or calculate it from ref panel file
                 if (params.posfile) {  // User supplied posfile
                     ch_posfile  = ch_posfile
-                } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
+                } else if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] }) { // Panelprep posfile
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
                 } else {
-                    error "No posfile or reference panel preparation was included"
+                    error "Error with STITCH imputation. No posfile or reference panel preparation was included"
                 }
                 // Prepare inputs
                 PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
@@ -297,7 +297,7 @@ workflow PHASEIMPUTE {
                 print("Impute with QUILT")
 
                 // Use previous chunks if --step panelprep
-                if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
+                if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
                 } else if (params.chunks) {
