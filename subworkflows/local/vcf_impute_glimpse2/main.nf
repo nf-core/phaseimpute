@@ -1,10 +1,5 @@
 include { GLIMPSE2_PHASE                        } from '../../../modules/nf-core/glimpse2/phase'
-include { GLIMPSE2_LIGATE                       } from '../../../modules/nf-core/glimpse2/ligate'
-include { BCFTOOLS_INDEX as INDEX_PHASE         } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_INDEX as INDEX_LIGATE        } from '../../../modules/nf-core/bcftools/index'
-include { VCFLIB_VCFFIXUP                       } from '../../../modules/nf-core/vcflib/vcffixup/main'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2    } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_IMPUTE_GLIMPSE2 {
 
@@ -26,17 +21,6 @@ workflow VCF_IMPUTE_GLIMPSE2 {
     // Add chr as key to input
     ch_input = ch_input.map{meta, bam, bai -> return[['chr': meta.chr], meta, bam, bai]}
 
-    // Fix panel (AC/AN INFO fields in VCF are inconsistent with GT field)
-    VCFLIB_VCFFIXUP(ch_panel)
-    ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
-
-    // Index fixed panel
-    BCFTOOLS_INDEX_1(VCFLIB_VCFFIXUP.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
-
-    // Join fixed vcf and tbi
-    ch_panel = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
-
     // Join chunks and panel
     ch_chunks_panel = ch_chunks.join(ch_panel)
 
@@ -57,11 +41,11 @@ workflow VCF_IMPUTE_GLIMPSE2 {
     ch_versions = ch_versions.mix(GLIMPSE2_PHASE.out.versions)
 
     // Index phased file
-    BCFTOOLS_INDEX_2(GLIMPSE2_PHASE.out.phased_variants)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions)
+    BCFTOOLS_INDEX_1(GLIMPSE2_PHASE.out.phased_variants)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
 
     // Join imputed and index files
-    ch_imputed_vcf_tbi = GLIMPSE2_PHASE.out.phased_variants.join(BCFTOOLS_INDEX_2.out.tbi)
+    ch_imputed_vcf_tbi = GLIMPSE2_PHASE.out.phased_variants.join(BCFTOOLS_INDEX_1.out.tbi)
 
     emit:
     vcf_tbi             = ch_imputed_vcf_tbi    // [ [id, chr, region], vcf, tbi ]
