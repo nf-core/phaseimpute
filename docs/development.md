@@ -52,7 +52,7 @@ All channel need to be identified by a meta map as follow:
 How to use different schema ?
 
 - Use nf-validation
-  For the moment use different input / step.
+  For the moment use different input / steps.
   In the futur, if/else logic will be added in the yml nf-core schema.
 
 What's the use of dumpcustomsoftware ?
