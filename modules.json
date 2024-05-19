@@ -167,6 +167,11 @@
                         "branch": "master",
                         "git_sha": "9502adb23c0b97ed8e616bbbdfa73b4585aec9a1",
                         "installed_by": ["modules"]
+                    },
+                    "vcflib/vcffixup": {
+                        "branch": "master",
+                        "git_sha": "072cf562e143252953a1b5c5ed38ec55eaa930c8",
+                        "installed_by": ["modules"]
                     }
                 }
             },
