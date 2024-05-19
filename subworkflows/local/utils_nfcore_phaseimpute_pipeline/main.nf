@@ -118,7 +118,7 @@ workflow PIPELINE_INITIALISATION {
         // Check if all extension are identical
         getAllFilesExtension(ch_input)
     } else {
-        ch_input = Channel.of([[],[]])
+        ch_input = Channel.of([[], [], []])
     }
     //
     // Create channel from input file provided through params.input_truth
@@ -216,7 +216,7 @@ workflow PIPELINE_INITIALISATION {
             .fromSamplesheet("posfile")
             .map {meta, file -> [ meta, file ]}
     } else {
-        ch_posfile = [[]]
+        ch_posfile = [[[],[]]]
     }
 
     //
@@ -230,7 +230,7 @@ workflow PIPELINE_INITIALISATION {
             meta, file ->
                 [ meta, file ]
     }} else {
-        ch_chunks = [[]]
+        ch_chunks = [[[],[]]]
     }
 
     emit:
@@ -316,8 +316,8 @@ def validateInputParameters() {
 
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.step.split(',').contains("impute") && !params.step.split(',').find { it in ["all", "panelprep"] }) {
-        // Required by all tools except glimpse2
-        if (!params.tools.split(',').contains("glimpse2")) {
+        // Required by all tools except glimpse2 and quilt
+        if (!params.tools.split(',').find { it in ["glimpse2", "quilt"] }) {
                 assert params.posfile, "No --posfile provided for --step impute"
         }
         // Required by all tools except STITCH
