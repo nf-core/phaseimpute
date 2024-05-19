@@ -82,7 +82,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [STITCH](#quilt) - Perform imputation
+- [STITCH](#stitch) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
 
 ### STITCH
@@ -99,6 +99,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
 
 [bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs.
+
+## GLIMPSE2 imputation mode
+
+The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
+
+- [GLIMPSE2](#glimpse2) - Perform imputation
+- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
+
+### GLIMPSE2 output files
+
+- `imputation/glimpse2/concat`
+- `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
 
 ## Reports
 
