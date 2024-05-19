@@ -253,6 +253,7 @@ workflow PHASEIMPUTE {
                         ch_panel_phased,
                         ch_chunks,
                         ch_fasta)
+                ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
 
                 // Concatenate by chromosomes
                 CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
@@ -260,7 +261,6 @@ workflow PHASEIMPUTE {
 
                 // Add results to input validate
                 ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi_join)
-                ch_input_validate.dump(tag:"ch_input_validate")
             }
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
