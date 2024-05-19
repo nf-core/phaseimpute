@@ -37,6 +37,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/
 
 // GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
@@ -238,26 +239,32 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
-                error "Glimpse2 not yet implemented"
 
                 // Use previous chunks if --step panelprep
-                // if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
-                //     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
-
-                //     VCF_IMPUTE_GLIMPSE2(ch_input_impute,
-                //                     ch_panel_phased,
-                //                     ch_chunks,
-                //                     ch_fasta)
-                // } else if (params.chunks) {
-                // ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
-                //         .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
-                //         .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
+                if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
+                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+                } else if (params.chunks) {
+                    ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
+                            .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
+                            .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
                 // Use channel ch_chunks for GLIMPSE2 imputation
-                // } else {
-                //     error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
-                // }
+                } else {
+                    error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
+                }
 
+                // Run imputation
+                VCF_IMPUTE_GLIMPSE2(ch_input_impute,
+                        ch_panel_phased,
+                        ch_chunks,
+                        ch_fasta)
 
+                // Concatenate by chromosomes
+                CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
+                ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
+
+                // Add results to input validate
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi_join)
+                ch_input_validate.dump(tag:"ch_input_validate")
             }
 
             if (params.tools.split(',').contains("stitch")) {
