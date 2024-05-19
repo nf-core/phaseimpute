@@ -318,16 +318,21 @@ def validateInputParameters() {
     if (params.step.split(',').contains("impute") && !params.step.split(',').find { it in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2
         if (!params.tools.split(',').contains("glimpse2")) {
-                assert params.posfile, "No --posfile provided for impute"
+                assert params.posfile, "No --posfile provided for --step impute"
         }
         // Required by all tools except STITCH
         if (!params.tools.split(',').contains("stitch")) {
-                assert params.chunks, "No --chunks provided for impute"
+                assert params.chunks, "No --chunks provided for --step impute"
         }
         // Required by GLIMPSE1 and GLIMPSE2 only
         if (params.tools.split(',').contains("glimpse")) {
                 assert params.panel, "No --panel provided for imputation with GLIMPSE"
         }
+
+    // Check that input_truth is provided when running validate
+    if (params.step.split(',').find { it in ["all", "validate"] } ) {
+        assert params.input_truth, "No --input_truth was provided for --step validate"
+    }
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
