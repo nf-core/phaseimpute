@@ -156,6 +156,13 @@ For starting from panel preparation, the required flags are `--step panelprep` a
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step panelprep --outdir results --genome GRCh37 -profile docker
 ```
 
+The required flags for this mode are:
+
+- `--step panelprep`: The step to run.
+- `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
+- `--phased`: (optional) Whether the reference panel is phased (true|false).
+- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
+
 You can find an overview of the results produced by this step in the [Output](output.md).
 
 ### Start with imputation `--step impute`
@@ -170,9 +177,7 @@ For starting from the imputation step, the required flags are:
   - `--posfile posfile.csv`: A samplesheet containing a TSV with the list of positions to genotype per chromosome. These are required by tools (for STITCH/GLIMPSE1). The posfile can be generated with `--step panelprep`.
   - `--panel panel.csv`: A samplesheet containing the post-processed VCF. This is required by GLIMPSE1. This file can be obtained with `--step panelprep`.
 
-You can find an overview of the results produced by this step in the [Output](output.md).
-
-### Imputation tools `--step impute --tools [glimpse1, quilt, stitch]`
+### Imputation tools `--step impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
 
@@ -239,15 +244,46 @@ chr22	16570211	T	C
 
 #### GLIMPSE1
 
-[GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--step impute`:
+[GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. This is an example command to run this tool from the `--step impute`:
 
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
 ```
 
+#### GLIMPSE2
+
+[GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--step impute`:
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --step impute --tool glimpse2 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
+```
+
 ### Start with validation `--step validate`
 
 This step compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
+
+```bash
+nextflow run nf-core/phaseimpute --input samplesheet.csv --input_truth truth.csv --step validate --outdir results --genome GRCh37 -profile docker
+```
+
+The required flags for this mode are:
+
+- `--step validate`: The step to run.
+- `--input samplesheet.csv`: The samplesheet containing the input sample files in `vcf` format.
+- `--input_truth samplesheet.csv`: The samplesheet containing the truth VCF files in `vcf` format.
+
+### Run all steps sequentially `--step all`
+
+This mode runs all the previous steps. This requires several flags:
+
+- `--step all`: The step to run.
+- `--input samplesheet.csv`: The samplesheet containing the input sample files in `bam` format.
+- `--depth`: The final depth of the input file [default: 1].
+- `--genome` or `--fasta`: The reference genome of the samples.
+- `--tools [glimpse1, glimpse2, quilt, stitch]`: A selection of one or more of the available imputation tools.
+- `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
+- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
+- `--input_truth samplesheet.csv`: The samplesheet containing the truth VCF files in `vcf` format.
 
 ### Updating the pipeline
 
