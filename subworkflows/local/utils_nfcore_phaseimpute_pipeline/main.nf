@@ -336,10 +336,10 @@ def validateInputParameters() {
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
-    if (params.panel && params.chunks) {
+    if (params.panel && params.chunks && params.step.split(',').find { it in ["all", "panelprep"]} ) {
         log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--step impute` mode.")
     }
-    if (params.panel && params.posfile) {
+    if (params.panel && params.posfile && params.step.split(',').find { it in ["all", "panelprep"]} ) {
         log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--step impute` mode.")
     }
 
