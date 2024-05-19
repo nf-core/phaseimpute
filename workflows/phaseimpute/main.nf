@@ -35,6 +35,7 @@ include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
 // GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
@@ -169,29 +170,28 @@ workflow PHASEIMPUTE {
     }
 
     if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
-        // if (params.chunks) {
-        // ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
-        //         .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
-        //         .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
-        //         // Use channel ch_chunks for GLIMPSE1 imputation
-        // }
-
-        // Params posfile should replace part of ch_panel_sites_tsv (specifically, the .txt)
-        // The VCF with the sites and post-prepared panel should be used as input in --panel.
-
-        // if (params.posfile) {
-        //         // Use channel ch_posfile for GLIMPSE1 imputation
-        //              ch_panel_sites_tsv = ch_posfile
-        // } else if (params.panel && params.step.split(',').contains("panelprep") && !params.posfile) {
-                // ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
-                //             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                //             -> [metaPC, sites, tsv]
-                //             }
-        //}
             // Output channel of input process
             ch_impute_output = Channel.empty()
+
             if (params.tools.split(',').contains("glimpse1")) {
                 println "Impute with Glimpse1"
+
+                if (params.chunks) {
+                    ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                }
+
+                //Params posfile should replace part of ch_panel_sites_tsv (specifically, the .txt)
+                //The VCF with the sites and post-prepared panel should be used as input in --panel.
+
+                // if (params.posfile) {
+                //             ch_panel_sites_tsv = ch_posfile
+                // } else if (params.panel && params.step.split(',').contains("panelprep") && !params.posfile) {
+                //         ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
+                //                     .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                //                     -> [metaPC, sites, tsv]
+                //                     }
+                // }
+
                 // Glimpse1 subworkflow
                 GL_INPUT( // Compute GL for input data once per panel by chromosome
                     ch_input_impute,
@@ -240,12 +240,7 @@ workflow PHASEIMPUTE {
                 if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 } else if (params.chunks) {
-                    ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
-                            .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
-                            .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
-                // Use channel ch_chunks for GLIMPSE2 imputation
-                } else {
-                    error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
+                    ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
                 }
 
                 // Run imputation
@@ -265,14 +260,11 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                // Obtain the user's posfile if provided or calculate it from ref panel file
-                if (params.posfile) {  // User supplied posfile
-                    ch_posfile  = ch_posfile
-                } else if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] }) { // Panelprep posfile
+                // Get posfile from panelprep step if --posfile not supplied
+                if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] }) {
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
-                } else {
-                    error "Error with STITCH imputation. No posfile or reference panel preparation was included"
                 }
+
                 // Prepare inputs
                 PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
                 ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
@@ -302,14 +294,9 @@ workflow PHASEIMPUTE {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
                 } else if (params.chunks) {
-                    ch_chunks_quilt = ch_chunks.map { chr, txt -> [chr, file(txt)]}
-                        .splitText()
-                        .map { metamap, line ->
-                            def fields = line.split("\t")
-                            def startEnd = fields[2].split(':')[1].split('-')
-                            [metamap, metamap.chr, startEnd[0], startEnd[1]]
-                        }
+                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt").out.chunks
                 }
+
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(ch_input_impute, VCF_NORMALIZE_BCFTOOLS.out.hap_legend, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
