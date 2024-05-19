@@ -88,7 +88,7 @@ workflow PHASEIMPUTE {
     //
     // Simulate data if asked
     //
-    if (params.step.split(',').contains("simulate") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
@@ -126,7 +126,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.step.split(',').contains("panelprep") || params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Check chr prefix and remove if necessary
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
@@ -169,7 +169,7 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
     }
 
-    if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
             // Output channel of input process
             ch_impute_output = Channel.empty()
 
@@ -185,7 +185,7 @@ workflow PHASEIMPUTE {
 
                 // if (params.posfile) {
                 //             ch_panel_sites_tsv = ch_posfile
-                // } else if (params.panel && params.step.split(',').contains("panelprep") && !params.posfile) {
+                // } else if (params.panel && params.steps.split(',').contains("panelprep") && !params.posfile) {
                 //         ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
                 //                     .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
                 //                     -> [metaPC, sites, tsv]
@@ -236,8 +236,8 @@ workflow PHASEIMPUTE {
             }
             if (params.tools.split(',').contains("glimpse2")) {
 
-                // Use previous chunks if --step panelprep
-                if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
+                // Use previous chunks if --steps panelprep
+                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 } else if (params.chunks) {
                     ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
@@ -260,8 +260,8 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                // Get posfile from panelprep step if --posfile not supplied
-                if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] }) {
+                // Get posfile from panelprep steps if --posfile not supplied
+                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] }) {
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
                 }
 
@@ -289,8 +289,8 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("quilt")) {
                 print("Impute with QUILT")
 
-                // Use previous chunks if --step panelprep
-                if (params.panel && params.step.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
+                // Use previous chunks if --steps panelprep
+                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
                 } else if (params.chunks) {
@@ -313,12 +313,12 @@ workflow PHASEIMPUTE {
             }
         }
 
-    if (params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
 
         // if (params.posfile) {
         // Use channel ch_posfile for validation
         //      ch_panel_sites_tsv = ch_posfile
-        // } else if (params.panel && params.step.split(',').contains("panelprep") && !params.posfile) {
+        // } else if (params.panel && params.steps.split(',').contains("panelprep") && !params.posfile) {
         // ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
         //             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
         //             -> [metaPC, sites, tsv]
@@ -361,8 +361,8 @@ workflow PHASEIMPUTE {
         ch_versions      = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
     }
 
-    if (params.step.split(',').contains("refine")) {
-        error "refine step not yet implemented"
+    if (params.steps.split(',').contains("refine")) {
+        error "refine steps not yet implemented"
     }
 
     //
