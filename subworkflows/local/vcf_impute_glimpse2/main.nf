@@ -28,9 +28,11 @@ workflow VCF_IMPUTE_GLIMPSE2 {
 
     // Fix panel (AC/AN INFO fields in VCF are inconsistent with GT field)
     VCFLIB_VCFFIXUP(ch_panel)
+    ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
 
     // Index fixed panel
     BCFTOOLS_INDEX_1(VCFLIB_VCFFIXUP.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
 
     // Join fixed vcf and tbi
     ch_panel = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
@@ -56,6 +58,7 @@ workflow VCF_IMPUTE_GLIMPSE2 {
 
     // Index phased file
     BCFTOOLS_INDEX_2(GLIMPSE2_PHASE.out.phased_variants)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions)
 
     // Join imputed and index files
     ch_imputed_vcf_tbi = GLIMPSE2_PHASE.out.phased_variants.join(BCFTOOLS_INDEX_2.out.tbi)
