@@ -13,6 +13,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#22](https://github.com/nf-core/phaseimpute/pull/20) - Add validation step for concordance analysis. Input channels changed to match inputs steps. Outdir folder organised by steps. Modules config by subworkflows.
 - [#26](https://github.com/nf-core/phaseimpute/pull/26) - Added QUILT method
 - [#47](https://github.com/nf-core/phaseimpute/pull/47) - Add possibility to remove samples from reference panel. Add glimpse2 chunking method. Add full-size test parameters.
+- [#58](https://github.com/nf-core/phaseimpute/pull/58) - Add external params posfile and chunks. Add glimpse2 phasing and imputation.
 
 ### `Changed`
 
