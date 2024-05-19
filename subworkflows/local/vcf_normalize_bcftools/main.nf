@@ -2,9 +2,11 @@ include { BCFTOOLS_NORM                         } from '../../../modules/nf-core
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3    } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_4    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_VIEW as BCFTOOLS_DEL_MLT_ALL } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_VIEW as BCFTOOLS_DEL_SPL     } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_CONVERT                      } from '../../../modules/nf-core/bcftools/convert'
+include { VCFLIB_VCFFIXUP                       } from '../../../modules/nf-core/vcflib/vcffixup/main'
 
 
 workflow VCF_NORMALIZE_BCFTOOLS {
@@ -49,6 +51,17 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
         ch_biallelic_vcf_tbi = BCFTOOLS_DEL_SPL.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
     }
+
+    // Fix panel (AC/AN INFO fields in VCF are inconsistent with GT field)
+    VCFLIB_VCFFIXUP(ch_biallelic_vcf_tbi)
+    ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
+
+    // Index fixed panel
+    BCFTOOLS_INDEX_4(VCFLIB_VCFFIXUP.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_4.out.versions)
+
+    // Join fixed vcf and tbi
+    ch_biallelic_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_4.out.tbi)
 
     // Convert VCF to Hap and Legend files
     BCFTOOLS_CONVERT(ch_biallelic_vcf_tbi, ch_fasta, [])
