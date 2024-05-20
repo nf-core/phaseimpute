@@ -139,7 +139,8 @@
                     "samtools/merge": {
                         "branch": "master",
                         "git_sha": "f4596fe0bdc096cf53ec4497e83defdb3a94ff62",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/merge/samtools-merge.diff"
                     },
                     "samtools/view": {
                         "branch": "master",
