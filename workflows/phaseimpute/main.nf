@@ -21,6 +21,7 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 // Simulate subworkflows
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
+include { SAMTOOLS_MERGE                             } from '../../modules/nf-core/samtools/merge/main'
 
 // Panelprep subworkflows
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
@@ -111,7 +112,7 @@ workflow PHASEIMPUTE {
             ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
             ch_multiqc_files        = ch_multiqc_files.mix(BAM_DOWNSAMPLE.out.coverage.map{ [it[1]] })
             ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
-            ch_input_validate_truth = BAM_REGION.out.bam_region
+            ch_input_validate_truth = ch_input_sim
         }
 
         if (params.genotype) {

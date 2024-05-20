@@ -1,6 +1,8 @@
-include { SAMTOOLS_COVERAGE   } from '../../../modules/nf-core/samtools/coverage'
-include { SAMTOOLS_INDEX      } from '../../../modules/nf-core/samtools/index'
-include { SAMTOOLS_VIEW       } from '../../../modules/nf-core/samtools/view'
+include { SAMTOOLS_COVERAGE                  } from '../../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_VIEW                      } from '../../../modules/nf-core/samtools/view'
+include { SAMTOOLS_INDEX as SAMTOOLS_INDEX_1 } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_MERGE                     } from '../../../modules/nf-core/samtools/merge'
+include { SAMTOOLS_INDEX as SAMTOOLS_INDEX_2 } from '../../../modules/nf-core/samtools/index'
 
 workflow BAM_DOWNSAMPLE {
 
@@ -15,7 +17,7 @@ workflow BAM_DOWNSAMPLE {
     // Add region to channel
     ch_coverage = ch_bam
         .map{ metaICR, bam, index ->
-            [ metaICR, bam, index, metaICR["region"] ]
+            [ metaICR, bam, index, metaICR.region ]
         }
 
     // Get coverage of the region
@@ -52,15 +54,32 @@ workflow BAM_DOWNSAMPLE {
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
     // Index result
-    SAMTOOLS_INDEX(SAMTOOLS_VIEW.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
+    SAMTOOLS_INDEX_1(SAMTOOLS_VIEW.out.bam)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX_1.out.versions.first())
 
     // Aggregate bam and index
     ch_bam_emul = SAMTOOLS_VIEW.out.bam
-        .combine(SAMTOOLS_INDEX.out.bai, by:0)
+        .combine(SAMTOOLS_INDEX_1.out.bai, by:0)
+
+    SAMTOOLS_MERGE(
+        ch_bam_emul
+            .map{
+                metaICRD, bam, index -> [metaICRD.subMap("id", "depth"), bam, index]
+            }
+            .groupTuple()
+            .map{ metaID, bam, index ->
+                [ metaID + ["chr": "all"], bam, index ]
+            },
+        ch_fasta
+    )
+    SAMTOOLS_INDEX_2(SAMTOOLS_MERGE.out.bam)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX_2.out.versions.first())
+
+    ch_bam_emul_all = SAMTOOLS_MERGE.out.bam
+        .combine(SAMTOOLS_INDEX_2.out.bai, by:0)
 
     emit:
-    bam_emul          = ch_bam_emul                    // channel: [ [id, genome, chr, region, depth], bam, bai ]
-    coverage          = SAMTOOLS_COVERAGE.out.coverage // channel: [ [id, genome, chr, region, depth], txt ]
+    bam_emul          = ch_bam_emul_all                // channel: [ [id, chr, region, depth], bam, bai ]
+    coverage          = SAMTOOLS_COVERAGE.out.coverage // channel: [ [id, chr, region, depth], txt ]
     versions          = ch_versions                    // channel: [ versions.yml ]
 }
