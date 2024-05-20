@@ -142,25 +142,24 @@ workflow PHASEIMPUTE {
 
         // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
-        VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
-                        VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi,
-                        VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites,
-                        VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
+        VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_PHASE_PANEL.out.versions)
 
+        ch_panel = VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi
+            .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
+            .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
+            .join(VCF_PHASE_PANEL.out.vcf_tbi)
+
         // Generate channels (to be simplified)
-        ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
-                        .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                        -> [metaPC, sites, tsv]
-                        }
+        ch_panel_sites_tsv = ch_panel
+            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                -> [metaPC, sites, tsv]
+            }
         CONCAT_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
-        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
 
-        ch_panel_phased = VCF_PHASE_PANEL.out.panel
-            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                -> [metaPC, phased, p_index]
-            }
+        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
+        ch_panel_phased = VCF_PHASE_PANEL.out.vcf_tbi
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
@@ -173,7 +172,7 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("glimpse1")) {
                 println "Impute with Glimpse1"
                 // Glimpse1 subworkflow
-                GL_INPUT( // Compute GL for input data once per panel
+                GL_INPUT( // Compute GL for input data once per panel by chromosome
                     ch_input_impute,
                     ch_panel_sites_tsv,
                     ch_fasta
@@ -183,14 +182,14 @@ workflow PHASEIMPUTE {
 
                 impute_input = GL_INPUT.out.vcf // [metaIPC, vcf, index]
                     .map {metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-                    .combine(ch_panel_phased, by: 0)
+                    .join(ch_panel_phased)
                     .combine(Channel.of([[]]))
                     .map { metaPC, metaIPC, vcf, index, panel, p_index, sample ->
                         [metaPC.subMap("chr"), metaIPC, vcf, index, panel, p_index, sample]}
-                    .combine(ch_region
-                        .map {metaCR, region -> [metaCR.subMap("chr"), metaCR, region]},
-                        by: 0)
-                    .combine(ch_map, by: 0)
+                    .join(ch_region
+                        .map {metaCR, region -> [metaCR.subMap("chr"), metaCR, region]}
+                    )
+                    .join(ch_map)
                     .map{
                         metaC, metaIPC, vcf, index, panel, p_index, sample, metaCR, region, map
                         -> [metaIPC+metaCR.subMap("Region"), vcf, index, sample, region, panel, p_index, map]
@@ -233,7 +232,6 @@ workflow PHASEIMPUTE {
 
 
             }
-
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
@@ -266,7 +264,6 @@ workflow PHASEIMPUTE {
                 ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi_join)
 
             }
-
             if (params.tools.split(',').contains("quilt")) {
                 print("Impute with QUILT")
 
@@ -307,14 +304,10 @@ workflow PHASEIMPUTE {
         ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
         ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)
 
-        // Concatenate by chromosomes
-        CONCAT_TRUTH(GL_TRUTH.out.vcf)
-        ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
-
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
             .map { [it[0], it[1], it[2]] }
-            .mix(CONCAT_TRUTH.out.vcf_tbi_join)
+            .mix(GL_TRUTH.out.vcf)
 
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
