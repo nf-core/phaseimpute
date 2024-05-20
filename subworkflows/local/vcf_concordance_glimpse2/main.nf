@@ -6,8 +6,8 @@ include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     take:
-        ch_vcf_emul   // VCF file with imputed genotypes [ [id, chr, region, panel], vcf, csi]
-        ch_vcf_truth  // VCF file with truth genotypes   [ [id, chr, region, panel], vcf, csi]
+        ch_vcf_emul   // VCF file with imputed genotypes [ [id], vcf, csi]
+        ch_vcf_truth  // VCF file with truth genotypes   [ [id], vcf, csi]
         ch_vcf_freq   // VCF file with panel frequencies [ [panel], vcf, csi]
         ch_region     // Regions to process              [ [chr, region], region]
 

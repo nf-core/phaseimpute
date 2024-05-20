@@ -49,38 +49,26 @@ workflow NFCORE_PHASEIMPUTE {
     // Initialise input channels
     //
 
-    input_impute         = Channel.empty()
-    input_simulate       = Channel.empty()
-    input_validate       = Channel.empty()
+    ch_input_impute         = Channel.empty()
+    ch_input_simulate       = Channel.empty()
+    ch_input_validate       = Channel.empty()
 
     if (params.step.split(',').contains("impute")) {
-        input_impute   = ch_input
-            .combine(ch_regions)
-            .map { metaI, file, index, metaCR, region ->
-                [ metaI+metaCR, file, index ]
-            }
+        ch_input_impute   = ch_input
     } else if (params.step.split(',').contains("simulate") || params.step.split(',').contains("all")) {
-        input_simulate = ch_input
+        ch_input_simulate = ch_input
     } else if (params.step.split(',').contains("validate")) {
-        input_validate = ch_input
-            .combine(ch_regions)
-            .map { metaI, file, index, metaCR, region ->
-                [ metaI+metaCR, file, index ]
-            }
+        ch_input_validate = ch_input
         ch_input_truth = ch_input_truth
-            .combine(ch_regions)
-            .map { metaI, file, index, metaCR, region ->
-                [ metaI+metaCR, file, index ]
-            }
     }
 
     //
     // WORKFLOW: Run pipeline
     //
     PHASEIMPUTE (
-        input_impute,
-        input_simulate,
-        input_validate,
+        ch_input_impute,
+        ch_input_simulate,
+        ch_input_validate,
         ch_input_truth,
         ch_fasta,
         ch_panel,
