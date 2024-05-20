@@ -98,7 +98,8 @@
                     "glimpse2/phase": {
                         "branch": "master",
                         "git_sha": "9c71d32e372650e8bb3e1fb15339017aad5e3f7f",
-                        "installed_by": ["multiple_impute_glimpse2"]
+                        "installed_by": ["multiple_impute_glimpse2"],
+                        "patch": "modules/nf-core/glimpse2/phase/glimpse2-phase.diff"
                     },
                     "glimpse2/splitreference": {
                         "branch": "master",
@@ -166,6 +167,11 @@
                     "tabix/tabix": {
                         "branch": "master",
                         "git_sha": "9502adb23c0b97ed8e616bbbdfa73b4585aec9a1",
+                        "installed_by": ["modules"]
+                    },
+                    "vcflib/vcffixup": {
+                        "branch": "master",
+                        "git_sha": "072cf562e143252953a1b5c5ed38ec55eaa930c8",
                         "installed_by": ["modules"]
                     }
                 }

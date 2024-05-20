@@ -1,0 +1,2 @@
+panel,chr,file
+1000GP.s.norel,chr22,"https://github.com/nf-core/test-datasets/raw/phaseimpute/data/panel/22/chr22_chunks_glimpse1.txt"

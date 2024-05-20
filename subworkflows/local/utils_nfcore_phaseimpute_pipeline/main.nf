@@ -108,15 +108,18 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from input file provided through params.input
     //
-    ch_input = Channel
+    if (params.input) {
+        ch_input = Channel
         .fromSamplesheet("input")
         .map {
             meta, file, index ->
                 [ meta, file, index ]
         }
-
-    // Check if all extension are identical
-    getAllFilesExtension(ch_input)
+        // Check if all extension are identical
+        getAllFilesExtension(ch_input)
+    } else {
+        ch_input = Channel.of([[], [], []])
+    }
     //
     // Create channel from input file provided through params.input_truth
     //
@@ -213,7 +216,21 @@ workflow PIPELINE_INITIALISATION {
             .fromSamplesheet("posfile")
             .map {meta, file -> [ meta, file ]}
     } else {
-        ch_posfile = [[]]
+        ch_posfile = [[[],[]]]
+    }
+
+    //
+    // Create chunks channel
+    //
+
+    if (params.chunks) {
+        ch_chunks = Channel
+        .fromSamplesheet("chunks")
+        .map {
+            meta, file ->
+                [ meta, file ]
+    }} else {
+        ch_chunks = [[[],[]]]
     }
 
     emit:
@@ -225,6 +242,7 @@ workflow PIPELINE_INITIALISATION {
     regions              = ch_regions       // [ [chr, region], region ]
     map                  = ch_map           // [ [map], map ]
     posfile              = ch_posfile       // [ [chr], txt ]
+    chunks               = ch_chunks        // [ [chr], txt ]
     versions             = ch_versions
 }
 
@@ -283,13 +301,48 @@ def validateInputParameters() {
     assert params.genome == null || params.fasta == null, "Either --genome or --fasta must be provided"
     assert !(params.genome == null && params.fasta == null), "Only one of --genome or --fasta must be provided"
 
-    // Check that a step is provided
-    assert params.step, "A step must be provided"
+    // Check that a steps is provided
+    assert params.steps, "A steps must be provided"
 
     // Check that at least one tool is provided
-    if (params.step.split(',').contains("impute") || params.step.split(',').contains("panelprep")) {
+    if (params.steps.split(',').contains("impute")) {
         assert params.tools, "No tools provided"
     }
+
+    // Check that input is provided for all steps, except panelprep
+    if (params.steps.split(',').contains("all") || params.steps.split(',').contains("impute") || params.steps.split(',').contains("simulate") || params.steps.split(',').contains("validate")) {
+        assert params.input, "No input provided"
+    }
+
+    // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
+    if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+        // Required by all tools except glimpse2 and quilt
+        if (!params.tools.split(',').find { it in ["glimpse2", "quilt"] }) {
+                assert params.posfile, "No --posfile provided for --steps impute"
+        }
+        // Required by all tools except STITCH
+        if (!params.tools.split(',').contains("stitch")) {
+                assert params.chunks, "No --chunks provided for --steps impute"
+        }
+        // Required by GLIMPSE1 and GLIMPSE2 only
+        if (params.tools.split(',').contains("glimpse")) {
+                assert params.panel, "No --panel provided for imputation with GLIMPSE"
+        }
+
+    // Check that input_truth is provided when running validate
+    if (params.steps.split(',').find { it in ["all", "validate"] } ) {
+        assert params.input_truth, "No --input_truth was provided for --steps validate"
+    }
+    }
+
+    // Emit a warning if both panel and (chunks || posfile) are used as input
+    if (params.panel && params.chunks && params.steps.split(',').find { it in ["all", "panelprep"]} ) {
+        log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps impute` mode.")
+    }
+    if (params.panel && params.posfile && params.steps.split(',').find { it in ["all", "panelprep"]} ) {
+        log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
+    }
+
 }
 
 //

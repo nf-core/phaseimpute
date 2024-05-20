@@ -41,6 +41,7 @@ workflow NFCORE_PHASEIMPUTE {
     ch_depth       // channel: depth of coverage file [[depth], depth]
     ch_map         // channel: map file for imputation
     ch_posfile     // channel: samplesheet read in from --posfile
+    ch_chunks      // channel: samplesheet read in from --chunks
     ch_versions    // channel: versions of software used
 
     main:
@@ -53,15 +54,15 @@ workflow NFCORE_PHASEIMPUTE {
     input_simulate       = Channel.empty()
     input_validate       = Channel.empty()
 
-    if (params.step.split(',').contains("impute")) {
+    if (params.steps.split(',').contains("impute")) {
         input_impute   = ch_input
             .combine(ch_regions)
             .map { metaI, file, index, metaCR, region ->
                 [ metaI+metaCR, file, index ]
             }
-    } else if (params.step.split(',').contains("simulate") || params.step.split(',').contains("all")) {
+    } else if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         input_simulate = ch_input
-    } else if (params.step.split(',').contains("validate")) {
+    } else if (params.steps.split(',').contains("validate")) {
         input_validate = ch_input
             .combine(ch_regions)
             .map { metaI, file, index, metaCR, region ->
@@ -88,6 +89,7 @@ workflow NFCORE_PHASEIMPUTE {
         ch_depth,
         ch_map,
         ch_posfile,
+        ch_chunks,
         ch_versions
     )
 
@@ -131,6 +133,7 @@ workflow {
         PIPELINE_INITIALISATION.out.depth,
         PIPELINE_INITIALISATION.out.map,
         PIPELINE_INITIALISATION.out.posfile,
+        PIPELINE_INITIALISATION.out.chunks,
         PIPELINE_INITIALISATION.out.versions
     )
 

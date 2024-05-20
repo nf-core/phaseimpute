@@ -57,7 +57,7 @@
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
                 },
-                "step": {
+                "steps": {
                     "type": "string",
                     "description": "Step to run.",
                     "fa_icon": "fas fa-step-forward",
@@ -122,12 +122,16 @@
         "imputation_options": {
             "title": "Imputation options",
             "type": "object",
-            "description": "Arguments for the imputation step",
+            "description": "Arguments for the imputation steps",
             "default": "",
             "properties": {
                 "chunks": {
                     "type": "string",
-                    "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation."
+                    "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation.",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "schema": "/assets/schema_chunks.json",
+                    "pattern": "^\\S+\\.csv$"
                 }
             }
         },
@@ -272,7 +276,7 @@
             "type": "object",
             "fa_icon": "fab fa-acquisitions-incorporated",
             "description": "Set the top limit for requested resources for any single job.",
-            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
+            "help_text": "If you are running on a smaller system, a pipeline steps requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
             "properties": {
                 "max_cpus": {
                     "type": "integer",

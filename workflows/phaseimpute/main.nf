@@ -34,9 +34,11 @@ include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
 // GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
@@ -75,6 +77,7 @@ workflow PHASEIMPUTE {
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
     ch_posfile              // channel: posfile       [ [chr], txt]
+    ch_chunks               // channel: chunks       [ [chr], txt]
     ch_versions             // channel: versions of software used
 
     main:
@@ -84,7 +87,7 @@ workflow PHASEIMPUTE {
     //
     // Simulate data if asked
     //
-    if (params.step.split(',').contains("simulate") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
 
@@ -122,7 +125,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.step.split(',').contains("panelprep") || params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Check chr prefix and remove if necessary
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
@@ -170,11 +173,29 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
     }
 
-    if (params.step.split(',').contains("impute") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
             // Output channel of input process
             ch_impute_output = Channel.empty()
+
             if (params.tools.split(',').contains("glimpse1")) {
                 println "Impute with Glimpse1"
+
+                if (params.chunks) {
+                    ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                }
+
+                //Params posfile should replace part of ch_panel_sites_tsv (specifically, the .txt)
+                //The VCF with the sites and post-prepared panel should be used as input in --panel.
+
+                // if (params.posfile) {
+                //             ch_panel_sites_tsv = ch_posfile
+                // } else if (params.panel && params.steps.split(',').contains("panelprep") && !params.posfile) {
+                //         ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
+                //                     .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+                //                     -> [metaPC, sites, tsv]
+                //                     }
+                // }
+
                 // Glimpse1 subworkflow
                 GL_INPUT( // Compute GL for input data once per panel
                     ch_input_impute,
@@ -218,36 +239,37 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
-                error "Glimpse2 not yet implemented"
 
-                // Use previous chunks if --step panelprep
-                // if (params.panel && params.step.split(',').contains("panelprep") && !params.chunks) {
-                //     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+                // Use previous chunks if --steps panelprep
+                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
+                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+                } else if (params.chunks) {
+                    ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                }
 
-                //     VCF_IMPUTE_GLIMPSE2(ch_input_impute,
-                //                     ch_panel_phased,
-                //                     ch_chunks,
-                //                     ch_fasta)
-                // } else if (params.chunks) {
-                //     // use provided chunks
-                // } else {
-                //     error "Either no reference panel was included or you did not set step --panelprep or you did not provide --chunks"
-                // }
+                // Run imputation
+                VCF_IMPUTE_GLIMPSE2(ch_input_impute,
+                        ch_panel_phased,
+                        ch_chunks,
+                        ch_fasta)
+                ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
 
+                // Concatenate by chromosomes
+                CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
+                ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
+                // Add results to input validate
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi_join)
             }
 
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                // Obtain the user's posfile if provided or calculate it from ref panel file
-                if (params.posfile ) {  // User supplied posfile
-                    ch_posfile = ch_posfile
-                } else if (params.panel && params.step.split(',').contains("panelprep")) { // Panelprep posfile
+                // Get posfile from panelprep steps if --posfile not supplied
+                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] }) {
                     ch_posfile = PREPARE_POSFILE_TSV.out.posfile
-                } else {
-                    error "No posfile or reference panel preparation was included"
                 }
+
                 // Prepare inputs
                 PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
                 ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
@@ -273,8 +295,16 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("quilt")) {
                 print("Impute with QUILT")
 
+                // Use previous chunks if --steps panelprep
+                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
+                    ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
+                // Use provided chunks if --chunks
+                } else if (params.chunks) {
+                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt").out.chunks
+                }
+
                 // Impute BAMs with QUILT
-                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
+                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, ch_chunks_quilt)
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Add to output channel
@@ -289,7 +319,18 @@ workflow PHASEIMPUTE {
             }
         }
 
-    if (params.step.split(',').contains("validate") || params.step.split(',').contains("all")) {
+    if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
+
+        // if (params.posfile) {
+        // Use channel ch_posfile for validation
+        //      ch_panel_sites_tsv = ch_posfile
+        // } else if (params.panel && params.steps.split(',').contains("panelprep") && !params.posfile) {
+        // ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
+        //             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
+        //             -> [metaPC, sites, tsv]
+        //             }
+        //}
+
         ch_truth_vcf = Channel.empty()
         // Get extension of input files
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
@@ -330,8 +371,8 @@ workflow PHASEIMPUTE {
         ch_versions      = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
     }
 
-    if (params.step.split(',').contains("refine")) {
-        error "refine step not yet implemented"
+    if (params.steps.split(',').contains("refine")) {
+        error "refine steps not yet implemented"
     }
 
     //
