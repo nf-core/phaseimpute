@@ -268,7 +268,7 @@ workflow PHASEIMPUTE {
                 print("Impute with QUILT")
 
                 // Impute BAMs with QUILT
-                BAM_IMPUTE_QUILT(VCF_NORMALIZE_BCFTOOLS.out.hap_legend, ch_input_impute, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
+                BAM_IMPUTE_QUILT(ch_input_impute, VCF_NORMALIZE_BCFTOOLS.out.hap_legend, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Add to output channel

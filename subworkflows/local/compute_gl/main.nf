@@ -17,7 +17,7 @@ workflow COMPUTE_GL {
     ch_mpileup       = ch_input
         .combine(ch_target)
         .map{metaI, bam, bai, metaPC, sites, tsv ->
-                [metaI + metaPC, bam, sites, tsv]
+                [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, sites, tsv]
         }
 
     BCFTOOLS_MPILEUP(
@@ -45,7 +45,7 @@ workflow COMPUTE_GL {
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
     emit:
-    vcf           = ch_output        // channel: [ [id, panel, chr, region], vcf, tbi ]
+    vcf           = ch_output        // channel: [ [id, panel, chr], vcf, tbi ]
     versions      = ch_versions      // channel: [ versions.yml ]
     multiqc_files = ch_multiqc_files
 }
