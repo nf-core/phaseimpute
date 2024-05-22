@@ -210,27 +210,25 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create posfile channel
     //
-
     if (params.posfile) {
         ch_posfile = Channel
             .fromSamplesheet("posfile")
             .map {meta, file -> [ meta, file ]}
     } else {
-        ch_posfile = [[[],[]]]
+        ch_posfile = [[],[]]
     }
 
     //
     // Create chunks channel
     //
-
     if (params.chunks) {
         ch_chunks = Channel
-        .fromSamplesheet("chunks")
-        .map {
-            meta, file ->
-                [ meta, file ]
-    }} else {
-        ch_chunks = [[[],[]]]
+            .fromSamplesheet("chunks")
+    } else {
+        ch_chunks = [[],[]]
+        if (!params.steps.split(',').contains("panelprep") & !params.steps.split(',').contains("all") & params.steps.split(',').contains("impute")) {
+            error "No --chunks provided for --steps impute and step panel_prep not selected"
+        }
     }
 
     emit:
