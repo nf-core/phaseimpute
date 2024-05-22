@@ -21,7 +21,6 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 // Simulate subworkflows
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
-include { SAMTOOLS_MERGE                             } from '../../modules/nf-core/samtools/merge/main'
 
 // Panelprep subworkflows
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
