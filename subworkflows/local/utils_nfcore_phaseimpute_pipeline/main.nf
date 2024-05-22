@@ -226,7 +226,12 @@ workflow PIPELINE_INITIALISATION {
             .fromSamplesheet("chunks")
     } else {
         ch_chunks = [[],[]]
-        if (!params.steps.split(',').contains("panelprep") & !params.steps.split(',').contains("all") & params.steps.split(',').contains("impute")) {
+        if (
+            !params.steps.split(',').contains("panelprep") &
+            !params.steps.split(',').contains("all") &
+            params.steps.split(',').contains("impute") &
+            !params.tools.split(',') == ["stitch"]
+        ) {
             error "No --chunks provided for --steps impute and step panel_prep not selected"
         }
     }
