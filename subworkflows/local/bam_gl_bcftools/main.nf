@@ -2,7 +2,7 @@ include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mp
 include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate'
 
-workflow COMPUTE_GL {
+workflow BAM_GL_BCFTOOLS {
 
     take:
     ch_input   // channel: [ [id], bam, bai ]

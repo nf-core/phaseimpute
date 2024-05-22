@@ -31,8 +31,8 @@ include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/
 
 // GLIMPSE1 subworkflows
 include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
-include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
-include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
+include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
+include { BAM_GL_BCFTOOLS as GL_INPUT                } from '../../subworkflows/local/bam_gl_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
