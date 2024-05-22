@@ -40,7 +40,6 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
 
     emit:
     panel_tsv      = ch_panel_tsv     // channel: [ [id, chr], tsv, tbi ]
-    vcf_tbi        = ch_vcf           // channel: [ [id, chr], vcf, tbi ]
     panel_sites    = ch_panel_sites   // channel: [ [id, chr], vcf, csi ]
     versions       = ch_versions      // channel: [ versions.yml ]
 }

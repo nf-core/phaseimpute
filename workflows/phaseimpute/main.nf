@@ -30,9 +30,8 @@ include { VCF_PHASE_PANEL                            } from '../../subworkflows/
 include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_posfile_tsv'
 
 // GLIMPSE1 subworkflows
-include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
-include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
-include { BAM_GL_BCFTOOLS as GL_INPUT                } from '../../subworkflows/local/bam_gl_bcftools'
+include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
+include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
@@ -55,6 +54,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // Concordance subworkflows
+include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
 
 
@@ -72,7 +72,7 @@ workflow PHASEIMPUTE {
     ch_input_validate       // channel: input file    [ [id], file, index ]
     ch_input_validate_truth // channel: truth file    [ [id], file, index ]
     ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
-    ch_panel                // channel: panel file    [ [id, chr], chr, vcf, index ]
+    ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
@@ -144,10 +144,10 @@ workflow PHASEIMPUTE {
 
         // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
-        VCF_PHASE_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi)
+        VCF_PHASE_PANEL(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_PHASE_PANEL.out.versions)
 
-        ch_panel = VCF_SITES_EXTRACT_BCFTOOLS.out.vcf_tbi
+        ch_panel = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
             .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
             .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
             .join(VCF_PHASE_PANEL.out.vcf_tbi)
@@ -166,17 +166,17 @@ workflow PHASEIMPUTE {
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
+
     }
 
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
-            // Output channel of input process
-            ch_impute_output = Channel.empty()
-
             if (params.tools.split(',').contains("glimpse1")) {
                 println "Impute with Glimpse1"
 
                 if (params.chunks) {
-                    ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                    ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
+                    ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
 
                 //Params posfile should replace part of ch_panel_sites_tsv (specifically, the .txt)
@@ -191,42 +191,18 @@ workflow PHASEIMPUTE {
                 //                     }
                 // }
 
-                // Glimpse1 subworkflow
-                GL_INPUT( // Compute GL for input data once per panel by chromosome
+                VCF_IMPUTE_GLIMPSE1(
                     ch_input_impute,
                     ch_panel_sites_tsv,
+                    ch_panel_phased,
+                    ch_chunks_glimpse1,
                     ch_fasta
                 )
-                ch_multiqc_files = ch_multiqc_files.mix(GL_INPUT.out.multiqc_files)
-                ch_versions = ch_versions.mix(GL_INPUT.out.versions)
-
-                impute_input = GL_INPUT.out.vcf // [metaIPC, vcf, index]
-                    .map {metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-                    .join(ch_panel_phased)
-                    .combine(Channel.of([[]]))
-                    .map { metaPC, metaIPC, vcf, index, panel, p_index, sample ->
-                        [metaPC.subMap("chr"), metaIPC, vcf, index, panel, p_index, sample]}
-                    .join(ch_region
-                        .map {metaCR, region -> [metaCR.subMap("chr"), metaCR, region]}
-                    )
-                    .join(ch_map)
-                    .map{
-                        metaC, metaIPC, vcf, index, panel, p_index, sample, metaCR, region, map
-                        -> [metaIPC+metaCR.subMap("Region"), vcf, index, sample, region, panel, p_index, map]
-                    } //[ metaIPCR, vcf, csi, sample, region, ref, ref_index, map ]
-
-                VCF_IMPUTE_GLIMPSE1(impute_input)
-                output_glimpse1 = VCF_IMPUTE_GLIMPSE1.out.merged_variants
-                    .combine(VCF_IMPUTE_GLIMPSE1.out.merged_variants_index, by: 0)
-                    .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
-                ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.chunk_chr.map{ [it[1]]})
-                ch_versions      = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
-
-                // Add to output channel
-                ch_impute_output = ch_impute_output.mix(output_glimpse1)
+                ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
+                ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.multiqc_files)
 
                 // Concatenate by chromosomes
-                CONCAT_GLIMPSE1(output_glimpse1)
+                CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
                 ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
                 // Add results to input validate
@@ -273,9 +249,6 @@ workflow PHASEIMPUTE {
                                     ch_fasta )
                 ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
-                // Output channel to concat
-                ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_STITCH.out.vcf_tbi)
-
                 // Concatenate by chromosomes
                 CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
                 ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
@@ -298,9 +271,6 @@ workflow PHASEIMPUTE {
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(ch_input_impute, VCF_NORMALIZE_BCFTOOLS.out.hap_legend, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
-
-                // Add to output channel
-                ch_impute_output = ch_impute_output.mix(BAM_IMPUTE_QUILT.out.vcf_tbi)
 
                 // Concatenate by chromosomes
                 CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
