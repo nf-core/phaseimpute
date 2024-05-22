@@ -31,26 +31,22 @@ workflow VCF_IMPUTE_GLIMPSE1 {
     samples_file = Channel.of([[]]).collect()
     gmap_file    = Channel.of([[]]).collect()
 
-    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf // [metaIPC, vcf, index]
-        .map {metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-        .combine(ch_panel
-            .map{
-                metaPC, vcf, index ->
-                [["panel": metaPC.id, "chr": metaPC.chr], vcf, index]
-            },
-            by: 0
-        )
+    // Combine chunks with panel
+    ch_chunks_panel = ch_chunks
+        .combine(ch_panel, by:0)
+        .map{ metaPC, regionin, regionout, panel, index ->
+            [["panel": metaPC.id, "chr": metaPC.chr], regionin, regionout, panel, index]
+        }
+
+    // Join input and chunks reference
+    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf
+        .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
         .combine(samples_file)
+        .combine(ch_chunks_panel, by: 0)
         .combine(gmap_file)
-        .map { metaPC, metaIPC, vcf, index, panel, p_index, sample, gmap ->
-            [metaPC.subMap("chr"), metaIPC, vcf, index, panel, p_index, sample, gmap]}
-        .combine(ch_chunks
-            .map {metaCR, regionin, regionout -> [metaCR.subMap("chr"), metaCR, regionin, regionout]},
-            by: 0
-        )
-        .map{
-            metaC, metaIPC, vcf, index, panel, p_index, sample, gmap, metaCR, regionin, regionout
-            -> [metaIPC + ["region": regionin], vcf, index, sample, regionin, regionout, panel, p_index, gmap]
+        .map{ metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
+            [metaIPC + ["region": regionin],
+            bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
         }
 
     GLIMPSE_PHASE ( ch_phase_input ) // [meta, vcf, index, sample, regionin, regionout, ref, ref_index, map]
@@ -61,8 +57,9 @@ workflow VCF_IMPUTE_GLIMPSE1 {
 
     // Ligate all phased files in one and index it
     ligate_input = GLIMPSE_PHASE.out.phased_variants
+        .join( BCFTOOLS_INDEX_1.out.csi )
+        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr"), vcf, index] }
         .groupTuple()
-        .join( BCFTOOLS_INDEX_1.out.csi.groupTuple() )
 
     GLIMPSE_LIGATE ( ligate_input )
     ch_versions = ch_versions.mix(GLIMPSE_LIGATE.out.versions )
@@ -70,13 +67,13 @@ workflow VCF_IMPUTE_GLIMPSE1 {
     BCFTOOLS_INDEX_2 ( GLIMPSE_LIGATE.out.merged_variants )
     ch_versions = ch_versions.mix( BCFTOOLS_INDEX_2.out.versions )
 
-
+    // Join imputed and index files
     ch_imputed_vcf_tbi = GLIMPSE_LIGATE.out.merged_variants
-        .join(BCFTOOLS_INDEX_2.out.csi)
-        .map{ metaIPCR, vcf, csi -> [metaIPCR + [tools: "Glimpse1"], vcf, csi] }
+        .join(BCFTOOLS_INDEX_2.out.tbi)
+        .map{ metaIPC, vcf, index -> [metaIPC + [tools: "Glimpse1"], vcf, index] }
 
     emit:
-    vcf_tbi             = ch_imputed_vcf_tbi    // channel: [ [id, chr], vcf, tbi ]
+    vcf_tbi             = ch_imputed_vcf_tbi    // channel: [ [id, panel, chr, tool], vcf, tbi ]
     versions            = ch_versions           // channel: [ versions.yml ]
     multiqc_files       = ch_multiqc_files      // channel: [ multiqc_files.yml ]
 }
