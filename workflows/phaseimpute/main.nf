@@ -28,12 +28,11 @@ include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
 include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_posfile_tsv'
+include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
 // GLIMPSE1 subworkflows
-include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
 // GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
@@ -213,16 +212,18 @@ workflow PHASEIMPUTE {
 
                 // Use previous chunks if --steps panelprep
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
-                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1 // Chunks from glimpse2 are wrong
                 } else if (params.chunks) {
                     ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
                 }
 
                 // Run imputation
-                VCF_IMPUTE_GLIMPSE2(ch_input_impute,
-                        ch_panel_phased,
-                        ch_chunks,
-                        ch_fasta)
+                VCF_IMPUTE_GLIMPSE2(
+                    ch_input_impute,
+                    ch_panel_phased,
+                    ch_chunks,
+                    ch_fasta
+                )
                 ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
                 // Concatenate by chromosomes
                 CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
