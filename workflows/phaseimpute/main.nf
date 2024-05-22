@@ -35,6 +35,7 @@ include { VCF_IMPUTE_GLIMPSE as VCF_IMPUTE_GLIMPSE1  } from '../../subworkflows/
 include { COMPUTE_GL as GL_TRUTH                     } from '../../subworkflows/local/compute_gl'
 include { COMPUTE_GL as GL_INPUT                     } from '../../subworkflows/local/compute_gl'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 
 // GLIMPSE2 subworkflows
 include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
@@ -248,7 +249,6 @@ workflow PHASEIMPUTE {
                         ch_chunks,
                         ch_fasta)
                 ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
-
                 // Concatenate by chromosomes
                 CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
                 ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
