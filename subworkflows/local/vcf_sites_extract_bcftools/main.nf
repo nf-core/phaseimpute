@@ -3,6 +3,7 @@ include { BCFTOOLS_INDEX } from '../../../modules/nf-core/bcftools/index'
 include { TABIX_BGZIP    } from '../../../modules/nf-core/tabix/bgzip'
 include { TABIX_TABIX    } from '../../../modules/nf-core/tabix/tabix'
 include { BCFTOOLS_QUERY } from '../../../modules/nf-core/bcftools/query'
+include { GAWK           } from '../../../modules/nf-core/gawk'
 
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:
@@ -27,6 +28,10 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
+    // Convert TSC to Stitch format ","" to "\t"
+    GAWK(BCFTOOLS_QUERY.out.output, [])
+    ch_versions = ch_versions.mix(GAWK.out.versions)
+
     // Compress TSV
     TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
     ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
@@ -39,7 +44,8 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_panel_tsv = TABIX_BGZIP.out.output.combine(TABIX_TABIX.out.tbi, by: 0)
 
     emit:
-    panel_tsv      = ch_panel_tsv     // channel: [ [id, chr], tsv, tbi ]
-    panel_sites    = ch_panel_sites   // channel: [ [id, chr], vcf, csi ]
-    versions       = ch_versions      // channel: [ versions.yml ]
+    panel_tsv_glimpse      = ch_panel_tsv     // channel: [ [id, chr], tsv, tbi ]
+    panel_tsv_stitch       = GAWK.out.output  // channel: [ [id, chr], txt ]
+    panel_sites            = ch_panel_sites   // channel: [ [id, chr], vcf, csi ]
+    versions               = ch_versions      // channel: [ versions.yml ]
 }

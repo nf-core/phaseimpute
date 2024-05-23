@@ -76,7 +76,7 @@ workflow PHASEIMPUTE {
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
     ch_posfile              // channel: posfile       [ [chr], txt]
-    ch_chunks               // channel: chunks       [ [chr], txt]
+    ch_chunks               // channel: chunks        [ [chr], txt]
     ch_versions             // channel: versions of software used
 
     main:
@@ -137,25 +137,18 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
-        // Prepare posfile stitch
-        PREPARE_POSFILE_TSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
-        ch_versions = ch_versions.mix(PREPARE_POSFILE_TSV.out.versions)
-
         // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
         VCF_PHASE_PANEL(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_PHASE_PANEL.out.versions)
 
-        ch_panel = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
-            .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
-            .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv)
-            .join(VCF_PHASE_PANEL.out.vcf_tbi)
+        // Generate posfile channels
+        ch_posfile_glimpse = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+            .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_glimpse)
+            .map{ metaPC, sites, s_index, tsv, t_index -> [metaPC, sites, tsv]}
 
-        // Generate channels (to be simplified)
-        ch_panel_sites_tsv = ch_panel
-            .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                -> [metaPC, sites, tsv]
-            }
+        ch_posfile_stitch = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
+
         CONCAT_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
 
@@ -178,21 +171,9 @@ workflow PHASEIMPUTE {
                     ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
 
-                //Params posfile should replace part of ch_panel_sites_tsv (specifically, the .txt)
-                //The VCF with the sites and post-prepared panel should be used as input in --panel.
-
-                // if (params.posfile) {
-                //             ch_panel_sites_tsv = ch_posfile
-                // } else if (params.panel && params.steps.split(',').contains("panelprep") && !params.posfile) {
-                //         ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
-                //                     .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-                //                     -> [metaPC, sites, tsv]
-                //                     }
-                // }
-
                 VCF_IMPUTE_GLIMPSE1(
                     ch_input_impute,
-                    ch_panel_sites_tsv,
+                    ch_posfile_glimpse,
                     ch_panel_phased,
                     ch_chunks_glimpse1,
                     ch_fasta
@@ -235,13 +216,12 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
 
-                // Get posfile from panelprep steps if --posfile not supplied
-                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                    ch_posfile = PREPARE_POSFILE_TSV.out.posfile
+                if (params.posfile) {
+                    ch_posfile_stitch = ch_posfile
                 }
 
                 // Prepare inputs
-                PREPARE_INPUT_STITCH(ch_posfile, ch_fasta, ch_input_impute)
+                PREPARE_INPUT_STITCH(ch_input_impute, ch_posfile_stitch, ch_region)
                 ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
                 // Impute with STITCH
@@ -283,17 +263,6 @@ workflow PHASEIMPUTE {
         }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
-
-        // if (params.posfile) {
-        // Use channel ch_posfile for validation
-        //      ch_panel_sites_tsv = ch_posfile
-        // } else if (params.panel && params.steps.split(',').contains("panelprep") && !params.posfile) {
-        // ch_panel_sites_tsv = VCF_PHASE_PANEL.out.panel
-        //             .map{ metaPC, norm, n_index, sites, s_index, tsv, t_index, phased, p_index
-        //             -> [metaPC, sites, tsv]
-        //             }
-        //}
-
         ch_truth_vcf = Channel.empty()
         // Get extension of input files
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
@@ -308,7 +277,7 @@ workflow PHASEIMPUTE {
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
-            ch_panel_sites_tsv,
+            ch_posfile_glimpse,
             ch_fasta
         )
         ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)

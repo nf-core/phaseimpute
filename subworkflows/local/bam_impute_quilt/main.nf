@@ -63,7 +63,9 @@ workflow BAM_IMPUTE_QUILT {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions.first())
 
     // Join VCFs and TBIs
-    ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
+    ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf
+        .join(BCFTOOLS_INDEX_2.out.tbi)
+        .map { metaIPC, vcf, tbi -> [metaIPC + [tools: "Quilt"], vcf, tbi] }
 
     emit:
     vcf_tbi     = ch_vcf_tbi               // channel:  [ [id, panel], vcf, tbi ]
