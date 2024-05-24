@@ -40,7 +40,7 @@ workflow PREPARE_INPUT_STITCH {
 
     // Make bamlist from bam input
     ch_bamlist = ch_bam_bai
-        .map {it[2].toString().tokenize('/').last()}
+        .map {it[1].toString().tokenize('/').last()}
         .collectFile(name: "bamlist.txt", newLine: true, sort: true)
 
     // Collect all files
