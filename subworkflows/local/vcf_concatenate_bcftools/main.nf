@@ -12,9 +12,8 @@ workflow VCF_CONCATENATE_BCFTOOLS {
 
     // Keep only id from meta
     ch_vcf_tbi_grouped = ch_vcf_tbi
-        .map{ metaIPTC, vcf, tbi -> [metaIPTC.subMap("id", "tools", "panel"), vcf, tbi] }
+        .map{ metaIPTC, vcf, tbi -> [metaIPTC.subMap("id", "tools", "panel") + ["chr": "all"], vcf, tbi] }
         .groupTuple( by:0 )
-        .map{ metaIPT, vcf, tbi -> [metaIPT + ["chr": "all"], vcf, tbi]}
 
     // Ligate and concatenate chunks
     BCFTOOLS_CONCAT(ch_vcf_tbi_grouped)
