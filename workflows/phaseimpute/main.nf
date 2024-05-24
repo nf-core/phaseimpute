@@ -27,7 +27,6 @@ include { VCF_CHR_CHECK                              } from '../../subworkflows/
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
-include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_posfile_tsv'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
@@ -89,6 +88,7 @@ workflow PHASEIMPUTE {
         ch_sim_output = Channel.empty()
 
         // Test if the input are all bam files
+        ch_input_sim.
         getAllFilesExtension(ch_input_sim)
             .map{ if (it != "bam") {
                 error "All input files must be in BAM format to perform simulation"
