@@ -30,9 +30,8 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         TEST_PROFILE:
-          - "test"
-          - "test_sim"
-          - "test_quilt"
+          - "test_all"
+          - "test_validate"
           - "test_stitch"
     steps:
       - name: Check out pipeline code
