@@ -252,6 +252,32 @@
         },
         "timestamp": "2024-05-17T19:31:46.118712605"
     },
+    "Check test_glimpse2": {
+        "content": [
+            [
+                "imputation/glimpse2/NA12878_chr21_ligate.vcf.gz",
+                "imputation/glimpse2/NA12878_chr22_ligate.vcf.gz",
+                "imputation/glimpse2/NA19401_chr21_ligate.vcf.gz",
+                "imputation/glimpse2/NA19401_chr22_ligate.vcf.gz",
+                "imputation/glimpse2/NA20359_chr21_ligate.vcf.gz",
+                "imputation/glimpse2/NA20359_chr22_ligate.vcf.gz",
+                "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/versions.yml",
+                "imputation/glimpse2/versions.yml"
+            ],
+            1777
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T15:12:55.355916727"
+    },
     "Check test": {
         "content": [
             [

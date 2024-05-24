@@ -34,7 +34,7 @@ nextflow_pipeline {
         }
 
     }
-    /*
+
     test("Check test_glimpse2") {
         tag "test_glimpse2"
         config "../../../conf/test_glimpse2.config"
@@ -60,7 +60,7 @@ nextflow_pipeline {
                 }
             )
         }
-    }*/
+    }
 
     test("Check test_quilt") {
         tag "test_quilt"
