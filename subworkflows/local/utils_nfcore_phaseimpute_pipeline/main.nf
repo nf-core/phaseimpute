@@ -226,14 +226,6 @@ workflow PIPELINE_INITIALISATION {
             .fromSamplesheet("chunks")
     } else {
         ch_chunks = [[],[]]
-        if (
-            !params.steps.split(',').contains("panelprep") &
-            !params.steps.split(',').contains("all") &
-            params.steps.split(',').contains("impute") &
-            !params.tools.split(',') == ["stitch"]
-        ) {
-            error "No --chunks provided for --steps impute and step panel_prep not selected"
-        }
     }
 
     emit:
@@ -305,7 +297,7 @@ def validateInputParameters() {
     assert !(params.genome == null && params.fasta == null), "Only one of --genome or --fasta must be provided"
 
     // Check that a steps is provided
-    assert params.steps, "A steps must be provided"
+    assert params.steps, "A step must be provided"
 
     // Check that at least one tool is provided
     if (params.steps.split(',').contains("impute")) {
@@ -324,7 +316,7 @@ def validateInputParameters() {
                 assert params.posfile, "No --posfile provided for --steps impute"
         }
         // Required by all tools except STITCH
-        if (!params.tools.split(',').contains("stitch")) {
+        if (params.tools != "stitch") {
                 assert params.chunks, "No --chunks provided for --steps impute"
         }
         // Required by GLIMPSE1 and GLIMPSE2 only
