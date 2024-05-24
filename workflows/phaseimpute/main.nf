@@ -88,7 +88,6 @@ workflow PHASEIMPUTE {
         ch_sim_output = Channel.empty()
 
         // Test if the input are all bam files
-        ch_input_sim.
         getAllFilesExtension(ch_input_sim)
             .map{ if (it != "bam") {
                 error "All input files must be in BAM format to perform simulation"
