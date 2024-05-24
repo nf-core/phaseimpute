@@ -27,10 +27,10 @@ workflow BAM_IMPUTE_QUILT {
     buffer              = params.buffer
 
     if (genetic_map_file.isEmpty()) {
-        ch_hap_chunks = ch_hap_legend.join(ch_chunks).map { it + ngen + buffer + [[]] }
+        ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).map { it + ngen + buffer + [[]] }
     } else {
         // Add ngen and buffer + genetic map file (untested)
-        ch_hap_chunks = ch_hap_legend.join(ch_chunks).join(genetic_map_file)
+        ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).join(genetic_map_file)
     }
 
     ch_quilt = ch_input
