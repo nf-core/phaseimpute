@@ -26,7 +26,6 @@ process ADD_COLUMNS {
 
     tail -n +\$HEADER_START $input | \\
     awk 'NR==1{\$(NF+1)="ID"} NR>1{\$(NF+1)="${meta.id}"}1' | \\
-    awk 'NR==1{\$(NF+1)="Region"} NR>1{\$(NF+1)="${meta.region}"}1' | \\
     awk 'NR==1{\$(NF+1)="Depth"} NR>1{\$(NF+1)="${meta.depth}"}1' | \\
     awk 'NR==1{\$(NF+1)="GPArray"} NR>1{\$(NF+1)="${meta.gparray}"}1' | \\
     awk 'NR==1{\$(NF+1)="Tools"} NR>1{\$(NF+1)="${meta.tools}"}1' | \\
