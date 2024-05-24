@@ -35,7 +35,7 @@ nextflow run main.nf -profile singularity,test_quilt --outdir results -resume
 
 ```bash
 nf-test test --verbose --profile singularity --tag test_all
-nf-test test --verbose --profile singularity --tag test_all --update-snap #To update the snaps of a given test
+nf-test test --verbose --profile singularity --tag test_all --update-snapshot #To update the snaps of a given test
 ```
 
 ## Problematic
