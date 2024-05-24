@@ -52,4 +52,4 @@ jobs:
 
       - name: Run pipeline with test data
         run: |
-          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile docker
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile docker --verbose
