@@ -63,7 +63,6 @@
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/versions.yml",
-                "imputation/glimpse2/versions.yml",
                 "imputation/quilt/concat/NA12878_quilt.vcf.gz",
                 "imputation/quilt/concat/NA12878_quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA19401_quilt.vcf.gz",
@@ -218,7 +217,6 @@
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/versions.yml",
-                "imputation/glimpse2/versions.yml"
             ],
             1777
         ],
