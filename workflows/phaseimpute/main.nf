@@ -29,6 +29,7 @@ include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
 include { PREPARE_POSFILE_TSV                        } from '../../subworkflows/local/prepare_posfile_tsv'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // GLIMPSE1 subworkflows
 include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
@@ -48,12 +49,9 @@ include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
-// CONCAT subworkflows
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
-
 // Concordance subworkflows
 include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
 
 
@@ -288,10 +286,14 @@ workflow PHASEIMPUTE {
             .map { [it[0], it[1], it[2]] }
             .mix(GL_TRUTH.out.vcf)
 
+        // Concatenate truth vcf by chromosomes
+        CONCAT_TRUTH(ch_truth_vcf)
+        ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            ch_truth_vcf,
+            CONCAT_TRUTH.out.vcf_tbi_join,
             ch_panel_sites,
             ch_region
         )
