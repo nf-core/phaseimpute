@@ -1,0 +1,13 @@
+Changes in module 'nf-core/bcftools/pluginsplit'
+--- modules/nf-core/bcftools/pluginsplit/main.nf
++++ modules/nf-core/bcftools/pluginsplit/main.nf
+@@ -32,6 +32,7 @@
+ 
+     """
+     bcftools plugin split \\
++        ${args} \\
+         ${vcf} \\
+         ${samples_arg} \\
+         ${groups_arg} \\
+
+************************************************************
