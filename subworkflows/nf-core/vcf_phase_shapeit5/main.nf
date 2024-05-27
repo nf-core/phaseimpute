@@ -41,7 +41,7 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     ch_chunk_output = BEDTOOLS_MAKEWINDOWS.out.bed
         .splitCsv(header: ['Chr', 'Start', 'End'], sep: "\t", skip: 0)
-        .map { meta, it -> [meta, it["Chr"]+":"+it["Start"]+"-"+it["End"]]}
+        .map { meta, it -> [meta + [chr:it["Chr"]], it["Chr"]+":"+it["Start"]+"-"+it["End"]]}
 
     // Count the number of chunks
     ch_chunks_number = BEDTOOLS_MAKEWINDOWS.out.bed
@@ -49,9 +49,9 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     ch_phase_input = ch_vcf
         .map { meta, vcf, index, pedigree, region ->
-            [meta, vcf, index, pedigree] }
-        .combine(ch_chunk_output, by:0)
-        .map { meta, vcf, index, pedigree, chunk ->
+            [meta.subMap("chr"), meta, vcf, index, pedigree] }
+        .combine(ch_chunk_output.map{meta, chunk -> [meta.subMap("chr"), chunk]}, by:0)
+        .map { metaC, meta, vcf, index, pedigree, chunk ->
                 [meta + [id: "${meta.id}_${chunk.replace(":","-")}"], // The meta.id field need to be modified to be unique for each chunk
                 vcf, index, pedigree, chunk]
         }
