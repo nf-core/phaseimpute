@@ -70,7 +70,7 @@ workflow VCF_IMPUTE_GLIMPSE1 {
     // Join imputed and index files
     ch_imputed_vcf_tbi = GLIMPSE_LIGATE.out.merged_variants
         .join(BCFTOOLS_INDEX_2.out.tbi)
-        .map{ metaIPC, vcf, index -> [metaIPC + [tools: "Glimpse1"], vcf, index] }
+        .map{ metaIPC, vcf, index -> [metaIPC + [tools: "glimpse1"], vcf, index] }
 
     emit:
     vcf_tbi             = ch_imputed_vcf_tbi    // channel: [ [id, panel, chr, tool], vcf, tbi ]
