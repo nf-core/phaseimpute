@@ -185,6 +185,16 @@ workflow PHASEIMPUTE {
                     ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
 
+                // if (params.posfile) {
+                //     ch_posfile_glimpse = // User supplied posfile
+                // } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.posfile) {
+                //     ch_posfile_glimpse = POSFILE_PREPARE_CHANNEL(ch_posfile, "glimpse").out.posfile
+                // }
+
+                // if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                //     ch_panel_phased = // User supplied phased panel
+                // }
+
                 VCF_IMPUTE_GLIMPSE1(
                     ch_input_impute,
                     ch_posfile_glimpse,
@@ -211,6 +221,16 @@ workflow PHASEIMPUTE {
                 } else if (params.chunks) {
                     ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
                 }
+
+                // if (params.posfile) {
+                //     ch_posfile_glimpse = // User supplied posfile
+                // } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.posfile) {
+                //     ch_posfile_glimpse = POSFILE_PREPARE_CHANNEL(ch_posfile, "glimpse").out.posfile
+                // }
+
+                // if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                //     ch_panel_phased = // User supplied phased panel
+                // }
 
                 // Run imputation
                 VCF_IMPUTE_GLIMPSE2(
@@ -262,6 +282,10 @@ workflow PHASEIMPUTE {
                 } else if (params.chunks) {
                     ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt").out.chunks
                 }
+
+                // if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                //     ch_panel_phased = // User supplied hap_legend panel
+                // }
 
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(ch_input_impute, VCF_NORMALIZE_BCFTOOLS.out.hap_legend, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
