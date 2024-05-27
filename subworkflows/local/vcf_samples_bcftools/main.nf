@@ -3,7 +3,7 @@ include { BCFTOOLS_INDEX        } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_SAMPLES_BCFTOOLS {
     take:
-    ch_vcf          // channel: [ [id, chr], vcf ]
+    ch_vcf          // channel: [ [id, chr, tools], vcf ]
 
     main:
 
@@ -14,7 +14,7 @@ workflow VCF_SAMPLES_BCFTOOLS {
 
     ch_vcf_samples = BCFTOOLS_PLUGINSPLIT.out.vcf
         .transpose()
-        .map{metaIT, vcf -> [metaIT + [id: vcf.getBaseName()], vcf]}
+        .map{metaITC, vcf -> [metaITC + [id: vcf.getBaseName().tokenize(".")[0]], vcf]}
 
     BCFTOOLS_INDEX(ch_vcf_samples)
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
@@ -23,7 +23,7 @@ workflow VCF_SAMPLES_BCFTOOLS {
         .join(BCFTOOLS_INDEX.out.tbi)
 
     emit:
-    vcf_tbi   = ch_vcf_tbi_samples   // channel: [ [id, chr], vcf, index ]
-    versions  = ch_versions          // channel: [ versions.yml ]
+    vcf_tbi_join   = ch_vcf_tbi_samples   // channel: [ [id, chr, tools], vcf, index ]
+    versions       = ch_versions          // channel: [ versions.yml ]
 
 }
