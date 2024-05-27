@@ -77,6 +77,7 @@ workflow VCF_CHUNK_GLIMPSE {
     }
 
     emit:
+    chunks                    = GLIMPSE_CHUNK.out.chunk_chr
     chunks_quilt              = ch_chunks_quilt                       // channel:  [ [panel, chr], chr,  start, end ]
     chunks_glimpse1           = ch_chunks_glimpse1                    // channel:  [ [panel, chr], chr,  region1, region2 ]
     chunks_glimpse2           = ch_chunks_glimpse2                    // channel:  [ [panel, chr], chr,  region1, region2 ]
