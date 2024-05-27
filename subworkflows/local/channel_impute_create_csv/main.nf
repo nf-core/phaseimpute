@@ -12,7 +12,7 @@ workflow CHANNEL_IMPUTE_CREATE_CSV {
         index           = "${params.outdir}/imputation/${meta.tools}/concat/${index.fileName}"
         tool            = meta.tools
 
-        ["impute.csv", "id,vcf,index\n${id},${vcf},${index}\n"]
+        ["impute.csv", "id,vcf,index,tool\n${id},${vcf},${index},${tool}\n"]
     }
 
 
