@@ -21,6 +21,7 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 // Simulate subworkflows
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
+include { CHANNEL_SIMULATE_CREATE_CSV                } from '../../subworkflows/local/channel_simulate_create_csv'
 
 // Panelprep subworkflows
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
@@ -29,6 +30,12 @@ include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/
 include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { CHANNEL_POSFILE_CREATE_CSV                 } from '../../subworkflows/local/channel_posfile_create_csv'
+include { CHANNEL_CHUNKS_CREATE_CSV                  } from '../../subworkflows/local/channel_chunks_create_csv'
+include { CHANNEL_PANEL_CREATE_CSV                   } from '../../subworkflows/local/channel_panel_create_csv'
+
+// Imputation subworkflows
+include { CHANNEL_IMPUTE_CREATE_CSV                   } from '../../subworkflows/local/channel_impute_create_csv'
 
 // GLIMPSE1 subworkflows
 include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
@@ -116,6 +123,9 @@ workflow PHASEIMPUTE {
         if (params.genotype) {
             error "Genotype simulation not yet implemented"
         }
+
+        // Create CSV from simulate step
+        CHANNEL_SIMULATE_CREATE_CSV(ch_input_impute, params.outdir)
     }
 
     //
@@ -155,6 +165,13 @@ workflow PHASEIMPUTE {
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
+
+        // Create CSVs from panelprep step
+        CHANNEL_POSFILE_CREATE_CSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch, params.outdir)
+        CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
+        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased,
+                VCF_NORMALIZE_BCFTOOLS.out.hap_legend,
+                params.outdir)
 
     }
 
@@ -257,6 +274,8 @@ workflow PHASEIMPUTE {
                 // Add results to input validate
                 ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi_join)
             }
+            // Create CSV from imputation step
+            CHANNEL_IMPUTE_CREATE_CSV(ch_input_validate, params.outdir)
         }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
