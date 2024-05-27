@@ -28,12 +28,12 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     // Create the File in bed format and use the meta id for the file name
     ch_merged_region = ch_region.region
-        .collectFile { metaid, region -> ["${metaid}.bed", region.replace(":","\t").replace("-","\t")] }
-        .map { file -> [file.baseName, file] }
+        .collectFile(newLine: true) { id, region -> ["${id}.bed", region.replace(":","\t").replace("-","\t")]}
+        .map { file -> [file.getBaseName(), file] }
 
     // Link back the meta map with the file
     ch_region_file = ch_region.metadata
-        .join(ch_merged_region, failOnMismatch:true, failOnDuplicate:true)
+        .combine(ch_merged_region, by:0)
         .map { mid, meta, region_file -> [meta, region_file]}
 
     BEDTOOLS_MAKEWINDOWS(ch_region_file)
@@ -53,7 +53,8 @@ workflow VCF_PHASE_SHAPEIT5 {
         .combine(ch_chunk_output, by:0)
         .map { meta, vcf, index, pedigree, chunk ->
                 [meta + [id: "${meta.id}_${chunk.replace(":","-")}"], // The meta.id field need to be modified to be unique for each chunk
-                vcf, index, pedigree, chunk]}
+                vcf, index, pedigree, chunk]
+        }
 
     SHAPEIT5_PHASECOMMON ( ch_phase_input,
                             ch_ref,

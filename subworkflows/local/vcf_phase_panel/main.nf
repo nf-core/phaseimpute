@@ -2,7 +2,8 @@ include { VCF_PHASE_SHAPEIT5                     } from '../../../subworkflows/n
 
 workflow VCF_PHASE_PANEL {
     take:
-    ch_vcf          // channel: [ [id, chr, region], vcf, index ]
+    ch_vcf          // channel: [ [id, chr], vcf, index ]
+    ch_region       // channel: [ [chr, region], region ]
 
     main:
 
@@ -10,11 +11,19 @@ workflow VCF_PHASE_PANEL {
 
     // Phase panel
     if (params.phased == false) {
-        VCF_PHASE_SHAPEIT5(ch_vcf
-            .map { metaICR, vcf, csi -> [metaICR, vcf, csi, [], metaICR.region] },
-        Channel.of([[],[],[]]).collect(),
-        Channel.of([[],[],[]]).collect(),
-        Channel.of([[],[]]).collect())
+        ch_phase_input = ch_vcf
+            .map { metaICR, vcf, csi -> [metaICR.subMap("chr"), metaICR, vcf, csi] }
+            .combine(
+                ch_region.map{metaCR, region -> [metaCR.subMap("chr"), region]}
+                , by: 0)
+            .map { metaC, metaICR, vcf, csi, region -> [metaICR.subMap("id"), vcf, csi, [], region] }
+            .view()
+        VCF_PHASE_SHAPEIT5(
+            ch_phase_input,
+            Channel.of([[],[],[]]).collect(),
+            Channel.of([[],[],[]]).collect(),
+            Channel.of([[],[]]).collect()
+        )
         ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
         ch_panel_phased = VCF_PHASE_SHAPEIT5.out.variants_phased
             .combine(VCF_PHASE_SHAPEIT5.out.variants_index, by: 0)

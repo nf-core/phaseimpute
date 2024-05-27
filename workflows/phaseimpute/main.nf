@@ -136,7 +136,7 @@ workflow PHASEIMPUTE {
 
         // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
-        VCF_PHASE_PANEL(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
+        VCF_PHASE_PANEL(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi, ch_region)
         ch_versions = ch_versions.mix(VCF_PHASE_PANEL.out.versions)
 
         // Generate posfile channels
