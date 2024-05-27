@@ -7,8 +7,8 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bc
 workflow BAM_IMPUTE_QUILT {
 
     take:
+    ch_input             // channel: [ [id], bam, bai ]
     ch_hap_legend        // channel: [ [panel, chr], hap, legend ]
-    ch_input             // channel: [ [id, chr, region], bam, bai ]
     ch_chunks            // channel: [ [panel, chr], start_coordinate, end_coordinate, number ]
 
 
@@ -26,26 +26,21 @@ workflow BAM_IMPUTE_QUILT {
     ngen                = params.ngen
     buffer              = params.buffer
 
-    // Rename panel to id
-    ch_chunks = ch_chunks.map{meta, chr, start, end -> return[['id': meta.panel, 'chr': meta.chr], chr, start, end]}
-
     if (genetic_map_file.isEmpty()) {
         ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).map { it + ngen + buffer + [[]] }
     } else {
         // Add ngen and buffer + genetic map file (untested)
-        ch_hap_chunks = ch_hap_legend.join(ch_chunks, by:0).join(genetic_map_file)
+        ch_hap_chunks = ch_hap_legend.combine(ch_chunks, by:0).join(genetic_map_file)
     }
 
     ch_quilt = ch_input
-        .map{ metaICR, bam, bai -> [metaICR.subMap("chr"), metaICR, bam, bai]}
-        .combine(ch_hap_chunks
-            .map{ metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
-                [metaPC.subMap("chr"), metaPC, hap, legend, chr, start, end, ngen, buffer, gmap]
-            }, by:0
-        )
+        .combine(ch_hap_chunks)
         .map {
-            metaC, metaICR, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
-            [metaICR + ["panel": metaPC.id], bam, bai, hap, legend, chr, start, end, ngen, buffer, gmap]
+            metaIC, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
+            [
+                metaIC.subMap("id") + ["panel": metaPC.id, "chr": metaPC.chr],
+                bam, bai, hap, legend, chr, start, end, ngen, buffer, gmap
+            ]
         }
 
     // Run QUILT
@@ -68,9 +63,11 @@ workflow BAM_IMPUTE_QUILT {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions.first())
 
     // Join VCFs and TBIs
-    ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
+    ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf
+        .join(BCFTOOLS_INDEX_2.out.tbi)
+        .map { metaIPC, vcf, tbi -> [metaIPC + [tools: "Quilt"], vcf, tbi] }
 
     emit:
-    vcf_tbi     = ch_vcf_tbi               // channel:  [ [id, panel, chr, region], vcf, tbi ]
+    vcf_tbi     = ch_vcf_tbi               // channel:  [ [id, panel], vcf, tbi ]
     versions    = ch_versions              // channel:  [ versions.yml ]
 }

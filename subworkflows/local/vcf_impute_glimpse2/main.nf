@@ -1,5 +1,7 @@
-include { GLIMPSE2_PHASE                        } from '../../../modules/nf-core/glimpse2/phase'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
+include { GLIMPSE2_PHASE                     } from '../../../modules/nf-core/glimpse2/phase'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index'
+include { GLIMPSE2_LIGATE                    } from '../../../modules/nf-core/glimpse2/ligate'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_IMPUTE_GLIMPSE2 {
 
@@ -14,40 +16,55 @@ workflow VCF_IMPUTE_GLIMPSE2 {
     ch_versions = Channel.empty()
 
     // Impute with Glimpse2 without using binary files
-    def samples_file = [[]]
-    def gmap = [[]]
+    samples_file = Channel.of([[]]).collect()
+    gmap_file    = Channel.of([[]]).collect()
 
     // Create input channel to impute with Glimpse2
-    // Add chr as key to input
-    ch_input = ch_input.map{meta, bam, bai -> return[['chr': meta.chr], meta, bam, bai]}
 
     // Join chunks and panel
-    ch_chunks_panel = ch_chunks.join(ch_panel)
-
-    // Change key:value names
-    ch_chunks_panel = ch_chunks_panel.map{meta, vcf, csi, region1, region2 -> return[['id': meta.panel, 'chr': meta.chr], vcf, csi, region1, region2]}
-
-    // Add chr as key
-    ch_chunks_panel = ch_chunks_panel.map{meta, vcf, csi, region1, region2 -> return[['chr': meta.chr], vcf, csi, region1, region2]}
+    ch_chunks_panel = ch_chunks
+        .combine(ch_panel, by:0)
+        .map{ metaPC, regionin, regionout, panel, index ->
+            [["panel": metaPC.id, "chr": metaPC.chr], regionin, regionout, panel, index]
+        }
 
     // Join input and chunks reference
-    ch_input_glimpse2 = ch_input.map { it + samples_file }.join(ch_chunks_panel).map { it + gmap }
+    ch_phase_input = ch_input
+        .combine(samples_file)
+        .combine(ch_chunks_panel)
+        .combine(gmap_file)
+        .map{ metaI, bam, bai, samples, metaPC, regionin, regionout, panel, panel_index, gmap ->
+            [metaI + metaPC + ["region": regionin],
+            bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
+        }
 
-    // Remove chr key
-    ch_input_glimpse2 = ch_input_glimpse2.map{ it[1..-1] }
 
     // Impute with Glimpse2
-    GLIMPSE2_PHASE(ch_input_glimpse2, ch_fasta)
+    GLIMPSE2_PHASE(ch_phase_input, ch_fasta)
     ch_versions = ch_versions.mix(GLIMPSE2_PHASE.out.versions)
 
     // Index phased file
     BCFTOOLS_INDEX_1(GLIMPSE2_PHASE.out.phased_variants)
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
 
+    // Ligate all phased files in one and index it
+    ligate_input = GLIMPSE2_PHASE.out.phased_variants
+        .join( BCFTOOLS_INDEX_1.out.tbi )
+        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr"), vcf, index] }
+        .groupTuple()
+
+    GLIMPSE2_LIGATE ( ligate_input )
+    ch_versions = ch_versions.mix(GLIMPSE2_LIGATE.out.versions )
+
+    BCFTOOLS_INDEX_2 ( GLIMPSE2_LIGATE.out.merged_variants )
+    ch_versions = ch_versions.mix( BCFTOOLS_INDEX_2.out.versions )
+
     // Join imputed and index files
-    ch_imputed_vcf_tbi = GLIMPSE2_PHASE.out.phased_variants.join(BCFTOOLS_INDEX_1.out.tbi)
+    ch_imputed_vcf_tbi = GLIMPSE2_LIGATE.out.merged_variants
+        .join(BCFTOOLS_INDEX_2.out.tbi)
+        .map{ metaIPC, vcf, index -> [metaIPC + [tools: "Glimpse2"], vcf, index] }
 
     emit:
-    vcf_tbi             = ch_imputed_vcf_tbi    // [ [id, chr, region], vcf, tbi ]
+    vcf_tbi             = ch_imputed_vcf_tbi    // channel: [ [id, panel, chr, tool], vcf, tbi ]
     versions            = ch_versions           // channel: [ versions.yml ]
 }

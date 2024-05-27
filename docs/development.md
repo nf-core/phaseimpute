@@ -21,12 +21,21 @@
 
 ## Run tests
 
+### Launch with Nextflow
+
 ```bash
 nextflow run main.nf -profile singularity,test --outdir results -resume
 nextflow run main.nf -profile singularity,test_sim --outdir results -resume
 nextflow run main.nf -profile singularity,test_validate --outdir results -resume
 nextflow run main.nf -profile singularity,test_all --outdir results -resume
 nextflow run main.nf -profile singularity,test_quilt --outdir results -resume
+```
+
+### Launch with nf-test
+
+```bash
+nf-test test --verbose --profile singularity --tag test_all
+nf-test test --verbose --profile singularity --tag test_all --update-snapshot #To update the snaps of a given test
 ```
 
 ## Problematic

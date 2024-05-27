@@ -2,10 +2,10 @@ include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mp
 include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate'
 
-workflow COMPUTE_GL {
+workflow BAM_GL_BCFTOOLS {
 
     take:
-    ch_input   // channel: [ [id, chr, region], bam, bai ]
+    ch_input   // channel: [ [id], bam, bai ]
     ch_target  // channel: [ [panel, chr], sites, tsv]
     ch_fasta   // channel: [ [genome], fasta, fai]
 
@@ -15,10 +15,9 @@ workflow COMPUTE_GL {
     ch_multiqc_files = Channel.empty()
 
     ch_mpileup       = ch_input
-        .map{metaICR, bam, bai -> [metaICR.subMap("chr"), metaICR, bam, bai]}
-        .combine(ch_target.map{metaPC, sites, tsv -> [metaPC.subMap("chr"), metaPC, sites, tsv]}, by:0)
-        .map{metaC, metaICR, bam, bai, metaPC, sites, tsv ->
-                [metaICR + metaPC, bam, sites, tsv]
+        .combine(ch_target)
+        .map{metaI, bam, bai, metaPC, sites, tsv ->
+                [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, sites, tsv]
         }
 
     BCFTOOLS_MPILEUP(
@@ -46,7 +45,7 @@ workflow COMPUTE_GL {
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
     emit:
-    vcf           = ch_output        // channel: [ [id, panel, chr, region], vcf, tbi ]
+    vcf           = ch_output        // channel: [ [id, panel, chr], vcf, tbi ]
     versions      = ch_versions      // channel: [ versions.yml ]
     multiqc_files = ch_multiqc_files
 }

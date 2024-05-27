@@ -62,7 +62,7 @@ nextflow run nf-core/phaseimpute \
    -profile <docker/singularity/.../institute> \
    --input <samplesheet.csv>  \
    --genome "GRCh38" \
-   --panel <phased_reference_panel.vcf.gz> \
+   --panel <phased_reference_panel.csv> \
    --steps "panelprep,impute" \
    --tools "glimpse1" \
    --outdir <OUTDIR>

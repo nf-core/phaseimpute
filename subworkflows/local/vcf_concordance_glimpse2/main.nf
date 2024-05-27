@@ -6,8 +6,8 @@ include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     take:
-        ch_vcf_emul   // VCF file with imputed genotypes [ [id], vcf, csi]
-        ch_vcf_truth  // VCF file with truth genotypes   [ [id], vcf, csi]
+        ch_vcf_emul   // VCF file with imputed genotypes [ [id, panel, tool, chr], vcf, csi]
+        ch_vcf_truth  // VCF file with truth genotypes   [ [id, panel, chr], vcf, csi]
         ch_vcf_freq   // VCF file with panel frequencies [ [panel], vcf, csi]
         ch_region     // Regions to process              [ [chr, region], region]
 
@@ -17,11 +17,15 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ch_multiqc_files = Channel.empty()
 
     ch_concordance = ch_vcf_emul
-        .join(ch_vcf_truth)
+        .map{metaIPTC, vcf, csi -> [metaIPTC.subMap("id", "panel"), metaIPTC, vcf, csi]}
+        .combine(ch_vcf_truth
+            .map{metaIPC, vcf, csi -> [ metaIPC.subMap("id", "panel"), vcf, csi ]}
+            , by: 0
+        )
         .combine(ch_vcf_freq)
         .combine(ch_region.map{[it[1]]}.collect().toList())
-        .map{metaI, emul, e_csi, truth, t_csi, metaP, freq, f_csi, regions ->
-            [metaI, emul, e_csi, truth, t_csi, freq, f_csi, [], regions]
+        .map{metaI, metaIPTC, emul, e_csi, truth, t_csi, metaP, freq, f_csi, regions ->
+            [metaIPTC, emul, e_csi, truth, t_csi, freq, f_csi, [], regions]
         }
 
     GLIMPSE2_CONCORDANCE (

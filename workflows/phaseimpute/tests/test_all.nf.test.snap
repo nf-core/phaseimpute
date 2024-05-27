@@ -1,0 +1,248 @@
+{
+    "Check test_stitch": {
+        "content": [
+            [
+                "imputation/stitch/RData/EM.all.chr22.RData",
+                "imputation/stitch/RData/end.chr22.RData",
+                "imputation/stitch/RData/endEM.chr22.RData",
+                "imputation/stitch/RData/sampleNames.chr22.RData",
+                "imputation/stitch/RData/start.chr22.RData",
+                "imputation/stitch/RData/startEM.chr22.RData",
+                "imputation/stitch/concat/all_samples_stitch.vcf.gz",
+                "imputation/stitch/concat/all_samples_stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/versions.yml",
+                "imputation/stitch/input/sample.1.input.chr22.RData",
+                "imputation/stitch/input/sample.2.input.chr22.RData",
+                "imputation/stitch/input/sample.3.input.chr22.RData",
+                "imputation/stitch/plots/alphaMat.chr22.all.s.1.png",
+                "imputation/stitch/plots/alphaMat.chr22.normalized.s.1.png",
+                "imputation/stitch/plots/hapSum.chr22.s.1.png",
+                "imputation/stitch/plots/hapSum_log.chr22.s.1.png",
+                "imputation/stitch/plots/metricsForPostImputationQC.chr22.sample.jpg",
+                "imputation/stitch/plots/metricsForPostImputationQCChromosomeWide.chr22.sample.jpg",
+                "imputation/stitch/plots/r2.chr22.goodonly.jpg",
+                "imputation/stitch/stitch.chr22.vcf.gz",
+                "imputation/stitch/versions.yml"
+            ],
+            927
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-17T19:35:17.258722111"
+    },
+    "Check test_all": {
+        "content": [
+            [
+                "simulation/NA12878.bam",
+                "simulation/NA12878.bam.bai",
+                "simulation/NA19401.bam",
+                "simulation/NA19401.bam.bai",
+                "simulation/NA20359.bam",
+                "simulation/NA20359.bam.bai",
+                "simulation/stats/NA12878_Rchr21_16570000-16610000.stats.txt",
+                "simulation/stats/NA12878_Rchr22_16570000-16610000.stats.txt",
+                "simulation/stats/NA19401_Rchr21_16570000-16610000.stats.txt",
+                "simulation/stats/NA19401_Rchr22_16570000-16610000.stats.txt",
+                "simulation/stats/NA20359_Rchr21_16570000-16610000.stats.txt",
+                "simulation/stats/NA20359_Rchr22_16570000-16610000.stats.txt"
+            ],
+            [
+                "imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/versions.yml",
+                "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/versions.yml",
+                "imputation/quilt/concat/NA12878_quilt.vcf.gz",
+                "imputation/quilt/concat/NA12878_quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA19401_quilt.vcf.gz",
+                "imputation/quilt/concat/NA19401_quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA20359_quilt.vcf.gz",
+                "imputation/quilt/concat/NA20359_quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/versions.yml",
+                "imputation/stitch/RData/EM.all.chr22.RData",
+                "imputation/stitch/RData/end.chr22.RData",
+                "imputation/stitch/RData/endEM.chr22.RData",
+                "imputation/stitch/RData/sampleNames.chr22.RData",
+                "imputation/stitch/RData/start.chr22.RData",
+                "imputation/stitch/RData/startEM.chr22.RData",
+                "imputation/stitch/concat/all_samples_stitch.vcf.gz",
+                "imputation/stitch/concat/all_samples_stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/versions.yml",
+                "imputation/stitch/input/sample.1.input.chr22.RData",
+                "imputation/stitch/input/sample.2.input.chr22.RData",
+                "imputation/stitch/input/sample.3.input.chr22.RData",
+                "imputation/stitch/plots/alphaMat.chr22.all.s.1.png",
+                "imputation/stitch/plots/alphaMat.chr22.normalized.s.1.png",
+                "imputation/stitch/plots/hapSum.chr22.s.1.png",
+                "imputation/stitch/plots/hapSum_log.chr22.s.1.png",
+                "imputation/stitch/plots/metricsForPostImputationQC.chr22.sample.jpg",
+                "imputation/stitch/plots/metricsForPostImputationQCChromosomeWide.chr22.sample.jpg",
+                "imputation/stitch/plots/r2.chr22.goodonly.jpg",
+                "imputation/stitch/stitch.chr21.vcf.gz",
+                "imputation/stitch/stitch.chr22.vcf.gz",
+                "imputation/stitch/versions.yml"
+            ],
+            [
+                "prep_panel/chunks/glimpse1/1000GP.s.norel_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/1000GP.s.norel_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/versions.yml",
+                "prep_panel/chunks/glimpse2/1000GP.s.norel_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/1000GP.s.norel_chr22_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/versions.yml",
+                "prep_panel/haplegend/1000GP.s.norel_chr21.hap.gz",
+                "prep_panel/haplegend/1000GP.s.norel_chr21.legend.gz",
+                "prep_panel/haplegend/1000GP.s.norel_chr21.samples",
+                "prep_panel/haplegend/1000GP.s.norel_chr22.hap.gz",
+                "prep_panel/haplegend/1000GP.s.norel_chr22.legend.gz",
+                "prep_panel/haplegend/1000GP.s.norel_chr22.samples",
+                "prep_panel/haplegend/versions.yml",
+                "prep_panel/sites/tsv/1000GP.s.norel_chr21_glimpse1_sites_tsv.txt.gz",
+                "prep_panel/sites/tsv/1000GP.s.norel_chr21_glimpse1_sites_tsv.txt.gz.tbi",
+                "prep_panel/sites/tsv/1000GP.s.norel_chr22_glimpse1_sites_tsv.txt.gz",
+                "prep_panel/sites/tsv/1000GP.s.norel_chr22_glimpse1_sites_tsv.txt.gz.tbi",
+                "prep_panel/sites/tsv/versions.yml",
+                "prep_panel/sites/vcf/1000GP.s.norel_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/1000GP.s.norel_chr21_glimpse1_sites.vcf.gz.csi",
+                "prep_panel/sites/vcf/1000GP.s.norel_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/1000GP.s.norel_chr22_glimpse1_sites.vcf.gz.csi",
+                "prep_panel/sites/vcf/versions.yml"
+            ],
+            [
+                "validation/NA12878_P1000GP.s.norel_TGlimpse1_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_TGlimpse2_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_TQuilt_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_TGlimpse1_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_TGlimpse2_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_TQuilt_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_TGlimpse1_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_TGlimpse2_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_TQuilt_SNP.txt",
+                "validation/TestQuality.txt",
+                "validation/concat/NA12878_truth_concat.vcf.gz",
+                "validation/concat/NA12878_truth_concat.vcf.gz.tbi",
+                "validation/concat/NA19401_truth_concat.vcf.gz",
+                "validation/concat/NA19401_truth_concat.vcf.gz.tbi",
+                "validation/concat/NA20359_truth_concat.vcf.gz",
+                "validation/concat/NA20359_truth_concat.vcf.gz.tbi"
+            ],
+            1779
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T14:39:45.196421216"
+    },
+    "Check test_validate": {
+        "content": [
+            [
+                "validation/NA12878_Pnull_Tnull_SNP.txt",
+                "validation/NA19401_Pnull_Tnull_SNP.txt",
+                "validation/NA20359_Pnull_Tnull_SNP.txt",
+                "validation/TestQuality.txt",
+                "validation/concat/NA12878_truth_concat.vcf.gz",
+                "validation/concat/NA12878_truth_concat.vcf.gz.tbi",
+                "validation/concat/NA19401_truth_concat.vcf.gz",
+                "validation/concat/NA19401_truth_concat.vcf.gz.tbi",
+                "validation/concat/NA20359_truth_concat.vcf.gz",
+                "validation/concat/NA20359_truth_concat.vcf.gz.tbi"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T15:09:05.11577274"
+    },
+    "Check test_quilt": {
+        "content": [
+            [
+                "imputation/quilt/concat/NA12878_quilt.vcf.gz",
+                "imputation/quilt/concat/NA12878_quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA19401_quilt.vcf.gz",
+                "imputation/quilt/concat/NA19401_quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA20359_quilt.vcf.gz",
+                "imputation/quilt/concat/NA20359_quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/versions.yml"
+            ],
+            1779
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T14:32:54.985163559"
+    },
+    "Check test_sim": {
+        "content": [
+            [
+                "simulation/NA12878.bam",
+                "simulation/NA12878.bam.bai",
+                "simulation/NA19401.bam",
+                "simulation/NA19401.bam.bai",
+                "simulation/NA20359.bam",
+                "simulation/NA20359.bam.bai",
+                "simulation/stats/NA12878_Rchr21_16570000-16610000.stats.txt",
+                "simulation/stats/NA12878_Rchr22_16570000-16610000.stats.txt",
+                "simulation/stats/NA19401_Rchr21_16570000-16610000.stats.txt",
+                "simulation/stats/NA19401_Rchr22_16570000-16610000.stats.txt",
+                "simulation/stats/NA20359_Rchr21_16570000-16610000.stats.txt",
+                "simulation/stats/NA20359_Rchr22_16570000-16610000.stats.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T14:48:45.584042427"
+    },
+    "Check test_glimpse2": {
+        "content": [
+            [
+                "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/versions.yml"
+            ],
+            1777
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T15:12:55.355916727"
+    },
+    "Check test": {
+        "content": [
+            [
+                "imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/versions.yml"
+            ],
+            1779
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-24T14:30:09.449862457"
+    }
+}
