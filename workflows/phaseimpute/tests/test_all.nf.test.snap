@@ -8,8 +8,7 @@
                 "imputation/stitch/concat/NA19401.vcf.gz.tbi",
                 "imputation/stitch/concat/NA20359.vcf.gz",
                 "imputation/stitch/concat/NA20359.vcf.gz.tbi",
-                "imputation/stitch/concat/versions.yml",
-                "imputation/stitch/versions.yml"
+                "imputation/stitch/concat/versions.yml"
             ],
             927
         ],
@@ -17,7 +16,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-05-27T16:15:22.880825313"
+        "timestamp": "2024-05-27T17:12:04.276857206"
     },
     "Check test_all": {
         "content": [
@@ -63,8 +62,7 @@
                 "imputation/stitch/concat/NA19401.vcf.gz.tbi",
                 "imputation/stitch/concat/NA20359.vcf.gz",
                 "imputation/stitch/concat/NA20359.vcf.gz.tbi",
-                "imputation/stitch/concat/versions.yml",
-                "imputation/stitch/versions.yml"
+                "imputation/stitch/concat/versions.yml"
             ],
             [
                 "prep_panel/chunks/glimpse1/1000GP.s.norel_chr21_chunks_glimpse1.txt",
