@@ -1,13 +1,11 @@
 include { STITCH               } from '../../../modules/nf-core/stitch'
 include { BCFTOOLS_INDEX       } from '../../../modules/nf-core/bcftools/index'
-include { VCF_SAMPLES_BCFTOOLS } from '../vcf_samples_bcftools'
-
 
 workflow BAM_IMPUTE_STITCH {
 
     take:
     ch_parameters  // channel:   [ [chr], posfile, input, rdata, chr, k_val, ngen]
-    ch_bam         // channel:   [ [id, chr], bam, bai, bamlist ]
+    ch_bam         // channel:   [ [id], bam, bai, bamlist ]
     ch_fasta       // channel:   [ [genome], fa, fai ]
 
     main:
@@ -15,7 +13,15 @@ workflow BAM_IMPUTE_STITCH {
     ch_versions      = Channel.empty()
     // Run STITCH
     seed = params.seed
-    STITCH( ch_bam, ch_parameters, ch_fasta, seed )
+
+    ch_bam_params = ch_bam // Add chr to meta map
+        .combine(ch_parameters)
+        .map{
+            metaI, bam, bai, bamlist, metaPC, posfile, input, rdata, chr, k_val, ngen ->
+            [metaI + [chr: metaPC.chr, panel:metaPC.id], bam, bai, bamlist, posfile, input, rdata, chr, k_val, ngen]
+        }
+
+    STITCH( ch_bam_params, ch_fasta, seed )
     ch_versions = ch_versions.mix(STITCH.out.versions)
 
     // Index imputed annotated VCF
@@ -25,14 +31,10 @@ workflow BAM_IMPUTE_STITCH {
     // Join VCFs and TBIs
     ch_vcf_tbi = STITCH.out.vcf
         .join(BCFTOOLS_INDEX.out.tbi)
-        .map { metaI, vcf, tbi -> [ metaI + [tools: "Stitch"], vcf, tbi ] }
-
-    // Separate by samples
-    VCF_SAMPLES_BCFTOOLS(ch_vcf_tbi)
-    ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
+        .map { metaIC, vcf, tbi -> [ metaIC + [tools: "Stitch"], vcf, tbi ] }
 
     emit:
-    vcf_tbi  = VCF_SAMPLES_BCFTOOLS.out.vcf_tbi  // channel:   [ [id, chr], vcf, tbi ]
+    vcf_tbi  = ch_vcf_tbi                        // channel:   [ [id, chr], vcf, tbi ]
     versions = ch_versions                       // channel:   [ versions.yml ]
 
 }
