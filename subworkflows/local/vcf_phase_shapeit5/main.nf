@@ -53,8 +53,20 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     ch_ligate_input = SHAPEIT5_PHASECOMMON.out.phased_variant
         .join(VCF_BCFTOOLS_INDEX_1.out.csi, failOnMismatch:true, failOnDuplicate:true)
-        .map{ meta, vcf, csi -> [meta.subMap("id", "chr"), vcf, csi]}
+        .map{ meta, vcf, csi -> [meta.subMap("id", "chr"), [vcf, meta.chunk], csi]}
         .groupTuple()
+        .view()
+        .map{ meta, vcf, csi ->
+                [ meta,
+                vcf
+                    .sort { a, b ->
+                        def aStart = a.last().split("-")[-1].toInteger()
+                        def bStart = b.last().split("-")[-1].toInteger()
+                        aStart <=> bStart
+                    }
+                    .collect{it.first()},
+                csi]}
+        .view()
 
     SHAPEIT5_LIGATE(ch_ligate_input)
     ch_versions = ch_versions.mix(SHAPEIT5_LIGATE.out.versions.first())
@@ -64,7 +76,6 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     ch_vcf_tbi_join = SHAPEIT5_LIGATE.out.merged_variants
         .join(VCF_BCFTOOLS_INDEX_2.out.csi)
-        .view()
 
     emit:
     vcf_tbi_join        = ch_vcf_tbi_join         // channel: [ [id, chr], vcf, csi ]
