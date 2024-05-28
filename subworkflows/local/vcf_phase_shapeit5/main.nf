@@ -55,7 +55,6 @@ workflow VCF_PHASE_SHAPEIT5 {
         .join(VCF_BCFTOOLS_INDEX_1.out.csi, failOnMismatch:true, failOnDuplicate:true)
         .map{ meta, vcf, csi -> [meta.subMap("id", "chr"), [vcf, meta.chunk], csi]}
         .groupTuple()
-        .view()
         .map{ meta, vcf, csi ->
                 [ meta,
                 vcf
@@ -66,7 +65,6 @@ workflow VCF_PHASE_SHAPEIT5 {
                     }
                     .collect{it.first()},
                 csi]}
-        .view()
 
     SHAPEIT5_LIGATE(ch_ligate_input)
     ch_versions = ch_versions.mix(SHAPEIT5_LIGATE.out.versions.first())

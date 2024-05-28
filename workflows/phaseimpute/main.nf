@@ -144,10 +144,10 @@ workflow PHASEIMPUTE {
                 Channel.of([[],[],[]]).collect(),
                 Channel.of([[],[]]).collect()
             )
-            ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi_join
+            ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
         } else {
-            ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi_join
+            ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         }
 
         // Generate posfile channels
@@ -160,7 +160,7 @@ workflow PHASEIMPUTE {
         CONCAT_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
 
-        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
+        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
@@ -193,7 +193,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
@@ -218,7 +218,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
             }
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
@@ -242,7 +242,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
 
             }
             if (params.tools.split(',').contains("quilt")) {
@@ -265,7 +265,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
             }
         }
 
@@ -302,7 +302,7 @@ workflow PHASEIMPUTE {
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            CONCAT_TRUTH.out.vcf_tbi_join,
+            CONCAT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
             ch_region
         )
