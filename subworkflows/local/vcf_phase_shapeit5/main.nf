@@ -76,7 +76,7 @@ workflow VCF_PHASE_SHAPEIT5 {
         .join(VCF_BCFTOOLS_INDEX_2.out.csi)
 
     emit:
-    vcf_tbi_join        = ch_vcf_tbi_join         // channel: [ [id, chr], vcf, csi ]
+    vcf_tbi             = ch_vcf_tbi_join         // channel: [ [id, chr], vcf, csi ]
     versions            = ch_versions             // channel: [ versions.yml ]
 }
 
