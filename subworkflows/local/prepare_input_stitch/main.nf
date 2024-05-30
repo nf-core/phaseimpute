@@ -45,7 +45,7 @@ workflow PREPARE_INPUT_STITCH {
 
     // Collect all files
     stitch_samples = ch_bam_bai
-        .map {meta, bam, bai -> [["id": "all_samples"], bam, bai]}
+        .map {meta, bam, bai -> [[id: "all_samples"], bam, bai]}
         .groupTuple()
         .combine(ch_bamlist)
         .collect()

@@ -2,27 +2,13 @@
     "Check test_stitch": {
         "content": [
             [
-                "imputation/stitch/RData/EM.all.chr22.RData",
-                "imputation/stitch/RData/end.chr22.RData",
-                "imputation/stitch/RData/endEM.chr22.RData",
-                "imputation/stitch/RData/sampleNames.chr22.RData",
-                "imputation/stitch/RData/start.chr22.RData",
-                "imputation/stitch/RData/startEM.chr22.RData",
-                "imputation/stitch/concat/all_samples_stitch.vcf.gz",
-                "imputation/stitch/concat/all_samples_stitch.vcf.gz.tbi",
-                "imputation/stitch/concat/versions.yml",
-                "imputation/stitch/input/sample.1.input.chr22.RData",
-                "imputation/stitch/input/sample.2.input.chr22.RData",
-                "imputation/stitch/input/sample.3.input.chr22.RData",
-                "imputation/stitch/plots/alphaMat.chr22.all.s.1.png",
-                "imputation/stitch/plots/alphaMat.chr22.normalized.s.1.png",
-                "imputation/stitch/plots/hapSum.chr22.s.1.png",
-                "imputation/stitch/plots/hapSum_log.chr22.s.1.png",
-                "imputation/stitch/plots/metricsForPostImputationQC.chr22.sample.jpg",
-                "imputation/stitch/plots/metricsForPostImputationQCChromosomeWide.chr22.sample.jpg",
-                "imputation/stitch/plots/r2.chr22.goodonly.jpg",
-                "imputation/stitch/stitch.chr22.vcf.gz",
-                "imputation/stitch/versions.yml"
+                "imputation/stitch/concat/NA12878.vcf.gz",
+                "imputation/stitch/concat/NA12878.vcf.gz.tbi",
+                "imputation/stitch/concat/NA19401.vcf.gz",
+                "imputation/stitch/concat/NA19401.vcf.gz.tbi",
+                "imputation/stitch/concat/NA20359.vcf.gz",
+                "imputation/stitch/concat/NA20359.vcf.gz.tbi",
+                "imputation/stitch/concat/versions.yml"
             ],
             927
         ],
@@ -30,7 +16,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-05-17T19:35:17.258722111"
+        "timestamp": "2024-05-27T17:12:04.276857206"
     },
     "Check test_all": {
         "content": [
@@ -70,28 +56,13 @@
                 "imputation/quilt/concat/NA20359_quilt.vcf.gz",
                 "imputation/quilt/concat/NA20359_quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/versions.yml",
-                "imputation/stitch/RData/EM.all.chr22.RData",
-                "imputation/stitch/RData/end.chr22.RData",
-                "imputation/stitch/RData/endEM.chr22.RData",
-                "imputation/stitch/RData/sampleNames.chr22.RData",
-                "imputation/stitch/RData/start.chr22.RData",
-                "imputation/stitch/RData/startEM.chr22.RData",
-                "imputation/stitch/concat/all_samples_stitch.vcf.gz",
-                "imputation/stitch/concat/all_samples_stitch.vcf.gz.tbi",
-                "imputation/stitch/concat/versions.yml",
-                "imputation/stitch/input/sample.1.input.chr22.RData",
-                "imputation/stitch/input/sample.2.input.chr22.RData",
-                "imputation/stitch/input/sample.3.input.chr22.RData",
-                "imputation/stitch/plots/alphaMat.chr22.all.s.1.png",
-                "imputation/stitch/plots/alphaMat.chr22.normalized.s.1.png",
-                "imputation/stitch/plots/hapSum.chr22.s.1.png",
-                "imputation/stitch/plots/hapSum_log.chr22.s.1.png",
-                "imputation/stitch/plots/metricsForPostImputationQC.chr22.sample.jpg",
-                "imputation/stitch/plots/metricsForPostImputationQCChromosomeWide.chr22.sample.jpg",
-                "imputation/stitch/plots/r2.chr22.goodonly.jpg",
-                "imputation/stitch/stitch.chr21.vcf.gz",
-                "imputation/stitch/stitch.chr22.vcf.gz",
-                "imputation/stitch/versions.yml"
+                "imputation/stitch/concat/NA12878.vcf.gz",
+                "imputation/stitch/concat/NA12878.vcf.gz.tbi",
+                "imputation/stitch/concat/NA19401.vcf.gz",
+                "imputation/stitch/concat/NA19401.vcf.gz.tbi",
+                "imputation/stitch/concat/NA20359.vcf.gz",
+                "imputation/stitch/concat/NA20359.vcf.gz.tbi",
+                "imputation/stitch/concat/versions.yml"
             ],
             [
                 "prep_panel/chunks/glimpse1/1000GP.s.norel_chr21_chunks_glimpse1.txt",
@@ -122,12 +93,15 @@
                 "validation/NA12878_P1000GP.s.norel_TGlimpse1_SNP.txt",
                 "validation/NA12878_P1000GP.s.norel_TGlimpse2_SNP.txt",
                 "validation/NA12878_P1000GP.s.norel_TQuilt_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_TStitch_SNP.txt",
                 "validation/NA19401_P1000GP.s.norel_TGlimpse1_SNP.txt",
                 "validation/NA19401_P1000GP.s.norel_TGlimpse2_SNP.txt",
                 "validation/NA19401_P1000GP.s.norel_TQuilt_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_TStitch_SNP.txt",
                 "validation/NA20359_P1000GP.s.norel_TGlimpse1_SNP.txt",
                 "validation/NA20359_P1000GP.s.norel_TGlimpse2_SNP.txt",
                 "validation/NA20359_P1000GP.s.norel_TQuilt_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_TStitch_SNP.txt",
                 "validation/TestQuality.txt",
                 "validation/concat/NA12878_truth_concat.vcf.gz",
                 "validation/concat/NA12878_truth_concat.vcf.gz.tbi",
@@ -142,7 +116,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-05-24T14:39:45.196421216"
+        "timestamp": "2024-05-27T16:05:35.502533305"
     },
     "Check test_validate": {
         "content": [

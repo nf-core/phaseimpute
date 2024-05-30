@@ -17,9 +17,9 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     ch_multiqc_files = Channel.empty()
 
     ch_concordance = ch_vcf_emul
-        .map{metaIPTC, vcf, csi -> [metaIPTC.subMap("id", "panel"), metaIPTC, vcf, csi]}
+        .map{metaIPTC, vcf, csi -> [metaIPTC.subMap("id"), metaIPTC, vcf, csi]}
         .combine(ch_vcf_truth
-            .map{metaIPC, vcf, csi -> [ metaIPC.subMap("id", "panel"), vcf, csi ]}
+            .map{metaIPC, vcf, csi -> [ metaIPC.subMap("id"), vcf, csi ]}
             , by: 0
         )
         .combine(ch_vcf_freq)
