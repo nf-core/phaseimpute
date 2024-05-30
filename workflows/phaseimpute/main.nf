@@ -46,6 +46,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 // STITCH subworkflows
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
+include { VCF_SAMPLES_BCFTOOLS                       } from '../../subworkflows/local/vcf_samples_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // Concordance subworkflows
@@ -160,7 +161,7 @@ workflow PHASEIMPUTE {
 
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
             if (params.tools.split(',').contains("glimpse1")) {
-                println "Impute with Glimpse1"
+                print("Impute with GLIMPSE1")
 
                 if (params.chunks) {
                     ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
@@ -187,6 +188,7 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
+                print("Impute with GLIMPSE2")
 
                 // Use previous chunks if --steps panelprep
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
@@ -222,17 +224,23 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
                 // Impute with STITCH
-                BAM_IMPUTE_STITCH ( PREPARE_INPUT_STITCH.out.stitch_parameters,
-                                    PREPARE_INPUT_STITCH.out.stitch_samples,
-                                    ch_fasta )
+                BAM_IMPUTE_STITCH (
+                    PREPARE_INPUT_STITCH.out.stitch_parameters,
+                    PREPARE_INPUT_STITCH.out.stitch_samples,
+                    ch_fasta
+                )
                 ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
                 // Concatenate by chromosomes
                 CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
                 ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
+                // Separate by samples
+                VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi_join)
+                ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
+
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi_join)
 
             }
             if (params.tools.split(',').contains("quilt")) {
@@ -247,7 +255,11 @@ workflow PHASEIMPUTE {
                 }
 
                 // Impute BAMs with QUILT
-                BAM_IMPUTE_QUILT(ch_input_impute, VCF_NORMALIZE_BCFTOOLS.out.hap_legend, VCF_CHUNK_GLIMPSE.out.chunks_quilt)
+                BAM_IMPUTE_QUILT(
+                    ch_input_impute,
+                    VCF_NORMALIZE_BCFTOOLS.out.hap_legend,
+                    VCF_CHUNK_GLIMPSE.out.chunks_quilt
+                )
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
                 // Concatenate by chromosomes

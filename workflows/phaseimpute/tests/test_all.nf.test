@@ -110,7 +110,7 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/stitch/concat/all_samples_stitch.vcf.gz").linesGzip.size()
+                    path("$outputDir/imputation/stitch/concat/NA12878.vcf.gz").linesGzip.size()
                 ).match()
                 }
             )
