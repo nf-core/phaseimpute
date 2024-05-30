@@ -246,11 +246,11 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
                 // Separate by samples
-                VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi_join)
+                VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
                 ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
 
             }
             if (params.tools.split(',').contains("quilt")) {
