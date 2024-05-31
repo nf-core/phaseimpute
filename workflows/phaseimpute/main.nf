@@ -291,10 +291,6 @@ workflow PHASEIMPUTE {
                     ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt").out.chunks
                 }
 
-                // if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                //     ch_panel_phased = // User supplied hap_legend panel
-                // }
-
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(
                     ch_input_impute,
