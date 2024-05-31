@@ -26,6 +26,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#40](https://github.com/nf-core/phaseimpute/pull/40) - Add STITCH method. Reorganize panelprep subworkflows.
 - [#51](https://github.com/nf-core/phaseimpute/pull/51) - Update all process and fix linting errors. Remove fastqc added by the template.
 - [#56](https://github.com/nf-core/phaseimpute/pull/56) - Move to nf-test to check the output files names generated. Fix validation and concatenation by chromosomes missing. Add dedicated GLIMPSE1 subworkflow. Fix posfile generation to be done once for glimpse and stitch.
+- [#68](https://github.com/nf-core/phaseimpute/pull/68) - QUILT can handle external params chunks and hap-legend files.
 
 ### `Fixed`
 
