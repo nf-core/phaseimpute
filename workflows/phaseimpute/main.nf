@@ -26,7 +26,7 @@ include { BAM_DOWNSAMPLE                             } from '../../subworkflows/
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
-include { VCF_PHASE_PANEL                            } from '../../subworkflows/local/vcf_phase_panel'
+include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
@@ -137,8 +137,19 @@ workflow PHASEIMPUTE {
 
         // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
-        VCF_PHASE_PANEL(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
-        ch_versions = ch_versions.mix(VCF_PHASE_PANEL.out.versions)
+        if (params.phased == false) {
+            VCF_PHASE_SHAPEIT5(
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
+                ch_region,
+                Channel.of([[],[],[]]).collect(),
+                Channel.of([[],[],[]]).collect(),
+                Channel.of([[],[]]).collect()
+            )
+            ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
+            ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
+        } else {
+            ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
+        }
 
         // Generate posfile channels
         ch_posfile_glimpse = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
@@ -150,8 +161,7 @@ workflow PHASEIMPUTE {
         CONCAT_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
 
-        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi_join
-        ch_panel_phased = VCF_PHASE_PANEL.out.vcf_tbi
+        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
@@ -184,7 +194,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
@@ -210,7 +220,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
             }
             if (params.tools.split(',').contains("stitch")) {
                 print("Impute with STITCH")
@@ -236,11 +246,11 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
                 // Separate by samples
-                VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi_join)
+                VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
                 ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
 
             }
             if (params.tools.split(',').contains("quilt")) {
@@ -267,7 +277,7 @@ workflow PHASEIMPUTE {
                 ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
                 // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi_join)
+                ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
             }
         }
 
@@ -304,7 +314,7 @@ workflow PHASEIMPUTE {
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            CONCAT_TRUTH.out.vcf_tbi_join,
+            CONCAT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
             ch_region
         )

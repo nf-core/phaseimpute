@@ -27,6 +27,6 @@ workflow VCF_CONCATENATE_BCFTOOLS {
     ch_vcf_tbi_join = BCFTOOLS_CONCAT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
 
     emit:
-    vcf_tbi_join = ch_vcf_tbi_join // channel: [ [id], vcf, tbi ]
+    vcf_tbi      = ch_vcf_tbi_join // channel: [ [id], vcf, tbi ]
     versions     = ch_versions     // channel: [ versions.yml ]
 }

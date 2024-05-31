@@ -12,7 +12,8 @@ workflow VCF_CHUNK_GLIMPSE {
 
     ch_versions = Channel.empty()
     // Add chromosome to channel
-    ch_vcf_csi_chr = ch_reference.map{metaPC, vcf, csi -> [metaPC, vcf, csi, metaPC.chr]}
+    ch_vcf_csi_chr = ch_reference
+        .map{metaPC, vcf, csi -> [metaPC, vcf, csi, metaPC.chr]}
 
     // Make chunks with Glimpse1
     GLIMPSE_CHUNK(ch_vcf_csi_chr)

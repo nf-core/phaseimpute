@@ -23,7 +23,7 @@ workflow VCF_SAMPLES_BCFTOOLS {
         .join(BCFTOOLS_INDEX.out.tbi)
 
     emit:
-    vcf_tbi_join   = ch_vcf_tbi_samples   // channel: [ [id, chr, tools], vcf, index ]
+    vcf_tbi        = ch_vcf_tbi_samples   // channel: [ [id, chr, tools], vcf, index ]
     versions       = ch_versions          // channel: [ versions.yml ]
 
 }
