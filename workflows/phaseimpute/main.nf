@@ -252,7 +252,8 @@ workflow PHASEIMPUTE {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
                 } else if (params.chunks) {
-                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
+                    CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
+                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL.out.chunks
                 }
 
                 // Use previous hap_legend if --steps panelprep
