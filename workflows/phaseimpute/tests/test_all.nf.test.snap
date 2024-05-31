@@ -2,6 +2,7 @@
     "Check test_stitch": {
         "content": [
             [
+                "imputation/csv/impute.csv",
                 "imputation/stitch/concat/NA12878.vcf.gz",
                 "imputation/stitch/concat/NA12878.vcf.gz.tbi",
                 "imputation/stitch/concat/NA19401.vcf.gz",
@@ -14,9 +15,9 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-27T17:12:04.276857206"
+        "timestamp": "2024-05-31T20:18:06.004066164"
     },
     "Check test_all": {
         "content": [
