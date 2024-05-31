@@ -19,6 +19,7 @@ This steps of the pipeline performs a QC of the reference panel data and produce
 - [Posfile](#posfile) - Produce a TSV with the list of positions to genotype (for STITCH/QUILT)
 - [Sites](#sites) - Produce a TSV with the list of positions to genotype (for GLIMPSE1)
 - [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
+- [CSV](#csv) - Obtain a CSV from this step
 
 ### Convert
 
@@ -62,6 +63,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 - [QUILT](#quilt) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
+- [CSV](#csv) - Obtain a CSV from this step
 
 ### QUILT
 
@@ -84,6 +86,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 - [STITCH](#stitch) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
+- [CSV](#csv) - Obtain a CSV from this step
 
 ### STITCH
 
@@ -106,6 +109,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 - [GLIMPSE2](#glimpse2) - Perform imputation
 - [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
+- [CSV](#csv) - Obtain a CSV from this step
 
 ### GLIMPSE2 output files
 
