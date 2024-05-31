@@ -148,9 +148,9 @@ workflow PIPELINE_INITIALISATION {
         if (params.panel.endsWith("csv")) {
             print("Panel file provided as input is a samplesheet")
             ch_panel = Channel.fromSamplesheet("panel")
-                        .map { meta, bcf, csi, hap, legend -> tuple(meta, bcf, csi) }
+                        .map { meta, bcf, csi, hap, legend -> [meta, bcf, csi] }
             ch_hap_legend = Channel.fromSamplesheet("panel")
-                        .map { meta, bcf, csi, hap, legend -> tuple(meta, hap, legend) }
+                        .map { meta, bcf, csi, hap, legend -> [["panel": meta.id, "chr": meta.chr], hap, legend] }
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
