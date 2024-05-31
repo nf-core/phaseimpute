@@ -70,6 +70,7 @@ workflow PHASEIMPUTE {
     ch_input_validate_truth // channel: truth file    [ [id], file, index ]
     ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
+    ch_hap_legend           // channel: hap file      [ [id, chr], hap, legend ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
@@ -251,14 +252,19 @@ workflow PHASEIMPUTE {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
                 } else if (params.chunks) {
-                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt").out.chunks
+                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
+                }
+
+                // Use previous hap_legend if --steps panelprep
+                if (params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                    ch_hap_legend = VCF_NORMALIZE_BCFTOOLS.out.hap_legend
                 }
 
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(
                     ch_input_impute,
-                    VCF_NORMALIZE_BCFTOOLS.out.hap_legend,
-                    VCF_CHUNK_GLIMPSE.out.chunks_quilt
+                    ch_hap_legend,
+                    ch_chunks_quilt
                 )
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
