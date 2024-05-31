@@ -157,7 +157,8 @@ workflow PIPELINE_INITIALISATION {
         }
     } else {
         // #TODO check if panel is required
-        ch_panel = Channel.of([[],[],[]])
+        ch_panel        = Channel.of([[],[],[]])
+        ch_hap_legend   = Channel.of([[],[],[]])
     }
 
     //
