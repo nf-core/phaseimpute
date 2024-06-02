@@ -11,13 +11,13 @@
                 "imputation/stitch/concat/NA20359.vcf.gz.tbi",
                 "imputation/stitch/concat/versions.yml"
             ],
-            927
+            1786
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-31T20:18:06.004066164"
+        "timestamp": "2024-06-02T21:02:42.358049222"
     },
     "Check test_all": {
         "content": [
