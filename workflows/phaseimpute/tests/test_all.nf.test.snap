@@ -2,6 +2,7 @@
     "Check test_stitch": {
         "content": [
             [
+                "imputation/csv/impute.csv",
                 "imputation/stitch/concat/NA12878.vcf.gz",
                 "imputation/stitch/concat/NA12878.vcf.gz.tbi",
                 "imputation/stitch/concat/NA19401.vcf.gz",
@@ -14,9 +15,9 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-27T17:12:04.276857206"
+        "timestamp": "2024-05-31T20:18:06.004066164"
     },
     "Check test_all": {
         "content": [
@@ -27,6 +28,7 @@
                 "simulation/NA19401.bam.bai",
                 "simulation/NA20359.bam",
                 "simulation/NA20359.bam.bai",
+                "simulation/csv/simulate.csv",
                 "simulation/stats/NA12878_Rchr21_16570000-16610000.stats.txt",
                 "simulation/stats/NA12878_Rchr22_16570000-16610000.stats.txt",
                 "simulation/stats/NA19401_Rchr21_16570000-16610000.stats.txt",
@@ -35,6 +37,7 @@
                 "simulation/stats/NA20359_Rchr22_16570000-16610000.stats.txt"
             ],
             [
+                "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz",
@@ -71,6 +74,9 @@
                 "prep_panel/chunks/glimpse2/1000GP.s.norel_chr21_chunks_glimpse2.txt",
                 "prep_panel/chunks/glimpse2/1000GP.s.norel_chr22_chunks_glimpse2.txt",
                 "prep_panel/chunks/glimpse2/versions.yml",
+                "prep_panel/csv/chunks.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
                 "prep_panel/haplegend/1000GP.s.norel_chr21.hap.gz",
                 "prep_panel/haplegend/1000GP.s.norel_chr21.legend.gz",
                 "prep_panel/haplegend/1000GP.s.norel_chr21.samples",
@@ -90,18 +96,18 @@
                 "prep_panel/sites/vcf/versions.yml"
             ],
             [
-                "validation/NA12878_P1000GP.s.norel_TGlimpse1_SNP.txt",
-                "validation/NA12878_P1000GP.s.norel_TGlimpse2_SNP.txt",
-                "validation/NA12878_P1000GP.s.norel_TQuilt_SNP.txt",
-                "validation/NA12878_P1000GP.s.norel_TStitch_SNP.txt",
-                "validation/NA19401_P1000GP.s.norel_TGlimpse1_SNP.txt",
-                "validation/NA19401_P1000GP.s.norel_TGlimpse2_SNP.txt",
-                "validation/NA19401_P1000GP.s.norel_TQuilt_SNP.txt",
-                "validation/NA19401_P1000GP.s.norel_TStitch_SNP.txt",
-                "validation/NA20359_P1000GP.s.norel_TGlimpse1_SNP.txt",
-                "validation/NA20359_P1000GP.s.norel_TGlimpse2_SNP.txt",
-                "validation/NA20359_P1000GP.s.norel_TQuilt_SNP.txt",
-                "validation/NA20359_P1000GP.s.norel_TStitch_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_Tglimpse1_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_Tglimpse2_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_Tquilt_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_Tstitch_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_Tglimpse1_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_Tglimpse2_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_Tquilt_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_Tstitch_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_Tglimpse1_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_Tglimpse2_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_Tquilt_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_Tstitch_SNP.txt",
                 "validation/TestQuality.txt",
                 "validation/concat/NA12878_truth_concat.vcf.gz",
                 "validation/concat/NA12878_truth_concat.vcf.gz.tbi",
@@ -114,9 +120,9 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-27T16:05:35.502533305"
+        "timestamp": "2024-05-31T20:03:10.127239268"
     },
     "Check test_validate": {
         "content": [

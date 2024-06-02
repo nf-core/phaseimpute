@@ -31,7 +31,7 @@ workflow BAM_IMPUTE_STITCH {
     // Join VCFs and TBIs
     ch_vcf_tbi = STITCH.out.vcf
         .join(BCFTOOLS_INDEX.out.tbi)
-        .map { metaIC, vcf, tbi -> [ metaIC + [tools: "Stitch"], vcf, tbi ] }
+        .map { metaI, vcf, tbi -> [ metaI + [tools: "stitch"], vcf, tbi ] }
 
     emit:
     vcf_tbi  = ch_vcf_tbi                        // channel:   [ [id, chr], vcf, tbi ]
