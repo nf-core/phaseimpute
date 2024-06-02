@@ -222,24 +222,24 @@ Otherwise, you can provide your own position file in the `--steps impute` with S
 nextflow run nf-core/phaseimpute --input samplesheet.csv --steps impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker
 ```
 
-The csv provided in `--posfile` must contain two columns [chr, file]. The first column is the chromosome and the file column are tsvs with the list of positions, unique to each chromosome.
+The csv provided in `--posfile` must contain four columns [panel, chr, vcf, txt]. The first column [panel] is a name to identify the sites, typically a panel name. The second column [chr] is the chromosome corresponding to that file. The third column [vcf] can be kept empty. Lastly, the fourth column [txt] is a compressed tsv file containing the list of positions, unique to each chromosome.
 
 ```console
-chr,file
-chr1,posfile_chr1.txt
-chr2,posfile_chr2.txt
-chr3,posfile_chr3.txt
+panel,chr,vcf,txt
+1000G,chr1,,posfile_chr1.tsv.gz
+1000G,chr2,,posfile_chr2.tsv.gz
+1000G,chr3,,posfile_chr3.tsv.gz
 ```
 
-The file column should contain a TSV with the following structure, from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md).
+The fourth column containing the compressed file has a TSV with the following structure, similar to that from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md). Unlike the files used in the original STITCH program, in `phaseimpute`, the last column, containing the reference vs. the alternate base is comma-separated.
 
-As an example, chr22 tsv file:
+As an example, a typical "posfile_chr22.tsv.gz" would look like:
 
 ```console
-chr22	16570065	A	G
-chr22	16570067	A	C
-chr22	16570176	C	A
-chr22	16570211	T	C
+chr22	16570065	A,G
+chr22	16570067	A,C
+chr22	16570176	C,A
+chr22	16570211	T,C
 ```
 
 #### GLIMPSE1
