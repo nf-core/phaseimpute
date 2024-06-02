@@ -173,9 +173,27 @@ For starting from the imputation steps, the required flags are:
 - `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
 - `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
+
   - `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1`.
   - `--posfile posfile.csv`: A samplesheet containing a TSV with the list of positions to genotype per chromosome. These are required by tools (for STITCH/GLIMPSE1). The posfile can be generated with `--steps panelprep`.
   - `--panel panel.csv`: A samplesheet containing the post-processed VCF (required by GLIMPSE1 and GLIMPSE2) or the hap_legend files (required by QUILT). These files can be obtained with `--steps panelprep`.
+
+  #### Summary table of required parameters in `--steps impute`
+
+|            | `--steps impute` | `--input` | `--genome` or `--fasta` | `--panel` | `--chunks` | `--posfile` |
+| ---------- | ---------------- | --------- | ----------------------- | --------- | ---------- | ----------- |
+| `GLIMPSE1` | ✅               | ✅        | ✅                      | ✅ ¹      | ✅         | ✅ ³        |
+| `GLIMPSE2` | ✅               | ✅        | ✅                      | ✅        | ✅         | ❌          |
+| `QUILT`    | ✅               | ✅        | ✅                      | ✅ ²      | ✅         | ❌          |
+| `STITCH`   | ✅               | ✅        | ✅                      | ❌        | ❌         | ✅          |
+
+#### Details:
+
+¹ `GLIMPSE1` & `GLIMPSE2`: Should be a CSV with columns [panel, chr, vcf, index]
+
+² `QUILT`: Should be a CSV with columns [panel, chr, hap, legend]
+
+³ `GLIMPSE1`: Should be a CSV with columns [panel, chr, vcf, txt]
 
 ### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
