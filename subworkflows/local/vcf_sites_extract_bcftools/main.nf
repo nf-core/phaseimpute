@@ -43,9 +43,15 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     // Join compressed TSV and index
     ch_panel_tsv = TABIX_BGZIP.out.output.combine(TABIX_TABIX.out.tbi, by: 0)
 
+    // Generate default posfile (glimpse1 vcf and txt)
+    ch_posfile_glimpse = ch_panel_sites
+            .join(ch_panel_tsv)
+            .map{ metaPC, sites, s_index, tsv, t_index -> [metaPC, sites, tsv]}
+
     emit:
-    panel_tsv_glimpse      = ch_panel_tsv     // channel: [ [id, chr], tsv, tbi ]
-    panel_tsv_stitch       = GAWK.out.output  // channel: [ [id, chr], txt ]
-    panel_sites            = ch_panel_sites   // channel: [ [id, chr], vcf, csi ]
-    versions               = ch_versions      // channel: [ versions.yml ]
+    panel_tsv_glimpse      = ch_panel_tsv        // channel: [ [id, chr], tsv, tbi ]
+    panel_tsv_stitch       = GAWK.out.output     // channel: [ [id, chr], txt ]
+    panel_sites            = ch_panel_sites      // channel: [ [id, chr], vcf, csi ]
+    ch_posfile             = ch_posfile_glimpse  // channel: [ [id, chr], vcf, tsv.gz ]
+    versions               = ch_versions         // channel: [ versions.yml ]
 }
