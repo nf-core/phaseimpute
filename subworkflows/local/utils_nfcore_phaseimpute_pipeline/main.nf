@@ -158,7 +158,7 @@ workflow PIPELINE_INITIALISATION {
     } else {
         // #TODO check if panel is required
         ch_panel        = Channel.of([[],[],[]])
-        ch_hap_legend   = Channel.of([[],[],[]])
+        ch_hap_legend   = Channel.empty()
     }
 
     //
@@ -374,6 +374,24 @@ def getAllFilesExtension(ch_input) {
             }
             return extensions[0]
         }
+}
+
+//
+// Validate haplegend from panel channel
+//
+
+def checkHapLegend(ch_hap_legend) {
+    ch_hap_legend.map { channel ->
+        def meta = channel[0]
+        def hap = channel[1]
+        def legend = channel[2]
+
+        if (hap != [] || legend != []) {
+            log.warn "Hap or Legend files are not empty for panel ${meta.panel}, chromosome ${meta.chr}"
+        }
+
+        return channel
+    }
 }
 
 

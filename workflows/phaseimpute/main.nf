@@ -13,6 +13,7 @@ include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_n
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { checkHapLegend              } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -129,9 +130,7 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
 
         // Emit a warning if hap_legend files are provided in the panel with `--steps panelprep`
-        ch_hap_legend.ifEmpty(
-            log.warn("The samplesheet in `--panel` contains hap and legend files. The calculated hap/legend files in `--steps panelprep` will override the provided files.")
-        )
+        checkHapLegend(ch_hap_legend)
 
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(VCF_CHR_CHECK.out.vcf, ch_fasta)
