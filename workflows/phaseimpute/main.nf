@@ -145,7 +145,6 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
-        // If required, phase panel (currently not working, a test should be added)
         // Phase panel with tool of choice (e.g. SHAPEIT5)
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
@@ -190,22 +189,19 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("glimpse1")) {
                 print("Impute with GLIMPSE1")
 
+                // Use chunks from parameters if provided or use previous chunks from panelprep
                 if (params.chunks) {
                     ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
                 } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
 
-                // if (params.posfile) {
-                //     ch_posfile_glimpse = // User supplied posfile
-                // } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.posfile) {
-                //     ch_posfile_glimpse = POSFILE_PREPARE_CHANNEL(ch_posfile, "glimpse").out.posfile
-                // }
+                // Use panel from parameters if provided
+                if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                    ch_panel_phased = ch_panel
+                }
 
-                // if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                //     ch_panel_phased = // User supplied phased panel
-                // }
-
+                // Run imputation
                 VCF_IMPUTE_GLIMPSE1(
                     ch_input_impute,
                     ch_posfile_glimpse,
@@ -227,22 +223,17 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("glimpse2")) {
                 print("Impute with GLIMPSE2")
 
-                // Use previous chunks if --steps panelprep
+                // Use chunks from parameters if provided or use previous chunks from panelprep
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1 // Chunks from glimpse2 are wrong
                 } else if (params.chunks) {
                     ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
                 }
 
-                // if (params.posfile) {
-                //     ch_posfile_glimpse = // User supplied posfile
-                // } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.posfile) {
-                //     ch_posfile_glimpse = POSFILE_PREPARE_CHANNEL(ch_posfile, "glimpse").out.posfile
-                // }
-
-                // if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                //     ch_panel_phased = // User supplied phased panel
-                // }
+                // Use panel from parameters if provided
+                if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                    ch_panel_phased = ch_panel
+                }
 
                 // Run imputation
                 VCF_IMPUTE_GLIMPSE2(
