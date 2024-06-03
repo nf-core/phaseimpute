@@ -303,6 +303,11 @@ workflow PHASEIMPUTE {
         }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
+
+        if (params.posfile) {
+            ch_posfile_glimpse = ch_posfile
+        }
+
         ch_truth_vcf = Channel.empty()
         // Get extension of input files
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
