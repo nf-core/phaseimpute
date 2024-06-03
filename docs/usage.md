@@ -275,6 +275,8 @@ chr22	16570211	T	C
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
 ```
 
+Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
+
 #### GLIMPSE2
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
@@ -282,6 +284,8 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_ref
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse2 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
 ```
+
+Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
 
 ### Start with validation `--steps validate`
 

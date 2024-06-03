@@ -343,7 +343,11 @@ def validateInputParameters() {
         log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
     }
 
-}
+    // Emit an info message when using external panel and impute only
+    if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
+        log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
+    }
+    }
 
 //
 // Check if all input files have the same extension
