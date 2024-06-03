@@ -245,9 +245,7 @@ workflow PHASEIMPUTE {
 
                 // Use provided posfile
                 if (params.posfile) {
-                    //ch_posfile_stitch = ch_posfile.stitch
                     ch_posfile_stitch = POSFILE_PREPARE_GAWK(ch_posfile)
-                    POSFILE_PREPARE_GAWK.out.posfile.dump(tag:"POSFILE_PREPARE_GAWK")
                 }
 
                 // Prepare inputs
