@@ -13,6 +13,7 @@ include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_n
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { checkHapLegend              } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -77,6 +78,7 @@ workflow PHASEIMPUTE {
     ch_input_validate_truth // channel: truth file    [ [id], file, index ]
     ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
+    ch_hap_legend           // channel: hap file      [ [id, chr], hap, legend ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
@@ -136,6 +138,9 @@ workflow PHASEIMPUTE {
         // Check chr prefix and remove if necessary
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
+
+        // Emit a warning if hap_legend files are provided in the panel with `--steps panelprep`
+        checkHapLegend(ch_hap_legend)
 
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(VCF_CHR_CHECK.out.vcf, ch_fasta)
@@ -298,14 +303,20 @@ workflow PHASEIMPUTE {
                     ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
                 } else if (params.chunks) {
-                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt").out.chunks
+                    CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
+                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL.out.chunks
+                }
+
+                // Use previous hap_legend if --steps panelprep
+                if (params.steps.split(',').find { it in ["all", "panelprep"] }) {
+                    ch_hap_legend = VCF_NORMALIZE_BCFTOOLS.out.hap_legend
                 }
 
                 // Impute BAMs with QUILT
                 BAM_IMPUTE_QUILT(
                     ch_input_impute,
-                    VCF_NORMALIZE_BCFTOOLS.out.hap_legend,
-                    VCF_CHUNK_GLIMPSE.out.chunks_quilt
+                    ch_hap_legend,
+                    ch_chunks_quilt
                 )
                 ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 

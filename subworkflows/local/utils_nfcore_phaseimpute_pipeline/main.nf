@@ -148,13 +148,17 @@ workflow PIPELINE_INITIALISATION {
         if (params.panel.endsWith("csv")) {
             print("Panel file provided as input is a samplesheet")
             ch_panel = Channel.fromSamplesheet("panel")
+                        .map { meta, bcf, csi, hap, legend -> [meta, bcf, csi] }
+            ch_hap_legend = Channel.fromSamplesheet("panel")
+                        .map { meta, bcf, csi, hap, legend -> [["panel": meta.id, "chr": meta.chr], hap, legend] }
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
         // #TODO check if panel is required
-        ch_panel = Channel.of([[],[],[]])
+        ch_panel        = Channel.of([[],[],[]])
+        ch_hap_legend   = Channel.empty()
     }
 
     //
@@ -233,6 +237,7 @@ workflow PIPELINE_INITIALISATION {
     input_truth          = ch_input_truth   // [ [meta], file, index ]
     fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
     panel                = ch_panel         // [ [panel, chr], vcf, index ]
+    hap_legend           = ch_hap_legend    // [ [panel, chr], hap, legend ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
     map                  = ch_map           // [ [map], map ]
@@ -369,6 +374,24 @@ def getAllFilesExtension(ch_input) {
             }
             return extensions[0]
         }
+}
+
+//
+// Validate haplegend from panel channel
+//
+
+def checkHapLegend(ch_hap_legend) {
+    ch_hap_legend.map { channel ->
+        def meta = channel[0]
+        def hap = channel[1]
+        def legend = channel[2]
+
+        if (hap != [] || legend != []) {
+            log.warn "Hap or Legend files are not empty for panel ${meta.panel}, chromosome ${meta.chr}"
+        }
+
+        return channel
+    }
 }
 
 
