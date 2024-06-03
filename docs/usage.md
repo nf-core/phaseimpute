@@ -173,9 +173,27 @@ For starting from the imputation steps, the required flags are:
 - `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
 - `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
+
   - `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1`.
   - `--posfile posfile.csv`: A samplesheet containing a TSV with the list of positions to genotype per chromosome. These are required by tools (for STITCH/GLIMPSE1). The posfile can be generated with `--steps panelprep`.
-  - `--panel panel.csv`: A samplesheet containing the post-processed VCF. This is required by GLIMPSE1. This file can be obtained with `--steps panelprep`.
+  - `--panel panel.csv`: A samplesheet containing the post-processed VCF (required by GLIMPSE1 and GLIMPSE2) or the hap_legend files (required by QUILT). These files can be obtained with `--steps panelprep`.
+
+  #### Summary table of required parameters in `--steps impute`
+
+|            | `--steps impute` | `--input` | `--genome` or `--fasta` | `--panel` | `--chunks` | `--posfile` |
+| ---------- | ---------------- | --------- | ----------------------- | --------- | ---------- | ----------- |
+| `GLIMPSE1` | ✅               | ✅        | ✅                      | ✅ ¹      | ✅         | ✅ ³        |
+| `GLIMPSE2` | ✅               | ✅        | ✅                      | ✅        | ✅         | ❌          |
+| `QUILT`    | ✅               | ✅        | ✅                      | ✅ ²      | ✅         | ❌          |
+| `STITCH`   | ✅               | ✅        | ✅                      | ❌        | ❌         | ✅          |
+
+#### Details:
+
+¹ `GLIMPSE1` & `GLIMPSE2`: Should be a CSV with columns [panel, chr, vcf, index]
+
+² `QUILT`: Should be a CSV with columns [panel, chr, hap, legend]
+
+³ `GLIMPSE1`: Should be a CSV with columns [panel, chr, vcf, txt]
 
 ### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
@@ -186,7 +204,14 @@ You can choose different software to perform the imputation. In the following se
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a csv file with the genomic chunks (`--chunks`).
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --chunks chunks.csv --steps impute --tool quilt --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute --input samplesheet.csv --panel panel_haplegend.csv --chunks chunks.csv --steps impute --tool quilt --outdir results --genome GRCh37 -profile docker
+```
+
+The csv provided in `--panel` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
+
+```console
+panel,chr,vcf,index,hap,legend
+1000GP.s.norel,chr22,,,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
 The csv provided in `--chunks` must contain two columns [chr, file]. The first column is the chromosome and the file column are txt with the chunks produced by GLIMPSE1, unique to each chromosome.
@@ -250,6 +275,8 @@ chr22	16570211	T,C
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
 ```
 
+Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
+
 #### GLIMPSE2
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
@@ -257,6 +284,8 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_ref
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse2 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
 ```
+
+Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
 
 ### Start with validation `--steps validate`
 
