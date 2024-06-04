@@ -4,13 +4,13 @@ include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 workflow POSFILE_PREPARE_GAWK {
 
     take:
-    ch_posfile // channel:   [ [id, chr], txt ]
+    ch_posfile // channel:   [ [id, chr], vcf, csi, txt ]
 
     main:
     ch_versions = Channel.empty()
 
     // Only keep the txt from the channel
-    ch_posfile = ch_posfile.map{meta,vcf,txt -> tuple(meta,txt)}
+    ch_posfile = ch_posfile.map{meta,vcf, csi, txt -> tuple(meta,txt)}
 
     // Decompress
     GUNZIP(ch_posfile)
