@@ -217,7 +217,7 @@ workflow PIPELINE_INITIALISATION {
     if (params.posfile) {
         ch_posfile = Channel
                     .fromSamplesheet("posfile")
-                    .map {meta, vcf, txt -> [ meta, vcf, txt ]}
+                    .map {meta, vcf, csi, txt -> [ meta, vcf, csi, txt ]}
     } else {
         ch_posfile = [[],[]]
     }
