@@ -1,0 +1,2 @@
+panel,chr,vcf,index,hap,legend
+1000GP.s.norel,chr22,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/panel/22/1000GP.chr22.s.norel.bcf,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/panel/22/1000GP.chr22.s.norel.bcf.csi,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/panel/22/1000GP.s.norel_chr22.hap.gz,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/panel/22/1000GP.s.norel_chr22.legend.gz

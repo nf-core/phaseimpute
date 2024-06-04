@@ -148,13 +148,17 @@ workflow PIPELINE_INITIALISATION {
         if (params.panel.endsWith("csv")) {
             print("Panel file provided as input is a samplesheet")
             ch_panel = Channel.fromSamplesheet("panel")
+                        .map { meta, bcf, csi, hap, legend -> [meta, bcf, csi] }
+            ch_hap_legend = Channel.fromSamplesheet("panel")
+                        .map { meta, bcf, csi, hap, legend -> [["panel": meta.id, "chr": meta.chr], hap, legend] }
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
         // #TODO check if panel is required
-        ch_panel = Channel.of([[],[],[]])
+        ch_panel        = Channel.of([[],[],[]])
+        ch_hap_legend   = Channel.empty()
     }
 
     //
@@ -233,6 +237,7 @@ workflow PIPELINE_INITIALISATION {
     input_truth          = ch_input_truth   // [ [meta], file, index ]
     fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
     panel                = ch_panel         // [ [panel, chr], vcf, index ]
+    hap_legend           = ch_hap_legend    // [ [panel, chr], hap, legend ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
     map                  = ch_map           // [ [map], map ]
@@ -338,7 +343,11 @@ def validateInputParameters() {
         log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
     }
 
-}
+    // Emit an info message when using external panel and impute only
+    if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
+        log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
+    }
+    }
 
 //
 // Check if all input files have the same extension
@@ -369,6 +378,24 @@ def getAllFilesExtension(ch_input) {
             }
             return extensions[0]
         }
+}
+
+//
+// Validate haplegend from panel channel
+//
+
+def checkHapLegend(ch_hap_legend) {
+    ch_hap_legend.map { channel ->
+        def meta = channel[0]
+        def hap = channel[1]
+        def legend = channel[2]
+
+        if (hap != [] || legend != []) {
+            log.warn "Hap or Legend files are not empty for panel ${meta.panel}, chromosome ${meta.chr}"
+        }
+
+        return channel
+    }
 }
 
 
