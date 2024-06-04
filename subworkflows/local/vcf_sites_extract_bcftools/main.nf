@@ -36,22 +36,17 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
     ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
-    // Index compressed TSV
-    TABIX_TABIX(TABIX_BGZIP.out.output)
-    ch_versions = ch_versions.mix(TABIX_TABIX.out.versions.first())
+    // Generate default posfile (sites vcf, sites index and sites txt)
+    ch_posfile = ch_panel_sites
+            .join(TABIX_BGZIP.out.output)
 
-    // Join compressed TSV and index
-    ch_panel_tsv = TABIX_BGZIP.out.output.combine(TABIX_TABIX.out.tbi, by: 0)
-
-    // Generate default posfile (glimpse1 vcf and txt)
-    ch_posfile_glimpse = ch_panel_sites
-            .join(ch_panel_tsv)
-            .map{ metaPC, sites, s_index, tsv, t_index -> [metaPC, sites, tsv]}
+    // Generate glimpse posfile
+    ch_glimpse_posfile = ch_posfile.map{ metaPC, sites, s_index, tsv -> [metaPC, sites, tsv]}
 
     emit:
-    panel_tsv_glimpse      = ch_panel_tsv        // channel: [ [id, chr], tsv, tbi ]
     panel_tsv_stitch       = GAWK.out.output     // channel: [ [id, chr], txt ]
     panel_sites            = ch_panel_sites      // channel: [ [id, chr], vcf, csi ]
-    ch_posfile             = ch_posfile_glimpse  // channel: [ [id, chr], vcf, tsv.gz ]
+    posfile                = ch_posfile          // channel: [ [id, chr], vcf, csi, tsv.gz ]
+    glimpse_posfile        = ch_glimpse_posfile  // channel: [ [id, chr], vcf, tsv.gz ]
     versions               = ch_versions         // channel: [ versions.yml ]
 }
