@@ -49,29 +49,35 @@ workflow VCF_NORMALIZE_BCFTOOLS {
         BCFTOOLS_INDEX_3(BCFTOOLS_DEL_SPL.out.vcf)
         ch_versions = ch_versions.mix(BCFTOOLS_INDEX_3.out.versions)
 
-        ch_biallelic_vcf_tbi = BCFTOOLS_DEL_SPL.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
+        ch_biallelic_vcf_tbi_spl = BCFTOOLS_DEL_SPL.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
+    } else {
+        ch_biallelic_vcf_tbi_spl = ch_biallelic_vcf_tbi
     }
 
-    // Fix panel (AC/AN INFO fields in VCF are inconsistent with GT field)
-    VCFLIB_VCFFIXUP(ch_biallelic_vcf_tbi)
-    ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
+    if (params.freq == false) {
+        // Fix panel (AC/AN INFO fields in VCF are inconsistent with GT field)
+        VCFLIB_VCFFIXUP(ch_biallelic_vcf_tbi_spl)
+        ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
 
-    // Index fixed panel
-    BCFTOOLS_INDEX_4(VCFLIB_VCFFIXUP.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_4.out.versions)
+        // Index fixed panel
+        BCFTOOLS_INDEX_4(VCFLIB_VCFFIXUP.out.vcf)
+        ch_versions = ch_versions.mix(BCFTOOLS_INDEX_4.out.versions)
 
-    // Join fixed vcf and tbi
-    ch_biallelic_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_4.out.tbi)
+        // Join fixed vcf and tbi
+        ch_biallelic_vcf_tbi_freq = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_4.out.tbi)
+    } else {
+        ch_biallelic_vcf_tbi_freq = ch_biallelic_vcf_tbi_spl
+    }
 
     // Convert VCF to Hap and Legend files
-    BCFTOOLS_CONVERT(ch_biallelic_vcf_tbi, ch_fasta, [])
+    BCFTOOLS_CONVERT(ch_biallelic_vcf_tbi_freq, ch_fasta, [])
     ch_versions = ch_versions.mix(BCFTOOLS_CONVERT.out.versions)
 
     // Output hap and legend files
     ch_hap_legend = BCFTOOLS_CONVERT.out.hap.join(BCFTOOLS_CONVERT.out.legend)
 
     emit:
-    vcf_tbi        = ch_biallelic_vcf_tbi           // channel: [ [id, chr], vcf, tbi ]
+    vcf_tbi        = ch_biallelic_vcf_tbi_freq      // channel: [ [id, chr], vcf, tbi ]
     hap_legend     = ch_hap_legend                  // channel: [ [id, chr], '.hap', '.legend' ]
     versions       = ch_versions                    // channel: [ versions.yml ]
 }
