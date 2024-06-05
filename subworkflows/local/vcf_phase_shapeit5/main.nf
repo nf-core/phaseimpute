@@ -56,8 +56,8 @@ workflow VCF_PHASE_SHAPEIT5 {
             [metaIC + [chunk: regioncnk], vcf, index, pedigree, regionbuf, gmap]
         }
         .combine(ch_map, by:0)
-        .map { metaC, metaIC, vcf, index, pedigree, chunk, gmap ->
-            [metaIC + [chunk: chunk], vcf, index, pedigree, chunk, gmap]
+        .map { metaC, metaIC, vcf, index, pedigree, regionbuf, regioncnk, gmap ->
+            [metaIC + [chunk: regioncnk], vcf, index, pedigree, regionbuf, gmap]
         }
 
     SHAPEIT5_PHASECOMMON (
