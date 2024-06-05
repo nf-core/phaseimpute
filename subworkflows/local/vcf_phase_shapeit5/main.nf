@@ -17,8 +17,6 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     ch_versions = Channel.empty()
 
-    // It is needed to generate a file containing the region to phase in a Chr \tab Start \tab End format
-    
     // Make chunks with Glimpse2 (does not work with "sequential" mode)
     chunk_model = "recursive"
 
@@ -55,7 +53,7 @@ workflow VCF_PHASE_SHAPEIT5 {
         .combine(ch_map, by:0)
         .map { metaC, metaIC, vcf, index, pedigree, chunk, gmap ->
             [metaIC + [chunk: chunk], vcf, index, pedigree, chunk, gmap]
-        }.view()
+        }
 
     SHAPEIT5_PHASECOMMON (
         ch_phase_input, ch_ref,
