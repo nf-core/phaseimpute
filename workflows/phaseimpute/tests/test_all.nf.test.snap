@@ -85,9 +85,7 @@
                 "prep_panel/haplegend/1000GP.s.norel_chr22.samples",
                 "prep_panel/haplegend/versions.yml",
                 "prep_panel/sites/tsv/1000GP.s.norel_chr21_glimpse1_sites_tsv.txt.gz",
-                "prep_panel/sites/tsv/1000GP.s.norel_chr21_glimpse1_sites_tsv.txt.gz.tbi",
                 "prep_panel/sites/tsv/1000GP.s.norel_chr22_glimpse1_sites_tsv.txt.gz",
-                "prep_panel/sites/tsv/1000GP.s.norel_chr22_glimpse1_sites_tsv.txt.gz.tbi",
                 "prep_panel/sites/tsv/versions.yml",
                 "prep_panel/sites/vcf/1000GP.s.norel_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/vcf/1000GP.s.norel_chr21_glimpse1_sites.vcf.gz.csi",
@@ -122,7 +120,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-31T20:03:10.127239268"
+        "timestamp": "2024-06-05T00:38:54.77344212"
     },
     "Check test_validate": {
         "content": [
