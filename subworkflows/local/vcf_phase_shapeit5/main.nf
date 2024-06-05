@@ -41,7 +41,7 @@ workflow VCF_PHASE_SHAPEIT5 {
                 'WindowMb', 'NbTotVariants', 'NbComVariants'
             ], sep: "\t", skip: 0
         )
-        .map { metaIC, it -> [metaIC, it["RegionBuf"]]}
+        .map { metaIC, it -> [metaIC, it["RegionBuf"], it["RegionCnk"]]}
 
     ch_chunks_number = GLIMPSE2_CHUNK.out.chunk_chr
         .map { meta, chunk -> [meta.subMap("chr"), chunk.countLines().intValue()]}
@@ -49,11 +49,11 @@ workflow VCF_PHASE_SHAPEIT5 {
     ch_phase_input = ch_vcf
         .combine(ch_chunks_glimpse2, by:0)
         .map{
-            metaIC, vcf, csi, pedigree, chunk -> [metaIC.subMap("chr"), metaIC, vcf, csi, pedigree, chunk]
+            metaIC, vcf, csi, pedigree, regionbuf, regioncnk -> [metaIC.subMap("chr"), metaIC, vcf, csi, pedigree, regionbuf, regioncnk]
         }
         .combine(ch_map, by:0)
-        .map { metaC, metaIC, vcf, index, pedigree, chunk, gmap ->
-            [metaIC + [chunk: chunk], vcf, index, pedigree, chunk, gmap]
+        .map { metaC, metaIC, vcf, index, pedigree, regionbuf, regioncnk, gmap ->
+            [metaIC + [chunk: regioncnk], vcf, index, pedigree, regionbuf, gmap]
         }
 
     SHAPEIT5_PHASECOMMON (
