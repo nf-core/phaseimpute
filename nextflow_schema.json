@@ -113,7 +113,7 @@
                     "type": "boolean",
                     "pattern": "true|false"
                 },
-                "freq" : {
+                "freq": {
                     "description": "Does the reference panel have the allele frequency for each variant (AC/AN fields necessary for Glimpse1 and the validation step). If `--freq false` then this will be compute using VCFFIXUP tool.",
                     "type": "boolean",
                     "pattern": "true|false"
