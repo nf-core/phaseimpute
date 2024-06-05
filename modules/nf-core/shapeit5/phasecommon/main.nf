@@ -8,10 +8,9 @@ process SHAPEIT5_PHASECOMMON {
         'biocontainers/shapeit5:1.0.0--h0c8ee15_0'}"
 
     input:
-        tuple val(meta) , path(input), path(input_index), path(pedigree), val(region)
+        tuple val(meta) , path(input), path(input_index), path(pedigree), val(region), path(map)
         tuple val(meta2), path(reference), path(reference_index)
         tuple val(meta3), path(scaffold), path(scaffold_index)
-        tuple val(meta4), path(map)
 
     output:
         tuple val(meta), path("*.{vcf,bcf,vcf.gz,bcf.gz}"), emit: phased_variant

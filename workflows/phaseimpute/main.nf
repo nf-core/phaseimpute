@@ -157,7 +157,7 @@ workflow PHASEIMPUTE {
                 ch_region,
                 Channel.of([[],[],[]]).collect(),
                 Channel.of([[],[],[]]).collect(),
-                Channel.of([[],[]]).collect()
+                ch_map
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
