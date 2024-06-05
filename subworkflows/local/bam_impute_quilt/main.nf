@@ -38,7 +38,7 @@ workflow BAM_IMPUTE_QUILT {
         .map {
             metaIC, bam, bai, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
             [
-                metaIC.subMap("id") + ["panel": metaPC.id, "chr": metaPC.chr],
+                metaIC.subMap("id") + ["panel": metaPC.id, "chr": metaPC.chr, "chunk": start + "-" + end],
                 bam, bai, hap, legend, chr, start, end, ngen, buffer, gmap
             ]
         }
