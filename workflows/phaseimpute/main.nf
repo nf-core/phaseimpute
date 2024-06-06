@@ -83,7 +83,7 @@ workflow PHASEIMPUTE {
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
-    ch_posfile              // channel: posfile       [ [chr], txt]
+    ch_posfile              // channel: posfile       [ [chr], vcf, txt]
     ch_chunks               // channel: chunks        [ [chr], txt]
     ch_versions             // channel: versions of software used
 
@@ -135,7 +135,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
+    if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("all")) {
         // Check chr prefix and remove if necessary
         VCF_CHR_CHECK(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
