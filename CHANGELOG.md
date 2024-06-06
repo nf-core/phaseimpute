@@ -36,7 +36,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
 - [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
 - [#65](https://github.com/nf-core/phaseimpute/pull/65) - Separate stitch output by individuals
-- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
+- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional with --compute_freq. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
 
 ### `Dependencies`
 
