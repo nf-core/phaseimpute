@@ -54,7 +54,7 @@ workflow VCF_NORMALIZE_BCFTOOLS {
         ch_biallelic_vcf_tbi_spl = ch_biallelic_vcf_tbi
     }
 
-    if (params.freq == false) {
+    if (params.compute_freq == true) {
         // Fix panel (AC/AN INFO fields in VCF are inconsistent with GT field)
         VCFLIB_VCFFIXUP(ch_biallelic_vcf_tbi_spl)
         ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
