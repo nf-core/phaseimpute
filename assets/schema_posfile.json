@@ -7,18 +7,34 @@
     "items": {
         "type": "object",
         "properties": {
+            "panel": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
+                "meta": ["panel"]
+            },
             "chr": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces",
                 "meta": ["chr"]
             },
-            "file": {
+            "vcf": {
                 "type": "string",
-                "pattern": "^\\S+\\.txt$",
-                "errorMessage": "Posfile per chromosome must be provided. Must have .txt extension"
+                "pattern": "^\\S+\\.((vcf)(\\.gz))?$",
+                "errorMessage": "VCF with sites per chromosome must be provided. Must have .vcf.gz extension"
+            },
+            "index": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(tbi|csi)$",
+                "errorMessage": "VCF index with sites per chromosome file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension and with '.csi' or '.tbi' extension"
+            },
+            "txt": {
+                "type": "string",
+                "pattern": "^\\S+\\.(txt|tsv)(\\.gz)?$",
+                "errorMessage": "TXT with sites (position file) per chromosome must be provided. Must have .txt or .tsv extension with optional .gz"
             }
         },
-        "required": ["chr", "file"]
+        "required": ["panel", "chr", "vcf", "index", "txt"]
     }
 }

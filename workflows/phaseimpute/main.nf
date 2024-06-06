@@ -52,6 +52,7 @@ include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
+include { POSFILE_PREPARE_GAWK                       } from '../../subworkflows/local/posfile_prepare_gawk'
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_SAMPLES_BCFTOOLS                       } from '../../subworkflows/local/vcf_samples_bcftools'
@@ -150,6 +151,11 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
+        // Generate posfile channels from extracted sites
+        ch_posfile_glimpse  = VCF_SITES_EXTRACT_BCFTOOLS.out.glimpse_posfile
+        ch_posfile_stitch   = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
+        ch_panel_sites      = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+
         // Phase panel with tool of choice (e.g. SHAPEIT5)
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
@@ -164,18 +170,6 @@ workflow PHASEIMPUTE {
         } else {
             ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         }
-
-        // Generate posfile channels
-        ch_posfile_glimpse = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
-            .join(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_glimpse)
-            .map{ metaPC, sites, s_index, tsv, t_index -> [metaPC, sites, tsv]}
-
-        ch_posfile_stitch = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
-
-        CONCAT_PANEL(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites)
-        ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
-
-        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
@@ -192,7 +186,7 @@ workflow PHASEIMPUTE {
 
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
             if (params.tools.split(',').contains("glimpse1")) {
-                print("Impute with GLIMPSE1")
+                log.info("Impute with GLIMPSE1")
 
                 // Use chunks from parameters if provided or use previous chunks from panelprep
                 if (params.chunks) {
@@ -201,6 +195,9 @@ workflow PHASEIMPUTE {
                     ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
 
+                if (params.posfile) {
+                    ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
+                }
                 // Use panel from parameters if provided
                 if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
                     ch_panel_phased = ch_panel
@@ -226,7 +223,7 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("glimpse2")) {
-                print("Impute with GLIMPSE2")
+                log.info("Impute with GLIMPSE2")
 
                 // Use chunks from parameters if provided or use previous chunks from panelprep
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
@@ -256,10 +253,11 @@ workflow PHASEIMPUTE {
                 ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
             }
             if (params.tools.split(',').contains("stitch")) {
-                print("Impute with STITCH")
+                log.info("Impute with STITCH")
 
+                // Use provided posfile
                 if (params.posfile) {
-                    ch_posfile_stitch = ch_posfile
+                    ch_posfile_stitch = POSFILE_PREPARE_GAWK(ch_posfile)
                 }
 
                 // Prepare inputs
@@ -287,7 +285,7 @@ workflow PHASEIMPUTE {
 
             }
             if (params.tools.split(',').contains("quilt")) {
-                print("Impute with QUILT")
+                log.info("Impute with QUILT")
 
                 // Use previous chunks if --steps panelprep
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
@@ -323,7 +321,20 @@ workflow PHASEIMPUTE {
         }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
+
+        // Use external posfile
+        if (params.posfile) {
+            ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
+            ch_panel_sites     = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, csi ]}
+        }
+
+        // Concatenate all sites into a single VCF (for GLIMPSE concordance)
+        CONCAT_PANEL(ch_panel_sites)
+        ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
+        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
+
         ch_truth_vcf = Channel.empty()
+
         // Get extension of input files
         truth_ext = getAllFilesExtension(ch_input_validate_truth)
 

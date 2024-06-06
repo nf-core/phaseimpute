@@ -247,24 +247,42 @@ Otherwise, you can provide your own position file in the `--steps impute` with S
 nextflow run nf-core/phaseimpute --input samplesheet.csv --steps impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker
 ```
 
-The csv provided in `--posfile` must contain two columns [chr, file]. The first column is the chromosome and the file column are tsvs with the list of positions, unique to each chromosome.
+The csv provided in `--posfile` must contain four columns [panel, chr, vcf, txt].
+
+- The first column [panel] is a name to identify the sites, typically a panel name. The panel name should be equal to the panel names in the `--panel samplesheet`, if using a panel.
+- The second column [chr] is the chromosome corresponding to each vcf and txt files.
+- The third column [vcf], required in GLIMPSE1 imputation, is used for the computation of genotype likelihood in the preprocessing of glimpse1. In addition, this file is used in `--steps validation`. This column can be kept empty if running `--steps impute --tools stitch` only.
+- The fourth column [txt] is a compressed tsv file containing the list of positions, unique to each chromosome.
 
 ```console
-chr,file
-chr1,posfile_chr1.txt
-chr2,posfile_chr2.txt
-chr3,posfile_chr3.txt
+panel,chr,vcf,txt
+1000G,chr1,,posfile_chr1.tsv.gz
+1000G,chr2,,posfile_chr2.tsv.gz
+1000G,chr3,,posfile_chr3.tsv.gz
 ```
 
-The file column should contain a TSV with the following structure, from STITCH documentation: "File is tab separated with no header, one row per SNP, with col 1 = chromosome, col 2 = physical position (sorted from smallest to largest), col 3 = reference base, col 4 = alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs" [STITCH](https://github.com/rwdavies/STITCH/blob/master/Options.md).
+The fourth column containing the compressed file has a TSV with the following structure, similar to that from [STITCH documentation](https://github.com/rwdavies/STITCH/blob/master/Options.md): File is tab separated with no header, one row per SNP, with
 
-As an example, chr22 tsv file:
+- Column 1: chromosome
+- Column 2: physical position (sorted from smallest to largest)
+- Column 3: reference base,alternate base. Bases are capitalized. STITCH only handles bi-allelic SNPs.
+
+Unlike the files used in the original STITCH program, in `phaseimpute`, the last column, containing the reference vs. the alternate base is comma-separated.
+
+As an example, a typical "posfile_chr22.tsv.gz" would look like:
 
 ```console
-chr22	16570065	A	G
-chr22	16570067	A	C
-chr22	16570176	C	A
-chr22	16570211	T	C
+chr22	16570065	A,G
+chr22	16570067	A,C
+chr22	16570176	C,A
+chr22	16570211	T,C
+```
+
+If you do not have a reference panel and you would like to obtain the posfile you can use the following command:
+
+```bash
+bcftools view -G -m 2 -M 2 -v ${vcf}
+bcftools query -f'%CHROM\t%POS\t%REF,%ALT\n' ${vcf}
 ```
 
 #### GLIMPSE1
@@ -275,7 +293,21 @@ chr22	16570211	T	C
 nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
 ```
 
-Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
+The csv provided in `--posfile` must contain four columns [panel, chr, vcf, txt].
+
+- The first column [panel] is a name to identify the sites, typically a panel name. The panel name should be equal to the panel names in the `--panel samplesheet`
+- The second column [chr] is the chromosome corresponding to that file.
+- The third column [vcf], required in GLIMPSE1 imputation, is used for the computation of genotype likelihood in the preprocessing of glimpse1. In addition, this file is used in `--steps validate`.
+- The fourth column [txt] is a compressed tsv file containing the list of positions, unique to each chromosome.
+
+```console
+panel,chr,vcf,txt
+1000G,chr1,posfile_chr1.vcf.gz,posfile_chr1.tsv.gz
+1000G,chr2,posfile_chr1.vcf.gz,posfile_chr2.tsv.gz
+1000G,chr3,posfile_chr1.vcf.gz,posfile_chr3.tsv.gz
+```
+
+The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].
 
 #### GLIMPSE2
 
@@ -300,6 +332,7 @@ The required flags for this mode are:
 - `--steps validate`: The steps to run.
 - `--input samplesheet.csv`: The samplesheet containing the input sample files in `vcf` format.
 - `--input_truth samplesheet.csv`: The samplesheet containing the truth VCF files in `vcf` format.
+- `--posfile samplesheet.csv`: A samplesheet containing the vcf, tbi and txt sites to validate.
 
 ### Run all steps sequentially `--steps all`
 

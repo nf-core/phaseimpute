@@ -21,22 +21,37 @@ This steps of the pipeline performs a QC of the reference panel data and produce
 - [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
 - [CSV](#csv) - Obtain a CSV from this step
 
-### Convert
+The directory structure from `--steps panelprep` is:
+
+```
+├── chunks
+│   ├── glimpse1
+│   └── glimpse2
+├── csv
+├── panel
+├── haplegend
+└── sites
+    ├── tsv
+    └── vcf
+```
+
+### Panel directory
+
+- `prep_panel/panel/`
+  - `*.vcf.gz`: A vcf for the prepared reference panel.
+  - `*.tbi*`: A tbi for the prepared reference panel.
+
+A directory containing the final phased and prepared panel per chromosome.
+
+### Haplegend directory
 
 - `prep_panel/haplegend/`
   - `*.hap`: a .hap file for the reference panel.
   - `*.legend*`: a .legend file for the reference panel.
 
-[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation (to be developed). The hap and legend files are input files used with `--tools quilt`.
+[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files are input files used with `--tools quilt`.
 
-### Posfile
-
-- `prep_panel/posfile/`
-  - `*.hap`: a .txt file with the list of position to genotype.
-
-[bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files per chromosome that can be gathered into a samplesheet and directly submitted for imputation with `--tools stitch` using the parameter `--posfile`.
-
-### Sites
+### Sites directory
 
 - `prep_panel/sites/`
   - `vcf/`
@@ -48,73 +63,33 @@ This steps of the pipeline performs a QC of the reference panel data and produce
 
 [bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCFs can be gathered into a csv and used with all the tools in `--steps impute` using the flag `--panel`.
 
-In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files (`*_tsv.txt`) and, together with the VCFs, they can be gathered into a samplesheet and directly submitted for imputation with `--tools glimpse1` and `--posfile` (not yet implemented).
+In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files (`*_tsv.txt`) and, together with the VCFs, they can be gathered into a samplesheet and directly submitted for imputation with `--tools glimpse1,stitch` and `--posfile`.
 
-### Glimpse Chunk
+### Chunks directory
 
 - `prep_panel/chunks/`
   - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
 
 [Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation steps and directly submit this file for imputation.
 
-## QUILT imputation mode
+### CSV directory
 
-The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
+- `prep_panel/csv/`
+  - `chunks.csv`: A csv containing the list of chunks obtained for each chromosome and panel.
+  - `panel.csv`: A csv containing the final phased and prepared for each chromosome and input panel.
+  - `posfile.csv`: A csv containing the final list of panel positions, in vcf and tsv, for each chromosome and input panel.
 
-- [QUILT](#quilt) - Perform imputation
-- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF.
-- [CSV](#csv) - Obtain a CSV from this step
+## Imputation outputs `--steps impute`
 
-### QUILT
+The results from steps impute will have the following directory structure:
 
-- `imputation/quilt/`
-- `quilt.*.vcf.gz`: Imputed VCF for a specific chunk.
-- `quilt.*.vcf.gz.tbi`: TBI for the Imputed VCF for a specific chunk.
-
-[quilt](https://github.com/rwdavies/QUILT) performs the imputation. This steps will contain the VCF for each of the chunks.
-
-### Concat
-
-- `imputation/quilt/bcftools/concat`
-- `.*.vcf.gz`: Imputed and ligated VCF for all the input samples.
+- `imputation/csv/`
+  - `impute.csv`: A single csv containing the path to a vcf and its index, of each imputed sample with their corresponding tool.
+- `imputation/[glimpse1,glimpse2,quilt,stitch]/`
+  - `concat/*.vcf.gz`: A vcf of each imputed sample.
+  - `concat/*.vcf.gz.tbi`: A tbi for the imputed vcf.
 
 [bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs in chunks.
-
-## STITCH imputation mode
-
-The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
-
-- [STITCH](#stitch) - Perform imputation
-- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
-- [CSV](#csv) - Obtain a CSV from this step
-
-### STITCH
-
-- `imputation/stitch/`
-- `stitch.*.vcf.gz`: Imputed VCF for a specific chunk.
-- `stitch.*.vcf.gz.tbi`: TBI for the Imputed VCF for a specific chunk.
-
-[STITCH](https://github.com/rwdavies/STITCH) performs the imputation. This steps will contain the VCF for each of the chunks.
-
-### Concat
-
-- `imputation/stitch/bcftools/concat`
-- `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
-
-[bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs.
-
-## GLIMPSE2 imputation mode
-
-The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
-
-- [GLIMPSE2](#glimpse2) - Perform imputation
-- [Concatenate](#concatenate) - Concatenate all imputed chunks into a single VCF
-- [CSV](#csv) - Obtain a CSV from this step
-
-### GLIMPSE2 output files
-
-- `imputation/glimpse2/concat`
-- `.*.vcf.gz`: Imputed and concatenated VCF for all the input samples.
 
 ## Reports
 
