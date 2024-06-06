@@ -165,7 +165,7 @@ workflow PHASEIMPUTE {
         // Phase panel with Shapeit5
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine([]),
                 ch_region,
                 [[],[],[]],
                 [[],[],[]],
