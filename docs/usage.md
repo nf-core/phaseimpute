@@ -322,12 +322,14 @@ Make sure the csv with the input panel is the output from `--step panelprep` or 
 ### Start with validation `--steps validate`
 
 This steps compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
+This also needs the frequency of the alleles. They can be computed from the reference panel by running the `--steps panelprep` and using the `--panel` with the `--compute_freq` flag; or by using a `--posfile` samplesheet.
+
 
 ```bash
 nextflow run nf-core/phaseimpute --input samplesheet.csv --input_truth truth.csv --steps validate --outdir results --genome GRCh37 -profile docker
 ```
 
-The required flags for this mode are:
+The required flags for this mode only are:
 
 - `--steps validate`: The steps to run.
 - `--input samplesheet.csv`: The samplesheet containing the input sample files in `vcf` format.
