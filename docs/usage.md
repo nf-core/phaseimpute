@@ -158,7 +158,7 @@ The required flags for this mode are:
 - `--steps panelprep`: The steps to run.
 - `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
 - `--phased`: (optional) Whether the reference panel is phased (true|false).
-- `--freq`: (optional) Whether the reference panel has frequency information (AC/AN field) for each variants (true|false).
+- `--compute_freq`: (optional) Whether the frequency (AC/AN field) for each variants needs to be computed or not (true/false). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
 - `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
