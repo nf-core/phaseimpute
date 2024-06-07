@@ -32,9 +32,10 @@ indent_size = unset
 [*.{py,md}]
 indent_style = unset
 
-[/docs/*.xml]
+[/docs/*.xml*]
 indent_style = unset
+insert_final_newline = unset
 
 [/docs/images/metro/*.xml*]
 indent_style = unset
-insert_final_newline = false
+insert_final_newline = unset
