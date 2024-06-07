@@ -4,11 +4,11 @@ process SAMTOOLS_COVERAGE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/samtools:1.19.2--h50ea8bc_0' :
-        'biocontainers/samtools:1.19.2--h50ea8bc_0' }"
+        'https://depot.galaxyproject.org/singularity/samtools:1.20--h50ea8bc_0' :
+        'biocontainers/samtools:1.20--h50ea8bc_0' }"
 
     input:
-    tuple val(meta), path(input), path(input_index), val(region)
+    tuple val(meta), path(input), path(input_index)
     tuple val(meta2), path(fasta), path(fai)
 
     output:
@@ -19,15 +19,13 @@ process SAMTOOLS_COVERAGE {
     task.ext.when == null || task.ext.when
 
     script:
-    def args       = task.ext.args   ?: ''
-    def prefix     = task.ext.prefix ?: "${meta.id}"
-    def region_cmd = region          ? "--region ${region}" : ''
+    def args   = task.ext.args   ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     samtools \\
         coverage \\
         $args \\
         -o ${prefix}.txt \\
-        $region_cmd \\
         --reference ${fasta} \\
         $input
 

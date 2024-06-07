@@ -1,32 +1,15 @@
 Changes in module 'nf-core/samtools/coverage'
 --- modules/nf-core/samtools/coverage/main.nf
 +++ modules/nf-core/samtools/coverage/main.nf
-@@ -8,7 +8,7 @@
-         'biocontainers/samtools:1.19.2--h50ea8bc_0' }"
+@@ -9,8 +9,7 @@
  
      input:
--    tuple val(meta), path(input), path(input_index)
-+    tuple val(meta), path(input), path(input_index), val(region)
-     tuple val(meta2), path(fasta)
-     tuple val(meta3), path(fai)
+     tuple val(meta), path(input), path(input_index)
+-    tuple val(meta2), path(fasta)
+-    tuple val(meta3), path(fai)
++    tuple val(meta2), path(fasta), path(fai)
  
-@@ -20,13 +20,15 @@
-     task.ext.when == null || task.ext.when
- 
-     script:
--    def args   = task.ext.args   ?: ''
--    def prefix = task.ext.prefix ?: "${meta.id}"
-+    def args       = task.ext.args   ?: ''
-+    def prefix     = task.ext.prefix ?: "${meta.id}"
-+    def region_cmd = region          ? "--region ${region}" : ''
-     """
-     samtools \\
-         coverage \\
-         $args \\
-         -o ${prefix}.txt \\
-+        $region_cmd \\
-         --reference ${fasta} \\
-         $input
- 
+     output:
+     tuple val(meta), path("*.txt"), emit: coverage
 
 ************************************************************
