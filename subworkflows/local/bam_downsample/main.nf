@@ -57,7 +57,7 @@ workflow BAM_DOWNSAMPLE {
     ch_bam_emul = SAMTOOLS_VIEW.out.bam
         .combine(SAMTOOLS_INDEX_1.out.bai, by:0)
 
-    if (params.sim_by_chr == true) {
+    if (params.sim_by_reg == true) {
         SAMTOOLS_MERGE(
             ch_bam_emul
                 .map{
