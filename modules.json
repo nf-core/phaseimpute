@@ -133,9 +133,15 @@
                     },
                     "samtools/coverage": {
                         "branch": "master",
-                        "git_sha": "38afbe42f7db7f19c7a89607c0a71c68f3be3131",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/samtools/coverage/samtools-coverage.diff"
+                    },
+                    "samtools/depth": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/depth/samtools-depth.diff"
                     },
                     "samtools/faidx": {
                         "branch": "master",

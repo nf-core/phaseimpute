@@ -1,4 +1,4 @@
-name: samtools_coverage
+name: samtools_depth
 channels:
   - conda-forge
   - bioconda
