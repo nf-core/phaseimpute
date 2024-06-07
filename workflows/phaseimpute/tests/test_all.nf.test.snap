@@ -28,13 +28,7 @@
                 "simulation/NA19401.bam.bai",
                 "simulation/NA20359.bam",
                 "simulation/NA20359.bam.bai",
-                "simulation/csv/simulate.csv",
-                "simulation/stats/NA12878_Rchr21_16570000-16610000.stats.txt",
-                "simulation/stats/NA12878_Rchr22_16570000-16610000.stats.txt",
-                "simulation/stats/NA19401_Rchr21_16570000-16610000.stats.txt",
-                "simulation/stats/NA19401_Rchr22_16570000-16610000.stats.txt",
-                "simulation/stats/NA20359_Rchr21_16570000-16610000.stats.txt",
-                "simulation/stats/NA20359_Rchr22_16570000-16610000.stats.txt"
+                "simulation/csv/simulate.csv"
             ],
             [
                 "imputation/csv/impute.csv",
@@ -171,12 +165,7 @@
                 "simulation/NA19401.bam.bai",
                 "simulation/NA20359.bam",
                 "simulation/NA20359.bam.bai",
-                "simulation/stats/NA12878_Rchr21_16570000-16610000.stats.txt",
-                "simulation/stats/NA12878_Rchr22_16570000-16610000.stats.txt",
-                "simulation/stats/NA19401_Rchr21_16570000-16610000.stats.txt",
-                "simulation/stats/NA19401_Rchr22_16570000-16610000.stats.txt",
-                "simulation/stats/NA20359_Rchr21_16570000-16610000.stats.txt",
-                "simulation/stats/NA20359_Rchr22_16570000-16610000.stats.txt"
+                "simulation/csv/simulate.csv"
             ]
         ],
         "meta": {

@@ -100,6 +100,8 @@ workflow PHASEIMPUTE {
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Output channel of simulate process
         ch_sim_output = Channel.empty()
+        // Set truth channel
+        ch_input_validate_truth = ch_input_sim
 
         // Test if the input are all bam files
         getAllFilesExtension(ch_input_sim)
@@ -109,13 +111,13 @@ workflow PHASEIMPUTE {
 
         // Compute coverage of input files
         SAMTOOLS_COVERAGE_TRT(ch_input_sim, ch_fasta)
-        ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
+        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
-        if (params.sim_by_chr == true) {
+        if (params.sim_by_reg == true) {
             // Split the bam into the region specified
             BAM_REGION(ch_input_sim, ch_region, ch_fasta)
-            ch_versions = ch_versions.mix(BAM_REGION.out.versions)
+            ch_versions  = ch_versions.mix(BAM_REGION.out.versions)
             ch_input_dwn = BAM_REGION.out.bam_region
         } else {
             ch_input_dwn = ch_input_sim
@@ -131,11 +133,10 @@ workflow PHASEIMPUTE {
             )
             ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
             ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
-            ch_input_validate_truth = ch_input_sim
 
             // Compute coverage of input files
             SAMTOOLS_COVERAGE_SIM(BAM_DOWNSAMPLE.out.bam_emul, ch_fasta)
-            ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_SIM.out.versions)
+            ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_SIM.out.versions)
             ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_SIM.out.coverage.map{it[1]})
         }
 
