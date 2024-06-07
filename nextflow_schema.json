@@ -84,6 +84,12 @@
                     "default": 1,
                     "fa_icon": "fas fa-list-ol"
                 },
+                "sim_by_chr": {
+                    "type": "boolean",
+                    "description": "Simulate data by chromosome then merge it or simulate all data at once",
+                    "default": true,
+                    "pattern": "true|false"
+                },
                 "genotype": {
                     "type": "string",
                     "description": "Genotype position to use to simulate the data",
