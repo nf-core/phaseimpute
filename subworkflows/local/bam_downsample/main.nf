@@ -63,7 +63,10 @@ workflow BAM_DOWNSAMPLE {
                 .map{
                     metaICRD, bam, index -> [metaICRD.subMap("id", "depth"), bam, index]
                 }
-                .groupTuple(),
+                .groupTuple()
+                .map{ metaID, bam, index ->
+                    [ metaID + ["chr": "all"], bam, index ]
+                },
             ch_fasta
         )
         ch_versions = ch_versions.mix(SAMTOOLS_MERGE.out.versions.first())
