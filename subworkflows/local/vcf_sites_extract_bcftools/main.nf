@@ -36,7 +36,7 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_posfile = ch_panel_sites
             .join(TABIX_BGZIP.out.output)
 
-    // Convert TSC to Stitch format ","" to "\t"
+    // Convert TSV to Stitch format ","" to "\t"
     GAWK(BCFTOOLS_QUERY.out.output, [])
     ch_versions = ch_versions.mix(GAWK.out.versions)
 
