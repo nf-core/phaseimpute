@@ -40,6 +40,7 @@ process SAMTOOLS_COVERAGE {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
+    echo "#rname\tstartpos\tendpos\tnumreads\tcovbases\tcoverage\tmeandepth\tmeanbaseq\tmeanmapq" > ${prefix}.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
