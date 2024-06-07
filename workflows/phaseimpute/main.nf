@@ -161,9 +161,9 @@ workflow PHASEIMPUTE {
             VCF_PHASE_SHAPEIT5(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
                 ch_region,
-                Channel.of([[],[],[]]).collect(),
-                Channel.of([[],[],[]]).collect(),
-                Channel.of([[],[]]).collect()
+                [[],[],[]],
+                [[],[],[]],
+                ch_map
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
@@ -227,9 +227,9 @@ workflow PHASEIMPUTE {
 
                 // Use chunks from parameters if provided or use previous chunks from panelprep
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
-                    ch_chunks = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1 // Chunks from glimpse2 are wrong
+                    ch_chunks_glimpse2 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse2
                 } else if (params.chunks) {
-                    ch_chunks = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                    ch_chunks_glimpse2 = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
                 }
 
                 // Use panel from parameters if provided
@@ -241,7 +241,7 @@ workflow PHASEIMPUTE {
                 VCF_IMPUTE_GLIMPSE2(
                     ch_input_impute,
                     ch_panel_phased,
-                    ch_chunks,
+                    ch_chunks_glimpse2,
                     ch_fasta
                 )
                 ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)

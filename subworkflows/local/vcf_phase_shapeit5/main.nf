@@ -1,8 +1,8 @@
-include { BEDTOOLS_MAKEWINDOWS                   } from '../../../modules/nf-core/bedtools/makewindows/main.nf'
-include { SHAPEIT5_PHASECOMMON                   } from '../../../modules/nf-core/shapeit5/phasecommon/main'
-include { SHAPEIT5_LIGATE                        } from '../../../modules/nf-core/shapeit5/ligate/main'
-include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index/main.nf'
-include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index/main.nf'
+include { GLIMPSE2_CHUNK                         } from '../../../modules/nf-core/glimpse2/chunk'
+include { SHAPEIT5_PHASECOMMON                   } from '../../../modules/nf-core/shapeit5/phasecommon'
+include { SHAPEIT5_LIGATE                        } from '../../../modules/nf-core/shapeit5/ligate'
+include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_PHASE_SHAPEIT5 {
 
@@ -11,40 +11,54 @@ workflow VCF_PHASE_SHAPEIT5 {
     ch_region     // channel (optional) : [ [chr, region], region ]
     ch_ref        // channel (optional) : [ [id, chr], ref, csi ]
     ch_scaffold   // channel (optional) : [ [id, chr], scaffold, csi ]
-    ch_map        // channel (optional) : [ [id, chr], map]
+    ch_map        // channel (optional) : [ [chr], map]
 
     main:
 
     ch_versions = Channel.empty()
 
-    // It is needed to generate a file containing the region to phase in a Chr \tab Start \tab End format
+    // Make chunks with Glimpse2 (does not work with "sequential" mode)
+    chunk_model = "recursive"
 
-    // Create the File in bed format and use the meta id for the file name
-    ch_region_file = ch_region
-        .collectFile(newLine: true) { metaCR, region -> ["${metaCR.chr}.bed", region.replace(":","\t").replace("-","\t")]}
-        .map { file -> [[id: file.getBaseName(), chr:file.getBaseName()], file] }
+    // Chunk with Glimpse2
+    ch_input_glimpse2 = ch_vcf
+        .map{
+            metaIC, vcf, csi, pedigree -> [metaIC.subMap("chr"), metaIC, vcf, csi]
+        }
+        .combine(ch_region.map{ metaCR, region -> [metaCR.subMap("chr"), region]}, by:0)
+        .join(ch_map)
+        .map{
+            metaC, metaIC, vcf, csi, region, gmap -> [metaIC, vcf, csi, region, gmap]
+        }
+    GLIMPSE2_CHUNK ( ch_input_glimpse2, chunk_model )
+    ch_versions = ch_versions.mix( GLIMPSE2_CHUNK.out.versions.first() )
 
-    BEDTOOLS_MAKEWINDOWS(ch_region_file)
-    ch_versions = ch_versions.mix(BEDTOOLS_MAKEWINDOWS.out.versions.first())
+    // Rearrange channels
+    ch_chunks_glimpse2 = GLIMPSE2_CHUNK.out.chunk_chr
+        .splitCsv(
+            header: [
+                'ID', 'Chr', 'RegionBuf', 'RegionCnk', 'WindowCm',
+                'WindowMb', 'NbTotVariants', 'NbComVariants'
+            ], sep: "\t", skip: 0
+        )
+        .map { metaIC, it -> [metaIC, it["RegionBuf"], it["RegionCnk"]]}
 
-    ch_chunk_output = BEDTOOLS_MAKEWINDOWS.out.bed
-        .splitCsv(header: ['Chr', 'Start', 'End'], sep: "\t", skip: 0)
-        .map { meta, it -> [meta.subMap("chr"), it["Chr"]+":"+it["Start"]+"-"+it["End"]]}
-
-    ch_chunks_number = BEDTOOLS_MAKEWINDOWS.out.bed
-        .map { meta, bed -> [meta.subMap("chr"), bed.countLines().intValue()]}
+    ch_chunks_number = GLIMPSE2_CHUNK.out.chunk_chr
+        .map { meta, chunk -> [meta.subMap("chr"), chunk.countLines().intValue()]}
 
     ch_phase_input = ch_vcf
-        .map { metaIC, vcf, index, pedigree ->
-            [metaIC.subMap("chr"), metaIC, vcf, index, pedigree] }
-        .combine(ch_chunk_output, by:0)
-        .map { metaC, meta, vcf, index, pedigree, chunk ->
-            [meta + [chunk: chunk], vcf, index, pedigree, chunk]
+        .combine(ch_chunks_glimpse2, by:0)
+        .map{
+            metaIC, vcf, csi, pedigree, regionbuf, regioncnk -> [metaIC.subMap("chr"), metaIC, vcf, csi, pedigree, regionbuf, regioncnk]
+        }
+        .combine(ch_map, by:0)
+        .map { metaC, metaIC, vcf, index, pedigree, regionbuf, regioncnk, gmap ->
+            [metaIC + [chunk: regioncnk], vcf, index, pedigree, regionbuf, gmap]
         }
 
     SHAPEIT5_PHASECOMMON (
         ch_phase_input, ch_ref,
-        ch_scaffold, ch_map
+        ch_scaffold
     )
     ch_versions = ch_versions.mix(SHAPEIT5_PHASECOMMON.out.versions.first())
 

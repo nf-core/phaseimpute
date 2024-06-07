@@ -45,7 +45,7 @@ workflow VCF_IMPUTE_GLIMPSE1 {
         .combine(ch_chunks_panel, by: 0)
         .combine(gmap_file)
         .map{ metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
-            [metaIPC + ["region": regionin],
+            [metaIPC + ["chunk": regionout],
             bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
         }
 
