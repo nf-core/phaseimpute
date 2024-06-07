@@ -14,7 +14,7 @@ workflow CHUNK_PREPARE_CHANNEL {
                 .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
     }
 
-    if(tool = "quilt") {
+    if(tool == "quilt") {
         ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
             .splitText()
             .map { metamap, line ->
