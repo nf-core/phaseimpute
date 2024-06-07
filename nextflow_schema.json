@@ -84,9 +84,9 @@
                     "default": 1,
                     "fa_icon": "fas fa-list-ol"
                 },
-                "sim_by_chr": {
+                "sim_by_reg": {
                     "type": "boolean",
-                    "description": "Simulate data by chromosome then merge it or simulate all data at once",
+                    "description": "Simulate data only for the given region then merge it or simulate all data at once",
                     "default": true,
                     "pattern": "true|false"
                 },
