@@ -174,6 +174,17 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
         }
 
+        // Compute stats on panel
+        BCFTOOLS_STATS(
+            ch_panel_phased,
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            ch_fasta.map{ [it[0], it[1]] })
+        ch_versions = ch_versions.mix(BCFTOOLS_STATS.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS.out.stats.map{ [it[1]] })
+
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
