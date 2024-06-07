@@ -34,6 +34,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/
 include { CHANNEL_POSFILE_CREATE_CSV                 } from '../../subworkflows/local/channel_posfile_create_csv'
 include { CHANNEL_CHUNKS_CREATE_CSV                  } from '../../subworkflows/local/channel_chunks_create_csv'
 include { CHANNEL_PANEL_CREATE_CSV                   } from '../../subworkflows/local/channel_panel_create_csv'
+include { BCFTOOLS_STATS                             } from '../../modules/nf-core/bcftools/stats/main'
 
 // Imputation subworkflows
 include { CHANNEL_IMPUTE_CREATE_CSV                   } from '../../subworkflows/local/channel_impute_create_csv'
@@ -170,6 +171,17 @@ workflow PHASEIMPUTE {
         } else {
             ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         }
+
+        // Compute stats on panel
+        BCFTOOLS_STATS(
+            ch_panel_phased,
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            ch_fasta.map{ [it[0], it[1]] })
+        ch_versions = ch_versions.mix(BCFTOOLS_STATS.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS.out.stats.map{ [it[1]] })
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)

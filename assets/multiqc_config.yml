@@ -10,6 +10,16 @@ report_section_order:
   "nf-core-phaseimpute-summary":
     order: -1002
 
+top_modules:
+  - "samtools":
+    name: "Samtools coverage before and after downsampling"
+    path_filters:
+      - "*_.stats"
+  - "bcftools":
+    name: "BCFtools stats of phased reference panel"
+    path_filters:
+      - "*_bcftools_stats.txt"
+
 export_plots: true
 
 disable_version_detection: true
