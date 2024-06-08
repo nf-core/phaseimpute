@@ -182,12 +182,15 @@ workflow PHASEIMPUTE {
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
+        // Assign chunks channels
+        ch_chunks_glimpse1  = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+        ch_chunks_glimpse2  = VCF_CHUNK_GLIMPSE.out.chunks_glimpse2
+        ch_chunks_quilt     = VCF_CHUNK_GLIMPSE.out.chunks_quilt
+
         // Create CSVs from panelprep step
         CHANNEL_POSFILE_CREATE_CSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch, params.outdir)
         CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
-        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased,
-                VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend,
-                params.outdir)
+        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased, ch_hap_legend, params.outdir)
 
     }
 
