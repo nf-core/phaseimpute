@@ -96,9 +96,6 @@ workflow PHASEIMPUTE {
     // Simulate data if asked
     //
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
-        // Output channel of simulate process
-        ch_sim_output = Channel.empty()
-
         // Test if the input are all bam files
         getAllFilesExtension(ch_input_sim)
             .map{ if (it != "bam") {
@@ -111,24 +108,17 @@ workflow PHASEIMPUTE {
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
         if (params.input_region) {
-            // Split the bam into the region specified
+            // Split the bam into the regions specified
             BAM_REGION(ch_input_sim, ch_region, ch_fasta)
             ch_versions  = ch_versions.mix(BAM_REGION.out.versions)
-            ch_input_dwn = BAM_REGION.out.bam_region
-        } else {
-            ch_input_dwn = ch_input_sim
-                .map{ meta, bam, index -> [ meta + [chr: "all"], bam, index ] }
+            ch_input_sim = BAM_REGION.out.bam_region
         }
 
         if (params.depth) {
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(
-                ch_input_dwn,
-                ch_depth,
-                ch_fasta
-            )
-            ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
-            ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
+            BAM_DOWNSAMPLE(ch_input_sim, ch_depth, ch_fasta)
+            ch_versions     = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
+            ch_input_impute = BAM_DOWNSAMPLE.out.bam_emul
 
             // Compute coverage of input files
             SAMTOOLS_COVERAGE_SIM(BAM_DOWNSAMPLE.out.bam_emul, ch_fasta)
@@ -160,7 +150,7 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi, ch_fasta)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
-        // Generate posfile channels from extracted sites
+        // Generate all necessary channels
         ch_posfile_glimpse  = VCF_SITES_EXTRACT_BCFTOOLS.out.glimpse_posfile
         ch_posfile_stitch   = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
         ch_panel_sites      = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
@@ -168,7 +158,7 @@ workflow PHASEIMPUTE {
         ch_hap_legend       = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
 
 
-        // Phase panel with tool of choice (e.g. SHAPEIT5)
+        // Phase panel with Shapeit5
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
