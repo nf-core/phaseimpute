@@ -192,7 +192,8 @@ workflow PHASEIMPUTE {
 
                 // Use chunks from parameters if provided or use previous chunks from panelprep
                 if (params.chunks) {
-                    ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                    CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
+                    ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
                 } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
@@ -231,7 +232,8 @@ workflow PHASEIMPUTE {
                 if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
                     ch_chunks_glimpse2 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse2
                 } else if (params.chunks) {
-                    ch_chunks_glimpse2 = CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse").out.chunks
+                    CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
+                    ch_chunks_glimpse2 = CHUNK_PREPARE_CHANNEL.out.chunks
                 }
 
                 // Use panel from parameters if provided
