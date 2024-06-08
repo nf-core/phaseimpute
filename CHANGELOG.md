@@ -30,7 +30,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#56](https://github.com/nf-core/phaseimpute/pull/56) - Move to nf-test to check the output files names generated. Fix validation and concatenation by chromosomes missing. Add dedicated GLIMPSE1 subworkflow. Fix posfile generation to be done once for glimpse and stitch.
 - [#68](https://github.com/nf-core/phaseimpute/pull/68) - QUILT can handle external params chunks and hap-legend files.
 - [#78](https://github.com/nf-core/phaseimpute/pull/78) - Separate validate step from panel preparation.
-- [#84](https://github.com/nf-core/phaseimpute/pull/84) - Change depth computation to use SAMTOOLS_DEPTH and make separation by chromosome in simulation optional with `--sim_by_reg` parameter.
+- [#84](https://github.com/nf-core/phaseimpute/pull/84) - Change depth computation to use SAMTOOLS_DEPTH and make separation by chromosome only if regions are specified.
 
 ### `Fixed`
 
