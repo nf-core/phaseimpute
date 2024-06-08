@@ -63,6 +63,10 @@ workflow NFCORE_PHASEIMPUTE {
         ch_input_validate = ch_input
     }
 
+    if (params.steps.split(',').contains("all")) {
+        ch_input_truth = ch_input
+    }
+
     //
     // WORKFLOW: Run pipeline
     //
