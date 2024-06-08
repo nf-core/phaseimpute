@@ -84,6 +84,11 @@
                 "prep_panel/haplegend/1000GP.s.norel_chr22.legend.gz",
                 "prep_panel/haplegend/1000GP.s.norel_chr22.samples",
                 "prep_panel/haplegend/versions.yml",
+                "prep_panel/normalized/1000GP.s.norel_chr21_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/1000GP.s.norel_chr21_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/normalized/1000GP.s.norel_chr22_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/1000GP.s.norel_chr22_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/normalized/versions.yml",
                 "prep_panel/sites/tsv/1000GP.s.norel_chr21_glimpse1_sites_tsv.txt.gz",
                 "prep_panel/sites/tsv/1000GP.s.norel_chr22_glimpse1_sites_tsv.txt.gz",
                 "prep_panel/sites/tsv/versions.yml",
@@ -120,7 +125,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-05T00:38:54.77344212"
+        "timestamp": "2024-06-08T12:22:26.975587517"
     },
     "Check test_validate": {
         "content": [
