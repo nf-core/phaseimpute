@@ -155,6 +155,9 @@ workflow PHASEIMPUTE {
         ch_posfile_glimpse  = VCF_SITES_EXTRACT_BCFTOOLS.out.glimpse_posfile
         ch_posfile_stitch   = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
         ch_panel_sites      = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+        ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
+        ch_hap_legend       = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
+
 
         // Phase panel with tool of choice (e.g. SHAPEIT5)
         if (params.phased == false) {
@@ -167,20 +170,21 @@ workflow PHASEIMPUTE {
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
-        } else {
-            ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         }
 
         // Create chunks from reference VCF
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
+        // Assign chunks channels
+        ch_chunks_glimpse1  = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
+        ch_chunks_glimpse2  = VCF_CHUNK_GLIMPSE.out.chunks_glimpse2
+        ch_chunks_quilt     = VCF_CHUNK_GLIMPSE.out.chunks_quilt
+
         // Create CSVs from panelprep step
         CHANNEL_POSFILE_CREATE_CSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch, params.outdir)
         CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
-        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased,
-                VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend,
-                params.outdir)
+        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased, ch_hap_legend, params.outdir)
 
     }
 
@@ -188,14 +192,12 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("glimpse1")) {
                 log.info("Impute with GLIMPSE1")
 
-                // Use chunks from parameters if provided or use previous chunks from panelprep
+                // Use chunks from parameters if provided
                 if (params.chunks) {
                     CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
                     ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
-                } else if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
-                    ch_chunks_glimpse1 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
                 }
-
+                // Use posfile from parameters if provided
                 if (params.posfile) {
                     ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
                 }
@@ -226,10 +228,8 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("glimpse2")) {
                 log.info("Impute with GLIMPSE2")
 
-                // Use chunks from parameters if provided or use previous chunks from panelprep
-                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
-                    ch_chunks_glimpse2 = VCF_CHUNK_GLIMPSE.out.chunks_glimpse2
-                } else if (params.chunks) {
+                // Use chunks from parameters if provided
+                if (params.chunks) {
                     CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
                     ch_chunks_glimpse2 = CHUNK_PREPARE_CHANNEL.out.chunks
                 }
@@ -289,18 +289,10 @@ workflow PHASEIMPUTE {
             if (params.tools.split(',').contains("quilt")) {
                 log.info("Impute with QUILT")
 
-                // Use previous chunks if --steps panelprep
-                if (params.panel && params.steps.split(',').find { it in ["all", "panelprep"] } && !params.chunks) {
-                    ch_chunks_quilt = VCF_CHUNK_GLIMPSE.out.chunks_quilt
                 // Use provided chunks if --chunks
-                } else if (params.chunks) {
+                if (params.chunks) {
                     CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
                     ch_chunks_quilt = CHUNK_PREPARE_CHANNEL.out.chunks
-                }
-
-                // Use previous hap_legend if --steps panelprep
-                if (params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                    ch_hap_legend = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
                 }
 
                 // Impute BAMs with QUILT
