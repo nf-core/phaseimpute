@@ -1,17 +1,28 @@
-include { BCFTOOLS_VIEW  } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_INDEX } from '../../../modules/nf-core/bcftools/index'
-include { TABIX_BGZIP    } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_TABIX    } from '../../../modules/nf-core/tabix/tabix'
-include { BCFTOOLS_QUERY } from '../../../modules/nf-core/bcftools/query'
-include { GAWK           } from '../../../modules/nf-core/gawk'
+include { BCFTOOLS_VIEW                 } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX                } from '../../../modules/nf-core/bcftools/index'
+include { TABIX_BGZIP                   } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_TABIX                   } from '../../../modules/nf-core/tabix/tabix'
+include { BCFTOOLS_QUERY                } from '../../../modules/nf-core/bcftools/query'
+include { GAWK                          } from '../../../modules/nf-core/gawk'
+include { BCFTOOLS_CONVERT              } from '../../../modules/nf-core/bcftools/convert'
+
 
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:
     ch_vcf          // channel: [ [id, chr], vcf, index ]
+    ch_fasta        // channel: [ [genome], fasta, fai ]
 
     main:
 
     ch_versions = Channel.empty()
+    ch_fasta = ch_fasta.map { meta, fasta, fai -> [meta, fasta] }
+
+    // Convert VCF to Hap and Legend files
+    BCFTOOLS_CONVERT(ch_vcf, ch_fasta, [])
+    ch_versions = ch_versions.mix(BCFTOOLS_CONVERT.out.versions)
+
+    // Output hap and legend files
+    ch_hap_legend = BCFTOOLS_CONVERT.out.hap.join(BCFTOOLS_CONVERT.out.legend)
 
     // Extract sites positions
     BCFTOOLS_VIEW(ch_vcf, [], [], [])
@@ -44,6 +55,7 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_glimpse_posfile = ch_posfile.map{ metaPC, sites, s_index, tsv -> [metaPC, sites, tsv]}
 
     emit:
+    hap_legend             = ch_hap_legend       // channel: [ [id, chr], '.hap', '.legend' ]
     panel_tsv_stitch       = GAWK.out.output     // channel: [ [id, chr], txt ]
     panel_sites            = ch_panel_sites      // channel: [ [id, chr], vcf, csi ]
     posfile                = ch_posfile          // channel: [ [id, chr], vcf, csi, tsv.gz ]

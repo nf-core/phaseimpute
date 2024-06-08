@@ -148,7 +148,7 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_NORMALIZE_BCFTOOLS.out.versions)
 
         // Extract sites from normalized vcf
-        VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
+        VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi, ch_fasta)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Generate posfile channels from extracted sites
@@ -179,7 +179,7 @@ workflow PHASEIMPUTE {
         CHANNEL_POSFILE_CREATE_CSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch, params.outdir)
         CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
         CHANNEL_PANEL_CREATE_CSV(ch_panel_phased,
-                VCF_NORMALIZE_BCFTOOLS.out.hap_legend,
+                VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend,
                 params.outdir)
 
     }
@@ -300,7 +300,7 @@ workflow PHASEIMPUTE {
 
                 // Use previous hap_legend if --steps panelprep
                 if (params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                    ch_hap_legend = VCF_NORMALIZE_BCFTOOLS.out.hap_legend
+                    ch_hap_legend = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
                 }
 
                 // Impute BAMs with QUILT
