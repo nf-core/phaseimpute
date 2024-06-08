@@ -23,6 +23,8 @@ include { checkHapLegend              } from '../../subworkflows/local/utils_nfc
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
 include { CHANNEL_SIMULATE_CREATE_CSV                } from '../../subworkflows/local/channel_simulate_create_csv'
+include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_SIM } from '../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_TRT } from '../../modules/nf-core/samtools/coverage'
 
 // Panelprep subworkflows
 include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
@@ -95,33 +97,34 @@ workflow PHASEIMPUTE {
     // Simulate data if asked
     //
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
-        // Output channel of simulate process
-        ch_sim_output = Channel.empty()
-
         // Test if the input are all bam files
         getAllFilesExtension(ch_input_sim)
             .map{ if (it != "bam") {
                 error "All input files must be in BAM format to perform simulation"
             } }
 
-        // Split the bam into the region specified
-        BAM_REGION(ch_input_sim, ch_region, ch_fasta)
-        ch_versions = ch_versions.mix(BAM_REGION.out.versions)
+        // Compute coverage of input files
+        SAMTOOLS_COVERAGE_TRT(ch_input_sim, ch_fasta)
+        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
-        // Initialize channel to impute
-        ch_bam_to_impute = Channel.empty()
+        if (params.input_region) {
+            // Split the bam into the regions specified
+            BAM_REGION(ch_input_sim, ch_region, ch_fasta)
+            ch_versions  = ch_versions.mix(BAM_REGION.out.versions)
+            ch_input_sim = BAM_REGION.out.bam_region
+        }
 
         if (params.depth) {
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(
-                BAM_REGION.out.bam_region,
-                ch_depth,
-                ch_fasta
-            )
-            ch_versions             = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
-            ch_multiqc_files        = ch_multiqc_files.mix(BAM_DOWNSAMPLE.out.coverage.map{ [it[1]] })
-            ch_input_impute         = BAM_DOWNSAMPLE.out.bam_emul
-            ch_input_validate_truth = ch_input_sim
+            BAM_DOWNSAMPLE(ch_input_sim, ch_depth, ch_fasta)
+            ch_versions     = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
+            ch_input_impute = BAM_DOWNSAMPLE.out.bam_emul
+
+            // Compute coverage of input files
+            SAMTOOLS_COVERAGE_SIM(BAM_DOWNSAMPLE.out.bam_emul, ch_fasta)
+            ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_SIM.out.versions)
+            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_SIM.out.coverage.map{it[1]})
         }
 
         if (params.genotype) {
@@ -151,12 +154,13 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
-        // Generate posfile channels from extracted sites
+        // Generate all necessary channels
         ch_posfile_glimpse  = VCF_SITES_EXTRACT_BCFTOOLS.out.glimpse_posfile
         ch_posfile_stitch   = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
         ch_panel_sites      = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+        ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
 
-        // Phase panel with tool of choice (e.g. SHAPEIT5)
+        // Phase panel with Shapeit5
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
@@ -167,8 +171,6 @@ workflow PHASEIMPUTE {
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
-        } else {
-            ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         }
 
         // Create chunks from reference VCF
