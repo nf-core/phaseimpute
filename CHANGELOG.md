@@ -31,6 +31,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#68](https://github.com/nf-core/phaseimpute/pull/68) - QUILT can handle external params chunks and hap-legend files.
 - [#78](https://github.com/nf-core/phaseimpute/pull/78) - Separate validate step from panel preparation.
 - [#85](https://github.com/nf-core/phaseimpute/pull/85) - Use external params in individual tests for tools.
+- [#86](https://github.com/nf-core/phaseimpute/pull/86) - Move `bcftools_convert` to `vcf_sites_extract_bcftools`.
 
 ### `Fixed`
 
