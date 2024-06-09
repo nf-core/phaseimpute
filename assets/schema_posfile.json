@@ -33,6 +33,16 @@
                 "type": "string",
                 "pattern": "^\\S+\\.(txt|tsv)(\\.gz)?$",
                 "errorMessage": "TXT with sites (position file) per chromosome must be provided. Must have .txt or .tsv extension with optional .gz"
+            },
+            "hap": {
+                "type": "string",
+                "pattern": "^\\S+\\.(hap)(\\.gz)?$",
+                "errorMessage": "Hap file can be provided, cannot contain spaces and must have extension '.hap' with '.gz' extension"
+            },
+            "legend": {
+                "type": "string",
+                "pattern": "^\\S+\\.(legend)(\\.gz)?$",
+                "errorMessage": "Legend file can be provided, cannot contain spaces and must have extension '.hap' with '.gz' extension"
             }
         },
         "required": ["panel", "chr", "vcf", "index", "txt"]
