@@ -29,6 +29,11 @@ process BCFTOOLS_PLUGINSPLIT {
     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
     def regions_arg = regions ? "--regions-file ${regions}" : ""
     def targets_arg = targets ? "--targets-file ${targets}" : ""
+    def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
+            args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
+            args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
+            args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
+            "vcf"
 
     """
     bcftools plugin split \\
@@ -40,7 +45,7 @@ process BCFTOOLS_PLUGINSPLIT {
         ${targets_arg} \\
         --output ${prefix}
 
-    mv ${prefix}/* .
+    for i in ${prefix}/*; do cp "\$i" "./\$(basename "\$i" .${extension})_stitch.${extension}"; done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
