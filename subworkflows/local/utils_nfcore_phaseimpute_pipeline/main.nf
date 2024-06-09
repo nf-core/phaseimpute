@@ -148,9 +148,6 @@ workflow PIPELINE_INITIALISATION {
         if (params.panel.endsWith("csv")) {
             print("Panel file provided as input is a samplesheet")
             ch_panel = Channel.fromSamplesheet("panel")
-                        .map { meta, bcf, csi, hap, legend -> [meta, bcf, csi] }
-            ch_hap_legend = Channel.fromSamplesheet("panel")
-                        .map { meta, bcf, csi, hap, legend -> [["panel": meta.id, "chr": meta.chr], hap, legend] }
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
@@ -158,7 +155,6 @@ workflow PIPELINE_INITIALISATION {
     } else {
         // #TODO check if panel is required
         ch_panel        = Channel.of([[],[],[]])
-        ch_hap_legend   = Channel.empty()
     }
 
     //
@@ -216,9 +212,13 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.posfile) {
         ch_posfile = Channel
-            .fromSamplesheet("posfile")
+                .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "txt"]
+
+        ch_hap_legend = Channel.fromSamplesheet("posfile")
+                .map { meta, vcf, index, txt, hap, legend -> [meta, hap, legend] }
     } else {
         ch_posfile = [[],[]]
+        ch_hap_legend   = Channel.empty()
     }
 
     //
@@ -315,8 +315,8 @@ def validateInputParameters() {
 
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-        // Required by all tools except glimpse2 and quilt
-        if (!params.tools.split(',').find { it in ["glimpse2", "quilt"] }) {
+        // Required by all tools except glimpse2
+        if (!params.tools.split(',').find { it in ["glimpse2"] }) {
                 assert params.posfile, "No --posfile provided for --steps impute"
         }
         // Required by all tools except STITCH
@@ -377,24 +377,6 @@ def getAllFilesExtension(ch_input) {
             }
             return extensions[0]
         }
-}
-
-//
-// Validate haplegend from panel channel
-//
-
-def checkHapLegend(ch_hap_legend) {
-    ch_hap_legend.map { channel ->
-        def meta = channel[0]
-        def hap = channel[1]
-        def legend = channel[2]
-
-        if (hap != [] || legend != []) {
-            log.warn "Hap or Legend files are not empty for panel ${meta.panel}, chromosome ${meta.chr}"
-        }
-
-        return channel
-    }
 }
 
 
