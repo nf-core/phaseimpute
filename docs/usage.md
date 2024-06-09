@@ -35,8 +35,8 @@ SAMPLE6,AEG588A6.bam,AEG588A6.bai
 | Column   | Description                                                                                  |
 | -------- | -------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`). |
-| `bam`    | Full path to a BAM file. File has to be gzipped and have the extension ".bam.gz".gz".        |
-| `bai`    | Full path to a BAI file. File has to be gzipped and have the extension ".bam" or ".fq.gz".   |
+| `bam`    | Full path to a BAM file. File has to be have the extension ".bam".                           |
+| `bai`    | Full path to a BAI file. File has to be have the extension ".bai".                           |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
