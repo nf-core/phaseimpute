@@ -213,6 +213,7 @@ workflow PIPELINE_INITIALISATION {
     if (params.posfile) {
         ch_posfile = Channel
                 .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "txt"]
+                .map { meta, vcf, index, txt, hap, legend -> [meta, vcf, index, txt] }
 
         ch_hap_legend = Channel.fromSamplesheet("posfile")
                 .map { meta, vcf, index, txt, hap, legend -> [meta, hap, legend] }
