@@ -35,8 +35,8 @@ SAMPLE6,AEG588A6.bam,AEG588A6.bai
 | Column   | Description                                                                                  |
 | -------- | -------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`). |
-| `bam`    | Full path to a BAM file. File has to be gzipped and have the extension ".bam.gz".gz".        |
-| `bai`    | Full path to a BAI file. File has to be gzipped and have the extension ".bam" or ".fq.gz".   |
+| `bam`    | Full path to a BAM file. File has to be have the extension ".bam".                           |
+| `bai`    | Full path to a BAI file. File has to be have the extension ".bai".                           |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -53,18 +53,50 @@ You will need to create a samplesheet with information about the reference panel
 A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
 
 ```console
-chr,vcf
-1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
-2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
-3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+panel,chr,vcf,index
+1000G,chr1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
+1000G,chr2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
+1000G,chr3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
 ```
 
-| Column | Description                                                                                               |
-| ------ | --------------------------------------------------------------------------------------------------------- |
-| `chr`  | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                |
-| `vcf`  | Full path to a VCF file for that chromosome. File has to be gzipped and have the extension ".vcf.gz".gz". |
+| Column  | Description                                                                                                    |
+| ------- | -------------------------------------------------------------------------------------------------------------- |
+| `panel` | Name of the reference panel used.                                                                              |
+| `chr`   | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                     |
+| `vcf`   | Full path to a VCF file for that chromosome. File has to be gzipped and have the extension ".vcf.gz".          |
+| `index` | Full path to the index for VCF file for that chromosome. File has to be gzipped and have the extension ".tbi". |
 
 An [example samplesheet](../assets/samplesheet_reference.csv) has been provided with the pipeline.
+
+## Samplesheet posfile
+
+You will need a samplesheet with information about the reference panel sites for using the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use this parameter to specify its location. It has to be a comma-separated file with at least 5 columns, and a header row as shown in the examples below.
+
+```bash
+--posfile '[path to samplesheet file]'
+```
+
+### Structure
+
+A final samplesheet file for the posfile may look something like the one below. This is for 2 chromosomes.
+
+```console
+panel,chr,vcf,index,txt,hap,legend
+1000GP.s.norel,chr21,1000GP.chr21.s.norel.sites.vcf.gz,1000GP.chr21.s.norel.sites.vcf.gz.csi,1000GP.chr21.s.norel.tsv.gz,,
+1000GP.s.norel,chr22,1000GP.chr22.s.norel.sites.vcf.gz,1000GP.chr22.s.norel.sites.vcf.gz.csi,1000GP.chr22.s.norel.tsv.gz,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
+```
+
+| Column   | Description                                                                                                                                                                   |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `panel`  | Name of the reference panel used.                                                                                                                                             |
+| `chr`    | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                                                                                    |
+| `vcf`    | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz".                                                         |
+| `index`  | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi".                                                            |
+| `txt`    | Full path to the ".tsv.gz" file containing the reference panel sites from the VCF file for that chromosome. File has to be gzipped.                                           |
+| `hap`    | Full path to the ".hap" file containing the reference panel sites from the VCF file for that chromosome. (Required by QUILT)                                                  |
+| `legend` | Full path to the ".legend.gz" file containing the reference panel sites from the VCF file for that chromosome in "legend" format. File has to be gzipped. (Required by QUILT) |
+
+## Genome reference
 
 Remember to use the same reference genome for all the files. You can specify the [reference genome](https://nf-co.re/docs/usage/reference_genomes) using:
 
@@ -83,10 +115,15 @@ or you can specify a custom genome using:
 The typical command for running the pre-processing of the panel and imputation of samples is as follows:
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --outdir results --genome GRCh37 -profile docker --steps panelprep,impute
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps panelprep,impute
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
-This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+This will launch the pipeline, preparing the reference panel and performing imputation, with the `docker` configuration profile. See below for more information about profiles.
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -131,7 +168,13 @@ nf-core/phaseimpute can be started at different points in the analysis by settin
 This steps of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --steps simulate --depth 1 --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps simulate \
+    --depth 1 \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
 The required flags for this mode are:
@@ -141,7 +184,7 @@ The required flags for this mode are:
 - `--depth`: The final depth of the file [default: 1].
 - `--genome` or `--fasta`: The reference genome of the samples.
 
-You can find an overview of the results produced by this steps in the [Output](output.md).
+You can find an overview of the results produced by this step in the [Output](output.md).
 
 ### Start with panel preparation `--steps panelprep`
 
@@ -150,7 +193,11 @@ This steps pre-processes the reference panel in order to be ready for imputation
 For starting from panel preparation, the required flags are `--steps panelprep` and `--panel samplesheet_reference.csv`.
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps panelprep --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --panel samplesheet_reference.csv \
+    --steps panelprep --outdir results \
+    --genome GRCh37 -profile docker
 ```
 
 The required flags for this mode are:
@@ -173,25 +220,22 @@ For starting from the imputation steps, the required flags are:
 - `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
 
   - `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1`.
-  - `--posfile posfile.csv`: A samplesheet containing a TSV with the list of positions to genotype per chromosome. These are required by tools (for STITCH/GLIMPSE1). The posfile can be generated with `--steps panelprep`.
-  - `--panel panel.csv`: A samplesheet containing the post-processed VCF (required by GLIMPSE1 and GLIMPSE2) or the hap_legend files (required by QUILT). These files can be obtained with `--steps panelprep`.
+  - `--posfile posfile.csv`: A samplesheet containing a TSV with the list of positions to genotype per chromosome. These are required by tools (for STITCH/GLIMPSE1). It can also contain the hap_legend files (required by QUILT). The posfile can be generated with `--steps panelprep`.
+  - `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1 and GLIMPSE2). These files can be obtained with `--steps panelprep`.
 
   #### Summary table of required parameters in `--steps impute`
 
 |            | `--steps impute` | `--input` | `--genome` or `--fasta` | `--panel` | `--chunks` | `--posfile` |
 | ---------- | ---------------- | --------- | ----------------------- | --------- | ---------- | ----------- |
-| `GLIMPSE1` | ✅               | ✅        | ✅                      | ✅ ¹      | ✅         | ✅ ³        |
+| `GLIMPSE1` | ✅               | ✅        | ✅                      | ✅        | ✅         | ✅ ¹        |
 | `GLIMPSE2` | ✅               | ✅        | ✅                      | ✅        | ✅         | ❌          |
-| `QUILT`    | ✅               | ✅        | ✅                      | ✅ ²      | ✅         | ❌          |
+| `QUILT`    | ✅               | ✅        | ✅                      | ❌        | ✅         | ✅ ²        |
 | `STITCH`   | ✅               | ✅        | ✅                      | ❌        | ❌         | ✅          |
 
 #### Details:
 
-¹ `GLIMPSE1` & `GLIMPSE2`: Should be a CSV with columns [panel, chr, vcf, index]
-
-² `QUILT`: Should be a CSV with columns [panel, chr, hap, legend]
-
-³ `GLIMPSE1`: Should be a CSV with columns [panel, chr, vcf, txt]
+³ `GLIMPSE1`: Should be a CSV with columns [panel id, chr, vcf, txt]
+² `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
 
 ### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
@@ -202,13 +246,21 @@ You can choose different software to perform the imputation. In the following se
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a csv file with the genomic chunks (`--chunks`).
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --panel panel_haplegend.csv --chunks chunks.csv --steps impute --tool quilt --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --posfile haplegend.csv \
+    --chunks chunks.csv \
+    --steps impute \
+    --tools quilt \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
-The csv provided in `--panel` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
+The csv provided in `--posfile` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
 
 ```console
-panel,chr,vcf,index,hap,legend
+panel,chr,vcf,index,txt,hap,legend
 1000GP.s.norel,chr22,,,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
@@ -226,7 +278,14 @@ The file column should contain a TSV obtained from GLIMPSE1 with the following [
 If you do not have a csv with chunks, you can provide a reference panel to run the `--steps panelprep` which produces a csv with these chunks, which is then used as input for QUILT. You can choose to run both steps sequentially as `--steps panelprep,impute` or simply collect the files produced by `--steps panelprep`.
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --steps panelprep,impute --panel samplesheet_reference.csv --outdir results --genome GRCh37 -profile docker --tools quilt
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps panelprep,impute \
+    --tools quilt \
+    --panel samplesheet_reference.csv \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
 #### STITCH
@@ -236,13 +295,26 @@ nextflow run nf-core/phaseimpute --input samplesheet.csv --steps panelprep,imput
 If you do not have a list of position to genotype, you can provide a reference panel to run the `--steps panelprep` which produces a tsv with this list.
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --steps panelprep --panel samplesheet_reference.csv --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps panelprep \
+    --panel samplesheet_reference.csv \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
 Otherwise, you can provide your own position file in the `--steps impute` with STITCH using the the `--posfile` parameter.
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --steps impute --posfile samplesheet_posfile.csv  --tool stitch --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps impute \
+    --posfile samplesheet_posfile.csv  \
+    --tool stitch \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
 The csv provided in `--posfile` must contain four columns [panel, chr, vcf, txt].
@@ -288,7 +360,16 @@ bcftools query -f'%CHROM\t%POS\t%REF,%ALT\n' ${vcf}
 [GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. This is an example command to run this tool from the `--steps impute`:
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse1 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --panel samplesheet_reference.csv \
+    --steps impute \
+    --tool glimpse1 \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker \
+    --posfile posfile.csv
+    --chunks chunks.csv
 ```
 
 The csv provided in `--posfile` must contain four columns [panel, chr, vcf, txt].
@@ -312,7 +393,16 @@ The csv provided in `--panel` must be prepared with `--steps panelprep` and must
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --panel samplesheet_reference.csv --steps impute --tool glimpse2 --outdir results --genome GRCh37 -profile docker --posfile posfile.csv --chunks chunks.csv
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --panel samplesheet_reference.csv \
+    --steps impute \
+    --tool glimpse2 \
+    --outdir results \
+    --posfile posfile.csv \
+    --chunks chunks.csv \
+    --genome GRCh37 \
+    -profile docker
 ```
 
 Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
@@ -323,7 +413,13 @@ This steps compares a _truth_ VCF to an _imputed_ VCF in order to compute imputa
 This also needs the frequency of the alleles. They can be computed from the reference panel by running the `--steps panelprep` and using the `--panel` with the `--compute_freq` flag ; or by using `--posfile samplesheet.csv`.
 
 ```bash
-nextflow run nf-core/phaseimpute --input samplesheet.csv --input_truth truth.csv --steps validate --outdir results --genome GRCh37 -profile docker
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --input_truth truth.csv \
+    --steps validate \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker
 ```
 
 The required flags for this mode only are:
