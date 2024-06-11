@@ -24,6 +24,7 @@ process BCFTOOLS_PLUGINSPLIT {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def suffix = task.ext.suffix ?: ""
 
     def samples_arg = samples ? "--samples-file ${samples}" : ""
     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
@@ -45,7 +46,7 @@ process BCFTOOLS_PLUGINSPLIT {
         ${targets_arg} \\
         --output ${prefix}
 
-    for i in ${prefix}/*; do cp "\$i" "./\$(basename "\$i" .${extension})_stitch.${extension}"; done
+    for i in ${prefix}/*; do cp "\$i" "./\$(basename "\$i" .${extension})${suffix}.${extension}"; done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
