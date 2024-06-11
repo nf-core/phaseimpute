@@ -206,7 +206,7 @@ workflow PHASEIMPUTE {
             if (params.posfile) {
                 ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
             }
-            
+
             // Use panel from parameters if provided
             if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
                 ch_panel_phased = ch_panel
