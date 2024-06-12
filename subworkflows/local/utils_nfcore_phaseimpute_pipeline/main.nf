@@ -329,10 +329,10 @@ def validateInputParameters() {
                 assert params.panel, "No --panel provided for imputation with GLIMPSE"
         }
 
-    // Check that input_truth is provided when running validate
-    if (params.steps.split(',').find { it in ["all", "validate"] } ) {
-        assert params.input_truth, "No --input_truth was provided for --steps validate"
-    }
+        // Check that input_truth is provided when running validate
+        if (params.steps.split(',').find { it in ["all", "validate"] } ) {
+            assert params.input_truth, "No --input_truth was provided for --steps validate"
+        }
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
@@ -347,7 +347,7 @@ def validateInputParameters() {
     if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
-    }
+}
 
 //
 // Check if all input files have the same extension
