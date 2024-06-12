@@ -55,15 +55,15 @@
                 "imputation/stats/NA12878_glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA12878_glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA12878_quilt.bcftools_stats.txt",
-                "imputation/stats/NA12878_stitch_stitch.bcftools_stats.txt",
+                "imputation/stats/NA12878_stitch.bcftools_stats.txt",
                 "imputation/stats/NA19401_glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA19401_glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA19401_quilt.bcftools_stats.txt",
-                "imputation/stats/NA19401_stitch_stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401_stitch.bcftools_stats.txt",
                 "imputation/stats/NA20359_glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA20359_glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA20359_quilt.bcftools_stats.txt",
-                "imputation/stats/NA20359_stitch_stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359_stitch.bcftools_stats.txt",
                 "imputation/stitch/concat/NA12878_stitch.vcf.gz",
                 "imputation/stitch/concat/NA12878_stitch.vcf.gz.tbi",
                 "imputation/stitch/concat/NA19401_stitch.vcf.gz",
@@ -101,12 +101,15 @@
                 "validation/NA12878_P1000GP.s.norel_Tglimpse1_SNP.txt",
                 "validation/NA12878_P1000GP.s.norel_Tglimpse2_SNP.txt",
                 "validation/NA12878_P1000GP.s.norel_Tquilt_SNP.txt",
+                "validation/NA12878_P1000GP.s.norel_Tstitch_SNP.txt",
                 "validation/NA19401_P1000GP.s.norel_Tglimpse1_SNP.txt",
                 "validation/NA19401_P1000GP.s.norel_Tglimpse2_SNP.txt",
                 "validation/NA19401_P1000GP.s.norel_Tquilt_SNP.txt",
+                "validation/NA19401_P1000GP.s.norel_Tstitch_SNP.txt",
                 "validation/NA20359_P1000GP.s.norel_Tglimpse1_SNP.txt",
                 "validation/NA20359_P1000GP.s.norel_Tglimpse2_SNP.txt",
                 "validation/NA20359_P1000GP.s.norel_Tquilt_SNP.txt",
+                "validation/NA20359_P1000GP.s.norel_Tstitch_SNP.txt",
                 "validation/TestQuality.txt",
                 "validation/concat/NA12878_A-truth.vcf.gz",
                 "validation/concat/NA12878_A-truth.vcf.gz.tbi",
@@ -124,7 +127,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-12T17:05:02.964658867"
+        "timestamp": "2024-06-12T17:51:48.063603304"
     },
     "Check test_validate": {
         "content": [
