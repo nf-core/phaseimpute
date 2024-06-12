@@ -32,6 +32,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#78](https://github.com/nf-core/phaseimpute/pull/78) - Separate validate step from panel preparation.
 - [#84](https://github.com/nf-core/phaseimpute/pull/84) - Change depth computation to use SAMTOOLS_DEPTH and make separation by chromosome only if regions are specified.
 - [#85](https://github.com/nf-core/phaseimpute/pull/85) - Use external params in individual tests for tools.
+- [#86](https://github.com/nf-core/phaseimpute/pull/86) - Move `bcftools_convert` to `vcf_sites_extract_bcftools`.
 - [#88](https://github.com/nf-core/phaseimpute/pull/88) - Improve multiqc report with more information.
 
 ### `Fixed`

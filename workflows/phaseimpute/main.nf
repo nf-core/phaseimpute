@@ -196,7 +196,6 @@ workflow PHASEIMPUTE {
         if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
         }
-
         if (params.tools.split(',').contains("glimpse1")) {
             log.info("Impute with GLIMPSE1")
 
