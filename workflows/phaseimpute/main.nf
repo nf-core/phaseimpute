@@ -157,7 +157,6 @@ workflow PHASEIMPUTE {
         ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         ch_hap_legend       = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
 
-
         // Phase panel with Shapeit5
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
