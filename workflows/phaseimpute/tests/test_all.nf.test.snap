@@ -3,21 +3,23 @@
         "content": [
             [
                 "imputation/csv/impute.csv",
-                "imputation/stitch/concat/NA12878.vcf.gz",
-                "imputation/stitch/concat/NA12878.vcf.gz.tbi",
-                "imputation/stitch/concat/NA19401.vcf.gz",
-                "imputation/stitch/concat/NA19401.vcf.gz.tbi",
-                "imputation/stitch/concat/NA20359.vcf.gz",
-                "imputation/stitch/concat/NA20359.vcf.gz.tbi",
-                "imputation/stitch/concat/versions.yml"
+                "imputation/stats/NA12878_stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401_stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359_stitch.bcftools_stats.txt",
+                "imputation/stitch/concat/NA12878_stitch.vcf.gz",
+                "imputation/stitch/concat/NA12878_stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/NA19401_stitch.vcf.gz",
+                "imputation/stitch/concat/NA19401_stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/NA20359_stitch.vcf.gz",
+                "imputation/stitch/concat/NA20359_stitch.vcf.gz.tbi"
             ],
             1786
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-02T21:02:42.358049222"
+        "timestamp": "2024-06-12T17:20:52.933808288"
     },
     "Check test_all": {
         "content": [
@@ -38,21 +40,18 @@
                 "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz.tbi",
-                "imputation/glimpse1/concat/versions.yml",
                 "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/concat/versions.yml",
                 "imputation/quilt/concat/NA12878_quilt.vcf.gz",
                 "imputation/quilt/concat/NA12878_quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA19401_quilt.vcf.gz",
                 "imputation/quilt/concat/NA19401_quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA20359_quilt.vcf.gz",
                 "imputation/quilt/concat/NA20359_quilt.vcf.gz.tbi",
-                "imputation/quilt/concat/versions.yml",
                 "imputation/stats/NA12878_glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA12878_glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA12878_quilt.bcftools_stats.txt",
@@ -65,22 +64,18 @@
                 "imputation/stats/NA20359_glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA20359_quilt.bcftools_stats.txt",
                 "imputation/stats/NA20359_stitch_stitch.bcftools_stats.txt",
-                "imputation/stats/versions.yml",
                 "imputation/stitch/concat/NA12878_stitch.vcf.gz",
                 "imputation/stitch/concat/NA12878_stitch.vcf.gz.tbi",
                 "imputation/stitch/concat/NA19401_stitch.vcf.gz",
                 "imputation/stitch/concat/NA19401_stitch.vcf.gz.tbi",
                 "imputation/stitch/concat/NA20359_stitch.vcf.gz",
-                "imputation/stitch/concat/NA20359_stitch.vcf.gz.tbi",
-                "imputation/stitch/concat/versions.yml"
+                "imputation/stitch/concat/NA20359_stitch.vcf.gz.tbi"
             ],
             [
                 "prep_panel/chunks/glimpse1/1000GP.s.norel_chr21_chunks_glimpse1.txt",
                 "prep_panel/chunks/glimpse1/1000GP.s.norel_chr22_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse1/versions.yml",
                 "prep_panel/chunks/glimpse2/1000GP.s.norel_chr21_chunks_glimpse2.txt",
                 "prep_panel/chunks/glimpse2/1000GP.s.norel_chr22_chunks_glimpse2.txt",
-                "prep_panel/chunks/glimpse2/versions.yml",
                 "prep_panel/csv/chunks.csv",
                 "prep_panel/csv/panel.csv",
                 "prep_panel/csv/posfile.csv",
@@ -90,22 +85,17 @@
                 "prep_panel/haplegend/1000GP.s.norel_chr22.hap.gz",
                 "prep_panel/haplegend/1000GP.s.norel_chr22.legend.gz",
                 "prep_panel/haplegend/1000GP.s.norel_chr22.samples",
-                "prep_panel/haplegend/versions.yml",
                 "prep_panel/normalized/1000GP.s.norel_chr21_biallelic_snps.vcf.gz",
                 "prep_panel/normalized/1000GP.s.norel_chr21_biallelic_snps.vcf.gz.tbi",
                 "prep_panel/normalized/1000GP.s.norel_chr22_biallelic_snps.vcf.gz",
                 "prep_panel/normalized/1000GP.s.norel_chr22_biallelic_snps.vcf.gz.tbi",
-                "prep_panel/normalized/versions.yml",
                 "prep_panel/sites/tsv/1000GP.s.norel_chr21_glimpse1_sites_tsv.txt.gz",
                 "prep_panel/sites/tsv/1000GP.s.norel_chr22_glimpse1_sites_tsv.txt.gz",
-                "prep_panel/sites/tsv/versions.yml",
                 "prep_panel/sites/vcf/1000GP.s.norel_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/vcf/1000GP.s.norel_chr21_glimpse1_sites.vcf.gz.csi",
                 "prep_panel/sites/vcf/1000GP.s.norel_chr22_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/vcf/1000GP.s.norel_chr22_glimpse1_sites.vcf.gz.csi",
-                "prep_panel/sites/vcf/versions.yml",
-                "prep_panel/stats/1000GP.s.norel.bcftools_stats.txt",
-                "prep_panel/stats/versions.yml"
+                "prep_panel/stats/1000GP.s.norel.bcftools_stats.txt"
             ],
             [
                 "validation/NA12878_P1000GP.s.norel_Tglimpse1_SNP.txt",
@@ -126,8 +116,7 @@
                 "validation/concat/NA20359_A-truth.vcf.gz.tbi",
                 "validation/stats/NA12878_truth.bcftools_stats.txt",
                 "validation/stats/NA19401_truth.bcftools_stats.txt",
-                "validation/stats/NA20359_truth.bcftools_stats.txt",
-                "validation/stats/versions.yml"
+                "validation/stats/NA20359_truth.bcftools_stats.txt"
             ],
             1779
         ],
@@ -135,7 +124,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-12T13:02:50.1244856"
+        "timestamp": "2024-06-12T17:05:02.964658867"
     },
     "Check test_validate": {
         "content": [
@@ -152,26 +141,28 @@
                 "validation/concat/NA20359_A-truth.vcf.gz.tbi",
                 "validation/stats/NA12878_truth.bcftools_stats.txt",
                 "validation/stats/NA19401_truth.bcftools_stats.txt",
-                "validation/stats/NA20359_truth.bcftools_stats.txt",
-                "validation/stats/versions.yml"
+                "validation/stats/NA20359_truth.bcftools_stats.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-12T12:54:36.243451019"
+        "timestamp": "2024-06-12T16:28:39.822160588"
     },
     "Check test_quilt": {
         "content": [
             [
+                "imputation/csv/impute.csv",
                 "imputation/quilt/concat/NA12878_quilt.vcf.gz",
                 "imputation/quilt/concat/NA12878_quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA19401_quilt.vcf.gz",
                 "imputation/quilt/concat/NA19401_quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA20359_quilt.vcf.gz",
                 "imputation/quilt/concat/NA20359_quilt.vcf.gz.tbi",
-                "imputation/quilt/concat/versions.yml"
+                "imputation/stats/NA12878_quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401_quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359_quilt.bcftools_stats.txt"
             ],
             1779
         ],
@@ -179,7 +170,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-05-24T14:32:54.985163559"
+        "timestamp": "2024-06-12T16:53:00.958242697"
     },
     "Check test_sim": {
         "content": [
@@ -209,19 +200,17 @@
                 "imputation/glimpse2/concat/NA19401_glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA20359_glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/concat/versions.yml",
                 "imputation/stats/NA12878_glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA19401_glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA20359_glimpse2.bcftools_stats.txt",
-                "imputation/stats/versions.yml"
+                "imputation/stats/NA20359_glimpse2.bcftools_stats.txt"
             ],
-            936
+            1798
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-12T14:22:47.18990097"
+        "timestamp": "2024-06-12T16:49:29.063030563"
     },
     "Check test": {
         "content": [
@@ -233,11 +222,9 @@
                 "imputation/glimpse1/concat/NA19401_glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA20359_glimpse1.vcf.gz.tbi",
-                "imputation/glimpse1/concat/versions.yml",
                 "imputation/stats/NA12878_glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA19401_glimpse1.bcftools_stats.txt",
-                "imputation/stats/NA20359_glimpse1.bcftools_stats.txt",
-                "imputation/stats/versions.yml"
+                "imputation/stats/NA20359_glimpse1.bcftools_stats.txt"
             ],
             930
         ],
@@ -245,6 +232,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-12T12:47:57.195765127"
+        "timestamp": "2024-06-12T16:47:23.10046931"
     }
 }
