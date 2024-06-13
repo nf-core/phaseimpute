@@ -14,7 +14,7 @@ workflow VCF_SAMPLES_BCFTOOLS {
 
     ch_vcf_samples = BCFTOOLS_PLUGINSPLIT.out.vcf
         .transpose()
-        .map{metaITC, vcf -> [metaITC + [id: vcf.getBaseName().tokenize(".")[0].tokenize("_")[0]], vcf]}
+        .map{metaITC, vcf -> [metaITC + [id: vcf.getBaseName().tokenize(".")[0]], vcf]}
 
     BCFTOOLS_INDEX(ch_vcf_samples)
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
