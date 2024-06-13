@@ -10,6 +10,10 @@ report_section_order:
     "nf-core-phaseimpute-summary":
         order: -1002
 
+top_module:
+    - samtools
+    - bcftools
+
 export_plots: true
 
 disable_version_detection: true
