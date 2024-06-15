@@ -21,13 +21,13 @@ workflow BAM_REGION {
     // Extract region of interest
     SAMTOOLS_VIEW(
         ch_input_region,
-        ch_fasta.map{ metaG, fasta, fai -> [metaG, fasta] },
+        [[], []],
         []
     )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
     // Index region of interest
-    SAMTOOLS_INDEX(SAMTOOLS_VIEW.out.bam)
+    SAMTOOLS_INDEX(SAMTOOLS_VIEW.out.bam.view())
     ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
 
     ch_bam_region = SAMTOOLS_VIEW.out.bam

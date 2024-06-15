@@ -103,14 +103,9 @@ workflow PHASEIMPUTE {
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Test if the input are all bam files
         getAllFilesExtension(ch_input_sim)
-            .map{ if (it != "bam") {
+            .map{ if (it != "bam" & it != "cram") {
                 error "All input files must be in BAM format to perform simulation"
             } }
-
-        // Compute coverage of input files
-        SAMTOOLS_COVERAGE_TRT(ch_input_sim, ch_fasta)
-        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
-        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
         if (params.input_region) {
             // Split the bam into the regions specified
@@ -118,6 +113,11 @@ workflow PHASEIMPUTE {
             ch_versions  = ch_versions.mix(BAM_REGION.out.versions)
             ch_input_sim = BAM_REGION.out.bam_region
         }
+
+        // Compute coverage of input files
+        SAMTOOLS_COVERAGE_TRT(ch_input_sim, ch_fasta)
+        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
         if (params.depth) {
             // Downsample input to desired depth
