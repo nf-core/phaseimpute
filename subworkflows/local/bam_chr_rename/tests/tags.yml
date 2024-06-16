@@ -1,0 +1,2 @@
+subworkflows/bam_chr_rename:
+  - subworkflows/local/bam_chr_rename/**

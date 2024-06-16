@@ -1,0 +1,45 @@
+name: bamchrextract
+description: Extract all contigs name into txt file
+keywords:
+  - samtools
+  - bam
+  - cram
+  - head
+  - contig
+tools:
+  - samtools:
+      description: |
+        SAMtools is a set of utilities for interacting with and post-processing
+        short DNA sequence read alignments in the SAM, BAM and CRAM formats, written by Heng Li.
+        These files are generated as output by short read aligners like BWA.
+      homepage: http://www.htslib.org/
+      documentation: http://www.htslib.org/doc/samtools.html
+      doi: 10.1093/bioinformatics/btp352
+      licence: ["MIT"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - input:
+      type: file
+      description: BAM, CRAM or SAM file
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - chr:
+      type: file
+      description: List of contigs in the VCF file
+      pattern: "*{txt}"
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"
