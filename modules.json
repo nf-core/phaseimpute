@@ -160,6 +160,11 @@
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/samtools/merge/samtools-merge.diff"
                     },
+                    "samtools/reheader": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"]
+                    },
                     "samtools/view": {
                         "branch": "master",
                         "git_sha": "0bd7d2333a88483aa0476acea172e9f5f6dd83bb",

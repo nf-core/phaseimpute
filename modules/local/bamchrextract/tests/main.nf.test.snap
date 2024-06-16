@@ -3,23 +3,33 @@
         "content": [
             {
                 "0": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ]
                 ],
                 "1": [
-                    
+                    "versions.yml:md5,533673a0058992b3c9a6c360a63e8d17"
                 ],
                 "chr": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ]
                 ],
                 "versions": [
-                    
+                    "versions.yml:md5,533673a0058992b3c9a6c360a63e8d17"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.1"
+            "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-16T12:06:26.625434359"
+        "timestamp": "2024-06-16T21:19:48.898241153"
     }
 }
