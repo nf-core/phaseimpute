@@ -27,7 +27,7 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip.size()
+                    path("$outputDir/imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz").linesGzip.size()
                 ).match()
                 }
             )
@@ -55,7 +55,7 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse2/concat/NA12878_glimpse2.vcf.gz").linesGzip.size()
+                    path("$outputDir/imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz").linesGzip.size()
                 ).match()
                 }
             )
@@ -82,7 +82,7 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/quilt/concat/NA12878_quilt.vcf.gz").linesGzip.size()
+                    path("$outputDir/imputation/quilt/concat/NA12878.quilt.vcf.gz").linesGzip.size()
                 ).match()
                 }
             )
@@ -110,7 +110,7 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/stitch/concat/NA12878.vcf.gz").linesGzip.size()
+                    path("$outputDir/imputation/stitch/concat/NA12878.stitch.vcf.gz").linesGzip.size()
                 ).match()
                 }
             )
@@ -201,7 +201,10 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse1/concat/NA12878_glimpse1.vcf.gz").linesGzip.size()
+                    path("$outputDir/imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz").linesGzip.size(),
+                    path("$outputDir/imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz").linesGzip.size(),
+                    path("$outputDir/imputation/stitch/concat/NA12878.stitch.vcf.gz").linesGzip.size(),
+                    path("$outputDir/imputation/quilt/concat/NA12878.quilt.vcf.gz").linesGzip.size(),
                 ).match()
                 }
             )

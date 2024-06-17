@@ -49,7 +49,7 @@ workflow VCF_IMPUTE_GLIMPSE2 {
 
     // Ligate all phased files in one and index it
     ligate_input = GLIMPSE2_PHASE.out.phased_variants
-        .join( BCFTOOLS_INDEX_1.out.tbi )
+        .join( BCFTOOLS_INDEX_1.out.csi )
         .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr"), vcf, index] }
         .groupTuple()
 

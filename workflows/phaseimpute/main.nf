@@ -35,6 +35,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/
 include { CHANNEL_POSFILE_CREATE_CSV                 } from '../../subworkflows/local/channel_posfile_create_csv'
 include { CHANNEL_CHUNKS_CREATE_CSV                  } from '../../subworkflows/local/channel_chunks_create_csv'
 include { CHANNEL_PANEL_CREATE_CSV                   } from '../../subworkflows/local/channel_panel_create_csv'
+include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 
 // Imputation subworkflows
 include { CHANNEL_IMPUTE_CREATE_CSV                   } from '../../subworkflows/local/channel_impute_create_csv'
@@ -59,8 +60,12 @@ include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/
 include { VCF_SAMPLES_BCFTOOLS                       } from '../../subworkflows/local/vcf_samples_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
+// Imputation stats
+include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
+
 // Concordance subworkflows
 include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
+include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
 
@@ -187,130 +192,134 @@ workflow PHASEIMPUTE {
     }
 
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
-            if (params.tools.split(',').contains("glimpse1")) {
-                log.info("Impute with GLIMPSE1")
-
-                // Use chunks from parameters if provided
-                if (params.chunks) {
-                    CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
-                    ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
-                }
-                // Use posfile from parameters if provided
-                if (params.posfile) {
-                    ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
-                }
-                // Use panel from parameters if provided
-                if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                    ch_panel_phased = ch_panel
-                }
-
-                // Run imputation
-                VCF_IMPUTE_GLIMPSE1(
-                    ch_input_impute,
-                    ch_posfile_glimpse,
-                    ch_panel_phased,
-                    ch_chunks_glimpse1,
-                    ch_fasta
-                )
-                ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
-                ch_multiqc_files = ch_multiqc_files.mix(VCF_IMPUTE_GLIMPSE1.out.multiqc_files)
-
-                // Concatenate by chromosomes
-                CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
-                ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
-
-                // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
-
-            }
-            if (params.tools.split(',').contains("glimpse2")) {
-                log.info("Impute with GLIMPSE2")
-
-                // Use chunks from parameters if provided
-                if (params.chunks) {
-                    CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
-                    ch_chunks_glimpse2 = CHUNK_PREPARE_CHANNEL.out.chunks
-                }
-
-                // Use panel from parameters if provided
-                if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-                    ch_panel_phased = ch_panel
-                }
-
-                // Run imputation
-                VCF_IMPUTE_GLIMPSE2(
-                    ch_input_impute,
-                    ch_panel_phased,
-                    ch_chunks_glimpse2,
-                    ch_fasta
-                )
-                ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
-                // Concatenate by chromosomes
-                CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
-                ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
-
-                // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
-            }
-            if (params.tools.split(',').contains("stitch")) {
-                log.info("Impute with STITCH")
-
-                // Use provided posfile
-                if (params.posfile) {
-                    ch_posfile_stitch = POSFILE_PREPARE_GAWK(ch_posfile)
-                }
-
-                // Prepare inputs
-                PREPARE_INPUT_STITCH(ch_input_impute, ch_posfile_stitch, ch_region)
-                ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
-
-                // Impute with STITCH
-                BAM_IMPUTE_STITCH (
-                    PREPARE_INPUT_STITCH.out.stitch_parameters,
-                    PREPARE_INPUT_STITCH.out.stitch_samples,
-                    ch_fasta
-                )
-                ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
-
-                // Concatenate by chromosomes
-                CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
-                ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
-
-                // Separate by samples
-                VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
-                ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
-
-                // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
-
-            }
-            if (params.tools.split(',').contains("quilt")) {
-                log.info("Impute with QUILT")
-
-                // Use provided chunks if --chunks
-                if (params.chunks) {
-                    CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
-                    ch_chunks_quilt = CHUNK_PREPARE_CHANNEL.out.chunks
-                }
-
-                // Impute BAMs with QUILT
-                BAM_IMPUTE_QUILT(
-                    ch_input_impute,
-                    ch_hap_legend,
-                    ch_chunks_quilt
-                )
-                ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
-
-                // Concatenate by chromosomes
-                CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
-                ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
-
-                // Add results to input validate
-                ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
-            }
-            // Create CSV from imputation step
-            CHANNEL_IMPUTE_CREATE_CSV(ch_input_validate, params.outdir)
+        // Use panel from parameters if provided
+        if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+            ch_panel_phased = ch_panel
         }
+        if (params.tools.split(',').contains("glimpse1")) {
+            log.info("Impute with GLIMPSE1")
+
+            // Use chunks from parameters if provided or use previous chunks from panelprep
+            if (params.chunks) {
+                CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
+                ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
+            }
+
+            if (params.posfile) {
+                ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
+            }
+
+            // Run imputation
+            VCF_IMPUTE_GLIMPSE1(
+                ch_input_impute,
+                ch_posfile_glimpse,
+                ch_panel_phased,
+                ch_chunks_glimpse1,
+                ch_fasta
+            )
+            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
+
+            // Concatenate by chromosomes
+            CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
+            ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
+
+        }
+        if (params.tools.split(',').contains("glimpse2")) {
+            log.info("Impute with GLIMPSE2")
+
+            if (params.chunks) {
+                CHUNK_PREPARE_CHANNEL(ch_chunks, "glimpse")
+                ch_chunks_glimpse2 = CHUNK_PREPARE_CHANNEL.out.chunks
+            }
+
+            // Run imputation
+            VCF_IMPUTE_GLIMPSE2(
+                ch_input_impute,
+                ch_panel_phased,
+                ch_chunks_glimpse2,
+                ch_fasta
+            )
+            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
+            // Concatenate by chromosomes
+            CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
+            ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
+        }
+        if (params.tools.split(',').contains("stitch")) {
+            log.info("Impute with STITCH")
+
+            // Use provided posfile
+            if (params.posfile) {
+                ch_posfile_stitch = POSFILE_PREPARE_GAWK(ch_posfile)
+            }
+
+            // Prepare inputs
+            PREPARE_INPUT_STITCH(ch_input_impute, ch_posfile_stitch, ch_region)
+            ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
+
+            // Impute with STITCH
+            BAM_IMPUTE_STITCH (
+                PREPARE_INPUT_STITCH.out.stitch_parameters,
+                PREPARE_INPUT_STITCH.out.stitch_samples,
+                ch_fasta
+            )
+            ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
+
+            // Concatenate by chromosomes
+            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
+            ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
+
+            // Separate by samples
+            VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
+            ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
+
+        }
+        if (params.tools.split(',').contains("quilt")) {
+            log.info("Impute with QUILT")
+
+            // Use provided chunks if --chunks
+            if (params.chunks) {
+                CHUNK_PREPARE_CHANNEL(ch_chunks, "quilt")
+                ch_chunks_quilt = CHUNK_PREPARE_CHANNEL.out.chunks
+            }
+
+            // Impute BAMs with QUILT
+            BAM_IMPUTE_QUILT(
+                ch_input_impute,
+                ch_hap_legend,
+                ch_chunks_quilt
+            )
+            ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
+
+            // Concatenate by chromosomes
+            CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
+            ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
+        }
+        // Create CSV from imputation step
+        CHANNEL_IMPUTE_CREATE_CSV(ch_input_validate, params.outdir)
+
+        // Compute stats on imputed files
+        BCFTOOLS_STATS_TOOLS(
+            ch_input_validate,
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            ch_fasta.map{ [it[0], it[1]] })
+        ch_versions = ch_versions.mix(BCFTOOLS_STATS_TOOLS.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TOOLS.out.stats.map{ [it[1]] })
+    }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
 
@@ -324,6 +333,17 @@ workflow PHASEIMPUTE {
         CONCAT_PANEL(ch_panel_sites)
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
         ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
+
+        // Compute stats on panel
+        BCFTOOLS_STATS_PANEL(
+            ch_panel_sites,
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            ch_fasta.map{ [it[0], it[1]] })
+        ch_versions = ch_versions.mix(BCFTOOLS_STATS_PANEL.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_PANEL.out.stats.map{ [it[1]] })
 
         ch_truth_vcf = Channel.empty()
 
@@ -343,7 +363,6 @@ workflow PHASEIMPUTE {
             ch_posfile_glimpse,
             ch_fasta
         )
-        ch_multiqc_files = ch_multiqc_files.mix(GL_TRUTH.out.multiqc_files)
         ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)
 
         // Mix the original vcf and the computed vcf
@@ -354,6 +373,17 @@ workflow PHASEIMPUTE {
         // Concatenate truth vcf by chromosomes
         CONCAT_TRUTH(ch_truth_vcf)
         ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+
+        // Compute stats on truth files
+        BCFTOOLS_STATS_TRUTH(
+            CONCAT_TRUTH.out.vcf_tbi,
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            ch_fasta.map{ [it[0], it[1]] })
+        ch_versions = ch_versions.mix(BCFTOOLS_STATS_TRUTH.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TRUTH.out.stats.map{ [it[1]] })
 
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
