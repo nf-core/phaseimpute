@@ -33,15 +33,11 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     // Join extracted sites and index
-    ch_panel_sites = BCFTOOLS_VIEW.out.vcf.combine(BCFTOOLS_INDEX.out.csi, by:0)
+    ch_panel_sites = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX.out.csi)
 
     // Convert to TSV with structure for Glimpse
     BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
-
-    // Convert TSC to Stitch format ","" to "\t"
-    GAWK(BCFTOOLS_QUERY.out.output, [])
-    ch_versions = ch_versions.mix(GAWK.out.versions)
 
     // Compress TSV
     TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
@@ -50,6 +46,10 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     // Generate default posfile (sites vcf, sites index and sites txt)
     ch_posfile = ch_panel_sites
             .join(TABIX_BGZIP.out.output)
+
+    // Convert TSV to Stitch format ","" to "\t"
+    GAWK(BCFTOOLS_QUERY.out.output, [])
+    ch_versions = ch_versions.mix(GAWK.out.versions)
 
     // Generate glimpse posfile
     ch_glimpse_posfile = ch_posfile.map{ metaPC, sites, s_index, tsv -> [metaPC, sites, tsv]}
