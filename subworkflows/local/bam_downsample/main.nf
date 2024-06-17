@@ -1,13 +1,12 @@
-include { SAMTOOLS_DEPTH                     } from '../../../modules/nf-core/samtools/depth'
-include { SAMTOOLS_VIEW                      } from '../../../modules/nf-core/samtools/view'
-include { SAMTOOLS_INDEX as SAMTOOLS_INDEX_1 } from '../../../modules/nf-core/samtools/index'
-include { SAMTOOLS_MERGE                     } from '../../../modules/nf-core/samtools/merge'
-include { SAMTOOLS_INDEX as SAMTOOLS_INDEX_2 } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_DEPTH } from '../../../modules/nf-core/samtools/depth'
+include { SAMTOOLS_VIEW  } from '../../../modules/nf-core/samtools/view'
+include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index'
+include { GAWK           } from '../../../modules/nf-core/gawk'
 
 workflow BAM_DOWNSAMPLE {
 
     take:
-    ch_bam    // channel: [ [id, genome, chr, region], bam, bai ]
+    ch_bam    // channel: [ [id, genome], bam, bai ]
     ch_depth  // channel: [ [depth], depth ]
     ch_fasta  // channel: [ [genome], fasta, fai ]
 
@@ -16,19 +15,18 @@ workflow BAM_DOWNSAMPLE {
 
     // Compute mean depth
     SAMTOOLS_DEPTH(ch_bam, [[], []])
-    ch_mean_depth = SAMTOOLS_DEPTH.out.tsv
-        .splitCsv(header: false, sep:'\t')
-        .map{ metaICR, row ->
-            [ metaICR, row[2] as Float ]
-        }
-        .groupTuple()
-        .map{ metaICR, depth ->
-            [ metaICR, depth.sum()/depth.size() ]
-        }
     ch_versions = ch_versions.mix(SAMTOOLS_DEPTH.out.versions.first())
 
+    // Use GAWK to get mean depth
+    GAWK(SAMTOOLS_DEPTH.out.tsv, [])
+    ch_versions = ch_versions.mix(GAWK.out.versions.first())
+
     // Compute downsampling factor
-    ch_depth_factor = ch_mean_depth
+    ch_depth_factor = GAWK.out.output
+        .splitCsv(header: false, sep:'\t')
+        .map{ metaICR, row ->
+            [ metaICR, row[0] as Float ]
+        }
         .combine(ch_depth)
         .map{ metaICR, mean, metaD, depth ->
             [ metaICR, metaICR + metaD, depth as Float / mean ]
@@ -50,32 +48,12 @@ workflow BAM_DOWNSAMPLE {
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
     // Index result
-    SAMTOOLS_INDEX_1(SAMTOOLS_VIEW.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX_1.out.versions.first())
+    SAMTOOLS_INDEX(SAMTOOLS_VIEW.out.bam)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
 
     // Aggregate bam and index
     ch_bam_emul = SAMTOOLS_VIEW.out.bam
-        .combine(SAMTOOLS_INDEX_1.out.bai, by:0)
-
-    if (params.input_region) {
-        SAMTOOLS_MERGE(
-            ch_bam_emul
-                .map{
-                    metaICRD, bam, index -> [metaICRD.subMap("id", "depth"), bam, index]
-                }
-                .groupTuple(),
-            ch_fasta
-        )
-        ch_versions = ch_versions.mix(SAMTOOLS_MERGE.out.versions.first())
-
-        SAMTOOLS_INDEX_2(SAMTOOLS_MERGE.out.bam)
-        ch_versions = ch_versions.mix(SAMTOOLS_INDEX_2.out.versions.first())
-
-        ch_bam_emul = SAMTOOLS_MERGE.out.bam
-            .combine(SAMTOOLS_INDEX_2.out.bai, by:0)
-    }
-    ch_bam_emul = ch_bam_emul
-        .map{ meta, bam, index -> [meta + [chr: "all"], bam, index]}
+        .combine(SAMTOOLS_INDEX.out.bai, by:0)
 
     emit:
     bam_emul          = ch_bam_emul                    // channel: [ [id, chr, region, depth], bam, bai ]

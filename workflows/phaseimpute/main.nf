@@ -112,10 +112,11 @@ workflow PHASEIMPUTE {
             BAM_REGION(ch_input_sim, ch_region, ch_fasta)
             ch_versions  = ch_versions.mix(BAM_REGION.out.versions)
             ch_input_sim = BAM_REGION.out.bam_region
+            ch_input_validate_truth = BAM_REGION.out.bam_region
         }
 
         // Compute coverage of input files
-        SAMTOOLS_COVERAGE_TRT(ch_input_sim, ch_fasta)
+        SAMTOOLS_COVERAGE_TRT(ch_input_validate_truth, ch_fasta)
         ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
@@ -354,7 +355,7 @@ workflow PHASEIMPUTE {
         ch_truth = ch_input_validate_truth
             .combine(truth_ext)
             .branch {
-                bam: it[3] == 'bam'
+                bam: it[3] == 'bam|cram'
                 vcf: it[3] =~ 'vcf|bcf'
             }
 
