@@ -34,6 +34,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#85](https://github.com/nf-core/phaseimpute/pull/85) - Use external params in individual tests for tools.
 - [#86](https://github.com/nf-core/phaseimpute/pull/86) - Move `bcftools_convert` to `vcf_sites_extract_bcftools`.
 - [#88](https://github.com/nf-core/phaseimpute/pull/88) - Improve multiqc report with more information.
+- [#91](https://github.com/nf-core/phaseimpute/pull/91) - Update metro map with all steps and remove deprecated ones.
 
 ### `Fixed`
 
