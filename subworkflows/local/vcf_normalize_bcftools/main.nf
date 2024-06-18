@@ -2,7 +2,7 @@ include { BCFTOOLS_NORM                         } from '../../../modules/nf-core
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3    } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_VIEW as BCFTOOLS_DEL_MLT_ALL } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW                         } from '../../../modules/nf-core/bcftools/view'
 include { VCFLIB_VCFFIXUP                       } from '../../../modules/nf-core/vcflib/vcffixup/main'
 
 
@@ -28,15 +28,15 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
 
     // Remove all multiallelic records:
-    BCFTOOLS_DEL_MLT_ALL(ch_multiallelic_vcf_tbi, [], [], [])
-    ch_versions = ch_versions.mix(BCFTOOLS_DEL_MLT_ALL.out.versions)
+    BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions)
 
     // Index biallelic VCF
-    BCFTOOLS_INDEX_2(BCFTOOLS_DEL_MLT_ALL.out.vcf)
+    BCFTOOLS_INDEX_2(BCFTOOLS_VIEW.out.vcf)
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions)
 
     // Join biallelic VCF and TBI
-    ch_biallelic_vcf_tbi = BCFTOOLS_DEL_MLT_ALL.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
+    ch_biallelic_vcf_tbi = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
 
     // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
     if (params.compute_freq == true) {
