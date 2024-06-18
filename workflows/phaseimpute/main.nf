@@ -355,7 +355,7 @@ workflow PHASEIMPUTE {
         ch_truth = ch_input_validate_truth
             .combine(truth_ext)
             .branch {
-                bam: it[3] == 'bam|cram'
+                bam: it[3] =~ 'bam|cram'
                 vcf: it[3] =~ 'vcf|bcf'
             }
 
