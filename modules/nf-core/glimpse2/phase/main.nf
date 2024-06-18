@@ -18,7 +18,7 @@ process GLIMPSE2_PHASE {
         'biocontainers/glimpse-bio:2.0.0--hf340a29_0' }"
 
     input:
-        tuple val(meta) , path(input), path(input_index), path(samples_file), val(input_region), val(output_region), path(reference), path(reference_index), path(map)
+        tuple val(meta) , path(input), path(input_index), path(samples_file), val(input_region), val(output_region), path(reference), path(reference_index), path(map), path(bamlist)
         tuple val(meta2), path(fasta_reference), path(fasta_reference_index)
 
     output:
@@ -42,14 +42,19 @@ process GLIMPSE2_PHASE {
     def output_region_cmd     = output_region       ? "--output-region $output_region": ""
 
     def input_bam             = input.any { it.extension in ["cram","bam"]}
+    def input_list            = bamlist ? true : false
 
     """
-    if $input_bam
+    if $input_list
     then
-        ls -1 | grep '\\.cram\$\\|\\.bam\$' > all_bam.txt
-        input_command="--bam-list all_bam.txt"
+        input_command="--bam-list $bamlist"
     else
-        input_command="--input-gl $input"
+        if $input_bam
+        then
+            input_command="--bam-file $input"
+        else
+            input_command="--input-gl $input"
+        fi
     fi
 
     GLIMPSE2_phase \\
