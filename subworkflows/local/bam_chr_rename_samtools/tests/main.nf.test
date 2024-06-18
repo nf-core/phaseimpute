@@ -1,0 +1,89 @@
+nextflow_workflow {
+
+    name "Test Subworkflow BAM_CHR_RENAME_SAMTOOLS"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "BAM_CHR_RENAME_SAMTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/bam_chr_rename_samtools"
+    tag "bam_chr_rename_samtools"
+
+    tag "samtools"
+    tag "samtools/reheader"
+    tag "samtools/index"
+    tag "gawk"
+
+    test("Should remove chr prefix") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "test_paired"],
+                        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
+                        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true)
+                    ],
+                    [
+                        [id: "test_MT"],
+                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
+                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
+                    ],
+                ])
+                input[1] = Channel.of("nochr")
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("Should add chr prefix") {
+        setup {
+            run("BAM_CHR_RENAME_SAMTOOLS", alias: "PREPROCESS") {
+                script "../main.nf"
+                process {
+                    """
+                    input[0] = Channel.fromList([
+                        [
+                            [id: "test_paired"],
+                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
+                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true)
+                        ],
+                        [
+                            [id: "test_MT"],
+                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
+                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
+                        ],
+                    ])
+                    input[1] = Channel.of("nochr")
+                    """
+                }
+            }
+        }
+
+        when {
+            workflow {
+                """
+                input[0] = PREPROCESS.out.bam_renamed
+                input[1] = Channel.of("chr")
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

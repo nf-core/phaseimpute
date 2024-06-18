@@ -1,0 +1,104 @@
+{
+    "Should remove chr prefix": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_MT"
+                        },
+                        "test_MT_withchr.bam:md5,33f16cad4bdac734717255f29d98e9b6",
+                        "test_MT_withchr.bam.bai:md5,dbd8f1a5df58115b6f64a9312133d79d"
+                    ],
+                    [
+                        {
+                            "id": "test_paired"
+                        },
+                        "test_paired_withchr.bam:md5,c6908df90282cc95e846eee31476bb47",
+                        "test_paired_withchr.bam.bai:md5,77524c609a3001cdca9c7d10dcc14b6a"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,42dd37f7dc7e85848f3bb65119dae337",
+                    "versions.yml:md5,f91d09d8f0579548146084c6bdb1df5e"
+                ],
+                "bam_renamed": [
+                    [
+                        {
+                            "id": "test_MT"
+                        },
+                        "test_MT_withchr.bam:md5,33f16cad4bdac734717255f29d98e9b6",
+                        "test_MT_withchr.bam.bai:md5,dbd8f1a5df58115b6f64a9312133d79d"
+                    ],
+                    [
+                        {
+                            "id": "test_paired"
+                        },
+                        "test_paired_withchr.bam:md5,c6908df90282cc95e846eee31476bb47",
+                        "test_paired_withchr.bam.bai:md5,77524c609a3001cdca9c7d10dcc14b6a"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,42dd37f7dc7e85848f3bb65119dae337",
+                    "versions.yml:md5,f91d09d8f0579548146084c6bdb1df5e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-18T15:37:07.410027428"
+    },
+    "Should add chr prefix": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_MT"
+                        },
+                        "test_MT_withchr.bam:md5,438766aaee32ee392f000d3d89569a0d",
+                        "test_MT_withchr.bam.bai:md5,e94a4e26b532fba2901189f325405e45"
+                    ],
+                    [
+                        {
+                            "id": "test_paired"
+                        },
+                        "test_paired_withchr.bam:md5,ed6c8a1c7f8e79e321e61057aa736f5b",
+                        "test_paired_withchr.bam.bai:md5,71049dbf4968601dce88352ff34de528"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,42dd37f7dc7e85848f3bb65119dae337",
+                    "versions.yml:md5,f91d09d8f0579548146084c6bdb1df5e"
+                ],
+                "bam_renamed": [
+                    [
+                        {
+                            "id": "test_MT"
+                        },
+                        "test_MT_withchr.bam:md5,438766aaee32ee392f000d3d89569a0d",
+                        "test_MT_withchr.bam.bai:md5,e94a4e26b532fba2901189f325405e45"
+                    ],
+                    [
+                        {
+                            "id": "test_paired"
+                        },
+                        "test_paired_withchr.bam:md5,ed6c8a1c7f8e79e321e61057aa736f5b",
+                        "test_paired_withchr.bam.bai:md5,71049dbf4968601dce88352ff34de528"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,42dd37f7dc7e85848f3bb65119dae337",
+                    "versions.yml:md5,f91d09d8f0579548146084c6bdb1df5e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-18T15:37:19.417850864"
+    }
+}

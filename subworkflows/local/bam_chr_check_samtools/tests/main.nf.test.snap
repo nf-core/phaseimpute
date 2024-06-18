@@ -1,46 +1,56 @@
 {
-    "Rename: panel chr + fasta chr": {
+    "Rename: bam chr + fasta no chr": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "chr21"
+                            "id": "test_MT"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi"
+                        "test_MT.bam:md5,33f16cad4bdac734717255f29d98e9b6",
+                        "test_MT.bam.bai:md5,dbd8f1a5df58115b6f64a9312133d79d"
                     ],
                     [
                         {
-                            "id": "chr22"
+                            "id": "test_paired"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz",
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi"
+                        "test_paired.bam:md5,c6908df90282cc95e846eee31476bb47",
+                        "test_paired.bam.bai:md5,77524c609a3001cdca9c7d10dcc14b6a"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
-                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42"
+                    "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
+                    "versions.yml:md5,24321a016768b6449171df86a7f6801b",
+                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ],
-                "vcf": [
+                "bam": [
                     [
                         {
-                            "id": "chr21"
+                            "id": "test_MT"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi"
+                        "test_MT.bam:md5,33f16cad4bdac734717255f29d98e9b6",
+                        "test_MT.bam.bai:md5,dbd8f1a5df58115b6f64a9312133d79d"
                     ],
                     [
                         {
-                            "id": "chr22"
+                            "id": "test_paired"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz",
-                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi"
+                        "test_paired.bam:md5,c6908df90282cc95e846eee31476bb47",
+                        "test_paired.bam.bai:md5,77524c609a3001cdca9c7d10dcc14b6a"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
-                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42"
+                    "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
+                    "versions.yml:md5,24321a016768b6449171df86a7f6801b",
+                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ]
             }
         ],
@@ -48,38 +58,60 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-27T17:21:13.588561053"
+        "timestamp": "2024-06-18T16:46:45.480511171"
     },
-    "Rename: panel no chr + fasta chr": {
+    "Rename: bam no chr + fasta chr": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "22"
+                            "id": "test_MT"
                         },
-                        "22_chrrename.vcf.gz:md5,070a96d1053a64f2de2132ee8800847c",
-                        "22_chrrename.vcf.gz.csi:md5,e190b690b4b0a4d088231862e5408582"
+                        "test_MT.bam:md5,07e733c5bdb64f2f48ceb1eafbb0d120",
+                        "test_MT.bam.bai:md5,33b4ed892348364beceb9a2bfba07448"
+                    ],
+                    [
+                        {
+                            "id": "test_paired"
+                        },
+                        "test_paired.bam:md5,a4d6b2b5a077ec1d7bdd459c15fe49d0",
+                        "test_paired.bam.bai:md5,592b3771c867dfb0b31b14e4a578e795"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
-                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
-                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                    "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
+                    "versions.yml:md5,24321a016768b6449171df86a7f6801b",
+                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ],
-                "vcf": [
+                "bam": [
                     [
                         {
-                            "id": "22"
+                            "id": "test_MT"
                         },
-                        "22_chrrename.vcf.gz:md5,070a96d1053a64f2de2132ee8800847c",
-                        "22_chrrename.vcf.gz.csi:md5,e190b690b4b0a4d088231862e5408582"
+                        "test_MT.bam:md5,07e733c5bdb64f2f48ceb1eafbb0d120",
+                        "test_MT.bam.bai:md5,33b4ed892348364beceb9a2bfba07448"
+                    ],
+                    [
+                        {
+                            "id": "test_paired"
+                        },
+                        "test_paired.bam:md5,a4d6b2b5a077ec1d7bdd459c15fe49d0",
+                        "test_paired.bam.bai:md5,592b3771c867dfb0b31b14e4a578e795"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
-                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
-                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                    "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
+                    "versions.yml:md5,24321a016768b6449171df86a7f6801b",
+                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ]
             }
         ],
@@ -87,52 +119,52 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-27T17:21:39.92481538"
+        "timestamp": "2024-06-18T16:46:58.929558661"
     },
-    "Rename: panel chr + fasta no chr": {
+    "No rename: bam chr + fasta chr": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "chr21"
+                            "id": "test_MT"
                         },
-                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam.bai"
                     ],
                     [
                         {
-                            "id": "chr22"
+                            "id": "test_paired"
                         },
-                        "chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
-                        "chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
-                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
-                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ],
-                "vcf": [
+                "bam": [
                     [
                         {
-                            "id": "chr21"
+                            "id": "test_MT"
                         },
-                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam.bai"
                     ],
                     [
                         {
-                            "id": "chr22"
+                            "id": "test_paired"
                         },
-                        "chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
-                        "chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam",
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,395e1cde3f38a30f5d80769972ba23d8",
-                    "versions.yml:md5,ad4c5338cd27e20789c70e28b8c74a42",
-                    "versions.yml:md5,e576f40503c3506c782228485d06fbf1"
+                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
+                    "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ]
             }
         ],
@@ -140,6 +172,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-27T17:21:28.214969089"
+        "timestamp": "2024-06-18T16:46:33.764782734"
     }
 }

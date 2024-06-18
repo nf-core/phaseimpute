@@ -1,6 +1,7 @@
 include { BAMCHREXTRACT as BAMCHRBFR  } from '../../../modules/local/bamchrextract'
+include { GAWK                        } from '../../../modules/nf-core/gawk'
+include { BAM_CHR_RENAME_SAMTOOLS     } from '../bam_chr_rename_samtools'
 include { BAMCHREXTRACT as BAMCHRAFT  } from '../../../modules/local/bamchrextract'
-include { BAM_CHR_RENAME              } from '../bam_chr_rename'
 
 workflow BAM_CHR_CHECK_SAMTOOLS {
     take:
@@ -19,23 +20,31 @@ workflow BAM_CHR_CHECK_SAMTOOLS {
     chr_disjoint = check_chr(BAMCHRBFR.out.chr, ch_bam, ch_fasta)
 
     if (params.rename_chr == true) {
+        // Generate the chromosome renaming command based on the fasta file
+        GAWK(ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] }, [])
+        ch_versions = ch_versions.mix(GAWK.out.versions)
+
+        chr_prefix = GAWK.out.output
+            .splitCsv()
+            .map{ it[1][0] }
+
         // Generate the chromosome renaming file
-        BAM_CHR_RENAME(
+        BAM_CHR_RENAME_SAMTOOLS(
             chr_disjoint.to_rename.map{meta, bam, index, nb -> [meta, bam, index]},
-            ch_fasta
+            chr_prefix
         )
-        ch_versions = ch_versions.mix(BAM_CHR_RENAME.out.versions)
+        ch_versions = ch_versions.mix(BAM_CHR_RENAME_SAMTOOLS.out.versions)
 
         // Check if modification has solved the problem
-        BAMCHRAFT(BAM_CHR_RENAME.out.bam_renamed.map{ meta, bam, csi -> [meta, bam] })
+        BAMCHRAFT(BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed.map{ meta, bam, csi -> [meta, bam] })
         ch_versions = ch_versions.mix(BAMCHRAFT.out.versions)
 
-        chr_disjoint_after = check_chr(BAMCHRAFT.out.chr, BAM_CHR_RENAME.out.bam_renamed, ch_fasta)
-
+        chr_disjoint_after = check_chr(BAMCHRAFT.out.chr, BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed, ch_fasta)
+        chr_disjoint_after.to_rename.view()
         chr_disjoint_after.to_rename.map{
             error 'Even after renaming errors are still present. Please check that contigs name in bam and fasta file are equivalent.'
         }
-        ch_bam_renamed = BAM_CHR_RENAME.out.bam_renamed
+        ch_bam_renamed = BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed
 
     } else {
         chr_disjoint.to_rename.map {

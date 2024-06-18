@@ -1,2 +1,2 @@
-subworkflows/vcf_chr_check:
-  - subworkflows/local/vcf_chr_check/**
+subworkflows/bam_chr_check_samtools:
+  - subworkflows/local/bam_chr_check_samtools/**
