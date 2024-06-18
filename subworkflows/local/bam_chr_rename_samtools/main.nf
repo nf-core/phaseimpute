@@ -3,27 +3,25 @@ include { SAMTOOLS_INDEX              } from '../../../modules/nf-core/samtools/
 
 workflow BAM_CHR_RENAME_SAMTOOLS {
     take:
-    ch_bam          // channel: [ [id], bam, index ]
-    chr_prefix      // value  : ( "chr" | "nochr" )
+    ch_bam          // channel: [ [id], bam, index, prefix ]
 
     main:
 
     ch_versions = Channel.empty()
 
-    cmd_chr = chr_prefix
-        .map {
-            if (it == "nochr") {
-                return 'sed -E "s/^(@SQ.*\\tSN:)chr/\\1/"'
-            } else if (it == "chr") {
-                return 'sed -E "s/^(@SQ.*\\tSN:)([0-9]+|X|Y|MT|M)/\\1chr\\2/"'
-            } else {
-                error "Invalid chr_prefix: ${it[0]}"
-            }
-        }
-
     // Rename the chromosome with or without prefix
     SAMTOOLS_REHEADER(
-        ch_bam.combine(cmd_chr), // channel: [ [id], bam, index, cmd]
+        ch_bam.map{
+            meta, bam, index, prefix ->
+            if (prefix == "nochr") {
+                cmd = 'sed -E "s/^(@SQ.*\\tSN:)chr/\\1/"'
+            } else if (prefix == "chr") {
+                cmd = 'sed -E "s/^(@SQ.*\\tSN:)([0-9]+|X|Y|MT|M)/\\1chr\\2/"'
+            } else {
+                error "Invalid chr_prefix: ${prefix}"
+            }
+            [meta, bam, index, cmd]
+        }, // channel: [ [id], bam, index, cmd]
     )
     ch_versions = ch_versions.mix(SAMTOOLS_REHEADER.out.versions.first())
 

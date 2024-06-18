@@ -48,7 +48,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T15:37:07.410027428"
+        "timestamp": "2024-06-18T19:25:47.74238538"
     },
     "Should add chr prefix": {
         "content": [
@@ -58,15 +58,15 @@
                         {
                             "id": "test_MT"
                         },
-                        "test_MT_withchr.bam:md5,438766aaee32ee392f000d3d89569a0d",
-                        "test_MT_withchr.bam.bai:md5,e94a4e26b532fba2901189f325405e45"
+                        "test_MT_withchr.bam:md5,07e733c5bdb64f2f48ceb1eafbb0d120",
+                        "test_MT_withchr.bam.bai:md5,33b4ed892348364beceb9a2bfba07448"
                     ],
                     [
                         {
                             "id": "test_paired"
                         },
-                        "test_paired_withchr.bam:md5,ed6c8a1c7f8e79e321e61057aa736f5b",
-                        "test_paired_withchr.bam.bai:md5,71049dbf4968601dce88352ff34de528"
+                        "test_paired_withchr.bam:md5,a4d6b2b5a077ec1d7bdd459c15fe49d0",
+                        "test_paired_withchr.bam.bai:md5,592b3771c867dfb0b31b14e4a578e795"
                     ]
                 ],
                 "1": [
@@ -78,15 +78,15 @@
                         {
                             "id": "test_MT"
                         },
-                        "test_MT_withchr.bam:md5,438766aaee32ee392f000d3d89569a0d",
-                        "test_MT_withchr.bam.bai:md5,e94a4e26b532fba2901189f325405e45"
+                        "test_MT_withchr.bam:md5,07e733c5bdb64f2f48ceb1eafbb0d120",
+                        "test_MT_withchr.bam.bai:md5,33b4ed892348364beceb9a2bfba07448"
                     ],
                     [
                         {
                             "id": "test_paired"
                         },
-                        "test_paired_withchr.bam:md5,ed6c8a1c7f8e79e321e61057aa736f5b",
-                        "test_paired_withchr.bam.bai:md5,71049dbf4968601dce88352ff34de528"
+                        "test_paired_withchr.bam:md5,a4d6b2b5a077ec1d7bdd459c15fe49d0",
+                        "test_paired_withchr.bam.bai:md5,592b3771c867dfb0b31b14e4a578e795"
                     ]
                 ],
                 "versions": [
@@ -99,6 +99,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T15:37:19.417850864"
+        "timestamp": "2024-06-18T19:25:58.42782681"
     }
 }

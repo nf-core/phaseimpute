@@ -45,6 +45,7 @@ nextflow_workflow {
             )
         }
     }
+
     test("Rename: bam chr + fasta no chr") {
         config "./nextflow_rename.config"
         when {
@@ -87,15 +88,16 @@ nextflow_workflow {
                         [
                             [id: "test_paired"],
                             file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
-                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true)
+                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true),
+                            "nochr"
                         ],
                         [
                             [id: "test_MT"],
                             file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
-                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
+                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true),
+                            "nochr"
                         ],
                     ])
-                    input[1] = Channel.of("nochr")
                     """
                 }
             }
@@ -119,27 +121,22 @@ nextflow_workflow {
             )
         }
     }
-    /*
+
     test("Error : missing renaming params") {
         config "./nextflow.config"
         when {
             workflow {
                 """
+                fai_file = Channel.of('22\t10000\t7\t60\t61', 'M\t10000\t7\t60\t61').collectFile(name: '22M.fai', newLine: true)
                 input[0] = Channel.fromList([
                     [
                         [id: "test_paired"],
                         file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
                         file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true)
                     ],
-                    [
-                        [id: "test_MT"],
-                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
-                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
-                    ],
                 ])
-                input[1] = Channel.of([[id:"GRCh37"],[],
-                    file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta.fai",checkIfExist:true)
-                ])
+                input[1] = Channel.of([[id:"GRCh37nochr"],[]])
+                    .combine(fai_file)
                 """
             }
         }
@@ -147,17 +144,18 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert workflow.errorReport.contains("Some contig names in the VCF do not match the reference genome. Please set `rename_chr` to `true` to rename the contigs.")}
+                { assert workflow.errorReport.contains("Contig names: [chr22] in the BAM are not present in the reference genome. Please set `rename_chr` to `true` to rename the contigs.")}
             )
         }
     }
+
     test("Error : still difference after renaming"){
         config "./nextflow_rename.config"
         when {
             workflow {
                 """
+                fai_file = Channel.of('M\t10000\t7\t60\t61').collectFile(name: 'M.fai', newLine: true)
                 input[0] = Channel.fromList([
-                    input[0] = Channel.fromList([
                     [
                         [id: "test_paired"],
                         file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
@@ -169,11 +167,8 @@ nextflow_workflow {
                         file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
                     ],
                 ]) // Error due to multiple contigs name in header not present in fasta file
-                input[1] = Channel.of([
-                    [id:"GRCh37"],
-                    file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta",checkIfExist:true),
-                    file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome.fasta.fai",checkIfExist:true)
-                ])
+                input[1] = Channel.of([[id:"GRCh37nochr"],[]])
+                    .combine(fai_file)
                 """
             }
         }
@@ -181,9 +176,8 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert workflow.errorReport.contains("Even after renaming errors are still present. Please check that contigs name in vcf and fasta file are equivalent.")}
+                { assert workflow.errorReport.contains("Even after renaming errors are still present. Please check the contigs name : [22] in bam and fasta file.")}
             )
         }
     }
-    */
 }

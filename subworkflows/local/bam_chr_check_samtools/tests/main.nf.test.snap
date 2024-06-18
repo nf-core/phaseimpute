@@ -21,7 +21,6 @@
                 "1": [
                     "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
                     "versions.yml:md5,24321a016768b6449171df86a7f6801b",
-                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
@@ -46,7 +45,6 @@
                 "versions": [
                     "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
                     "versions.yml:md5,24321a016768b6449171df86a7f6801b",
-                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
@@ -58,7 +56,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T16:46:45.480511171"
+        "timestamp": "2024-06-18T19:30:27.250399834"
     },
     "Rename: bam no chr + fasta chr": {
         "content": [
@@ -82,7 +80,6 @@
                 "1": [
                     "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
                     "versions.yml:md5,24321a016768b6449171df86a7f6801b",
-                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
@@ -107,7 +104,6 @@
                 "versions": [
                     "versions.yml:md5,0b7a1702e2427e2e30ee7906e41556db",
                     "versions.yml:md5,24321a016768b6449171df86a7f6801b",
-                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,bf7294b8c4a1448665b1b771105ffb3c",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
@@ -119,7 +115,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T16:46:58.929558661"
+        "timestamp": "2024-06-18T19:37:53.660827586"
     },
     "No rename: bam chr + fasta chr": {
         "content": [
@@ -141,7 +137,6 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ],
@@ -162,7 +157,6 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,3246c6acbc35a76b3ba905ed54ce927b",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399",
                     "versions.yml:md5,ed47e1a8adc5174f9befd7fc57b72399"
                 ]
@@ -172,6 +166,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T16:46:33.764782734"
+        "timestamp": "2024-06-18T19:30:14.518358522"
     }
 }

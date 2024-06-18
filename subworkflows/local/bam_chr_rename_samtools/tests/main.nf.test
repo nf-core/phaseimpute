@@ -25,15 +25,16 @@ nextflow_workflow {
                     [
                         [id: "test_paired"],
                         file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
-                        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true)
+                        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true),
+                        "nochr"
                     ],
                     [
                         [id: "test_MT"],
                         file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
-                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
+                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true),
+                        "nochr"
                     ],
                 ])
-                input[1] = Channel.of("nochr")
                 """
             }
         }
@@ -56,15 +57,16 @@ nextflow_workflow {
                         [
                             [id: "test_paired"],
                             file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
-                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true)
+                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true),
+                            "nochr"
                         ],
                         [
                             [id: "test_MT"],
                             file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
-                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true)
+                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true),
+                            "nochr"
                         ],
                     ])
-                    input[1] = Channel.of("nochr")
                     """
                 }
             }
@@ -73,8 +75,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = PREPROCESS.out.bam_renamed
-                input[1] = Channel.of("chr")
+                input[0] = PREPROCESS.out.bam_renamed.combine(["chr"])
                 """
             }
         }

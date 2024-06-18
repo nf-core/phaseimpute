@@ -20,18 +20,9 @@ workflow BAM_CHR_CHECK_SAMTOOLS {
     chr_disjoint = check_chr(BAMCHRBFR.out.chr, ch_bam, ch_fasta)
 
     if (params.rename_chr == true) {
-        // Generate the chromosome renaming command based on the fasta file
-        GAWK(ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] }, [])
-        ch_versions = ch_versions.mix(GAWK.out.versions)
-
-        chr_prefix = GAWK.out.output
-            .splitCsv()
-            .map{ it[1][0] }
-
         // Generate the chromosome renaming file
         BAM_CHR_RENAME_SAMTOOLS(
-            chr_disjoint.to_rename.map{meta, bam, index, nb -> [meta, bam, index]},
-            chr_prefix
+            chr_disjoint.to_rename.map{meta, bam, csi, dis, prefix -> [meta, bam, csi, prefix]}
         )
         ch_versions = ch_versions.mix(BAM_CHR_RENAME_SAMTOOLS.out.versions)
 
@@ -40,21 +31,19 @@ workflow BAM_CHR_CHECK_SAMTOOLS {
         ch_versions = ch_versions.mix(BAMCHRAFT.out.versions)
 
         chr_disjoint_after = check_chr(BAMCHRAFT.out.chr, BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed, ch_fasta)
-        chr_disjoint_after.to_rename.view()
         chr_disjoint_after.to_rename.map{
-            error 'Even after renaming errors are still present. Please check that contigs name in bam and fasta file are equivalent.'
+            error "Even after renaming errors are still present. Please check the contigs name : ${it[3]} in bam and fasta file."
         }
         ch_bam_renamed = BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed
 
     } else {
         chr_disjoint.to_rename.map {
-            error 'Some contig names in the BAM do not match the reference genome. Please set `rename_chr` to `true` to rename the contigs.'
+            error "Contig names: ${it[3]} in the BAM are not present in the reference genome. Please set `rename_chr` to `true` to rename the contigs."
         }
         ch_bam_renamed = Channel.empty()
     }
 
     ch_bam_out = chr_disjoint.no_rename
-        .map{meta, bam, csi, chr -> [meta, bam, csi]}
         .mix(ch_bam_renamed)
 
     emit:
@@ -74,12 +63,11 @@ def check_chr(ch_chr, ch_bam, ch_fasta){
                 fai.readLines()*.split('\t').collect{it[0]}
             ]
         }
-        .map { meta, bam, csi, chr, fai ->
-            [meta, bam, csi, (chr-fai).size()]
-        }
-        .branch{
-            no_rename: it[3] == 0
-            to_rename: it[3] > 0
+        .branch{ meta, bam, csi, chr, fai ->
+            no_rename: (chr - fai).size() == 0
+                return [meta, bam, csi]
+            to_rename: true
+                return [meta, bam, csi, chr-fai, chr-fai =~ "chr" ? "nochr" : "chr"]
         }
     return chr_checked
 }
