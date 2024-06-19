@@ -1,8 +1,8 @@
 include { VCFCHREXTRACT as VCFCHRBFR  } from '../../../modules/local/vcfchrextract'
 include { VCFCHREXTRACT as VCFCHRAFT  } from '../../../modules/local/vcfchrextract'
-include { VCF_CHR_RENAME              } from '../vcf_chr_rename'
+include { VCF_CHR_RENAME_BCFTOOLS     } from '../vcf_chr_rename_bcftools'
 
-workflow VCF_CHR_CHECK {
+workflow VCF_CHR_CHECK_BCFTOOLS {
     take:
     ch_vcf          // channel: [ [id], vcf, index ]
     ch_fasta        // channel: [ [genome], fasta, fai ]
@@ -20,22 +20,22 @@ workflow VCF_CHR_CHECK {
 
     if (params.rename_chr == true) {
         // Generate the chromosome renaming file
-        VCF_CHR_RENAME(
+        VCF_CHR_RENAME_BCFTOOLS(
             chr_disjoint.to_rename.map{meta, vcf, index, nb -> [meta, vcf, index]},
             ch_fasta
         )
-        ch_versions = ch_versions.mix(VCF_CHR_RENAME.out.versions)
+        ch_versions = ch_versions.mix(VCF_CHR_RENAME_BCFTOOLS.out.versions)
 
         // Check if modification has solved the problem
-        VCFCHRAFT(VCF_CHR_RENAME.out.vcf_renamed.map{ meta, vcf, csi -> [meta, vcf] })
+        VCFCHRAFT(VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed.map{ meta, vcf, csi -> [meta, vcf] })
         ch_versions = ch_versions.mix(VCFCHRAFT.out.versions)
 
-        chr_disjoint_after = check_chr(VCFCHRAFT.out.chr, VCF_CHR_RENAME.out.vcf_renamed, ch_fasta)
+        chr_disjoint_after = check_chr(VCFCHRAFT.out.chr, VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed, ch_fasta)
 
         chr_disjoint_after.to_rename.map{
             error 'Even after renaming errors are still present. Please check that contigs name in vcf and fasta file are equivalent.'
         }
-        ch_vcf_renamed = VCF_CHR_RENAME.out.vcf_renamed
+        ch_vcf_renamed = VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed
 
     } else {
         chr_disjoint.to_rename.map {

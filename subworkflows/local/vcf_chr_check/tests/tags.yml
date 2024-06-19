@@ -1,2 +1,0 @@
-subworkflows/vcf_chr_check:
-  - subworkflows/local/vcf_chr_check/**

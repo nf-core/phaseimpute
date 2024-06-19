@@ -1,14 +1,14 @@
 nextflow_workflow {
 
-    name "Test Subworkflow VCF_CHR_CHECK"
+    name "Test Subworkflow VCF_CHR_CHECK_BCFTOOLS"
     script "../main.nf"
 
-    workflow "VCF_CHR_CHECK"
+    workflow "VCF_CHR_CHECK_BCFTOOLS"
 
     tag "subworkflows"
     tag "subworkflows_local"
-    tag "subworkflows/vcf_chr_check"
-    tag "vcf_chr_check"
+    tag "subworkflows/vcf_chr_check_bcftools"
+    tag "vcf_chr_check_bcftools"
 
     tag "bcftools"
     tag "bcftools/annotate"

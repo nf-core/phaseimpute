@@ -1,16 +1,16 @@
 nextflow_workflow {
 
-    name "Test Subworkflow VCF_CHR_RENAME"
+    name "Test Subworkflow VCF_CHR_RENAME_BCFTOOLS"
     script "../main.nf"
 
     config "./nextflow.config"
 
-    workflow "VCF_CHR_RENAME"
+    workflow "VCF_CHR_RENAME_BCFTOOLS"
 
     tag "subworkflows"
     tag "subworkflows_local"
-    tag "subworkflows/vcf_chr_rename"
-    tag "vcf_chr_rename"
+    tag "subworkflows/vcf_chr_rename_bcftools"
+    tag "vcf_chr_rename_bcftools"
 
     tag "bcftools"
     tag "bcftools/annotate"

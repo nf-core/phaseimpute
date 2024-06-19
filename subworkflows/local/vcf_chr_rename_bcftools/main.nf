@@ -2,24 +2,34 @@ include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/
 include { BCFTOOLS_INDEX              } from '../../../modules/nf-core/bcftools/index'
 include { GAWK                        } from '../../../modules/nf-core/gawk'
 
-workflow VCF_CHR_RENAME {
+workflow VCF_CHR_RENAME_BCFTOOLS {
     take:
-    ch_vcf          // channel: [ [id], vcf, index ]
-    ch_fasta        // channel: [ [id], fasta, fai ]
+    ch_vcf          // channel: [ [id], vcf, index, dif, prefix ]
 
     main:
 
     ch_versions = Channel.empty()
 
     // Generate the chromosome renaming file
-    GAWK(ch_fasta.map{ metaG, fasta, fai -> [metaG, fai] }, [])
-    ch_versions = ch_versions.mix(GAWK.out.versions)
+    ch_rename_file = ch_vcf
+        .map{ meta, vcf, index, diff, prefix ->
+            if (prefix == "chr") :
+                return [
+                    meta,
+                    diff.collectFile{["rename_chr.txt", "${it} chr${it}\n"]}
+                ]
+            else :
+                return [
+                    meta,
+                    diff.collectFile{["rename_nochr.txt", "${it} ${it.replaceFirst("chr", "")}\n"]}
+                ]
+        }
 
     // Rename the chromosome without prefix
     BCFTOOLS_ANNOTATE(
         ch_vcf // channel: [ [id], vcf, index ]
             .combine(Channel.of([[],[],[]]))
-            .combine(GAWK.out.output.map{it[1]})
+            .combine(ch_rename_file, by:0)
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 

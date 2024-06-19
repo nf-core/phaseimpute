@@ -1,0 +1,2 @@
+subworkflows/vcf_chr_check_bcftools:
+  - subworkflows/local/vcf_chr_check_bcftools/**
