@@ -48,7 +48,24 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T19:25:47.74238538"
+        "timestamp": "2024-06-19T12:32:09.252131684"
+    },
+    "headernochr": {
+        "content": [
+            [
+                [
+                    "@SQ\tSN:M\tLN:16569"
+                ],
+                [
+                    "@SQ\tSN:22\tLN:40001"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-19T12:32:09.649153266"
     },
     "Should add chr prefix": {
         "content": [
@@ -99,6 +116,23 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-18T19:25:58.42782681"
+        "timestamp": "2024-06-19T12:32:19.974979326"
+    },
+    "headerwithchr": {
+        "content": [
+            [
+                [
+                    "@SQ\tSN:chrM\tLN:16569"
+                ],
+                [
+                    "@SQ\tSN:chr22\tLN:40001"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-19T12:34:52.016067829"
     }
 }

@@ -117,6 +117,40 @@
         },
         "timestamp": "2024-06-18T19:37:53.660827586"
     },
+    "headerchr": {
+        "content": [
+            [
+                [
+                    "@SQ\tSN:chrM\tLN:16569"
+                ],
+                [
+                    "@SQ\tSN:chr22\tLN:40001"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-19T12:37:52.674500729"
+    },
+    "headernochr": {
+        "content": [
+            [
+                [
+                    "@SQ\tSN:M\tLN:16569"
+                ],
+                [
+                    "@SQ\tSN:22\tLN:40001"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-19T12:37:37.57421023"
+    },
     "No rename: bam chr + fasta chr": {
         "content": [
             {

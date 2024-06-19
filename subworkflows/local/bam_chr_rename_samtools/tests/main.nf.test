@@ -42,7 +42,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.bam_renamed.collect{
+                    bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                    }).match("headernochr")
+                }
             )
         }
     }
@@ -83,7 +87,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.bam_renamed.collect{
+                    bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                    }).match("headerwithchr")
+                }
             )
         }
     }

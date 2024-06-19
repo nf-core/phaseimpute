@@ -73,7 +73,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.bam.collect {
+                    bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }// Keep only SQ header from cram file due to absolute path for reference
+                    }).match("headernochr")
+                }
             )
         }
     }
@@ -117,7 +121,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.bam.collect {
+                    bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }// Keep only SQ header from cram file due to absolute path for reference
+                    }).match("headerchr")
+                }
             )
         }
     }
