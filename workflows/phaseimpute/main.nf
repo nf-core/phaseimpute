@@ -26,7 +26,6 @@ include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_SIM } from '../../modules/nf-co
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_TRT } from '../../modules/nf-core/samtools/coverage'
 
 // Panelprep subworkflows
-include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
@@ -144,12 +143,8 @@ workflow PHASEIMPUTE {
     // Prepare panel
     //
     if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("all")) {
-        // Check chr prefix and remove if necessary
-        VCF_CHR_CHECK(ch_panel, ch_fasta)
-        ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
-
         // Normalize indels in panel
-        VCF_NORMALIZE_BCFTOOLS(VCF_CHR_CHECK.out.vcf, ch_fasta)
+        VCF_NORMALIZE_BCFTOOLS(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_NORMALIZE_BCFTOOLS.out.versions)
 
         // Extract sites from normalized vcf
@@ -395,10 +390,6 @@ workflow PHASEIMPUTE {
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
         ch_versions      = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
-    }
-
-    if (params.steps.split(',').contains("refine")) {
-        error "refine steps not yet implemented"
     }
 
     //
