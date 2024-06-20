@@ -16,10 +16,13 @@ nextflow.enable.dsl = 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PHASEIMPUTE             } from './workflows/phaseimpute'
-include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { PHASEIMPUTE                } from './workflows/phaseimpute'
+include { CHRCHECK as CHRCHECK_INPUT } from './workflows/chrcheck'
+include { CHRCHECK as CHRCHECK_TRUTH } from './workflows/chrcheck'
+include { CHRCHECK as CHRCHECK_PANEL } from './workflows/chrcheck'
+include { PIPELINE_INITIALISATION    } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getGenomeAttribute         } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,6 +57,24 @@ workflow NFCORE_PHASEIMPUTE {
     ch_input_impute         = Channel.empty()
     ch_input_simulate       = Channel.empty()
     ch_input_validate       = Channel.empty()
+
+    //  Check input files for contigs names consistency
+    lst_chr = ch_regions.map { it[0].chr }
+        .unique()
+        .collect()
+        .toList()
+
+    CHRCHECK_INPUT(ch_input.combine(lst_chr))
+    ch_input = CHRCHECK_INPUT.out.output
+    ch_versions = ch_versions.mix(CHRCHECK_INPUT.out.versions)
+
+    CHRCHECK_TRUTH(ch_input_truth.combine(lst_chr))
+    ch_input_truth = CHRCHECK_TRUTH.out.output
+
+    CHRCHECK_PANEL(ch_panel
+        .map{meta, vcf, index -> [meta, vcf, index, [meta.chr]]}
+    )
+    ch_panel = CHRCHECK_PANEL.out.output
 
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         ch_input_simulate = ch_input
