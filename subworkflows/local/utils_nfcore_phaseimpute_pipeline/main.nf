@@ -82,6 +82,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create fasta channel
     //
+
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
     if (params.genome) {
         genome = params.genome
@@ -138,7 +139,7 @@ workflow PIPELINE_INITIALISATION {
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
-        ch_input_truth = Channel.empty()
+        ch_input_truth = Channel.of([[], [], []])
     }
 
     //
@@ -218,8 +219,8 @@ workflow PIPELINE_INITIALISATION {
         ch_hap_legend = Channel.fromSamplesheet("posfile")
                 .map { meta, vcf, index, txt, hap, legend -> [meta, hap, legend] }
     } else {
-        ch_posfile = [[],[]]
-        ch_hap_legend   = Channel.empty()
+        ch_posfile = Channel.of([[], [], [], []])
+        ch_hap_legend   = Channel.of([[],[],[]])
     }
 
     //
@@ -229,8 +230,41 @@ workflow PIPELINE_INITIALISATION {
         ch_chunks = Channel
             .fromSamplesheet("chunks")
     } else {
-        ch_chunks = [[],[]]
+        ch_chunks = Channel.of([[],[]])
     }
+
+    //
+    // Check contigs name in different meta map
+    //
+    // Collect all chromosomes names in all different inputs
+    chr_ref = ch_ref_gen.map { meta, fasta, fai -> [fai.readLines()*.split('\t').collect{it[0]}] }
+    chr_regions = ch_regions.map { meta, region -> [meta.chr] }
+        .collect()
+        .toList()
+    chr_chunks = ch_chunks.map { meta, chunk -> [meta.chr] }
+        .collect()
+        .toList()
+    chr_map = ch_map.map { meta, gmap -> [meta.chr] }
+        .collect()
+        .toList()
+    chr_panel = ch_panel.map { meta, panel, csi -> [meta.chr] }
+        .collect()
+        .toList()
+    chr_hap_legend = ch_hap_legend.map { meta, hap, legend -> [meta.chr] }
+        .collect()
+        .toList()
+    chr_posfile = ch_posfile.map { meta, sites, index, posfile -> [meta.chr] }
+        .collect()
+        .toList()
+
+    // Check that the chromosomes names that will be used are all present in different inputs
+    check_chr(chr_regions, chr_ref, "Reference genome")
+    check_chr(chr_regions, chr_chunks, "chromosome chunks")
+    check_chr(chr_regions, chr_map, "genetic map")
+    check_chr(chr_regions, chr_panel, "reference panel")
+    check_chr(chr_regions, chr_hap_legend, "hap legend files")
+    check_chr(chr_regions, chr_posfile, "position")
+
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -348,6 +382,21 @@ def validateInputParameters() {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
 }
+
+//
+// Check if all contigs in a are present in b
+//
+def check_chr(chr_a, chr_b, name){
+    chr_a
+        .combine(chr_b)
+        .map{
+            a, b ->
+            if (!b.isEmpty() & !(a - b).isEmpty()) {
+                error "Chr : ${a - b} is missing from ${name}"
+            }
+        }
+}
+
 
 //
 // Check if all input files have the same extension
