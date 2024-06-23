@@ -24,12 +24,12 @@
     "Check test_all": {
         "content": [
             [
-                "simulation/NA12878.bam",
-                "simulation/NA12878.bam.bai",
-                "simulation/NA19401.bam",
-                "simulation/NA19401.bam.bai",
-                "simulation/NA20359.bam",
-                "simulation/NA20359.bam.bai",
+                "simulation/NA12878_D1.bam",
+                "simulation/NA12878_D1.bam.bai",
+                "simulation/NA19401_D1.bam",
+                "simulation/NA19401_D1.bam.bai",
+                "simulation/NA20359_D1.bam",
+                "simulation/NA20359_D1.bam.bai",
                 "simulation/csv/simulate.csv"
             ],
             [
