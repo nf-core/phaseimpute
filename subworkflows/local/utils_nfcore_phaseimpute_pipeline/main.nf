@@ -119,7 +119,7 @@ workflow PIPELINE_INITIALISATION {
         // Check if all extension are identical
         getAllFilesExtension(ch_input)
     } else {
-        ch_input = Channel.of([[], [], []])
+        ch_input = Channel.of([[chr:null], [], []])
     }
     //
     // Create channel from input file provided through params.input_truth
@@ -139,7 +139,7 @@ workflow PIPELINE_INITIALISATION {
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
-        ch_input_truth = Channel.of([[], [], []])
+        ch_input_truth = Channel.of([[chr:null], [], []])
     }
 
     //
@@ -155,7 +155,7 @@ workflow PIPELINE_INITIALISATION {
         }
     } else {
         // #TODO check if panel is required
-        ch_panel        = Channel.of([[],[],[]])
+        ch_panel        = Channel.of([[chr:null],[],[]])
     }
 
     //
@@ -219,8 +219,8 @@ workflow PIPELINE_INITIALISATION {
         ch_hap_legend = Channel.fromSamplesheet("posfile")
                 .map { meta, vcf, index, txt, hap, legend -> [meta, hap, legend] }
     } else {
-        ch_posfile = Channel.of([[], [], [], []])
-        ch_hap_legend   = Channel.of([[],[],[]])
+        ch_posfile = Channel.of([[chr:null], [], [], []])
+        ch_hap_legend   = Channel.of([[chr:null],[],[]])
     }
 
     //
@@ -230,7 +230,7 @@ workflow PIPELINE_INITIALISATION {
         ch_chunks = Channel
             .fromSamplesheet("chunks")
     } else {
-        ch_chunks = Channel.of([[],[]])
+        ch_chunks = Channel.of([[chr:null],[]])
     }
 
     //
@@ -391,7 +391,7 @@ def check_chr(chr_a, chr_b, name){
         .combine(chr_b)
         .map{
             a, b ->
-            if (!b.isEmpty() & !(a - b).isEmpty()) {
+            if (!b == [null] & !(a - b).isEmpty()) {
                 error "Chr : ${a - b} is missing from ${name}"
             }
         }
