@@ -163,7 +163,8 @@
                     "samtools/reheader": {
                         "branch": "master",
                         "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/reheader/samtools-reheader.diff"
                     },
                     "samtools/view": {
                         "branch": "master",

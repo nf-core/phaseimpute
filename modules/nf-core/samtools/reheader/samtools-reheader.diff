@@ -1,0 +1,28 @@
+Changes in module 'nf-core/samtools/reheader'
+--- modules/nf-core/samtools/reheader/main.nf
++++ modules/nf-core/samtools/reheader/main.nf
+@@ -8,7 +8,7 @@
+         'biocontainers/samtools:1.20--h50ea8bc_0' }"
+ 
+     input:
+-    tuple val(meta), path(bam)
++    tuple val(meta), path(bam), path(bai), val(cmd)
+ 
+     output:
+     tuple val(meta), path("*.bam"), emit: bam
+@@ -20,11 +20,13 @@
+     script:
+     def args = task.ext.args ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
++    def cmd_reheader = cmd ? "-c '$cmd'" : ""
+ 
+     if ("$bam" == "${meta.id}.bam") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+     """
+     samtools \\
+         reheader \\
++        $cmd_reheader \\
+         $args \\
+         $bam \\
+         > ${prefix}.bam
+
+************************************************************
