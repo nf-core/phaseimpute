@@ -11,6 +11,7 @@ nextflow_workflow {
         when {
             params {
                 fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
+                fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map.csv"
                 chunks = "../../../tests/csv/chunks.csv"
