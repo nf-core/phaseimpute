@@ -40,11 +40,11 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-co
 include { CHANNEL_IMPUTE_CREATE_CSV                   } from '../../subworkflows/local/channel_impute_create_csv'
 
 // GLIMPSE1 subworkflows
-include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
+include { BAM_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/bam_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // GLIMPSE2 subworkflows
-include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
+include { BAM_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/bam_impute_glimpse2'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
@@ -208,17 +208,17 @@ workflow PHASEIMPUTE {
             }
 
             // Run imputation
-            VCF_IMPUTE_GLIMPSE1(
+            BAM_IMPUTE_GLIMPSE1(
                 ch_input_impute,
                 ch_posfile_glimpse,
                 ch_panel_phased,
                 ch_chunks_glimpse1,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
+            ch_versions = ch_versions.mix(BAM_IMPUTE_GLIMPSE1.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
+            CONCAT_GLIMPSE1(BAM_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
             // Add results to input validate
@@ -234,15 +234,15 @@ workflow PHASEIMPUTE {
             }
 
             // Run imputation
-            VCF_IMPUTE_GLIMPSE2(
+            BAM_IMPUTE_GLIMPSE2(
                 ch_input_impute,
                 ch_panel_phased,
                 ch_chunks_glimpse2,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
+            ch_versions = ch_versions.mix(BAM_IMPUTE_GLIMPSE2.out.versions)
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
+            CONCAT_GLIMPSE2(BAM_IMPUTE_GLIMPSE2.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
             // Add results to input validate

@@ -5,7 +5,7 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bc
 include { GLIMPSE_LIGATE                     } from '../../../modules/nf-core/glimpse/ligate'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
-workflow VCF_IMPUTE_GLIMPSE1 {
+workflow BAM_IMPUTE_GLIMPSE1 {
 
     take:
     ch_input        // channel (mandatory): [ [id], bam, bai ]
