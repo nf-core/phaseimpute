@@ -144,7 +144,7 @@ workflow {
         PIPELINE_INITIALISATION.out.panel,
         PIPELINE_INITIALISATION.out.regions,
         PIPELINE_INITIALISATION.out.depth,
-        PIPELINE_INITIALISATION.out.map,
+        PIPELINE_INITIALISATION.out.gmap,
         PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.chunks,
         PIPELINE_INITIALISATION.out.versions
