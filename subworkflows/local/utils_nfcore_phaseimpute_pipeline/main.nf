@@ -213,14 +213,9 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.posfile) {
         ch_posfile = Channel
-                .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "txt"]
-                .map { meta, vcf, index, txt, hap, legend -> [meta, vcf, index, txt] }
-
-        ch_hap_legend = Channel.fromSamplesheet("posfile")
-                .map { meta, vcf, index, txt, hap, legend -> [meta, hap, legend] }
+                .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "hap", "legend"]
     } else {
-        ch_posfile = Channel.of([[chr:null], [], [], []])
-        ch_hap_legend   = Channel.of([[chr:null],[],[]])
+        ch_posfile = Channel.of([[chr: null],[],[],[],[]])
     }
 
     //
@@ -259,11 +254,10 @@ workflow PIPELINE_INITIALISATION {
     input_truth          = ch_input_truth   // [ [meta], file, index ]
     fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
     panel                = ch_panel         // [ [panel, chr], vcf, index ]
-    hap_legend           = ch_hap_legend    // [ [panel, chr], hap, legend ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
-    map                  = ch_map           // [ [map], map ]
-    posfile              = ch_posfile       // [ [chr], txt ]
+    gmap                 = ch_map           // [ [map], map ]
+    posfile              = ch_posfile       // [ [panel, chr], vcf, index, hap, legend ]
     chunks               = ch_chunks        // [ [chr], txt ]
     versions             = ch_versions
 }

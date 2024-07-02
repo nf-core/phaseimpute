@@ -9,8 +9,8 @@ workflow BAM_IMPUTE_GLIMPSE1 {
 
     take:
     ch_input        // channel (mandatory): [ [id], bam, bai ]
-    ch_sites_tsv    // channel (mandatory): [ [panel, chr, region], sites, tsv ]
-    ch_panel        // channel (mandatory): [ [panel, chr, region], vcf, tbi ]
+    ch_posfile      // channel (mandatory): [ [panel, chr], legend ]
+    ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
     ch_chunks       // channel  (optional): [ [chr], region1, region2 ]
     ch_fasta        // channel (mandatory): [ [genome], fa, fai ]
 
@@ -22,7 +22,7 @@ workflow BAM_IMPUTE_GLIMPSE1 {
     // Glimpse1 subworkflow
     BAM_GL_BCFTOOLS( // Compute GL for input data once per panel by chromosome
         ch_input,
-        ch_sites_tsv,
+        ch_posfile,
         ch_fasta
     )
     ch_multiqc_files = ch_multiqc_files.mix(BAM_GL_BCFTOOLS.out.multiqc_files)

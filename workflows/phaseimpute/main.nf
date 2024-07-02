@@ -84,11 +84,10 @@ workflow PHASEIMPUTE {
     ch_input_truth          // channel: truth file    [ [id], file, index ]
     ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
-    ch_hap_legend           // channel: hap file      [ [id, chr], hap, legend ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
-    ch_posfile              // channel: posfile       [ [chr], vcf, txt]
+    ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend]
     ch_chunks               // channel: chunks        [ [chr], txt]
     ch_versions             // channel: versions of software used
 
@@ -154,11 +153,8 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Generate all necessary channels
-        ch_posfile_glimpse  = VCF_SITES_EXTRACT_BCFTOOLS.out.glimpse_posfile
-        ch_posfile_stitch   = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
-        ch_panel_sites      = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+        ch_posfile          = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
         ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
-        ch_hap_legend       = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
 
         // Phase panel with Shapeit5
         if (params.phased == false) {
@@ -183,9 +179,7 @@ workflow PHASEIMPUTE {
         ch_chunks_quilt     = VCF_CHUNK_GLIMPSE.out.chunks_quilt
 
         // Create CSVs from panelprep step
-        CHANNEL_POSFILE_CREATE_CSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch, params.outdir)
         CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
-        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased, ch_hap_legend, params.outdir)
 
     }
 
@@ -203,14 +197,10 @@ workflow PHASEIMPUTE {
                 ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
             }
 
-            if (params.posfile) {
-                ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
-            }
-
             // Run imputation
             BAM_IMPUTE_GLIMPSE1(
                 ch_input_impute,
-                ch_posfile_glimpse,
+                ch_posfile.map{ [it[0], it[4]] },
                 ch_panel_phased,
                 ch_chunks_glimpse1,
                 ch_fasta
@@ -251,13 +241,12 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("stitch")) {
             log.info("Impute with STITCH")
 
-            // Use provided posfile
-            if (params.posfile) {
-                ch_posfile_stitch = POSFILE_PREPARE_GAWK(ch_posfile)
-            }
-
             // Prepare inputs
-            PREPARE_INPUT_STITCH(ch_input_impute, ch_posfile_stitch, ch_region)
+            PREPARE_INPUT_STITCH(
+                ch_input_impute,
+                ch_posfile.map{ [it[0], it[4]] },
+                ch_region
+            )
             ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
             // Impute with STITCH
@@ -292,7 +281,7 @@ workflow PHASEIMPUTE {
             // Impute BAMs with QUILT
             BAM_IMPUTE_QUILT(
                 ch_input_impute,
-                ch_hap_legend,
+                ch_posfile.map{ [it[0], it[3], it[4]] },
                 ch_chunks_quilt
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
@@ -321,14 +310,8 @@ workflow PHASEIMPUTE {
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
 
-        // Use external posfile
-        if (params.posfile) {
-            ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
-            ch_panel_sites     = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, csi ]}
-        }
-
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
-        CONCAT_PANEL(ch_panel_sites)
+        CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
         ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
 
@@ -358,7 +341,7 @@ workflow PHASEIMPUTE {
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
-            ch_posfile_glimpse,
+            ch_posfile.map{ [it[0], it[4]] },
             ch_fasta
         )
         ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)

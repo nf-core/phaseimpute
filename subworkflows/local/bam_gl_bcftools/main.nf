@@ -1,3 +1,5 @@
+include { GAWK                      } from '../../../modules/nf-core/gawk'
+include { TABIX_BGZIP               } from '../../../modules/nf-core/tabix/bgzip'
 include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup'
 include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate'
@@ -6,7 +8,7 @@ workflow BAM_GL_BCFTOOLS {
 
     take:
     ch_input   // channel: [ [id], bam, bai ]
-    ch_target  // channel: [ [panel, chr], sites, tsv]
+    ch_posfile // channel: [ [panel, chr], legend]
     ch_fasta   // channel: [ [genome], fasta, fai]
 
     main:
@@ -14,11 +16,18 @@ workflow BAM_GL_BCFTOOLS {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    // Compute Genotype Likelihood
-    ch_mpileup = ch_input
-        .combine(ch_target)
-        .map{metaI, bam, bai, metaPC, sites, tsv ->
-                [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, sites, tsv]
+    // Convert legend to TSV with ','
+    GAWK(ch_posfile, [])
+    ch_versions = ch_versions.mix(GAWK.out.versions)
+
+    // Compress TSV
+    TABIX_BGZIP(GAWK.out.output)
+    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
+
+    ch_mpileup       = ch_input
+        .combine(TABIX_BGZIP.out.output)
+        .map{metaI, bam, bai, metaPC, tsv ->
+                [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, tsv]
         }
 
     BCFTOOLS_MPILEUP(

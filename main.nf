@@ -40,7 +40,6 @@ workflow NFCORE_PHASEIMPUTE {
     ch_input_truth // channel: samplesheet read in from --input-truth
     ch_fasta       // channel: reference genome FASTA file with index
     ch_panel       // channel: reference panel variants file
-    ch_hap_legend  // channel: reference panel hap legend files
     ch_regions     // channel: regions to use [[chr, region], region]
     ch_depth       // channel: depth of coverage file [[depth], depth]
     ch_map         // channel: map file for imputation
@@ -99,7 +98,6 @@ workflow NFCORE_PHASEIMPUTE {
         ch_input_truth,
         ch_fasta,
         ch_panel,
-        ch_hap_legend,
         ch_regions,
         ch_depth,
         ch_map,
@@ -144,7 +142,6 @@ workflow {
         PIPELINE_INITIALISATION.out.input_truth,
         PIPELINE_INITIALISATION.out.fasta,
         PIPELINE_INITIALISATION.out.panel,
-        PIPELINE_INITIALISATION.out.hap_legend,
         PIPELINE_INITIALISATION.out.regions,
         PIPELINE_INITIALISATION.out.depth,
         PIPELINE_INITIALISATION.out.map,
