@@ -8,7 +8,7 @@ process GAWK {
         'biocontainers/gawk:5.1.0' }"
 
     input:
-    tuple val(meta), path(input)
+    tuple val(meta), path(input, arity: '1..*')
     path(program_file)
 
     output:
@@ -25,7 +25,8 @@ process GAWK {
     suffix = task.ext.suffix ?: "${input.getExtension()}"
 
     program   = program_file ? "-f ${program_file}" : "${args2}"
-    unzip = input instanceof List ? "" : input.getExtension().endsWith("gz") ? "zcat ${input} | \\" : ""
+    lst_gz    = input.collect{ it.getExtension().endsWith("gz") }
+    unzip     = lst_gz.contains(false) ? "" : "find ${input} -exec zcat {} \\; | \\"
     input_cmd = unzip ? "" : "${input}"
 
     """

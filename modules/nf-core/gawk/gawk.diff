@@ -1,13 +1,23 @@
 Changes in module 'nf-core/gawk'
 --- modules/nf-core/gawk/main.nf
 +++ modules/nf-core/gawk/main.nf
-@@ -24,13 +24,16 @@
+@@ -8,7 +8,7 @@
+         'biocontainers/gawk:5.1.0' }"
+ 
+     input:
+-    tuple val(meta), path(input)
++    tuple val(meta), path(input, arity: '1..*')
+     path(program_file)
+ 
+     output:
+@@ -24,13 +24,17 @@
      prefix = task.ext.prefix ?: "${meta.id}"
      suffix = task.ext.suffix ?: "${input.getExtension()}"
  
 -    program = program_file ? "-f ${program_file}" : "${args2}"
 +    program   = program_file ? "-f ${program_file}" : "${args2}"
-+    unzip = input instanceof List ? "" : input.getExtension().endsWith("gz") ? "zcat ${input} | \\" : ""
++    lst_gz    = input.collect{ it.getExtension().endsWith("gz") }
++    unzip     = lst_gz.contains(false) ? "" : "find ${input} -exec zcat {} \\; | \\"
 +    input_cmd = unzip ? "" : "${input}"
  
      """
