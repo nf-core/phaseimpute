@@ -24,13 +24,16 @@ process GAWK {
     prefix = task.ext.prefix ?: "${meta.id}"
     suffix = task.ext.suffix ?: "${input.getExtension()}"
 
-    program = program_file ? "-f ${program_file}" : "${args2}"
+    program   = program_file ? "-f ${program_file}" : "${args2}"
+    unzip = input instanceof List ? "" : input.getExtension().endsWith("gz") ? "zcat ${input} | \\" : ""
+    input_cmd = unzip ? "" : "${input}"
 
     """
+    ${unzip}
     awk \\
         ${args} \\
         ${program} \\
-        ${input} \\
+        ${input_cmd} \\
         > ${prefix}.${suffix}
 
     cat <<-END_VERSIONS > versions.yml
