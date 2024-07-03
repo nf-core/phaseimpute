@@ -1,0 +1,10 @@
+{
+    "Test Function export_csv": {
+        "content": null,
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-03T14:25:00.306786423"
+    }
+}

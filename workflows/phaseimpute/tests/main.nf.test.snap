@@ -2,7 +2,7 @@
     "Check test_stitch": {
         "content": [
             [
-                "imputation/csv/impute.csv",
+                "imputation/csv/stitch.csv",
                 "imputation/stats/NA12878.stitch.bcftools_stats.txt",
                 "imputation/stats/NA19401.stitch.bcftools_stats.txt",
                 "imputation/stats/NA20359.stitch.bcftools_stats.txt",
@@ -13,13 +13,13 @@
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz",
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
             ],
-            1786
+            1776
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:24:05.918523634"
+        "timestamp": "2024-07-03T18:22:12.666277731"
     },
     "Check test_all": {
         "content": [
@@ -33,7 +33,10 @@
                 "simulation/csv/simulate.csv"
             ],
             [
-                "imputation/csv/impute.csv",
+                "imputation/csv/glimpse1.csv",
+                "imputation/csv/glimpse2.csv",
+                "imputation/csv/quilt.csv",
+                "imputation/csv/stitch.csv",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz",
@@ -89,10 +92,6 @@
                 "prep_panel/normalized/1000GP_chr21_biallelic_snps.vcf.gz.tbi",
                 "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz",
                 "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz.tbi",
-                "prep_panel/posfile/1000GP_chr21_posfile_stitch.txt",
-                "prep_panel/posfile/1000GP_chr22_posfile_stitch.txt",
-                "prep_panel/sites/tsv/1000GP_chr21_glimpse1_sites_tsv.txt.gz",
-                "prep_panel/sites/tsv/1000GP_chr22_glimpse1_sites_tsv.txt.gz",
                 "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
                 "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz",
@@ -132,7 +131,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:34:14.32940498"
+        "timestamp": "2024-07-03T18:38:21.469765365"
     },
     "Check test_validate": {
         "content": [
@@ -161,7 +160,7 @@
     "Check test_quilt": {
         "content": [
             [
-                "imputation/csv/impute.csv",
+                "imputation/csv/quilt.csv",
                 "imputation/quilt/concat/NA12878.quilt.vcf.gz",
                 "imputation/quilt/concat/NA12878.quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA19401.quilt.vcf.gz",
@@ -178,7 +177,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:21:00.392342738"
+        "timestamp": "2024-07-03T18:19:02.703125887"
     },
     "Check test_sim": {
         "content": [
@@ -201,7 +200,7 @@
     "Check test_glimpse2": {
         "content": [
             [
-                "imputation/csv/impute.csv",
+                "imputation/csv/glimpse2.csv",
                 "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/NA19401.glimpse2.vcf.gz",
@@ -218,12 +217,12 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:17:20.333655444"
+        "timestamp": "2024-07-03T18:14:58.009126967"
     },
     "Check test": {
         "content": [
             [
-                "imputation/csv/impute.csv",
+                "imputation/csv/glimpse1.csv",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz",
@@ -240,6 +239,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T14:07:47.885146064"
+        "timestamp": "2024-07-03T18:10:40.29453745"
     }
 }

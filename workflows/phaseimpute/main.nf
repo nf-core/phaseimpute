@@ -21,9 +21,8 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 // Simulate subworkflows
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
-include { CHANNEL_SIMULATE_CREATE_CSV                } from '../../subworkflows/local/channel_simulate_create_csv'
-include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_INP } from '../../modules/nf-core/samtools/coverage'
-include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_DWN } from '../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_SIM } from '../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_TRT } from '../../modules/nf-core/samtools/coverage'
 
 // Panelprep subworkflows
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
@@ -31,13 +30,8 @@ include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/
 include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { CHANNEL_POSFILE_CREATE_CSV                 } from '../../subworkflows/local/channel_posfile_create_csv'
-include { CHANNEL_CHUNKS_CREATE_CSV                  } from '../../subworkflows/local/channel_chunks_create_csv'
-include { CHANNEL_PANEL_CREATE_CSV                   } from '../../subworkflows/local/channel_panel_create_csv'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 
-// Imputation subworkflows
-include { CHANNEL_IMPUTE_CREATE_CSV                   } from '../../subworkflows/local/channel_impute_create_csv'
 
 // GLIMPSE1 subworkflows
 include { BAM_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/bam_impute_glimpse1'
@@ -137,7 +131,11 @@ workflow PHASEIMPUTE {
         }
 
         // Create CSV from simulate step
-        CHANNEL_SIMULATE_CREATE_CSV(ch_input_impute, params.outdir)
+        export_csv(
+            ch_input_impute,
+            ["id"], [1:"simulation", 2:"simulation"], "sample,file,index",
+            "simulate.csv", "simulation/csv"
+        )
     }
 
     //
@@ -179,8 +177,24 @@ workflow PHASEIMPUTE {
         ch_chunks_quilt     = VCF_CHUNK_GLIMPSE.out.chunks_quilt
 
         // Create CSVs from panelprep step
-        CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
-
+        // Phased panel
+        export_csv(
+            ch_panel_phased,
+            ["id", "chr"], [1:"prep_panel/panel", 2:"prep_panel/panel"], "panel,chr,vcf,index",
+            "panel.csv", "prep_panel/csv"
+        )
+        // Posfile
+        export_csv(
+            ch_posfile,
+            ["id", "chr"], [1:"prep_panel/sites", 2:"prep_panel/sites",3:"prep_panel/haplegend",4:"prep_panel/haplegend"], "panel,chr,vcf,index,hap,legend",
+            "posfile.csv", "prep_panel/csv"
+        )
+        // Chunks
+        export_csv(
+            VCF_CHUNK_GLIMPSE.out.chunks,
+            ["id", "chr"], [1:"prep_panel/chunks"], "panel,chr,file",
+            "chunks.csv", "prep_panel/csv"
+        )
     }
 
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
@@ -211,6 +225,12 @@ workflow PHASEIMPUTE {
             CONCAT_GLIMPSE1(BAM_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
+            export_csv(
+                CONCAT_GLIMPSE1.out.vcf_tbi,
+                ["id", "tools"], [1:"imputation/glimpse1/concat", 2:"imputation/glimpse1/concat"], "sample,tools,vcf,index",
+                "glimpse1.csv", "imputation/csv"
+            )
+
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
@@ -234,6 +254,12 @@ workflow PHASEIMPUTE {
             // Concatenate by chromosomes
             CONCAT_GLIMPSE2(BAM_IMPUTE_GLIMPSE2.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
+
+            export_csv(
+                CONCAT_GLIMPSE2.out.vcf_tbi,
+                ["id", "tools"], [1:"imputation/glimpse2/concat", 2:"imputation/glimpse2/concat"], "sample,tools,vcf,index",
+                "glimpse2.csv", "imputation/csv"
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
@@ -265,6 +291,13 @@ workflow PHASEIMPUTE {
             VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
             ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
 
+            // Create CSV from imputation step
+            export_csv(
+                VCF_SAMPLES_BCFTOOLS.out.vcf_tbi,
+                ["id", "tools"], [1:"imputation/stitch/concat", 2:"imputation/stitch/concat"], "sample,tools,vcf,index",
+                "stitch.csv", "imputation/csv"
+            )
+
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
 
@@ -290,11 +323,16 @@ workflow PHASEIMPUTE {
             CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
+            // Create CSV from imputation step
+            export_csv(
+                CONCAT_QUILT.out.vcf_tbi,
+                ["id", "tools"], [1:"imputation/quilt/concat", 2:"imputation/quilt/concat"], "sample,tools,vcf,index",
+                "quilt.csv", "imputation/csv"
+            )
+
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
-        // Create CSV from imputation step
-        CHANNEL_IMPUTE_CREATE_CSV(ch_input_validate, params.outdir)
 
         // Compute stats on imputed files
         BCFTOOLS_STATS_TOOLS(
@@ -415,3 +453,19 @@ workflow PHASEIMPUTE {
     THE END
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
+def export_csv(ch_files, metas, files, header, name, outdir) {
+    ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
+        meta = ""
+        file = ""
+        for (i in metas) {
+            meta += "${it[0][i]},"
+        }
+        for (i in files) {
+            file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
+        }
+        file=file.substring(0, file.length() - 1) // remove last comma
+        ["${name}", "${header}\n${meta}${file}\n"]
+    }
+    return null
+}
