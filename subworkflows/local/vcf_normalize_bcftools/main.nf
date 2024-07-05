@@ -27,7 +27,7 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     // Join multiallelic VCF and TBI
     ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
 
-    // Remove all multiallelic records:
+    // Remove all multiallelic records and samples specified in the `--remove_samples` command:
     BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions)
 
