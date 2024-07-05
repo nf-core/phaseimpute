@@ -103,7 +103,7 @@ workflow PHASEIMPUTE {
         // Test if the input are all bam files
         getAllFilesExtension(ch_input_sim)
             .map{ if (it != "bam" & it != "cram") {
-                error "All input files must be in BAM format to perform simulation"
+                error "All input files must be in the same format, either BAM or CRAM, to perform simulation"
             } }
 
         if (params.input_region) {
