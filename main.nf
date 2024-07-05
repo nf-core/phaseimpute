@@ -59,21 +59,16 @@ workflow NFCORE_PHASEIMPUTE {
     ch_input_validate       = Channel.empty()
 
     //  Check input files for contigs names consistency
-    lst_chr = ch_regions.map { it[0].chr }
-        .unique()
-        .collect()
-        .toList()
+    ch_chr = ch_input.map { it[0].chr }
 
-    CHRCHECK_INPUT(ch_input.combine(lst_chr))
+    CHRCHECK_INPUT(ch_input, ch_chr)
     ch_input = CHRCHECK_INPUT.out.output
     ch_versions = ch_versions.mix(CHRCHECK_INPUT.out.versions)
 
-    CHRCHECK_TRUTH(ch_input_truth.combine(lst_chr))
+    CHRCHECK_TRUTH(ch_input_truth, ch_chr)
     ch_input_truth = CHRCHECK_TRUTH.out.output
 
-    CHRCHECK_PANEL(ch_panel
-        .map{meta, vcf, index -> [meta, vcf, index, [meta.chr]]}
-    )
+    CHRCHECK_PANEL(ch_panel, ch_chr)
     ch_panel = CHRCHECK_PANEL.out.output
 
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
@@ -85,6 +80,9 @@ workflow NFCORE_PHASEIMPUTE {
     }
 
     if (params.steps.split(',').contains("all")) {
+        ch_input_truth.map{
+            error "Cannot run all steps with --input-truth"
+        }
         ch_input_truth = ch_input
     }
 

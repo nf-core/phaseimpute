@@ -13,10 +13,15 @@ include { BAM_CHR_EXTRACT as BAM_CHRAF  } from '../../modules/local/bam_chr_extr
 
 workflow CHRCHECK {
     take:
-        ch_input // [[id], file, index, [chr]]
+        ch_input // [[id], file, index]
+        ch_chr   // [chr]
 
     main:
         ch_versions = Channel.empty()
+
+        ch_input = ch_input.combine(
+            ch_chr.unique().collect().toList()
+        )
 
         // Split the input between VCF and BAM files
         ch_input = ch_input.branch{
