@@ -42,6 +42,7 @@ First, prepare a samplesheet with your input data that looks as follows:
 ```csv
 sample,file,index
 1_BAM_1X,/path/to/.bam,/path/to/.bai
+1_CRAM_1X,/path/to/.cram,/path/to/.crai
 ```
 
 Each row represents a bam file with its index file. For some tools and steps, you will also need to submit a samplesheet with the reference panel.
