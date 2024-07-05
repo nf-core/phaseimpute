@@ -258,12 +258,12 @@ workflow PIPELINE_INITIALISATION {
         .toList()
 
     // Check that the chromosomes names that will be used are all present in different inputs
-    check_chr(chr_regions, chr_ref, "Reference genome")
-    check_chr(chr_regions, chr_chunks, "chromosome chunks")
-    check_chr(chr_regions, chr_map, "genetic map")
-    check_chr(chr_regions, chr_panel, "reference panel")
-    check_chr(chr_regions, chr_hap_legend, "hap legend files")
-    check_chr(chr_regions, chr_posfile, "position")
+    checkChr(chr_regions, chr_ref, "Reference genome")
+    checkChr(chr_regions, chr_chunks, "chromosome chunks")
+    checkChr(chr_regions, chr_map, "genetic map")
+    checkChr(chr_regions, chr_panel, "reference panel")
+    checkChr(chr_regions, chr_hap_legend, "hap legend files")
+    checkChr(chr_regions, chr_posfile, "position")
 
 
     emit:
@@ -386,7 +386,7 @@ def validateInputParameters() {
 //
 // Check if all contigs in a are present in b
 //
-def check_chr(chr_a, chr_b, name){
+def checkChr(chr_a, chr_b, name){
     chr_a
         .combine(chr_b)
         .map{
