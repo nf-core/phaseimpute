@@ -1,11 +1,11 @@
-process VCFCHREXTRACT {
+process BAM_CHR_EXTRACT {
     tag "$meta.id"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bcftools:1.18--h8b25389_0':
-        'biocontainers/bcftools:1.18--h8b25389_0' }"
+        'https://depot.galaxyproject.org/singularity/samtools:1.20--h50ea8bc_0' :
+        'biocontainers/samtools:1.20--h50ea8bc_0' }"
 
     input:
     tuple val(meta), path(input)
@@ -20,16 +20,16 @@ process VCFCHREXTRACT {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    bcftools \\
+    samtools \\
         head \\
-        $input \\
-        \| grep -o -E '^##contig=<ID=([^,>]*)' | cut -d'=' -f3 \\
+        $input \| \\
+        grep '^@SQ' | cut -d\$'\t' -f2 | sed -e 's/^SN://g' \\
         > ${prefix}.txt
 
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        bcftools: \$( bcftools --version |& sed '1!d; s/^.*bcftools //' )
+        samtools: \$( samtools --version |& sed '1!d; s/^.*samtools //' )
         grep: \$( grep --version |& grep -o -E '[0-9]+\\.[0-9]+' )
     END_VERSIONS
     """
@@ -42,7 +42,7 @@ process VCFCHREXTRACT {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        bcftools: \$( bcftools --version |& sed '1!d; s/^.*bcftools //' )
+        samtools: \$( samtools --version |& sed '1!d; s/^.*samtools //' )
         grep: \$( grep --help |& grep -o -E '[0-9]+\\.[0-9]+\\.[0-9]+' )
     END_VERSIONS
     """

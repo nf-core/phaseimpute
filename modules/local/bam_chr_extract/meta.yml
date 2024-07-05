@@ -1,4 +1,4 @@
-name: bamchrextract
+name: bam_chr_extract
 description: Extract all contigs name into txt file
 keywords:
   - samtools

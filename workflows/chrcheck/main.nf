@@ -1,9 +1,9 @@
-include { VCFCHREXTRACT as VCFCHRBF } from '../../modules/local/vcfchrextract'
-include { BAMCHREXTRACT as BAMCHRBF } from '../../modules/local/bamchrextract'
-include { BAM_CHR_RENAME_SAMTOOLS   } from '../../subworkflows/local/bam_chr_rename_samtools'
-include { VCF_CHR_RENAME_BCFTOOLS   } from '../../subworkflows/local/vcf_chr_rename_bcftools'
-include { VCFCHREXTRACT as VCFCHRAF } from '../../modules/local/vcfchrextract'
-include { BAMCHREXTRACT as BAMCHRAF } from '../../modules/local/bamchrextract'
+include { VCF_CHR_EXTRACT as VCF_CHR_BF } from '../../modules/local/vcf_chr_extract'
+include { BAM_CHR_EXTRACT as BAM_CHR_BF } from '../../modules/local/bam_chr_extract'
+include { BAM_CHR_RENAME_SAMTOOLS       } from '../../subworkflows/local/bam_chr_rename_samtools'
+include { VCF_CHR_RENAME_BCFTOOLS       } from '../../subworkflows/local/vcf_chr_rename_bcftools'
+include { VCF_CHR_EXTRACT as VCF_CHRAF  } from '../../modules/local/vcf_chr_extract'
+include { BAM_CHR_EXTRACT as BAM_CHRAF  } from '../../modules/local/bam_chr_extract'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,14 +25,14 @@ workflow CHRCHECK {
         }
 
         // Extract the contig names from the VCF files
-        VCFCHRBF(ch_input.vcf.map{ meta, file, index, chr -> [meta, file] })
-        ch_versions = ch_versions.mix(VCFCHRBF.out.versions)
-        chr_vcf_disjoint = check_chr(VCFCHRBF.out.chr, ch_input.vcf)
+        VCF_CHR_BF(ch_input.vcf.map{ meta, file, index, chr -> [meta, file] })
+        ch_versions = ch_versions.mix(VCF_CHR_BF.out.versions)
+        chr_vcf_disjoint = checkChr(VCF_CHR_BF.out.chr, ch_input.vcf)
 
         // Extract the contig names from the BAM files
-        BAMCHRBF(ch_input.bam.map{ meta, file, index, chr -> [meta, file] })
-        ch_versions = ch_versions.mix(BAMCHRBF.out.versions)
-        chr_bam_disjoint = check_chr(BAMCHRBF.out.chr, ch_input.bam)
+        BAM_CHR_BF(ch_input.bam.map{ meta, file, index, chr -> [meta, file] })
+        ch_versions = ch_versions.mix(BAM_CHR_BF.out.versions)
+        chr_bam_disjoint = checkChr(BAM_CHR_BF.out.chr, ch_input.bam)
 
         if (params.rename_chr == true) {
             // Rename the contigs in the BAM files
@@ -69,8 +69,7 @@ workflow CHRCHECK {
         versions = ch_versions           // channel: [ versions.yml ]
 }
 
-
-def check_chr(ch_chr, ch_input){
+def checkChr(ch_chr, ch_input){
     chr_checked = ch_chr
         .combine(ch_input, by:0)
         .map{metaI, chr, file, index, lst ->
@@ -81,7 +80,7 @@ def check_chr(ch_chr, ch_input){
             ]
         }
         .branch{ meta, file, index, chr, lst ->
-            lst_diff = diff_chr(chr, lst, file)
+            lst_diff = diffChr(chr, lst, file)
             diff = lst_diff[0]
             prefix = lst_diff[1]
             no_rename: diff.size() == 0
@@ -92,7 +91,7 @@ def check_chr(ch_chr, ch_input){
     return chr_checked
 }
 
-def diff_chr(chr_target, chr_ref, file) {
+def diffChr(chr_target, chr_ref, file) {
     diff = chr_ref - chr_target
     prefix = (chr_ref - chr_target) =~ "chr" ? "chr" : "nochr"
     if (diff.size() != 0) {
