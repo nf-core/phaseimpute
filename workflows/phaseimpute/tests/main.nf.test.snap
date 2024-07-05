@@ -183,12 +183,12 @@
     "Check test_sim": {
         "content": [
             [
-                "simulation/NA12878.bam",
-                "simulation/NA12878.bam.bai",
-                "simulation/NA19401.bam",
-                "simulation/NA19401.bam.bai",
-                "simulation/NA20359.bam",
-                "simulation/NA20359.bam.bai",
+                "simulation/NA12878_depth_1x.bam",
+                "simulation/NA12878_depth_1x.bam.bai",
+                "simulation/NA19401_depth_1x.bam",
+                "simulation/NA19401_depth_1x.bam.bai",
+                "simulation/NA20359_depth_1x.bam",
+                "simulation/NA20359_depth_1x.bam.bai",
                 "simulation/csv/simulate.csv"
             ]
         ],
@@ -196,7 +196,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-12T12:53:09.565138506"
+        "timestamp": "2024-07-05T16:18:11.601909422"
     },
     "Check test_glimpse2": {
         "content": [
