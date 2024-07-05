@@ -50,7 +50,6 @@ workflow VCF_NORMALIZE_BCFTOOLS {
         // Join fixed vcf and tbi
         ch_biallelic_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
     }
-    ch_biallelic_vcf_tbi.view()
     emit:
     vcf_tbi        = ch_biallelic_vcf_tbi            // channel: [ [id, chr], vcf, tbi ]
     versions       = ch_versions                    // channel: [ versions.yml ]
