@@ -370,7 +370,7 @@ def validateInputParameters() {
 // Extract contig names from channel meta map
 //
 def extractChr(channel) {
-    channel.map { meta, _ -> [meta.chr] }
+    channel.map { [it[0].chr] }
         .collect()
         .toList()
 }
