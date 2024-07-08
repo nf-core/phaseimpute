@@ -95,12 +95,24 @@ panel,chr,vcf,index,hap,legend
 | `hap`    | Full path to ".hap.gz" compressed file containing the reference panel haplotypes in ["haps" format](https://www.cog-genomics.org/plink/2.0/formats#haps). (Required by QUILT)                        |
 | `legend` | Full path to ".legend.gz" compressed file containing the reference panel sites in ["legend" format](https://www.cog-genomics.org/plink/2.0/formats#legend). (Required by QUILT, GLIMPSE1 and STITCH) |
 
-The `legend` file should be a TSV with the following structure, similar to that from [BCFTOOLS convert documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is tab separated with a header ("id,position,a0,a1"), one row per SNP, with the following columns:
+The `legend` file should be a TSV with the following structure, similar to that from [BCFTOOLS convert documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is space separated with a header ("id,position,a0,a1"), one row per SNP, with the following columns:
 
 - Column 1: chromosome:position_ref allele_alternate allele
 - Column 2: physical position (sorted from smallest to largest)
 - Column 3: reference base
 - Column 4: alternate base
+
+```csv
+id position a0 a1
+chr21:16609287_C_T 16609287 C T
+chr21:16609295_T_G 16609295 T G
+chr21:16609345_A_T 16609345 A T
+chr21:16609400_C_A 16609400 C A
+chr21:16609437_G_A 16609437 G A
+chr21:16609443_C_T 16609443 C T
+chr21:16609476_A_G 16609476 A G
+chr21:16609525_T_A 16609525 T A
+```
 
 ## Genome reference
 
@@ -296,7 +308,7 @@ nextflow run nf-core/phaseimpute \
 
 #### STITCH
 
-[STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`).
+[STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`). See [Posfile section](#samplesheet-posfile) for more information.
 
 If you do not have a list of position to genotype, you can provide a reference panel to run the `--steps panelprep` which produces a tsv with this list.
 
@@ -403,7 +415,9 @@ The required flags for this mode only are:
 
 - `--steps validate`: The steps to run.
 - `--input input.csv`: The samplesheet containing the input sample files in `vcf` format.
-- `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format. This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
+- `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
+  This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
+  The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
 - `--posfile posfile.csv`: A samplesheet containing the panel sites informations in `vcf` format for each chromosome. The necessary columns are [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ### Run all steps sequentially `--steps all`
