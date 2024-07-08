@@ -90,8 +90,8 @@ panel,chr,vcf,index,hap,legend
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `panel`  | Name of the reference panel used.                                                                                                                                                                    |
 | `chr`    | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                                                                                                           |
-| `vcf`    | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz".                                                                                |
-| `index`  | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi".                                                                                   |
+| `vcf`    | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz". (Required for validation step)                                                 |
+| `index`  | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi". (Necessary for validation step)                                                   |
 | `hap`    | Full path to ".hap.gz" compressed file containing the reference panel haplotypes in ["haps" format](https://www.cog-genomics.org/plink/2.0/formats#haps). (Required by QUILT)                        |
 | `legend` | Full path to ".legend.gz" compressed file containing the reference panel sites in ["legend" format](https://www.cog-genomics.org/plink/2.0/formats#legend). (Required by QUILT, GLIMPSE1 and STITCH) |
 
