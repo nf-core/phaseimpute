@@ -1,6 +1,5 @@
 include { BCFTOOLS_ANNOTATE           } from '../../../modules/nf-core/bcftools/annotate'
 include { BCFTOOLS_INDEX              } from '../../../modules/nf-core/bcftools/index'
-include { GAWK                        } from '../../../modules/nf-core/gawk'
 
 workflow VCF_CHR_RENAME_BCFTOOLS {
     take:
@@ -10,38 +9,39 @@ workflow VCF_CHR_RENAME_BCFTOOLS {
 
     ch_versions = Channel.empty()
 
+    // Check that prefix is either "chr" or "nochr"
+    ch_vcf = ch_vcf.map{
+        meta, vcf, index, diff, prefix ->
+        if (prefix != "chr" && prefix != "nochr") {
+            error "Invalid chr_prefix: ${prefix}"
+        }
+        [meta, vcf, index, diff, prefix]
+    }
+
     // Generate the chromosome renaming file
     ch_rename_file = ch_vcf
         .collectFile{ meta, vcf, index, diff, prefix ->
-            chr = ""
-            if (prefix == "chr") {
-                for (i in diff) {
-                    chr += "${i} chr${i}\n"
-                }
-            } else if (prefix == "nochr") {
-                for (i in diff) {
-                    chr += "${i} ${i.replace('chr', '')}\n"
-                }
-            } else {
-                error "Unknown prefix: ${prefix}"
-            }
+            def chr = diff.collect { i ->
+                prefix == "chr" ? "${i} chr${i}" :
+                "${i} ${i.replace('chr', '')}"
+            }.join('\n')
             ["${meta.id}.txt", chr]
         }
         .map{ file -> [[id: file.getBaseName()], file] }
 
+    // Add the chromosome renaming file to the input channel
+    ch_annotate_input = ch_vcf.map {
+        meta, vcf, index, diff, prefix ->
+        [[id: meta.id], meta, vcf, index]
+    } // channel: [ [id], vcf, index ]
+    .combine(ch_rename_file, by:0)
+    .map {
+        metaI, meta, vcf, index, rename_file ->
+        [meta, vcf, index, [], [], [], rename_file]
+    }
+
     // Rename the chromosome without prefix
-    BCFTOOLS_ANNOTATE(
-        ch_vcf
-            .map {
-                meta, vcf, index, diff, prefix ->
-                [[id: meta.id], meta, vcf, index]
-            } // channel: [ [id], vcf, index ]
-            .combine(ch_rename_file, by:0)
-            .map {
-                metaI, meta, vcf, index, rename_file ->
-                [meta, vcf, index, [], [], [], rename_file]
-            }
-    )
+    BCFTOOLS_ANNOTATE(ch_annotate_input)
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 
     BCFTOOLS_INDEX(BCFTOOLS_ANNOTATE.out.vcf)
