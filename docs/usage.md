@@ -86,14 +86,21 @@ panel,chr,vcf,index,hap,legend
 1000GP.s.norel,chr22,1000GP.chr22.s.norel.sites.vcf.gz,1000GP.chr22.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
-| Column   | Description                                                                                                                                |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `panel`  | Name of the reference panel used.                                                                                                          |
-| `chr`    | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                                                 |
-| `vcf`    | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz".                      |
-| `index`  | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi".                         |
-| `hap`    | Full path to ".hap" file containing the reference panel sites from the VCF file for that chromosome. (Required by QUILT)                   |
-| `legend` | Full path to ".legend.gz" compressed file containing the reference panel sites in "legend" format.(Required by QUILT, GLIMPSE1 and STITCH) |
+| Column   | Description                                                                                                                                                                                          |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `panel`  | Name of the reference panel used.                                                                                                                                                                    |
+| `chr`    | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                                                                                                           |
+| `vcf`    | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz".                                                                                |
+| `index`  | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi".                                                                                   |
+| `hap`    | Full path to ".hap.gz" compressed file containing the reference panel haplotypes in ["haps" format](https://www.cog-genomics.org/plink/2.0/formats#haps). (Required by QUILT)                        |
+| `legend` | Full path to ".legend.gz" compressed file containing the reference panel sites in ["legend" format](https://www.cog-genomics.org/plink/2.0/formats#legend). (Required by QUILT, GLIMPSE1 and STITCH) |
+
+The `legend` file should be a TSV with the following structure, similar to that from [BCFTOOLS convert documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is tab separated with a header ("id,position,a0,a1"), one row per SNP, with the following columns:
+
+- Column 1: chromosome:position_ref allele_alternate allele
+- Column 2: physical position (sorted from smallest to largest)
+- Column 3: reference base
+- Column 4: alternate base
 
 ## Genome reference
 
@@ -233,12 +240,12 @@ For starting from the imputation steps, the required flags are:
 
 #### Details:
 
-³ `GLIMPSE1`: Should be a CSV with columns [panel id, chr, vcf, legend]
+³ `GLIMPSE1 and STITCH`: Should be a CSV with columns [panel id, chr, legend]
 ² `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
 
 ### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
-You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included.
+You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
 #### QUILT
 
@@ -316,24 +323,12 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-The csv provided in `--posfile` must contain four columns [panel, chr, vcf, legend].
-
-- The first column [panel] is a name to identify the sites, typically a panel name. The panel name should be equal to the panel names in the `--panel samplesheet`, if using a panel.
-- The second column [chr] is the chromosome corresponding to each vcf and txt files.
-- The third column [vcf], required in GLIMPSE1 imputation, is used for the computation of genotype likelihood in the preprocessing of glimpse1. In addition, this file is used in `--steps validation`. This column can be kept empty if running `--steps impute --tools stitch` only.
-- The fourth column [legend] is a compressed legend file containing the list of positions, unique to each chromosome.
+The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console
 panel,chr,vcf,index,hap,legend
 1000GP,chr22,,,,1000GP.s.norel_chr22.legend.gz
 ```
-
-The fourth column containing the compressed file has a TSV with the following structure, similar to that from [BCFTOOLS convert documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is tab separated with no header, one row per SNP, with
-
-- Column 1: chromosome:position_ref allele_alternate allele
-- Column 2: physical position (sorted from smallest to largest)
-- Column 3: reference base
-- Column 4: alternate base.
 
 STITCH only handles bi-allelic SNPs.
 
@@ -361,12 +356,7 @@ nextflow run nf-core/phaseimpute \
     --chunks chunks.csv
 ```
 
-The csv provided in `--posfile` must contain four columns [panel, chr, vcf, legend].
-
-- The first column [panel] is a name to identify the sites, typically a panel name. The panel name should be equal to the panel names in the `--panel samplesheet`
-- The second column [chr] is the chromosome corresponding to that file.
-- The third column [vcf], required in GLIMPSE1 imputation, is used for the computation of genotype likelihood in the preprocessing of glimpse1. In addition, this file is used in `--steps validate`.
-- The fourth column [legend] is a compressed tsv file containing the list of positions, unique to each chromosome.
+The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console
 panel,chr,vcf,index,hap,legend
@@ -386,7 +376,6 @@ nextflow run nf-core/phaseimpute \
     --steps impute \
     --tool glimpse2 \
     --outdir results \
-    --posfile posfile.csv \
     --chunks chunks.csv \
     --genome GRCh37 \
     -profile docker
@@ -403,6 +392,7 @@ This also needs the frequency of the alleles. They can be computed from the refe
 nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --input_truth truth.csv \
+    --posfile posfile.csv \
     --steps validate \
     --outdir results \
     --genome GRCh37 \
@@ -413,8 +403,8 @@ The required flags for this mode only are:
 
 - `--steps validate`: The steps to run.
 - `--input input.csv`: The samplesheet containing the input sample files in `vcf` format.
-- `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
-- `--posfile posfile.csv`: A samplesheet containing the vcf, tbi and txt sites to validate.
+- `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format. This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
+- `--posfile posfile.csv`: A samplesheet containing the panel sites informations in `vcf` format for each chromosome. The necessary columns are [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ### Run all steps sequentially `--steps all`
 
