@@ -32,11 +32,11 @@ SAMPLE5,AEG588A5.bam,AEG588A5.bai
 SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
-| Column   | Description                                                                                  |
-| -------- | -------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`). |
-| `file`   | Full path to a BAM or CRAM file. File has to be have the extension ".bam" or ".cram".        |
-| `index`  | Full path to a BAI or CRAI file. File has to be have the extension ".bai" or ".crai".        |
+| Column   | Description                                                                                                               |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                              |
+| `file`   | Full path to a BAM or CRAM file. File has to be have the extension ".bam" or ".cram" and all files need to have the same. |
+| `index`  | Full path to a BAI or CRAI file. File has to be have the extension ".bai" or ".crai" and all files need to have the same. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
