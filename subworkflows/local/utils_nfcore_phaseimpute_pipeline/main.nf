@@ -238,32 +238,15 @@ workflow PIPELINE_INITIALISATION {
     //
     // Collect all chromosomes names in all different inputs
     chr_ref = ch_ref_gen.map { meta, fasta, fai -> [fai.readLines()*.split('\t').collect{it[0]}] }
-    chr_regions = ch_regions.map { meta, region -> [meta.chr] }
-        .collect()
-        .toList()
-    chr_chunks = ch_chunks.map { meta, chunk -> [meta.chr] }
-        .collect()
-        .toList()
-    chr_map = ch_map.map { meta, gmap -> [meta.chr] }
-        .collect()
-        .toList()
-    chr_panel = ch_panel.map { meta, panel, csi -> [meta.chr] }
-        .collect()
-        .toList()
-    chr_hap_legend = ch_hap_legend.map { meta, hap, legend -> [meta.chr] }
-        .collect()
-        .toList()
-    chr_posfile = ch_posfile.map { meta, sites, index, posfile -> [meta.chr] }
-        .collect()
-        .toList()
+    chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
-    checkChr(chr_regions, chr_ref, "Reference genome")
-    checkChr(chr_regions, chr_chunks, "chromosome chunks")
-    checkChr(chr_regions, chr_map, "genetic map")
-    checkChr(chr_regions, chr_panel, "reference panel")
-    checkChr(chr_regions, chr_hap_legend, "hap legend files")
-    checkChr(chr_regions, chr_posfile, "position")
+    checkChr(chr_regions, chr_ref, "reference genome")
+    checkChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
+    checkChr(chr_regions, extractChr(ch_map), "genetic map")
+    checkChr(chr_regions, extractChr(ch_panel), "reference panel")
+    checkChr(chr_regions, extractChr(ch_hap_legend), "hap legend files")
+    checkChr(chr_regions, extractChr(ch_posfile), "position")
 
 
     emit:
@@ -384,6 +367,15 @@ def validateInputParameters() {
 }
 
 //
+// Extract contig names from channel meta map
+//
+def extractChr(channel) {
+    channel.map { meta, _ -> [meta.chr] }
+        .collect()
+        .toList()
+}
+
+//
 // Check if all contigs in a are present in b
 //
 def checkChr(chr_a, chr_b, name){
@@ -396,7 +388,6 @@ def checkChr(chr_a, chr_b, name){
             }
         }
 }
-
 
 //
 // Check if all input files have the same extension
@@ -429,7 +420,6 @@ def getAllFilesExtension(ch_input) {
         }
 }
 
-
 //
 // Validate channels from input samplesheet
 //
@@ -438,6 +428,7 @@ def validateInputSamplesheet(input) {
     // Check that individual IDs are unique
     // no validation for the moment
 }
+
 //
 // Get attribute from genome config file e.g. fasta
 //
