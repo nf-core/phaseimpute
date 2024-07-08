@@ -37,7 +37,7 @@
             "legend": {
                 "type": "string",
                 "pattern": "^\\S+\\.(legend)(\\.gz)?$",
-                "errorMessage": "Legend file can be provided, cannot contain spaces and must have extension '.hap' with '.gz' extension"
+                "errorMessage": "Legend file can be provided, cannot contain spaces and must have extension '.legend' with '.gz' extension"
             }
         },
         "required": ["panel", "chr", "vcf", "index", "legend"]
