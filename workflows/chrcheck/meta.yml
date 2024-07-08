@@ -1,0 +1,34 @@
+name: "chrcheck"
+description: Check the consistency of the chromosome names between the input and a set of references contigs
+keywords:
+  - chr
+  - VCF
+  - BAM
+components:
+  - samtools/reheader
+  - samtools/index
+  - bcftools/annotate
+  - bcftools/index
+input:
+  - ch_input:
+      type: file
+      description: |
+        Meta map.
+        Target dataset in CRAM, BAM or VCF/BCF format.
+        Index file of the input file.
+        Array of reference contigs.
+        Structure: [ meta, file, index, [chr] ]
+output:
+  - output:
+      type: file
+      description: |
+        Output file with the updated chromosome names.
+        Structure: [meta, file, index]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@LouisLeNezet"
+maintainers:
+  - "@LouisLeNezet"

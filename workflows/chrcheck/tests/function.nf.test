@@ -1,6 +1,6 @@
 nextflow_function {
 
-    name "Test function chr_check"
+    name "Test function chrcheck"
     script "../main.nf"
     function "diffChr"
 
