@@ -1,7 +1,9 @@
-include { VCF_CHR_EXTRACT } from '../../modules/local/vcf_chr_extract'
-include { BAM_CHR_EXTRACT } from '../../modules/local/bam_chr_extract'
-include { BAM_CHR_RENAME_SAMTOOLS       } from '../../subworkflows/local/bam_chr_rename_samtools'
-include { VCF_CHR_RENAME_BCFTOOLS       } from '../../subworkflows/local/vcf_chr_rename_bcftools'
+include { VCF_CHR_EXTRACT         } from '../../modules/local/vcf_chr_extract'
+include { BAM_CHR_EXTRACT         } from '../../modules/local/bam_chr_extract'
+include { BAM_CHR_RENAME_SAMTOOLS } from '../../subworkflows/local/bam_chr_rename_samtools'
+include { VCF_CHR_RENAME_BCFTOOLS } from '../../subworkflows/local/vcf_chr_rename_bcftools'
+include { checkChr                } from '../../subworkflows/local/utils_nfcore_checkchr_pipeline'
+include { diffChr                 } from '../../subworkflows/local/utils_nfcore_checkchr_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,49 +77,4 @@ workflow CHRCHECK {
     emit:
         output   = ch_output             // [ [id], file, index ]
         versions = ch_versions           // channel: [ versions.yml ]
-}
-
-def checkChr(ch_chr, ch_input){
-    chr_checked = ch_chr
-        .combine(ch_input, by:0)
-        .map{metaI, chr, file, index, lst ->
-            [
-                metaI, file, index,
-                chr.readLines()*.split(' ').collect{it[0]},
-                lst
-            ]
-        }
-        .branch{ meta, file, index, chr, lst ->
-            lst_diff = diffChr(chr, lst, file)
-            diff = lst_diff[0]
-            prefix = lst_diff[1]
-            no_rename: diff.size() == 0
-                return [meta, file, index]
-            to_rename: true
-                return [meta, file, index, diff, prefix]
-        }
-    return chr_checked
-}
-
-def diffChr(chr_target, chr_ref, file) {
-    diff = chr_ref - chr_target
-    prefix = (chr_ref - chr_target) =~ "chr" ? "chr" : "nochr"
-    if (diff.size() != 0) {
-        // Ensure that by adding/removing the prefix we can solve the problem
-        new_chr = []
-        to_rename = []
-        if (prefix == "chr") {
-            chr_target.each{ new_chr += "chr${it}" }
-            diff.each{ to_rename += it.replace('chr', '') }
-        } else {
-            chr_target.each{ new_chr += it.replace('chr', '') }
-            diff.each{ to_rename += "chr${it}" }
-        }
-        new_diff = diff - new_chr
-        if (new_diff.size() != 0) {
-            error "Contig names: ${new_diff} absent from file: ${file} and cannot be solved by adding or removing the `chr` prefix."
-        }
-        diff = to_rename
-    }
-    return [diff, prefix]
 }

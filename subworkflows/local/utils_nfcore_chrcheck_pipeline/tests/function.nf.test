@@ -3,6 +3,8 @@ nextflow_function {
     name "Test function chrcheck"
     script "../main.nf"
     function "diffChr"
+    tag "function"
+    tag "diffChr"
 
     test("All ref in target") {
         when {
