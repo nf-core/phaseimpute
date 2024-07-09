@@ -2,8 +2,8 @@ include { VCF_CHR_EXTRACT         } from '../../modules/local/vcf_chr_extract'
 include { BAM_CHR_EXTRACT         } from '../../modules/local/bam_chr_extract'
 include { BAM_CHR_RENAME_SAMTOOLS } from '../../subworkflows/local/bam_chr_rename_samtools'
 include { VCF_CHR_RENAME_BCFTOOLS } from '../../subworkflows/local/vcf_chr_rename_bcftools'
-include { checkChr                } from '../../subworkflows/local/utils_nfcore_checkchr_pipeline'
-include { diffChr                 } from '../../subworkflows/local/utils_nfcore_checkchr_pipeline'
+include { checkChr                } from '../../subworkflows/local/utils_nfcore_chrcheck_pipeline'
+include { diffChr                 } from '../../subworkflows/local/utils_nfcore_chrcheck_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
