@@ -16,6 +16,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#58](https://github.com/nf-core/phaseimpute/pull/58) - Add external params posfile and chunks. Add glimpse2 phasing and imputation.
 - [#67](https://github.com/nf-core/phaseimpute/pull/67) - Export CSVs from each step.
 - [#71](https://github.com/nf-core/phaseimpute/pull/71) - Allow external panel to be used in step impute.
+- [#97](https://github.com/nf-core/phaseimpute/pull/97) - Add dog reference panel and config to test pipeline with other species.
 
 ### `Changed`
 
