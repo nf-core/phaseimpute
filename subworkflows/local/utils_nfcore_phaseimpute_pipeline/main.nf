@@ -119,7 +119,7 @@ workflow PIPELINE_INITIALISATION {
         // Check if all extension are identical
         getAllFilesExtension(ch_input)
     } else {
-        ch_input = Channel.of([[chr:null], [], []])
+        ch_input = Channel.of([[], [], []])
     }
     //
     // Create channel from input file provided through params.input_truth
@@ -139,7 +139,7 @@ workflow PIPELINE_INITIALISATION {
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
-        ch_input_truth = Channel.of([[chr:null], [], []])
+        ch_input_truth = Channel.of([[], [], []])
     }
 
     //
@@ -155,7 +155,7 @@ workflow PIPELINE_INITIALISATION {
         }
     } else {
         // #TODO check if panel is required
-        ch_panel        = Channel.of([[chr:null],[],[]])
+        ch_panel        = Channel.of([[],[],[]])
     }
 
     //
@@ -225,7 +225,7 @@ workflow PIPELINE_INITIALISATION {
         ch_chunks = Channel
             .fromSamplesheet("chunks")
     } else {
-        ch_chunks = Channel.of([[chr:null],[]])
+        ch_chunks = Channel.of([[],[]])
     }
 
     //
@@ -443,6 +443,25 @@ def checkFileIndex(ch_input) {
                 error "${meta}: Index file for [fa, fasta] must have the extension .fai"
             }
         }
+    return null
+}
+
+//
+// Export a channel to a CSV file with correct paths
+//
+def exportCsv(ch_files, metas, header, name, outdir) {
+    ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
+        meta = ""
+        file = ""
+        for (i in metas) {
+            meta += "${it[0][i]},"
+        }
+        for (i in it[1]) {
+            file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
+        }
+        file=file.substring(0, file.length() - 1) // remove last comma
+        ["${name}", "${header}\n${meta}${file}\n"]
+    }
     return null
 }
 

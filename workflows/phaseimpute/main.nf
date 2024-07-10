@@ -13,6 +13,7 @@ include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_n
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { exportCsv                   } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -31,7 +32,6 @@ include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
-
 
 // GLIMPSE1 subworkflows
 include { BAM_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/bam_impute_glimpse1'
@@ -132,8 +132,10 @@ workflow PHASEIMPUTE {
 
         // Create CSV from simulate step
         exportCsv(
-            ch_input_impute,
-            ["id"], [1:"simulation", 2:"simulation"], "sample,file,index",
+            ch_input_impute.map{ meta, file, index ->
+                [meta, [2:"simulation", 3:"simulation"], file, index]
+            },
+            ["id"], "sample,file,index",
             "simulate.csv", "simulation/csv"
         )
     }
@@ -179,20 +181,26 @@ workflow PHASEIMPUTE {
         // Create CSVs from panelprep step
         // Phased panel
         exportCsv(
-            ch_panel_phased,
-            ["id", "chr"], [1:"prep_panel/panel", 2:"prep_panel/panel"], "panel,chr,vcf,index",
+            ch_panel_phased.map{ meta, vcf, index ->
+                [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
+            },
+            ["id", "chr"], "panel,chr,vcf,index",
             "panel.csv", "prep_panel/csv"
         )
         // Posfile
         exportCsv(
-            ch_posfile,
-            ["id", "chr"], [1:"prep_panel/sites", 2:"prep_panel/sites",3:"prep_panel/haplegend",4:"prep_panel/haplegend"], "panel,chr,vcf,index,hap,legend",
+            ch_posfile.map{ meta, vcf, index, hap, legend ->
+                [meta, [2:"prep_panel/sites", 3:"prep_panel/haplegend", 4:"prep_panel/haplegend"], vcf, index, hap, legend]
+            },
+            ["id", "chr"], "panel,chr,vcf,index,hap,legend",
             "posfile.csv", "prep_panel/csv"
         )
         // Chunks
         exportCsv(
-            VCF_CHUNK_GLIMPSE.out.chunks,
-            ["id", "chr"], [1:"prep_panel/chunks"], "panel,chr,file",
+            VCF_CHUNK_GLIMPSE.out.chunks.map{ meta, file, index ->
+                [meta, [2:"prep_panel/chunks"], file, index]
+            },
+            ["id", "chr"], "panel,chr,file",
             "chunks.csv", "prep_panel/csv"
         )
     }
@@ -225,12 +233,6 @@ workflow PHASEIMPUTE {
             CONCAT_GLIMPSE1(BAM_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
-            exportCsv(
-                CONCAT_GLIMPSE1.out.vcf_tbi,
-                ["id", "tools"], [1:"imputation/glimpse1/concat", 2:"imputation/glimpse1/concat"], "sample,tools,vcf,index",
-                "glimpse1.csv", "imputation/csv"
-            )
-
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
@@ -254,12 +256,6 @@ workflow PHASEIMPUTE {
             // Concatenate by chromosomes
             CONCAT_GLIMPSE2(BAM_IMPUTE_GLIMPSE2.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
-
-            exportCsv(
-                CONCAT_GLIMPSE2.out.vcf_tbi,
-                ["id", "tools"], [1:"imputation/glimpse2/concat", 2:"imputation/glimpse2/concat"], "sample,tools,vcf,index",
-                "glimpse2.csv", "imputation/csv"
-            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
@@ -291,13 +287,6 @@ workflow PHASEIMPUTE {
             VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
             ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
 
-            // Create CSV from imputation step
-            exportCsv(
-                VCF_SAMPLES_BCFTOOLS.out.vcf_tbi,
-                ["id", "tools"], [1:"imputation/stitch/concat", 2:"imputation/stitch/concat"], "sample,tools,vcf,index",
-                "stitch.csv", "imputation/csv"
-            )
-
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
 
@@ -323,13 +312,6 @@ workflow PHASEIMPUTE {
             CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
-            // Create CSV from imputation step
-            exportCsv(
-                CONCAT_QUILT.out.vcf_tbi,
-                ["id", "tools"], [1:"imputation/quilt/concat", 2:"imputation/quilt/concat"], "sample,tools,vcf,index",
-                "quilt.csv", "imputation/csv"
-            )
-
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
@@ -344,6 +326,15 @@ workflow PHASEIMPUTE {
             ch_fasta.map{ [it[0], it[1]] })
         ch_versions = ch_versions.mix(BCFTOOLS_STATS_TOOLS.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TOOLS.out.stats.map{ [it[1]] })
+
+        // Export all files to csv
+        exportCsv(
+            ch_input_validate.map{ meta, file, index ->
+                [meta, [2:"imputation/${meta.tools}/concat", 3:"imputation/${meta.tools}/concat"], file, index]
+            },
+            ["id", "tools"], "sample,tools,vcf,index",
+            "impute.csv", "imputation/csv"
+        )
     }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
@@ -453,19 +444,3 @@ workflow PHASEIMPUTE {
     THE END
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-def exportCsv(ch_files, metas, files, header, name, outdir) {
-    ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
-        meta = ""
-        file = ""
-        for (i in metas) {
-            meta += "${it[0][i]},"
-        }
-        for (i in files) {
-            file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
-        }
-        file=file.substring(0, file.length() - 1) // remove last comma
-        ["${name}", "${header}\n${meta}${file}\n"]
-    }
-    return null
-}
