@@ -240,8 +240,8 @@ workflow PIPELINE_INITIALISATION {
     checkChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
     checkChr(chr_regions, extractChr(ch_map), "genetic map")
     checkChr(chr_regions, extractChr(ch_panel), "reference panel")
-    checkChr(chr_regions, extractChr(ch_hap_legend), "hap legend files")
     checkChr(chr_regions, extractChr(ch_posfile), "position")
+    ch_posfile.view()
 
     // Check that all input files have the correct index
     checkFileIndex(ch_input)
