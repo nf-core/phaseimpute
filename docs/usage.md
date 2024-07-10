@@ -278,8 +278,8 @@ nextflow run nf-core/phaseimpute \
 The csv provided in `--posfile` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
 
 ```console
-panel,chr,vcf,index,hap,legend
-1000GP,chr22,,,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
+panel,chr,hap,legend
+1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
 The csv provided in `--chunks` must contain two columns [chr, file]. The first column is the chromosome and the file column are txt with the chunks produced by GLIMPSE1, unique to each chromosome.
@@ -338,8 +338,8 @@ nextflow run nf-core/phaseimpute \
 The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console
-panel,chr,vcf,index,hap,legend
-1000GP,chr22,,,,1000GP.s.norel_chr22.legend.gz
+panel,chr,legend
+1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
 
 STITCH only handles bi-allelic SNPs.
@@ -371,8 +371,8 @@ nextflow run nf-core/phaseimpute \
 The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console
-panel,chr,vcf,index,hap,legend
-1000GP,chr22,,,,1000GP.s.norel_chr22.legend.gz
+panel,chr,legend
+1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
 
 The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].
@@ -418,7 +418,14 @@ The required flags for this mode only are:
 - `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
   This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
   The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
-- `--posfile posfile.csv`: A samplesheet containing the panel sites informations in `vcf` format for each chromosome. The necessary columns are [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
+- `--posfile posfile.csv`: A samplesheet containing the panel sites informations in `vcf` format for each chromosome.
+
+The csv provided in `--posfile` must contain three columns [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
+
+```console
+panel,chr,vcf,index
+1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.csi
+```
 
 ### Run all steps sequentially `--steps all`
 
