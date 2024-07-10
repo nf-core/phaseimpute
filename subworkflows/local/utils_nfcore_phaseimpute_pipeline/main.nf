@@ -426,7 +426,7 @@ def getAllFilesExtension(ch_input) {
 //
 def checkFileIndex(ch_input) {
     ch_input
-        .map {
+        .subscribe {
             meta, file, index ->
             file_ext = getFileExtension(file)
             index_ext = getFileExtension(index)
