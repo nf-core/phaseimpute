@@ -251,8 +251,8 @@ workflow PIPELINE_INITIALISATION {
     // Check that all input files have the correct index
     checkFileIndex(ch_input)
     checkFileIndex(ch_input_truth)
+    checkFileIndex(ch_ref_gen)
     checkFileIndex(ch_panel)
-    checkFileIndex(ch_genome)
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
