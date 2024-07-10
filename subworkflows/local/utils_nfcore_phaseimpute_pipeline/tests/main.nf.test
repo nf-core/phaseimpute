@@ -1,0 +1,71 @@
+nextflow_workflow {
+
+    name "Test Workflow PIPELINE_INITIALISATION"
+    script "../main.nf"
+    workflow "PIPELINE_INITIALISATION"
+    tag 'subworkflows'
+    tag 'utils_nfcore_phaseimpute_pipeline'
+    tag 'subworkflows/utils_nfcore_phaseimpute_pipeline'
+
+    test("Should run with no error") {
+        when {
+            params {
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
+                fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
+                steps = "panelprep"
+                map = "../../../tests/csv/map.csv"
+                chunks = "../../../tests/csv/chunks.csv"
+                posfile = "../../../tests/csv/posfile.csv"
+                panel = "../../../tests/csv/panel.csv"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = false
+                input[4] = []
+                input[5] = "results"
+                input[6] = ""
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success }
+            )
+        }
+    }
+
+    test("Should give an error") {
+        when {
+            params {
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
+                steps = "panelprep"
+                map = "../../../tests/csv/map.csv"
+                chunks = "../../../tests/csv/chunks.csv"
+                posfile = "../../../tests/csv/posfile.csv"
+                panel = "../../../tests/csv/panel.csv"
+                input_region = "$moduleTestDir/region.csv"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = false
+                input[4] = []
+                input[5] = "results"
+                input[6] = ""
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed }
+            )
+        }
+    }
+}

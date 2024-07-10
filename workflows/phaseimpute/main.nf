@@ -22,11 +22,10 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
 include { CHANNEL_SIMULATE_CREATE_CSV                } from '../../subworkflows/local/channel_simulate_create_csv'
-include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_SIM } from '../../modules/nf-core/samtools/coverage'
-include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_TRT } from '../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_INP } from '../../modules/nf-core/samtools/coverage'
+include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_DWN } from '../../modules/nf-core/samtools/coverage'
 
 // Panelprep subworkflows
-include { VCF_CHR_CHECK                              } from '../../subworkflows/local/vcf_chr_check'
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
@@ -82,7 +81,7 @@ workflow PHASEIMPUTE {
     ch_input_impute         // channel: input file    [ [id], file, index ]
     ch_input_sim            // channel: input file    [ [id], file, index ]
     ch_input_validate       // channel: input file    [ [id], file, index ]
-    ch_input_validate_truth // channel: truth file    [ [id], file, index ]
+    ch_input_truth          // channel: truth file    [ [id], file, index ]
     ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
     ch_hap_legend           // channel: hap file      [ [id, chr], hap, legend ]
@@ -103,14 +102,9 @@ workflow PHASEIMPUTE {
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Test if the input are all bam files
         getAllFilesExtension(ch_input_sim)
-            .map{ if (it != "bam") {
-                error "All input files must be in BAM format to perform simulation"
+            .map{ if (it != "bam" & it != "cram") {
+                error "All input files must be in the same format, either BAM or CRAM, to perform simulation"
             } }
-
-        // Compute coverage of input files
-        SAMTOOLS_COVERAGE_TRT(ch_input_sim, ch_fasta)
-        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_TRT.out.versions)
-        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_TRT.out.coverage.map{it[1]})
 
         if (params.input_region) {
             // Split the bam into the regions specified
@@ -119,6 +113,14 @@ workflow PHASEIMPUTE {
             ch_input_sim = BAM_REGION.out.bam_region
         }
 
+        // Use input for simulation as truth for validation step
+        ch_input_truth = ch_input_sim
+
+        // Compute coverage of input files
+        SAMTOOLS_COVERAGE_INP(ch_input_sim, ch_fasta)
+        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_INP.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_INP.out.coverage.map{it[1]})
+
         if (params.depth) {
             // Downsample input to desired depth
             BAM_DOWNSAMPLE(ch_input_sim, ch_depth, ch_fasta)
@@ -126,9 +128,9 @@ workflow PHASEIMPUTE {
             ch_input_impute = BAM_DOWNSAMPLE.out.bam_emul
 
             // Compute coverage of input files
-            SAMTOOLS_COVERAGE_SIM(BAM_DOWNSAMPLE.out.bam_emul, ch_fasta)
-            ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_SIM.out.versions)
-            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_SIM.out.coverage.map{it[1]})
+            SAMTOOLS_COVERAGE_DWN(BAM_DOWNSAMPLE.out.bam_emul, ch_fasta)
+            ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_DWN.out.versions)
+            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_DWN.out.coverage.map{it[1]})
         }
 
         if (params.genotype) {
@@ -143,12 +145,8 @@ workflow PHASEIMPUTE {
     // Prepare panel
     //
     if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("all")) {
-        // Check chr prefix and remove if necessary
-        VCF_CHR_CHECK(ch_panel, ch_fasta)
-        ch_versions = ch_versions.mix(VCF_CHR_CHECK.out.versions)
-
         // Normalize indels in panel
-        VCF_NORMALIZE_BCFTOOLS(VCF_CHR_CHECK.out.vcf, ch_fasta)
+        VCF_NORMALIZE_BCFTOOLS(ch_panel, ch_fasta)
         ch_versions = ch_versions.mix(VCF_NORMALIZE_BCFTOOLS.out.versions)
 
         // Extract sites from normalized vcf
@@ -348,13 +346,13 @@ workflow PHASEIMPUTE {
         ch_truth_vcf = Channel.empty()
 
         // Get extension of input files
-        truth_ext = getAllFilesExtension(ch_input_validate_truth)
+        truth_ext = getAllFilesExtension(ch_input_truth)
 
         // Channels for branching
-        ch_truth = ch_input_validate_truth
+        ch_truth = ch_input_truth
             .combine(truth_ext)
             .branch {
-                bam: it[3] == 'bam'
+                bam: it[3] =~ 'bam|cram'
                 vcf: it[3] =~ 'vcf|bcf'
             }
 
@@ -394,10 +392,6 @@ workflow PHASEIMPUTE {
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
         ch_versions      = ch_versions.mix(VCF_CONCORDANCE_GLIMPSE2.out.versions)
-    }
-
-    if (params.steps.split(',').contains("refine")) {
-        error "refine steps not yet implemented"
     }
 
     //

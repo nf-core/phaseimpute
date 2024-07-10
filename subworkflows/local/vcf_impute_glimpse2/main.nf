@@ -38,7 +38,6 @@ workflow VCF_IMPUTE_GLIMPSE2 {
             bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
         }
 
-
     // Impute with Glimpse2
     GLIMPSE2_PHASE(ch_phase_input, ch_fasta)
     ch_versions = ch_versions.mix(GLIMPSE2_PHASE.out.versions)

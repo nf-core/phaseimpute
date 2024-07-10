@@ -14,7 +14,8 @@ workflow BAM_GL_BCFTOOLS {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    ch_mpileup       = ch_input
+    // Compute Genotype Likelihood
+    ch_mpileup = ch_input
         .combine(ch_target)
         .map{metaI, bam, bai, metaPC, sites, tsv ->
                 [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, sites, tsv]

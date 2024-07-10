@@ -23,7 +23,7 @@ The samplesheet can have as many columns as you desire, however, there is a stri
 A final samplesheet file may look something like the one below. This is for 6 samples.
 
 ```console
-sample,bam,bai
+sample,file,index
 SAMPLE1,AEG588A1.bam,AEG588A1.bai
 SAMPLE2,AEG588A2.bam,AEG588A2.bai
 SAMPLE3,AEG588A3.bam,AEG588A3.bai
@@ -32,11 +32,11 @@ SAMPLE5,AEG588A5.bam,AEG588A5.bai
 SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
-| Column   | Description                                                                                  |
-| -------- | -------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`). |
-| `bam`    | Full path to a BAM file. File has to be have the extension ".bam".                           |
-| `bai`    | Full path to a BAI file. File has to be have the extension ".bai".                           |
+| Column   | Description                                                                                                               |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                              |
+| `file`   | Full path to a BAM or CRAM file. File has to be have the extension ".bam" or ".cram" and all files need to have the same. |
+| `index`  | Full path to a BAI or CRAI file. File has to be have the extension ".bai" or ".crai" and all files need to have the same. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -377,13 +377,12 @@ The csv provided in `--posfile` must contain four columns [panel, chr, vcf, txt]
 - The first column [panel] is a name to identify the sites, typically a panel name. The panel name should be equal to the panel names in the `--panel samplesheet`
 - The second column [chr] is the chromosome corresponding to that file.
 - The third column [vcf], required in GLIMPSE1 imputation, is used for the computation of genotype likelihood in the preprocessing of glimpse1. In addition, this file is used in `--steps validate`.
-- The fourth column [txt] is a compressed tsv file containing the list of positions, unique to each chromosome.
 
 ```console
-panel,chr,vcf,txt
-1000G,chr1,posfile_chr1.vcf.gz,posfile_chr1.tsv.gz
-1000G,chr2,posfile_chr1.vcf.gz,posfile_chr2.tsv.gz
-1000G,chr3,posfile_chr1.vcf.gz,posfile_chr3.tsv.gz
+panel,chr,vcf
+1000G,chr1,posfile_chr1.vcf.gz
+1000G,chr2,posfile_chr1.vcf.gz
+1000G,chr3,posfile_chr1.vcf.gz
 ```
 
 The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].

@@ -1,0 +1,245 @@
+{
+    "Check test_stitch": {
+        "content": [
+            [
+                "imputation/csv/impute.csv",
+                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                "imputation/stitch/concat/NA12878.stitch.vcf.gz",
+                "imputation/stitch/concat/NA12878.stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/NA19401.stitch.vcf.gz",
+                "imputation/stitch/concat/NA19401.stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/NA20359.stitch.vcf.gz",
+                "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
+            ],
+            1786
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-13T13:24:05.918523634"
+    },
+    "Check test_all": {
+        "content": [
+            [
+                "simulation/NA12878_depth_1x.bam",
+                "simulation/NA12878_depth_1x.bam.bai",
+                "simulation/NA19401_depth_1x.bam",
+                "simulation/NA19401_depth_1x.bam.bai",
+                "simulation/NA20359_depth_1x.bam",
+                "simulation/NA20359_depth_1x.bam.bai",
+                "simulation/csv/simulate.csv"
+            ],
+            [
+                "imputation/csv/impute.csv",
+                "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA20359.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA20359.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA19401.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA19401.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA20359.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA20359.glimpse2.vcf.gz.tbi",
+                "imputation/quilt/concat/NA12878.quilt.vcf.gz",
+                "imputation/quilt/concat/NA12878.quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA19401.quilt.vcf.gz",
+                "imputation/quilt/concat/NA19401.quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA20359.quilt.vcf.gz",
+                "imputation/quilt/concat/NA20359.quilt.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                "imputation/stitch/concat/NA12878.stitch.vcf.gz",
+                "imputation/stitch/concat/NA12878.stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/NA19401.stitch.vcf.gz",
+                "imputation/stitch/concat/NA19401.stitch.vcf.gz.tbi",
+                "imputation/stitch/concat/NA20359.stitch.vcf.gz",
+                "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
+            ],
+            [
+                "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                "prep_panel/haplegend/1000GP_chr21.samples",
+                "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                "prep_panel/haplegend/1000GP_chr22.samples",
+                "prep_panel/normalized/1000GP_chr21_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/1000GP_chr21_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/posfile/1000GP_chr21_posfile_stitch.txt",
+                "prep_panel/posfile/1000GP_chr22_posfile_stitch.txt",
+                "prep_panel/sites/tsv/1000GP_chr21_glimpse1_sites_tsv.txt.gz",
+                "prep_panel/sites/tsv/1000GP_chr22_glimpse1_sites_tsv.txt.gz",
+                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
+                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz.csi",
+                "prep_panel/stats/1000GP.panel.bcftools_stats.txt"
+            ],
+            [
+                "validation/NA12878_P1000GP_Tglimpse1_SNP.txt",
+                "validation/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/NA12878_P1000GP_Tstitch_SNP.txt",
+                "validation/NA19401_P1000GP_Tglimpse1_SNP.txt",
+                "validation/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/NA19401_P1000GP_Tstitch_SNP.txt",
+                "validation/NA20359_P1000GP_Tglimpse1_SNP.txt",
+                "validation/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA20359_P1000GP_Tquilt_SNP.txt",
+                "validation/NA20359_P1000GP_Tstitch_SNP.txt",
+                "validation/TestQuality.txt",
+                "validation/concat/NA12878.A-truth.vcf.gz",
+                "validation/concat/NA12878.A-truth.vcf.gz.tbi",
+                "validation/concat/NA19401.A-truth.vcf.gz",
+                "validation/concat/NA19401.A-truth.vcf.gz.tbi",
+                "validation/concat/NA20359.A-truth.vcf.gz",
+                "validation/concat/NA20359.A-truth.vcf.gz.tbi",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt"
+            ],
+            1779,
+            1777,
+            1776,
+            1779
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-13T13:34:14.32940498"
+    },
+    "Check test_validate": {
+        "content": [
+            [
+                "validation/NA12878_Pnull_Tnull_SNP.txt",
+                "validation/NA19401_Pnull_Tnull_SNP.txt",
+                "validation/NA20359_Pnull_Tnull_SNP.txt",
+                "validation/TestQuality.txt",
+                "validation/concat/NA12878.A-truth.vcf.gz",
+                "validation/concat/NA12878.A-truth.vcf.gz.tbi",
+                "validation/concat/NA19401.A-truth.vcf.gz",
+                "validation/concat/NA19401.A-truth.vcf.gz.tbi",
+                "validation/concat/NA20359.A-truth.vcf.gz",
+                "validation/concat/NA20359.A-truth.vcf.gz.tbi",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-13T13:27:52.970989783"
+    },
+    "Check test_quilt": {
+        "content": [
+            [
+                "imputation/csv/impute.csv",
+                "imputation/quilt/concat/NA12878.quilt.vcf.gz",
+                "imputation/quilt/concat/NA12878.quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA19401.quilt.vcf.gz",
+                "imputation/quilt/concat/NA19401.quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/NA20359.quilt.vcf.gz",
+                "imputation/quilt/concat/NA20359.quilt.vcf.gz.tbi",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
+            ],
+            1779
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-13T13:21:00.392342738"
+    },
+    "Check test_sim": {
+        "content": [
+            [
+                "simulation/NA12878_depth_1x.bam",
+                "simulation/NA12878_depth_1x.bam.bai",
+                "simulation/NA19401_depth_1x.bam",
+                "simulation/NA19401_depth_1x.bam.bai",
+                "simulation/NA20359_depth_1x.bam",
+                "simulation/NA20359_depth_1x.bam.bai",
+                "simulation/csv/simulate.csv"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-05T16:18:11.601909422"
+    },
+    "Check test_glimpse2": {
+        "content": [
+            [
+                "imputation/csv/impute.csv",
+                "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA19401.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA19401.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/NA20359.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/NA20359.glimpse2.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
+            ],
+            1798
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-13T13:17:20.333655444"
+    },
+    "Check test": {
+        "content": [
+            [
+                "imputation/csv/impute.csv",
+                "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/NA20359.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/NA20359.glimpse1.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse1.bcftools_stats.txt"
+            ],
+            1800
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-06-13T14:07:47.885146064"
+    }
+}

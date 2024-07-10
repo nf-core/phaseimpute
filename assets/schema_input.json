@@ -15,13 +15,13 @@
             },
             "file": {
                 "type": "string",
-                "pattern": "^\\S+\\.(bam)|((vcf|bcf)(\\.gz))?$",
-                "errorMessage": "BAM, VCF or BCF file must be provided, cannot contain spaces and must have extension '.bam' or '.vcf', '.bcf' with optional '.gz' extension"
+                "pattern": "^\\S+\\.(bam|cram)|((vcf|bcf)(\\.gz))?$",
+                "errorMessage": "BAM, CRAM, VCF or BCF file must be provided, cannot contain spaces and must have extension '.bam', '.cram' or '.vcf', '.bcf' with optional '.gz' extension"
             },
             "index": {
-                "errorMessage": "Input file index must be provided, cannot contain spaces and must have extension '.bai', '.tbi' or '.csi'",
+                "errorMessage": "Input file index must be provided, cannot contain spaces and must have extension '.bai', 'crai', '.tbi' or '.csi'",
                 "type": "string",
-                "pattern": "^\\S+\\.(bai|tbi|csi)$"
+                "pattern": "^\\S+\\.(bai|crai|tbi|csi)$"
             }
         },
         "required": ["sample", "file", "index"]

@@ -2,9 +2,7 @@ include { BCFTOOLS_NORM                         } from '../../../modules/nf-core
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3    } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_4    } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_VIEW as BCFTOOLS_DEL_MLT_ALL } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_VIEW as BCFTOOLS_DEL_SPL     } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW                         } from '../../../modules/nf-core/bcftools/view'
 include { VCFLIB_VCFFIXUP                       } from '../../../modules/nf-core/vcflib/vcffixup/main'
 
 
@@ -29,27 +27,16 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     // Join multiallelic VCF and TBI
     ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
 
-    // Remove all multiallelic records:
-    BCFTOOLS_DEL_MLT_ALL(ch_multiallelic_vcf_tbi, [], [], [])
-    ch_versions = ch_versions.mix(BCFTOOLS_DEL_MLT_ALL.out.versions)
+    // Remove all multiallelic records and samples specified in the `--remove_samples` command:
+    BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions)
 
     // Index biallelic VCF
-    BCFTOOLS_INDEX_2(BCFTOOLS_DEL_MLT_ALL.out.vcf)
+    BCFTOOLS_INDEX_2(BCFTOOLS_VIEW.out.vcf)
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions)
 
     // Join biallelic VCF and TBI
-    ch_biallelic_vcf_tbi = BCFTOOLS_DEL_MLT_ALL.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
-
-    // (Optional) Remove benchmarking samples (e.g. NA12878) from the reference panel
-    if (!(params.remove_samples == null)){
-        BCFTOOLS_DEL_SPL(ch_biallelic_vcf_tbi, [], [], [])
-        ch_versions = ch_versions.mix(BCFTOOLS_DEL_SPL.out.versions)
-
-        BCFTOOLS_INDEX_3(BCFTOOLS_DEL_SPL.out.vcf)
-        ch_versions = ch_versions.mix(BCFTOOLS_INDEX_3.out.versions)
-
-        ch_biallelic_vcf_tbi = BCFTOOLS_DEL_SPL.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
-    }
+    ch_biallelic_vcf_tbi = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX_2.out.tbi)
 
     // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
     if (params.compute_freq == true) {
@@ -57,13 +44,12 @@ workflow VCF_NORMALIZE_BCFTOOLS {
         ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
 
         // Index fixed panel
-        BCFTOOLS_INDEX_4(VCFLIB_VCFFIXUP.out.vcf)
-        ch_versions = ch_versions.mix(BCFTOOLS_INDEX_4.out.versions)
+        BCFTOOLS_INDEX_3(VCFLIB_VCFFIXUP.out.vcf)
+        ch_versions = ch_versions.mix(BCFTOOLS_INDEX_3.out.versions)
 
         // Join fixed vcf and tbi
-        ch_biallelic_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_4.out.tbi)
+        ch_biallelic_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf.join(BCFTOOLS_INDEX_3.out.tbi)
     }
-
     emit:
     vcf_tbi        = ch_biallelic_vcf_tbi            // channel: [ [id, chr], vcf, tbi ]
     versions       = ch_versions                    // channel: [ versions.yml ]

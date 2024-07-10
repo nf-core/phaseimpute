@@ -1,0 +1,94 @@
+nextflow_function {
+
+    name "Test function chrcheck"
+    script "../main.nf"
+    function "diffChr"
+    tag "function"
+    tag "diffChr"
+
+    test("All ref in target") {
+        when {
+            function {
+                """
+                input[0] = ["chr1", "chr2", "chr3"]
+                input[1] = ["chr2", "chr1"]
+                input[2] = "123.vcf"
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert function.result == [[], 'nochr']
+        }
+    }
+
+    test("ref no chr & target chr") {
+        when {
+            function {
+                """
+                input[0] = ["chr1", "chr2", "chr3"]
+                input[1] = ["2", "1"]
+                input[2] = "chr123.vcf"
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert (function.result[0] - ["chr2", "chr1"]).isEmpty()
+            assert (["chr2", "chr1"] - function.result[0]).isEmpty()
+            assert function.result[1] == 'nochr'
+        }
+    }
+
+    test("ref chr & target no chr") {
+        when {
+            function {
+                """
+                input[0] = ["1", "2", "3"]
+                input[1] = ["chr2", "chr1"]
+                input[2] = "123.vcf"
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert (function.result[0] - ["1", "2"]).isEmpty()
+            assert (["1", "2"] - function.result[0]).isEmpty()
+            assert function.result[1] == 'chr'
+        }
+    }
+
+    test("ref chr & target chr but missing contig") {
+        when {
+            function {
+                """
+                input[0] = ["1", "2", "3"]
+                input[1] = ["chr2", "chr1", "chr4"]
+                input[2] = "123.vcf"
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("Contig names: [chr4] absent from file: 123.vcf and cannot be solved by adding or removing the `chr` prefix.")
+        }
+    }
+
+    test("Mix file with and withouth chr") {
+        when {
+            function {
+                """
+                input[0] = ["chr1", "chr2", "chr3", "GL000207.1", "GL000226.1", "GL000229.1", "GL000231.1" ]
+                input[1] = ["2", "1", "GL000207.1", "GL000226.1", "GL000229.1", "GL000231.1" ]
+                input[2] = "123.vcf"
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert (function.result[0] - ["chr1", "chr2"]).isEmpty()
+            assert (["chr1", "chr2"] - function.result[0]).isEmpty()
+            assert function.result[1] == 'nochr'
+        }
+    }
+}

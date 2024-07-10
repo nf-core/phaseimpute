@@ -1,0 +1,165 @@
+nextflow_function {
+
+    name "Test function phaseimpute"
+    script "../main.nf"
+    tag "function"
+
+    test("Test checkFileIndex no error") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input"], file("input.vcf"), file("input.csi")],
+                    [[id: "input2"], file("input2.vcf"), file("input2.tbi")],
+                    [[id: "input3"], file("input3.bcf"), file("input3.csi")],
+                    [[id: "input4"], file("input4.bcf"), file("input4.tbi")],
+                    [[id: "input5"], file("input5.vcf.gz"), file("input5.csi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input7"], file("input7.bam"), file("input5.bai")],
+                    [[id: "input8"], file("input8.cram"), file("input6.crai")],
+                    [[id: "input9"], file("input9.fa"), file("input9.fai")],
+                    [[id: "input10"], file("input10.fa"), file("input10.fai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.success
+        }
+    }
+    test("Test checkFileIndex bam bai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.bam"), file("input5.csi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for .bam must have the extension .bai")
+        }
+    }
+    test("Test checkFileIndex cram crai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.cram"), []],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for .cram must have the extension .crai")
+        }
+    }
+    test("Test checkFileIndex bcf csi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.bcf"), file("input7.txt")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
+        }
+    }
+    test("Test checkFileIndex vcf csi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.vcf"), file("input7.bai")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
+        }
+    }
+    test("Test checkFileIndex vcf.gz csi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.vcf.gz"), []],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
+        }
+    }
+    test("Test checkFileIndex fa fai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.fa"), []],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [fa, fasta] must have the extension .fai")
+        }
+    }
+    test("Test checkFileIndex fasta fai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.fasta"), file("input6.fia")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [fa, fasta] must have the extension .fai")
+        }
+    }
+}

@@ -1,0 +1,2 @@
+subworkflows/utils_nfcore_phaseimpute_pipeline:
+  - subworkflows/local/utils_nfcore_phaseimpute_pipeline/**

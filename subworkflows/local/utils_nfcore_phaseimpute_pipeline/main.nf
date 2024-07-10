@@ -82,6 +82,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create fasta channel
     //
+
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
     if (params.genome) {
         genome = params.genome
@@ -96,7 +97,7 @@ workflow PIPELINE_INITIALISATION {
         genome = file(params.fasta, checkIfExists:true).getBaseName()
         ch_fasta  = Channel.of([[genome:genome], file(params.fasta, checkIfExists:true)])
         if (params.fasta_fai) {
-            fai = file(params.fasta_fai, checkIfExists:true)
+            fai = Channel.of(file(params.fasta_fai, checkIfExists:true))
         } else {
             SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
             ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
@@ -118,7 +119,7 @@ workflow PIPELINE_INITIALISATION {
         // Check if all extension are identical
         getAllFilesExtension(ch_input)
     } else {
-        ch_input = Channel.of([[], [], []])
+        ch_input = Channel.of([[chr:null], [], []])
     }
     //
     // Create channel from input file provided through params.input_truth
@@ -138,7 +139,7 @@ workflow PIPELINE_INITIALISATION {
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
-        ch_input_truth = Channel.empty()
+        ch_input_truth = Channel.of([[chr:null], [], []])
     }
 
     //
@@ -154,7 +155,7 @@ workflow PIPELINE_INITIALISATION {
         }
     } else {
         // #TODO check if panel is required
-        ch_panel        = Channel.of([[],[],[]])
+        ch_panel        = Channel.of([[chr:null],[],[]])
     }
 
     //
@@ -218,8 +219,8 @@ workflow PIPELINE_INITIALISATION {
         ch_hap_legend = Channel.fromSamplesheet("posfile")
                 .map { meta, vcf, index, txt, hap, legend -> [meta, hap, legend] }
     } else {
-        ch_posfile = [[],[]]
-        ch_hap_legend   = Channel.empty()
+        ch_posfile = Channel.of([[chr:null], [], [], []])
+        ch_hap_legend   = Channel.of([[chr:null],[],[]])
     }
 
     //
@@ -229,8 +230,29 @@ workflow PIPELINE_INITIALISATION {
         ch_chunks = Channel
             .fromSamplesheet("chunks")
     } else {
-        ch_chunks = [[],[]]
+        ch_chunks = Channel.of([[chr:null],[]])
     }
+
+    //
+    // Check contigs name in different meta map
+    //
+    // Collect all chromosomes names in all different inputs
+    chr_ref = ch_ref_gen.map { meta, fasta, fai -> [fai.readLines()*.split('\t').collect{it[0]}] }
+    chr_regions = extractChr(ch_regions)
+
+    // Check that the chromosomes names that will be used are all present in different inputs
+    checkChr(chr_regions, chr_ref, "reference genome")
+    checkChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
+    checkChr(chr_regions, extractChr(ch_map), "genetic map")
+    checkChr(chr_regions, extractChr(ch_panel), "reference panel")
+    checkChr(chr_regions, extractChr(ch_hap_legend), "hap legend files")
+    checkChr(chr_regions, extractChr(ch_posfile), "position")
+
+    // Check that all input files have the correct index
+    checkFileIndex(ch_input)
+    checkFileIndex(ch_input_truth)
+    checkFileIndex(ch_ref_gen)
+    checkFileIndex(ch_panel)
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -350,36 +372,86 @@ def validateInputParameters() {
 }
 
 //
+// Extract contig names from channel meta map
+//
+def extractChr(channel) {
+    channel.map { [it[0].chr] }
+        .collect()
+        .toList()
+}
+
+//
+// Check if all contigs in a are present in b
+//
+def checkChr(chr_a, chr_b, name){
+    chr_a
+        .combine(chr_b)
+        .map{
+            a, b ->
+            if (b != [null] & !(a - b).isEmpty()) {
+                error "Chr : ${a - b} is missing from ${name}"
+            }
+        }
+}
+
+//
+// Get file extension
+//
+def getFileExtension(file) {
+    if (file instanceof String) {
+        return file.replace(".gz","").split("\\.").last()
+    } else if (file instanceof Path) {
+        return file.getName().replace(".gz","").split("\\.").last()
+    } else if (file instanceof ArrayList) {
+        if (file == []) {
+            return null
+        } else {
+            error "Array not supported"
+        }
+    } else {
+        error "Type not supported: ${file.getClass()}"
+    }
+}
+
+//
 // Check if all input files have the same extension
 //
 def getAllFilesExtension(ch_input) {
     files_ext = ch_input
-        .map {
-            if (it[1] instanceof String) {
-                return it[1].split("\\.").last()
-            } else if (it[1] instanceof Path) {
-                return it[1].getName().split("\\.").last()
-            } else if (it[1] instanceof ArrayList) {
-                if (it[1] == []) {
-                    return null
-                } else {
-                    error "Array not supported"
-                }
-            } else {
-                println it[1].getClass()
-                error "Type not supported"
-            }
-        }  // Extract files extensions
+        .map { getFileExtension(it[1]) } // Extract files extensions
         .toList()  // Collect extensions into a list
         .map { extensions ->
             if (extensions.unique().size() != 1) {
-                println "Extensions: ${extensions}"
-                error "All input files must have the same extension"
+                error "All input files must have the same extension: ${extensions.unique()}"
             }
             return extensions[0]
         }
 }
 
+//
+// Check correspondance file / index
+//
+def checkFileIndex(ch_input) {
+    ch_input
+        .map {
+            meta, file, index ->
+            file_ext = getFileExtension(file)
+            index_ext = getFileExtension(index)
+            if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+                error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
+            }
+            if (file_ext == "bam" && index_ext != "bai") {
+                error "${meta}: Index file for .bam must have the extension .bai"
+            }
+            if (file_ext == "cram" && index_ext != "crai") {
+                error "${meta}: Index file for .cram must have the extension .crai"
+            }
+            if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+                error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+            }
+        }
+    return null
+}
 
 //
 // Validate channels from input samplesheet
@@ -389,6 +461,7 @@ def validateInputSamplesheet(input) {
     // Check that individual IDs are unique
     // no validation for the moment
 }
+
 //
 // Get attribute from genome config file e.g. fasta
 //
