@@ -46,7 +46,7 @@ process GLIMPSE2_PHASE {
         it.toString().endsWithAny("vcf", "bcf", "vcf.gz") ? "gl" :
         it.getExtension()
         }.unique()
-    println input_type
+
     if (input_type.size() > 1 | !(input_type.contains("gl") | input_type.contains("bam"))) {
         error "Input files must be of the same type and either .bam/.cram or .vcf/.vcf.gz/.bcf format. Found: ${input_type}"
     } else {
