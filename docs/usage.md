@@ -198,7 +198,7 @@ nextflow run nf-core/phaseimpute \
 The required flags for this mode are:
 
 - `--steps simulate`: The steps to run.
-- `--input samplesheet.csv`: The samplesheet containing the input sample files in `bam` format.
+- `--input samplesheet.csv`: The samplesheet containing the input sample files in `bam` or `cram `format.
 - `--depth`: The final depth of the file [default: 1].
 - `--genome` or `--fasta`: The reference genome of the samples.
 
@@ -233,7 +233,7 @@ You can find an overview of the results produced by this steps in the [Output](o
 For starting from the imputation steps, the required flags are:
 
 - `--steps impute`
-- `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
+- `--input input.csv`: The samplesheet containing the input sample files in `bam` or `cram` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
 - `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
 
@@ -414,7 +414,7 @@ nextflow run nf-core/phaseimpute \
 The required flags for this mode only are:
 
 - `--steps validate`: The steps to run.
-- `--input input.csv`: The samplesheet containing the input sample files in `vcf` format.
+- `--input input.csv`: The samplesheet containing the input sample files in `vcf` or `bcf` format.
 - `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
   This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
   The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
@@ -425,13 +425,15 @@ The required flags for this mode only are:
 This mode runs all the previous steps. This requires several flags:
 
 - `--steps all`: The steps to run.
-- `--input input.csv`: The samplesheet containing the input sample files in `bam` format.
+- `--input input.csv`: The samplesheet containing the input sample files in `bam` or `cram` format.
 - `--depth`: The final depth of the input file [default: 1].
 - `--genome` or `--fasta`: The reference genome of the samples.
 - `--tools [glimpse1, glimpse2, quilt, stitch]`: A selection of one or more of the available imputation tools.
 - `--panel panel.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
 - `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
 - `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
+  This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
+  The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
 
 ### Updating the pipeline
 
