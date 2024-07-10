@@ -381,7 +381,7 @@ def checkChr(chr_a, chr_b, name){
         .combine(chr_b)
         .map{
             a, b ->
-            if (b != [null] & !(a - b).isEmpty()) {
+            if (b != [[]] && !(a - b).isEmpty()) {
                 error "Chr : ${a - b} is missing from ${name}"
             }
         }
