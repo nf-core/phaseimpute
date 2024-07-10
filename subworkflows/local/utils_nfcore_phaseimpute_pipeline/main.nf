@@ -430,7 +430,7 @@ def checkFileIndex(ch_input) {
             meta, file, index ->
             file_ext = getFileExtension(file)
             index_ext = getFileExtension(index)
-            log.info("${file}, ${index}, ${file_ext}, ${index_ext}")
+            log.info("${meta} ${file}, ${index}, ${file_ext}, ${index_ext}")
             if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
                 error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
             }
