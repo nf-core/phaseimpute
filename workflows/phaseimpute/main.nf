@@ -197,8 +197,8 @@ workflow PHASEIMPUTE {
         )
         // Chunks
         exportCsv(
-            VCF_CHUNK_GLIMPSE.out.chunks.map{ meta, file, index ->
-                [meta, [2:"prep_panel/chunks"], file, index]
+            VCF_CHUNK_GLIMPSE.out.chunks.map{ meta, file ->
+                [meta, [2:"prep_panel/chunks"], file]
             },
             ["id", "chr"], "panel,chr,file",
             "chunks.csv", "prep_panel/csv"

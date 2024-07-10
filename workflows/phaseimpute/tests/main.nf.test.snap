@@ -2,7 +2,7 @@
     "Check test_stitch": {
         "content": [
             [
-                "imputation/csv/stitch.csv",
+                "imputation/csv/impute.csv",
                 "imputation/stats/NA12878.stitch.bcftools_stats.txt",
                 "imputation/stats/NA19401.stitch.bcftools_stats.txt",
                 "imputation/stats/NA20359.stitch.bcftools_stats.txt",
@@ -19,7 +19,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-03T18:22:12.666277731"
+        "timestamp": "2024-07-10T17:19:51.224417334"
     },
     "Check test_all": {
         "content": [
@@ -33,10 +33,7 @@
                 "simulation/csv/simulate.csv"
             ],
             [
-                "imputation/csv/glimpse1.csv",
-                "imputation/csv/glimpse2.csv",
-                "imputation/csv/quilt.csv",
-                "imputation/csv/stitch.csv",
+                "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz",
@@ -131,7 +128,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-03T18:38:21.469765365"
+        "timestamp": "2024-07-10T18:20:35.157412471"
     },
     "Check test_validate": {
         "content": [
@@ -160,7 +157,7 @@
     "Check test_quilt": {
         "content": [
             [
-                "imputation/csv/quilt.csv",
+                "imputation/csv/impute.csv",
                 "imputation/quilt/concat/NA12878.quilt.vcf.gz",
                 "imputation/quilt/concat/NA12878.quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/NA19401.quilt.vcf.gz",
@@ -177,7 +174,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-03T18:19:02.703125887"
+        "timestamp": "2024-07-10T17:18:07.093604062"
     },
     "Check test_sim": {
         "content": [
@@ -195,12 +192,12 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-05T16:18:11.601909422"
+        "timestamp": "2024-07-10T17:49:55.588740471"
     },
     "Check test_glimpse2": {
         "content": [
             [
-                "imputation/csv/glimpse2.csv",
+                "imputation/csv/impute.csv",
                 "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/NA19401.glimpse2.vcf.gz",
@@ -217,12 +214,12 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-03T18:14:58.009126967"
+        "timestamp": "2024-07-10T17:14:24.185333794"
     },
     "Check test": {
         "content": [
             [
-                "imputation/csv/glimpse1.csv",
+                "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/concat/NA19401.glimpse1.vcf.gz",
@@ -239,6 +236,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-03T18:10:40.29453745"
+        "timestamp": "2024-07-10T17:12:21.857614538"
     }
 }
