@@ -215,7 +215,7 @@ workflow PIPELINE_INITIALISATION {
         ch_posfile = Channel
                 .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "hap", "legend"]
     } else {
-        ch_posfile = Channel.of([[chr: null],[],[],[],[]])
+        ch_posfile = Channel.of([[],[],[],[],[]])
     }
 
     //
