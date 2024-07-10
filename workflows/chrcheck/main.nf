@@ -27,6 +27,7 @@ workflow CHRCHECK {
         // Extract the contig names from the VCF files
         VCF_CHR_EXTRACT(ch_input.vcf.map{ meta, file, index, chr -> [meta, file] })
         ch_versions = ch_versions.mix(VCF_CHR_EXTRACT.out.versions)
+        chr_vcf_disjoint = checkChr(VCF_CHR_EXTRACT.out.chr, ch_input.vcf)
 
         chr_bam_disjoint = Channel.empty()
         // Extract the contig names from the BAM files
