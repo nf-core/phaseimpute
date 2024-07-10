@@ -248,6 +248,11 @@ workflow PIPELINE_INITIALISATION {
     checkChr(chr_regions, extractChr(ch_hap_legend), "hap legend files")
     checkChr(chr_regions, extractChr(ch_posfile), "position")
 
+    // Check that all input files have the correct index
+    checkFileIndex(ch_input)
+    checkFileIndex(ch_input_truth)
+    checkFileIndex(ch_panel)
+    checkFileIndex(ch_genome)
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -383,10 +388,29 @@ def checkChr(chr_a, chr_b, name){
         .combine(chr_b)
         .map{
             a, b ->
-            if (!b == [null] & !(a - b).isEmpty()) {
+            if (b != [null] & !(a - b).isEmpty()) {
                 error "Chr : ${a - b} is missing from ${name}"
             }
         }
+}
+
+//
+// Get file extension
+//
+def getFileExtension(file) {
+    if (file instanceof String) {
+        return file.replace(".gz","").split("\\.").last()
+    } else if (file instanceof Path) {
+        return file.getName().replace(".gz","").split("\\.").last()
+    } else if (file instanceof ArrayList) {
+        if (file == []) {
+            return null
+        } else {
+            error "Array not supported"
+        }
+    } else {
+        error "Type not supported: ${file.getClass()}"
+    }
 }
 
 //
@@ -394,30 +418,39 @@ def checkChr(chr_a, chr_b, name){
 //
 def getAllFilesExtension(ch_input) {
     files_ext = ch_input
-        .map {
-            if (it[1] instanceof String) {
-                return it[1].split("\\.").last()
-            } else if (it[1] instanceof Path) {
-                return it[1].getName().split("\\.").last()
-            } else if (it[1] instanceof ArrayList) {
-                if (it[1] == []) {
-                    return null
-                } else {
-                    error "Array not supported"
-                }
-            } else {
-                println it[1].getClass()
-                error "Type not supported"
-            }
-        }  // Extract files extensions
+        .map { getFileExtension(it[1]) } // Extract files extensions
         .toList()  // Collect extensions into a list
         .map { extensions ->
             if (extensions.unique().size() != 1) {
-                println "Extensions: ${extensions}"
-                error "All input files must have the same extension"
+                error "All input files must have the same extension: ${extensions.unique()}"
             }
             return extensions[0]
         }
+}
+
+//
+// Check correspondance file / index
+//
+def checkFileIndex(ch_input) {
+    ch_input
+        .map {
+            meta, file, index ->
+            file_ext = getFileExtension(file)
+            index_ext = getFileExtension(index)
+            if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+                error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
+            }
+            if (file_ext == "bam" && index_ext != "bai") {
+                error "${meta}: Index file for .bam must have the extension .bai"
+            }
+            if (file_ext == "cram" && index_ext != "crai") {
+                error "${meta}: Index file for .cram must have the extension .crai"
+            }
+            if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+                error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+            }
+        }
+    return null
 }
 
 //
