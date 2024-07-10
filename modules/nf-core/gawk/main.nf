@@ -8,7 +8,7 @@ process GAWK {
         'biocontainers/gawk:5.1.0' }"
 
     input:
-    tuple val(meta), path(input, arity: '1..*')
+    tuple val(meta), path(input, arity: '0..*')
     path(program_file)
 
     output:
