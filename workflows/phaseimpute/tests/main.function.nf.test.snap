@@ -1,5 +1,5 @@
 {
-    "Test Function export_csv": {
+    "Test Function exportCsv": {
         "content": null,
         "meta": {
             "nf-test": "0.8.4",
