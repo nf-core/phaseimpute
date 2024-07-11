@@ -1,5 +1,4 @@
 include { BCFTOOLS_NORM                         } from '../../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_3    } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_VIEW                         } from '../../../modules/nf-core/bcftools/view'
@@ -20,12 +19,9 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     BCFTOOLS_NORM(ch_vcf, ch_fasta)
     ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions)
 
-    // Index multiallelic VCF
-    BCFTOOLS_INDEX_1(BCFTOOLS_NORM.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
-
     // Join multiallelic VCF and TBI
-    ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_INDEX_1.out.tbi)
+    ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf
+        .join(BCFTOOLS_NORM.out.tbi)
 
     // Remove all multiallelic records and samples specified in the `--remove_samples` command:
     BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
