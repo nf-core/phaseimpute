@@ -90,9 +90,9 @@
                 "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz",
                 "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz.tbi",
                 "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
+                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz.csi",
+                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/stats/1000GP.panel.bcftools_stats.txt"
             ],
             [
