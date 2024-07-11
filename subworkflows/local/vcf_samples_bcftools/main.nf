@@ -16,11 +16,12 @@ workflow VCF_SAMPLES_BCFTOOLS {
         .transpose()
         .map{metaITC, vcf -> [metaITC + [id: vcf.getBaseName().tokenize(".")[0]], vcf]}
 
-    BCFTOOLS_INDEX(ch_vcf_samples)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
+    ch_tbi_samples = BCFTOOLS_PLUGINSPLIT.out.tbi
+        .transpose()
+        .map{metaITC, tbi -> [metaITC + [id: tbi.getBaseName().tokenize(".")[0]], vcf]}
 
     ch_vcf_tbi_samples = ch_vcf_samples
-        .join(BCFTOOLS_INDEX.out.tbi)
+        .join(ch_tbi_samples)
 
     emit:
     vcf_tbi        = ch_vcf_tbi_samples   // channel: [ [id, chr, tools], vcf, index ]

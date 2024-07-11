@@ -4,8 +4,8 @@ process BCFTOOLS_PLUGINSPLIT {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bcftools:1.18--h8b25389_0':
-        'biocontainers/bcftools:1.18--h8b25389_0' }"
+        'https://depot.galaxyproject.org/singularity/bcftools:1.20--h8b25389_0':
+        'biocontainers/bcftools:1.20--h8b25389_0' }"
 
     input:
     tuple val(meta), path(vcf), path(tbi)
@@ -15,8 +15,10 @@ process BCFTOOLS_PLUGINSPLIT {
     path(targets)
 
     output:
-    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}")  , emit: vcf
-    path "versions.yml"                                 , emit: versions
+    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta), path("*.tbi")                    , emit: tbi, optional: true
+    tuple val(meta), path("*.csi")                    , emit: csi, optional: true
+    path "versions.yml"                               , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -30,11 +32,6 @@ process BCFTOOLS_PLUGINSPLIT {
     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
     def regions_arg = regions ? "--regions-file ${regions}" : ""
     def targets_arg = targets ? "--targets-file ${targets}" : ""
-    def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
-            args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
-            args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
-            args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
-            "vcf"
 
     """
     bcftools plugin split \\
@@ -46,7 +43,19 @@ process BCFTOOLS_PLUGINSPLIT {
         ${targets_arg} \\
         --output ${prefix}
 
-    for i in ${prefix}/*; do cp "\$i" "./\$(basename "\$i" .${extension})${suffix}.${extension}"; done
+    for file in ${prefix}/*; do
+        # Extract the basename
+        base_name=\$(basename "\$file")
+        # Extract the part of the basename before the first dot
+        name_before_dot="\${base_name%%.*}"
+
+        # Extract the extension
+        extension="\${base_name#\${name_before_dot}}"
+
+        # Construct the new name
+        new_name="\${name_before_dot}${suffix}\${extension}"
+        mv "\$file" "./\$new_name"
+    done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -63,12 +72,17 @@ process BCFTOOLS_PLUGINSPLIT {
                 args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
                 args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
                 "vcf"
-
+    def index = args.contains("--write-index=tbi") || args.contains("-W=tbi") ? "tbi" :
+                args.contains("--write-index=csi") || args.contains("-W=csi") ? "csi" :
+                args.contains("--write-index") || args.contains("-W") ? "csi" :
+                ""
     def determination_file = samples ?: targets
+    def create_cmd = extension.matches("vcf|bcf") ? "touch " : "echo '' | gzip > "
+    def create_files = "cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}/' > files.txt; while IFS= read -r filename; do ${create_cmd} \"\$filename\"; done < files.txt"
+    def create_index = index.matches("csi|tbi") ? "cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}.${index}/' > indices.txt; touch \$(<indices.txt)" : ""
     """
-    cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}/' > files.txt
-
-    touch \$(<files.txt)
+    ${create_files}
+    ${create_index}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
