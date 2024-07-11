@@ -23,7 +23,7 @@ workflow BAM_GL_BCFTOOLS {
     TABIX_BGZIP(GAWK.out.output)
     ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
-    ch_mpileup       = ch_input
+    ch_mpileup = ch_input
         .combine(TABIX_BGZIP.out.output)
         .map{metaI, bam, bai, metaPC, tsv ->
                 [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, tsv]

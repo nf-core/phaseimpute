@@ -18,7 +18,7 @@ workflow VCF_SAMPLES_BCFTOOLS {
 
     ch_tbi_samples = BCFTOOLS_PLUGINSPLIT.out.tbi
         .transpose()
-        .map{metaITC, tbi -> [metaITC + [id: tbi.getBaseName().tokenize(".")[0]], vcf]}
+        .map{metaITC, tbi -> [metaITC + [id: tbi.getBaseName().tokenize(".")[0]], tbi]}
 
     ch_vcf_tbi_samples = ch_vcf_samples
         .join(ch_tbi_samples)

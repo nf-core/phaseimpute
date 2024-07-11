@@ -4,9 +4,9 @@
 def checkChr(ch_chr, ch_input){
     chr_checked = ch_chr
         .combine(ch_input, by:0)
-        .map{metaI, chr, file, index, lst ->
+        .map{meta, chr, file, index, lst ->
             [
-                metaI, file, index,
+                meta, file, index,
                 chr.readLines()*.split(' ').collect{it[0]},
                 lst
             ]
