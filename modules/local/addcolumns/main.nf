@@ -3,8 +3,8 @@ process ADD_COLUMNS {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gawk:5.1.0' :
-        'biocontainers/gawk:5.1.0' }"
+        'https://depot.galaxyproject.org/singularity/gawk:5.3.0' :
+        'biocontainers/gawk:5.3.0' }"
 
     input:
     tuple val(meta), path(input)
