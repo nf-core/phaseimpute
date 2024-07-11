@@ -1,7 +1,25 @@
 Changes in module 'nf-core/samtools/view'
 --- modules/nf-core/samtools/view/main.nf
 +++ modules/nf-core/samtools/view/main.nf
-@@ -44,9 +44,11 @@
+@@ -8,7 +8,7 @@
+         'biocontainers/samtools:1.20--h50ea8bc_0' }"
+ 
+     input:
+-    tuple val(meta), path(input), path(index)
++    tuple val(meta), path(input), path(index), val(region), val(subsample)
+     tuple val(meta2), path(fasta)
+     path qname
+ 
+@@ -31,6 +31,8 @@
+     def args2 = task.ext.args2 ?: ''
+     prefix = task.ext.prefix ?: "${meta.id}"
+     def reference = fasta ? "--reference ${fasta}" : ""
++    def region_cmd     = region     ? "${region}"                : ""
++    def subsample_cmd  = subsample  ? "--subsample ${subsample}" : ""
+     file_type = args.contains("--output-fmt sam") ? "sam" :
+                 args.contains("--output-fmt bam") ? "bam" :
+                 args.contains("--output-fmt cram") ? "cram" :
+@@ -44,9 +46,11 @@
          ${reference} \\
          ${readnames} \\
          $args \\

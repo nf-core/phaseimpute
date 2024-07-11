@@ -8,7 +8,7 @@ process SAMTOOLS_VIEW {
         'biocontainers/samtools:1.20--h50ea8bc_0' }"
 
     input:
-    tuple val(meta), path(input), path(index)
+    tuple val(meta), path(input), path(index), val(region), val(subsample)
     tuple val(meta2), path(fasta)
     path qname
 
@@ -31,6 +31,8 @@ process SAMTOOLS_VIEW {
     def args2 = task.ext.args2 ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     def reference = fasta ? "--reference ${fasta}" : ""
+    def region_cmd     = region     ? "${region}"                : ""
+    def subsample_cmd  = subsample  ? "--subsample ${subsample}" : ""
     file_type = args.contains("--output-fmt sam") ? "sam" :
                 args.contains("--output-fmt bam") ? "bam" :
                 args.contains("--output-fmt cram") ? "cram" :
