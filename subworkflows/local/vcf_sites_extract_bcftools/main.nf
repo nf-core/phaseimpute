@@ -1,11 +1,6 @@
+include { BCFTOOLS_CONVERT              } from '../../../modules/nf-core/bcftools/convert'
 include { BCFTOOLS_VIEW                 } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_INDEX                } from '../../../modules/nf-core/bcftools/index'
-include { TABIX_BGZIP                   } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_TABIX                   } from '../../../modules/nf-core/tabix/tabix'
-include { BCFTOOLS_QUERY                } from '../../../modules/nf-core/bcftools/query'
-include { GAWK                          } from '../../../modules/nf-core/gawk'
-include { BCFTOOLS_CONVERT              } from '../../../modules/nf-core/bcftools/convert'
-
 
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:
