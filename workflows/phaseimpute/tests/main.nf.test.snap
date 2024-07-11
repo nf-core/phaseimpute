@@ -25,11 +25,11 @@
         "content": [
             [
                 "simulation/NA12878_depth_1x.bam",
-                "simulation/NA12878_depth_1x.bam.bai",
+                "simulation/NA12878_depth_1x.bam.csi",
                 "simulation/NA19401_depth_1x.bam",
-                "simulation/NA19401_depth_1x.bam.bai",
+                "simulation/NA19401_depth_1x.bam.csi",
                 "simulation/NA20359_depth_1x.bam",
-                "simulation/NA20359_depth_1x.bam.bai",
+                "simulation/NA20359_depth_1x.bam.csi",
                 "simulation/csv/simulate.csv"
             ],
             [
