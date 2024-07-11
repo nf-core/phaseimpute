@@ -1,6 +1,4 @@
-include { BCFTOOLS_VIEW as VIEW_VCF_REGION } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_INDEX                   } from '../../../modules/nf-core/bcftools/index'
-
+include { BCFTOOLS_VIEW } from '../../../modules/nf-core/bcftools/view'
 
 workflow VCF_REGION {
     take:
@@ -19,17 +17,14 @@ workflow VCF_REGION {
             [metaI + metaCR, vcf, index, region+",chr"+region]
         }
 
-    VIEW_VCF_REGION(ch_input_region, [], [], [])
-    ch_versions = ch_versions.mix(VIEW_VCF_REGION.out.versions.first())
+    BCFTOOLS_VIEW(ch_input_region, [], [], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
-    BCFTOOLS_INDEX(VIEW_VCF_REGION.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
-
-    ch_vcf_region = VIEW_VCF_REGION.out.vcf
-        .combine(BCFTOOLS_INDEX.out.csi)
+    ch_vcf_region = BCFTOOLS_VIEW.out.vcf
+        .combine(BCFTOOLS_VIEW.out.tbi)
 
     emit:
-    vcf_region    = ch_vcf_region   // channel: [ [id, chr, region], vcf, index ]
+    vcf_region    = ch_vcf_region   // channel: [ [id, chr, region], vcf, tbi ]
     versions      = ch_versions     // channel: [ versions.yml ]
 
 }

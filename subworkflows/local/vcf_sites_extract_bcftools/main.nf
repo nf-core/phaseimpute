@@ -1,6 +1,5 @@
 include { BCFTOOLS_CONVERT              } from '../../../modules/nf-core/bcftools/convert'
 include { BCFTOOLS_VIEW                 } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_INDEX                } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:
@@ -20,13 +19,9 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     BCFTOOLS_VIEW(ch_vcf, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
-    // Index extracted sites
-    BCFTOOLS_INDEX(BCFTOOLS_VIEW.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
-
     // Join extracted sites and index
     ch_posfile = BCFTOOLS_VIEW.out.vcf
-        .join(BCFTOOLS_INDEX.out.csi)
+        .join(BCFTOOLS_VIEW.out.tbi)
         .join(BCFTOOLS_CONVERT.out.hap)
         .join(BCFTOOLS_CONVERT.out.legend)
 
