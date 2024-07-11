@@ -49,7 +49,7 @@ workflow BAM_DOWNSAMPLE {
 
     // Aggregate bam and index
     ch_bam_emul = SAMTOOLS_VIEW.out.bam
-        .join(SAMTOOLS_VIEW.out.bai)
+        .join(SAMTOOLS_VIEW.out.csi)
 
     emit:
     bam_emul          = ch_bam_emul                    // channel: [ [id, chr, region, depth], bam, bai ]

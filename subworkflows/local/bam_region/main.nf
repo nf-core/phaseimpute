@@ -28,7 +28,7 @@ workflow BAM_REGION {
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
     ch_bam_region = SAMTOOLS_VIEW.out.bam
-        .join(SAMTOOLS_VIEW.out.bai)
+        .join(SAMTOOLS_VIEW.out.csi)
 
     SAMTOOLS_MERGE(
         ch_bam_region
