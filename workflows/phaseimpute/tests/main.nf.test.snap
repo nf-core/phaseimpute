@@ -128,7 +128,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-10T18:20:35.157412471"
+        "timestamp": "2024-07-11T18:39:06.373712137"
     },
     "Check test_validate": {
         "content": [
@@ -180,11 +180,11 @@
         "content": [
             [
                 "simulation/NA12878_depth_1x.bam",
-                "simulation/NA12878_depth_1x.bam.bai",
+                "simulation/NA12878_depth_1x.bam.csi",
                 "simulation/NA19401_depth_1x.bam",
-                "simulation/NA19401_depth_1x.bam.bai",
+                "simulation/NA19401_depth_1x.bam.csi",
                 "simulation/NA20359_depth_1x.bam",
-                "simulation/NA20359_depth_1x.bam.bai",
+                "simulation/NA20359_depth_1x.bam.csi",
                 "simulation/csv/simulate.csv"
             ]
         ],
@@ -192,7 +192,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-10T17:49:55.588740471"
+        "timestamp": "2024-07-11T18:31:15.202789733"
     },
     "Check test_glimpse2": {
         "content": [
