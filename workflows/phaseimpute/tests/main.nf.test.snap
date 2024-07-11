@@ -13,13 +13,13 @@
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz",
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
             ],
-            1786
+            1776
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:24:05.918523634"
+        "timestamp": "2024-07-10T17:19:51.224417334"
     },
     "Check test_all": {
         "content": [
@@ -89,10 +89,6 @@
                 "prep_panel/normalized/1000GP_chr21_biallelic_snps.vcf.gz.tbi",
                 "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz",
                 "prep_panel/normalized/1000GP_chr22_biallelic_snps.vcf.gz.tbi",
-                "prep_panel/posfile/1000GP_chr21_posfile_stitch.txt",
-                "prep_panel/posfile/1000GP_chr22_posfile_stitch.txt",
-                "prep_panel/sites/tsv/1000GP_chr21_glimpse1_sites_tsv.txt.gz",
-                "prep_panel/sites/tsv/1000GP_chr22_glimpse1_sites_tsv.txt.gz",
                 "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
                 "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz",
@@ -132,7 +128,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:34:14.32940498"
+        "timestamp": "2024-07-10T18:20:35.157412471"
     },
     "Check test_validate": {
         "content": [
@@ -178,7 +174,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:21:00.392342738"
+        "timestamp": "2024-07-10T17:18:07.093604062"
     },
     "Check test_sim": {
         "content": [
@@ -196,7 +192,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-05T16:18:11.601909422"
+        "timestamp": "2024-07-10T17:49:55.588740471"
     },
     "Check test_glimpse2": {
         "content": [
@@ -218,7 +214,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T13:17:20.333655444"
+        "timestamp": "2024-07-10T17:14:24.185333794"
     },
     "Check test": {
         "content": [
@@ -240,6 +236,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-13T14:07:47.885146064"
+        "timestamp": "2024-07-10T17:12:21.857614538"
     }
 }

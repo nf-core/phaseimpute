@@ -4,11 +4,11 @@ process BCFTOOLS_MPILEUP {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bcftools:1.18--h8b25389_0':
-        'biocontainers/bcftools:1.18--h8b25389_0' }"
+        'https://depot.galaxyproject.org/singularity/bcftools:1.20--h8b25389_0':
+        'biocontainers/bcftools:1.20--h8b25389_0' }"
 
     input:
-    tuple val(meta), path(bam), path(target_m), path(target_c)
+    tuple val(meta), path(bam), path(intervals)
     tuple val(meta2), path(fasta), path(fai)
     val save_mpileup
 
@@ -29,8 +29,7 @@ process BCFTOOLS_MPILEUP {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def mpileup = save_mpileup ? "| tee ${prefix}.mpileup" : ""
     def bgzip_mpileup = save_mpileup ? "bgzip ${prefix}.mpileup" : ""
-    def target_m = target_m ? "-T ${target_m}" : ""
-    def target_c = target_c ? "-T ${target_c}" : ""
+    def intervals = intervals ? "-T ${intervals}" : ""
     """
     echo "${meta.id}" > sample_name.list
 
@@ -39,9 +38,9 @@ process BCFTOOLS_MPILEUP {
         --fasta-ref $fasta \\
         $args \\
         $bam \\
-        $target_m \\
+        $intervals \\
         $mpileup \\
-        | bcftools call --output-type v $args2  $target_c \\
+        | bcftools call --output-type v $args2 $intervals \\
         | bcftools reheader --samples sample_name.list \\
         | bcftools view --output-file ${prefix}.vcf.gz --output-type z $args3
 

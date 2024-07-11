@@ -21,9 +21,6 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     BCFTOOLS_CONVERT(ch_vcf, ch_fasta, [])
     ch_versions = ch_versions.mix(BCFTOOLS_CONVERT.out.versions)
 
-    // Output hap and legend files
-    ch_hap_legend = BCFTOOLS_CONVERT.out.hap.join(BCFTOOLS_CONVERT.out.legend)
-
     // Extract sites positions
     BCFTOOLS_VIEW(ch_vcf, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
@@ -33,32 +30,12 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     // Join extracted sites and index
-    ch_panel_sites = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_INDEX.out.csi)
-
-    // Convert to TSV with structure for Glimpse
-    BCFTOOLS_QUERY(ch_panel_sites, [], [], [])
-    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
-
-    // Compress TSV
-    TABIX_BGZIP(BCFTOOLS_QUERY.out.output)
-    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
-
-    // Generate default posfile (sites vcf, sites index and sites txt)
-    ch_posfile = ch_panel_sites
-            .join(TABIX_BGZIP.out.output)
-
-    // Convert TSV to Stitch format ","" to "\t"
-    GAWK(BCFTOOLS_QUERY.out.output, [])
-    ch_versions = ch_versions.mix(GAWK.out.versions)
-
-    // Generate glimpse posfile
-    ch_glimpse_posfile = ch_posfile.map{ metaPC, sites, s_index, tsv -> [metaPC, sites, tsv]}
+    ch_posfile = BCFTOOLS_VIEW.out.vcf
+        .join(BCFTOOLS_INDEX.out.csi)
+        .join(BCFTOOLS_CONVERT.out.hap)
+        .join(BCFTOOLS_CONVERT.out.legend)
 
     emit:
-    hap_legend             = ch_hap_legend       // channel: [ [id, chr], '.hap', '.legend' ]
-    panel_tsv_stitch       = GAWK.out.output     // channel: [ [id, chr], txt ]
-    panel_sites            = ch_panel_sites      // channel: [ [id, chr], vcf, csi ]
-    posfile                = ch_posfile          // channel: [ [id, chr], vcf, csi, tsv.gz ]
-    glimpse_posfile        = ch_glimpse_posfile  // channel: [ [id, chr], vcf, tsv.gz ]
-    versions               = ch_versions         // channel: [ versions.yml ]
+    posfile       = ch_posfile          // channel: [ [id, chr], vcf, csi, hap, legend ]
+    versions      = ch_versions         // channel: [ versions.yml ]
 }

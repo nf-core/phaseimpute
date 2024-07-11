@@ -42,6 +42,8 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Samtools merge in BAM_REGION sbwf.
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Fix glimpse2_phase output file names.
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Fix fai combination to fasta.
+- [#96](https://github.com/nf-core/phaseimpute/pull/96) - Simplify csv export
+- [#96](https://github.com/nf-core/phaseimpute/pull/96) - Use only legend file as posfile for all imputation workflow.
 
 ### `Fixed`
 

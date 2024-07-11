@@ -1,8 +1,10 @@
+include { GAWK                      } from '../../../modules/nf-core/gawk'
+
 workflow PREPARE_INPUT_STITCH {
 
     take:
     ch_input_impute  // channel:   [ [id, chr, region], bam, bai ]
-    ch_posfile       // channel:   [ [panel, chr], sites, tsv ]
+    ch_posfile       // channel:   [ [panel, chr], legend ]
     ch_region        // channel:   [ [chr, region], region ]
 
     main:
@@ -15,8 +17,11 @@ workflow PREPARE_INPUT_STITCH {
     k_val                   = params.k_val
     ngen                    = params.ngen
 
+    // Transform posfile to TSV with ','
+    GAWK(ch_posfile, [])
+
     // Get chromosomes of posfile
-    ch_posfile = ch_posfile
+    ch_posfile = GAWK.out.output
         .map{metaPC, posfile -> [[chr: metaPC.chr], metaPC, posfile]}
 
     // Get chromosomes of fasta

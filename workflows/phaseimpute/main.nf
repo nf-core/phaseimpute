@@ -13,6 +13,7 @@ include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_n
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { exportCsv                   } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -21,7 +22,6 @@ include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfc
 // Simulate subworkflows
 include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
 include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
-include { CHANNEL_SIMULATE_CREATE_CSV                } from '../../subworkflows/local/channel_simulate_create_csv'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_INP } from '../../modules/nf-core/samtools/coverage'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_DWN } from '../../modules/nf-core/samtools/coverage'
 
@@ -31,20 +31,14 @@ include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/
 include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
 include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/local/chunk_prepare_channel'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { CHANNEL_POSFILE_CREATE_CSV                 } from '../../subworkflows/local/channel_posfile_create_csv'
-include { CHANNEL_CHUNKS_CREATE_CSV                  } from '../../subworkflows/local/channel_chunks_create_csv'
-include { CHANNEL_PANEL_CREATE_CSV                   } from '../../subworkflows/local/channel_panel_create_csv'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 
-// Imputation subworkflows
-include { CHANNEL_IMPUTE_CREATE_CSV                   } from '../../subworkflows/local/channel_impute_create_csv'
-
 // GLIMPSE1 subworkflows
-include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
+include { BAM_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/bam_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // GLIMPSE2 subworkflows
-include { VCF_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/vcf_impute_glimpse2'
+include { BAM_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/bam_impute_glimpse2'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
@@ -84,11 +78,10 @@ workflow PHASEIMPUTE {
     ch_input_truth          // channel: truth file    [ [id], file, index ]
     ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
-    ch_hap_legend           // channel: hap file      [ [id, chr], hap, legend ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
-    ch_posfile              // channel: posfile       [ [chr], vcf, txt]
+    ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend]
     ch_chunks               // channel: chunks        [ [chr], txt]
     ch_versions             // channel: versions of software used
 
@@ -138,7 +131,13 @@ workflow PHASEIMPUTE {
         }
 
         // Create CSV from simulate step
-        CHANNEL_SIMULATE_CREATE_CSV(ch_input_impute, params.outdir)
+        exportCsv(
+            ch_input_impute.map{ meta, file, index ->
+                [meta, [2:"simulation", 3:"simulation"], file, index]
+            },
+            ["id"], "sample,file,index",
+            "simulate.csv", "simulation/csv"
+        )
     }
 
     //
@@ -154,11 +153,8 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Generate all necessary channels
-        ch_posfile_glimpse  = VCF_SITES_EXTRACT_BCFTOOLS.out.glimpse_posfile
-        ch_posfile_stitch   = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch
-        ch_panel_sites      = VCF_SITES_EXTRACT_BCFTOOLS.out.panel_sites
+        ch_posfile          = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
         ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
-        ch_hap_legend       = VCF_SITES_EXTRACT_BCFTOOLS.out.hap_legend
 
         // Phase panel with Shapeit5
         if (params.phased == false) {
@@ -183,10 +179,30 @@ workflow PHASEIMPUTE {
         ch_chunks_quilt     = VCF_CHUNK_GLIMPSE.out.chunks_quilt
 
         // Create CSVs from panelprep step
-        CHANNEL_POSFILE_CREATE_CSV(VCF_SITES_EXTRACT_BCFTOOLS.out.panel_tsv_stitch, params.outdir)
-        CHANNEL_CHUNKS_CREATE_CSV(VCF_CHUNK_GLIMPSE.out.chunks, params.outdir)
-        CHANNEL_PANEL_CREATE_CSV(ch_panel_phased, ch_hap_legend, params.outdir)
-
+        // Phased panel
+        exportCsv(
+            ch_panel_phased.map{ meta, vcf, index ->
+                [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
+            },
+            ["id", "chr"], "panel,chr,vcf,index",
+            "panel.csv", "prep_panel/csv"
+        )
+        // Posfile
+        exportCsv(
+            ch_posfile.map{ meta, vcf, index, hap, legend ->
+                [meta, [2:"prep_panel/sites", 3:"prep_panel/haplegend", 4:"prep_panel/haplegend"], vcf, index, hap, legend]
+            },
+            ["id", "chr"], "panel,chr,vcf,index,hap,legend",
+            "posfile.csv", "prep_panel/csv"
+        )
+        // Chunks
+        exportCsv(
+            VCF_CHUNK_GLIMPSE.out.chunks.map{ meta, file ->
+                [meta, [2:"prep_panel/chunks"], file]
+            },
+            ["id", "chr"], "panel,chr,file",
+            "chunks.csv", "prep_panel/csv"
+        )
     }
 
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
@@ -203,22 +219,18 @@ workflow PHASEIMPUTE {
                 ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
             }
 
-            if (params.posfile) {
-                ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
-            }
-
             // Run imputation
-            VCF_IMPUTE_GLIMPSE1(
+            BAM_IMPUTE_GLIMPSE1(
                 ch_input_impute,
-                ch_posfile_glimpse,
+                ch_posfile.map{ [it[0], it[4]] },
                 ch_panel_phased,
                 ch_chunks_glimpse1,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
+            ch_versions = ch_versions.mix(BAM_IMPUTE_GLIMPSE1.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
+            CONCAT_GLIMPSE1(BAM_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
             // Add results to input validate
@@ -234,15 +246,15 @@ workflow PHASEIMPUTE {
             }
 
             // Run imputation
-            VCF_IMPUTE_GLIMPSE2(
+            BAM_IMPUTE_GLIMPSE2(
                 ch_input_impute,
                 ch_panel_phased,
                 ch_chunks_glimpse2,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE2.out.versions)
+            ch_versions = ch_versions.mix(BAM_IMPUTE_GLIMPSE2.out.versions)
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE2(VCF_IMPUTE_GLIMPSE2.out.vcf_tbi)
+            CONCAT_GLIMPSE2(BAM_IMPUTE_GLIMPSE2.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
             // Add results to input validate
@@ -251,13 +263,12 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("stitch")) {
             log.info("Impute with STITCH")
 
-            // Use provided posfile
-            if (params.posfile) {
-                ch_posfile_stitch = POSFILE_PREPARE_GAWK(ch_posfile)
-            }
-
             // Prepare inputs
-            PREPARE_INPUT_STITCH(ch_input_impute, ch_posfile_stitch, ch_region)
+            PREPARE_INPUT_STITCH(
+                ch_input_impute,
+                ch_posfile.map{ [it[0], it[4]] },
+                ch_region
+            )
             ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
 
             // Impute with STITCH
@@ -292,7 +303,7 @@ workflow PHASEIMPUTE {
             // Impute BAMs with QUILT
             BAM_IMPUTE_QUILT(
                 ch_input_impute,
-                ch_hap_legend,
+                ch_posfile.map{ [it[0], it[3], it[4]] },
                 ch_chunks_quilt
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
@@ -304,8 +315,6 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
-        // Create CSV from imputation step
-        CHANNEL_IMPUTE_CREATE_CSV(ch_input_validate, params.outdir)
 
         // Compute stats on imputed files
         BCFTOOLS_STATS_TOOLS(
@@ -317,18 +326,21 @@ workflow PHASEIMPUTE {
             ch_fasta.map{ [it[0], it[1]] })
         ch_versions = ch_versions.mix(BCFTOOLS_STATS_TOOLS.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TOOLS.out.stats.map{ [it[1]] })
+
+        // Export all files to csv
+        exportCsv(
+            ch_input_validate.map{ meta, file, index ->
+                [meta, [2:"imputation/${meta.tools}/concat", 3:"imputation/${meta.tools}/concat"], file, index]
+            },
+            ["id", "tools"], "sample,tools,vcf,index",
+            "impute.csv", "imputation/csv"
+        )
     }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
 
-        // Use external posfile
-        if (params.posfile) {
-            ch_posfile_glimpse = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, txt ]}
-            ch_panel_sites     = ch_posfile.map {meta, vcf, csi, txt -> [ meta, vcf, csi ]}
-        }
-
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
-        CONCAT_PANEL(ch_panel_sites)
+        CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
         ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
 
@@ -358,7 +370,7 @@ workflow PHASEIMPUTE {
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
-            ch_posfile_glimpse,
+            ch_posfile.map{ [it[0], it[4]] },
             ch_fasta
         )
         ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)

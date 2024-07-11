@@ -13,6 +13,12 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces nor special character '.' .",
                 "meta": ["id"]
             },
+            "tools": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_]+$",
+                "errorMessage": "Tool name cannot contain spaces nor special character '.' .",
+                "meta": ["tools"]
+            },
             "file": {
                 "type": "string",
                 "pattern": "^\\S+\\.(bam|cram)|((vcf|bcf)(\\.gz))?$",
