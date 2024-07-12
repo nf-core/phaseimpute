@@ -21,9 +21,10 @@ process VCF_CHR_EXTRACT {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     bcftools \\
-        head \\
+        query \\
+        -f '%CHROM\\n' \\
         $input \\
-        \| grep -o -E '^##contig=<ID=([^,>]*)' | cut -d'=' -f3 \\
+        \| uniq \\
         > ${prefix}.txt
 
 
@@ -43,7 +44,7 @@ process VCF_CHR_EXTRACT {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bcftools: \$( bcftools --version |& sed '1!d; s/^.*bcftools //' )
-        grep: \$( grep --help |& grep -o -E '[0-9]+\\.[0-9]+\\.[0-9]+' )
+        uniq: \$( uniq --version |& grep -o -E '[0-9]+\\.[0-9]+' )
     END_VERSIONS
     """
 }

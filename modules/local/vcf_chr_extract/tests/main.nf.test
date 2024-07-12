@@ -7,6 +7,8 @@ nextflow_process {
     tag "modules"
     tag "modules_local"
     tag "vcf_chr_extract"
+    tag "bcftools"
+    tag "bcftools/query"
 
     test("Extract chr from vcf") {
 
