@@ -22,7 +22,7 @@ process SAMTOOLS_REHEADER {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def cmd_reheader = cmd ? "-c '$cmd'" : ""
 
-    if ("$bam" == "${meta.id}.bam") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+    if ("$bam" == "${prefix}.bam") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
     """
     samtools \\
         reheader \\

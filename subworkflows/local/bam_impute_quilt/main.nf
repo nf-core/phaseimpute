@@ -1,8 +1,6 @@
 include { QUILT_QUILT                        } from '../../../modules/nf-core/quilt/quilt'
+include { BCFTOOLS_INDEX                     } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_ANNOTATE                  } from '../../../modules/nf-core/bcftools/annotate'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
-
 
 workflow BAM_IMPUTE_QUILT {
 
@@ -48,23 +46,19 @@ workflow BAM_IMPUTE_QUILT {
     ch_versions = ch_versions.mix(QUILT_QUILT.out.versions.first())
 
     // Index imputed VCF
-    BCFTOOLS_INDEX_1(QUILT_QUILT.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions.first())
+    BCFTOOLS_INDEX(QUILT_QUILT.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     // Annotate the variants
     BCFTOOLS_ANNOTATE(QUILT_QUILT.out.vcf
-        .join(BCFTOOLS_INDEX_1.out.tbi)
+        .join(BCFTOOLS_INDEX.out.tbi)
         .combine(Channel.of([[], [], [], []]))
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 
-    // Index imputed annotated VCF
-    BCFTOOLS_INDEX_2(BCFTOOLS_ANNOTATE.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions.first())
-
     // Join VCFs and TBIs
     ch_vcf_tbi = BCFTOOLS_ANNOTATE.out.vcf
-        .join(BCFTOOLS_INDEX_2.out.tbi)
+        .join(BCFTOOLS_ANNOTATE.out.tbi)
         .map { metaIPC, vcf, tbi -> [metaIPC + [tools: "quilt"], vcf, tbi] }
 
     emit:

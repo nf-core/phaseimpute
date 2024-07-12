@@ -47,13 +47,9 @@ workflow BAM_DOWNSAMPLE {
     )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
-    // Index result
-    SAMTOOLS_INDEX(SAMTOOLS_VIEW.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
-
     // Aggregate bam and index
     ch_bam_emul = SAMTOOLS_VIEW.out.bam
-        .combine(SAMTOOLS_INDEX.out.bai, by:0)
+        .join(SAMTOOLS_VIEW.out.csi)
 
     emit:
     bam_emul          = ch_bam_emul                    // channel: [ [id, chr, region, depth], bam, bai ]

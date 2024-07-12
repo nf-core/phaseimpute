@@ -1,7 +1,6 @@
-include { SAMTOOLS_VIEW                      } from '../../../modules/nf-core/samtools/view'
-include { SAMTOOLS_INDEX as SAMTOOLS_INDEX_1 } from '../../../modules/nf-core/samtools/index'
-include { SAMTOOLS_MERGE                     } from '../../../modules/nf-core/samtools/merge'
-include { SAMTOOLS_INDEX as SAMTOOLS_INDEX_2 } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_VIEW  } from '../../../modules/nf-core/samtools/view'
+include { SAMTOOLS_MERGE } from '../../../modules/nf-core/samtools/merge'
+include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index'
 
 workflow BAM_REGION {
 
@@ -28,12 +27,8 @@ workflow BAM_REGION {
     )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
-    // Index region of interest
-    SAMTOOLS_INDEX_1(SAMTOOLS_VIEW.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX_1.out.versions.first())
-
     ch_bam_region = SAMTOOLS_VIEW.out.bam
-        .combine(SAMTOOLS_INDEX_1.out.bai, by: 0)
+        .join(SAMTOOLS_VIEW.out.csi)
 
     SAMTOOLS_MERGE(
         ch_bam_region
@@ -45,11 +40,11 @@ workflow BAM_REGION {
     )
     ch_versions = ch_versions.mix(SAMTOOLS_MERGE.out.versions.first())
 
-    SAMTOOLS_INDEX_2(SAMTOOLS_MERGE.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX_2.out.versions.first())
+    SAMTOOLS_INDEX(SAMTOOLS_MERGE.out.bam)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
 
     ch_bam_region_all = SAMTOOLS_MERGE.out.bam
-        .combine(SAMTOOLS_INDEX_2.out.bai, by:0)
+        .join(SAMTOOLS_INDEX.out.bai)
 
     emit:
         bam_region = ch_bam_region_all // channel: [ [id, chr], bam, index ]
