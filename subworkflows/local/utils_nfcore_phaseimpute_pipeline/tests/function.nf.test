@@ -4,6 +4,22 @@ nextflow_function {
     script "../main.nf"
     tag "function"
 
+    test ("Test getFileExtension") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/panel/21/1000GP.chr21.s.norel.bcf", checkIfExists: true)
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert snapshot(function.result).match()
+        }
+    }
+
     test("Test checkFileIndex no error") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -55,7 +71,7 @@ nextflow_function {
             function {
                 """
                 input[0] = channel.fromList([
-                    [[id: "input7"], file("input7.cram"), []],
+                    [[id: "input7"], file("input7.cram"), file("input7.tbi")],
                     [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
                     [[id: "input8"], file("input8.bam"), file("input8.bai")]
                 ])
@@ -112,7 +128,7 @@ nextflow_function {
             function {
                 """
                 input[0] = channel.fromList([
-                    [[id: "input7"], file("input7.vcf.gz"), []],
+                    [[id: "input7"], file("input7.vcf.gz"), file("input7.bai")],
                     [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
                     [[id: "input8"], file("input8.bam"), file("input8.bai")]
                 ])
@@ -131,7 +147,7 @@ nextflow_function {
             function {
                 """
                 input[0] = channel.fromList([
-                    [[id: "input7"], file("input7.fa"), []],
+                    [[id: "input7"], file("input7.fa"), file("input7.tbi")],
                     [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
                     [[id: "input8"], file("input8.bam"), file("input8.bai")]
                 ])

@@ -395,14 +395,8 @@ def getFileExtension(file) {
         return file.replace(".gz","").split("\\.").last()
     } else if (file instanceof Path) {
         return file.getName().replace(".gz","").split("\\.").last()
-    } else if (file instanceof ArrayList) {
-        if (file == []) {
-            return null
-        } else {
-            error "Array not supported"
-        }
     } else {
-        error "Type not supported: ${file.getClass()}"
+        error "Type of ${file} not supported: ${file.getClass()}"
     }
 }
 
