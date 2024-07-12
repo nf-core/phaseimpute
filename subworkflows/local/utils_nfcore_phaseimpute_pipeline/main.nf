@@ -426,12 +426,13 @@ def getAllFilesExtension(ch_input) {
 //
 def checkFileIndex(ch_input) {
     ch_input
-        .subscribe {
+        .toList()
+        .map { it.each{
             meta, file, index ->
             file_ext = getFileExtension(file)
             index_ext = getFileExtension(index)
-            log.debug("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
             if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
                 error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
             }
             if (file_ext == "bam" && index_ext != "bai") {
@@ -443,7 +444,7 @@ def checkFileIndex(ch_input) {
             if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
                 error "${meta}: Index file for [fa, fasta] must have the extension .fai"
             }
-        }
+        }}
     return null
 }
 
