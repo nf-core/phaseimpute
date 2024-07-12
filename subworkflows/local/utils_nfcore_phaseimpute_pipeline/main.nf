@@ -446,6 +446,17 @@ def checkFileIndex(ch_input) {
     ch_input
         .subscribe{
             meta, file, index ->
+            if (file == []) {
+                if (index != []) {
+                    error "${meta}: Index file provided without corresponding file"
+                }
+                if ( meta != []) {
+                    error "${meta}: No file provided"
+                }
+            }
+            if (file != [] && index == []) {
+                error "${meta}: No index file provided"
+            }
             file_ext = getFileExtension(file)
             index_ext = getFileExtension(index)
             if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
