@@ -88,6 +88,7 @@
                     "glimpse2/chunk": {
                         "branch": "master",
                         "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"],
                         "patch": "modules/nf-core/glimpse2/chunk/glimpse2-chunk.diff"
                     },
                     "glimpse2/concordance": {
@@ -97,24 +98,27 @@
                     },
                     "glimpse2/ligate": {
                         "branch": "master",
-                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7"
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"]
                     },
                     "glimpse2/phase": {
                         "branch": "master",
-                        "git_sha": "6a5a6e1dedc88826744e8117c1974dcca4829d8f"
+                        "git_sha": "6a5a6e1dedc88826744e8117c1974dcca4829d8f",
+                        "installed_by": ["modules"]
                     },
                     "glimpse2/splitreference": {
                         "branch": "master",
-                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7"
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"]
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "a7231cbccb86535529e33859e05d19ac93f3ea04",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "45d482f013f7da8a3e050e855f04ada418d91c3c",
+                        "git_sha": "b80f5fd12ff7c43938f424dd76392a2704fa2396",
                         "installed_by": ["modules"]
                     },
                     "quilt/quilt": {

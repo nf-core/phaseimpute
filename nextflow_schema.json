@@ -392,6 +392,16 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
+                "multiqc_replace_names": {
+                    "type": "string",
+                    "description": "Optional two-column sample renaming file. First column a set of patterns, second column a set of corresponding replacements. Passed via MultiQC's `--replace-names` option.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "multiqc_sample_names": {
+                    "type": "string",
+                    "description": "Optional TSV file with headers, passed to the MultiQC --sample_names argument.",
+                    "fa_icon": "far fa-file-code"
+                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
