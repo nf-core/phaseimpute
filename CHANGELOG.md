@@ -46,7 +46,8 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#96](https://github.com/nf-core/phaseimpute/pull/96) - Use only legend file as posfile for all imputation workflow.
 - [#100](https://github.com/nf-core/phaseimpute/pull/100) - Update bcftools, samtools, ... nf-core modules. All indexing is now done with the file creation for most of them.
 - [#101](https://github.com/nf-core/phaseimpute/pull/101) - Set `--compute_freq` as `false` by default.
-- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Compute chr name from whole vcf
+- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Compute chr name from whole vcf.
+- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Only warn the user if some contigs are absent from files, the regions to compute is now the intersection of regions, panel, posfile, chunks, map.
 
 ### `Fixed`
 

@@ -177,6 +177,12 @@ genome: 'GRCh37'
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
 
+### Check of the contigs name
+
+The pipeline parallelize the imputation process across contigs. To do so it will use either the `--regions` samplesheet or the `.fai` to extract the genomic region to process.
+From all those contigs some might not be present in the `--panel`, `--posfile`, `--chunks`, `--map` (column `chr`) or in the `--fasta`. In this case the pipeline will warn you that some of the contigs are absent in some of the file specified and will only parallelize on the intersection of all contigs.
+Afterwards the remaining contigs presence will be checked with the `CHECKCHR` pipeline to ensure that they are present in each `--input` and `--input_truth` file and that also in the individuals reference panel files.
+
 ### Running the pipeline
 
 nf-core/phaseimpute can be started at different points in the analysis by setting the flag `--steps` and the available options `[simulate, panelprep, impute, validate, all]`. You can also run several steps simultaneously by listing the required processes as `--steps panelprep,impute` or you can choose to run all steps sequentially by using `--steps all`.

@@ -11,7 +11,7 @@ nextflow_workflow {
         when {
             params {
                 fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
-                fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -38,10 +38,11 @@ nextflow_workflow {
         }
     }
 
-    test("Should give an error") {
+    test("Should give a warning all file given") {
         when {
             params {
                 fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -64,7 +65,39 @@ nextflow_workflow {
 
         then {
             assertAll(
-                { assert workflow.failed }
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: The following contigs are absent from at least one file : [chr2]")}
+            )
+        }
+    }
+
+    test("Should give a warning with missing files") {
+        when {
+            params {
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
+                steps = "panelprep"
+                chunks = "../../../tests/csv/chunks.csv"
+                panel = "../../../tests/csv/panel.csv"
+                input_region = "$moduleTestDir/region.csv"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = false
+                input[4] = []
+                input[5] = "results"
+                input[6] = ""
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: The following contigs are absent from at least one file : [chr2]")}
             )
         }
     }

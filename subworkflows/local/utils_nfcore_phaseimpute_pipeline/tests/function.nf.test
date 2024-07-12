@@ -30,7 +30,6 @@ nextflow_function {
             assert function.success
         }
     }
-
     test ("Test getFileExtension") {
         function "getFileExtension"
         tag "getFileExtension"
@@ -46,7 +45,6 @@ nextflow_function {
             assert snapshot(function.result).match()
         }
     }
-
     test("Test checkFileIndex no error") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -229,6 +227,39 @@ nextflow_function {
                 { assert function.success },
                 { assert snapshot(function.result).match() }
             )
+        }
+    }
+    test ("Test checkMetaChr") {
+        function "checkMetaChr"
+        tag "checkMetaChr"
+        when {
+            function {
+                """
+                input[0] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
+                input[1] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
+                input[2] = "test"
+                """
+            }
+        }
+        then {
+            assert function.success
+        }
+    }
+    test ("Test checkMetaChr error") {
+        function "checkMetaChr"
+        tag "checkMetaChr"
+        when {
+            function {
+                """
+                input[0] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX", "chrY" ]])
+                input[1] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
+                input[2] = "test"
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert function.stdout.contains("WARN: Chr : [chrY] is missing from test")
         }
     }
 }
