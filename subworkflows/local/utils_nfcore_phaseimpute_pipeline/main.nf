@@ -236,11 +236,11 @@ workflow PIPELINE_INITIALISATION {
     chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
-    checkChr(chr_regions, chr_ref, "reference genome")
-    checkChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
-    checkChr(chr_regions, extractChr(ch_map), "genetic map")
-    checkChr(chr_regions, extractChr(ch_panel), "reference panel")
-    checkChr(chr_regions, extractChr(ch_posfile), "position")
+    checkMetaChr(chr_regions, chr_ref, "reference genome")
+    checkMetaChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
+    checkMetaChr(chr_regions, extractChr(ch_map), "genetic map")
+    checkMetaChr(chr_regions, extractChr(ch_panel), "reference panel")
+    checkMetaChr(chr_regions, extractChr(ch_posfile), "position")
 
     // Check that all input files have the correct index
     checkFileIndex(ch_input)
@@ -376,7 +376,7 @@ def extractChr(channel) {
 //
 // Check if all contigs in a are present in b
 //
-def checkChr(chr_a, chr_b, name){
+def checkMetaChr(chr_a, chr_b, name){
     chr_a
         .combine(chr_b)
         .map{
@@ -414,7 +414,7 @@ def getAllFilesExtension(ch_input) {
         .map { getFileExtension(it[1]) } // Extract files extensions
         .toList()  // Collect extensions into a list
         .map { extensions ->
-            if (extensions.unique().size() != 1) {
+            if (extensions.unique().size() > 1) {
                 error "All input files must have the same extension: ${extensions.unique()}"
             }
             return extensions[0]
@@ -426,11 +426,13 @@ def getAllFilesExtension(ch_input) {
 //
 def checkFileIndex(ch_input) {
     ch_input
-        .subscribe {
+        .toList()
+        .map { it.each{
             meta, file, index ->
             file_ext = getFileExtension(file)
             index_ext = getFileExtension(index)
             if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
                 error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
             }
             if (file_ext == "bam" && index_ext != "bai") {
@@ -442,7 +444,7 @@ def checkFileIndex(ch_input) {
             if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
                 error "${meta}: Index file for [fa, fasta] must have the extension .fai"
             }
-        }
+        }}
     return null
 }
 

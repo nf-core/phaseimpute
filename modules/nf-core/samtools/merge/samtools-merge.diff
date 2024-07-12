@@ -2,7 +2,7 @@ Changes in module 'nf-core/samtools/merge'
 --- modules/nf-core/samtools/merge/main.nf
 +++ modules/nf-core/samtools/merge/main.nf
 @@ -8,9 +8,8 @@
-         'biocontainers/samtools:1.19.2--h50ea8bc_0' }"
+         'biocontainers/samtools:1.20--h50ea8bc_0' }"
  
      input:
 -    tuple val(meta), path(input_files, stageAs: "?/*")

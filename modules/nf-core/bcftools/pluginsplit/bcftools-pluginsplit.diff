@@ -1,7 +1,7 @@
 Changes in module 'nf-core/bcftools/pluginsplit'
 --- modules/nf-core/bcftools/pluginsplit/main.nf
 +++ modules/nf-core/bcftools/pluginsplit/main.nf
-@@ -24,14 +24,21 @@
+@@ -26,11 +26,17 @@
      script:
      def args = task.ext.args ?: ''
      def prefix = task.ext.prefix ?: "${meta.id}"
@@ -19,11 +19,7 @@ Changes in module 'nf-core/bcftools/pluginsplit'
  
      """
      bcftools plugin split \\
-+        ${args} \\
-         ${vcf} \\
-         ${samples_arg} \\
-         ${groups_arg} \\
-@@ -39,7 +46,7 @@
+@@ -42,7 +48,7 @@
          ${targets_arg} \\
          --output ${prefix}
  

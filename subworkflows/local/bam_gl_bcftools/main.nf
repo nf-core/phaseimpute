@@ -1,7 +1,6 @@
 include { GAWK                      } from '../../../modules/nf-core/gawk'
 include { TABIX_BGZIP               } from '../../../modules/nf-core/tabix/bgzip'
 include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup'
-include { BCFTOOLS_INDEX            } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate'
 
 workflow BAM_GL_BCFTOOLS {
@@ -24,7 +23,7 @@ workflow BAM_GL_BCFTOOLS {
     TABIX_BGZIP(GAWK.out.output)
     ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
-    ch_mpileup       = ch_input
+    ch_mpileup = ch_input
         .combine(TABIX_BGZIP.out.output)
         .map{metaI, bam, bai, metaPC, tsv ->
                 [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, tsv]
@@ -44,13 +43,9 @@ workflow BAM_GL_BCFTOOLS {
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 
-    // Index annotated VCF
-    BCFTOOLS_INDEX(BCFTOOLS_ANNOTATE.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
-
     // Output
     ch_output = BCFTOOLS_ANNOTATE.out.vcf
-        .join(BCFTOOLS_INDEX.out.tbi)
+        .join(BCFTOOLS_ANNOTATE.out.tbi)
 
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
