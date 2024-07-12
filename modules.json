@@ -25,7 +25,7 @@
                     "bcftools/index": {
                         "branch": "master",
                         "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
-                        "installed_by": ["bam_impute_glimpse", "multiple_impute_glimpse2", "vcf_phase_shapeit5"]
+                        "installed_by": ["bam_impute_glimpse", "vcf_phase_shapeit5"]
                     },
                     "bcftools/mpileup": {
                         "branch": "master",
@@ -88,7 +88,6 @@
                     "glimpse2/chunk": {
                         "branch": "master",
                         "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
-                        "installed_by": ["multiple_impute_glimpse2"],
                         "patch": "modules/nf-core/glimpse2/chunk/glimpse2-chunk.diff"
                     },
                     "glimpse2/concordance": {
@@ -98,19 +97,15 @@
                     },
                     "glimpse2/ligate": {
                         "branch": "master",
-                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
-                        "installed_by": ["multiple_impute_glimpse2"]
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7"
                     },
                     "glimpse2/phase": {
                         "branch": "master",
-                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
-                        "installed_by": ["multiple_impute_glimpse2"],
-                        "patch": "modules/nf-core/glimpse2/phase/glimpse2-phase.diff"
+                        "git_sha": "6a5a6e1dedc88826744e8117c1974dcca4829d8f"
                     },
                     "glimpse2/splitreference": {
                         "branch": "master",
-                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
-                        "installed_by": ["multiple_impute_glimpse2"]
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7"
                     },
                     "gunzip": {
                         "branch": "master",
