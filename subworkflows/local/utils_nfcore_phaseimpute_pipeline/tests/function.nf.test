@@ -4,6 +4,33 @@ nextflow_function {
     script "../main.nf"
     tag "function"
 
+    test("Test checkFileIndex no error with empty channel") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[], [], []],
+                    [[id: "input"], file("input.vcf"), file("input.csi")],
+                    [[], [], []],
+                    [[id: "input3"], file("input3.bcf"), file("input3.csi")],
+                    [[], [], []],
+                    [[id: "input5"], file("input5.vcf.gz"), file("input5.csi")],
+                    [[], [], []],
+                    [[id: "input7"], file("input7.bam"), file("input5.bai")],
+                    [[], [], []],
+                    [[id: "input9"], file("input9.fa"), file("input9.fai")],
+                    [[], [], []]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.success
+        }
+    }
+
     test ("Test getFileExtension") {
         function "getFileExtension"
         tag "getFileExtension"

@@ -390,13 +390,19 @@ def checkMetaChr(chr_a, chr_b, name){
 //
 // Get file extension
 //
-def getFileExtension(file) {
-    if (file instanceof String) {
-        return file.replace(".gz","").split("\\.").last()
-    } else if (file instanceof Path) {
-        return file.getName().replace(".gz","").split("\\.").last()
+def getFileExtension(file_name) {
+    if (file_name instanceof String) {
+        return file_name.replace(".gz","").split("\\.").last()
+    } else if (file_name instanceof Path) {
+        return file_name.getName().replace(".gz","").split("\\.").last()
+    } else if (file_name instanceof ArrayList) {
+        if (file_name.size()==0) {
+            return "empty"
+        } else {
+            error "Array not supported"
+        }
     } else {
-        error "Type of ${file} not supported: ${file.getClass()}"
+        error "Type not supported: ${file_name.getClass()}"
     }
 }
 
@@ -420,8 +426,7 @@ def getAllFilesExtension(ch_input) {
 //
 def checkFileIndex(ch_input) {
     ch_input
-        .toList()
-        .map { it.each{
+        .subscribe{
             meta, file, index ->
             file_ext = getFileExtension(file)
             index_ext = getFileExtension(index)
@@ -430,15 +435,18 @@ def checkFileIndex(ch_input) {
                 error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
             }
             if (file_ext == "bam" && index_ext != "bai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
                 error "${meta}: Index file for .bam must have the extension .bai"
             }
             if (file_ext == "cram" && index_ext != "crai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
                 error "${meta}: Index file for .cram must have the extension .crai"
             }
             if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
                 error "${meta}: Index file for [fa, fasta] must have the extension .fai"
             }
-        }}
+        }
     return null
 }
 
