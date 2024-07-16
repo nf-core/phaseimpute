@@ -246,7 +246,7 @@ nextflow_function {
             assert function.success
         }
     }
-    test ("Test checkMetaChr error") {
+    test ("Test checkMetaChr warning") {
         function "checkMetaChr"
         tag "checkMetaChr"
         when {
