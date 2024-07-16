@@ -59,4 +59,40 @@ nextflow_workflow {
             )
         }
     }
+
+    test("Should run with same id") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "input1", chr: "21"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["21"],
+                        "nochr"
+                    ],
+                    [
+                        [id: "input1", chr: "22"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["22"],
+                        "nochr"
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_renamed.collect{
+                    path(it[1]).linesGzip.findAll { it.startsWith ("##contig=<ID") }
+                    }).match("header21and22")
+                }
+            )
+        }
+    }
 }
