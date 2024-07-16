@@ -1,4 +1,74 @@
 {
+    "header21and22": {
+        "content": [
+            [
+                [
+                    "##contig=<ID=chr21,length=46806409>"
+                ],
+                [
+                    "##contig=<ID=chr21,length=46806409>"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T18:13:43.354016535"
+    },
+    "Should run with same id": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "21"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "22"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ],
+                "vcf_renamed": [
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "21"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "22"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T18:13:42.892263614"
+    },
     "Should run without error": {
         "content": [
             {
@@ -8,26 +78,25 @@
                             "id": "21"
                         },
                         "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "21_chrrename.vcf.gz.csi:md5,3bbbb50b0dd3515d380eabe0013cde19"
+                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
                     ],
                     [
                         {
                             "id": "chr21"
                         },
                         "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
                     ],
                     [
                         {
                             "id": "multi"
                         },
                         "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
-                        "multi_chrrename.vcf.gz.csi:md5,5d175780d5611d962430bff3377f649f"
+                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,001b78222d93abfc606fec92b6bcd0e7",
-                    "versions.yml:md5,0ef2d96560ef31ca3d08faa86cfde552"
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
                 ],
                 "vcf_renamed": [
                     [
@@ -35,34 +104,33 @@
                             "id": "21"
                         },
                         "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "21_chrrename.vcf.gz.csi:md5,3bbbb50b0dd3515d380eabe0013cde19"
+                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
                     ],
                     [
                         {
                             "id": "chr21"
                         },
                         "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
                     ],
                     [
                         {
                             "id": "multi"
                         },
                         "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
-                        "multi_chrrename.vcf.gz.csi:md5,5d175780d5611d962430bff3377f649f"
+                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,001b78222d93abfc606fec92b6bcd0e7",
-                    "versions.yml:md5,0ef2d96560ef31ca3d08faa86cfde552"
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-06-20T13:50:38.036237318"
+        "timestamp": "2024-07-16T18:13:32.768716353"
     },
     "headerwithchr": {
         "content": [

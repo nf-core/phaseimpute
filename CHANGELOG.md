@@ -17,6 +17,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#67](https://github.com/nf-core/phaseimpute/pull/67) - Export CSVs from each step.
 - [#71](https://github.com/nf-core/phaseimpute/pull/71) - Allow external panel to be used in step impute.
 - [#97](https://github.com/nf-core/phaseimpute/pull/97) - Add dog reference panel and config to test pipeline with other species.
+- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Add dog panel test.
 
 ### `Changed`
 
@@ -46,6 +47,9 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#96](https://github.com/nf-core/phaseimpute/pull/96) - Use only legend file as posfile for all imputation workflow.
 - [#100](https://github.com/nf-core/phaseimpute/pull/100) - Update bcftools, samtools, ... nf-core modules. All indexing is now done with the file creation for most of them.
 - [#101](https://github.com/nf-core/phaseimpute/pull/101) - Set `--compute_freq` as `false` by default.
+- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Compute chr name from whole vcf.
+- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Only warn the user if some contigs are absent from files, the regions to compute is now the intersection of regions, panel, posfile, chunks, map.
+- [#102](https://github.com/nf-core/phaseimpute/pull/102) - Update all test and recompute snapshot to match new version of the phaseimpute test dataset.
 - [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update Glimpse2 phase, gunzip and multiqc
 
 ### `Fixed`

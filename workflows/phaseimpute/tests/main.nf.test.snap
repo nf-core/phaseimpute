@@ -13,13 +13,13 @@
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz",
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
             ],
-            1776
+            1757
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:19:51.224417334"
+        "timestamp": "2024-07-16T14:24:33.55407207"
     },
     "Check test_all": {
         "content": [
@@ -119,16 +119,16 @@
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt"
             ],
-            1779,
-            1777,
-            1776,
-            1779
+            1760,
+            1758,
+            1757,
+            1760
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-11T18:39:06.373712137"
+        "timestamp": "2024-07-16T14:48:50.926779455"
     },
     "Check test_validate": {
         "content": [
@@ -168,13 +168,13 @@
                 "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                 "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
-            1779
+            1760
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:18:07.093604062"
+        "timestamp": "2024-07-16T14:23:34.587074479"
     },
     "Check test_sim": {
         "content": [
@@ -194,6 +194,70 @@
         },
         "timestamp": "2024-07-11T18:31:15.202789733"
     },
+    "Check test_dog_panelprep": {
+        "content": [
+            [
+                "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/658Dog_chr21.hap.gz",
+                "prep_panel/haplegend/658Dog_chr21.legend.gz",
+                "prep_panel/haplegend/658Dog_chr21.samples",
+                "prep_panel/haplegend/658Dog_chr22.hap.gz",
+                "prep_panel/haplegend/658Dog_chr22.legend.gz",
+                "prep_panel/haplegend/658Dog_chr22.samples",
+                "prep_panel/normalized/658Dog_chr21_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/658Dog_chr21_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/normalized/658Dog_chr22_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/658Dog_chr22_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/sites/vcf/658Dog_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/vcf/658Dog_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T17:23:48.387121156"
+    },
+    "Check test_panelprep": {
+        "content": [
+            [
+                "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                "prep_panel/haplegend/1000GP_chr21.samples",
+                "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                "prep_panel/haplegend/1000GP_chr22.samples",
+                "prep_panel/normalized/1000GP_chr21_fixed.vcf.gz",
+                "prep_panel/normalized/1000GP_chr21_fixed.vcf.gz.tbi",
+                "prep_panel/normalized/1000GP_chr22_fixed.vcf.gz",
+                "prep_panel/normalized/1000GP_chr22_fixed.vcf.gz.tbi",
+                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T17:24:54.532547185"
+    },
     "Check test_glimpse2": {
         "content": [
             [
@@ -208,13 +272,13 @@
                 "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
             ],
-            1798
+            1758
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:14:24.185333794"
+        "timestamp": "2024-07-16T14:20:35.357937192"
     },
     "Check test": {
         "content": [
@@ -230,12 +294,12 @@
                 "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA20359.glimpse1.bcftools_stats.txt"
             ],
-            1800
+            1760
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:12:21.857614538"
+        "timestamp": "2024-07-16T14:18:59.425161413"
     }
 }
