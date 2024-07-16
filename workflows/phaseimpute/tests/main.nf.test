@@ -210,6 +210,58 @@ nextflow_pipeline {
             )
         }
     }
+
+    test("Check test_dog_panelprep") {
+        tag "test_dog_panelprep"
+        config "../../../conf/test_dog_panelprep.config"
+        when {
+            params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
+                outdir = "$outputDir"
+                max_cpus = 4
+                max_memory = '5.GB'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    path("${outputDir}/prep_panel")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                ).match()
+                }
+            )
+        }
+    }
+
+    test("Check test_panelprep") {
+        tag "test_panelprep"
+        config "../../../conf/test_panelprep.config"
+        when {
+            params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
+                outdir = "$outputDir"
+                max_cpus = 4
+                max_memory = '5.GB'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    path("${outputDir}/prep_panel")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                ).match()
+                }
+            )
+        }
+    }
 }
 
 def getRecursiveFileNames(fileOrDir, outputDir) {
