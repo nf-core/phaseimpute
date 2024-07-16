@@ -1,4 +1,36 @@
 {
+    "Test checkMetaChr error": {
+        "content": [
+            [
+                "N E X T F L O W  ~  version 24.04.3",
+                "Launching `/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/ed90b74f1c9354d03a69767c5df96bbc/meta/mock.nf` [cheesy_golick] DSL2 - revision: 184c64ccc5",
+                "WARN: Chr : [chrY] is missing from test"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T15:31:57.920377701"
+    },
+    "Test getFileExtension": {
+        "content": [
+            "vcf"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-12T17:12:47.079086374"
+    },
+    "Test checkFileIndex no error with empty channel": {
+        "content": null,
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T15:21:39.094768315"
+    },
     "Test Function exportCsv": {
         "content": null,
         "meta": {

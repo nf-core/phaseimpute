@@ -46,7 +46,7 @@ workflow CHRCHECK {
 
             ch_vcf_renamed = Channel.empty()
             // Rename the contigs in the VCF files
-            VCF_CHR_RENAME_BCFTOOLS( chr_vcf_disjoint.to_rename)
+            VCF_CHR_RENAME_BCFTOOLS(chr_vcf_disjoint.to_rename)
             ch_versions = ch_versions.mix(VCF_CHR_RENAME_BCFTOOLS.out.versions)
             ch_vcf_renamed = VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed
         } else {
