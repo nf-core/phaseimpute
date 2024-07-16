@@ -10,8 +10,8 @@ nextflow_workflow {
     test("Should run with no error") {
         when {
             params {
-                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
-                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -41,8 +41,8 @@ nextflow_workflow {
     test("Should give a warning all file given") {
         when {
             params {
-                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
-                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -74,8 +74,8 @@ nextflow_workflow {
     test("Should give a warning with missing files") {
         when {
             params {
-                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa"
-                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.fa.fai"
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 chunks = "../../../tests/csv/chunks.csv"
                 panel = "../../../tests/csv/panel.csv"

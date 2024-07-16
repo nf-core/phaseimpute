@@ -297,7 +297,7 @@ panel,chr,file
 1000GP,chr3,chunks_chr3.txt
 ```
 
-The file column should contain a TXT/TSV obtained from GLIMPSE1 with the following [structure](https://github.com/nf-core/test-datasets/blob/phaseimpute/data/panel/22/chr22_chunks_glimpse1.txt).
+The file column should contain a TXT/TSV obtained from GLIMPSE1 with the following [structure](https://github.com/nf-core/test-datasets/blob/phaseimpute/hum_data/panel/chr22/1000GP.chr22_chunks.txt).
 
 If you do not have a csv with chunks, you can provide a reference panel to run the `--steps panelprep` which produces a csv with these chunks, which is then used as input for QUILT. You can choose to run both steps sequentially as `--steps panelprep,impute` or simply collect the files produced by `--steps panelprep`.
 

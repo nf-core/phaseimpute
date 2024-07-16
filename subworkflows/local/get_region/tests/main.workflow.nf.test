@@ -15,8 +15,8 @@ nextflow_workflow {
                 input[0] = "all"
                 input[1] = Channel.of([
                     [genome:"GRCh37"],
-                    file("https://raw.githubusercontent.com/LouisLeNezet/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.s.fa", checkIfExists: true),
-                    file("https://raw.githubusercontent.com/LouisLeNezet/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.s.fa.fai", checkIfExists: true)
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
                 ])
                 """
             }
@@ -38,8 +38,8 @@ nextflow_workflow {
                 input[0] = "chr22"
                 input[1] = Channel.of([
                     [genome:"GRCh37"],
-                    file("https://raw.githubusercontent.com/LouisLeNezet/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.s.fa", checkIfExists: true),
-                    file("https://raw.githubusercontent.com/LouisLeNezet/test-datasets/phaseimpute/data/reference_genome/21_22/hs38DH.chr21_22.s.fa.fai", checkIfExists: true)
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
                 ])
                 """
             }
