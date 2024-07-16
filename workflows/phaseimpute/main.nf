@@ -47,7 +47,6 @@ include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
-include { POSFILE_PREPARE_GAWK                       } from '../../subworkflows/local/posfile_prepare_gawk'
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_SAMPLES_BCFTOOLS                       } from '../../subworkflows/local/vcf_samples_bcftools'
