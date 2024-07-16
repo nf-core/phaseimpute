@@ -4,6 +4,21 @@ nextflow_function {
     script "../main.nf"
     tag "function"
 
+    test ("Test getFileExtension") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExists: true)
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert snapshot(function.result).match()
+        }
+    }
     test("Test checkFileIndex no error with empty channel") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -23,20 +38,6 @@ nextflow_function {
                     [[id: "input9"], file("input9.fa"), file("input9.fai")],
                     [[], [], []]
                 ])
-                """
-            }
-        }
-        then {
-            assert function.success
-        }
-    }
-    test ("Test getFileExtension") {
-        function "getFileExtension"
-        tag "getFileExtension"
-        when {
-            function {
-                """
-                input[0] = file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/data/panel/21/1000GP.chr21.s.norel.bcf", checkIfExists: true)
                 """
             }
         }
@@ -259,6 +260,7 @@ nextflow_function {
         }
         then {
             assert function.success
+            assert snapshot(function.stdout).match()
             assert function.stdout.contains("WARN: Chr : [chrY] is missing from test")
         }
     }
