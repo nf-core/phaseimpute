@@ -256,10 +256,7 @@ workflow PIPELINE_INITIALISATION {
         .map { meta, regions, chr_mis -> [meta, regions] }
 
     // Check that all input files have the correct index
-    checkFileIndex(ch_input)
-    checkFileIndex(ch_input_truth)
-    checkFileIndex(ch_ref_gen)
-    checkFileIndex(ch_panel)
+    checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
     emit:
     input                = ch_input         // [ [meta], file, index ]

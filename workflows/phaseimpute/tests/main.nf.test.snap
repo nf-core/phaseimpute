@@ -13,13 +13,13 @@
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz",
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
             ],
-            1776
+            1757
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:19:51.224417334"
+        "timestamp": "2024-07-16T14:24:33.55407207"
     },
     "Check test_all": {
         "content": [
@@ -119,16 +119,16 @@
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt"
             ],
-            1779,
-            1777,
-            1776,
-            1779
+            1760,
+            1758,
+            1757,
+            1760
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-11T18:39:06.373712137"
+        "timestamp": "2024-07-16T14:48:50.926779455"
     },
     "Check test_validate": {
         "content": [
@@ -168,13 +168,13 @@
                 "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                 "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
-            1779
+            1760
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:18:07.093604062"
+        "timestamp": "2024-07-16T14:23:34.587074479"
     },
     "Check test_sim": {
         "content": [
@@ -208,13 +208,13 @@
                 "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
             ],
-            1798
+            1758
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:14:24.185333794"
+        "timestamp": "2024-07-16T14:20:35.357937192"
     },
     "Check test": {
         "content": [
@@ -230,12 +230,12 @@
                 "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA20359.glimpse1.bcftools_stats.txt"
             ],
-            1800
+            1760
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-10T17:12:21.857614538"
+        "timestamp": "2024-07-16T14:18:59.425161413"
     }
 }
