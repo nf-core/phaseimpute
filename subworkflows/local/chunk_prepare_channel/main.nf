@@ -16,10 +16,9 @@ workflow CHUNK_PREPARE_CHANNEL {
 
     if(tool == "quilt") {
         ch_chunks = ch_chunks.map { chr, txt -> [chr, file(txt)]}
-            .splitText()
-            .map { metamap, line ->
-                def fields = line.split("\t")
-                def startEnd = fields[2].split(':')[1].split('-')
+            .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
+            .map { meta, it ->
+                def startEnd = it["RegionIn"].split(':')[1].split('-')
                 [metamap, metamap.chr, startEnd[0], startEnd[1]]
             }
     }

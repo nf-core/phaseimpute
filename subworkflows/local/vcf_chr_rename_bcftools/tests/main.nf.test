@@ -89,7 +89,7 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
                 { assert snapshot(workflow.out.vcf_renamed.collect{
-                    path(it[1]).linesGzip.findAll { it.startsWith ("##contig=<ID") }
+                    path(it[1]).vcf.getVariantsAsStrings(2)
                     }).match("header21and22")
                 }
             )

@@ -3,10 +3,12 @@
         "content": [
             [
                 [
-                    "##contig=<ID=chr21,length=46806409>"
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
                 ],
                 [
-                    "##contig=<ID=chr21,length=46806409>"
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
                 ]
             ]
         ],
@@ -14,7 +16,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-16T18:13:43.354016535"
+        "timestamp": "2024-07-17T11:54:12.209449942"
     },
     "Should run with same id": {
         "content": [

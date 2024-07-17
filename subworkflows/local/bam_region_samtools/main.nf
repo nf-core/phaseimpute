@@ -2,7 +2,7 @@ include { SAMTOOLS_VIEW  } from '../../../modules/nf-core/samtools/view'
 include { SAMTOOLS_MERGE } from '../../../modules/nf-core/samtools/merge'
 include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index'
 
-workflow BAM_REGION {
+workflow BAM_REGION_SAMTOOLS {
 
     take:
     ch_bam    // channel: [ [id], bam, bai ]

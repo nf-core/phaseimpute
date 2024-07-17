@@ -3,7 +3,7 @@ include { SAMTOOLS_VIEW  } from '../../../modules/nf-core/samtools/view'
 include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index'
 include { GAWK           } from '../../../modules/nf-core/gawk'
 
-workflow BAM_DOWNSAMPLE {
+workflow BAM_DOWNSAMPLE_SAMTOOLS {
 
     take:
     ch_bam    // channel: [ [id, genome], bam, bai ]

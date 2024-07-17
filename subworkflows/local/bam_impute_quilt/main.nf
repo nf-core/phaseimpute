@@ -1,5 +1,4 @@
 include { QUILT_QUILT                        } from '../../../modules/nf-core/quilt/quilt'
-include { BCFTOOLS_INDEX                     } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_ANNOTATE                  } from '../../../modules/nf-core/bcftools/annotate'
 
 workflow BAM_IMPUTE_QUILT {
@@ -7,7 +6,7 @@ workflow BAM_IMPUTE_QUILT {
     take:
     ch_input             // channel: [ [id], bam, bai ]
     ch_hap_legend        // channel: [ [panel, chr], hap, legend ]
-    ch_chunks            // channel: [ [panel, chr], start_coordinate, end_coordinate, number ]
+    ch_chunks            // channel: [ [panel, chr], chr, start_coordinate, end_coordinate ]
 
 
     main:

@@ -259,9 +259,11 @@ nextflow_function {
             }
         }
         then {
-            assert function.success
-            assert snapshot(function.stdout).match()
-            assert function.stdout.contains("WARN: Chr : [chrY] is missing from test")
+            assertAll {
+                { assert function.success },
+                { assert snapshot(function.stdout).match() },
+                { assert function.stdout.contains("WARN: Chr : [chrY] is missing from test") }
+            }
         }
     }
 }

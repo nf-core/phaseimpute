@@ -11,7 +11,7 @@ workflow BAM_IMPUTE_GLIMPSE1 {
     ch_input        // channel (mandatory): [ [id], bam, bai ]
     ch_posfile      // channel (mandatory): [ [panel, chr], legend ]
     ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
-    ch_chunks       // channel  (optional): [ [chr], region1, region2 ]
+    ch_chunks       // channel  (optional): [ [panel, chr], region1, region2 ]
     ch_fasta        // channel (mandatory): [ [genome], fa, fai ]
 
     main:
@@ -39,7 +39,7 @@ workflow BAM_IMPUTE_GLIMPSE1 {
         }
 
     // Join input and chunks reference
-    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf
+    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf.view()
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
         .combine(samples_file)
         .combine(ch_chunks_panel, by: 0)
