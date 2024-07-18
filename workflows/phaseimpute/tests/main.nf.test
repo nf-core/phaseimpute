@@ -201,10 +201,10 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz").vcf.summary,
-                    path("$outputDir/imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz").vcf.summary,
-                    path("$outputDir/imputation/stitch/concat/NA12878.stitch.vcf.gz").vcf.summary,
-                    path("$outputDir/imputation/quilt/concat/NA12878.quilt.vcf.gz").vcf.summary
+                    path("${outputDir}/imputation/glimpse1/concat/NA12878.glimpse1.vcf.gz").vcf.summary,
+                    path("${outputDir}/imputation/glimpse2/concat/NA12878.glimpse2.vcf.gz").vcf.summary,
+                    path("${outputDir}/imputation/stitch/concat/NA12878.stitch.vcf.gz").vcf.summary,
+                    path("${outputDir}/imputation/quilt/concat/NA12878.quilt.vcf.gz").vcf.summary
                 ).match()
                 }
             )
