@@ -39,7 +39,7 @@ workflow BAM_IMPUTE_GLIMPSE1 {
         }
 
     // Join input and chunks reference
-    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf.view()
+    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
         .combine(samples_file)
         .combine(ch_chunks_panel, by: 0)

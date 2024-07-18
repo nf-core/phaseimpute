@@ -25,7 +25,7 @@ nextflow_process {
                         [id: 'test2_haplotc_vcf_gz'], // meta map
                         file(params.test_data['homo_sapiens']['illumina']['test2_haplotc_vcf_gz'], checkIfExists: true)
                     ]
-                ]).view()
+                ])
                 """
             }
         }
