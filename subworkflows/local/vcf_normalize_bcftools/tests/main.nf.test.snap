@@ -1,0 +1,154 @@
+{
+    "Normalize content": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T15:21:05.213839279"
+    },
+    "Normalize vcf with computing frequencies after removing samples": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "1000GP_chr21_fixed.vcf.gz:md5,13631f70edf3c9e18ca2215d5d277dc5",
+                        "1000GP_chr21_fixed.vcf.gz.tbi:md5,794ad7840412048e8f21eb56ab2755e2"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "1000GP_chr22_fixed.vcf.gz:md5,21d8b33f981bc6f146ba036ac23007d0",
+                        "1000GP_chr22_fixed.vcf.gz.tbi:md5,3fb30aa704a97e35898a7a281d18ab29"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
+                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
+                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
+                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "1000GP_chr21_fixed.vcf.gz:md5,13631f70edf3c9e18ca2215d5d277dc5",
+                        "1000GP_chr21_fixed.vcf.gz.tbi:md5,794ad7840412048e8f21eb56ab2755e2"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "1000GP_chr22_fixed.vcf.gz:md5,21d8b33f981bc6f146ba036ac23007d0",
+                        "1000GP_chr22_fixed.vcf.gz.tbi:md5,3fb30aa704a97e35898a7a281d18ab29"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
+                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
+                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
+                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T15:23:32.248285219"
+    },
+    "Norm content recomputed": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[chr21], sampleCount=3190, variantCount=836, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=3190, variantCount=903, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T15:23:37.057826205"
+    },
+    "Normalize vcf without computing frequencies nor removing samples": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "1000GP_chr21_biallelic_snps.vcf.gz:md5,f5f4f04327ba945ee931c994c0d3b378",
+                        "1000GP_chr21_biallelic_snps.vcf.gz.tbi:md5,faefe7777f370473a9a15682811e06ca"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "1000GP_chr22_biallelic_snps.vcf.gz:md5,604930983c16df53c3560736b28cc653",
+                        "1000GP_chr22_biallelic_snps.vcf.gz.tbi:md5,9e71ab3c0ead3ea55de972a5c2bc6bcb"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "1000GP_chr21_biallelic_snps.vcf.gz:md5,f5f4f04327ba945ee931c994c0d3b378",
+                        "1000GP_chr21_biallelic_snps.vcf.gz.tbi:md5,faefe7777f370473a9a15682811e06ca"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "1000GP_chr22_biallelic_snps.vcf.gz:md5,604930983c16df53c3560736b28cc653",
+                        "1000GP_chr22_biallelic_snps.vcf.gz.tbi:md5,9e71ab3c0ead3ea55de972a5c2bc6bcb"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
+                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T15:23:07.295622189"
+    }
+}

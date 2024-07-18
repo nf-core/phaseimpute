@@ -1,0 +1,79 @@
+{
+    "Split vcf file": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "NA12878"
+                        },
+                        "NA12878.vcf.gz:md5,6146dcfb5290286a6442de65869e0222",
+                        "NA12878.vcf.gz.tbi:md5,31c12acb72d301cc69478c58b513d779"
+                    ],
+                    [
+                        {
+                            "id": "NA19401"
+                        },
+                        "NA19401.vcf.gz:md5,ea44e5b4d6e1d78de62a46b7624e3904",
+                        "NA19401.vcf.gz.tbi:md5,8f93c5e7d94089d9b0313f1d7d7ba40d"
+                    ],
+                    [
+                        {
+                            "id": "NA20359"
+                        },
+                        "NA20359.vcf.gz:md5,88bf832be1d8a9cf4bc188d105afc5a2",
+                        "NA20359.vcf.gz.tbi:md5,6bf326636fb91d7ffffad543763c5be1"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "NA12878"
+                        },
+                        "NA12878.vcf.gz:md5,6146dcfb5290286a6442de65869e0222",
+                        "NA12878.vcf.gz.tbi:md5,31c12acb72d301cc69478c58b513d779"
+                    ],
+                    [
+                        {
+                            "id": "NA19401"
+                        },
+                        "NA19401.vcf.gz:md5,ea44e5b4d6e1d78de62a46b7624e3904",
+                        "NA19401.vcf.gz.tbi:md5,8f93c5e7d94089d9b0313f1d7d7ba40d"
+                    ],
+                    [
+                        {
+                            "id": "NA20359"
+                        },
+                        "NA20359.vcf.gz:md5,88bf832be1d8a9cf4bc188d105afc5a2",
+                        "NA20359.vcf.gz.tbi:md5,6bf326636fb91d7ffffad543763c5be1"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T17:13:32.502214075"
+    },
+    "Phasing content": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T17:13:33.060063904"
+    }
+}

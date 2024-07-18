@@ -49,7 +49,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 // STITCH subworkflows
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
-include { VCF_SAMPLES_BCFTOOLS                       } from '../../subworkflows/local/vcf_samples_bcftools'
+include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/local/vcf_split_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // Imputation stats
@@ -283,11 +283,11 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
             // Separate by samples
-            VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
-            ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
+            VCF_SPLIT_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
+            ch_versions = ch_versions.mix(VCF_SPLIT_BCFTOOLS.out.versions)
 
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(VCF_SPLIT_BCFTOOLS.out.vcf_tbi)
 
         }
         if (params.tools.split(',').contains("quilt")) {

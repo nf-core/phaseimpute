@@ -1,2 +1,2 @@
-subworkflows/vcf_chunk_glimpse:
-  - subworkflows/local/vcf_chunk_glimpse/**
+subworkflows/vcf_concatenate_bcftools:
+  - subworkflows/local/vcf_concatenate_bcftools/**

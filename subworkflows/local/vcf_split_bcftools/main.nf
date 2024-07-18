@@ -1,7 +1,6 @@
 include { BCFTOOLS_PLUGINSPLIT  } from '../../../modules/nf-core/bcftools/pluginsplit'
-include { BCFTOOLS_INDEX        } from '../../../modules/nf-core/bcftools/index'
 
-workflow VCF_SAMPLES_BCFTOOLS {
+workflow VCF_SPLIT_BCFTOOLS {
     take:
     ch_vcf          // channel: [ [id, chr, tools], vcf ]
 
