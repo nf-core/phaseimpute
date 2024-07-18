@@ -45,13 +45,9 @@ workflow BAM_IMPUTE_QUILT {
     QUILT_QUILT ( ch_quilt, posfile_phasefile, fasta )
     ch_versions = ch_versions.mix(QUILT_QUILT.out.versions.first())
 
-    // Index imputed VCF
-    BCFTOOLS_INDEX(QUILT_QUILT.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
-
     // Annotate the variants
     BCFTOOLS_ANNOTATE(QUILT_QUILT.out.vcf
-        .join(BCFTOOLS_INDEX.out.tbi)
+        .join(QUILT_QUILT.out.tbi)
         .combine(Channel.of([[], [], [], []]))
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
