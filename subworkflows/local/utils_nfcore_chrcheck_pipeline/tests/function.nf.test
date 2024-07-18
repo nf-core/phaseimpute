@@ -34,9 +34,7 @@ nextflow_function {
         }
         then {
             assert function.success
-            assert (function.result[0] - ["chr2", "chr1"]).isEmpty()
-            assert (["chr2", "chr1"] - function.result[0]).isEmpty()
-            assert function.result[1] == 'nochr'
+            assert snapshot(function.result).match()
         }
     }
 
@@ -52,9 +50,7 @@ nextflow_function {
         }
         then {
             assert function.success
-            assert (function.result[0] - ["1", "2"]).isEmpty()
-            assert (["1", "2"] - function.result[0]).isEmpty()
-            assert function.result[1] == 'chr'
+            assert snapshot(function.result).match()
         }
     }
 
@@ -70,7 +66,7 @@ nextflow_function {
         }
         then {
             assert function.failed
-            assert function.stdout.contains("Contig names: [chr4] absent from file: 123.vcf and cannot be solved by adding or removing the `chr` prefix.")
+            assert snapshot(function.stdout).match()
         }
     }
 
@@ -86,9 +82,7 @@ nextflow_function {
         }
         then {
             assert function.success
-            assert (function.result[0] - ["chr1", "chr2"]).isEmpty()
-            assert (["chr1", "chr2"] - function.result[0]).isEmpty()
-            assert function.result[1] == 'nochr'
+            assert snapshot(function.result).match()
         }
     }
 }

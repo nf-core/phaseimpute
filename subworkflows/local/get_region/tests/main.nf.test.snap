@@ -17,15 +17,29 @@
         },
         "timestamp": "2024-03-17T15:20:16.458964814"
     },
+    "Should run with an error": {
+        "content": [
+            [
+                "N E X T F L O W  ~  version 23.10.1",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/68cf57ba96afcf7b8ba9414fb03e77b1/meta/mock.nf` [angry_babbage] DSL2 - revision: d7db2c206c",
+                "Invalid input_region: chr22:0-4000:4648"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T10:00:37.781505704"
+    },
     "Should run with specified chr": {
         "content": [
             [
                 [
                     {
                         "chr": "chr22",
-                        "region": "chr22:16570000-16610000"
+                        "region": "chr22:0-50818468"
                     },
-                    "chr22:16570000-16610000"
+                    "chr22:0-50818468"
                 ]
             ]
         ],
@@ -33,7 +47,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-17T15:20:11.51328291"
+        "timestamp": "2024-07-18T09:59:50.83303021"
     },
     "Should run with 'all'": {
         "content": [
@@ -41,16 +55,16 @@
                 [
                     {
                         "chr": "chr21",
-                        "region": "chr21:16570000-16610000"
+                        "region": "chr21:0-46709983"
                     },
-                    "chr21:16570000-16610000"
+                    "chr21:0-46709983"
                 ],
                 [
                     {
                         "chr": "chr22",
-                        "region": "chr22:16570000-16610000"
+                        "region": "chr22:0-50818468"
                     },
-                    "chr22:16570000-16610000"
+                    "chr22:0-50818468"
                 ]
             ]
         ],
@@ -58,6 +72,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-17T15:20:06.490072121"
+        "timestamp": "2024-07-18T09:59:45.078764008"
     }
 }

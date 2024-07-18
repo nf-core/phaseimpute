@@ -1,0 +1,2 @@
+subworkflows/chunk_prepare_channel:
+  - subworkflows/local/chunk_prepare_channel/**

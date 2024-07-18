@@ -15,16 +15,15 @@
                             "id": "VCF_chr22"
                         },
                         "VCF_chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
-                        "VCF_chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                        "VCF_chr22_chrrename.vcf.gz.tbi:md5,37896336ac46c6e4a57200a6eab6c918"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,0752239adae68bc2d4e84664f28359a8",
+                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
                     "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,b5fca9dd894f987de4afaf43b1d48865",
-                    "versions.yml:md5,b9f978918168feb952551b7a52ab55a9",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee",
-                    "versions.yml:md5,db7a855207af8c0ebf0cace9e0306af4"
+                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
                 ],
                 "output": [
                     [
@@ -39,16 +38,15 @@
                             "id": "VCF_chr22"
                         },
                         "VCF_chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
-                        "VCF_chr22_chrrename.vcf.gz.csi:md5,ba370ca13289fee4be59253a1f4609e2"
+                        "VCF_chr22_chrrename.vcf.gz.tbi:md5,37896336ac46c6e4a57200a6eab6c918"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,0752239adae68bc2d4e84664f28359a8",
+                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
                     "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,b5fca9dd894f987de4afaf43b1d48865",
-                    "versions.yml:md5,b9f978918168feb952551b7a52ab55a9",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee",
-                    "versions.yml:md5,db7a855207af8c0ebf0cace9e0306af4"
+                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
                 ]
             }
         ],
@@ -56,7 +54,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-08T13:11:23.645078975"
+        "timestamp": "2024-07-18T09:47:01.138209626"
     },
     "headernochr": {
         "content": [
@@ -64,16 +62,14 @@
                 [
                     "@SQ\tSN:22\tLN:40001"
                 ],
-                [
-                    "##contig=<ID=22>"
-                ]
+                "VcfFile [chromosomes=[22], sampleCount=0, variantCount=2174, phased=true, phasedAutodetect=true]"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-21T21:27:40.494963506"
+        "timestamp": "2024-07-18T09:47:01.733364754"
     },
     "Rename: VCF no chr + fasta chr": {
         "content": [
@@ -91,16 +87,15 @@
                             "id": "VCF_AllNoChr"
                         },
                         "VCF_AllNoChr_chrrename.vcf.gz:md5,6c40de3fc8e41f2a75f3159c4444f77c",
-                        "VCF_AllNoChr_chrrename.vcf.gz.csi:md5,5edd51c5ebac111ef9fb7387da753f6e"
+                        "VCF_AllNoChr_chrrename.vcf.gz.tbi:md5,1e43f21acc9fedb8f90e48fdfa4011de"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,0752239adae68bc2d4e84664f28359a8",
+                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
                     "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,b5fca9dd894f987de4afaf43b1d48865",
-                    "versions.yml:md5,b9f978918168feb952551b7a52ab55a9",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee",
-                    "versions.yml:md5,db7a855207af8c0ebf0cace9e0306af4"
+                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
                 ],
                 "output": [
                     [
@@ -115,16 +110,15 @@
                             "id": "VCF_AllNoChr"
                         },
                         "VCF_AllNoChr_chrrename.vcf.gz:md5,6c40de3fc8e41f2a75f3159c4444f77c",
-                        "VCF_AllNoChr_chrrename.vcf.gz.csi:md5,5edd51c5ebac111ef9fb7387da753f6e"
+                        "VCF_AllNoChr_chrrename.vcf.gz.tbi:md5,1e43f21acc9fedb8f90e48fdfa4011de"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,0752239adae68bc2d4e84664f28359a8",
+                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
                     "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,b5fca9dd894f987de4afaf43b1d48865",
-                    "versions.yml:md5,b9f978918168feb952551b7a52ab55a9",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee",
-                    "versions.yml:md5,db7a855207af8c0ebf0cace9e0306af4"
+                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
                 ]
             }
         ],
@@ -132,7 +126,7 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-08T13:11:36.03296297"
+        "timestamp": "2024-07-18T09:47:13.86070967"
     },
     "headerwithchr": {
         "content": [
@@ -140,100 +134,13 @@
                 [
                     "@SQ\tSN:chr22\tLN:40001"
                 ],
-                [
-                    "##contig=<ID=1,length=249250621>",
-                    "##contig=<ID=2,length=243199373>",
-                    "##contig=<ID=3,length=198022430>",
-                    "##contig=<ID=4,length=191154276>",
-                    "##contig=<ID=5,length=180915260>",
-                    "##contig=<ID=6,length=171115067>",
-                    "##contig=<ID=7,length=159138663>",
-                    "##contig=<ID=8,length=146364022>",
-                    "##contig=<ID=9,length=141213431>",
-                    "##contig=<ID=10,length=135534747>",
-                    "##contig=<ID=11,length=135006516>",
-                    "##contig=<ID=12,length=133851895>",
-                    "##contig=<ID=13,length=115169878>",
-                    "##contig=<ID=14,length=107349540>",
-                    "##contig=<ID=15,length=102531392>",
-                    "##contig=<ID=16,length=90354753>",
-                    "##contig=<ID=17,length=81195210>",
-                    "##contig=<ID=18,length=78077248>",
-                    "##contig=<ID=19,length=59128983>",
-                    "##contig=<ID=20,length=63025520>",
-                    "##contig=<ID=21,length=48129895>",
-                    "##contig=<ID=chr22,length=51304566>",
-                    "##contig=<ID=X,length=155270560>",
-                    "##contig=<ID=Y,length=59373566>",
-                    "##contig=<ID=MT,length=16569>",
-                    "##contig=<ID=GL000207.1,length=4262>",
-                    "##contig=<ID=GL000226.1,length=15008>",
-                    "##contig=<ID=GL000229.1,length=19913>",
-                    "##contig=<ID=GL000231.1,length=27386>",
-                    "##contig=<ID=GL000210.1,length=27682>",
-                    "##contig=<ID=GL000239.1,length=33824>",
-                    "##contig=<ID=GL000235.1,length=34474>",
-                    "##contig=<ID=GL000201.1,length=36148>",
-                    "##contig=<ID=GL000247.1,length=36422>",
-                    "##contig=<ID=GL000245.1,length=36651>",
-                    "##contig=<ID=GL000197.1,length=37175>",
-                    "##contig=<ID=GL000203.1,length=37498>",
-                    "##contig=<ID=GL000246.1,length=38154>",
-                    "##contig=<ID=GL000249.1,length=38502>",
-                    "##contig=<ID=GL000196.1,length=38914>",
-                    "##contig=<ID=GL000248.1,length=39786>",
-                    "##contig=<ID=GL000244.1,length=39929>",
-                    "##contig=<ID=GL000238.1,length=39939>",
-                    "##contig=<ID=GL000202.1,length=40103>",
-                    "##contig=<ID=GL000234.1,length=40531>",
-                    "##contig=<ID=GL000232.1,length=40652>",
-                    "##contig=<ID=GL000206.1,length=41001>",
-                    "##contig=<ID=GL000240.1,length=41933>",
-                    "##contig=<ID=GL000236.1,length=41934>",
-                    "##contig=<ID=GL000241.1,length=42152>",
-                    "##contig=<ID=GL000243.1,length=43341>",
-                    "##contig=<ID=GL000242.1,length=43523>",
-                    "##contig=<ID=GL000230.1,length=43691>",
-                    "##contig=<ID=GL000237.1,length=45867>",
-                    "##contig=<ID=GL000233.1,length=45941>",
-                    "##contig=<ID=GL000204.1,length=81310>",
-                    "##contig=<ID=GL000198.1,length=90085>",
-                    "##contig=<ID=GL000208.1,length=92689>",
-                    "##contig=<ID=GL000191.1,length=106433>",
-                    "##contig=<ID=GL000227.1,length=128374>",
-                    "##contig=<ID=GL000228.1,length=129120>",
-                    "##contig=<ID=GL000214.1,length=137718>",
-                    "##contig=<ID=GL000221.1,length=155397>",
-                    "##contig=<ID=GL000209.1,length=159169>",
-                    "##contig=<ID=GL000218.1,length=161147>",
-                    "##contig=<ID=GL000220.1,length=161802>",
-                    "##contig=<ID=GL000213.1,length=164239>",
-                    "##contig=<ID=GL000211.1,length=166566>",
-                    "##contig=<ID=GL000199.1,length=169874>",
-                    "##contig=<ID=GL000217.1,length=172149>",
-                    "##contig=<ID=GL000216.1,length=172294>",
-                    "##contig=<ID=GL000215.1,length=172545>",
-                    "##contig=<ID=GL000205.1,length=174588>",
-                    "##contig=<ID=GL000219.1,length=179198>",
-                    "##contig=<ID=GL000224.1,length=179693>",
-                    "##contig=<ID=GL000223.1,length=180455>",
-                    "##contig=<ID=GL000195.1,length=182896>",
-                    "##contig=<ID=GL000212.1,length=186858>",
-                    "##contig=<ID=GL000222.1,length=186861>",
-                    "##contig=<ID=GL000200.1,length=187035>",
-                    "##contig=<ID=GL000193.1,length=189789>",
-                    "##contig=<ID=GL000194.1,length=191469>",
-                    "##contig=<ID=GL000225.1,length=211173>",
-                    "##contig=<ID=GL000192.1,length=547496>",
-                    "##contig=<ID=NC_007605,length=171823>",
-                    "##contig=<ID=hs37d5,length=35477943>"
-                ]
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=4, phased=false, phasedAutodetect=false]"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-06-21T21:48:31.570275505"
+        "timestamp": "2024-07-18T09:47:14.707985116"
     }
 }
