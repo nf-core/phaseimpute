@@ -58,7 +58,10 @@ nextflow_workflow {
                 { assert snapshot(workflow.out.vcf_tbi.collect{
                     path(it[1]).vcf.summary
                     }).match("Normalize content")
-                }
+                },
+                { workflow.out.vcf_tbi.collect{
+                    assert path(it[1]).vcf.variantCount == path(it[1]).vcf.noSnps
+                }}
             )
         }
     }
