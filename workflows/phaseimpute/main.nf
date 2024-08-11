@@ -181,7 +181,7 @@ workflow PHASEIMPUTE {
         // Phased panel
         exportCsv(
             ch_panel_phased.map{ meta, vcf, index ->
-                [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
+                [meta, [2:"results/prep_panel/normalized", 3:"results/prep_panel/normalized"], vcf, index]
             },
             ["id", "chr"], "panel,chr,vcf,index",
             "panel.csv", "prep_panel/csv"
