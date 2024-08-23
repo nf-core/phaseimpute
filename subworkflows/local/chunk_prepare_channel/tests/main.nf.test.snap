@@ -1,0 +1,114 @@
+{
+    "Prepare chunks channel error tool": {
+        "content": [
+            [
+                "N E X T F L O W  ~  version 23.10.1",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/c7782a704e2a438fa20d101b0208a35d/meta/mock.nf` [hungry_wescoff] DSL2 - revision: c41c2d7547",
+                "Only 'glimpse' and 'quilt' output format are supported. Got glimpse2"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T09:57:16.071041128"
+    },
+    "Prepare chunks channel Quilt": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21",
+                        "16570070",
+                        "16595525"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21",
+                        "16585483",
+                        "16609998"
+                    ]
+                ],
+                "chunks": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21",
+                        "16570070",
+                        "16595525"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21",
+                        "16585483",
+                        "16609998"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T09:57:11.37570123"
+    },
+    "Prepare chunks channel Glimpse": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21:16570070-16595525",
+                        "chr21:16570070-16590513"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21:16585483-16609998",
+                        "chr21:16590521-16609998"
+                    ]
+                ],
+                "chunks": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21:16570070-16595525",
+                        "chr21:16570070-16590513"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "chr21:16585483-16609998",
+                        "chr21:16590521-16609998"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T09:57:06.040215496"
+    }
+}

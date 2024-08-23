@@ -1,0 +1,51 @@
+{
+    "Concat content": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=3196, variantCount=1739, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T11:56:39.376973769"
+    },
+    "Concatenate vcf": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "all"
+                        },
+                        "1000GP_all.vcf.gz:md5,9836dd74da2ddd7956adf3e4f83f80e1",
+                        "1000GP_all.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "all"
+                        },
+                        "1000GP_all.vcf.gz:md5,9836dd74da2ddd7956adf3e4f83f80e1",
+                        "1000GP_all.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T11:56:36.85523481"
+    }
+}

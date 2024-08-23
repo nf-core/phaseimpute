@@ -24,22 +24,22 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "multi"],
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz",checkIfExist:true),
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi",checkIfExist:true),
                         ["21", "22"],
                         "chr"
                     ],
                     [
                         [id: "21"],
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
                         ["21"],
                         "nochr"
                     ],
                     [
                         [id: "chr21"],
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
-                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
                         ["chr21"],
                         "nochr"
                     ]
@@ -53,7 +53,7 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
                 { assert snapshot(workflow.out.vcf_renamed.collect{
-                    path(it[1]).linesGzip.findAll { it.startsWith ("##contig=<ID") }
+                    path(it[1]).vcf.getVariantsAsStrings(2)
                     }).match("headerwithchr")
                 }
             )
@@ -89,7 +89,7 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
                 { assert snapshot(workflow.out.vcf_renamed.collect{
-                    path(it[1]).linesGzip.findAll { it.startsWith ("##contig=<ID") }
+                    path(it[1]).vcf.getVariantsAsStrings(2)
                     }).match("header21and22")
                 }
             )

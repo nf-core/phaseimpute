@@ -1,0 +1,2 @@
+subworkflows/vcf_sites_extract_bcftools:
+  - subworkflows/local/vcf_sites_extract_bcftools/**

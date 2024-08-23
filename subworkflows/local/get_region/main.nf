@@ -1,5 +1,3 @@
-include { SAMTOOLS_FAIDX              } from '../../../modules/nf-core/samtools/faidx'
-
 workflow GET_REGION {
     take:
         input_region // Region string to use ["all", "chr1", "chr1:0-1000"]

@@ -1,0 +1,32 @@
+Changes in module 'nf-core/bcftools/merge'
+--- modules/nf-core/bcftools/merge/main.nf
++++ modules/nf-core/bcftools/merge/main.nf
+@@ -8,13 +8,13 @@
+         'biocontainers/bcftools:1.20--h8b25389_0' }"
+ 
+     input:
+-    tuple val(meta), path(vcfs), path(tbis)
+-    tuple val(meta2), path(fasta)
+-    tuple val(meta3), path(fai)
+-    path(bed)
++    tuple val(meta), path(vcfs), path(tbis), path(bed)
++    tuple val(meta2), path(fasta), path(fai)
+ 
+     output:
+     tuple val(meta), path("*.{bcf,vcf}{,.gz}"), emit: merged_variants
++    tuple val(meta), path("*.tbi")            , emit: tbi, optional: true
++    tuple val(meta), path("*.csi")            , emit: csi, optional: true
+     path "versions.yml"                       , emit: versions
+ 
+     when:
+@@ -29,7 +29,7 @@
+                     args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
+                     args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
+                     args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
+-                    "vcf"
++                    "vcf.gz"
+ 
+     """
+     bcftools merge \\
+
+************************************************************
