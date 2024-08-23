@@ -1,0 +1,2 @@
+subworkflows/prepare_input_stitch:
+  - subworkflows/local/prepare_input_stitch/**

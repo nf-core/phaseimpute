@@ -377,8 +377,8 @@ def validateInputParameters() {
 //
 // Extract contig names from channel meta map
 //
-def extractChr(channel) {
-    channel.map { [it[0].chr] }
+def extractChr(ch_input) {
+    ch_input.map { [it[0].chr] }
         .collect()
         .toList()
 }
@@ -454,8 +454,8 @@ def checkFileIndex(ch_input) {
             if (file != [] && index == []) {
                 error "${meta}: No index file provided"
             }
-            file_ext = getFileExtension(file)
-            index_ext = getFileExtension(index)
+            def file_ext = getFileExtension(file)
+            def index_ext = getFileExtension(index)
             if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
                 log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
                 error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"

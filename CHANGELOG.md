@@ -19,6 +19,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#97](https://github.com/nf-core/phaseimpute/pull/97) - Add dog reference panel and config to test pipeline with other species.
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Add dog panel test.
 - [#118](https://github.com/nf-core/phaseimpute/pull/118) - Explain how to customize arguments in the pipeline.
+- [#111](https://github.com/nf-core/phaseimpute/pull/111) - Add nf-test for all sbwf, wf, modules and functions.
 
 ### `Changed`
 

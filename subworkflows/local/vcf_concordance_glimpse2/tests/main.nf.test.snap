@@ -1,27 +1,4 @@
 {
-    "vcf_concordance_glimpse2 direct": {
-        "content": [
-            {
-                "0": [
-                    
-                ],
-                "1": [
-                    
-                ],
-                "stats": [
-                    
-                ],
-                "versions": [
-                    
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-04-12T16:24:33.217544644"
-    },
     "vcf_concordance_glimpse2": {
         "content": [
             {
@@ -30,29 +7,99 @@
                         {
                             "id": "TestQuality"
                         },
-                        "TestQuality.txt:md5,865f1cf1a32256467010c10bfef1fa04"
+                        "TestQuality.txt:md5,0e199fabdd479db15849394e148bd1e1"
                     ]
                 ],
                 "1": [
-                    
+                    "versions.yml:md5,11b3f37c4921334a4e4881b5fb466802",
+                    "versions.yml:md5,185cbca93dea56aa1c36636716a6ac89",
+                    "versions.yml:md5,8bc5d870dd6bf1b13e84535e0b71ce39",
+                    "versions.yml:md5,cb85a5c4bc22951d41b21bc660e89637"
+                ],
+                "2": [
+                    [
+                        "NA12878.error.cal.txt.gz:md5,33c10b18d109bc6fd53fc2594e18a844"
+                    ],
+                    [
+                        "NA12878.error.grp.txt.gz:md5,36f3fc826367dc6e89e95b58d90e94eb"
+                    ],
+                    [
+                        "NA12878.error.spl.txt.gz:md5,e7b0730fba0dc331de80ed911fcb6dcf"
+                    ],
+                    [
+                        "NA12878.rsquare.grp.txt.gz:md5,4e2d341610d908d3f78685388f7d41b8"
+                    ],
+                    [
+                        "NA12878.rsquare.spl.txt.gz:md5,b9c53f1ad2c5fc5243ccbddb4a8b4260"
+                    ],
+                    [
+                        "NA19401.error.cal.txt.gz:md5,46a6d42d469328096a66b8b172bce6d7"
+                    ],
+                    [
+                        "NA19401.error.grp.txt.gz:md5,0a37ae2f1a5ce339a798f0438d80fd82"
+                    ],
+                    [
+                        "NA19401.error.spl.txt.gz:md5,efd6bd3bf0c5530f0cf9b5ad055abe49"
+                    ],
+                    [
+                        "NA19401.rsquare.grp.txt.gz:md5,8161d852ad5a77d5b83236960497cfe1"
+                    ],
+                    [
+                        "NA19401.rsquare.spl.txt.gz:md5,fb9ff57181626f06a1947b62ad18f97d"
+                    ]
+                ],
+                "multiqc_files": [
+                    [
+                        "NA12878.error.cal.txt.gz:md5,33c10b18d109bc6fd53fc2594e18a844"
+                    ],
+                    [
+                        "NA12878.error.grp.txt.gz:md5,36f3fc826367dc6e89e95b58d90e94eb"
+                    ],
+                    [
+                        "NA12878.error.spl.txt.gz:md5,e7b0730fba0dc331de80ed911fcb6dcf"
+                    ],
+                    [
+                        "NA12878.rsquare.grp.txt.gz:md5,4e2d341610d908d3f78685388f7d41b8"
+                    ],
+                    [
+                        "NA12878.rsquare.spl.txt.gz:md5,b9c53f1ad2c5fc5243ccbddb4a8b4260"
+                    ],
+                    [
+                        "NA19401.error.cal.txt.gz:md5,46a6d42d469328096a66b8b172bce6d7"
+                    ],
+                    [
+                        "NA19401.error.grp.txt.gz:md5,0a37ae2f1a5ce339a798f0438d80fd82"
+                    ],
+                    [
+                        "NA19401.error.spl.txt.gz:md5,efd6bd3bf0c5530f0cf9b5ad055abe49"
+                    ],
+                    [
+                        "NA19401.rsquare.grp.txt.gz:md5,8161d852ad5a77d5b83236960497cfe1"
+                    ],
+                    [
+                        "NA19401.rsquare.spl.txt.gz:md5,fb9ff57181626f06a1947b62ad18f97d"
+                    ]
                 ],
                 "stats": [
                     [
                         {
                             "id": "TestQuality"
                         },
-                        "TestQuality.txt:md5,865f1cf1a32256467010c10bfef1fa04"
+                        "TestQuality.txt:md5,0e199fabdd479db15849394e148bd1e1"
                     ]
                 ],
                 "versions": [
-                    
+                    "versions.yml:md5,11b3f37c4921334a4e4881b5fb466802",
+                    "versions.yml:md5,185cbca93dea56aa1c36636716a6ac89",
+                    "versions.yml:md5,8bc5d870dd6bf1b13e84535e0b71ce39",
+                    "versions.yml:md5,cb85a5c4bc22951d41b21bc660e89637"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-04-12T16:22:59.476875738"
+        "timestamp": "2024-07-17T12:39:49.843552307"
     }
 }
