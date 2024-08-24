@@ -11,7 +11,7 @@ on:
 
 env:
   NXF_ANSI_LOG: false
-  NFTEST_VER: "0.8.4"
+  NFTEST_VER: "0.9.0"
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
@@ -33,6 +33,7 @@ jobs:
           - "test_all"
           - "test_validate"
           - "test_stitch"
+          - "test_dog"
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
