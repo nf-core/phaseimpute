@@ -1,0 +1,100 @@
+nextflow_workflow {
+
+    name "Test Subworkflow BAM_REGION_SAMTOOLS"
+    script "../main.nf"
+    config "./nextflow.config"
+
+    workflow "BAM_REGION_SAMTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/bam_region_samtools"
+    tag "bam_region_samtools"
+
+    tag "samtools"
+    tag "samtools_view"
+    tag "samtools_merge"
+    tag "samtools_index"
+
+    test("Get subregion of bam file 10000bp") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                    ],
+                    [
+                        [id: "NA19401"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
+                    ],
+                ])
+                input[1] = Channel.of([
+                    [chr: "chr22", region: "chr22:16600000-16610000"], "chr22:16600000-16610000"
+                ]).collect()
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.bam_region.collect{ bam(it[1]).getReads().size() }).match("Summary10000bp") }
+            )
+        }
+    }
+
+    test("Get subregion of bam file 1000bp") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                    ],
+                    [
+                        [id: "NA19401"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
+                    ],
+                ])
+                input[1] = Channel.of([
+                    [chr: "chr22", region: "chr22:16609000-16610000"], "chr22:16609000-16610000"
+                ]).collect()
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.bam_region.collect{ bam(it[1]).getReads().size() }).match("Summary1000bp") }
+            )
+        }
+    }
+}

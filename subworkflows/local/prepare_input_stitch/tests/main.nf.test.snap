@@ -1,0 +1,87 @@
+{
+    "Prepare input stitch": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "22"
+                        },
+                        "1000GP_22_posfile_stitch.txt:md5,485f95911c84e9de54c6ec9eda26b385",
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        "22",
+                        2,
+                        100
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        [
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.bam",
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.bam"
+                        ],
+                        [
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.bam.bai",
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.bam.bai"
+                        ],
+                        "bamlist.txt:md5,70f6e727cdcb642c1329cca4f5d77775"
+                    ]
+                ],
+                "2": [
+                    
+                ],
+                "stitch_parameters": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "22"
+                        },
+                        "1000GP_22_posfile_stitch.txt:md5,485f95911c84e9de54c6ec9eda26b385",
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        "22",
+                        2,
+                        100
+                    ]
+                ],
+                "stitch_samples": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        [
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.bam",
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.bam"
+                        ],
+                        [
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.bam.bai",
+                            "/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.bam.bai"
+                        ],
+                        "bamlist.txt:md5,70f6e727cdcb642c1329cca4f5d77775"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:25:05.261820347"
+    }
+}
