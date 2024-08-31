@@ -1,0 +1,86 @@
+{
+    "Summary": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T15:33:11.627895132"
+    },
+    "Compute genotype likelihood": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "panel": "1000GP",
+                            "chr": "22"
+                        },
+                        "NA12878.annotate.vcf.gz:md5,d3b585236be8904742a8635d5623daec",
+                        "NA12878.annotate.vcf.gz.tbi:md5,dbc7f7bd9a5e9b299cd2577b05061897"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "panel": "1000GP",
+                            "chr": "22"
+                        },
+                        "NA19401.annotate.vcf.gz:md5,fbae0f875f9351f7a1df28953b99f17b",
+                        "NA19401.annotate.vcf.gz.tbi:md5,7ca03da29e0bcc4f34b9842069a5ec2c"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3779c6b3c000bc757d3d6109010518b0",
+                    "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                    "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
+                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+                ],
+                "2": [
+                    "NA12878.bcftools_stats.txt:md5,4cacbe4d6dfba4a8035e37611c91923c",
+                    "NA19401.bcftools_stats.txt:md5,f91fd586acfdf3845d111a062fbb263f"
+                ],
+                "multiqc_files": [
+                    "NA12878.bcftools_stats.txt:md5,4cacbe4d6dfba4a8035e37611c91923c",
+                    "NA19401.bcftools_stats.txt:md5,f91fd586acfdf3845d111a062fbb263f"
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "panel": "1000GP",
+                            "chr": "22"
+                        },
+                        "NA12878.annotate.vcf.gz:md5,d3b585236be8904742a8635d5623daec",
+                        "NA12878.annotate.vcf.gz.tbi:md5,dbc7f7bd9a5e9b299cd2577b05061897"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "panel": "1000GP",
+                            "chr": "22"
+                        },
+                        "NA19401.annotate.vcf.gz:md5,fbae0f875f9351f7a1df28953b99f17b",
+                        "NA19401.annotate.vcf.gz.tbi:md5,7ca03da29e0bcc4f34b9842069a5ec2c"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3779c6b3c000bc757d3d6109010518b0",
+                    "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                    "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
+                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T15:33:11.067033683"
+    }
+}

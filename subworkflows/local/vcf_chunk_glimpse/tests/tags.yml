@@ -1,0 +1,2 @@
+subworkflows/vcf_chunk_glimpse:
+  - subworkflows/local/vcf_chunk_glimpse/**

@@ -1,0 +1,57 @@
+{
+    "Prepare input stitch": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all_samples",
+                            "chr": "chr22",
+                            "panel": "1000GP",
+                            "tools": "stitch"
+                        },
+                        "stitch.chr22.vcf.gz:md5,9d3c27d9f0325cc92c22234665f5bb12",
+                        "stitch.chr22.vcf.gz.tbi:md5,7d8d37b65e631c2b40c54e4a175de86c"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,4330856a215c4986b0591d550a4d22bf",
+                    "versions.yml:md5,8561197b98b9a1e1f8f1b01c1369da35"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "all_samples",
+                            "chr": "chr22",
+                            "panel": "1000GP",
+                            "tools": "stitch"
+                        },
+                        "stitch.chr22.vcf.gz:md5,9d3c27d9f0325cc92c22234665f5bb12",
+                        "stitch.chr22.vcf.gz.tbi:md5,7d8d37b65e631c2b40c54e4a175de86c"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,4330856a215c4986b0591d550a4d22bf",
+                    "versions.yml:md5,8561197b98b9a1e1f8f1b01c1369da35"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:32:53.365697746"
+    },
+    "SummaryMixed": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:32:53.598743638"
+    }
+}

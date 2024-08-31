@@ -1,0 +1,2 @@
+subworkflows/vcf_normalize_bcftools:
+  - subworkflows/local/vcf_normalize_bcftools/**
