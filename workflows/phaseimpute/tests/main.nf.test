@@ -211,9 +211,9 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_dog_panelprep") {
-        tag "test_dog_panelprep"
-        config "../../../conf/test_dog_panelprep.config"
+    test("Check test_dog") {
+        tag "test_dog"
+        config "../../../conf/test_dog.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'

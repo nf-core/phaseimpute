@@ -300,6 +300,38 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-18T09:25:19.175353306"
+        "timestamp": "2024-07-16T14:18:59.425161413"
+    },
+    "Check test_dog": {
+        "content": [
+            [
+                "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/658Dog_chr21.hap.gz",
+                "prep_panel/haplegend/658Dog_chr21.legend.gz",
+                "prep_panel/haplegend/658Dog_chr21.samples",
+                "prep_panel/haplegend/658Dog_chr22.hap.gz",
+                "prep_panel/haplegend/658Dog_chr22.legend.gz",
+                "prep_panel/haplegend/658Dog_chr22.samples",
+                "prep_panel/normalized/658Dog_chr21_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/658Dog_chr21_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/normalized/658Dog_chr22_biallelic_snps.vcf.gz",
+                "prep_panel/normalized/658Dog_chr22_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/sites/vcf/658Dog_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/vcf/658Dog_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/vcf/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-24T23:22:27.627850388"
     }
 }
