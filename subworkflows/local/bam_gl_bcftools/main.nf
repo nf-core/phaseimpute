@@ -50,7 +50,7 @@ workflow BAM_GL_BCFTOOLS {
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
     emit:
-    vcf           = ch_output        // channel: [ [id, panel, chr], vcf, tbi ]
+    vcf_tbi       = ch_output        // channel: [ [id, panel, chr], vcf, tbi ]
     versions      = ch_versions      // channel: [ versions.yml ]
     multiqc_files = ch_multiqc_files
 }

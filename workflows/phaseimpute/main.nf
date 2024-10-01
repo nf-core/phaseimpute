@@ -143,22 +143,21 @@ workflow PHASEIMPUTE {
     // Prepare panel
     //
     if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("all")) {
+
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(ch_panel, ch_fasta)
+        ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         ch_versions = ch_versions.mix(VCF_NORMALIZE_BCFTOOLS.out.versions)
 
         // Extract sites from normalized vcf
-        VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi, ch_fasta)
+        VCF_SITES_EXTRACT_BCFTOOLS(ch_panel_phased, ch_fasta)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
-
-        // Generate all necessary channels
-        ch_posfile          = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
-        ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
+        ch_posfile = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
 
         // Phase panel with Shapeit5
         if (params.phased == false) {
             VCF_PHASE_SHAPEIT5(
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
+                ch_panel_phased.combine(Channel.of([[]])),
                 ch_region,
                 [[],[],[]],
                 [[],[],[]],
@@ -337,7 +336,7 @@ workflow PHASEIMPUTE {
     }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
-
+        ch_posfile.view()
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
@@ -364,8 +363,12 @@ workflow PHASEIMPUTE {
             .combine(truth_ext)
             .branch {
                 bam: it[3] =~ 'bam|cram'
-                vcf: it[3] =~ 'vcf|bcf'
+                vcf: it[3] =~ '(vcf|bcf)(.gz)*'
+                other: true
             }
+        
+        ch_truth.other
+            .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
@@ -377,7 +380,7 @@ workflow PHASEIMPUTE {
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
             .map { [it[0], it[1], it[2]] }
-            .mix(GL_TRUTH.out.vcf)
+            .mix(GL_TRUTH.out.vcf_tbi)
 
         // Concatenate truth vcf by chromosomes
         CONCAT_TRUTH(ch_truth_vcf)

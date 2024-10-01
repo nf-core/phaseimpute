@@ -19,14 +19,32 @@ workflow BAM_IMPUTE_GLIMPSE1 {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
+    // Channels for branching
+    ch_input = ch_input
+        .branch {
+            bam: it[1] =~ 'bam|cram'
+            vcf: it[1] =~ '(vcf|bcf)(.gz)*'
+            other: true
+        }
+    
+    ch_input.other
+        .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
+
     // Glimpse1 subworkflow
     BAM_GL_BCFTOOLS( // Compute GL for input data once per panel by chromosome
-        ch_input,
+        ch_input.bam,
         ch_posfile,
         ch_fasta
     )
     ch_multiqc_files = ch_multiqc_files.mix(BAM_GL_BCFTOOLS.out.multiqc_files)
     ch_versions = ch_versions.mix(BAM_GL_BCFTOOLS.out.versions)
+
+    ch_impute = ch_input.vcf
+        .combine(ch_posfile).view()
+        .map{ metaI, vcf, index, metaPC, legend ->
+            [metaI + ["panel": metaPC.id, "chr": metaPC.chr], vcf, index]
+        }
+        .mix(BAM_GL_BCFTOOLS.out.vcf_tbi)
 
     samples_file = Channel.of([[]]).collect()
     gmap_file    = Channel.of([[]]).collect()
@@ -39,15 +57,15 @@ workflow BAM_IMPUTE_GLIMPSE1 {
         }
 
     // Join input and chunks reference
-    ch_phase_input = BAM_GL_BCFTOOLS.out.vcf
+    ch_phase_input = ch_impute
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-        .combine(samples_file)
+        .combine(samples_file).view()
         .combine(ch_chunks_panel, by: 0)
         .combine(gmap_file)
         .map{ metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
             [metaIPC + ["chunk": regionout],
             bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
-        }
+        }.view()
 
     GLIMPSE_PHASE ( ch_phase_input ) // [meta, vcf, index, sample, regionin, regionout, ref, ref_index, map]
     ch_versions = ch_versions.mix(GLIMPSE_PHASE.out.versions )
