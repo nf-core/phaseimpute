@@ -369,6 +369,9 @@ workflow PHASEIMPUTE {
         ch_truth.other
             .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
+        ch_truth.other
+            .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
+
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
             ch_posfile.map{ [it[0], it[4]] },

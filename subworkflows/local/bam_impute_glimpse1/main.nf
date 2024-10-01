@@ -26,7 +26,6 @@ workflow BAM_IMPUTE_GLIMPSE1 {
             vcf: it[1] =~ '(vcf|bcf)(.gz)*'
             other: true
         }
-
     ch_input.other
         .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
@@ -59,13 +58,13 @@ workflow BAM_IMPUTE_GLIMPSE1 {
     // Join input and chunks reference
     ch_phase_input = ch_impute
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-        .combine(samples_file)
+        .combine(samples_file).view()
         .combine(ch_chunks_panel, by: 0)
         .combine(gmap_file)
         .map{ metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
             [metaIPC + ["chunk": regionout],
             bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
-        }
+        }.view()
 
     GLIMPSE_PHASE ( ch_phase_input ) // [meta, vcf, index, sample, regionin, regionout, ref, ref_index, map]
     ch_versions = ch_versions.mix(GLIMPSE_PHASE.out.versions )

@@ -449,40 +449,25 @@ def getAllFilesExtension(ch_input) {
 // Check correspondance file / index
 //
 def checkFileIndex(ch_input) {
-    ch_input
-        .subscribe{
-            meta, file, index ->
-            if (file == []) {
-                if (index != []) {
-                    error "${meta}: Index file provided without corresponding file"
-                }
-                if ( meta != []) {
-                    error "${meta}: No file provided"
-                }
-            } else {
-                if (index == []) {
-                    error "${meta}: No index file provided"
-                }
-                def file_ext = getFileExtension(file)
-                def index_ext = getFileExtension(index)
-                if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
-                    log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                    error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
-                }
-                if (file_ext == "bam" && index_ext != "bai") {
-                    log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                    error "${meta}: Index file for .bam must have the extension .bai"
-                }
-                if (file_ext == "cram" && index_ext != "crai") {
-                    log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                    error "${meta}: Index file for .cram must have the extension .crai"
-                }
-                if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
-                    log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                    error "${meta}: Index file for [fa, fasta] must have the extension .fai"
-                }
-            }
+    ch_input.map {
+        meta, file, index ->
+        println("file: ${file}")
+        file_ext = getFileExtension(file)
+        index_ext = getFileExtension(index)
+        if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+            log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+            error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
         }
+        if (file_ext == "bam" && index_ext != "bai") {
+            error "${meta}: Index file for .bam must have the extension .bai"
+        }
+        if (file_ext == "cram" && index_ext != "crai") {
+            error "${meta}: Index file for .cram must have the extension .crai"
+        }
+        if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+            error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+        }
+    }
     return null
 }
 
@@ -497,7 +482,7 @@ def exportCsv(ch_files, metas, header, name, outdir) {
             meta += "${it[0][i]},"
         }
         for (i in it[1]) {
-            file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
+            file += "${params.outdir}/${i.value}/${file(it[i.key]).fileName},"
         }
         file=file.substring(0, file.length() - 1) // remove last comma
         ["${name}", "${header}\n${meta}${file}\n"]
