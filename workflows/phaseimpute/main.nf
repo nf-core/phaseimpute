@@ -336,7 +336,6 @@ workflow PHASEIMPUTE {
     }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
-        ch_posfile.view()
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
@@ -366,7 +365,7 @@ workflow PHASEIMPUTE {
                 vcf: it[3] =~ '(vcf|bcf)(.gz)*'
                 other: true
             }
-        
+
         ch_truth.other
             .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 

@@ -372,6 +372,13 @@ def validateInputParameters() {
     if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
+
+    // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
+    if (params.steps.split(',').find { it in ["all", "panelprep"] } && params.remove_samples) {
+        if (!params.normalize) {
+            error("To use `--remove_samples` you need to include `--normalize`.")
+        }
+    }
 }
 
 //
