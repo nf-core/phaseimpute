@@ -3,7 +3,7 @@ include { GAWK                      } from '../../../modules/nf-core/gawk'
 workflow PREPARE_INPUT_STITCH {
 
     take:
-    ch_input_impute  // channel:   [ [id, chr, region], bam, bai ]
+    ch_input_impute  // channel:   [ [id], bam, bai ]
     ch_posfile       // channel:   [ [panel, chr], legend ]
     ch_region        // channel:   [ [chr, region], region ]
 

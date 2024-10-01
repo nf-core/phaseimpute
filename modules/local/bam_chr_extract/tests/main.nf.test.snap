@@ -5,31 +5,79 @@
                 "0": [
                     [
                         {
-                            "id": "test"
+                            "id": "test2_paired_end_sorted_bam"
                         },
-                        "test.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                        "test2_paired_end_sorted_bam.txt:md5,5ae68a67b70976ee95342a7451cb5af1"
+                    ],
+                    [
+                        {
+                            "id": "test_paired_end_sorted_cram"
+                        },
+                        "test_paired_end_sorted_cram.txt:md5,5ae68a67b70976ee95342a7451cb5af1"
+                    ],
+                    [
+                        {
+                            "id": "test_single_end_bam"
+                        },
+                        "test_single_end_bam.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,533673a0058992b3c9a6c360a63e8d17"
+                    "versions.yml:md5,696c749ab73e8b0a4fcce6ff19999e9d",
+                    "versions.yml:md5,696c749ab73e8b0a4fcce6ff19999e9d",
+                    "versions.yml:md5,696c749ab73e8b0a4fcce6ff19999e9d"
                 ],
                 "chr": [
                     [
                         {
-                            "id": "test"
+                            "id": "test2_paired_end_sorted_bam"
                         },
-                        "test.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                        "test2_paired_end_sorted_bam.txt:md5,5ae68a67b70976ee95342a7451cb5af1"
+                    ],
+                    [
+                        {
+                            "id": "test_paired_end_sorted_cram"
+                        },
+                        "test_paired_end_sorted_cram.txt:md5,5ae68a67b70976ee95342a7451cb5af1"
+                    ],
+                    [
+                        {
+                            "id": "test_single_end_bam"
+                        },
+                        "test_single_end_bam.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,533673a0058992b3c9a6c360a63e8d17"
+                    "versions.yml:md5,696c749ab73e8b0a4fcce6ff19999e9d",
+                    "versions.yml:md5,696c749ab73e8b0a4fcce6ff19999e9d",
+                    "versions.yml:md5,696c749ab73e8b0a4fcce6ff19999e9d"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-06-16T21:19:48.898241153"
+        "timestamp": "2024-07-17T14:57:17.861877534"
+    },
+    "chr": {
+        "content": [
+            [
+                [
+                    "chr22"
+                ],
+                [
+                    "chr22"
+                ],
+                [
+                    "MT192765.1"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T14:57:44.989492548"
     }
 }

@@ -1,0 +1,208 @@
+{
+    "Impute with quilt mixed": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "allIndividuals",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16570065-16597215",
+                            "tools": "quilt"
+                        },
+                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz:md5,37547c230e2ca2c4685b748e9cf33ee0",
+                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,7f282ce0da4e46c8e22258fe4f04535f"
+                    ],
+                    [
+                        {
+                            "id": "allIndividuals",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16587172-16609999",
+                            "tools": "quilt"
+                        },
+                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz:md5,39adb2163103938396050e12808f073c",
+                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,3b1912e53aa488aaa05a6f56c17a3ed5"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                    "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "allIndividuals",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16570065-16597215",
+                            "tools": "quilt"
+                        },
+                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz:md5,37547c230e2ca2c4685b748e9cf33ee0",
+                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,7f282ce0da4e46c8e22258fe4f04535f"
+                    ],
+                    [
+                        {
+                            "id": "allIndividuals",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16587172-16609999",
+                            "tools": "quilt"
+                        },
+                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz:md5,39adb2163103938396050e12808f073c",
+                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,3b1912e53aa488aaa05a6f56c17a3ed5"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                    "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:12:41.131269971"
+    },
+    "Summary": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=570, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=570, phased=true, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:06:47.574062814"
+    },
+    "Impute with quilt": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16570065-16597215",
+                            "tools": "quilt"
+                        },
+                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz:md5,857e034286763a2316a68f7314786dda",
+                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,de3b20dc5f67aae2a9669f0c667edb5d"
+                    ],
+                    [
+                        {
+                            "id": "NA12878",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16587172-16609999",
+                            "tools": "quilt"
+                        },
+                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz:md5,2c3995176d978021a797def9951a1529",
+                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,674782f71cca76015e0b72f9bc4e5431"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16570065-16597215",
+                            "tools": "quilt"
+                        },
+                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz:md5,f3efd22b0b87e1cd98ae75c727b787dc",
+                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,b46f4fb03214dd4b09e4144dc8b994b7"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16587172-16609999",
+                            "tools": "quilt"
+                        },
+                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz:md5,b7258fcd25e0140da3ba48c07410d41a",
+                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,889c40d51c9531df56404db6d3025c70"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                    "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16570065-16597215",
+                            "tools": "quilt"
+                        },
+                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz:md5,857e034286763a2316a68f7314786dda",
+                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,de3b20dc5f67aae2a9669f0c667edb5d"
+                    ],
+                    [
+                        {
+                            "id": "NA12878",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16587172-16609999",
+                            "tools": "quilt"
+                        },
+                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz:md5,2c3995176d978021a797def9951a1529",
+                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,674782f71cca76015e0b72f9bc4e5431"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16570065-16597215",
+                            "tools": "quilt"
+                        },
+                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz:md5,f3efd22b0b87e1cd98ae75c727b787dc",
+                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,b46f4fb03214dd4b09e4144dc8b994b7"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "panel": "1000GP",
+                            "chr": "22",
+                            "chunk": "16587172-16609999",
+                            "tools": "quilt"
+                        },
+                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz:md5,b7258fcd25e0140da3ba48c07410d41a",
+                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,889c40d51c9531df56404db6d3025c70"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                    "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:12:02.559345299"
+    },
+    "SummaryMixed": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[22], sampleCount=2, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[22], sampleCount=2, variantCount=570, phased=true, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T16:12:41.764403087"
+    }
+}

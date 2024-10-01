@@ -1,6 +1,6 @@
 include { GLIMPSE2_CONCORDANCE        } from '../../../modules/nf-core/glimpse2/concordance'
 include { GAWK                        } from '../../../modules/nf-core/gawk'
-include { ADD_COLUMNS                 } from '../../../modules/local/addcolumns'
+include { ADD_COLUMNS                 } from '../../../modules/local/add_columns'
 include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
 
 workflow VCF_CONCORDANCE_GLIMPSE2 {

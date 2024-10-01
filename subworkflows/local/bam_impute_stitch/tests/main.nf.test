@@ -1,0 +1,73 @@
+nextflow_workflow {
+
+    name "Test Subworkflow BAM_IMPUTE_STITCH"
+    script "../main.nf"
+    config "./nextflow.config"
+
+    workflow "BAM_IMPUTE_STITCH"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/bam_impute_stitch"
+    tag "bam_impute_stitch"
+
+    tag "stitch"
+    tag "bcftools"
+    tag "bcftools_index"
+
+    test("Prepare input stitch") {
+        setup {
+            run("PREPARE_INPUT_STITCH") {
+                script "../../prepare_input_stitch/main.nf"
+                process {
+                    """
+                    input[0] = Channel.fromList([
+                        [
+                            [id: "NA12878"],
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                        ],
+                        [
+                            [id: "NA19401"],
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
+                        ],
+                    ])
+                    input[1] = Channel.of([
+                            [id: "1000GP", chr: "chr22"],
+                            file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                        ]).collect()
+                    input[2] = Channel.of([
+                        [chr: "chr22", region: "chr22:16570000-16610000"], "chr22:16570000-16610000"
+                    ]).collect()
+                    """
+                }
+            }
+        }
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = PREPARE_INPUT_STITCH.out.stitch_samples
+                input[1] = PREPARE_INPUT_STITCH.out.stitch_parameters
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("SummaryMixed") }
+            )
+        }
+    }
+}

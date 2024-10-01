@@ -18,129 +18,37 @@ nextflow_workflow {
     tag "glimpse/concordance"
 
     test("vcf_concordance_glimpse2") {
-        setup {
-            run("GLIMPSE_PHASE") {
-                script "../../../../modules/nf-core/glimpse/phase/main.nf"
-                process {
-                """
-                ch_sample     = Channel.of('NA12878 2', 'NA12878_2 2').collectFile(name: 'sampleinfos.txt', newLine: true)
-                region        = Channel.fromList([
-                    ["chr21:16600000-16750000","chr21:16650000-16700000"]
-                ])
-                input_vcf     = Channel.fromList([
-                    [[ id:'NA12878', chr:'21', region:'chr21:16650000-16700000', panel: '1000GP', depth:'1', tools: 'Glimpse'], // meta map
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.1x.vcf.gz", checkIfExists: true),
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.1x.vcf.gz.csi", checkIfExists: true)],
-                    [[ id:'NA12878_2', chr:'21', region:'chr21:16650000-16700000', panel: '1000GP', depth:'0.5', tools: 'Glimpse2'], // meta map
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.1x.vcf.gz", checkIfExists: true),
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.1x.vcf.gz.csi", checkIfExists: true)]
-                ])
-                ref_panel     = Channel.of([
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/1000GP.chr21.noNA12878.s.bcf", checkIfExists: true),
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/1000GP.chr21.noNA12878.s.bcf.csi", checkIfExists: true)
-                ])
-                ch_map        = Channel.of([
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/chr21.b38.gmap.gz", checkIfExists: true),
-                ])
-
-                input[0]      = input_vcf
-                    | combine(ch_sample)
-                    | combine(region)
-                    | combine(ref_panel)
-                    | combine(ch_map)
-                """
-                }
-            }
-            run("BCFTOOLS_INDEX") {
-                script "../../../../modules/nf-core/bcftools/index/main.nf"
-                process {
-                """
-                input[0] = GLIMPSE_PHASE.out.phased_variants
-                """
-                }
-            }
-        }
-        when {
-            workflow {
-                """
-                allele_freq = Channel.of([
-                    [panel:'1000GP', chr:'21'], // meta map
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/1000GP.chr21.noNA12878.s.sites.vcf.gz",checkIfExists:true),
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/1000GP.chr21.noNA12878.s.sites.vcf.gz.csi",checkIfExists:true)
-                ])
-                truth = Channel.fromList([
-                    [[id:'NA12878', chr:'21', region:'chr21:16650000-16700000'], // meta map
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.bcf",checkIfExists:true),
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA12878_2', chr:'21', region:'chr21:16650000-16700000'], // meta map
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.bcf",checkIfExists:true),
-                    file(params.modules_testdata_base_path + "delete_me/glimpse/NA12878.chr21.s.bcf.csi",checkIfExists:true)]
-                ])
-                estimate = GLIMPSE_PHASE.out.phased_variants
-                    | join (BCFTOOLS_INDEX.out.csi)
-                input[0] = estimate
-                input[1] = truth
-                input[2] = allele_freq
-                """
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
-            )
-        }
-
-    }
-
-    test("vcf_concordance_glimpse2 direct") {
         when {
             workflow {
                 """
                 allele_freq = Channel.fromList([
                     [
                         [panel:'1000GP', chr:'21'], // meta map
-                        file(params.pipelines_testdata_base_path + "panel/21/1000GP.chr21.s.norel.sites.vcf.gz",checkIfExists:true),
-                        file(params.pipelines_testdata_base_path + "panel/21/1000GP.chr21.s.norel.sites.vcf.gz.csi",checkIfExists:true)
-                    ],
-                    [
-                        [panel:'1000GP', chr:'22'], // meta map
-                        file(params.pipelines_testdata_base_path + "panel/22/1000GP.chr22.s.norel.sites.vcf.gz",checkIfExists:true),
-                        file(params.pipelines_testdata_base_path + "panel/22/1000GP.chr22.s.norel.sites.vcf.gz.csi",checkIfExists:true)
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz",checkIfExists:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz.csi",checkIfExists:true)
                     ]
                 ])
                 truth = Channel.fromList([
-                    [[id:'NA12878', chr:'21', region:'chr21:16570000-16610000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA12878', chr:'22', region:'chr22:16570000-16610000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401', chr:'21', region:'chr21:16570000-16610000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401', chr:'22', region:'chr22:16570000-16610000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)]
+                    [[id:'NA12878'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
+                    [[id:'NA19401'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)],
                 ])
                 estimate = Channel.fromList([
-                    [[id:'NA12878', chr:'21', region:'chr21:16650000-16700000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s_imputed.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s_imputed.bcf.csi",checkIfExists:true)],
-                    [[id:'NA12878', chr:'22', region:'chr22:16650000-16700000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s_imputed.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA12878/NA12878.s_imputed.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401', chr:'21', region:'chr21:16650000-16700000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s_imputed.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s_imputed.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401', chr:'22', region:'chr22:16650000-16700000'], // meta map
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s_imputed.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "individuals/NA19401/NA19401.s_imputed.bcf.csi",checkIfExists:true)]
+                    [[id:'NA12878'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf.csi",checkIfExists:true)],
+                    [[id:'NA19401'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf.csi",checkIfExists:true)]
                 ])
+                region = Channel.of([ [chr:'21', region:'chr21:16570000-16610000'],  "chr21:16570000-16610000"])
                 input[0] = estimate
                 input[1] = truth
                 input[2] = allele_freq
+                input[3] = region
                 """
             }
         }

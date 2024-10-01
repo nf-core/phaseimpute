@@ -1,0 +1,2 @@
+subworkflows/bam_impute_glimpse2:
+  - subworkflows/local/bam_impute_glimpse2/**

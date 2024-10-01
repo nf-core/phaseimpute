@@ -20,8 +20,8 @@ include { exportCsv                   } from '../../subworkflows/local/utils_nfc
 //
 
 // Simulate subworkflows
-include { BAM_REGION                                 } from '../../subworkflows/local/bam_region'
-include { BAM_DOWNSAMPLE                             } from '../../subworkflows/local/bam_downsample'
+include { BAM_REGION_SAMTOOLS                        } from '../../subworkflows/local/bam_region_samtools'
+include { BAM_DOWNSAMPLE_SAMTOOLS                    } from '../../subworkflows/local/bam_downsample_samtools'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_INP } from '../../modules/nf-core/samtools/coverage'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_DWN } from '../../modules/nf-core/samtools/coverage'
 
@@ -49,7 +49,7 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 // STITCH subworkflows
 include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
-include { VCF_SAMPLES_BCFTOOLS                       } from '../../subworkflows/local/vcf_samples_bcftools'
+include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/local/vcf_split_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // Imputation stats
@@ -100,9 +100,9 @@ workflow PHASEIMPUTE {
 
         if (params.input_region) {
             // Split the bam into the regions specified
-            BAM_REGION(ch_input_sim, ch_region, ch_fasta)
-            ch_versions  = ch_versions.mix(BAM_REGION.out.versions)
-            ch_input_sim = BAM_REGION.out.bam_region
+            BAM_REGION_SAMTOOLS(ch_input_sim, ch_region, ch_fasta)
+            ch_versions  = ch_versions.mix(BAM_REGION_SAMTOOLS.out.versions)
+            ch_input_sim = BAM_REGION_SAMTOOLS.out.bam_region
         }
 
         // Use input for simulation as truth for validation step
@@ -115,12 +115,12 @@ workflow PHASEIMPUTE {
 
         if (params.depth) {
             // Downsample input to desired depth
-            BAM_DOWNSAMPLE(ch_input_sim, ch_depth, ch_fasta)
-            ch_versions     = ch_versions.mix(BAM_DOWNSAMPLE.out.versions)
-            ch_input_impute = BAM_DOWNSAMPLE.out.bam_emul
+            BAM_DOWNSAMPLE_SAMTOOLS(ch_input_sim, ch_depth, ch_fasta)
+            ch_versions     = ch_versions.mix(BAM_DOWNSAMPLE_SAMTOOLS.out.versions)
+            ch_input_impute = BAM_DOWNSAMPLE_SAMTOOLS.out.bam_emul
 
             // Compute coverage of input files
-            SAMTOOLS_COVERAGE_DWN(BAM_DOWNSAMPLE.out.bam_emul, ch_fasta)
+            SAMTOOLS_COVERAGE_DWN(BAM_DOWNSAMPLE_SAMTOOLS.out.bam_emul, ch_fasta)
             ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_DWN.out.versions)
             ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_DWN.out.coverage.map{it[1]})
         }
@@ -271,8 +271,8 @@ workflow PHASEIMPUTE {
 
             // Impute with STITCH
             BAM_IMPUTE_STITCH (
-                PREPARE_INPUT_STITCH.out.stitch_parameters,
                 PREPARE_INPUT_STITCH.out.stitch_samples,
+                PREPARE_INPUT_STITCH.out.stitch_parameters,
                 ch_fasta
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
@@ -282,11 +282,11 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
             // Separate by samples
-            VCF_SAMPLES_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
-            ch_versions = ch_versions.mix(VCF_SAMPLES_BCFTOOLS.out.versions)
+            VCF_SPLIT_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
+            ch_versions = ch_versions.mix(VCF_SPLIT_BCFTOOLS.out.versions)
 
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(VCF_SAMPLES_BCFTOOLS.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(VCF_SPLIT_BCFTOOLS.out.vcf_tbi)
 
         }
         if (params.tools.split(',').contains("quilt")) {
@@ -428,12 +428,16 @@ workflow PHASEIMPUTE {
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
+    ch_multiqc_replace_names              = params.multiqc_replace_names ? Channel.fromPath(params.multiqc_replace_names, checkIfExists: true) : Channel.empty()
+    ch_multiqc_sample_names               = params.multiqc_sample_names ? Channel.fromPath(params.multiqc_sample_names, checkIfExists: true) : Channel.empty()
 
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
         ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList()
+        ch_multiqc_logo.toList(),
+        ch_multiqc_replace_names.toList(),
+        ch_multiqc_sample_names.toList()
     )
 
     emit:

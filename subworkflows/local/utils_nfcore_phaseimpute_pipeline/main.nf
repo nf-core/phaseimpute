@@ -147,7 +147,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.panel) {
         if (params.panel.endsWith("csv")) {
-            print("Panel file provided as input is a samplesheet")
+            println "Panel file provided as input is a samplesheet"
             ch_panel = Channel.fromSamplesheet("panel")
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
@@ -180,7 +180,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.map) {
         if (params.map.endsWith(".csv")) {
-            print("Map file provided as input is a samplesheet")
+            println "Map file provided as input is a samplesheet"
             ch_map = Channel.fromSamplesheet("map")
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
@@ -236,17 +236,27 @@ workflow PIPELINE_INITIALISATION {
     chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
-    checkMetaChr(chr_regions, chr_ref, "reference genome")
-    checkMetaChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
-    checkMetaChr(chr_regions, extractChr(ch_map), "genetic map")
-    checkMetaChr(chr_regions, extractChr(ch_panel), "reference panel")
-    checkMetaChr(chr_regions, extractChr(ch_posfile), "position")
+    chr_ref_mis     = checkMetaChr(chr_regions, chr_ref, "reference genome")
+    chr_chunks_mis  = checkMetaChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
+    chr_map_mis     = checkMetaChr(chr_regions, extractChr(ch_map), "genetic map")
+    chr_panel_mis   = checkMetaChr(chr_regions, extractChr(ch_panel), "reference panel")
+    chr_posfile_mis = checkMetaChr(chr_regions, extractChr(ch_posfile), "position")
+
+    // Compute the intersection of all chromosomes names
+    chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
+        .unique()
+        .toList()
+        .subscribe{ chr ->  if (chr.size() > 0) { log.warn "The following contigs are absent from at least one file : ${chr} and therefore won't be used" } }
+
+    ch_regions = ch_regions
+        .combine(chr_all_mis.toList())
+        .filter { meta, regions, chr_mis ->
+            !(meta.chr in chr_mis)
+        }
+        .map { meta, regions, chr_mis -> [meta, regions] }
 
     // Check that all input files have the correct index
-    checkFileIndex(ch_input)
-    checkFileIndex(ch_input_truth)
-    checkFileIndex(ch_ref_gen)
-    checkFileIndex(ch_panel)
+    checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -367,24 +377,29 @@ def validateInputParameters() {
 //
 // Extract contig names from channel meta map
 //
-def extractChr(channel) {
-    channel.map { [it[0].chr] }
+def extractChr(ch_input) {
+    ch_input.map { [it[0].chr] }
         .collect()
         .toList()
 }
 
 //
 // Check if all contigs in a are present in b
+// Give back the intersection of a and b
 //
 def checkMetaChr(chr_a, chr_b, name){
-    chr_a
+    intersect = chr_a
         .combine(chr_b)
         .map{
             a, b ->
             if (b != [[]] && !(a - b).isEmpty()) {
-                error "Chr : ${a - b} is missing from ${name}"
+                log.warn "Chr : ${a - b} is missing from ${name}"
+                return (a-b)
             }
+            return []
         }
+        .flatten()
+    return intersect
 }
 
 //
@@ -400,7 +415,7 @@ def getFileExtension(file) {
     if (file instanceof String) {
         ext = file.replace(".gz","").split("\\.").last()
     } else {
-        error "Type not supported: ${file.getClass()}"
+        error "Type not supported: ${file_name.getClass()}"
     }
     println("File: ${file} ${ext}")
     return ext
@@ -425,25 +440,39 @@ def getAllFilesExtension(ch_input) {
 // Check correspondance file / index
 //
 def checkFileIndex(ch_input) {
-    ch_input.map {
-        meta, file, index ->
-        println("file: ${file}")
-        file_ext = getFileExtension(file)
-        index_ext = getFileExtension(index)
-        if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
-            log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-            error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
+    ch_input
+        .subscribe{
+            meta, file, index ->
+            if (file == []) {
+                if (index != []) {
+                    error "${meta}: Index file provided without corresponding file"
+                }
+                if ( meta != []) {
+                    error "${meta}: No file provided"
+                }
+            }
+            if (file != [] && index == []) {
+                error "${meta}: No index file provided"
+            }
+            def file_ext = getFileExtension(file)
+            def index_ext = getFileExtension(index)
+            if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
+            }
+            if (file_ext == "bam" && index_ext != "bai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for .bam must have the extension .bai"
+            }
+            if (file_ext == "cram" && index_ext != "crai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for .cram must have the extension .crai"
+            }
+            if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+            }
         }
-        if (file_ext == "bam" && index_ext != "bai") {
-            error "${meta}: Index file for .bam must have the extension .bai"
-        } 
-        if (file_ext == "cram" && index_ext != "crai") {
-            error "${meta}: Index file for .cram must have the extension .crai"
-        }
-        if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
-            error "${meta}: Index file for [fa, fasta] must have the extension .fai"
-        }
-    }
     return null
 }
 

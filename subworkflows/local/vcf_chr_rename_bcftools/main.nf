@@ -24,7 +24,7 @@ workflow VCF_CHR_RENAME_BCFTOOLS {
                 prefix == "chr" ? "${i} chr${i}" :
                 "${i} ${i.replace('chr', '')}"
             }.join('\n')
-            ["${meta.id}.txt", chr]
+            ["${meta.id}.txt", "${chr}\n"]
         }
         .map{ file -> [[id: file.getBaseName()], file] }
 
