@@ -26,7 +26,7 @@ workflow VCF_CONCATENATE_BCFTOOLS {
     // Join VCFs and TBIs
     ch_vcf_tbi_concat = BCFTOOLS_CONCAT.out.vcf
         .join(BCFTOOLS_CONCAT.out.tbi)
-    
+
     ch_vcf_tbi_join = ch_vcf_tbi_grouped.one
         .map{ [it[0], it[1][0], it[2][0]] }
         .mix(ch_vcf_tbi_concat)
