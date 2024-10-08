@@ -494,7 +494,7 @@ def exportCsv(ch_files, metas, header, name, outdir) {
             meta += "${it[0][i]},"
         }
         for (i in it[1]) {
-            file += "${params.outdir}/${i.value}/${file(it[i.key]).fileName},"
+            file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
         }
         file=file.substring(0, file.length() - 1) // remove last comma
         ["${name}", "${header}\n${meta}${file}\n"]

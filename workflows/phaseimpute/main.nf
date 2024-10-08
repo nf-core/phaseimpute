@@ -374,7 +374,7 @@ workflow PHASEIMPUTE {
             ch_posfile.map{ [it[0], it[4]] },
             ch_fasta
         )
-        ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)
+        ch_versions = ch_versions.mix(GL_TRUTH.out.versions)
 
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
