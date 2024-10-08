@@ -413,7 +413,7 @@ def checkMetaChr(chr_a, chr_b, name){
 // Get file extension
 //
 def getFileExtension(file) {
-    ext = null
+    def ext = null
     if (file instanceof Path) {
         file = file.getName()
     } else if (file instanceof ArrayList & file.size() == 0) {
@@ -424,7 +424,6 @@ def getFileExtension(file) {
     } else {
         error "Type not supported: ${file_name.getClass()}"
     }
-    println("File: ${file} ${ext}")
     return ext
 }
 
@@ -489,8 +488,8 @@ def checkFileIndex(ch_input) {
 //
 def exportCsv(ch_files, metas, header, name, outdir) {
     ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
-        meta = ""
-        file = ""
+        def meta = ""
+        def file = ""
         for (i in metas) {
             meta += "${it[0][i]},"
         }
