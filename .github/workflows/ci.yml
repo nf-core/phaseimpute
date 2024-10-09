@@ -1,5 +1,6 @@
 name: nf-core CI
 # This workflow runs the pipeline with the minimal test dataset to check that it completes without any syntax errors
+
 on:
   push:
     branches:
@@ -11,6 +12,7 @@ on:
 
 env:
   NXF_ANSI_LOG: false
+  NFTEST_VER: "0.9.0"
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
@@ -18,15 +20,21 @@ concurrency:
 
 jobs:
   test:
-    name: Run pipeline with test data
+    name: Run nf-test with standard profiles
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/phaseimpute') }}"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         NXF_VER:
           - "24.04.2"
           - "latest-everything"
+        TEST_PROFILE:
+          - "test_all"
+          - "test_validate"
+          - "test_stitch"
+          - "test_dog"
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
@@ -36,6 +44,11 @@ jobs:
         with:
           version: "${{ matrix.NXF_VER }}"
 
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash -s $NFTEST_VER
+          sudo mv nf-test /usr/local/bin/
+
       - name: Disk space cleanup
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
 
@@ -44,16 +57,16 @@ jobs:
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" -profile docker --outdir ./results
 
       - name: Run pipeline with test data (singularity)
         # TODO nf-core: You can customise CI pipeline run tests as required
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,singularity --outdir ./results
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" -profile singularity --outdir ./results
         if: "${{ github.base_ref == 'master' }}"
 
       - name: Run pipeline with test data (conda)
         # TODO nf-core: You can customise CI pipeline run tests as required
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,conda --outdir ./results
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" -profile conda --outdir ./results
         if: "${{ github.base_ref == 'master' }}"
