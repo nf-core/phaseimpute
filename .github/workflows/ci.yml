@@ -57,16 +57,16 @@ jobs:
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nf-test test --tag "${{ matrix.TEST_PROFILE }}" -profile docker --outdir ./results
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile docker --outdir ./results
 
       - name: Run pipeline with test data (singularity)
         # TODO nf-core: You can customise CI pipeline run tests as required
         run: |
-          nf-test test --tag "${{ matrix.TEST_PROFILE }}" -profile singularity --outdir ./results
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile singularity --outdir ./results
         if: "${{ github.base_ref == 'master' }}"
 
       - name: Run pipeline with test data (conda)
         # TODO nf-core: You can customise CI pipeline run tests as required
         run: |
-          nf-test test --tag "${{ matrix.TEST_PROFILE }}" -profile conda --outdir ./results
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile conda --outdir ./results
         if: "${{ github.base_ref == 'master' }}"
