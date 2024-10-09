@@ -1,4 +1,4 @@
-bump_version: null
+bump_version: 1.0.1dev
 lint:
   subworkflow_changes: false
 nf_core_version: 3.0.1
