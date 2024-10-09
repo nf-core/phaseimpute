@@ -1,11 +1,11 @@
-bump_version: 1.0.1dev
+bump_version: null
 lint:
   subworkflow_changes: false
 nf_core_version: 3.0.1
 org_path: null
 repository_type: pipeline
 template:
-  author: LouisLeNezet
+  author: "Louis Le Nezet, Anabella Trigilla"
   description: Phasing and imputation pipeline
   force: false
   is_nfcore: true
@@ -13,5 +13,5 @@ template:
   org: nf-core
   outdir: .
   skip_features: null
-  version: 1.0dev
+  version: 1.0.1dev
 update: null
