@@ -14,7 +14,6 @@ include { samplesheetToList         } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
 include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
-include { workflowCitation          } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 include { GET_REGION                } from '../get_region'
@@ -104,11 +103,11 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.input) {
         ch_input = Channel
-        .fromSamplesheet("input")
-        .map {
-            meta, file, index ->
-                [ meta, file, index ]
+        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .map { samplesheet ->
+            validateInputSamplesheet(samplesheet)
         }
+
         // Check if all extension are identical
         getAllFilesExtension(ch_input)
     } else {
@@ -120,7 +119,7 @@ workflow PIPELINE_INITIALISATION {
     if (params.input_truth) {
         if (params.input_truth.endsWith("csv")) {
             ch_input_truth = Channel
-                .fromSamplesheet("input_truth")
+                .fromList(samplesheetToList(params.input_truth, "${projectDir}/assets/schema_input.json"))
                 .map {
                     meta, file, index ->
                         [ meta, file, index ]
@@ -141,7 +140,9 @@ workflow PIPELINE_INITIALISATION {
     if (params.panel) {
         if (params.panel.endsWith("csv")) {
             println "Panel file provided as input is a samplesheet"
-            ch_panel = Channel.fromSamplesheet("panel")
+            ch_panel = Channel.fromList(samplesheetToList(
+                params.panel, "${projectDir}/assets/schema_input_panel.json"
+            ))
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
@@ -161,9 +162,11 @@ workflow PIPELINE_INITIALISATION {
         ch_regions  = GET_REGION.out.regions
     }  else  if (params.input_region.endsWith(".csv")) {
         println "Region file provided as input is a csv file"
-        ch_regions = Channel.fromSamplesheet("input_region")
-            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-            .map{ metaC, region -> [metaC + ["region": region], region]}
+        ch_regions = Channel.fromList(samplesheetToList(
+            params.input_region, "${projectDir}/assets/schema_input_region.json"
+        ))
+        .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+        .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
     }
@@ -174,7 +177,7 @@ workflow PIPELINE_INITIALISATION {
     if (params.map) {
         if (params.map.endsWith(".csv")) {
             println "Map file provided as input is a samplesheet"
-            ch_map = Channel.fromSamplesheet("map")
+            ch_map = Channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
@@ -205,8 +208,8 @@ workflow PIPELINE_INITIALISATION {
     // Create posfile channel
     //
     if (params.posfile) {
-        ch_posfile = Channel
-                .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "hap", "legend"]
+        ch_posfile = Channel // ["panel", "chr", "vcf", "index", "hap", "legend"]
+            .fromList(samplesheetToList(params.posfile, "${projectDir}/assets/schema_posfile.json"))
     } else {
         ch_posfile = Channel.of([[],[],[],[],[]])
     }
@@ -216,7 +219,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.chunks) {
         ch_chunks = Channel
-            .fromSamplesheet("chunks")
+            .fromList(samplesheetToList(params.chunks, "${projectDir}/assets/schema_chunks.json"))
     } else {
         ch_chunks = Channel.of([[],[]])
     }
@@ -501,7 +504,9 @@ def exportCsv(ch_files, metas, header, name, outdir) {
 def validateInputSamplesheet(input) {
     def (meta, bam, bai) = input
     // Check that individual IDs are unique
-    // no validation for the moment
+    // No check for the moment
+
+    return [meta, bam, bai]
 }
 
 //
