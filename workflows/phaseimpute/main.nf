@@ -181,7 +181,7 @@ workflow PHASEIMPUTE {
         // Phased panel
         exportCsv(
             ch_panel_phased.map{ meta, vcf, index ->
-                [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
+                [meta, [2:"prep_panel/normalized", 3:"prep_panel/normalized"], vcf, index]
             },
             ["id", "chr"], "panel,chr,vcf,index",
             "panel.csv", "prep_panel/csv"
@@ -189,7 +189,7 @@ workflow PHASEIMPUTE {
         // Posfile
         exportCsv(
             ch_posfile.map{ meta, vcf, index, hap, legend ->
-                [meta, [2:"prep_panel/sites", 3:"prep_panel/haplegend", 4:"prep_panel/haplegend"], vcf, index, hap, legend]
+                [meta, [2:"prep_panel/sites/vcf", 3:"prep_panel/haplegend", 4:"prep_panel/haplegend"], vcf, index, hap, legend]
             },
             ["id", "chr"], "panel,chr,vcf,index,hap,legend",
             "posfile.csv", "prep_panel/csv"
