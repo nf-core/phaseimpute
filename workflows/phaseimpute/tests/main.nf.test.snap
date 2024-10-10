@@ -133,9 +133,9 @@
     "Check test_validate": {
         "content": [
             [
-                "validation/NA12878_Pnull_Tnull_SNP.txt",
-                "validation/NA19401_Pnull_Tnull_SNP.txt",
-                "validation/NA20359_Pnull_Tnull_SNP.txt",
+                "validation/NA12878_SNP.txt",
+                "validation/NA19401_SNP.txt",
+                "validation/NA20359_SNP.txt",
                 "validation/TestQuality.txt",
                 "validation/concat/NA12878.A-truth.vcf.gz",
                 "validation/concat/NA12878.A-truth.vcf.gz.tbi",
