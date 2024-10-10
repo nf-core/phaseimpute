@@ -3,8 +3,13 @@ name: nf-core template version comment
 # It posts a comment to the PR, even if it comes from a fork.
 
 on:
-  - push
-  - pull_request_target
+  push:
+    branches:
+      - dev
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
   template_version:
