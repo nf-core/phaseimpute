@@ -6,3 +6,6 @@ results/
 testing/
 testing*
 *.pyc
+*.code-workspace
+.nf-test*
+*.xml.bkp

@@ -1,0 +1,142 @@
+{
+    "Downsample to 2X": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "depth": 2
+                        },
+                        "NA12878.bam:md5,c998482010b83365a4889c3fa75ac578",
+                        "NA12878.bam.csi:md5,0b4abd161cdcc2b51571c9cc651df354"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "depth": 2
+                        },
+                        "NA19401.bam:md5,6b144e7adc1f9e6711aea0e4772c5937",
+                        "NA19401.bam.csi:md5,36c29896003f2de5306ff427a969058c"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,88f1d64445acc1f44531d7897b0f2684",
+                    "versions.yml:md5,9eef568f4fc903d70199abf5a48bd08f",
+                    "versions.yml:md5,de64e28f766e3c91df1b353fd0a92e71"
+                ],
+                "bam_emul": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "depth": 2
+                        },
+                        "NA12878.bam:md5,c998482010b83365a4889c3fa75ac578",
+                        "NA12878.bam.csi:md5,0b4abd161cdcc2b51571c9cc651df354"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "depth": 2
+                        },
+                        "NA19401.bam:md5,6b144e7adc1f9e6711aea0e4772c5937",
+                        "NA19401.bam.csi:md5,36c29896003f2de5306ff427a969058c"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,88f1d64445acc1f44531d7897b0f2684",
+                    "versions.yml:md5,9eef568f4fc903d70199abf5a48bd08f",
+                    "versions.yml:md5,de64e28f766e3c91df1b353fd0a92e71"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T15:34:43.478151313"
+    },
+    "Downsample to 4X": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "depth": 4
+                        },
+                        "NA12878.bam:md5,d6045df32f7c77d5c863b2068739faa9",
+                        "NA12878.bam.csi:md5,3f8f9a17463b6c2391c632681d3f253a"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "depth": 4
+                        },
+                        "NA19401.bam:md5,3b0d20e5f44952135a547c6230117460",
+                        "NA19401.bam.csi:md5,b44701d7d4de827cc1b83aaeb397deaf"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,88f1d64445acc1f44531d7897b0f2684",
+                    "versions.yml:md5,9eef568f4fc903d70199abf5a48bd08f",
+                    "versions.yml:md5,de64e28f766e3c91df1b353fd0a92e71"
+                ],
+                "bam_emul": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "depth": 4
+                        },
+                        "NA12878.bam:md5,d6045df32f7c77d5c863b2068739faa9",
+                        "NA12878.bam.csi:md5,3f8f9a17463b6c2391c632681d3f253a"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "depth": 4
+                        },
+                        "NA19401.bam:md5,3b0d20e5f44952135a547c6230117460",
+                        "NA19401.bam.csi:md5,b44701d7d4de827cc1b83aaeb397deaf"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,88f1d64445acc1f44531d7897b0f2684",
+                    "versions.yml:md5,9eef568f4fc903d70199abf5a48bd08f",
+                    "versions.yml:md5,de64e28f766e3c91df1b353fd0a92e71"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T15:34:15.168143808"
+    },
+    "Reads2X": {
+        "content": [
+            [
+                1164,
+                1196
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T15:34:43.895894693"
+    },
+    "Reads4X": {
+        "content": [
+            [
+                2402,
+                2321
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T15:34:15.646735174"
+    }
+}

@@ -1,0 +1,160 @@
+{
+    "header21and22": {
+        "content": [
+            [
+                [
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                ],
+                [
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T11:54:12.209449942"
+    },
+    "Should run with same id": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "21"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "22"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ],
+                "vcf_renamed": [
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "21"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "22"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T18:13:42.892263614"
+    },
+    "Should run without error": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "21"
+                        },
+                        "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
+                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
+                    ],
+                    [
+                        {
+                            "id": "multi"
+                        },
+                        "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
+                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ],
+                "vcf_renamed": [
+                    [
+                        {
+                            "id": "21"
+                        },
+                        "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "chr21"
+                        },
+                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
+                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
+                    ],
+                    [
+                        {
+                            "id": "multi"
+                        },
+                        "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
+                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T18:13:32.768716353"
+    },
+    "headerwithchr": {
+        "content": [
+            [
+                [
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                ],
+                [
+                    "21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                ],
+                [
+                    "chr22\t16849764\tSV_845_2\tN\tN[10:38880001[\t25\tPASS\tSVTYPE=BND;REGIONA=38879850,38880055;REGIONB=16849354,16850051;LFA=7,0;LFB=7,0;LTE=6,0;CTG=.\tGT:CN:COV:DV:RV:LQ:RR:DR\t0/1:.:26,0,25:6:0:0,0.0466667:19,21:23,27",
+                    "chr22\t16884368\tSV_846_2\tN\tN[10:38908615[\t80\tPASS\tSVTYPE=BND;REGIONA=38908615,38909107;REGIONB=16883928,16884368;LFA=15,0;LFB=15,0;LTE=14,0;CTG=.\tGT:CN:COV:DV:RV:LQ:RR:DR\t1/1:.:25,0,45:14:0:0,0.0240964:7,23:0,23"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T15:50:28.012191227"
+    }
+}

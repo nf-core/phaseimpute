@@ -1,0 +1,38 @@
+name: "vcf_sites_extract_bcftools"
+description: Extract only sites (no genotype data) (bcftools view -G -m 2 -M 2 -v).
+  Convert to glimpse1 TSV format (bcftools query -f'%CHROM\t%POS\t%REF,%ALT\n').
+  Convert to stitch/quilt TSV format (bcftools query -f'%CHROM\t%POS\t%REF\t%ALT\n').
+keywords:
+  - bcftools
+  - query
+  - view
+components:
+  - bcftools/view
+  - bcftools/query
+input:
+  - ch_vcf:
+      type: file
+      description: |
+        Reference panel of haplotypes in VCF/BCF format.
+        Index file of the Reference panel file.
+        Target region, usually a full chromosome (e.g. chr20:1000000-2000000 or chr20).
+        The file could possibly be without GT field (for efficiency reasons a file containing only the positions is recommended).
+        Structure: [ meta, vcf, csi, region ]
+output:
+  - vcf_tbi:
+      type: file
+      description: |
+        Output VCF/BCF file for the normalized, only biallelic SNPs.
+        Structure: [meta, vcf, tbi]
+  - panel_tsv:
+      type: file
+      description: |
+        Compressed panel TSV and index for Glimpse1.
+  - panel_sites:
+      type: file
+      description: |
+        Panel VCF and index for Glimpse1.
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

@@ -1,0 +1,2 @@
+subworkflows/get_region:
+  - subworkflows/local/get_region/**

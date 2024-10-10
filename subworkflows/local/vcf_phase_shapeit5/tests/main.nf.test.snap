@@ -1,0 +1,76 @@
+{
+    "Phasing content": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T15:56:20.067633938"
+    },
+    "Phase vcf with regions, no map, no ref, no scaffold": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "1000GP.vcf.gz:md5,a8af1c991fb1ca9e0919e0d5ddae8968",
+                        "1000GP.vcf.gz.csi:md5,b4c653bd398bb838b496e022705bb562"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "1000GP.vcf.gz:md5,106157dc553c3c19eebdce0567e69d4f",
+                        "1000GP.vcf.gz.csi:md5,58026cf302bd82382a078c5690429b5c"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
+                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
+                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
+                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
+                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+                ],
+                "vcf_tbi": [
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "1000GP.vcf.gz:md5,a8af1c991fb1ca9e0919e0d5ddae8968",
+                        "1000GP.vcf.gz.csi:md5,b4c653bd398bb838b496e022705bb562"
+                    ],
+                    [
+                        {
+                            "id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "1000GP.vcf.gz:md5,106157dc553c3c19eebdce0567e69d4f",
+                        "1000GP.vcf.gz.csi:md5,58026cf302bd82382a078c5690429b5c"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
+                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
+                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
+                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
+                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-22T15:46:34.727932091"
+    }
+}

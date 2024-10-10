@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["outdir"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -23,11 +23,27 @@
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "input_region": {
+                    "type": "string",
+                    "description": "Region of the genome to use (optional: if no file given, the whole genome will be used). The file should be a comma-separated file with 3 columns, and a header row.",
+                    "schema": "assets/schema_input_region.json",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.csv$"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "rename_chr": {
+                    "type": "boolean",
+                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
+                    "pattern": "true|false"
+                },
+                "remove_samples": {
+                    "type": "string",
+                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes."
                 },
                 "email": {
                     "type": "string",
@@ -40,6 +56,124 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                },
+                "steps": {
+                    "type": "string",
+                    "description": "Step(s) to run.",
+                    "fa_icon": "fas fa-step-forward",
+                    "pattern": "^((all|simulate|panelprep|impute|validate)?,?)*(?<!,)$"
+                },
+                "tools": {
+                    "type": "string",
+                    "description": "Imputation tool to use.",
+                    "help_text": "Multiple tools separated with commas. Used when starting from `--steps impute` or `--steps all`.",
+                    "fa_icon": "fas fa-step-forward",
+                    "pattern": "^((glimpse1|glimpse2|quilt|stitch)?,?)*(?<!,)$"
+                }
+            }
+        },
+        "simulate": {
+            "title": "Simulate",
+            "type": "object",
+            "description": "Arguments for the simulation mode",
+            "default": "",
+            "properties": {
+                "depth": {
+                    "type": "integer",
+                    "description": "Depth of coverage for the simulated data",
+                    "default": 1,
+                    "fa_icon": "fas fa-list-ol"
+                },
+                "genotype": {
+                    "type": "string",
+                    "description": "Genotype position to use to simulate the data",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "format": "file-path",
+                    "mimetype": "text/csv"
+                }
+            }
+        },
+        "panelprep": {
+            "title": "Panel preparation",
+            "type": "object",
+            "description": "Arguments for the preparation of the reference panel",
+            "default": "",
+            "properties": {
+                "panel": {
+                    "type": "string",
+                    "description": "Path to the reference panel or csv file with the list of panels",
+                    "fa_icon": "far fa-file-code",
+                    "format": "file-path",
+                    "schema": "assets/schema_input_panel.json",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "mimetype": "text/csv"
+                },
+                "phased": {
+                    "description": "Is the reference panel phased",
+                    "type": "boolean",
+                    "pattern": "true|false"
+                },
+                "compute_freq": {
+                    "description": "Should the allele frequency for each variant (AC/AN fields necessary for Glimpse1 and the validation step) be computed using VCFFIXUP tool. This can be necessary if the fields are absent from the panel or if samples have been removed.",
+                    "type": "boolean",
+                    "pattern": "true|false"
+                },
+                "binaryref": {
+                    "type": "string",
+                    "description": "Whether to generate a binary reference file to be used with GLIMPSE2"
+                }
+            }
+        },
+        "imputation_options": {
+            "title": "Imputation options",
+            "type": "object",
+            "description": "Arguments for the imputation steps",
+            "default": "",
+            "properties": {
+                "chunks": {
+                    "type": "string",
+                    "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation.",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "schema": "/assets/schema_chunks.json",
+                    "pattern": "^\\S+\\.csv$"
+                }
+            }
+        },
+        "validation": {
+            "title": "Concordance analysis",
+            "type": "object",
+            "description": "Arguments for the concordance analysis of the imputed data",
+            "default": "",
+            "properties": {
+                "input_truth": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_input.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the samples truth files in the experiment.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "bins": {
+                    "type": "string",
+                    "description": "User-defined allele count bins used for rsquared computations.",
+                    "default": "0 0.01 0.05 0.1 0.2 0.5",
+                    "pattern": "^(\\d+(\\.\\d+)? )+(\\d+(\\.\\d+)?)$"
+                },
+                "min_val_gl": {
+                    "type": "number",
+                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using gt-validation",
+                    "default": 0.9,
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                },
+                "min_val_dp": {
+                    "type": "integer",
+                    "description": "Minimum coverage in validation data. If FORMAT/DP is missing and -min_val_dp > 0, the program exits with an error. Set to zero to have no filter of if using \u2013gt-validation",
+                    "default": 5,
+                    "pattern": "^\\d+$"
                 }
             }
         },
@@ -62,8 +196,28 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
+                },
+                "fasta_fai": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?\\.fai$",
+                    "description": "Path to FASTA index genome file.",
+                    "help_text": "This parameter is *optional* even if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "map": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "description": "Path to gmap genome file.",
+                    "help_text": "This parameter is *optional*. This is used to refine the imputation process to match the recombination event rate in your specie.",
+                    "fa_icon": "far fa-file-code",
+                    "mimetype": "text/csv",
+                    "schema": "assets/schema_map.json"
                 },
                 "igenomes_ignore": {
                     "type": "boolean",
@@ -205,6 +359,16 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
+                "multiqc_replace_names": {
+                    "type": "string",
+                    "description": "Optional two-column sample renaming file. First column a set of patterns, second column a set of corresponding replacements. Passed via MultiQC's `--replace-names` option.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "multiqc_sample_names": {
+                    "type": "string",
+                    "description": "Optional TSV file with headers, passed to the MultiQC --sample_names argument.",
+                    "fa_icon": "far fa-file-code"
+                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -216,8 +380,51 @@
                     "type": "string",
                     "fa_icon": "far fa-check-circle",
                     "description": "Base URL or local path to location of pipeline test dataset files",
-                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/",
                     "hidden": true
+                }
+            }
+        },
+        "quilt_parameters": {
+            "title": "QUILT parameters",
+            "type": "object",
+            "description": "Arguments to customize QUILT run",
+            "default": "",
+            "properties": {
+                "buffer": {
+                    "type": "integer",
+                    "default": 10000,
+                    "description": "Buffer of region to perform imputation over. So imputation is run form regionStart-buffer to regionEnd+buffer, and reported for regionStart to regionEnd, including the bases of regionStart and regionEnd."
+                },
+                "ngen": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Number of generations since founding of the population to use for imputation."
+                }
+            }
+        },
+        "stitch_parameters": {
+            "title": "STITCH parameters",
+            "type": "object",
+            "description": "Arguments to customize STITCH run",
+            "default": "",
+            "properties": {
+                "seed": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "posfile": {
+                    "type": "string",
+                    "description": "Path to comma-separated file containing tab-separated files describing the variable positions to be used for imputation. Refer to the documentation for the `--posfile` argument of STITCH for more information.",
+                    "format": "file-path",
+                    "schema": "assets/schema_posfile.json",
+                    "pattern": "^\\S+\\.(csv|tsv|txt)$",
+                    "mimetype": "text/csv"
+                },
+                "k_val": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Number of ancestral haplotypes to use for imputation. Refer to the documentation for the `--K` argument of STITCH for more information."
                 }
             }
         }
@@ -227,6 +434,18 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
+            "$ref": "#/$defs/simulate"
+        },
+        {
+            "$ref": "#/$defs/panelprep"
+        },
+        {
+            "$ref": "#/$defs/imputation_options"
+        },
+        {
+            "$ref": "#/$defs/validation"
+        },
+        {
             "$ref": "#/$defs/reference_genome_options"
         },
         {
@@ -234,6 +453,12 @@
         },
         {
             "$ref": "#/$defs/generic_options"
+        },
+        {
+            "$ref": "#/$defs/quilt_parameters"
+        },
+        {
+            "$ref": "#/$defs/stitch_parameters"
         }
     ]
 }

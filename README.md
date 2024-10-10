@@ -5,10 +5,11 @@
   </picture>
 </h1>
 
+**Multi-steps pipeline dedicated to genetic imputation from simulation to validation**
+
 [![GitHub Actions CI Status](https://github.com/nf-core/phaseimpute/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/phaseimpute/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/phaseimpute/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/phaseimpute/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/phaseimpute/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
-
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
@@ -19,50 +20,53 @@
 
 ## Introduction
 
-**nf-core/phaseimpute** is a bioinformatics pipeline that ...
+**nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data. Different steps are available each corresponding to a dedicated modes.
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+### Main steps of the pipeline
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+The **phaseimpute** pipeline is constituted of 5 main steps:
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+| Metro map                                                              | Modes                                                                                                                                                                                                                                                                                                                                             |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="docs/images/metro/MetroMap.png" alt="metromap" width="800"/> | - **Panel preparation**: Phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Impute the target dataset on the reference panel <br> - **Simulate**: Simulation of the target dataset from high quality target data <br> - **Concordance**: Concordance between the target dataset and a truth dataset |
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
+The basic usage of this pipeline is to impute a target dataset based on a phased panel.
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+sample,file,index
+SAMPLE_1X,/path/to/.<bam/cram>,/path/to/.<bai,crai>
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
+Each row represents a bam or a cram file with its index file. All input files need to be of the same extension.
+For some tools and steps, you will also need to submit a samplesheet with the reference panel.
 
--->
+A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
+
+```csv
+panel,chr,vcf,index
+Phase3,1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.csi
+Phase3,2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.csi
+Phase3,3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.csi
+```
 
 Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
 nextflow run nf-core/phaseimpute \
    -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
+   --input <samplesheet.csv>  \
+   --genome "GRCh38" \
+   --panel <phased_reference_panel.csv> \
+   --steps "panelprep,impute" \
+   --tools "glimpse1" \
    --outdir <OUTDIR>
 ```
 
@@ -70,6 +74,18 @@ nextflow run nf-core/phaseimpute \
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage) and the [parameter documentation](https://nf-co.re/phaseimpute/parameters).
+
+## Description of the different steps of the pipeline
+
+Here is a short description of the different steps of the pipeline.
+For more information please refer to the [documentation](https://nf-core.github.io/phaseimpute/usage/).
+
+| steps           | Flow chart                                                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **--panelprep** | <img src="docs/images/metro/PanelPrep.png" alt="Panel preparation" width="600"/> | The preprocessing mode is responsible to the preparation of the multiple input file that will be used by the phasing process. <br> The main processes are : <br> - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/). <br> - **Normalize** the reference panel to select only the necessary variants. <br> - **Chunking the reference panel** in a subset of region for all the chromosomes. <br> - **Extract** the positions where to perform the imputation.                                                                                                                                                                                                                                                                                                                                                                           |
+| **--impute**    | <img src="docs/images/metro/Impute.png" alt="Impute target" width="600"/>        | The imputation mode is the core mode of this pipeline. <br> It is constituted of 3 main steps: <br> - **Imputation**: Impute the target dataset on the reference panel using either: <br> &emsp; - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html): It's come with the necessety to compute the genotype likelihoods of the target dataset (done using [BCFTOOLS_mpileup](https://samtools.github.io/bcftools/bcftools.html#mpileup)). <br> &emsp; - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/glimpse2/index.html) <br> &emsp; - [**Stitch**](https://github.com/rwdavies/stitch) This steps does not require a reference panel but needs to merge the samples. <br> &emsp; - [**Quilt**](https://github.com/rwdavies/QUILT) <br> - **Ligation**: all the different chunks are merged together then all chromosomes are reunited to output one VCF per sample. |
+| **--simulate**  | <img src="docs/images/metro/Simulate.png" alt="simulate_metro" width="600"/>     | The simulation mode is used to create artificial low informative genetic information from high density data. This allow to compare the imputed result to a _truth_ and therefore evaluate the quality of the imputation. <br> For the moment it is possible to simulate: <br> - Low-pass data by **downsample** BAM or CRAM using [SAMTOOLS_VIEW -s](https://www.htslib.org/doc/samtools-view.html) at different depth.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **--validate**  | <img src="docs/images/metro/Validate.png" alt="concordance_metro" width="600"/>  | This mode compare two vcf together to compute a summary of the differences between them. <br> This step use [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/glimpse2/index.html) concordance process.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ## Pipeline output
 
@@ -79,11 +95,14 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/phaseimpute was originally written by LouisLeNezet.
+nf-core/phaseimpute was originally written by Louis Le Nézet.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+- Anabella Trigila
+- Saul Pierotti
+- Eugenia Fontecha
+- Matias Romero Victorica
 
 ## Contributions and Support
 
@@ -97,6 +116,36 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 <!-- If you use nf-core/phaseimpute for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
+
+You can cite one of the main imputation methods ([`QUILT`](https://github.com/rwdavies/QUILT)) as follows:
+
+> **Rapid genotype imputation from sequence with reference panels.**
+>
+> Davies, R. W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C. M., Chan, Y. F., & Myers, S.
+>
+> _Nature genetics_ 2021 June 03. doi: [10.1038/s41588-021-00877-0](https://doi.org/10.1038/s41588-021-00877-0)
+
+You can cite one of the main imputation methods ([`GLIMPSE`](https://github.com/odelaneau/GLIMPSE)) as follows:
+
+> **Efficient phasing and imputation of low-coverage sequencing data using large reference panels.**
+>
+> Rubinacci, S., Ribeiro, D. M., Hofmeister, R. J., & Delaneau, O.
+>
+> _Nature genetics_ 2021. doi:[]()
+
+> **Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes**
+>
+> Rubinacci, S., Hofmeister, R. J., Sousa da Mota, B., & Delaneau, O.
+>
+> _Nature genetics_ 2023. doi:[]()
+
+You can cite one of the main imputation methods ([`STITCH`](https://github.com/rwdavies/STITCH)) as follows:
+
+> **Rapid genotype imputation from sequence without reference panels.**
+>
+> Davies, R. W., Flint, J., Myers, S., & Mott, R.
+>
+> _Nature genetics_ 2016 . doi: []().
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

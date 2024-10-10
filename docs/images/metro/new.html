@@ -1,0 +1,355 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+  </head>
+  <body>
+    <pre class="mermaid" style="text-align: center">
+
+flowchart TB
+subgraph " "
+v1["Channel.of"]
+v2["Channel.of"]
+v11["channel.fromSamplesheet"]
+v19["channel.fromSamplesheet"]
+v20["channel.fromSamplesheet"]
+v23["channel.fromSamplesheet"]
+v24["Channel.of"]
+v25["Channel.of"]
+v44["qname"]
+v74["qname"]
+v129["regions"]
+v130["targets"]
+v131["samples"]
+v138["bed"]
+v149["regions"]
+v150["targets"]
+v151["samples"]
+v160["regions"]
+v161["targets"]
+v162["samples"]
+v177["regions"]
+v178["targets"]
+v179["samples"]
+v182["program_file"]
+v189["Channel.of"]
+v191["Channel.of"]
+v193["Channel.of"]
+v261["model"]
+v275[" "]
+v276[" "]
+v288["Channel.of"]
+v326["save_mpileup"]
+v332["Channel.of"]
+v357[" "]
+v358["min_val_gl"]
+v359["min_val_dp"]
+v383["program_file"]
+v393["Channel.of"]
+v396["Channel.fromPath"]
+v399["ch_workflow_summary"]
+v403["ch_methods_description"]
+end
+subgraph PIPELINE_INITIALISATION
+v3([SAMTOOLS_FAIDX])
+v8(( ))
+end
+subgraph " "
+v16["files_ext"]
+v26["ch_genotype"]
+v184["posfile"]
+v257["chunks_glimpse1"]
+v267["chunks_glimpse2"]
+v300["ch_impute_output"]
+v385["stats"]
+v415["multiqc_report"]
+end
+subgraph NFCORE_PHASEIMPUTE
+subgraph PHASEIMPUTE
+subgraph BAM_REGION
+v45([SAMTOOLS_VIEW])
+v53([SAMTOOLS_INDEX])
+end
+subgraph BAM_DOWNSAMPLE
+v64([SAMTOOLS_COVERAGE])
+v75([SAMTOOLS_VIEW])
+v83([SAMTOOLS_INDEX_1])
+v92([SAMTOOLS_MERGE])
+v97([SAMTOOLS_INDEX_2])
+v58(( ))
+v88(( ))
+end
+subgraph VCF_CHR_CHECK
+v108([VCFCHRBFR])
+v107(( ))
+end
+subgraph VCF_NORMALIZE_BCFTOOLS
+v123([BCFTOOLS_NORM])
+v125([BCFTOOLS_INDEX_1])
+v132([BCFTOOLS_DEL_MLT_ALL])
+v134([BCFTOOLS_INDEX_2])
+v139([BCFTOOLS_CONVERT])
+v128(( ))
+end
+subgraph VCF_SITES_EXTRACT_BCFTOOLS
+v152([BCFTOOLS_VIEW])
+v155([BCFTOOLS_INDEX])
+v163([BCFTOOLS_QUERY])
+v166([TABIX_BGZIP])
+v170([TABIX_TABIX])
+end
+subgraph PREPARE_POSFILE_TSV
+v180([BCFTOOLS_QUERY])
+v183([GAWK])
+end
+subgraph VCF_PHASE_PANEL
+subgraph VCF_PHASE_SHAPEIT5
+v201([BEDTOOLS_MAKEWINDOWS])
+v210([SHAPEIT5_PHASECOMMON])
+v213([VCF_BCFTOOLS_INDEX_1])
+v223([SHAPEIT5_LIGATE])
+v226([VCF_BCFTOOLS_INDEX_2])
+v190(( ))
+v192(( ))
+v194(( ))
+v206(( ))
+end
+end
+subgraph CONCAT_PANEL
+v240([BCFTOOLS_CONCAT])
+v243([BCFTOOLS_INDEX])
+end
+subgraph VCF_CHUNK_GLIMPSE
+v251([GLIMPSE_CHUNK])
+v262([GLIMPSE2_CHUNK])
+v255(( ))
+v265(( ))
+end
+subgraph BAM_IMPUTE_QUILT
+v277([QUILT_QUILT])
+v283([BCFTOOLS_INDEX_1])
+v290([BCFTOOLS_ANNOTATE])
+v293([BCFTOOLS_INDEX_2])
+v102(( ))
+v287(( ))
+end
+subgraph CONCAT_QUILT
+v304([BCFTOOLS_CONCAT])
+v307([BCFTOOLS_INDEX])
+v297(( ))
+end
+subgraph GL_TRUTH
+v327([BCFTOOLS_MPILEUP])
+v334([BCFTOOLS_ANNOTATE])
+v337([BCFTOOLS_INDEX])
+v12(( ))
+v331(( ))
+end
+subgraph VCF_CONCORDANCE_GLIMPSE2
+v360([GLIMPSE2_CONCORDANCE])
+v375([GUNZIP])
+v378([ADD_COLUMNS])
+v384([GAWK])
+v381(( ))
+end
+v410([MULTIQC])
+v6(( ))
+v407(( ))
+v408(( ))
+v409(( ))
+v414(( ))
+end
+end
+v1 --> v3
+v1 --> v8
+v2 --> v3
+v3 --> v6
+v3 --> v8
+v11 --> v12
+v12 --> v16
+v19 --> v8
+v19 --> v107
+v20 --> v12
+v23 --> v12
+v24 --> v58
+v25 --> v26
+v44 --> v45
+v8 --> v45
+v12 --> v45
+v45 --> v53
+v45 --> v6
+v45 --> v58
+v53 --> v6
+v53 --> v58
+v8 --> v64
+v58 --> v64
+v64 --> v6
+v64 --> v58
+v74 --> v75
+v8 --> v75
+v58 --> v75
+v75 --> v83
+v75 --> v6
+v75 --> v88
+v83 --> v6
+v83 --> v88
+v8 --> v92
+v88 --> v92
+v92 --> v97
+v92 --> v102
+v97 --> v6
+v97 --> v102
+v107 --> v108
+v108 --> v6
+v108 --> v8
+v8 --> v123
+v123 --> v125
+v123 --> v6
+v123 --> v128
+v125 --> v6
+v125 --> v128
+v129 --> v132
+v130 --> v132
+v131 --> v132
+v128 --> v132
+v132 --> v134
+v132 --> v6
+v132 --> v12
+v134 --> v6
+v134 --> v12
+v138 --> v139
+v8 --> v139
+v12 --> v139
+v139 --> v6
+v139 --> v102
+v149 --> v152
+v150 --> v152
+v151 --> v152
+v12 --> v152
+v152 --> v155
+v152 --> v6
+v152 --> v12
+v155 --> v6
+v155 --> v12
+v160 --> v163
+v161 --> v163
+v162 --> v163
+v12 --> v163
+v163 --> v166
+v163 --> v6
+v166 --> v170
+v166 --> v6
+v166 --> v12
+v170 --> v6
+v170 --> v12
+v177 --> v180
+v178 --> v180
+v179 --> v180
+v12 --> v180
+v180 --> v183
+v180 --> v6
+v182 --> v183
+v183 --> v184
+v183 --> v6
+v189 --> v190
+v191 --> v192
+v193 --> v194
+v12 --> v201
+v201 --> v6
+v201 --> v12
+v201 --> v206
+v12 --> v210
+v190 --> v210
+v192 --> v210
+v194 --> v210
+v210 --> v213
+v210 --> v6
+v210 --> v206
+v213 --> v6
+v213 --> v206
+v206 --> v223
+v223 --> v226
+v223 --> v6
+v223 --> v12
+v226 --> v6
+v226 --> v12
+v12 --> v240
+v240 --> v243
+v240 --> v6
+v240 --> v12
+v243 --> v6
+v243 --> v12
+v12 --> v251
+v251 --> v6
+v251 --> v102
+v251 --> v255
+v255 --> v257
+v261 --> v262
+v12 --> v262
+v262 --> v6
+v262 --> v265
+v265 --> v267
+v275 --> v277
+v276 --> v277
+v102 --> v277
+v277 --> v283
+v277 --> v6
+v277 --> v287
+v283 --> v6
+v283 --> v287
+v288 --> v287
+v287 --> v290
+v290 --> v293
+v290 --> v6
+v290 --> v297
+v293 --> v6
+v293 --> v297
+v297 --> v300
+v297 --> v304
+v304 --> v307
+v304 --> v6
+v304 --> v12
+v307 --> v6
+v307 --> v12
+v326 --> v327
+v8 --> v327
+v12 --> v327
+v327 --> v6
+v327 --> v331
+v332 --> v331
+v331 --> v334
+v334 --> v337
+v334 --> v6
+v334 --> v12
+v337 --> v6
+v337 --> v12
+v357 --> v360
+v358 --> v360
+v359 --> v360
+v12 --> v360
+v360 --> v375
+v360 --> v6
+v375 --> v378
+v375 --> v6
+v378 --> v6
+v378 --> v381
+v383 --> v384
+v381 --> v384
+v384 --> v385
+v384 --> v6
+v393 --> v6
+v396 --> v407
+v399 --> v6
+v403 --> v6
+v6 --> v410
+v407 --> v410
+v408 --> v410
+v409 --> v410
+v410 --> v414
+v414 --> v415</pre
+    >
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+  </body>
+</html>
