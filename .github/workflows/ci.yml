@@ -5,7 +5,11 @@ on:
   push:
     branches:
       - dev
+      - master
   pull_request:
+    branches:
+      - dev
+      - master
   release:
     types: [published]
   workflow_dispatch:
@@ -13,6 +17,9 @@ on:
 env:
   NXF_ANSI_LOG: false
   NFTEST_VER: "0.9.0"
+  NFT_WORKDIR: "~"
+  NFT_DIFF: "pdiff"
+  NFT_DIFF_ARGS: "--line-numbers --expand-tabs=2"
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
@@ -28,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         NXF_VER:
-          - "24.04.2"
+          - "24.04.4"
           - "latest-everything"
         TEST_PROFILE:
           - "test_all"
@@ -46,6 +53,11 @@ jobs:
 
       - name: Disk space cleanup
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+
+      - name: Install pdiff to see diff between nf-test snapshots
+        run: |
+          python -m pip install --upgrade pip
+          pip install pdiff
 
       - name: Install nf-test
         run: |
