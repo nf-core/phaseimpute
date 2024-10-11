@@ -12,6 +12,7 @@ on:
       - master
   release:
     types: [published]
+  workflow_dispatch:
 
 env:
   NXF_ANSI_LOG: false
@@ -66,3 +67,13 @@ jobs:
       - name: Run pipeline with test data
         run: |
           nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile docker --verbose
+
+      - name: Run pipeline with test data (singularity)
+        run: |
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile singularity
+        if: "${{ github.base_ref == 'master' }}"
+
+      - name: Run pipeline with test data (conda)
+        run: |
+          nf-test test --tag "${{ matrix.TEST_PROFILE }}" --profile conda
+        if: "${{ github.base_ref == 'master' }}"
