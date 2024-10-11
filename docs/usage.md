@@ -22,7 +22,7 @@ The samplesheet can have as many columns as you desire, however, there is a stri
 
 A final samplesheet file may look something like the one below. This is for 6 samples.
 
-```console
+```console title="samplesheet.csv"
 sample,file,index
 SAMPLE1,AEG588A1.bam,AEG588A1.bai
 SAMPLE2,AEG588A2.bam,AEG588A2.bai
@@ -52,7 +52,7 @@ You will need to create a samplesheet with information about the reference panel
 
 A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
 
-```console
+```console title="samplesheet_reference.csv"
 panel,chr,vcf,index
 1000G,chr1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
 1000G,chr2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
@@ -80,7 +80,7 @@ You will need a samplesheet with information about the reference panel sites for
 
 A final samplesheet file for the posfile may look something like the one below. This is for 2 chromosomes.
 
-```console
+```console title="posfile.csv"
 panel,chr,vcf,index,hap,legend
 1000GP.s.norel,chr21,1000GP.chr21.s.norel.sites.vcf.gz,1000GP.chr21.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr21.hap.gz,1000GP.s.norel_chr21.legend.gz
 1000GP.s.norel,chr22,1000GP.chr22.s.norel.sites.vcf.gz,1000GP.chr22.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
@@ -102,7 +102,7 @@ The `legend` file should be a TSV with the following structure, similar to that 
 - Column 3: reference base
 - Column 4: alternate base
 
-```csv
+```csv title="legend.tsv"
 id position a0 a1
 chr21:16609287_C_T 16609287 C T
 chr21:16609295_T_G 16609295 T G
@@ -166,9 +166,9 @@ The above pipeline run specified with a params file in yaml format:
 nextflow run nf-core/phaseimpute -profile docker -params-file params.yaml
 ```
 
-with `params.yaml` containing:
+with:
 
-```yaml
+```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
 genome: 'GRCh37'
@@ -283,14 +283,14 @@ nextflow run nf-core/phaseimpute \
 
 The csv provided in `--posfile` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
 
-```console
+```console title="posfile.csv"
 panel,chr,hap,legend
 1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
 The csv provided in `--chunks` must contain two columns [chr, file]. The first column is the chromosome and the file column are txt with the chunks produced by GLIMPSE1, unique to each chromosome.
 
-```console
+```console title="chunks.csv"
 panel,chr,file
 1000GP,chr1,chunks_chr1.txt
 1000GP,chr2,chunks_chr2.txt
@@ -343,7 +343,7 @@ nextflow run nf-core/phaseimpute \
 
 The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
-```console
+```console title="posfile.csv"
 panel,chr,legend
 1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
@@ -376,7 +376,7 @@ nextflow run nf-core/phaseimpute \
 
 The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
-```console
+```console title="posfile.csv"
 panel,chr,legend
 1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
@@ -428,7 +428,7 @@ The required flags for this mode only are:
 
 The csv provided in `--posfile` must contain three columns [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
 
-```console
+```console title="posfile.csv"
 panel,chr,vcf,index
 1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.csi
 ```
@@ -613,14 +613,6 @@ In most cases, you will only need to create a custom config as a one-off but if 
 See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
 
 If you have any questions or issues please send us a message on [Slack](https://nf-co.re/join/slack) on the [`#configs` channel](https://nfcore.slack.com/channels/configs).
-
-## Azure Resource Requests
-
-To be used with the `azurebatch` profile by specifying the `-profile azurebatch`.
-We recommend providing a compute `params.vm_type` of `Standard_D16_v3` VMs by default but these options can be changed if required.
-
-Note that the choice of VM size depends on your quota and the overall workload during the analysis.
-For a thorough list, please refer the [Azure Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes).
 
 ## Running in the background
 

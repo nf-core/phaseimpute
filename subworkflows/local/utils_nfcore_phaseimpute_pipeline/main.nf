@@ -8,31 +8,27 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { UTILS_NFVALIDATION_PLUGIN } from '../../nf-core/utils_nfvalidation_plugin'
-include { paramsSummaryMap          } from 'plugin/nf-validation'
-include { fromSamplesheet           } from 'plugin/nf-validation'
-include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
+include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
+include { paramsSummaryMap          } from 'plugin/nf-schema'
+include { samplesheetToList         } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
-include { dashedLine                } from '../../nf-core/utils_nfcore_pipeline'
-include { nfCoreLogo                } from '../../nf-core/utils_nfcore_pipeline'
 include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
-include { workflowCitation          } from '../../nf-core/utils_nfcore_pipeline'
+include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 include { GET_REGION                } from '../get_region'
 include { SAMTOOLS_FAIDX            } from '../../../modules/nf-core/samtools/faidx'
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     SUBWORKFLOW TO INITIALISE PIPELINE
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 workflow PIPELINE_INITIALISATION {
 
     take:
     version           // boolean: Display version and exit
-    help              // boolean: Display help text
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
     monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
@@ -53,20 +49,16 @@ workflow PIPELINE_INITIALISATION {
         workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1
     )
 
+
     //
     // Validate parameters and generate parameter summary to stdout
     //
-    pre_help_text = nfCoreLogo(monochrome_logs)
-    post_help_text = '\n' + workflowCitation() + '\n' + dashedLine(monochrome_logs)
-    def String workflow_command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
-    UTILS_NFVALIDATION_PLUGIN (
-        help,
-        workflow_command,
-        pre_help_text,
-        post_help_text,
+    UTILS_NFSCHEMA_PLUGIN (
+        workflow,
         validate_params,
-        "nextflow_schema.json"
+        null
     )
+
 
     //
     // Check config provided to the pipeline
@@ -111,11 +103,11 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.input) {
         ch_input = Channel
-        .fromSamplesheet("input")
-        .map {
-            meta, file, index ->
-                [ meta, file, index ]
+        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .map { samplesheet ->
+            validateInputSamplesheet(samplesheet)
         }
+
         // Check if all extension are identical
         getAllFilesExtension(ch_input)
     } else {
@@ -127,7 +119,7 @@ workflow PIPELINE_INITIALISATION {
     if (params.input_truth) {
         if (params.input_truth.endsWith("csv")) {
             ch_input_truth = Channel
-                .fromSamplesheet("input_truth")
+                .fromList(samplesheetToList(params.input_truth, "${projectDir}/assets/schema_input.json"))
                 .map {
                     meta, file, index ->
                         [ meta, file, index ]
@@ -148,7 +140,9 @@ workflow PIPELINE_INITIALISATION {
     if (params.panel) {
         if (params.panel.endsWith("csv")) {
             println "Panel file provided as input is a samplesheet"
-            ch_panel = Channel.fromSamplesheet("panel")
+            ch_panel = Channel.fromList(samplesheetToList(
+                params.panel, "${projectDir}/assets/schema_input_panel.json"
+            ))
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
@@ -168,9 +162,11 @@ workflow PIPELINE_INITIALISATION {
         ch_regions  = GET_REGION.out.regions
     }  else  if (params.input_region.endsWith(".csv")) {
         println "Region file provided as input is a csv file"
-        ch_regions = Channel.fromSamplesheet("input_region")
-            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-            .map{ metaC, region -> [metaC + ["region": region], region]}
+        ch_regions = Channel.fromList(samplesheetToList(
+            params.input_region, "${projectDir}/assets/schema_input_region.json"
+        ))
+        .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+        .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
     }
@@ -181,7 +177,7 @@ workflow PIPELINE_INITIALISATION {
     if (params.map) {
         if (params.map.endsWith(".csv")) {
             println "Map file provided as input is a samplesheet"
-            ch_map = Channel.fromSamplesheet("map")
+            ch_map = Channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
@@ -212,8 +208,8 @@ workflow PIPELINE_INITIALISATION {
     // Create posfile channel
     //
     if (params.posfile) {
-        ch_posfile = Channel
-                .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "hap", "legend"]
+        ch_posfile = Channel // ["panel", "chr", "vcf", "index", "hap", "legend"]
+            .fromList(samplesheetToList(params.posfile, "${projectDir}/assets/schema_posfile.json"))
     } else {
         ch_posfile = Channel.of([[],[],[],[],[]])
     }
@@ -223,7 +219,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.chunks) {
         ch_chunks = Channel
-            .fromSamplesheet("chunks")
+            .fromList(samplesheetToList(params.chunks, "${projectDir}/assets/schema_chunks.json"))
     } else {
         ch_chunks = Channel.of([[],[]])
     }
@@ -272,9 +268,9 @@ workflow PIPELINE_INITIALISATION {
 }
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     SUBWORKFLOW FOR PIPELINE COMPLETION
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 workflow PIPELINE_COMPLETION {
@@ -283,13 +279,13 @@ workflow PIPELINE_COMPLETION {
     email           //  string: email address
     email_on_fail   //  string: email address sent on pipeline failure
     plaintext_email // boolean: Send plain-text email instead of HTML
+
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
     hook_url        //  string: hook URL for notifications
     multiqc_report  //  string: Path to MultiQC report
 
     main:
-
     summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
 
     //
@@ -297,11 +293,18 @@ workflow PIPELINE_COMPLETION {
     //
     workflow.onComplete {
         if (email || email_on_fail) {
-            completionEmail(summary_params, email, email_on_fail, plaintext_email, outdir, monochrome_logs, multiqc_report.toList())
+            completionEmail(
+                summary_params,
+                email,
+                email_on_fail,
+                plaintext_email,
+                outdir,
+                monochrome_logs,
+                multiqc_report.toList()
+            )
         }
 
         completionSummary(monochrome_logs)
-
         if (hook_url) {
             imNotification(summary_params, hook_url)
         }
@@ -313,9 +316,9 @@ workflow PIPELINE_COMPLETION {
 }
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     FUNCTIONS
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 //
 // Check and validate pipeline parameters
@@ -508,7 +511,9 @@ def exportCsv(ch_files, metas, header, name, outdir) {
 def validateInputSamplesheet(input) {
     def (meta, bam, bai) = input
     // Check that individual IDs are unique
-    // no validation for the moment
+    // No check for the moment
+
+    return [meta, bam, bai]
 }
 
 //
@@ -536,7 +541,6 @@ def genomeExistsError() {
         error(error_string)
     }
 }
-
 //
 // Generate methods description for MultiQC
 //
@@ -578,8 +582,10 @@ def methodsDescriptionText(mqc_methods_yaml) {
         // Removing `https://doi.org/` to handle pipelines using DOIs vs DOI resolvers
         // Removing ` ` since the manifest.doi is a string and not a proper list
         def temp_doi_ref = ""
-        String[] manifest_doi = meta.manifest_map.doi.tokenize(",")
-        for (String doi_ref: manifest_doi) temp_doi_ref += "(doi: <a href=\'https://doi.org/${doi_ref.replace("https://doi.org/", "").replace(" ", "")}\'>${doi_ref.replace("https://doi.org/", "").replace(" ", "")}</a>), "
+        def manifest_doi = meta.manifest_map.doi.tokenize(",")
+        manifest_doi.each { doi_ref ->
+            temp_doi_ref += "(doi: <a href=\'https://doi.org/${doi_ref.replace("https://doi.org/", "").replace(" ", "")}\'>${doi_ref.replace("https://doi.org/", "").replace(" ", "")}</a>), "
+        }
         meta["doi_text"] = temp_doi_ref.substring(0, temp_doi_ref.length() - 2)
     } else meta["doi_text"] = ""
     meta["nodoi_text"] = meta.manifest_map.doi ? "" : "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
@@ -600,3 +606,4 @@ def methodsDescriptionText(mqc_methods_yaml) {
 
     return description_html.toString()
 }
+

@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_chunks.json",
     "title": "nf-core/phaseimpute pipeline - params.chunks schema",
     "description": "Schema for the file provided with params.chunks",
