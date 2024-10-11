@@ -110,7 +110,7 @@ workflow PIPELINE_INITIALISATION {
         }
 
         // Check if all extension are identical
-        getAllFilesExtension(ch_input)
+        getFilesSameExt(ch_input)
     } else {
         ch_input = Channel.of([[], [], []])
     }
@@ -126,7 +126,7 @@ workflow PIPELINE_INITIALISATION {
                         [ meta, file, index ]
                 }
             // Check if all extension are identical
-            getAllFilesExtension(ch_input_truth)
+            getFilesSameExt(ch_input_truth)
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
@@ -376,6 +376,13 @@ def validateInputParameters() {
     if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
+
+    // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
+    if (params.steps.split(',').find { it in ["all", "panelprep"] } && params.remove_samples) {
+        if (!params.normalize) {
+            error("To use `--remove_samples` you need to include `--normalize`.")
+        }
+    }
 }
 
 //
@@ -409,34 +416,32 @@ def checkMetaChr(chr_a, chr_b, name){
 //
 // Get file extension
 //
-def getFileExtension(file_name) {
-    if (file_name instanceof String) {
-        return file_name.replace(".gz","").split("\\.").last()
-    } else if (file_name instanceof Path) {
-        return file_name.getName().replace(".gz","").split("\\.").last()
-    } else if (file_name instanceof ArrayList) {
-        if (file_name.size()==0) {
-            return "empty"
-        } else {
-            error "Array not supported"
-        }
-    } else {
-        error "Type not supported: ${file_name.getClass()}"
+def getFileExtension(file) {
+    def ext = null
+    if (file instanceof Path) {
+        file = file.getName()
+    } else if (file instanceof ArrayList & file.size() == 0) {
+        error "Array not supported"
     }
+    if (file instanceof String) {
+        ext = file.replace(".gz","").split("\\.").last()
+    } else {
+        error "Type not supported: ${file.getClass()}"
+    }
+    return ext
 }
 
 //
 // Check if all input files have the same extension
 //
-def getAllFilesExtension(ch_input) {
-    files_ext = ch_input
+def getFilesSameExt(ch_input) {
+    ch_input
         .map { getFileExtension(it[1]) } // Extract files extensions
         .toList()  // Collect extensions into a list
         .map { extensions ->
             if (extensions.unique().size() > 1) {
                 error "All input files must have the same extension: ${extensions.unique()}"
             }
-            return extensions[0]
         }
 }
 
@@ -444,39 +449,25 @@ def getAllFilesExtension(ch_input) {
 // Check correspondance file / index
 //
 def checkFileIndex(ch_input) {
-    ch_input
-        .subscribe{
-            meta, file, index ->
-            if (file == []) {
-                if (index != []) {
-                    error "${meta}: Index file provided without corresponding file"
-                }
-                if ( meta != []) {
-                    error "${meta}: No file provided"
-                }
-            }
-            if (file != [] && index == []) {
-                error "${meta}: No index file provided"
-            }
-            def file_ext = getFileExtension(file)
-            def index_ext = getFileExtension(index)
-            if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
-                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
-            }
-            if (file_ext == "bam" && index_ext != "bai") {
-                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                error "${meta}: Index file for .bam must have the extension .bai"
-            }
-            if (file_ext == "cram" && index_ext != "crai") {
-                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                error "${meta}: Index file for .cram must have the extension .crai"
-            }
-            if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
-                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                error "${meta}: Index file for [fa, fasta] must have the extension .fai"
-            }
+    ch_input.map {
+        meta, file, index ->
+        println("file: ${file}")
+        def file_ext = getFileExtension(file)
+        def index_ext = getFileExtension(index)
+        if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+            log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+            error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
         }
+        if (file_ext == "bam" && index_ext != "bai") {
+            error "${meta}: Index file for .bam must have the extension .bai"
+        }
+        if (file_ext == "cram" && index_ext != "crai") {
+            error "${meta}: Index file for .cram must have the extension .crai"
+        }
+        if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+            error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+        }
+    }
     return null
 }
 
@@ -485,15 +476,15 @@ def checkFileIndex(ch_input) {
 //
 def exportCsv(ch_files, metas, header, name, outdir) {
     ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
-        meta = ""
-        file = ""
+        def meta = ""
+        def file = ""
         for (i in metas) {
             meta += "${it[0][i]},"
         }
         for (i in it[1]) {
             file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
         }
-        file=file.substring(0, file.length() - 1) // remove last comma
+        file = file.substring(0, file.length() - 1) // remove last comma
         ["${name}", "${header}\n${meta}${file}\n"]
     }
     return null

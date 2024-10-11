@@ -113,6 +113,11 @@
                     "type": "boolean",
                     "pattern": "true|false"
                 },
+                "normalize": {
+                    "description": "Should the reference panel be normalized",
+                    "type": "boolean",
+                    "pattern": "true|false"
+                },
                 "compute_freq": {
                     "description": "Should the allele frequency for each variant (AC/AN fields necessary for Glimpse1 and the validation step) be computed using VCFFIXUP tool. This can be necessary if the fields are absent from the panel or if samples have been removed.",
                     "type": "boolean",
