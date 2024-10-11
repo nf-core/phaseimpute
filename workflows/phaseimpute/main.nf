@@ -12,7 +12,7 @@ include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getFilesSameExt        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { exportCsv                   } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
@@ -93,7 +93,7 @@ workflow PHASEIMPUTE {
     //
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Test if the input are all bam files
-        getAllFilesExtension(ch_input_sim)
+        getFilesSameExt(ch_input_sim)
             .map{ if (it != "bam" & it != "cram") {
                 error "All input files must be in the same format, either BAM or CRAM, to perform simulation"
             } }
@@ -357,7 +357,7 @@ workflow PHASEIMPUTE {
         ch_truth_vcf = Channel.empty()
 
         // Get extension of input files
-        truth_ext = getAllFilesExtension(ch_input_truth)
+        truth_ext = getFilesSameExt(ch_input_truth)
 
         // Channels for branching
         ch_truth = ch_input_truth
