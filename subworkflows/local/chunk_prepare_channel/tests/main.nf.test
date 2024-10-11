@@ -1,0 +1,87 @@
+nextflow_workflow {
+
+    name "Test Subworkflow CHUNK_PREPARE_CHANNEL"
+    script "../main.nf"
+
+    workflow "CHUNK_PREPARE_CHANNEL"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/chunk_prepare_channel"
+    tag "chunk_prepare_channel"
+
+    test("Prepare chunks channel Glimpse") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
+                ])
+                input[1] = "glimpse"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+            )
+        }
+    }
+
+    test("Prepare chunks channel Quilt") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
+                ])
+                input[1] = "quilt"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+            )
+        }
+    }
+
+    test("Prepare chunks channel error tool") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
+                ])
+                input[1] = "glimpse2"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert snapshot(workflow.stdout).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,111 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_NORMALIZE_BCFTOOLS"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_NORMALIZE_BCFTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_normalize_bcftools"
+    tag "vcf_normalize_bcftools"
+
+    tag "bcftools"
+    tag "bcftools/norm"
+    tag "bcftools/view"
+    tag "bcftools/index"
+    tag "vcflib"
+    tag "vcflib/vcffixup"
+
+
+    test("Normalize vcf without computing frequencies nor removing samples") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+                compute_freq = false
+                remove_samples = null
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]
+                )
+                input[1] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_tbi.collect{
+                    path(it[1]).vcf.summary
+                    }).match("Normalize content")
+                },
+                { workflow.out.vcf_tbi.collect{
+                    assert path(it[1]).vcf.variantCount == path(it[1]).vcf.noSnps
+                }}
+            )
+        }
+    }
+
+    test("Normalize vcf with computing frequencies after removing samples") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+                compute_freq = true
+                remove_samples = "HG00109,HG00110,HG00111,HG00112,HG00113,HG00114"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]
+                )
+                input[1] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_tbi.collect{
+                    path(it[1]).vcf.summary
+                    }).match("Norm content recomputed")
+                }
+            )
+        }
+    }
+}

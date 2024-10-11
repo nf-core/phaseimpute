@@ -1,0 +1,2 @@
+subworkflows/vcf_concordance_glimpse2:
+  - subworkflows/local/vcf_concordance_glimpse2/**

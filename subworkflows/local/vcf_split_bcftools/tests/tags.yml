@@ -1,0 +1,2 @@
+subworkflows/vcf_split_bcftools:
+  - subworkflows/local/vcf_split_bcftools/**

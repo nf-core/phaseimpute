@@ -16,6 +16,8 @@ include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
 include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
+include { GET_REGION                } from '../get_region'
+include { SAMTOOLS_FAIDX            } from '../../../modules/nf-core/samtools/faidx'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,7 +37,7 @@ workflow PIPELINE_INITIALISATION {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -47,6 +49,7 @@ workflow PIPELINE_INITIALISATION {
         workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1
     )
 
+
     //
     // Validate parameters and generate parameter summary to stdout
     //
@@ -55,6 +58,7 @@ workflow PIPELINE_INITIALISATION {
         validate_params,
         null
     )
+
 
     //
     // Check config provided to the pipeline
@@ -69,32 +73,199 @@ workflow PIPELINE_INITIALISATION {
     validateInputParameters()
 
     //
-    // Create channel from input file provided through params.input
+    // Create fasta channel
     //
 
-    Channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
-        .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
+    genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
+    if (params.genome) {
+        genome = params.genome
+        ch_fasta  = Channel.of([[genome:genome], getGenomeAttribute('fasta')])
+        fai       = getGenomeAttribute('fai')
+        if (fai == null) {
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
+            fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }
-        .groupTuple()
+    } else if (params.fasta) {
+        genome = file(params.fasta, checkIfExists:true).getBaseName()
+        ch_fasta  = Channel.of([[genome:genome], file(params.fasta, checkIfExists:true)])
+        if (params.fasta_fai) {
+            fai = Channel.of(file(params.fasta_fai, checkIfExists:true))
+        } else {
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
+            fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
+        }
+    }
+    ch_ref_gen = ch_fasta.combine(fai).collect()
+
+    //
+    // Create channel from input file provided through params.input
+    //
+    if (params.input) {
+        ch_input = Channel
+        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
         .map { samplesheet ->
             validateInputSamplesheet(samplesheet)
         }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
+
+        // Check if all extension are identical
+        getAllFilesExtension(ch_input)
+    } else {
+        ch_input = Channel.of([[], [], []])
+    }
+    //
+    // Create channel from input file provided through params.input_truth
+    //
+    if (params.input_truth) {
+        if (params.input_truth.endsWith("csv")) {
+            ch_input_truth = Channel
+                .fromList(samplesheetToList(params.input_truth, "${projectDir}/assets/schema_input.json"))
+                .map {
+                    meta, file, index ->
+                        [ meta, file, index ]
+                }
+            // Check if all extension are identical
+            getAllFilesExtension(ch_input_truth)
+        } else {
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
-        .set { ch_samplesheet }
+    } else {
+        ch_input_truth = Channel.of([[], [], []])
+    }
+
+    //
+    // Create channel for panel
+    //
+    if (params.panel) {
+        if (params.panel.endsWith("csv")) {
+            println "Panel file provided as input is a samplesheet"
+            ch_panel = Channel.fromList(samplesheetToList(
+                params.panel, "${projectDir}/assets/schema_input_panel.json"
+            ))
+        } else {
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
+        }
+    } else {
+        // #TODO check if panel is required
+        ch_panel        = Channel.of([[],[],[]])
+    }
+
+    //
+    // Create channel from region input
+    //
+    if (params.input_region == null){
+        // #TODO Add support for string input
+        GET_REGION ("all", ch_ref_gen)
+        ch_versions = ch_versions.mix(GET_REGION.out.versions)
+        ch_regions  = GET_REGION.out.regions
+    }  else  if (params.input_region.endsWith(".csv")) {
+        println "Region file provided as input is a csv file"
+        ch_regions = Channel.fromList(samplesheetToList(
+            params.input_region, "${projectDir}/assets/schema_input_region.json"
+        ))
+        .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+        .map{ metaC, region -> [metaC + ["region": region], region]}
+    } else {
+        error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
+    }
+
+    //
+    // Create map channel
+    //
+    if (params.map) {
+        if (params.map.endsWith(".csv")) {
+            println "Map file provided as input is a samplesheet"
+            ch_map = Channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
+        } else {
+            error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
+        }
+    } else {
+        ch_map = ch_regions
+            .map{ metaCR, regions -> [metaCR.subMap("chr"), []] }
+    }
+
+    //
+    // Create depth channel
+    //
+    if (params.depth) {
+        ch_depth = Channel.of([[depth: params.depth], params.depth])
+    } else {
+        ch_depth = Channel.of([[],[]])
+    }
+
+    //
+    // Create genotype array channel
+    //
+    if (params.genotype) {
+        ch_genotype = Channel.of([[gparray: params.genotype], params.genotype])
+    } else {
+        ch_genotype = Channel.of([[],[]])
+    }
+
+    //
+    // Create posfile channel
+    //
+    if (params.posfile) {
+        ch_posfile = Channel // ["panel", "chr", "vcf", "index", "hap", "legend"]
+            .fromList(samplesheetToList(params.posfile, "${projectDir}/assets/schema_posfile.json"))
+    } else {
+        ch_posfile = Channel.of([[],[],[],[],[]])
+    }
+
+    //
+    // Create chunks channel
+    //
+    if (params.chunks) {
+        ch_chunks = Channel
+            .fromList(samplesheetToList(params.chunks, "${projectDir}/assets/schema_chunks.json"))
+    } else {
+        ch_chunks = Channel.of([[],[]])
+    }
+
+    //
+    // Check contigs name in different meta map
+    //
+    // Collect all chromosomes names in all different inputs
+    chr_ref = ch_ref_gen.map { meta, fasta, fai -> [fai.readLines()*.split('\t').collect{it[0]}] }
+    chr_regions = extractChr(ch_regions)
+
+    // Check that the chromosomes names that will be used are all present in different inputs
+    chr_ref_mis     = checkMetaChr(chr_regions, chr_ref, "reference genome")
+    chr_chunks_mis  = checkMetaChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
+    chr_map_mis     = checkMetaChr(chr_regions, extractChr(ch_map), "genetic map")
+    chr_panel_mis   = checkMetaChr(chr_regions, extractChr(ch_panel), "reference panel")
+    chr_posfile_mis = checkMetaChr(chr_regions, extractChr(ch_posfile), "position")
+
+    // Compute the intersection of all chromosomes names
+    chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
+        .unique()
+        .toList()
+        .subscribe{ chr ->  if (chr.size() > 0) { log.warn "The following contigs are absent from at least one file : ${chr} and therefore won't be used" } }
+
+    ch_regions = ch_regions
+        .combine(chr_all_mis.toList())
+        .filter { meta, regions, chr_mis ->
+            !(meta.chr in chr_mis)
+        }
+        .map { meta, regions, chr_mis -> [meta, regions] }
+
+    // Check that all input files have the correct index
+    checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
     emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
+    input                = ch_input         // [ [meta], file, index ]
+    input_truth          = ch_input_truth   // [ [meta], file, index ]
+    fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
+    panel                = ch_panel         // [ [panel, chr], vcf, index ]
+    depth                = ch_depth         // [ [depth], depth ]
+    regions              = ch_regions       // [ [chr, region], region ]
+    gmap                 = ch_map           // [ [map], map ]
+    posfile              = ch_posfile       // [ [panel, chr], vcf, index, hap, legend ]
+    chunks               = ch_chunks        // [ [chr], txt ]
+    versions             = ch_versions
 }
 
 /*
@@ -109,6 +280,7 @@ workflow PIPELINE_COMPLETION {
     email           //  string: email address
     email_on_fail   //  string: email address sent on pipeline failure
     plaintext_email // boolean: Send plain-text email instead of HTML
+
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
     hook_url        //  string: hook URL for notifications
@@ -154,22 +326,190 @@ workflow PIPELINE_COMPLETION {
 //
 def validateInputParameters() {
     genomeExistsError()
+    // Check that only genome or fasta is provided
+    assert params.genome == null || params.fasta == null, "Either --genome or --fasta must be provided"
+    assert !(params.genome == null && params.fasta == null), "Only one of --genome or --fasta must be provided"
+
+    // Check that a steps is provided
+    assert params.steps, "A step must be provided"
+
+    // Check that at least one tool is provided
+    if (params.steps.split(',').contains("impute")) {
+        assert params.tools, "No tools provided"
+    }
+
+    // Check that input is provided for all steps, except panelprep
+    if (params.steps.split(',').contains("all") || params.steps.split(',').contains("impute") || params.steps.split(',').contains("simulate") || params.steps.split(',').contains("validate")) {
+        assert params.input, "No input provided"
+    }
+
+    // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
+    if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+        // Required by all tools except glimpse2
+        if (!params.tools.split(',').find { it in ["glimpse2"] }) {
+                assert params.posfile, "No --posfile provided for --steps impute"
+        }
+        // Required by all tools except STITCH
+        if (params.tools != "stitch") {
+                assert params.chunks, "No --chunks provided for --steps impute"
+        }
+        // Required by GLIMPSE1 and GLIMPSE2 only
+        if (params.tools.split(',').contains("glimpse")) {
+                assert params.panel, "No --panel provided for imputation with GLIMPSE"
+        }
+
+        // Check that input_truth is provided when running validate
+        if (params.steps.split(',').find { it in ["all", "validate"] } ) {
+            assert params.input_truth, "No --input_truth was provided for --steps validate"
+        }
+    }
+
+    // Emit a warning if both panel and (chunks || posfile) are used as input
+    if (params.panel && params.chunks && params.steps.split(',').find { it in ["all", "panelprep"]} ) {
+        log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps impute` mode.")
+    }
+    if (params.panel && params.posfile && params.steps.split(',').find { it in ["all", "panelprep"]} ) {
+        log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
+    }
+
+    // Emit an info message when using external panel and impute only
+    if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
+        log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
+    }
+}
+
+//
+// Extract contig names from channel meta map
+//
+def extractChr(ch_input) {
+    ch_input.map { [it[0].chr] }
+        .collect()
+        .toList()
+}
+
+//
+// Check if all contigs in a are present in b
+// Give back the intersection of a and b
+//
+def checkMetaChr(chr_a, chr_b, name){
+    intersect = chr_a
+        .combine(chr_b)
+        .map{
+            a, b ->
+            if (b != [[]] && !(a - b).isEmpty()) {
+                log.warn "Chr : ${a - b} is missing from ${name}"
+                return (a-b)
+            }
+            return []
+        }
+        .flatten()
+    return intersect
+}
+
+//
+// Get file extension
+//
+def getFileExtension(file_name) {
+    if (file_name instanceof String) {
+        return file_name.replace(".gz","").split("\\.").last()
+    } else if (file_name instanceof Path) {
+        return file_name.getName().replace(".gz","").split("\\.").last()
+    } else if (file_name instanceof ArrayList) {
+        if (file_name.size()==0) {
+            return "empty"
+        } else {
+            error "Array not supported"
+        }
+    } else {
+        error "Type not supported: ${file_name.getClass()}"
+    }
+}
+
+//
+// Check if all input files have the same extension
+//
+def getAllFilesExtension(ch_input) {
+    files_ext = ch_input
+        .map { getFileExtension(it[1]) } // Extract files extensions
+        .toList()  // Collect extensions into a list
+        .map { extensions ->
+            if (extensions.unique().size() > 1) {
+                error "All input files must have the same extension: ${extensions.unique()}"
+            }
+            return extensions[0]
+        }
+}
+
+//
+// Check correspondance file / index
+//
+def checkFileIndex(ch_input) {
+    ch_input
+        .subscribe{
+            meta, file, index ->
+            if (file == []) {
+                if (index != []) {
+                    error "${meta}: Index file provided without corresponding file"
+                }
+                if ( meta != []) {
+                    error "${meta}: No file provided"
+                }
+            }
+            if (file != [] && index == []) {
+                error "${meta}: No index file provided"
+            }
+            def file_ext = getFileExtension(file)
+            def index_ext = getFileExtension(index)
+            if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
+            }
+            if (file_ext == "bam" && index_ext != "bai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for .bam must have the extension .bai"
+            }
+            if (file_ext == "cram" && index_ext != "crai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for .cram must have the extension .crai"
+            }
+            if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+                error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+            }
+        }
+    return null
+}
+
+//
+// Export a channel to a CSV file with correct paths
+//
+def exportCsv(ch_files, metas, header, name, outdir) {
+    ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
+        meta = ""
+        file = ""
+        for (i in metas) {
+            meta += "${it[0][i]},"
+        }
+        for (i in it[1]) {
+            file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
+        }
+        file=file.substring(0, file.length() - 1) // remove last comma
+        ["${name}", "${header}\n${meta}${file}\n"]
+    }
+    return null
 }
 
 //
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    def (metas, fastqs) = input[1..2]
+    def (meta, bam, bai) = input
+    // Check that individual IDs are unique
+    // No check for the moment
 
-    // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    def endedness_ok = metas.collect{ meta -> meta.single_end }.unique().size == 1
-    if (!endedness_ok) {
-        error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
-    }
-
-    return [ metas[0], fastqs ]
+    return [meta, bam, bai]
 }
+
 //
 // Get attribute from genome config file e.g. fasta
 //

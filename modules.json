@@ -5,14 +5,203 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
-                    "fastqc": {
+                    "bcftools/annotate": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "c1a7fa1c038061b344f2a41be71942061ec40d2e",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bcftools/annotate/bcftools-annotate.diff"
+                    },
+                    "bcftools/concat": {
+                        "branch": "master",
+                        "git_sha": "33ef773a7ea36e88323902f63662aa53c9b88988",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bcftools/concat/bcftools-concat.diff"
+                    },
+                    "bcftools/convert": {
+                        "branch": "master",
+                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/index": {
+                        "branch": "master",
+                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
+                        "installed_by": ["bam_impute_glimpse", "vcf_phase_shapeit5"]
+                    },
+                    "bcftools/merge": {
+                        "branch": "master",
+                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bcftools/merge/bcftools-merge.diff"
+                    },
+                    "bcftools/mpileup": {
+                        "branch": "master",
+                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bcftools/mpileup/bcftools-mpileup.diff"
+                    },
+                    "bcftools/norm": {
+                        "branch": "master",
+                        "git_sha": "33ef773a7ea36e88323902f63662aa53c9b88988",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/pluginsplit": {
+                        "branch": "master",
+                        "git_sha": "c5abf7acbb2943bf09f4025cacbbcc2bc2292637",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bcftools/pluginsplit/bcftools-pluginsplit.diff"
+                    },
+                    "bcftools/stats": {
+                        "branch": "master",
+                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/view": {
+                        "branch": "master",
+                        "git_sha": "33ef773a7ea36e88323902f63662aa53c9b88988",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/makewindows": {
+                        "branch": "master",
+                        "git_sha": "3b248b84694d1939ac4bb33df84bf6233a34d668",
+                        "installed_by": ["vcf_phase_shapeit5"]
+                    },
+                    "custom/dumpsoftwareversions": {
+                        "branch": "master",
+                        "git_sha": "82024cf6325d2ee194e7f056d841ecad2f6856e9",
+                        "installed_by": ["modules"]
+                    },
+                    "gawk": {
+                        "branch": "master",
+                        "git_sha": "cf3ed075695639b0a0924eb0901146df1996dc08",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/gawk/gawk.diff"
+                    },
+                    "glimpse/chunk": {
+                        "branch": "master",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
+                        "installed_by": ["bam_impute_glimpse"]
+                    },
+                    "glimpse/ligate": {
+                        "branch": "master",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
+                        "installed_by": ["bam_impute_glimpse"]
+                    },
+                    "glimpse/phase": {
+                        "branch": "master",
+                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
+                        "installed_by": ["bam_impute_glimpse"]
+                    },
+                    "glimpse2/chunk": {
+                        "branch": "master",
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/glimpse2/chunk/glimpse2-chunk.diff"
+                    },
+                    "glimpse2/concordance": {
+                        "branch": "master",
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"]
+                    },
+                    "glimpse2/ligate": {
+                        "branch": "master",
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"]
+                    },
+                    "glimpse2/phase": {
+                        "branch": "master",
+                        "git_sha": "6a5a6e1dedc88826744e8117c1974dcca4829d8f",
+                        "installed_by": ["modules"]
+                    },
+                    "glimpse2/splitreference": {
+                        "branch": "master",
+                        "git_sha": "d735292b38270792799d18d3b4948ea4f815b5a7",
+                        "installed_by": ["modules"]
+                    },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "cf17ca47590cc578dfb47db1c2a44ef86f89976d",
+                        "git_sha": "b8d36829fa84b6e404364abff787e8b07f6d058c",
+                        "installed_by": ["modules"]
+                    },
+                    "quilt/quilt": {
+                        "branch": "master",
+                        "git_sha": "46265545d61e7f482adf40de941cc9a94e479bbe",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/coverage": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/coverage/samtools-coverage.diff"
+                    },
+                    "samtools/depth": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/depth/samtools-depth.diff"
+                    },
+                    "samtools/faidx": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/index": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/merge": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/merge/samtools-merge.diff"
+                    },
+                    "samtools/reheader": {
+                        "branch": "master",
+                        "git_sha": "d5622b05dd40dd3a4c9739151606d473266f5313",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/reheader/samtools-reheader.diff"
+                    },
+                    "samtools/view": {
+                        "branch": "master",
+                        "git_sha": "6c2309aaec566c0d44a6cf14d4b2d0c51afe2e91",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/view/samtools-view.diff"
+                    },
+                    "shapeit5/ligate": {
+                        "branch": "master",
+                        "git_sha": "dcf17cc0ed8fd5ea57e61a13e0147cddb5c1ee30",
+                        "installed_by": ["vcf_phase_shapeit5"]
+                    },
+                    "shapeit5/phasecommon": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["vcf_phase_shapeit5"],
+                        "patch": "modules/nf-core/shapeit5/phasecommon/shapeit5-phasecommon.diff"
+                    },
+                    "stitch": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/stitch/stitch.diff"
+                    },
+                    "tabix/bgzip": {
+                        "branch": "master",
+                        "git_sha": "09d3c8c29b31a2dfd610305b10550f0e1dbcd4a9",
+                        "installed_by": ["modules"]
+                    },
+                    "tabix/tabix": {
+                        "branch": "master",
+                        "git_sha": "9502adb23c0b97ed8e616bbbdfa73b4585aec9a1",
+                        "installed_by": ["modules"]
+                    },
+                    "vcflib/vcffixup": {
+                        "branch": "master",
+                        "git_sha": "072cf562e143252953a1b5c5ed38ec55eaa930c8",
                         "installed_by": ["modules"]
                     }
                 }
@@ -21,12 +210,12 @@
                 "nf-core": {
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "3aa0aec1d52d492fe241919f0c6100ebf0074082",
+                        "git_sha": "9d05360da397692321d377b6102d2fb22507c6ef",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "1b6b9a3338d011367137808b49b923515080e3ba",
+                        "git_sha": "772684d9d66f37b650c8ba5146ac1ee3ecba2acb",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {

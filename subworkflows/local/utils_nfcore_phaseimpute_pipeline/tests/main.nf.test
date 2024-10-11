@@ -1,0 +1,104 @@
+nextflow_workflow {
+
+    name "Test Workflow PIPELINE_INITIALISATION"
+    script "../main.nf"
+    workflow "PIPELINE_INITIALISATION"
+    tag 'subworkflows'
+    tag 'utils_nfcore_phaseimpute_pipeline'
+    tag 'subworkflows/utils_nfcore_phaseimpute_pipeline'
+
+    test("Should run with no error") {
+        when {
+            params {
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
+                steps = "panelprep"
+                map = "../../../tests/csv/map.csv"
+                chunks = "../../../tests/csv/chunks.csv"
+                posfile = "../../../tests/csv/posfile.csv"
+                panel = "../../../tests/csv/panel.csv"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = false
+                input[4] = []
+                input[5] = "results"
+                input[6] = ""
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success }
+            )
+        }
+    }
+
+    test("Should give a warning all file given") {
+        when {
+            params {
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
+                steps = "panelprep"
+                map = "../../../tests/csv/map.csv"
+                chunks = "../../../tests/csv/chunks.csv"
+                posfile = "../../../tests/csv/posfile.csv"
+                panel = "../../../tests/csv/panel.csv"
+                input_region = "$moduleTestDir/region.csv"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = false
+                input[4] = []
+                input[5] = "results"
+                input[6] = ""
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: The following contigs are absent from at least one file : [chr2] and therefore won't be used")}
+            )
+        }
+    }
+
+    test("Should give a warning with missing files") {
+        when {
+            params {
+                fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
+                steps = "panelprep"
+                chunks = "../../../tests/csv/chunks.csv"
+                panel = "../../../tests/csv/panel.csv"
+                input_region = "$moduleTestDir/region.csv"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = false
+                input[4] = []
+                input[5] = "results"
+                input[6] = ""
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: The following contigs are absent from at least one file : [chr2] and therefore won't be used")}
+            )
+        }
+    }
+}
