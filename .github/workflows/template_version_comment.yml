@@ -38,7 +38,7 @@ jobs:
           message: |
             > [!WARNING]
             > Newer version of the nf-core template is available.
-            >
+            > 
             > Your pipeline is using an old version of the nf-core template: ${{ steps.read_yml.outputs['nf_core_version'] }}.
             > Please update your pipeline to the latest version.
             >
