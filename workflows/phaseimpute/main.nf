@@ -391,7 +391,8 @@ workflow PHASEIMPUTE {
             [[],[]],
             [[],[]],
             [[],[]],
-            ch_fasta.map{ [it[0], it[1]] })
+            ch_fasta.map{ [it[0], it[1]] }
+        )
         ch_versions = ch_versions.mix(BCFTOOLS_STATS_TRUTH.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TRUTH.out.stats.map{ [it[1]] })
 
