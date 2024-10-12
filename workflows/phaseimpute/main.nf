@@ -12,7 +12,8 @@ include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { getFilesSameExt        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getFilesSameExt             } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getFileExtension            } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { exportCsv                   } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
@@ -95,7 +96,7 @@ workflow PHASEIMPUTE {
         // Test if the input are all bam files
         getFilesSameExt(ch_input_sim)
             .map{ if (it != "bam" & it != "cram") {
-                error "All input files must be in the same format, either BAM or CRAM, to perform simulation"
+                error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${it}"
             } }
 
         if (params.input_region) {
@@ -337,7 +338,6 @@ workflow PHASEIMPUTE {
     }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
-
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
@@ -356,12 +356,9 @@ workflow PHASEIMPUTE {
 
         ch_truth_vcf = Channel.empty()
 
-        // Get extension of input files
-        truth_ext = getFilesSameExt(ch_input_truth)
-
         // Channels for branching
         ch_truth = ch_input_truth
-            .combine(truth_ext)
+            .map { [it[0], it[1], it[2], getFileExtension(it[1])] }
             .branch {
                 bam: it[3] =~ 'bam|cram'
                 vcf: it[3] =~ '(vcf|bcf)(.gz)*'

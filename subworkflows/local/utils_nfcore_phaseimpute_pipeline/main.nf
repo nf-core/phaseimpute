@@ -418,7 +418,7 @@ def checkMetaChr(chr_a, chr_b, name){
 //
 def getFileExtension(file) {
     if (file instanceof Path) {
-        return file.getName()
+        file = file.getName()
     } else if (file instanceof ArrayList) {
         if (file.size() == 0) {
             return null
@@ -437,13 +437,14 @@ def getFileExtension(file) {
 // Check if all input files have the same extension
 //
 def getFilesSameExt(ch_input) {
-    ch_input
+    return ch_input
         .map { getFileExtension(it[1]) } // Extract files extensions
         .toList()  // Collect extensions into a list
         .map { extensions ->
             if (extensions.unique().size() > 1) {
                 error "All input files must have the same extension: ${extensions.unique()}"
             }
+            return extensions[0]
         }
 }
 
