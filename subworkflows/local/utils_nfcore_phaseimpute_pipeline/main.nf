@@ -417,18 +417,20 @@ def checkMetaChr(chr_a, chr_b, name){
 // Get file extension
 //
 def getFileExtension(file) {
-    def ext = null
     if (file instanceof Path) {
-        file = file.getName()
-    } else if (file instanceof ArrayList & file.size() == 0) {
-        error "Array not supported"
+        return file.getName()
+    } else if (file instanceof ArrayList) {
+        if (file.size() == 0) {
+            return null
+        } else {
+            error "Type not supported: ${file} = ${file.getClass()}"
+        }
     }
     if (file instanceof String) {
-        ext = file.replace(".gz","").split("\\.").last()
+        return file.replace(".gz","").split("\\.").last()
     } else {
         error "Type not supported: ${file.getClass()}"
     }
-    return ext
 }
 
 //
@@ -451,7 +453,6 @@ def getFilesSameExt(ch_input) {
 def checkFileIndex(ch_input) {
     ch_input.map {
         meta, file, index ->
-        println("file: ${file}")
         def file_ext = getFileExtension(file)
         def index_ext = getFileExtension(index)
         if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
