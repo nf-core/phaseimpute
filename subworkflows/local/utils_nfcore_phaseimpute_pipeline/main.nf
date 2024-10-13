@@ -539,27 +539,40 @@ def genomeExistsError() {
 // Generate methods description for MultiQC
 //
 def toolCitationText() {
-    // TODO nf-core: Optionally add in-text citation tools to this list.
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def citation_text = [
-            "Tools used in the workflow included:",
-            "FastQC (Andrews 2010),",
-            "MultiQC (Ewels et al. 2016)",
-            "."
-        ].join(' ').trim()
+        "Tools used in the workflow included:",
+        "BCFtools (Danecek et al. 2021),",
+        params.tools.split(',').contains("glimpse")   ? "GLIMPSE (Rubinacci et al. 2020)," : "",
+        params.tools.split(',').contains("glimpse2")  ? "GLIMPSE2 (Rubinacci et al. 2023)," : "",
+        params.tools.split(',').contains("quilt")     ? "QUILT (Davies et al. 2021)," : "",
+        "SAMtools (Li et al. 2009),",
+        params.phased ? "SHAPEIT5 (Hofmeister et al. 2023)," : "",
+        params.phased ? "BEDtools (Quinlan and Hall 2010)," : "",
+        params.tools.split(',').contains("stitch")    ? "STITCH (Davies et al. 2016)," : "",
+        "Tabix (Li et al. 2011),",
+        params.compute_freq  ? "VCFlib (Garrison et al. 2022)," : "",
+        "."
+    ].join(' ').trim()
 
     return citation_text
 }
 
 def toolBibliographyText() {
-    // TODO nf-core: Optionally add bibliographic entries to this list.
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def reference_text = [
-            "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>",
-            "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. doi: /10.1093/bioinformatics/btw354</li>"
-        ].join(' ').trim()
+        params.phased ? "<li>Quinlan AR, Hall IM (2010). BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010 Mar 15;26(6):841-2. doi:10.1093/bioinformatics/btq033.</li>": "",
+        "<li>Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. (2009). The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. doi:10.1093/bioinformatics/btp352.</li>",
+        "<li>Li H. (2011). Tabix: fast retrieval of sequence features from generic TAB-delimited files. Bioinformatics. 2011 Mar 1;27(5):718-9. doi:10.1093/bioinformatics/btq671.</li>",
+        params.tools.split(',').contains("quilt") ? "<li>Davies RW, Kucka M, Su D, Shi S, Flanagan M, Cunniff CM, Chan YF, & Myers S. (2021). Rapid genotype imputation from sequence with reference panels. Nature Genetics. doi:10.1038/s41588-021-00877-0.</li>" : "",
+        params.tools.split(',').contains("glimpse") ? "<li>Rubinacci S, Ribeiro DM, Hofmeister RJ, & Delaneau O. (2021). Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nature Genetics. doi:10.1038/s41588-020-00756-0.</li>" : "",
+        params.tools.split(',').contains("glimpse2") ? "<li>Rubinacci S, Hofmeister RJ, Sousa da Mota B, & Delaneau O. (2023). Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nature Genetics. doi:10.1038/s41588-023-01438-3.</li>" : "",
+        params.phased ? "<li>Hofmeister RJ, Ribeiro DM, Rubinacci S, Delaneau O. (2023). Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet. 2023 Jul;55(7):1243-1249. doi:10.1038/s41588-023-01415-w.</li>" : "",
+        params.tools.split(',').contains("stitch") ? "<li>Davies RW, Flint J, Myers S, & Mott R. (2016). Rapid genotype imputation from sequence without reference panels. Nature Genetics.</li>" : "",
+        params.compute_freq ? "<li>Garrison E, Kronenberg ZN, Dawson ET, Pedersen BS, Prins P. (2022). A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLoS Comput Biol 18(5).</li>" : "",
+    ].join(' ').trim()
 
     return reference_text
 }
@@ -588,9 +601,8 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["tool_citations"] = ""
     meta["tool_bibliography"] = ""
 
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
 
     def methods_text = mqc_methods_yaml.text
