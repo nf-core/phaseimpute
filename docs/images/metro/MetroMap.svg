@@ -681,11 +681,11 @@
        cy="0"
        r="3">
       <animateMotion
-         begin="9s"
+         begin="3s"
          dur="15s"
          repeatCount="indefinite"
          keyPoints="1;0;1;1"
-         keyTimes="0;0.2;0.2;1"
+         keyTimes="0;0.6;0.6;1"
          calcMode="linear">
         <mpath
            href="#RegionsToValidate" />
@@ -698,11 +698,11 @@
        cy="0"
        r="3">
       <animateMotion
-         begin="9s"
+         begin="6s"
          dur="15s"
          repeatCount="indefinite"
          keyPoints="0;1;0;0"
-         keyTimes="0;0.2;0.2;1"
+         keyTimes="0;0.4;0.4;1"
          calcMode="linear">
         <mpath
            href="#ExtractToValidate" />
