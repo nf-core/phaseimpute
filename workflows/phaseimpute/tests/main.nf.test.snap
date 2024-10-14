@@ -85,6 +85,10 @@
                 "prep_panel/haplegend/1000GP_chr22.hap.gz",
                 "prep_panel/haplegend/1000GP_chr22.legend.gz",
                 "prep_panel/haplegend/1000GP_chr22.samples",
+                "prep_panel/panel/1000GP_chr21_biallelic_snps.vcf.gz",
+                "prep_panel/panel/1000GP_chr21_biallelic_snps.vcf.gz.tbi",
+                "prep_panel/panel/1000GP_chr22_biallelic_snps.vcf.gz",
+                "prep_panel/panel/1000GP_chr22_biallelic_snps.vcf.gz.tbi",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
@@ -124,7 +128,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-12T20:44:46.932458137"
+        "timestamp": "2024-10-14T12:13:26.438998424"
     },
     "Check test_validate": {
         "content": [
@@ -200,10 +204,10 @@
                 "prep_panel/haplegend/1000GP_chr22.hap.gz",
                 "prep_panel/haplegend/1000GP_chr22.legend.gz",
                 "prep_panel/haplegend/1000GP_chr22.samples",
-                "prep_panel/normalized/1000GP_chr21_fixed.vcf.gz",
-                "prep_panel/normalized/1000GP_chr21_fixed.vcf.gz.tbi",
-                "prep_panel/normalized/1000GP_chr22_fixed.vcf.gz",
-                "prep_panel/normalized/1000GP_chr22_fixed.vcf.gz.tbi",
+                "prep_panel/panel/1000GP_chr21_fixed.vcf.gz",
+                "prep_panel/panel/1000GP_chr21_fixed.vcf.gz.tbi",
+                "prep_panel/panel/1000GP_chr22_fixed.vcf.gz",
+                "prep_panel/panel/1000GP_chr22_fixed.vcf.gz.tbi",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
