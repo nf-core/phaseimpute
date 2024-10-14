@@ -29,7 +29,7 @@ The **phaseimpute** pipeline is constituted of 5 main steps:
 
 | Metro map                                                              | Modes                                                                                                                                                                                                                                                                                                                                             |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="docs/images/metro/MetroMap.png" alt="metromap" width="800"/> | - **Panel preparation**: Phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Impute the target dataset on the reference panel <br> - **Simulate**: Simulation of the target dataset from high quality target data <br> - **Concordance**: Concordance between the target dataset and a truth dataset |
+| <img src="docs/images/metro/MetroMap.svg" alt="metromap" width="800"/> | - **Panel preparation**: Phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Impute the target dataset on the reference panel <br> - **Simulate**: Simulation of the target dataset from high quality target data <br> - **Concordance**: Concordance between the target dataset and a truth dataset |
 
 ## Usage
 
