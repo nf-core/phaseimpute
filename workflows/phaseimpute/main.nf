@@ -157,7 +157,7 @@ workflow PHASEIMPUTE {
         ch_posfile          = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
 
         // Phase panel with Shapeit5
-        if (params.phased == false) {
+        if (params.phase == true) {
             VCF_PHASE_SHAPEIT5(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
                 ch_region,
