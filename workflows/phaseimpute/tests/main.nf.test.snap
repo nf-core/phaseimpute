@@ -204,17 +204,17 @@
                 "prep_panel/normalized/1000GP_chr21_fixed.vcf.gz.tbi",
                 "prep_panel/normalized/1000GP_chr22_fixed.vcf.gz",
                 "prep_panel/normalized/1000GP_chr22_fixed.vcf.gz.tbi",
-                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/vcf/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
-                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/vcf/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.4"
         },
-        "timestamp": "2024-07-16T17:24:54.532547185"
+        "timestamp": "2024-10-14T11:34:54.720763227"
     },
     "Check test_glimpse2": {
         "content": [
