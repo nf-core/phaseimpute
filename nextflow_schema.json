@@ -108,8 +108,8 @@
                     "pattern": "^\\S+\\.(csv|tsv|txt)$",
                     "mimetype": "text/csv"
                 },
-                "phased": {
-                    "description": "Is the reference panel phased",
+                "phase": {
+                    "description": "Should the reference panel be phased",
                     "type": "boolean",
                     "pattern": "true|false"
                 },
