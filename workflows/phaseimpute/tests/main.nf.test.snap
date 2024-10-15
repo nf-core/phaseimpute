@@ -13,7 +13,7 @@
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz",
                 "imputation/stitch/concat/NA20359.stitch.vcf.gz.tbi"
             ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false, phasedAutodetect=false]"
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false]"
         ],
         "meta": {
             "nf-test": "0.8.4",
@@ -119,10 +119,10 @@
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt"
             ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false, phasedAutodetect=false]",
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false, phasedAutodetect=false]",
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=false]"
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false]",
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false]",
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]"
         ],
         "meta": {
             "nf-test": "0.8.4",
@@ -162,7 +162,7 @@
                 "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                 "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=false]"
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]"
         ],
         "meta": {
             "nf-test": "0.8.4",
@@ -234,7 +234,7 @@
                 "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
                 "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
             ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]"
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]"
         ],
         "meta": {
             "nf-test": "0.8.4",
@@ -256,7 +256,7 @@
                 "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                 "imputation/stats/NA20359.glimpse1.bcftools_stats.txt"
             ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false, phasedAutodetect=false]"
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=false]"
         ],
         "meta": {
             "nf-test": "0.8.4",
