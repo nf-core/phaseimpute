@@ -32,11 +32,11 @@ SAMPLE5,AEG588A5.bam,AEG588A5.bai
 SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
-| Column   | Description                                                                                                               |
-| -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                              |
-| `file`   | Full path to a BAM or CRAM file. File has to be have the extension ".bam" or ".cram" and all files need to have the same. |
-| `index`  | Full path to a BAI or CRAI file. File has to be have the extension ".bai" or ".crai" and all files need to have the same. |
+| Column   | Description                                                                                                                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                   |
+| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" optionally compressed with bgzip ".gz". All files need to have the same extension. |
+| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files need to have the same extension.                                                        |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -228,9 +228,10 @@ The required flags for this mode are:
 
 - `--steps panelprep`: The steps to run.
 - `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
-- `--phased`: (optional) Whether the reference panel is phased (true|false).
+- `--phase`: (optional) Whether the reference panel should be phased (true|false).
+- `--normalize`: (optional) Whether the reference panel needs to be normalized or not (true|false). Default is true.
+- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference during the normalization process.
 - `--compute_freq`: (optional) Whether the frequency (AC/AN field) for each variants needs to be computed or not (true/false). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
-- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
@@ -359,7 +360,7 @@ bcftools convert --haplegendsample ${vcf}
 
 #### GLIMPSE1
 
-[GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. This is an example command to run this tool from the `--steps impute`:
+[GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. Glimpse1 works with alignment (i.e. BAM or CRAM) as well as variant (i.e. VCF or BCF) files as input. This is an example command to run this tool from the `--steps impute`:
 
 ```bash
 nextflow run nf-core/phaseimpute \

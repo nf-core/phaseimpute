@@ -12,7 +12,8 @@ include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { getAllFilesExtension        } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getFilesSameExt             } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { getFileExtension            } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { exportCsv                   } from '../../subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 
 //
@@ -93,9 +94,9 @@ workflow PHASEIMPUTE {
     //
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Test if the input are all bam files
-        getAllFilesExtension(ch_input_sim)
+        getFilesSameExt(ch_input_sim)
             .map{ if (it != "bam" & it != "cram") {
-                error "All input files must be in the same format, either BAM or CRAM, to perform simulation"
+                error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${it}"
             } }
 
         if (params.input_region) {
@@ -145,18 +146,18 @@ workflow PHASEIMPUTE {
     if (params.steps.split(',').contains("panelprep") || params.steps.split(',').contains("all")) {
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(ch_panel, ch_fasta)
+        ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
         ch_versions = ch_versions.mix(VCF_NORMALIZE_BCFTOOLS.out.versions)
 
         // Extract sites from normalized vcf
-        VCF_SITES_EXTRACT_BCFTOOLS(VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi, ch_fasta)
+        VCF_SITES_EXTRACT_BCFTOOLS(ch_panel_phased, ch_fasta)
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Generate all necessary channels
         ch_posfile          = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
-        ch_panel_phased     = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
 
         // Phase panel with Shapeit5
-        if (params.phased == false) {
+        if (params.phase == true) {
             VCF_PHASE_SHAPEIT5(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(Channel.of([[]])),
                 ch_region,
@@ -181,7 +182,7 @@ workflow PHASEIMPUTE {
         // Phased panel
         exportCsv(
             ch_panel_phased.map{ meta, vcf, index ->
-                [meta, [2:"prep_panel/normalized", 3:"prep_panel/normalized"], vcf, index]
+                [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
             },
             ["id", "chr"], "panel,chr,vcf,index",
             "panel.csv", "prep_panel/csv"
@@ -189,7 +190,7 @@ workflow PHASEIMPUTE {
         // Posfile
         exportCsv(
             ch_posfile.map{ meta, vcf, index, hap, legend ->
-                [meta, [2:"prep_panel/sites/vcf", 3:"prep_panel/haplegend", 4:"prep_panel/haplegend"], vcf, index, hap, legend]
+                [meta, [2:"prep_panel/sites", 3:"prep_panel/haplegend", 4:"prep_panel/haplegend"], vcf, index, hap, legend]
             },
             ["id", "chr"], "panel,chr,vcf,index,hap,legend",
             "posfile.csv", "prep_panel/csv"
@@ -337,7 +338,6 @@ workflow PHASEIMPUTE {
     }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
-
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
@@ -356,28 +356,29 @@ workflow PHASEIMPUTE {
 
         ch_truth_vcf = Channel.empty()
 
-        // Get extension of input files
-        truth_ext = getAllFilesExtension(ch_input_truth)
-
         // Channels for branching
         ch_truth = ch_input_truth
-            .combine(truth_ext)
+            .map { [it[0], it[1], it[2], getFileExtension(it[1])] }
             .branch {
                 bam: it[3] =~ 'bam|cram'
-                vcf: it[3] =~ 'vcf|bcf'
+                vcf: it[3] =~ '(vcf|bcf)(.gz)*'
+                other: true
             }
+
+        ch_truth.other
+            .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
             ch_posfile.map{ [it[0], it[4]] },
             ch_fasta
         )
-        ch_versions      = ch_versions.mix(GL_TRUTH.out.versions)
+        ch_versions = ch_versions.mix(GL_TRUTH.out.versions)
 
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
             .map { [it[0], it[1], it[2]] }
-            .mix(GL_TRUTH.out.vcf)
+            .mix(GL_TRUTH.out.vcf_tbi)
 
         // Concatenate truth vcf by chromosomes
         CONCAT_TRUTH(ch_truth_vcf)
@@ -390,7 +391,8 @@ workflow PHASEIMPUTE {
             [[],[]],
             [[],[]],
             [[],[]],
-            ch_fasta.map{ [it[0], it[1]] })
+            ch_fasta.map{ [it[0], it[1]] }
+        )
         ch_versions = ch_versions.mix(BCFTOOLS_STATS_TRUTH.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TRUTH.out.stats.map{ [it[1]] })
 

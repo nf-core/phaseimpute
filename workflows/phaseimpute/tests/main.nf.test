@@ -6,7 +6,6 @@ nextflow_pipeline {
     tag "pipeline/phaseimpute"
 
 
-
     test("Check test") {
         tag "test"
         config "../../../conf/test.config"
@@ -14,8 +13,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -42,8 +39,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -69,8 +64,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -97,8 +90,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -125,8 +116,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -150,8 +139,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -176,8 +163,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -218,8 +203,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 
@@ -244,8 +227,6 @@ nextflow_pipeline {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
                 outdir = "$outputDir"
-                max_cpus = 4
-                max_memory = '5.GB'
             }
         }
 

@@ -24,15 +24,13 @@ This steps of the pipeline performs a QC of the reference panel data and produce
 The directory structure from `--steps panelprep` is:
 
 ```
+├── panel
+├── haplegend
+├── sites
 ├── chunks
 │   ├── glimpse1
 │   └── glimpse2
 ├── csv
-├── panel
-├── haplegend
-└── sites
-    ├── tsv
-    └── vcf
 ```
 
 ### Panel directory
@@ -41,12 +39,12 @@ The directory structure from `--steps panelprep` is:
 <summary>Output files</summary>
 
 - `prep_panel/panel/`
-  - `*.vcf.gz`: A vcf for the prepared reference panel.
+  - `*.vcf.gz`: The reference panel vcf after all the preprocessing is done.
   - `*.tbi*`: A tbi for the prepared reference panel.
 
 </details>
 
-A directory containing the final phased and prepared panel per chromosome.
+A directory containing the reference panel per chromosome after preprocessing. The files will be normalized if the flag `--normalize` is used (with `_normalized` suffix). The files will have their allele frequency computed if the flaq `--compute_freq` is used (with `_fixup` suffix). The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 ### Haplegend directory
 
