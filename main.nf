@@ -8,8 +8,6 @@
     Slack  : https://nfcore.slack.com/channels/phaseimpute
 */
 
-nextflow.enable.dsl = 2
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
@@ -105,11 +103,8 @@ workflow NFCORE_PHASEIMPUTE {
         ch_chunks,
         ch_versions
     )
-
-
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
-
 }
 
 /*
@@ -126,7 +121,6 @@ workflow {
     //
     PIPELINE_INITIALISATION (
         params.version,
-        params.help,
         params.validate_params,
         params.monochrome_logs,
         args,
@@ -149,7 +143,6 @@ workflow {
         PIPELINE_INITIALISATION.out.chunks,
         PIPELINE_INITIALISATION.out.versions
     )
-
     //
     // SUBWORKFLOW: Run completion tasks
     //

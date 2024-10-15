@@ -1,0 +1,96 @@
+nextflow_workflow {
+
+    name "Test Workflow GET_REGION"
+    script "../main.nf"
+    workflow "GET_REGION"
+    tag "subworkflows"
+    tag "get_region"
+    tag "subworkflows/get_region"
+
+    tag "samtools"
+    tag "samtools/faidx"
+
+    test("Should run with 'all'") {
+
+        when {
+            workflow {
+                """
+                input[0] = "all"
+                input[1] = Channel.of([
+                    [genome:"GRCh37"],
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.regions).match() }
+            )
+        }
+    }
+
+    test("Should run with specified chr") {
+
+        when {
+            workflow {
+                """
+                input[0] = "chr22"
+                input[1] = Channel.of([
+                    [genome:"GRCh37"],
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file("https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.regions).match() }
+            )
+        }
+    }
+
+    test("Should run with specified region without fasta") {
+
+        when {
+            workflow {
+                """
+                input[0] = "chr22:0-4000"
+                input[1] = Channel.of([[],[],[]])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.regions).match() }
+            )
+        }
+    }
+
+    test("Should run with an error") {
+
+        when {
+            workflow {
+                """
+                input[0] = "chr22:0-4000:4648"
+                input[1] = Channel.of([[],[],[]])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert snapshot(workflow.stdout).match() }
+            )
+        }
+    }
+}

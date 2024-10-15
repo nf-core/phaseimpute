@@ -22,7 +22,7 @@ The samplesheet can have as many columns as you desire, however, there is a stri
 
 A final samplesheet file may look something like the one below. This is for 6 samples.
 
-```console
+```console title="samplesheet.csv"
 sample,file,index
 SAMPLE1,AEG588A1.bam,AEG588A1.bai
 SAMPLE2,AEG588A2.bam,AEG588A2.bai
@@ -32,11 +32,11 @@ SAMPLE5,AEG588A5.bam,AEG588A5.bai
 SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
-| Column   | Description                                                                                                               |
-| -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                              |
-| `file`   | Full path to a BAM or CRAM file. File has to be have the extension ".bam" or ".cram" and all files need to have the same. |
-| `index`  | Full path to a BAI or CRAI file. File has to be have the extension ".bai" or ".crai" and all files need to have the same. |
+| Column   | Description                                                                                                                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                   |
+| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" optionally compressed with bgzip ".gz". All files need to have the same extension. |
+| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files need to have the same extension.                                                        |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -52,7 +52,7 @@ You will need to create a samplesheet with information about the reference panel
 
 A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
 
-```console
+```console title="samplesheet_reference.csv"
 panel,chr,vcf,index
 1000G,chr1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
 1000G,chr2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz, ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi
@@ -80,7 +80,7 @@ You will need a samplesheet with information about the reference panel sites for
 
 A final samplesheet file for the posfile may look something like the one below. This is for 2 chromosomes.
 
-```console
+```console title="posfile.csv"
 panel,chr,vcf,index,hap,legend
 1000GP.s.norel,chr21,1000GP.chr21.s.norel.sites.vcf.gz,1000GP.chr21.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr21.hap.gz,1000GP.s.norel_chr21.legend.gz
 1000GP.s.norel,chr22,1000GP.chr22.s.norel.sites.vcf.gz,1000GP.chr22.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
@@ -102,7 +102,7 @@ The `legend` file should be a TSV with the following structure, similar to that 
 - Column 3: reference base
 - Column 4: alternate base
 
-```csv
+```csv title="legend.tsv"
 id position a0 a1
 chr21:16609287_C_T 16609287 C T
 chr21:16609295_T_G 16609295 T G
@@ -166,9 +166,9 @@ The above pipeline run specified with a params file in yaml format:
 nextflow run nf-core/phaseimpute -profile docker -params-file params.yaml
 ```
 
-with `params.yaml` containing:
+with:
 
-```yaml
+```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
 genome: 'GRCh37'
@@ -176,6 +176,12 @@ genome: 'GRCh37'
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+
+### Check of the contigs name
+
+The pipeline parallelize the imputation process across contigs. To do so it will use either the `--regions` samplesheet or the `.fai` to extract the genomic region to process.
+From all those contigs some might not be present in the `--panel`, `--posfile`, `--chunks`, `--map` (column `chr`) or in the `--fasta`. In this case the pipeline will warn you that some of the contigs are absent in some of the file specified and will only parallelize on the intersection of all contigs.
+Afterwards the remaining contigs presence will be checked with the `CHECKCHR` pipeline to ensure that they are present in each `--input` and `--input_truth` file and that also in the individuals reference panel files.
 
 ### Running the pipeline
 
@@ -222,9 +228,10 @@ The required flags for this mode are:
 
 - `--steps panelprep`: The steps to run.
 - `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
-- `--phased`: (optional) Whether the reference panel is phased (true|false).
+- `--phase`: (optional) Whether the reference panel should be phased (true|false).
+- `--normalize`: (optional) Whether the reference panel needs to be normalized or not (true|false). Default is true.
+- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference during the normalization process.
 - `--compute_freq`: (optional) Whether the frequency (AC/AN field) for each variants needs to be computed or not (true/false). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
-- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
@@ -277,21 +284,21 @@ nextflow run nf-core/phaseimpute \
 
 The csv provided in `--posfile` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
 
-```console
+```console title="posfile.csv"
 panel,chr,hap,legend
 1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
 The csv provided in `--chunks` must contain two columns [chr, file]. The first column is the chromosome and the file column are txt with the chunks produced by GLIMPSE1, unique to each chromosome.
 
-```console
+```console title="chunks.csv"
 panel,chr,file
 1000GP,chr1,chunks_chr1.txt
 1000GP,chr2,chunks_chr2.txt
 1000GP,chr3,chunks_chr3.txt
 ```
 
-The file column should contain a TXT/TSV obtained from GLIMPSE1 with the following [structure](https://github.com/nf-core/test-datasets/blob/phaseimpute/data/panel/22/chr22_chunks_glimpse1.txt).
+The file column should contain a TXT/TSV obtained from GLIMPSE1 with the following [structure](https://github.com/nf-core/test-datasets/blob/phaseimpute/hum_data/panel/chr22/1000GP.chr22_chunks.txt).
 
 If you do not have a csv with chunks, you can provide a reference panel to run the `--steps panelprep` which produces a csv with these chunks, which is then used as input for QUILT. You can choose to run both steps sequentially as `--steps panelprep,impute` or simply collect the files produced by `--steps panelprep`.
 
@@ -337,7 +344,7 @@ nextflow run nf-core/phaseimpute \
 
 The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
-```console
+```console title="posfile.csv"
 panel,chr,legend
 1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
@@ -353,7 +360,7 @@ bcftools convert --haplegendsample ${vcf}
 
 #### GLIMPSE1
 
-[GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. This is an example command to run this tool from the `--steps impute`:
+[GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. Glimpse1 works with alignment (i.e. BAM or CRAM) as well as variant (i.e. VCF or BCF) files as input. This is an example command to run this tool from the `--steps impute`:
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -370,7 +377,7 @@ nextflow run nf-core/phaseimpute \
 
 The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
-```console
+```console title="posfile.csv"
 panel,chr,legend
 1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
@@ -422,7 +429,7 @@ The required flags for this mode only are:
 
 The csv provided in `--posfile` must contain three columns [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
 
-```console
+```console title="posfile.csv"
 panel,chr,vcf,index
 1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.csi
 ```
@@ -539,7 +546,15 @@ To use a different container from the default container or conda environment spe
 
 A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
 
-To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
+One of the parameters that you might want to modify could be specific to each imputation software. As an example, running the pipeline, you may encounter that to reduce the impact of individual reads (for example in QUILT), you might need to lower coverage. This can be achieved by including any modification to a Nextflow process as an external argument using `ext.args`. You would customize the run by providing:
+
+```
+process {
+  withName:'NFCORE_PHASEIMPUTE:PHASEIMPUTE:BAM_IMPUTE_QUILT:QUILT_QUILT' {
+    ext.args = "--downsampleToCov=1"
+  }
+}
+```
 
 ### nf-core/configs
 
@@ -548,14 +563,6 @@ In most cases, you will only need to create a custom config as a one-off but if 
 See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
 
 If you have any questions or issues please send us a message on [Slack](https://nf-co.re/join/slack) on the [`#configs` channel](https://nfcore.slack.com/channels/configs).
-
-## Azure Resource Requests
-
-To be used with the `azurebatch` profile by specifying the `-profile azurebatch`.
-We recommend providing a compute `params.vm_type` of `Standard_D16_v3` VMs by default but these options can be changed if required.
-
-Note that the choice of VM size depends on your quota and the overall workload during the analysis.
-For a thorough list, please refer the [Azure Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes).
 
 ## Running in the background
 
@@ -599,14 +606,6 @@ In most cases, you will only need to create a custom config as a one-off but if 
 See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
 
 If you have any questions or issues please send us a message on [Slack](https://nf-co.re/join/slack) on the [`#configs` channel](https://nfcore.slack.com/channels/configs).
-
-## Azure Resource Requests
-
-To be used with the `azurebatch` profile by specifying the `-profile azurebatch`.
-We recommend providing a compute `params.vm_type` of `Standard_D16_v3` VMs by default but these options can be changed if required.
-
-Note that the choice of VM size depends on your quota and the overall workload during the analysis.
-For a thorough list, please refer the [Azure Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes).
 
 ## Running in the background
 

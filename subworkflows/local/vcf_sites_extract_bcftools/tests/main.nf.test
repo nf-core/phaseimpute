@@ -1,0 +1,65 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_SITES_EXTRACT_BCFTOOLS"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_SITES_EXTRACT_BCFTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_sites_extract_bcftools"
+    tag "vcf_sites_extract_bcftools"
+
+    tag "bcftools"
+    tag "bcftools/convert"
+    tag "bcftools/view"
+
+
+    test("Extract sites") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]
+                )
+                input[1] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.posfile.collect{
+                    path(it[1]).vcf.summary
+                    }).match("Extract sites content")
+                },
+                { assert snapshot(workflow.out.posfile.collect{[
+                    path(it[3]).linesGzip[5],
+                    path(it[4]).linesGzip[5]
+                    ]}).match("Hap legend content")
+                }
+            )
+        }
+    }
+}

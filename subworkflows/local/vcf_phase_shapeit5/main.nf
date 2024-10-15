@@ -8,10 +8,10 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     take:
     ch_vcf        // channel (mandatory): [ [id, chr], vcf, csi, pedigree ]
-    ch_region     // channel (optional) : [ [chr, region], region ]
+    ch_region     // channel (mandatory) : [ [chr, region], region ]
     ch_ref        // channel (optional) : [ [id, chr], ref, csi ]
     ch_scaffold   // channel (optional) : [ [id, chr], scaffold, csi ]
-    ch_map        // channel (optional) : [ [chr], map]
+    ch_map        // channel (mandatory) : [ [chr], map]
 
     main:
 

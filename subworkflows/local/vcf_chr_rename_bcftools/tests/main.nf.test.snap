@@ -1,4 +1,76 @@
 {
+    "header21and22": {
+        "content": [
+            [
+                [
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                ],
+                [
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T11:54:12.209449942"
+    },
+    "Should run with same id": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "21"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "22"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ],
+                "vcf_renamed": [
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "21"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ],
+                    [
+                        {
+                            "id": "input1",
+                            "chr": "22"
+                        },
+                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-16T18:13:42.892263614"
+    },
     "Should run without error": {
         "content": [
             {
@@ -8,26 +80,25 @@
                             "id": "21"
                         },
                         "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "21_chrrename.vcf.gz.csi:md5,3bbbb50b0dd3515d380eabe0013cde19"
+                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
                     ],
                     [
                         {
                             "id": "chr21"
                         },
                         "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
                     ],
                     [
                         {
                             "id": "multi"
                         },
                         "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
-                        "multi_chrrename.vcf.gz.csi:md5,5d175780d5611d962430bff3377f649f"
+                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,001b78222d93abfc606fec92b6bcd0e7",
-                    "versions.yml:md5,0ef2d96560ef31ca3d08faa86cfde552"
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
                 ],
                 "vcf_renamed": [
                     [
@@ -35,138 +106,55 @@
                             "id": "21"
                         },
                         "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "21_chrrename.vcf.gz.csi:md5,3bbbb50b0dd3515d380eabe0013cde19"
+                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
                     ],
                     [
                         {
                             "id": "chr21"
                         },
                         "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.csi:md5,b5b5fd753ee54ebd3c8e4b1fe2261cdb"
+                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
                     ],
                     [
                         {
                             "id": "multi"
                         },
                         "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
-                        "multi_chrrename.vcf.gz.csi:md5,5d175780d5611d962430bff3377f649f"
+                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,001b78222d93abfc606fec92b6bcd0e7",
-                    "versions.yml:md5,0ef2d96560ef31ca3d08faa86cfde552"
+                    "versions.yml:md5,0e44bc472b61396e89549eaa606c6205"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-06-20T13:50:38.036237318"
+        "timestamp": "2024-07-16T18:13:32.768716353"
     },
     "headerwithchr": {
         "content": [
             [
                 [
-                    "##contig=<ID=chr21,length=46806409>"
+                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
                 ],
                 [
-                    "##contig=<ID=21,length=46806409>"
+                    "21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
+                    "21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
                 ],
                 [
-                    "##contig=<ID=1,length=249250621>",
-                    "##contig=<ID=2,length=243199373>",
-                    "##contig=<ID=3,length=198022430>",
-                    "##contig=<ID=4,length=191154276>",
-                    "##contig=<ID=5,length=180915260>",
-                    "##contig=<ID=6,length=171115067>",
-                    "##contig=<ID=7,length=159138663>",
-                    "##contig=<ID=8,length=146364022>",
-                    "##contig=<ID=9,length=141213431>",
-                    "##contig=<ID=10,length=135534747>",
-                    "##contig=<ID=11,length=135006516>",
-                    "##contig=<ID=12,length=133851895>",
-                    "##contig=<ID=13,length=115169878>",
-                    "##contig=<ID=14,length=107349540>",
-                    "##contig=<ID=15,length=102531392>",
-                    "##contig=<ID=16,length=90354753>",
-                    "##contig=<ID=17,length=81195210>",
-                    "##contig=<ID=18,length=78077248>",
-                    "##contig=<ID=19,length=59128983>",
-                    "##contig=<ID=20,length=63025520>",
-                    "##contig=<ID=chr21,length=48129895>",
-                    "##contig=<ID=chr22,length=51304566>",
-                    "##contig=<ID=X,length=155270560>",
-                    "##contig=<ID=Y,length=59373566>",
-                    "##contig=<ID=MT,length=16569>",
-                    "##contig=<ID=GL000207.1,length=4262>",
-                    "##contig=<ID=GL000226.1,length=15008>",
-                    "##contig=<ID=GL000229.1,length=19913>",
-                    "##contig=<ID=GL000231.1,length=27386>",
-                    "##contig=<ID=GL000210.1,length=27682>",
-                    "##contig=<ID=GL000239.1,length=33824>",
-                    "##contig=<ID=GL000235.1,length=34474>",
-                    "##contig=<ID=GL000201.1,length=36148>",
-                    "##contig=<ID=GL000247.1,length=36422>",
-                    "##contig=<ID=GL000245.1,length=36651>",
-                    "##contig=<ID=GL000197.1,length=37175>",
-                    "##contig=<ID=GL000203.1,length=37498>",
-                    "##contig=<ID=GL000246.1,length=38154>",
-                    "##contig=<ID=GL000249.1,length=38502>",
-                    "##contig=<ID=GL000196.1,length=38914>",
-                    "##contig=<ID=GL000248.1,length=39786>",
-                    "##contig=<ID=GL000244.1,length=39929>",
-                    "##contig=<ID=GL000238.1,length=39939>",
-                    "##contig=<ID=GL000202.1,length=40103>",
-                    "##contig=<ID=GL000234.1,length=40531>",
-                    "##contig=<ID=GL000232.1,length=40652>",
-                    "##contig=<ID=GL000206.1,length=41001>",
-                    "##contig=<ID=GL000240.1,length=41933>",
-                    "##contig=<ID=GL000236.1,length=41934>",
-                    "##contig=<ID=GL000241.1,length=42152>",
-                    "##contig=<ID=GL000243.1,length=43341>",
-                    "##contig=<ID=GL000242.1,length=43523>",
-                    "##contig=<ID=GL000230.1,length=43691>",
-                    "##contig=<ID=GL000237.1,length=45867>",
-                    "##contig=<ID=GL000233.1,length=45941>",
-                    "##contig=<ID=GL000204.1,length=81310>",
-                    "##contig=<ID=GL000198.1,length=90085>",
-                    "##contig=<ID=GL000208.1,length=92689>",
-                    "##contig=<ID=GL000191.1,length=106433>",
-                    "##contig=<ID=GL000227.1,length=128374>",
-                    "##contig=<ID=GL000228.1,length=129120>",
-                    "##contig=<ID=GL000214.1,length=137718>",
-                    "##contig=<ID=GL000221.1,length=155397>",
-                    "##contig=<ID=GL000209.1,length=159169>",
-                    "##contig=<ID=GL000218.1,length=161147>",
-                    "##contig=<ID=GL000220.1,length=161802>",
-                    "##contig=<ID=GL000213.1,length=164239>",
-                    "##contig=<ID=GL000211.1,length=166566>",
-                    "##contig=<ID=GL000199.1,length=169874>",
-                    "##contig=<ID=GL000217.1,length=172149>",
-                    "##contig=<ID=GL000216.1,length=172294>",
-                    "##contig=<ID=GL000215.1,length=172545>",
-                    "##contig=<ID=GL000205.1,length=174588>",
-                    "##contig=<ID=GL000219.1,length=179198>",
-                    "##contig=<ID=GL000224.1,length=179693>",
-                    "##contig=<ID=GL000223.1,length=180455>",
-                    "##contig=<ID=GL000195.1,length=182896>",
-                    "##contig=<ID=GL000212.1,length=186858>",
-                    "##contig=<ID=GL000222.1,length=186861>",
-                    "##contig=<ID=GL000200.1,length=187035>",
-                    "##contig=<ID=GL000193.1,length=189789>",
-                    "##contig=<ID=GL000194.1,length=191469>",
-                    "##contig=<ID=GL000225.1,length=211173>",
-                    "##contig=<ID=GL000192.1,length=547496>",
-                    "##contig=<ID=NC_007605,length=171823>",
-                    "##contig=<ID=hs37d5,length=35477943>"
+                    "chr22\t16849764\tSV_845_2\tN\tN[10:38880001[\t25\tPASS\tSVTYPE=BND;REGIONA=38879850,38880055;REGIONB=16849354,16850051;LFA=7,0;LFB=7,0;LTE=6,0;CTG=.\tGT:CN:COV:DV:RV:LQ:RR:DR\t0/1:.:26,0,25:6:0:0,0.0466667:19,21:23,27",
+                    "chr22\t16884368\tSV_846_2\tN\tN[10:38908615[\t80\tPASS\tSVTYPE=BND;REGIONA=38908615,38909107;REGIONB=16883928,16884368;LFA=15,0;LFB=15,0;LTE=14,0;CTG=.\tGT:CN:COV:DV:RV:LQ:RR:DR\t1/1:.:25,0,45:14:0:0,0.0240964:7,23:0,23"
                 ]
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-06-20T13:50:38.415956092"
+        "timestamp": "2024-07-16T15:50:28.012191227"
     }
 }

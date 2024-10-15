@@ -8,31 +8,27 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { UTILS_NFVALIDATION_PLUGIN } from '../../nf-core/utils_nfvalidation_plugin'
-include { paramsSummaryMap          } from 'plugin/nf-validation'
-include { fromSamplesheet           } from 'plugin/nf-validation'
-include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
+include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
+include { paramsSummaryMap          } from 'plugin/nf-schema'
+include { samplesheetToList         } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
-include { dashedLine                } from '../../nf-core/utils_nfcore_pipeline'
-include { nfCoreLogo                } from '../../nf-core/utils_nfcore_pipeline'
 include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
-include { workflowCitation          } from '../../nf-core/utils_nfcore_pipeline'
+include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 include { GET_REGION                } from '../get_region'
 include { SAMTOOLS_FAIDX            } from '../../../modules/nf-core/samtools/faidx'
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     SUBWORKFLOW TO INITIALISE PIPELINE
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 workflow PIPELINE_INITIALISATION {
 
     take:
     version           // boolean: Display version and exit
-    help              // boolean: Display help text
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
     monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
@@ -53,20 +49,16 @@ workflow PIPELINE_INITIALISATION {
         workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1
     )
 
+
     //
     // Validate parameters and generate parameter summary to stdout
     //
-    pre_help_text = nfCoreLogo(monochrome_logs)
-    post_help_text = '\n' + workflowCitation() + '\n' + dashedLine(monochrome_logs)
-    def String workflow_command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
-    UTILS_NFVALIDATION_PLUGIN (
-        help,
-        workflow_command,
-        pre_help_text,
-        post_help_text,
+    UTILS_NFSCHEMA_PLUGIN (
+        workflow,
         validate_params,
-        "nextflow_schema.json"
+        null
     )
+
 
     //
     // Check config provided to the pipeline
@@ -74,6 +66,7 @@ workflow PIPELINE_INITIALISATION {
     UTILS_NFCORE_PIPELINE (
         nextflow_cli_args
     )
+
     //
     // Custom validation for pipeline parameters
     //
@@ -111,13 +104,13 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.input) {
         ch_input = Channel
-        .fromSamplesheet("input")
-        .map {
-            meta, file, index ->
-                [ meta, file, index ]
+        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .map { samplesheet ->
+            validateInputSamplesheet(samplesheet)
         }
+
         // Check if all extension are identical
-        getAllFilesExtension(ch_input)
+        getFilesSameExt(ch_input)
     } else {
         ch_input = Channel.of([[], [], []])
     }
@@ -127,13 +120,13 @@ workflow PIPELINE_INITIALISATION {
     if (params.input_truth) {
         if (params.input_truth.endsWith("csv")) {
             ch_input_truth = Channel
-                .fromSamplesheet("input_truth")
+                .fromList(samplesheetToList(params.input_truth, "${projectDir}/assets/schema_input.json"))
                 .map {
                     meta, file, index ->
                         [ meta, file, index ]
                 }
             // Check if all extension are identical
-            getAllFilesExtension(ch_input_truth)
+            getFilesSameExt(ch_input_truth)
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
@@ -147,8 +140,10 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.panel) {
         if (params.panel.endsWith("csv")) {
-            print("Panel file provided as input is a samplesheet")
-            ch_panel = Channel.fromSamplesheet("panel")
+            println "Panel file provided as input is a samplesheet"
+            ch_panel = Channel.fromList(samplesheetToList(
+                params.panel, "${projectDir}/assets/schema_input_panel.json"
+            ))
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
@@ -168,9 +163,11 @@ workflow PIPELINE_INITIALISATION {
         ch_regions  = GET_REGION.out.regions
     }  else  if (params.input_region.endsWith(".csv")) {
         println "Region file provided as input is a csv file"
-        ch_regions = Channel.fromSamplesheet("input_region")
-            .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
-            .map{ metaC, region -> [metaC + ["region": region], region]}
+        ch_regions = Channel.fromList(samplesheetToList(
+            params.input_region, "${projectDir}/assets/schema_input_region.json"
+        ))
+        .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+        .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
     }
@@ -180,8 +177,8 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.map) {
         if (params.map.endsWith(".csv")) {
-            print("Map file provided as input is a samplesheet")
-            ch_map = Channel.fromSamplesheet("map")
+            println "Map file provided as input is a samplesheet"
+            ch_map = Channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
@@ -212,8 +209,8 @@ workflow PIPELINE_INITIALISATION {
     // Create posfile channel
     //
     if (params.posfile) {
-        ch_posfile = Channel
-                .fromSamplesheet("posfile") // ["panel", "chr", "vcf", "index", "hap", "legend"]
+        ch_posfile = Channel // ["panel", "chr", "vcf", "index", "hap", "legend"]
+            .fromList(samplesheetToList(params.posfile, "${projectDir}/assets/schema_posfile.json"))
     } else {
         ch_posfile = Channel.of([[],[],[],[],[]])
     }
@@ -223,7 +220,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.chunks) {
         ch_chunks = Channel
-            .fromSamplesheet("chunks")
+            .fromList(samplesheetToList(params.chunks, "${projectDir}/assets/schema_chunks.json"))
     } else {
         ch_chunks = Channel.of([[],[]])
     }
@@ -236,17 +233,27 @@ workflow PIPELINE_INITIALISATION {
     chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
-    checkMetaChr(chr_regions, chr_ref, "reference genome")
-    checkMetaChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
-    checkMetaChr(chr_regions, extractChr(ch_map), "genetic map")
-    checkMetaChr(chr_regions, extractChr(ch_panel), "reference panel")
-    checkMetaChr(chr_regions, extractChr(ch_posfile), "position")
+    chr_ref_mis     = checkMetaChr(chr_regions, chr_ref, "reference genome")
+    chr_chunks_mis  = checkMetaChr(chr_regions, extractChr(ch_chunks), "chromosome chunks")
+    chr_map_mis     = checkMetaChr(chr_regions, extractChr(ch_map), "genetic map")
+    chr_panel_mis   = checkMetaChr(chr_regions, extractChr(ch_panel), "reference panel")
+    chr_posfile_mis = checkMetaChr(chr_regions, extractChr(ch_posfile), "position")
+
+    // Compute the intersection of all chromosomes names
+    chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
+        .unique()
+        .toList()
+        .subscribe{ chr ->  if (chr.size() > 0) { log.warn "The following contigs are absent from at least one file : ${chr} and therefore won't be used" } }
+
+    ch_regions = ch_regions
+        .combine(chr_all_mis.toList())
+        .filter { meta, regions, chr_mis ->
+            !(meta.chr in chr_mis)
+        }
+        .map { meta, regions, chr_mis -> [meta, regions] }
 
     // Check that all input files have the correct index
-    checkFileIndex(ch_input)
-    checkFileIndex(ch_input_truth)
-    checkFileIndex(ch_ref_gen)
-    checkFileIndex(ch_panel)
+    checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
@@ -262,9 +269,9 @@ workflow PIPELINE_INITIALISATION {
 }
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     SUBWORKFLOW FOR PIPELINE COMPLETION
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 workflow PIPELINE_COMPLETION {
@@ -273,13 +280,13 @@ workflow PIPELINE_COMPLETION {
     email           //  string: email address
     email_on_fail   //  string: email address sent on pipeline failure
     plaintext_email // boolean: Send plain-text email instead of HTML
+
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
     hook_url        //  string: hook URL for notifications
     multiqc_report  //  string: Path to MultiQC report
 
     main:
-
     summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
 
     //
@@ -287,11 +294,18 @@ workflow PIPELINE_COMPLETION {
     //
     workflow.onComplete {
         if (email || email_on_fail) {
-            completionEmail(summary_params, email, email_on_fail, plaintext_email, outdir, monochrome_logs, multiqc_report.toList())
+            completionEmail(
+                summary_params,
+                email,
+                email_on_fail,
+                plaintext_email,
+                outdir,
+                monochrome_logs,
+                multiqc_report.toList()
+            )
         }
 
         completionSummary(monochrome_logs)
-
         if (hook_url) {
             imNotification(summary_params, hook_url)
         }
@@ -303,9 +317,9 @@ workflow PIPELINE_COMPLETION {
 }
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     FUNCTIONS
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 //
 // Check and validate pipeline parameters
@@ -362,45 +376,58 @@ def validateInputParameters() {
     if (params.panel && params.steps.split(',').find { it in ["impute"] } && !params.steps.split(',').find { it in ["all", "panelprep"] } ) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
+
+    // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
+    if (params.steps.split(',').find { it in ["all", "panelprep"] } && params.remove_samples) {
+        if (!params.normalize) {
+            error("To use `--remove_samples` you need to include `--normalize`.")
+        }
+    }
 }
 
 //
 // Extract contig names from channel meta map
 //
-def extractChr(channel) {
-    channel.map { [it[0].chr] }
+def extractChr(ch_input) {
+    ch_input.map { [it[0].chr] }
         .collect()
         .toList()
 }
 
 //
 // Check if all contigs in a are present in b
+// Give back the intersection of a and b
 //
 def checkMetaChr(chr_a, chr_b, name){
-    chr_a
+    intersect = chr_a
         .combine(chr_b)
         .map{
             a, b ->
             if (b != [[]] && !(a - b).isEmpty()) {
-                error "Chr : ${a - b} is missing from ${name}"
+                log.warn "Chr : ${a - b} is missing from ${name}"
+                return (a-b)
             }
+            return []
         }
+        .flatten()
+    return intersect
 }
 
 //
 // Get file extension
 //
 def getFileExtension(file) {
-    if (file instanceof String) {
-        return file.replace(".gz","").split("\\.").last()
-    } else if (file instanceof Path) {
-        return file.getName().replace(".gz","").split("\\.").last()
+    if (file instanceof Path) {
+        file = file.getName()
     } else if (file instanceof ArrayList) {
-        if (file == []) {
+        if (file.size() == 0) {
             return null
         } else {
-            error "Array not supported"
+            error "Type not supported: ${file} = ${file.getClass()}"
         }
+    }
+    if (file instanceof String) {
+        return file.replace(".gz","").split("\\.").last()
     } else {
         error "Type not supported: ${file.getClass()}"
     }
@@ -409,8 +436,8 @@ def getFileExtension(file) {
 //
 // Check if all input files have the same extension
 //
-def getAllFilesExtension(ch_input) {
-    files_ext = ch_input
+def getFilesSameExt(ch_input) {
+    return ch_input
         .map { getFileExtension(it[1]) } // Extract files extensions
         .toList()  // Collect extensions into a list
         .map { extensions ->
@@ -425,26 +452,24 @@ def getAllFilesExtension(ch_input) {
 // Check correspondance file / index
 //
 def checkFileIndex(ch_input) {
-    ch_input
-        .toList()
-        .map { it.each{
-            meta, file, index ->
-            file_ext = getFileExtension(file)
-            index_ext = getFileExtension(index)
-            if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
-                log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
-                error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
-            }
-            if (file_ext == "bam" && index_ext != "bai") {
-                error "${meta}: Index file for .bam must have the extension .bai"
-            }
-            if (file_ext == "cram" && index_ext != "crai") {
-                error "${meta}: Index file for .cram must have the extension .crai"
-            }
-            if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
-                error "${meta}: Index file for [fa, fasta] must have the extension .fai"
-            }
-        }}
+    ch_input.map {
+        meta, file, index ->
+        def file_ext = getFileExtension(file)
+        def index_ext = getFileExtension(index)
+        if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
+            log.info("File: ${file} ${file_ext}, Index: ${index} ${index_ext}")
+            error "${meta}: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]"
+        }
+        if (file_ext == "bam" && index_ext != "bai") {
+            error "${meta}: Index file for .bam must have the extension .bai"
+        }
+        if (file_ext == "cram" && index_ext != "crai") {
+            error "${meta}: Index file for .cram must have the extension .crai"
+        }
+        if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
+            error "${meta}: Index file for [fa, fasta] must have the extension .fai"
+        }
+    }
     return null
 }
 
@@ -453,15 +478,15 @@ def checkFileIndex(ch_input) {
 //
 def exportCsv(ch_files, metas, header, name, outdir) {
     ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
-        meta = ""
-        file = ""
+        def meta = ""
+        def file = ""
         for (i in metas) {
             meta += "${it[0][i]},"
         }
         for (i in it[1]) {
             file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
         }
-        file=file.substring(0, file.length() - 1) // remove last comma
+        file = file.substring(0, file.length() - 1) // remove last comma
         ["${name}", "${header}\n${meta}${file}\n"]
     }
     return null
@@ -473,7 +498,9 @@ def exportCsv(ch_files, metas, header, name, outdir) {
 def validateInputSamplesheet(input) {
     def (meta, bam, bai) = input
     // Check that individual IDs are unique
-    // no validation for the moment
+    // No check for the moment
+
+    return [meta, bam, bai]
 }
 
 //
@@ -501,7 +528,6 @@ def genomeExistsError() {
         error(error_string)
     }
 }
-
 //
 // Generate methods description for MultiQC
 //
@@ -543,8 +569,10 @@ def methodsDescriptionText(mqc_methods_yaml) {
         // Removing `https://doi.org/` to handle pipelines using DOIs vs DOI resolvers
         // Removing ` ` since the manifest.doi is a string and not a proper list
         def temp_doi_ref = ""
-        String[] manifest_doi = meta.manifest_map.doi.tokenize(",")
-        for (String doi_ref: manifest_doi) temp_doi_ref += "(doi: <a href=\'https://doi.org/${doi_ref.replace("https://doi.org/", "").replace(" ", "")}\'>${doi_ref.replace("https://doi.org/", "").replace(" ", "")}</a>), "
+        def manifest_doi = meta.manifest_map.doi.tokenize(",")
+        manifest_doi.each { doi_ref ->
+            temp_doi_ref += "(doi: <a href=\'https://doi.org/${doi_ref.replace("https://doi.org/", "").replace(" ", "")}\'>${doi_ref.replace("https://doi.org/", "").replace(" ", "")}</a>), "
+        }
         meta["doi_text"] = temp_doi_ref.substring(0, temp_doi_ref.length() - 2)
     } else meta["doi_text"] = ""
     meta["nodoi_text"] = meta.manifest_map.doi ? "" : "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
@@ -565,3 +593,4 @@ def methodsDescriptionText(mqc_methods_yaml) {
 
     return description_html.toString()
 }
+

@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
     "title": "nf-core/phaseimpute pipeline - params.input",
     "description": "Schema for the file provided with params.input",
@@ -9,7 +9,7 @@
         "properties": {
             "sample": {
                 "type": "string",
-                "pattern": "^[a-zA-Z0-9_]+$",
+                "pattern": "^[a-zA-Z0-9_-]+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces nor special character '.' .",
                 "meta": ["id"]
             },
