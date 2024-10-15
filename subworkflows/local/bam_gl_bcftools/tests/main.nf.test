@@ -18,12 +18,8 @@ nextflow_workflow {
     tag "bcftools/mpileup"
     tag "bcftools/annotate"
 
-    test("Compute genotype likelihood") {
+    test("Compute genotype likelihood with merging") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.fromList([
@@ -55,7 +51,40 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf.collect{ path(it[1]).vcf.summary }).match("Summary") }
+                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_merge") }
+            )
+        }
+    }
+
+    test("Compute genotype likelihood with only one input") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                    ],
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one") }
             )
         }
     }
