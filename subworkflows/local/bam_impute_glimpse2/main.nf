@@ -30,6 +30,9 @@ workflow BAM_IMPUTE_GLIMPSE2 {
 
     // Join input and chunks reference
     ch_phase_input = ch_input
+        .map{ metaI, vcf, tbi -> [[id: "all"], metaI, vcf, tbi] }
+        .groupTuple() //
+        .map{ metaI, all_metas, vcf, tbi -> [metaI + [metas: all_metas], vcf, tbi ] }
         .combine(samples_file)
         .combine(ch_chunks_panel)
         .combine(gmap_file)
@@ -49,7 +52,7 @@ workflow BAM_IMPUTE_GLIMPSE2 {
     // Ligate all phased files in one and index it
     ligate_input = GLIMPSE2_PHASE.out.phased_variants
         .join( BCFTOOLS_INDEX_1.out.csi )
-        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr"), vcf, index] }
+        .map{ metaIPCR, vcf, index -> [metaIPCR.findAll {it.key != 'chunk'}, vcf, index] }
         .groupTuple()
 
     GLIMPSE2_LIGATE ( ligate_input )
