@@ -205,7 +205,17 @@ workflow PHASEIMPUTE {
         )
     }
 
+    //
+    // Impute target files
+    //
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
+        if (params.batch_size > 1) {
+            ch_input_batch = ch_input_impute
+                .map { meta, file, index -> [[id:"all"], meta, file, index] }
+                .groupTuple(size : params.batch_size, remainder: true)
+                .collectFile()
+        }
+
         // Use panel from parameters if provided
         if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
@@ -283,12 +293,8 @@ workflow PHASEIMPUTE {
             CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
-            // Separate by samples
-            VCF_SPLIT_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
-            ch_versions = ch_versions.mix(VCF_SPLIT_BCFTOOLS.out.versions)
-
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(VCF_SPLIT_BCFTOOLS.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
 
         }
         if (params.tools.split(',').contains("quilt")) {
@@ -304,7 +310,8 @@ workflow PHASEIMPUTE {
             BAM_IMPUTE_QUILT(
                 ch_input_impute,
                 ch_posfile.map{ [it[0], it[3], it[4]] },
-                ch_chunks_quilt
+                ch_chunks_quilt,
+                ch_fasta.map{ [it[0], it[1]] }
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
