@@ -35,7 +35,7 @@ SAMPLE6,AEG588A6.bam,AEG588A6.bai
 | Column   | Description                                                                                                                                                                                    |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                   |
-| `file`   | Full path to a alignment or variant file. File has to be have the extension ".bam", ".cram" or "vcf", "bcf" optionnaly compressed with bgzip ".gz". All files need to have the same extension. |
+| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" optionally compressed with bgzip ".gz". All files need to have the same extension. |
 | `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files need to have the same extension.                                                        |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
