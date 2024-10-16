@@ -266,4 +266,61 @@ nextflow_function {
             )
         }
     }
+
+    test ("Test validateInputBatchTools vcf only for glimpse") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = 1
+                input[1] = 60
+                input[2] = "vcf.gz"
+                input[3] = ["glimpse2", "quilt"]
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert snapshot(function.stdout).match()
+        }
+    }
+
+    test ("Test validateInputBatchTools only one vcf") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = 5
+                input[1] = 60
+                input[2] = "vcf.gz"
+                input[3] = ["glimpse2", "glimpse1"]
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert snapshot(function.stdout).match()
+        }
+    }
+
+    test ("Test validateInputBatchTools error batch") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = 150
+                input[1] = 60
+                input[2] = "cram"
+                input[3] = ["glimpse1", "quilt"]
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert snapshot(function.stdout).match()
+        }
+    }
 }

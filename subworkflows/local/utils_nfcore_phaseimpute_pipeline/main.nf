@@ -108,12 +108,17 @@ workflow PIPELINE_INITIALISATION {
         .map { samplesheet ->
             validateInputSamplesheet(samplesheet)
         }
-
-        // Check if all extension are identical
-        getFilesSameExt(ch_input)
     } else {
         ch_input = Channel.of([[], [], []])
     }
+
+    validateInputBatchTools(
+        ch_input.size(),
+        params.batch_size,
+        getFilesSameExt(ch_input),
+        params.tools.split(',')
+    )
+
     //
     // Create channel from input file provided through params.input_truth
     //
@@ -381,6 +386,27 @@ def validateInputParameters() {
     if (params.steps.split(',').find { it in ["all", "panelprep"] } && params.remove_samples) {
         if (!params.normalize) {
             error("To use `--remove_samples` you need to include `--normalize`.")
+        }
+    }
+}
+
+
+def validateInputBatchTools(nb_input, batch_size, extension, tools) {
+    if (extension ==~ "(vcf|bcf)(.gz)?") {
+        if (tools.contains("stitch") || tools.contains("quilt")) {
+            error "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+        }
+        if (nb_input > 1) {
+            error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple samples, please merge them into a single VCF file."
+        }
+    }
+
+    if (nb_input > batch_size) {
+        if (tools.contains("glimpse2") || tools.contains("quilt")) {
+            log.warn("Glimpse2 or Quilt software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${(int) Math.ceil(nb_input / batch_size)} batches.")
+        }
+        if (tools.contains("stitch") || tools.contains("glimpse1")) {
+            error "Stitch or Glimpse1 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
         }
     }
 }
