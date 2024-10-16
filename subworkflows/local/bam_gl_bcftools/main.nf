@@ -41,9 +41,14 @@ workflow BAM_GL_BCFTOOLS {
     // Branch depending on number of files
     ch_all_vcf = BCFTOOLS_MPILEUP.out.vcf
         .join(BCFTOOLS_MPILEUP.out.tbi)
-        .map{ metaIPC, vcf, tbi -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, tbi] }
-        .groupTuple() //
-        .map{ metaPC, all_metas, vcf, tbi -> [metaPC + [id: "all", metas: all_metas], vcf, tbi, vcf.size() ] } // Compute number of records
+        .map{ metaIPC, vcf, tbi -> [metaIPC.subMap("panel", "chr"), [metaIPC, vcf, tbi]] }
+        .groupTuple(sort: { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }) // Sort by id
+        .map{ metaPC, filestups -> [
+            metaPC + [id: "all", metas: filestups.collect{it[0]}],
+            filestups.collect{it[1]},
+            filestups.collect{it[2]},
+            filestups.collect{it[1]}.size()
+        ] } // Compute number of records
         .branch{
             one: it[3] == 1
             more: it[3] > 1

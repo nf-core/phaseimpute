@@ -22,8 +22,8 @@
                             ],
                             "variantcaller": "bcftools"
                         },
-                        "all.annotate.vcf.gz:md5,4f06211604b0a3b45a67ae81e4bf2a6a",
-                        "all.annotate.vcf.gz.tbi:md5,47fd0935159b7df78cfa5fb43eca62d6"
+                        "all.annotate.vcf.gz:md5,fd2e606f302c569d276011254a95a728",
+                        "all.annotate.vcf.gz.tbi:md5,e22a83a66d796dca37eab6d75e76f9c3"
                     ]
                 ],
                 "1": [
@@ -62,8 +62,8 @@
                             ],
                             "variantcaller": "bcftools"
                         },
-                        "all.annotate.vcf.gz:md5,4f06211604b0a3b45a67ae81e4bf2a6a",
-                        "all.annotate.vcf.gz.tbi:md5,47fd0935159b7df78cfa5fb43eca62d6"
+                        "all.annotate.vcf.gz:md5,fd2e606f302c569d276011254a95a728",
+                        "all.annotate.vcf.gz.tbi:md5,e22a83a66d796dca37eab6d75e76f9c3"
                     ]
                 ],
                 "versions": [
@@ -80,7 +80,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-15T18:39:53.461227202"
+        "timestamp": "2024-10-16T09:20:35.609695151"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
@@ -93,8 +93,8 @@
                             "chr": "22",
                             "variantcaller": "bcftools"
                         },
-                        "NA12878.annotate.vcf.gz:md5,2d45c6d58d1c1ab5b1c29ba2b52c9231",
-                        "NA12878.annotate.vcf.gz.tbi:md5,dbc7f7bd9a5e9b299cd2577b05061897"
+                        "NA12878.annotate.vcf.gz:md5,147ae3772f40a430036c7fabd10bb977",
+                        "NA12878.annotate.vcf.gz.tbi:md5,a31b4a912de0ab6e1c7a13ed18ccc153"
                     ]
                 ],
                 "1": [
@@ -117,8 +117,8 @@
                             "chr": "22",
                             "variantcaller": "bcftools"
                         },
-                        "NA12878.annotate.vcf.gz:md5,2d45c6d58d1c1ab5b1c29ba2b52c9231",
-                        "NA12878.annotate.vcf.gz.tbi:md5,dbc7f7bd9a5e9b299cd2577b05061897"
+                        "NA12878.annotate.vcf.gz:md5,147ae3772f40a430036c7fabd10bb977",
+                        "NA12878.annotate.vcf.gz.tbi:md5,a31b4a912de0ab6e1c7a13ed18ccc153"
                     ]
                 ],
                 "versions": [
@@ -133,7 +133,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-15T18:40:24.515765249"
+        "timestamp": "2024-10-16T09:21:00.8044734"
     },
     "Summary_one": {
         "content": [
