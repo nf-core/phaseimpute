@@ -224,12 +224,15 @@ workflow PHASEIMPUTE {
             .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         // Group BAMs by batch size
+        def nb_batch = 0
         ch_input_bams = ch_input_type.bam
             .map{ metaI, file, index -> [[id: "all"], metaI, file, index] }
             .groupTuple(
                 size : params.batch_size, remainder: true,
             )
-            .map { metaI, all_metas, file, index -> [metaI + [metas: all_metas], file, index] }
+            .map { metaI, all_metas, file, index -> [
+                metaI + [batch: nb_batch++, metas: all_metas], file, index
+            ] }
 
         LIST_TO_FILE(
             ch_input_bams.map{ meta, file, index -> [
@@ -285,6 +288,7 @@ workflow PHASEIMPUTE {
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
         }
+
         if (params.tools.split(',').contains("glimpse2")) {
             log.info("Impute with GLIMPSE2")
 
@@ -310,6 +314,7 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
         }
+
         if (params.tools.split(',').contains("stitch")) {
             log.info("Impute with STITCH")
 
@@ -330,6 +335,7 @@ workflow PHASEIMPUTE {
             ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
 
         }
+
         if (params.tools.split(',').contains("quilt")) {
             log.info("Impute with QUILT")
 

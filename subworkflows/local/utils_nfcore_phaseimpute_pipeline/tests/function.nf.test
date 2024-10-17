@@ -273,7 +273,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = 1
+                input[0] = Channel.of("A")
                 input[1] = 60
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "quilt"]
@@ -292,7 +292,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = 5
+                input[0] = Channel.of("A", "B", "C", "D", "E")
                 input[1] = 60
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "glimpse1"]
@@ -311,7 +311,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = 150
+                input[0] = Channel.of(0..150)
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["glimpse1", "quilt"]
