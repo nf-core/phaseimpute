@@ -10,7 +10,7 @@ process LIST_TO_FILE {
     tuple val(meta), path(input, arity: '0..*'), val(id)
 
     output:
-    tuple val(meta), path('*_id.txt'), path('*_noid.txt'), emit: txt
+    tuple val(meta), path('*.id.txt'), path('*.noid.txt'), emit: txt
     path "versions.yml", emit: versions
 
     when:
@@ -27,7 +27,7 @@ process LIST_TO_FILE {
         gsub(/[\\[\\]]/, "", ids);
         split(ids, i, ", ");
         for (j in f) print f[j], i[j]
-    }' > ${prefix}_id.txt
+    }' > ${prefix}.id.txt
 
     # Take all files of the input and list them in a file
     # without the id
@@ -35,7 +35,7 @@ process LIST_TO_FILE {
     awk 'BEGIN {
         split("${input}", f, " ");
         for (j in f) print f[j]
-    }' > ${prefix}_noid.txt
+    }' > ${prefix}.noid.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
