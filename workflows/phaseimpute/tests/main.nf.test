@@ -24,8 +24,8 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse1/concat/all.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/glimpse1/concat/all.glimpse1.vcf.gz").vcf.header.getGenotypeSamples()
+                    path("$outputDir/imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples()
                 ).match()
                 }
             )
@@ -51,8 +51,8 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse2/concat/all.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/glimpse2/concat/all.glimpse2.vcf.gz").vcf.header.getGenotypeSamples()
+                    path("$outputDir/imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz").vcf.header.getGenotypeSamples()
                 ).match()
                 }
             )
@@ -77,8 +77,8 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/quilt/concat/all.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/quilt/concat/all.quilt.vcf.gz").vcf.header.getGenotypeSamples()
+                    path("$outputDir/imputation/quilt/concat/all_batch0.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/quilt/concat/all_batch0.quilt.vcf.gz").vcf.header.getGenotypeSamples()
                 ).match()
                 }
             )
@@ -104,8 +104,8 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/stitch/concat/all.stitch.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/stitch/concat/all.stitch.vcf.gz").vcf.header.getGenotypeSamples()
+                    path("$outputDir/imputation/stitch/concat/all_batch0.stitch.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/stitch/concat/all_batch0.stitch.vcf.gz").vcf.header.getGenotypeSamples()
                 ).match()
                 }
             )
@@ -190,14 +190,14 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("${outputDir}/imputation/glimpse1/concat/all.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/glimpse1/concat/all.glimpse1.vcf.gz").vcf.header.getGenotypeSamples(),
-                    path("${outputDir}/imputation/glimpse2/concat/all.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/glimpse2/concat/all.glimpse2.vcf.gz").vcf.header.getGenotypeSamples(),
-                    path("${outputDir}/imputation/stitch/concat/all.stitch.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/stitch/concat/all.stitch.vcf.gz").vcf.header.getGenotypeSamples(),
-                    path("${outputDir}/imputation/quilt/concat/all.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/quilt/concat/all.quilt.vcf.gz").vcf.header.getGenotypeSamples()
+                    path("${outputDir}/imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples(),
+                    path("${outputDir}/imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz").vcf.header.getGenotypeSamples(),
+                    path("${outputDir}/imputation/stitch/concat/all_batch0.stitch.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/stitch/concat/all_batch0.stitch.vcf.gz").vcf.header.getGenotypeSamples(),
+                    path("${outputDir}/imputation/quilt/concat/all_batch0.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/quilt/concat/all_batch0.quilt.vcf.gz").vcf.header.getGenotypeSamples()
                 ).match()
                 }
             )
@@ -219,6 +219,10 @@ nextflow_pipeline {
                 { assert workflow.success },
                 { assert snapshot(
                     path("${outputDir}/prep_panel")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("${outputDir}/imputation")
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
@@ -254,13 +258,11 @@ nextflow_pipeline {
 
     test("Check test_batch") {
         tag "test_batch"
-        config "../../../conf/test.config"
+        config "../../../conf/test_batch.config"
         when {
             params {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
-                outdir     = "$outputDir"
-                tools      = "glimpse2,quilt"
-                batch_size = 2
+                outdir = "$outputDir"
             }
         }
 
@@ -272,14 +274,14 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("${outputDir}/imputation/glimpse1/concat/all.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/glimpse1/concat/all.glimpse1.vcf.gz").vcf.header.getGenotypeSamples(),
-                    path("${outputDir}/imputation/glimpse2/concat/all.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/glimpse2/concat/all.glimpse2.vcf.gz").vcf.header.getGenotypeSamples(),
-                    path("${outputDir}/imputation/stitch/concat/all.stitch.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/stitch/concat/all.stitch.vcf.gz").vcf.header.getGenotypeSamples(),
-                    path("${outputDir}/imputation/quilt/concat/all.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("${outputDir}/imputation/quilt/concat/all.quilt.vcf.gz").vcf.header.getGenotypeSamples()
+                    path("${outputDir}/imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz").vcf.header.getGenotypeSamples(),
+                    path("${outputDir}/imputation/quilt/concat/all_batch0.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/quilt/concat/all_batch0.quilt.vcf.gz").vcf.header.getGenotypeSamples(),
+                    path("${outputDir}/imputation/glimpse2/concat/all_batch1.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/glimpse2/concat/all_batch1.glimpse2.vcf.gz").vcf.header.getGenotypeSamples(),
+                    path("${outputDir}/imputation/quilt/concat/all_batch1.quilt.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("${outputDir}/imputation/quilt/concat/all_batch1.quilt.vcf.gz").vcf.header.getGenotypeSamples()
                 ).match()
                 }
             )
