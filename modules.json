@@ -110,7 +110,8 @@
                     "glimpse2/phase": {
                         "branch": "master",
                         "git_sha": "6a5a6e1dedc88826744e8117c1974dcca4829d8f",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/glimpse2/phase/glimpse2-phase.diff"
                     },
                     "glimpse2/splitreference": {
                         "branch": "master",
@@ -130,7 +131,8 @@
                     "quilt/quilt": {
                         "branch": "master",
                         "git_sha": "46265545d61e7f482adf40de941cc9a94e479bbe",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/quilt/quilt/quilt-quilt.diff"
                     },
                     "samtools/coverage": {
                         "branch": "master",

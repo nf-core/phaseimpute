@@ -1,15 +1,13 @@
 
-include { BAM_GL_BCFTOOLS                    } from '../bam_gl_bcftools'
 include { GLIMPSE_PHASE                      } from '../../../modules/nf-core/glimpse/phase'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index'
 include { GLIMPSE_LIGATE                     } from '../../../modules/nf-core/glimpse/ligate'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bcftools/index'
 
-workflow BAM_IMPUTE_GLIMPSE1 {
+workflow VCF_IMPUTE_GLIMPSE1 {
 
     take:
     ch_input        // channel (mandatory): [ [id], bam, bai ]
-    ch_posfile      // channel (mandatory): [ [panel, chr], legend ]
     ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
     ch_chunks       // channel  (optional): [ [panel, chr], region1, region2 ]
     ch_fasta        // channel (mandatory): [ [genome], fa, fai ]
@@ -18,33 +16,6 @@ workflow BAM_IMPUTE_GLIMPSE1 {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-
-        // Channels for branching
-    ch_input = ch_input
-        .branch {
-            bam: it[1] =~ 'bam|cram'
-            vcf: it[1] =~ '(vcf|bcf)(.gz)*'
-            other: true
-        }
-    ch_input.other
-        .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
-
-    // Glimpse1 subworkflow
-    BAM_GL_BCFTOOLS( // Compute GL for input data once per panel by chromosome
-        ch_input.bam,
-        ch_posfile,
-        ch_fasta
-    )
-    ch_multiqc_files = ch_multiqc_files.mix(BAM_GL_BCFTOOLS.out.multiqc_files)
-    ch_versions = ch_versions.mix(BAM_GL_BCFTOOLS.out.versions)
-
-    // Combine input and chunks reference
-    ch_impute = ch_input.vcf
-        .combine(ch_posfile)
-        .map{ metaI, vcf, index, metaPC, legend ->
-            [metaI + ["panel": metaPC.id, "chr": metaPC.chr], vcf, index]
-        }
-        .mix(BAM_GL_BCFTOOLS.out.vcf_tbi)
 
     samples_file = Channel.of([[]]).collect()
     gmap_file    = Channel.of([[]]).collect()
@@ -57,7 +28,7 @@ workflow BAM_IMPUTE_GLIMPSE1 {
         }
 
     // Join input and chunks reference
-    ch_phase_input = ch_impute
+    ch_phase_input = ch_input
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
         .combine(samples_file)
         .combine(ch_chunks_panel, by: 0)
@@ -76,7 +47,7 @@ workflow BAM_IMPUTE_GLIMPSE1 {
     // Ligate all phased files in one and index it
     ligate_input = GLIMPSE_PHASE.out.phased_variants
         .join( BCFTOOLS_INDEX_1.out.csi )
-        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr"), vcf, index] }
+        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr", "batch"), vcf, index] }
         .groupTuple()
 
     GLIMPSE_LIGATE ( ligate_input )

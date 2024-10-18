@@ -1,3 +1,4 @@
+include { GAWK                               } from '../../../modules/nf-core/gawk'
 include { GLIMPSE2_PHASE                     } from '../../../modules/nf-core/glimpse2/phase'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_1 } from '../../../modules/nf-core/bcftools/index'
 include { GLIMPSE2_LIGATE                    } from '../../../modules/nf-core/glimpse2/ligate'
@@ -6,7 +7,7 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bc
 workflow BAM_IMPUTE_GLIMPSE2 {
 
     take:
-    ch_input        // channel (mandatory): [ [id], bam, bai ]
+    ch_input        // channel (mandatory): [ [id], bam, bai, bamlist ]
     ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
     ch_chunks       // channel  (optional): [ [panel, chr], region1, region2 ]
     ch_fasta        // channel (mandatory): [ [genome], fa, fai ]
@@ -33,9 +34,9 @@ workflow BAM_IMPUTE_GLIMPSE2 {
         .combine(samples_file)
         .combine(ch_chunks_panel)
         .combine(gmap_file)
-        .map{ metaI, bam, bai, samples, metaPC, regionin, regionout, panel, panel_index, gmap ->
+        .map{ metaI, bam, bai, bamlist, samples, metaPC, regionin, regionout, panel, panel_index, gmap ->
             [metaI + metaPC + ["chunk": regionout],
-            bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
+            bam, bai, bamlist, samples, regionin, regionout, panel, panel_index, gmap]
         }
 
     // Impute with Glimpse2
@@ -49,7 +50,7 @@ workflow BAM_IMPUTE_GLIMPSE2 {
     // Ligate all phased files in one and index it
     ligate_input = GLIMPSE2_PHASE.out.phased_variants
         .join( BCFTOOLS_INDEX_1.out.csi )
-        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr"), vcf, index] }
+        .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr", "batch"), vcf, index] }
         .groupTuple()
 
     GLIMPSE2_LIGATE ( ligate_input )

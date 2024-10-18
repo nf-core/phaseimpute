@@ -1,0 +1,35 @@
+nextflow_process {
+
+    name "Test Process LIST_TO_FILE"
+    script "../main.nf"
+    process "LIST_TO_FILE"
+
+    tag "modules"
+    tag "modules_local"
+    tag "list_to_file"
+    tag "gawk"
+
+    test("Aggregate all files into a list") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.of([
+                    [id: "all"],
+                    [file("file1.txt"), file("file2.txt")],
+                    ["A", "B"]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() },
+                { assert snapshot(path(process.out.txt[0][1]).readLines()).match("Content_withid") },
+                { assert snapshot(path(process.out.txt[0][2]).readLines()).match("Content_noid") }
+            )
+        }
+    }
+}
