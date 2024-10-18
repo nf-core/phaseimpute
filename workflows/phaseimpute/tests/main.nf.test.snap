@@ -11,9 +11,9 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
-                "NA20359",
+                "NA12878",
                 "NA19401",
-                "NA12878"
+                "NA20359"
             ]
         ],
         "meta": {
@@ -92,20 +92,20 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
-                "NA19401",
                 "NA12878",
+                "NA19401",
                 "NA20359"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
-                "NA19401",
                 "NA12878",
+                "NA19401",
                 "NA20359"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
-                "NA19401",
                 "NA12878",
+                "NA19401",
                 "NA20359"
             ]
         ],
@@ -154,13 +154,13 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
-                "NA19401",
-                "NA12878"
+                "NA12878",
+                "NA19401"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
-                "NA19401",
-                "NA12878"
+                "NA12878",
+                "NA19401"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
@@ -189,9 +189,9 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
-                "NA20359",
                 "NA12878",
-                "NA19401"
+                "NA19401",
+                "NA20359"
             ]
         ],
         "meta": {
@@ -262,16 +262,16 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
-                "NA20359",
+                "NA12878",
                 "NA19401",
-                "NA12878"
+                "NA20359"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-18T09:49:10.85354481"
+        "timestamp": "2024-10-18T23:18:00.103699082"
     },
     "Check test": {
         "content": [
