@@ -55,7 +55,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Only warn the user if some contigs are absent from files, the regions to compute is now the intersection of regions, panel, posfile, chunks, map.
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Update all test and recompute snapshot to match new version of the phaseimpute test dataset.
 - [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update Glimpse2 phase, gunzip and multiqc
-- [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of individuals by default. All individuals BAM files are gathered and VCF are allowed for glimpse1 and glimpse2.
+- [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of 100 individuals by default. All individuals BAM files are gathered and VCF are allowed for glimpse1 and glimpse2.
 
 ### `Fixed`
 
