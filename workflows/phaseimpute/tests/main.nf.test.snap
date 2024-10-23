@@ -154,28 +154,33 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
-                "NA12878",
-                "NA19401"
+                "NA19401",
+                "NA20359"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
-                "NA12878",
-                "NA19401"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
-            [
+                "NA19401",
                 "NA20359"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
-                "NA20359"
+                "NA12878"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+            [
+                "NA12878"
+            ],
+            [
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-10-18T10:02:51.811483547"
+        "timestamp": "2024-10-23T18:29:24.392458507"
     },
     "Check test_quilt": {
         "content": [
