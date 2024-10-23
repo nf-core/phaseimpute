@@ -412,7 +412,7 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
                     error "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
                 }
                 if (nb_input > 1) {
-                    error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple samples, please merge them into a single VCF file."
+                    error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
                 }
             }
 

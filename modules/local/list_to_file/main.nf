@@ -1,4 +1,5 @@
 process LIST_TO_FILE {
+    tag "$meta.id"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"

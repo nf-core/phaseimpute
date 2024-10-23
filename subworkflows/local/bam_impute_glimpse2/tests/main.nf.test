@@ -17,7 +17,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/index"
 
-    test("Impute with glimpse2 one vcf") {
+    test("Impute with glimpse2 one vcf - input bcf") {
         when {
             workflow {
                 """
@@ -55,7 +55,7 @@ nextflow_workflow {
         }
     }
 
-    test("Impute with glimpse2 two individuals") {
+    test("Impute with glimpse2 two individuals - input bam") {
         when {
             workflow {
                 """
@@ -98,7 +98,7 @@ nextflow_workflow {
         }
     }
 
-    test("Impute with glimpse2 one individual") {
+    test("Impute with glimpse2 one individual - input file bam") {
         when {
             workflow {
                 """
