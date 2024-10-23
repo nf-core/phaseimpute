@@ -36,6 +36,7 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-co
 
 // Imputation
 include { LIST_TO_FILE                               } from '../../modules/local/list_to_file'
+include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/local/vcf_split_bcftools'
 
 // GLIMPSE1 subworkflows
 include { BAM_GL_BCFTOOLS as GL_GLIMPSE1             } from '../../subworkflows/local/bam_gl_bcftools'
@@ -226,12 +227,12 @@ workflow PHASEIMPUTE {
         // Group BAMs by batch size
         def nb_batch = 0
         ch_input_bams = ch_input_type.bam
-            .map{ metaI, file, index -> [[id: "all"], metaI, file, index] }
+            .map{ metaI, file, index -> [[id: "all"], [metaI.findAll{it.key != "batch"}, file, index]] }
             .groupTuple(
-                size : params.batch_size, remainder: true,
+                size : params.batch_size, remainder: true, sort: { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
             )
-            .map { metaI, all_metas, file, index -> [
-                metaI + [batch: nb_batch++, metas: all_metas], file, index
+            .map { metaI, filestuples-> [
+                metaI + [batch: nb_batch++, metas: filestuples.collect{it[0]}], filestuples.collect{it[1]}, filestuples.collect{it[2]}
             ] }
 
         LIST_TO_FILE(
@@ -361,6 +362,10 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
+
+        // Split result by samples
+        VCF_SPLIT_BCFTOOLS(ch_input_validate)
+        ch_input_validate = VCF_SPLIT_BCFTOOLS.out.vcf_tbi
 
         // Compute stats on imputed files
         BCFTOOLS_STATS_TOOLS(
