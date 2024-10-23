@@ -137,7 +137,7 @@
             "properties": {
                 "batch_size": {
                     "type": "integer",
-                    "description": "Number of individuals per batch to split the data into for imputation.",
+                    "description": "Maximal number of individuals per batch for imputation.",
                     "default": 100,
                     "pattern": "^\\d+$"
                 },
