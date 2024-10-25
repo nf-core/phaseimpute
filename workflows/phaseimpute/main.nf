@@ -292,12 +292,8 @@ workflow PHASEIMPUTE {
             CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
-            // Split samples
-            SPLIT_GLIMPSE1(CONCAT_GLIMPSE1.out.vcf_tbi)
-            ch_versions = ch_versions.mix(SPLIT_GLIMPSE1.out.versions)
-
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(SPLIT_GLIMPSE1.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
         }
 
@@ -323,12 +319,8 @@ workflow PHASEIMPUTE {
             CONCAT_GLIMPSE2(BAM_IMPUTE_GLIMPSE2.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
-            // Split samples
-            SPLIT_GLIMPSE2(CONCAT_GLIMPSE2.out.vcf_tbi)
-            ch_versions = ch_versions.mix(SPLIT_GLIMPSE2.out.versions)
-
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(SPLIT_GLIMPSE2.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
         }
 
         if (params.tools.split(',').contains("stitch")) {
@@ -347,12 +339,8 @@ workflow PHASEIMPUTE {
             CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
-            // Split samples
-            SPLIT_STITCH(CONCAT_STITCH.out.vcf_tbi)
-            ch_versions = ch_versions.mix(SPLIT_STITCH.out.versions)
-
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(SPLIT_STITCH.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
 
         }
 
@@ -378,12 +366,8 @@ workflow PHASEIMPUTE {
             CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
-            // Split samples
-            SPLIT_QUILT(CONCAT_QUILT.out.vcf_tbi)
-            ch_versions = ch_versions.mix(SPLIT_QUILT.out.versions)
-
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(SPLIT_QUILT.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
 
         // Split result by samples
