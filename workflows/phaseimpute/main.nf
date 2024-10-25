@@ -42,19 +42,23 @@ include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/
 include { BAM_GL_BCFTOOLS as GL_GLIMPSE1             } from '../../subworkflows/local/bam_gl_bcftools'
 include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_GLIMPSE1       } from '../../subworkflows/local/vcf_split_bcftools'
 
 // GLIMPSE2 subworkflows
 include { BAM_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/bam_impute_glimpse2'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_GLIMPSE2       } from '../../subworkflows/local/vcf_split_bcftools'
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/local/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_QUILT          } from '../../subworkflows/local/vcf_split_bcftools'
 
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_STITCH         } from '../../subworkflows/local/vcf_split_bcftools'
 
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
@@ -227,12 +231,14 @@ workflow PHASEIMPUTE {
         // Group BAMs by batch size
         def nb_batch = 0
         ch_input_bams = ch_input_type.bam
-            .map{ metaI, file, index -> [[id: "all"], [metaI.findAll{it.key != "batch"}, file, index]] }
-            .groupTuple(
-                size : params.batch_size, remainder: true, sort: { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
-            )
+            .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
+            .map { list -> list.collate(params.batch_size)
+                .collect{ [[id: "all", batch: nb_batch++], it] } }
+            .map { list -> [list.collect{ it[0] }, list.collect{ it[1] }] }
+            .transpose()
             .map { metaI, filestuples-> [
-                metaI + [batch: nb_batch++, metas: filestuples.collect{it[0]}], filestuples.collect{it[1]}, filestuples.collect{it[2]}
+                metaI + [metas: filestuples.collect{it[0].findAll{it.key != "batch"}}],
+                filestuples.collect{it[1]}, filestuples.collect{it[2]}
             ] }
 
         LIST_TO_FILE(
@@ -285,8 +291,12 @@ workflow PHASEIMPUTE {
             CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
+            // Split samples
+            SPLIT_GLIMPSE1(CONCAT_GLIMPSE1.out.vcf_tbi)
+            ch_versions = ch_versions.mix(SPLIT_GLIMPSE1.out.versions)
+
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(SPLIT_GLIMPSE1.out.vcf_tbi)
 
         }
 
@@ -312,8 +322,12 @@ workflow PHASEIMPUTE {
             CONCAT_GLIMPSE2(BAM_IMPUTE_GLIMPSE2.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
 
+            // Split samples
+            SPLIT_GLIMPSE2(CONCAT_GLIMPSE2.out.vcf_tbi)
+            ch_versions = ch_versions.mix(SPLIT_GLIMPSE2.out.versions)
+
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(SPLIT_GLIMPSE2.out.vcf_tbi)
         }
 
         if (params.tools.split(',').contains("stitch")) {
@@ -332,8 +346,12 @@ workflow PHASEIMPUTE {
             CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
+            // Split samples
+            SPLIT_STITCH(CONCAT_STITCH.out.vcf_tbi)
+            ch_versions = ch_versions.mix(SPLIT_STITCH.out.versions)
+
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(SPLIT_STITCH.out.vcf_tbi)
 
         }
 
@@ -359,8 +377,12 @@ workflow PHASEIMPUTE {
             CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
 
+            // Split samples
+            SPLIT_QUILT(CONCAT_QUILT.out.vcf_tbi)
+            ch_versions = ch_versions.mix(SPLIT_QUILT.out.versions)
+
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(SPLIT_QUILT.out.vcf_tbi)
         }
 
         // Split result by samples

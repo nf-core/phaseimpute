@@ -114,6 +114,8 @@ The results from steps impute will have the following directory structure:
 - `imputation/[glimpse1,glimpse2,quilt,stitch]/`
   - `concat/*.vcf.gz`: A vcf of each imputed sample.
   - `concat/*.vcf.gz.tbi`: A tbi for the imputed vcf.
+  - `samples/*.vcf.gz`: A vcf of each imputed sample.
+  - `samples/*.vcf.gz.tbi`: A tbi for the imputed vcf.
 
 </details>
 
