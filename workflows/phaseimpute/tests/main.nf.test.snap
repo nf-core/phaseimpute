@@ -5,9 +5,17 @@
                 "imputation/batch/all.0.id.txt",
                 "imputation/batch/all.0.noid.txt",
                 "imputation/csv/impute.csv",
-                "imputation/stats/all.stitch.bcftools_stats.txt",
+                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
                 "imputation/stitch/concat/all_batch0.stitch.vcf.gz",
-                "imputation/stitch/concat/all_batch0.stitch.vcf.gz.tbi"
+                "imputation/stitch/concat/all_batch0.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA12878.vcf.gz",
+                "imputation/stitch/samples/NA12878.vcf.gz.tbi",
+                "imputation/stitch/samples/NA19401.vcf.gz",
+                "imputation/stitch/samples/NA19401.vcf.gz.tbi",
+                "imputation/stitch/samples/NA20359.vcf.gz",
+                "imputation/stitch/samples/NA20359.vcf.gz.tbi"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -20,7 +28,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-17T15:30:23.863230199"
+        "timestamp": "2024-10-25T16:47:19.203956394"
     },
     "Check test_all": {
         "content": [
@@ -39,16 +47,48 @@
                 "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA12878.vcf.gz",
+                "imputation/glimpse1/samples/NA12878.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA19401.vcf.gz",
+                "imputation/glimpse1/samples/NA19401.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA20359.vcf.gz",
+                "imputation/glimpse1/samples/NA20359.vcf.gz.tbi",
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA12878.vcf.gz",
+                "imputation/glimpse2/samples/NA12878.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA19401.vcf.gz",
+                "imputation/glimpse2/samples/NA19401.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA20359.vcf.gz",
+                "imputation/glimpse2/samples/NA20359.vcf.gz.tbi",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz.tbi",
-                "imputation/stats/all.glimpse1.bcftools_stats.txt",
-                "imputation/stats/all.glimpse2.bcftools_stats.txt",
-                "imputation/stats/all.quilt.bcftools_stats.txt",
-                "imputation/stats/all.stitch.bcftools_stats.txt",
+                "imputation/quilt/samples/NA12878.vcf.gz",
+                "imputation/quilt/samples/NA12878.vcf.gz.tbi",
+                "imputation/quilt/samples/NA19401.vcf.gz",
+                "imputation/quilt/samples/NA19401.vcf.gz.tbi",
+                "imputation/quilt/samples/NA20359.vcf.gz",
+                "imputation/quilt/samples/NA20359.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
                 "imputation/stitch/concat/all_batch0.stitch.vcf.gz",
-                "imputation/stitch/concat/all_batch0.stitch.vcf.gz.tbi"
+                "imputation/stitch/concat/all_batch0.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA12878.vcf.gz",
+                "imputation/stitch/samples/NA12878.vcf.gz.tbi",
+                "imputation/stitch/samples/NA19401.vcf.gz",
+                "imputation/stitch/samples/NA19401.vcf.gz.tbi",
+                "imputation/stitch/samples/NA20359.vcf.gz",
+                "imputation/stitch/samples/NA20359.vcf.gz.tbi"
             ],
             [
                 "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
@@ -75,14 +115,30 @@
                 "prep_panel/stats/1000GP.panel.bcftools_stats.txt"
             ],
             [
+                "validation/NA12878_P1000GP_Tglimpse1_SNP.txt",
+                "validation/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/NA12878_P1000GP_Tstitch_SNP.txt",
+                "validation/NA19401_P1000GP_Tglimpse1_SNP.txt",
+                "validation/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/NA19401_P1000GP_Tstitch_SNP.txt",
+                "validation/NA20359_P1000GP_Tglimpse1_SNP.txt",
+                "validation/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA20359_P1000GP_Tquilt_SNP.txt",
+                "validation/NA20359_P1000GP_Tstitch_SNP.txt",
                 "validation/TestQuality.txt",
-                "validation/all_P1000GP_Tglimpse1_SNP.txt",
-                "validation/all_P1000GP_Tglimpse2_SNP.txt",
-                "validation/all_P1000GP_Tquilt_SNP.txt",
-                "validation/all_P1000GP_Tstitch_SNP.txt",
                 "validation/concat/all.A-truth.vcf.gz",
                 "validation/concat/all.A-truth.vcf.gz.tbi",
-                "validation/stats/all.truth.bcftools_stats.txt"
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -113,7 +169,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-18T09:58:57.439862148"
+        "timestamp": "2024-10-25T19:20:40.899116746"
     },
     "Check test_validate": {
         "content": [
@@ -122,6 +178,12 @@
                 "validation/NA19401_SNP.txt",
                 "validation/NA20359_SNP.txt",
                 "validation/TestQuality.txt",
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt"
@@ -131,7 +193,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-12T21:03:11.947702591"
+        "timestamp": "2024-10-25T19:14:20.211846091"
     },
     "Check test_batch": {
         "content": [
@@ -145,12 +207,28 @@
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/concat/all_batch1.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/all_batch1.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA12878.vcf.gz",
+                "imputation/glimpse2/samples/NA12878.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA19401.vcf.gz",
+                "imputation/glimpse2/samples/NA19401.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA20359.vcf.gz",
+                "imputation/glimpse2/samples/NA20359.vcf.gz.tbi",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz.tbi",
                 "imputation/quilt/concat/all_batch1.quilt.vcf.gz",
                 "imputation/quilt/concat/all_batch1.quilt.vcf.gz.tbi",
-                "imputation/stats/all.glimpse2.bcftools_stats.txt",
-                "imputation/stats/all.quilt.bcftools_stats.txt"
+                "imputation/quilt/samples/NA12878.vcf.gz",
+                "imputation/quilt/samples/NA12878.vcf.gz.tbi",
+                "imputation/quilt/samples/NA19401.vcf.gz",
+                "imputation/quilt/samples/NA19401.vcf.gz.tbi",
+                "imputation/quilt/samples/NA20359.vcf.gz",
+                "imputation/quilt/samples/NA20359.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
@@ -168,9 +246,22 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
-                "NA12878"
+                "NA20359"
             ],
             [
+                "validation/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/NA20359_P1000GP_Tquilt_SNP.txt",
+                "validation/TestQuality.txt",
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt"
@@ -180,7 +271,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-10-23T18:29:24.392458507"
+        "timestamp": "2024-10-25T19:25:15.563226326"
     },
     "Check test_quilt": {
         "content": [
@@ -190,7 +281,15 @@
                 "imputation/csv/impute.csv",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz.tbi",
-                "imputation/stats/all.quilt.bcftools_stats.txt"
+                "imputation/quilt/samples/NA12878.vcf.gz",
+                "imputation/quilt/samples/NA12878.vcf.gz.tbi",
+                "imputation/quilt/samples/NA19401.vcf.gz",
+                "imputation/quilt/samples/NA19401.vcf.gz.tbi",
+                "imputation/quilt/samples/NA20359.vcf.gz",
+                "imputation/quilt/samples/NA20359.vcf.gz.tbi",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
@@ -203,7 +302,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-18T09:50:30.145133414"
+        "timestamp": "2024-10-25T16:46:11.131198832"
     },
     "Check test_sim": {
         "content": [
@@ -263,7 +362,15 @@
                 "imputation/csv/impute.csv",
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz.tbi",
-                "imputation/stats/all.glimpse2.bcftools_stats.txt"
+                "imputation/glimpse2/samples/NA12878.vcf.gz",
+                "imputation/glimpse2/samples/NA12878.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA19401.vcf.gz",
+                "imputation/glimpse2/samples/NA19401.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA20359.vcf.gz",
+                "imputation/glimpse2/samples/NA20359.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
@@ -276,7 +383,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-18T23:18:00.103699082"
+        "timestamp": "2024-10-25T16:44:41.049965503"
     },
     "Check test": {
         "content": [
@@ -286,7 +393,15 @@
                 "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/all_batch0.glimpse1.vcf.gz.tbi",
-                "imputation/stats/all.glimpse1.bcftools_stats.txt"
+                "imputation/glimpse1/samples/NA12878.vcf.gz",
+                "imputation/glimpse1/samples/NA12878.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA19401.vcf.gz",
+                "imputation/glimpse1/samples/NA19401.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA20359.vcf.gz",
+                "imputation/glimpse1/samples/NA20359.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse1.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -299,7 +414,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-17T15:16:10.389819157"
+        "timestamp": "2024-10-25T16:43:29.694533762"
     },
     "Check test_dog": {
         "content": [
@@ -332,19 +447,25 @@
                 "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/dog_1735_batch0.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/dog_1735_batch0.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/dog_1735.vcf.gz",
+                "imputation/glimpse1/samples/dog_1735.vcf.gz.tbi",
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/all_batch0.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/dog_1735.vcf.gz",
+                "imputation/glimpse2/samples/dog_1735.vcf.gz.tbi",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz",
                 "imputation/quilt/concat/all_batch0.quilt.vcf.gz.tbi",
-                "imputation/stats/all.glimpse2.bcftools_stats.txt",
-                "imputation/stats/all.quilt.bcftools_stats.txt",
-                "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt"
+                "imputation/quilt/samples/1735.vcf.gz",
+                "imputation/quilt/samples/1735.vcf.gz.tbi",
+                "imputation/stats/1735.quilt.bcftools_stats.txt",
+                "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
+                "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-18T10:00:03.731996605"
+        "timestamp": "2024-10-25T16:56:33.72923425"
     }
 }

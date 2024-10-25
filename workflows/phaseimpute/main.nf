@@ -65,6 +65,7 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-co
 
 // Concordance subworkflows
 include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_TRUTH          } from '../../subworkflows/local/vcf_split_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
@@ -457,9 +458,13 @@ workflow PHASEIMPUTE {
         CONCAT_TRUTH(ch_truth_vcf)
         ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
 
+        // Split truth vcf by samples
+        SPLIT_TRUTH(CONCAT_TRUTH.out.vcf_tbi)
+        ch_versions = ch_versions.mix(SPLIT_TRUTH.out.versions)
+
         // Compute stats on truth files
         BCFTOOLS_STATS_TRUTH(
-            CONCAT_TRUTH.out.vcf_tbi,
+            SPLIT_TRUTH.out.vcf_tbi,
             [[],[]],
             [[],[]],
             [[],[]],
@@ -472,7 +477,7 @@ workflow PHASEIMPUTE {
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            CONCAT_TRUTH.out.vcf_tbi,
+            SPLIT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
             ch_region
         )
