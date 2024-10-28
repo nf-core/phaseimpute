@@ -266,6 +266,7 @@ workflow PIPELINE_INITIALISATION {
             !(meta.chr in chr_mis)
         }
         .map { meta, regions, chr_mis -> [meta, regions] }
+        .ifEmpty { error "No regions left to process" }
 
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
