@@ -48,7 +48,17 @@ process BCFTOOLS_PLUGINSPLIT {
         ${targets_arg} \\
         --output ${prefix}
 
-    for i in ${prefix}/*; do cp "\$i" "./\$(basename "\$i" .${extension})${suffix}.${extension}"; done
+    for file in ${prefix}/*; do
+        # Extract the basename
+        base_name=\$(basename "\$file")
+        # Extract the part of the basename before the first dot
+        name_before_dot="\${base_name%%.*}"
+        # Extract the extension
+        extension="\${base_name#\${name_before_dot}}"
+        # Construct the new name
+        new_name="\${name_before_dot}${suffix}\${extension}"
+        mv "\$file" "./\$new_name"
+    done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
