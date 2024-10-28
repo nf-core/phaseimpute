@@ -24,7 +24,7 @@
                     },
                     "bcftools/index": {
                         "branch": "master",
-                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["bam_impute_glimpse", "vcf_phase_shapeit5"]
                     },
                     "bcftools/merge": {
