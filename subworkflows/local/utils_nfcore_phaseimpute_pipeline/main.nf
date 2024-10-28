@@ -544,15 +544,15 @@ def toolCitationText() {
     def citation_text = [
         "Tools used in the workflow included:",
         "BCFtools (Danecek et al. 2021),",
-        params.tools.split(',').contains("glimpse")   ? "GLIMPSE (Rubinacci et al. 2020)," : "",
-        params.tools.split(',').contains("glimpse2")  ? "GLIMPSE2 (Rubinacci et al. 2023)," : "",
-        params.tools.split(',').contains("quilt")     ? "QUILT (Davies et al. 2021)," : "",
+        params.tools ? params.tools.split(',').contains("glimpse")   ? "GLIMPSE (Rubinacci et al. 2020)," : "" : "",
+        params.tools ? params.tools.split(',').contains("glimpse2")  ? "GLIMPSE2 (Rubinacci et al. 2023)," : "": "",
+        params.tools ? params.tools.split(',').contains("quilt")     ? "QUILT (Davies et al. 2021)," : "": "",
         "SAMtools (Li et al. 2009),",
-        params.phased ? "SHAPEIT5 (Hofmeister et al. 2023)," : "",
-        params.phased ? "BEDtools (Quinlan and Hall 2010)," : "",
-        params.tools.split(',').contains("stitch")    ? "STITCH (Davies et al. 2016)," : "",
+        params.tools ? params.phased ? "SHAPEIT5 (Hofmeister et al. 2023)," : "": "",
+        params.tools ? params.phased ? "BEDtools (Quinlan and Hall 2010)," : "": "",
+        params.tools ? params.tools.split(',').contains("stitch")    ? "STITCH (Davies et al. 2016)," : "": "",
         "Tabix (Li et al. 2011),",
-        params.compute_freq  ? "VCFlib (Garrison et al. 2022)," : "",
+        params.tools ? params.compute_freq  ? "VCFlib (Garrison et al. 2022)," : "": "",
         "."
     ].join(' ').trim()
 
