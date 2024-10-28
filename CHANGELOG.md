@@ -56,6 +56,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Update all test and recompute snapshot to match new version of the phaseimpute test dataset.
 - [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update Glimpse2 phase, gunzip and multiqc
 - [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of 100 individuals by default using `--batch_size` parameter. All individuals BAM files are gathered and VCF are allowed for glimpse1 and glimpse2. Channel preprocessing of stitch is done in stitch subworkflow. Genotype likelihood computation for glimpse1 is now done outside of the subworkflow and merge the resulting vcf with all the samples. New test added to check batch separation. Improve `usage.md` documentation. Add validation to initialisation of the pipeline to ensure compatibility between tools, steps and the files provided by the user.
+- [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules
 
 ### `Fixed`
 
