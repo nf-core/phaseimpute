@@ -1,4 +1,6 @@
 Changes in module 'nf-core/samtools/coverage'
+'modules/nf-core/samtools/coverage/environment.yml' is unchanged
+Changes in 'samtools/coverage/main.nf':
 --- modules/nf-core/samtools/coverage/main.nf
 +++ modules/nf-core/samtools/coverage/main.nf
 @@ -9,8 +9,7 @@
@@ -20,4 +22,8 @@ Changes in module 'nf-core/samtools/coverage'
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
 
+'modules/nf-core/samtools/coverage/meta.yml' is unchanged
+'modules/nf-core/samtools/coverage/tests/main.nf.test' is unchanged
+'modules/nf-core/samtools/coverage/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/samtools/coverage/tests/tags.yml' is unchanged
 ************************************************************
