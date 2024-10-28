@@ -268,6 +268,11 @@ workflow PIPELINE_INITIALISATION {
         .map { meta, regions, chr_mis -> [meta, regions] }
         .ifEmpty { error "No regions left to process" }
 
+    ch_regions
+        .map { it[1] }
+        .collect()
+        .subscribe { log.info "The following contigs will be processed: ${it}" }
+
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
