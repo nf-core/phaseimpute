@@ -42,7 +42,8 @@ def diffChr(chr_target, chr_ref, file) {
         }
         new_diff = diff - new_chr
         if (new_diff.size() != 0) {
-            error "Contig names: ${new_diff} absent from file: ${file} and cannot be solved by adding or removing the `chr` prefix."
+            chr_names = new_diff.size() > 5 ? new_diff[0..5] + ['...'] : new_diff
+            error "Contig names: ${chr_names} absent from file: ${file} and cannot be solved by adding or removing the `chr` prefix."
         }
         diff = to_rename
     }
