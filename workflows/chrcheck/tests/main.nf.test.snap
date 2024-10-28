@@ -1,146 +1,54 @@
 {
     "Rename: VCF BAM chr + fasta no chr": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "BAM_chr22"
-                        },
-                        "BAM_chr22.bam:md5,c6908df90282cc95e846eee31476bb47",
-                        "BAM_chr22.bam.bai:md5,77524c609a3001cdca9c7d10dcc14b6a"
-                    ],
-                    [
-                        {
-                            "id": "VCF_chr22"
-                        },
-                        "VCF_chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
-                        "VCF_chr22_chrrename.vcf.gz.tbi:md5,37896336ac46c6e4a57200a6eab6c918"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
-                    "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
-                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
-                ],
-                "output": [
-                    [
-                        {
-                            "id": "BAM_chr22"
-                        },
-                        "BAM_chr22.bam:md5,c6908df90282cc95e846eee31476bb47",
-                        "BAM_chr22.bam.bai:md5,77524c609a3001cdca9c7d10dcc14b6a"
-                    ],
-                    [
-                        {
-                            "id": "VCF_chr22"
-                        },
-                        "VCF_chr22_chrrename.vcf.gz:md5,23de9b4db1406415806e627969cec749",
-                        "VCF_chr22_chrrename.vcf.gz.tbi:md5,37896336ac46c6e4a57200a6eab6c918"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
-                    "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
-                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-18T09:47:01.138209626"
-    },
-    "headernochr": {
-        "content": [
             [
                 [
                     "@SQ\tSN:22\tLN:40001"
                 ],
                 "VcfFile [chromosomes=[22], sampleCount=0, variantCount=2174, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                "BAM_chr22.bam.bai",
+                "VCF_chr22_chrrename.vcf.gz.tbi"
+            ],
+            [
+                "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
+                "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                "versions.yml:md5,7f7a21902e7f8f2e02152817c324e63f",
+                "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.4"
         },
-        "timestamp": "2024-07-18T09:47:01.733364754"
+        "timestamp": "2024-10-28T23:39:02.415897354"
     },
     "Rename: VCF no chr + fasta chr": {
-        "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "BAM_22"
-                        },
-                        "BAM_22.bam:md5,4171756da866eadc902c19bb30e3f939",
-                        "BAM_22.bam.bai:md5,2ef2ac0a2d0bc58abb07c9318ad06dcc"
-                    ],
-                    [
-                        {
-                            "id": "VCF_AllNoChr"
-                        },
-                        "VCF_AllNoChr_chrrename.vcf.gz:md5,6c40de3fc8e41f2a75f3159c4444f77c",
-                        "VCF_AllNoChr_chrrename.vcf.gz.tbi:md5,1e43f21acc9fedb8f90e48fdfa4011de"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
-                    "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
-                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
-                ],
-                "output": [
-                    [
-                        {
-                            "id": "BAM_22"
-                        },
-                        "BAM_22.bam:md5,4171756da866eadc902c19bb30e3f939",
-                        "BAM_22.bam.bai:md5,2ef2ac0a2d0bc58abb07c9318ad06dcc"
-                    ],
-                    [
-                        {
-                            "id": "VCF_AllNoChr"
-                        },
-                        "VCF_AllNoChr_chrrename.vcf.gz:md5,6c40de3fc8e41f2a75f3159c4444f77c",
-                        "VCF_AllNoChr_chrrename.vcf.gz.tbi:md5,1e43f21acc9fedb8f90e48fdfa4011de"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,17bc5d732ee8b5827312f1766afd6ccf",
-                    "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
-                    "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
-                    "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
-                    "versions.yml:md5,d13600770eeb17cfe31d852a96da38ee"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-18T09:47:13.86070967"
-    },
-    "headerwithchr": {
         "content": [
             [
                 [
                     "@SQ\tSN:chr22\tLN:40001"
                 ],
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=4, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                "BAM_22.bam.bai",
+                "VCF_AllNoChr_chrrename.vcf.gz.tbi"
+            ],
+            [
+                "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
+                "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                "versions.yml:md5,7f7a21902e7f8f2e02152817c324e63f",
+                "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.4"
         },
-        "timestamp": "2024-07-18T09:47:14.707985116"
+        "timestamp": "2024-10-28T23:39:22.12563119"
     }
 }

@@ -51,11 +51,11 @@ workflow CHRCHECK {
             ch_vcf_renamed = VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed
         } else {
             chr_vcf_disjoint.to_rename.map {
-                chr_names = it[3].size() > 5 ? it[3][0..5] + ['...'] : it[3]
+                chr_names = it[3].size() > params.max_chr_names ? it[3][0..params.max_chr_names - 1] + ['...'] : it[3]
                 error "Contig names: ${chr_names} in VCF: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
             }
             chr_bam_disjoint.to_rename.map {
-                chr_names = it[3].size() > 5 ? it[3][0..5] + ['...'] : it[3]
+                chr_names = it[3].size() > params.max_chr_names ? it[3][0..params.max_chr_names - 1] + ['...'] : it[3]
                 error "Contig names: ${chr_names} in BAM: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
             }
             ch_vcf_renamed = Channel.empty()
