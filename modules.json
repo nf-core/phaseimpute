@@ -73,17 +73,17 @@
                     },
                     "glimpse/chunk": {
                         "branch": "master",
-                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["bam_impute_glimpse"]
                     },
                     "glimpse/ligate": {
                         "branch": "master",
-                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["bam_impute_glimpse"]
                     },
                     "glimpse/phase": {
                         "branch": "master",
-                        "git_sha": "7e56daae390ff896b292ddc70823447683a79936",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["bam_impute_glimpse"]
                     },
                     "glimpse2/chunk": {
