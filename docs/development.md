@@ -1,5 +1,9 @@
 # Development
 
+## Style
+
+Names of releases are composed of a color + a dog breed.
+
 ## Features and tasks
 
 - [x] Add automatic detection of chromosome name to create a renaming file for the vcf files
