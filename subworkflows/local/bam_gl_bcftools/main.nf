@@ -65,7 +65,7 @@ workflow BAM_GL_BCFTOOLS {
     ch_to_annotate = ch_all_vcf.one
         .map{ [it[0]["metas"][0], it[1][0], it[2][0]] }
         .mix(
-            BCFTOOLS_MERGE.out.merged_variants
+            BCFTOOLS_MERGE.out.vcf
                 .join(BCFTOOLS_MERGE.out.tbi)
         )
 
