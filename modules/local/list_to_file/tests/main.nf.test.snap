@@ -1,0 +1,63 @@
+{
+    "Aggregate all files into a list": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all_id.txt:md5,6ffc4e703a69bb652dc666a8dcae1863",
+                        "all_noid.txt:md5,045a6e673d95a6e8152a1d06959db93a"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ab51934043f45af87e4348a704066b0f"
+                ],
+                "txt": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all_id.txt:md5,6ffc4e703a69bb652dc666a8dcae1863",
+                        "all_noid.txt:md5,045a6e673d95a6e8152a1d06959db93a"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ab51934043f45af87e4348a704066b0f"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-16T16:15:18.4568228"
+    },
+    "Content_withid": {
+        "content": [
+            [
+                "file1.txt A",
+                "file2.txt B"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-16T15:51:19.289182489"
+    },
+    "Content_noid": {
+        "content": [
+            [
+                "file1.txt",
+                "file2.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-16T16:15:18.915373799"
+    }
+}

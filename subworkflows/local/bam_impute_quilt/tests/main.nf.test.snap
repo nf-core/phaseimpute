@@ -1,29 +1,52 @@
 {
-    "Impute with quilt mixed": {
+    "Summary_two_merged": {
+        "content": [
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=570, phased=true, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-15T20:00:44.163346211"
+    },
+    "Impute with quilt one individuals": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "allIndividuals",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16570065-16597215",
                             "tools": "quilt"
                         },
-                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz:md5,37547c230e2ca2c4685b748e9cf33ee0",
-                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,7f282ce0da4e46c8e22258fe4f04535f"
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz:md5,07016f1c2868ff055cda46741e897d8d",
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,f668f1f8308eb2d8aeae52871d496cf4"
                     ],
                     [
                         {
-                            "id": "allIndividuals",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16587172-16609999",
                             "tools": "quilt"
                         },
-                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz:md5,39adb2163103938396050e12808f073c",
-                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,3b1912e53aa488aaa05a6f56c17a3ed5"
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz:md5,e62bc794624cabf26e2e133009d3bc39",
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,9eb3329cfc035f61ec26a68c1ecc2457"
                     ]
                 ],
                 "1": [
@@ -33,25 +56,35 @@
                 "vcf_tbi": [
                     [
                         {
-                            "id": "allIndividuals",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16570065-16597215",
                             "tools": "quilt"
                         },
-                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz:md5,37547c230e2ca2c4685b748e9cf33ee0",
-                        "allIndividuals_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,7f282ce0da4e46c8e22258fe4f04535f"
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz:md5,07016f1c2868ff055cda46741e897d8d",
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,f668f1f8308eb2d8aeae52871d496cf4"
                     ],
                     [
                         {
-                            "id": "allIndividuals",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16587172-16609999",
                             "tools": "quilt"
                         },
-                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz:md5,39adb2163103938396050e12808f073c",
-                        "allIndividuals_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,3b1912e53aa488aaa05a6f56c17a3ed5"
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz:md5,e62bc794624cabf26e2e133009d3bc39",
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,9eb3329cfc035f61ec26a68c1ecc2457"
                     ]
                 ],
                 "versions": [
@@ -62,72 +95,64 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.4"
         },
-        "timestamp": "2024-07-17T16:12:41.131269971"
+        "timestamp": "2024-10-15T20:08:59.438126764"
     },
-    "Summary": {
+    "Summary_one": {
         "content": [
             [
-                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=572, phased=true, phasedAutodetect=false]",
-                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=570, phased=true, phasedAutodetect=false]",
-                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=572, phased=true, phasedAutodetect=false]",
-                "VcfFile [chromosomes=[22], sampleCount=1, variantCount=570, phased=true, phasedAutodetect=false]"
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=570, phased=true, phasedAutodetect=false]"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.4"
         },
-        "timestamp": "2024-07-17T16:06:47.574062814"
+        "timestamp": "2024-10-15T20:05:13.062670619"
     },
-    "Impute with quilt": {
+    "Impute with quilt two individuals": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "NA12878",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                },
+                                {
+                                    "id": "NA19401"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16570065-16597215",
                             "tools": "quilt"
                         },
-                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz:md5,857e034286763a2316a68f7314786dda",
-                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,de3b20dc5f67aae2a9669f0c667edb5d"
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz:md5,ba2623c16adec2fc9ff7aa7211fb92b5",
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,fd2ab3c90342ed70566a08d848e3d736"
                     ],
                     [
                         {
-                            "id": "NA12878",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                },
+                                {
+                                    "id": "NA19401"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16587172-16609999",
                             "tools": "quilt"
                         },
-                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz:md5,2c3995176d978021a797def9951a1529",
-                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,674782f71cca76015e0b72f9bc4e5431"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "chunk": "16570065-16597215",
-                            "tools": "quilt"
-                        },
-                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz:md5,f3efd22b0b87e1cd98ae75c727b787dc",
-                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,b46f4fb03214dd4b09e4144dc8b994b7"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "chunk": "16587172-16609999",
-                            "tools": "quilt"
-                        },
-                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz:md5,b7258fcd25e0140da3ba48c07410d41a",
-                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,889c40d51c9531df56404db6d3025c70"
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz:md5,f158aa492dfa4966a28b44b99cd7beb1",
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,d3a6b0077504e48aadaa15d179733ffb"
                     ]
                 ],
                 "1": [
@@ -137,47 +162,41 @@
                 "vcf_tbi": [
                     [
                         {
-                            "id": "NA12878",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                },
+                                {
+                                    "id": "NA19401"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16570065-16597215",
                             "tools": "quilt"
                         },
-                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz:md5,857e034286763a2316a68f7314786dda",
-                        "NA12878_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,de3b20dc5f67aae2a9669f0c667edb5d"
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz:md5,ba2623c16adec2fc9ff7aa7211fb92b5",
+                        "all_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,fd2ab3c90342ed70566a08d848e3d736"
                     ],
                     [
                         {
-                            "id": "NA12878",
+                            "id": "all",
+                            "metas": [
+                                {
+                                    "id": "NA12878"
+                                },
+                                {
+                                    "id": "NA19401"
+                                }
+                            ],
                             "panel": "1000GP",
                             "chr": "22",
                             "chunk": "16587172-16609999",
                             "tools": "quilt"
                         },
-                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz:md5,2c3995176d978021a797def9951a1529",
-                        "NA12878_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,674782f71cca76015e0b72f9bc4e5431"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "chunk": "16570065-16597215",
-                            "tools": "quilt"
-                        },
-                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz:md5,f3efd22b0b87e1cd98ae75c727b787dc",
-                        "NA19401_22_16570065-16597215.impute.annotate.vcf.gz.tbi:md5,b46f4fb03214dd4b09e4144dc8b994b7"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "chunk": "16587172-16609999",
-                            "tools": "quilt"
-                        },
-                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz:md5,b7258fcd25e0140da3ba48c07410d41a",
-                        "NA19401_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,889c40d51c9531df56404db6d3025c70"
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz:md5,f158aa492dfa4966a28b44b99cd7beb1",
+                        "all_22_16587172-16609999.impute.annotate.vcf.gz.tbi:md5,d3a6b0077504e48aadaa15d179733ffb"
                     ]
                 ],
                 "versions": [
@@ -188,21 +207,8 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.4"
         },
-        "timestamp": "2024-07-17T16:12:02.559345299"
-    },
-    "SummaryMixed": {
-        "content": [
-            [
-                "VcfFile [chromosomes=[22], sampleCount=2, variantCount=572, phased=true, phasedAutodetect=false]",
-                "VcfFile [chromosomes=[22], sampleCount=2, variantCount=570, phased=true, phasedAutodetect=false]"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-17T16:12:41.764403087"
+        "timestamp": "2024-10-15T20:08:24.300458322"
     }
 }

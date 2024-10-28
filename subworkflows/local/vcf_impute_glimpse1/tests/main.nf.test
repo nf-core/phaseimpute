@@ -1,23 +1,71 @@
 nextflow_workflow {
 
-    name "Test Subworkflow BAM_IMPUTE_GLIMPSE2"
+    name "Test Subworkflow BAM_IMPUTE_GLIMPSE1"
     script "../main.nf"
     config "./nextflow.config"
 
-    workflow "BAM_IMPUTE_GLIMPSE2"
+    workflow "BAM_IMPUTE_GLIMPSE1"
 
     tag "subworkflows"
     tag "subworkflows_local"
-    tag "subworkflows/bam_impute_glimpse2"
-    tag "bam_impute_glimpse2"
+    tag "subworkflows/bam_impute_glimpse1"
+    tag "bam_impute_glimpse1"
+    tag "bam_gl_bcftools"
 
-    tag "glimpse2"
-    tag "glimpse2/phase"
-    tag "glimpse2/ligate"
+    tag "glimpse"
+    tag "glimpse/phase"
+    tag "glimpse/ligate"
     tag "bcftools"
     tag "bcftools/index"
 
-    test("Impute with glimpse2 one vcf - input bcf") {
+    test("Impute with glimpse1 two vcf") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true),
+                    ],
+                    [
+                        [id: "NA19401"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi", checkIfExist:true),
+                    ],
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]).collect()
+                input[3] = Channel.of(
+                    [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
+                    [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
+                )
+                input[4] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_two_vcf") }
+            )
+        }
+    }
+
+    test("Impute with glimpse1 one vcf") {
         when {
             workflow {
                 """
@@ -30,14 +78,18 @@ nextflow_workflow {
                 ])
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([
+                        [id: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
                     ]).collect()
-                input[2] = Channel.of(
+                input[3] = Channel.of(
                     [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
                     [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
                 )
-                input[3] = Channel.of([
+                input[4] = Channel.of([
                     [id: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
@@ -51,87 +103,6 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
                 { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one_vcf") }
-            )
-        }
-    }
-
-    test("Impute with glimpse2 two individuals - input bam") {
-        when {
-            workflow {
-                """
-                input[0] = Channel.fromList([
-                    [
-                        [id: "NA12878"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
-                    ],
-                    [
-                        [id: "NA19401"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
-                    ],
-                ])
-                input[1] = Channel.of([
-                        [id: "1000GP", chr: "22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
-                    ]).collect()
-                input[2] = Channel.of(
-                    [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
-                    [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
-                )
-                input[3] = Channel.of([
-                    [id: "GRCh38"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
-                ]).collect()
-                """
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_two_merged") }
-            )
-        }
-    }
-
-    test("Impute with glimpse2 one individual - input file bam") {
-        when {
-            workflow {
-                """
-                input[0] = Channel.fromList([
-                    [
-                        [id: "NA12878"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
-                    ]
-                ])
-                input[1] = Channel.of([
-                        [id: "1000GP", chr: "22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
-                    ]).collect()
-                input[2] = Channel.of(
-                    [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
-                    [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
-                )
-                input[3] = Channel.of([
-                    [id: "GRCh38"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
-                ]).collect()
-                """
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one") }
             )
         }
     }

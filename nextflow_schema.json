@@ -135,6 +135,12 @@
             "description": "Arguments for the imputation steps",
             "default": "",
             "properties": {
+                "batch_size": {
+                    "type": "integer",
+                    "description": "Maximal number of individuals per batch for imputation.",
+                    "default": 100,
+                    "pattern": "^\\d+$"
+                },
                 "chunks": {
                     "type": "string",
                     "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation.",

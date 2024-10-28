@@ -17,12 +17,8 @@ nextflow_workflow {
     tag "bcftools/index"
     tag "bcftools/annotate"
 
-    test("Impute with quilt") {
+    test("Impute with quilt two individuals") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.fromList([
@@ -46,6 +42,10 @@ nextflow_workflow {
                     [[chr: "22", id: "1000GP"], "chr22", "16570065", "16597215"],
                     [[chr: "22", id: "1000GP"], "chr22", "16587172", "16609999"]
                 )
+                input[3] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
+                ]).collect()
                 """
             }
         }
@@ -54,25 +54,21 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary") }
+                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_two_merged") }
             )
         }
     }
 
-    test("Impute with quilt mixed") {
+    test("Impute with quilt one individuals") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
-                input[0] = Channel.of([
-                    [id: "allIndividuals"],
-                    [file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true)],
-                    [file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true)],
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                    ]
                 ])
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
@@ -83,6 +79,10 @@ nextflow_workflow {
                     [[chr: "22", id: "1000GP"], "chr22", "16570065", "16597215"],
                     [[chr: "22", id: "1000GP"], "chr22", "16587172", "16609999"]
                 )
+                input[3] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
+                ]).collect()
                 """
             }
         }
@@ -91,7 +91,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("SummaryMixed") }
+                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one") }
             )
         }
     }

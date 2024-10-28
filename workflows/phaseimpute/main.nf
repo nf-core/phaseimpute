@@ -34,30 +34,38 @@ include { CHUNK_PREPARE_CHANNEL                      } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 
+// Imputation
+include { LIST_TO_FILE                               } from '../../modules/local/list_to_file'
+include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/local/vcf_split_bcftools'
+
 // GLIMPSE1 subworkflows
-include { BAM_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/bam_impute_glimpse1'
+include { BAM_GL_BCFTOOLS as GL_GLIMPSE1             } from '../../subworkflows/local/bam_gl_bcftools'
+include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_GLIMPSE1       } from '../../subworkflows/local/vcf_split_bcftools'
 
 // GLIMPSE2 subworkflows
 include { BAM_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/bam_impute_glimpse2'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_GLIMPSE2       } from '../../subworkflows/local/vcf_split_bcftools'
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/local/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_QUILT          } from '../../subworkflows/local/vcf_split_bcftools'
 
 // STITCH subworkflows
-include { PREPARE_INPUT_STITCH                       } from '../../subworkflows/local/prepare_input_stitch'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
-include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/local/vcf_split_bcftools'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_STITCH         } from '../../subworkflows/local/vcf_split_bcftools'
 
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
 
 // Concordance subworkflows
 include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_TRUTH          } from '../../subworkflows/local/vcf_split_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
@@ -205,11 +213,49 @@ workflow PHASEIMPUTE {
         )
     }
 
+    //
+    // Impute target files
+    //
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
+        // Split input files into BAMs and VCFs
+        ch_input_type = ch_input_impute
+            .branch {
+                bam: it[1] =~ 'bam|cram'
+                vcf: it[1] =~ '(vcf|bcf)(.gz)*'
+                other: true
+            }
+
+        // Check if input files are only BAM/CRAM or VCF/BCF
+        ch_input_type.other
+            .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
+
+        // Group BAMs by batch size
+        def nb_batch = 0
+        ch_input_bams = ch_input_type.bam
+            .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
+            .map { list -> list.collate(params.batch_size)
+                .collect{ [[id: "all", batch: nb_batch++], it] } }
+            .map { list -> [list.collect{ it[0] }, list.collect{ it[1] }] }
+            .transpose()
+            .map { metaI, filestuples-> [
+                metaI + [metas: filestuples.collect{it[0].findAll{it.key != "batch"}}],
+                filestuples.collect{it[1]}, filestuples.collect{it[2]}
+            ] }
+
+        LIST_TO_FILE(
+            ch_input_bams.map{ meta, file, index -> [
+                meta, file, meta.metas.collect { it.id }
+            ] }
+        )
+
+        ch_input_bams_withlist = ch_input_bams
+            .join(LIST_TO_FILE.out.txt)
+
         // Use panel from parameters if provided
         if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
         }
+
         if (params.tools.split(',').contains("glimpse1")) {
             log.info("Impute with GLIMPSE1")
 
@@ -219,24 +265,38 @@ workflow PHASEIMPUTE {
                 ch_chunks_glimpse1 = CHUNK_PREPARE_CHANNEL.out.chunks
             }
 
-            // Run imputation
-            BAM_IMPUTE_GLIMPSE1(
-                ch_input_impute,
+            // Glimpse1 subworkflow
+            // Compute GL from BAM files and merge them
+            GL_GLIMPSE1(
+                ch_input_type.bam,
                 ch_posfile.map{ [it[0], it[4]] },
+                ch_fasta
+            )
+            ch_multiqc_files = ch_multiqc_files.mix(GL_GLIMPSE1.out.multiqc_files)
+            ch_versions = ch_versions.mix(GL_GLIMPSE1.out.versions)
+
+            // Combine vcf and processed bam
+            ch_input_glimpse1 = ch_input_type.vcf
+                .mix(GL_GLIMPSE1.out.vcf_tbi)
+
+            // Run imputation
+            VCF_IMPUTE_GLIMPSE1(
+                ch_input_glimpse1,
                 ch_panel_phased,
                 ch_chunks_glimpse1,
                 ch_fasta
             )
-            ch_versions = ch_versions.mix(BAM_IMPUTE_GLIMPSE1.out.versions)
+            ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE1(BAM_IMPUTE_GLIMPSE1.out.vcf_tbi)
+            CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
 
         }
+
         if (params.tools.split(',').contains("glimpse2")) {
             log.info("Impute with GLIMPSE2")
 
@@ -247,7 +307,9 @@ workflow PHASEIMPUTE {
 
             // Run imputation
             BAM_IMPUTE_GLIMPSE2(
-                ch_input_impute,
+                ch_input_bams_withlist
+                    .map{ [it[0], it[1], it[2], it[3]] }
+                    .mix(ch_input_type.vcf.combine([])),
                 ch_panel_phased,
                 ch_chunks_glimpse2,
                 ch_fasta
@@ -260,21 +322,15 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
         }
+
         if (params.tools.split(',').contains("stitch")) {
             log.info("Impute with STITCH")
 
-            // Prepare inputs
-            PREPARE_INPUT_STITCH(
-                ch_input_impute,
-                ch_posfile.map{ [it[0], it[4]] },
-                ch_region
-            )
-            ch_versions = ch_versions.mix(PREPARE_INPUT_STITCH.out.versions)
-
             // Impute with STITCH
             BAM_IMPUTE_STITCH (
-                PREPARE_INPUT_STITCH.out.stitch_samples,
-                PREPARE_INPUT_STITCH.out.stitch_parameters,
+                ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4]] },
+                ch_posfile.map{ [it[0], it[4]] },
+                ch_region,
                 ch_fasta
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
@@ -283,14 +339,11 @@ workflow PHASEIMPUTE {
             CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
-            // Separate by samples
-            VCF_SPLIT_BCFTOOLS(CONCAT_STITCH.out.vcf_tbi)
-            ch_versions = ch_versions.mix(VCF_SPLIT_BCFTOOLS.out.versions)
-
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(VCF_SPLIT_BCFTOOLS.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
 
         }
+
         if (params.tools.split(',').contains("quilt")) {
             log.info("Impute with QUILT")
 
@@ -302,9 +355,10 @@ workflow PHASEIMPUTE {
 
             // Impute BAMs with QUILT
             BAM_IMPUTE_QUILT(
-                ch_input_impute,
+                ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4]] },
                 ch_posfile.map{ [it[0], it[3], it[4]] },
-                ch_chunks_quilt
+                ch_chunks_quilt,
+                ch_fasta.map{ [it[0], it[1]] }
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
@@ -315,6 +369,10 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
+
+        // Split result by samples
+        VCF_SPLIT_BCFTOOLS(ch_input_validate)
+        ch_input_validate = VCF_SPLIT_BCFTOOLS.out.vcf_tbi
 
         // Compute stats on imputed files
         BCFTOOLS_STATS_TOOLS(
@@ -384,9 +442,13 @@ workflow PHASEIMPUTE {
         CONCAT_TRUTH(ch_truth_vcf)
         ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
 
+        // Split truth vcf by samples
+        SPLIT_TRUTH(CONCAT_TRUTH.out.vcf_tbi)
+        ch_versions = ch_versions.mix(SPLIT_TRUTH.out.versions)
+
         // Compute stats on truth files
         BCFTOOLS_STATS_TRUTH(
-            CONCAT_TRUTH.out.vcf_tbi,
+            SPLIT_TRUTH.out.vcf_tbi,
             [[],[]],
             [[],[]],
             [[],[]],
@@ -399,7 +461,7 @@ workflow PHASEIMPUTE {
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            CONCAT_TRUTH.out.vcf_tbi,
+            SPLIT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
             ch_region
         )

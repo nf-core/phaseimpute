@@ -31,6 +31,18 @@
         },
         "timestamp": "2024-07-16T15:21:39.094768315"
     },
+    "Test validateInputBatchTools only one vcf": {
+        "content": [
+            [
+                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple samples, please merge them into a single VCF file."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-16T20:08:33.571723823"
+    },
     "Test Function exportCsv": {
         "content": null,
         "meta": {
@@ -38,5 +50,29 @@
             "nextflow": "23.10.1"
         },
         "timestamp": "2024-07-10T16:27:29.128695884"
+    },
+    "Test validateInputBatchTools vcf only for glimpse": {
+        "content": [
+            [
+                "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-16T20:20:28.177195568"
+    },
+    "Test validateInputBatchTools error batch": {
+        "content": [
+            [
+                "Stitch or Glimpse1 software is selected and the number of input files (150) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-16T20:27:27.025786146"
     }
 }

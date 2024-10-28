@@ -240,7 +240,7 @@ You can find an overview of the results produced by this steps in the [Output](o
 For starting from the imputation steps, the required flags are:
 
 - `--steps impute`
-- `--input input.csv`: The samplesheet containing the input sample files in `bam` or `cram` format.
+- `--input input.csv`: The samplesheet containing the input sample files in `bam`, `cram` or `vcf`, `bcf` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
 - `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
 
@@ -248,25 +248,48 @@ For starting from the imputation steps, the required flags are:
   - `--posfile posfile.csv`: A samplesheet containing a `.legend.gz` file with the list of positions to genotype per chromosome. These are required by tools ( QUILT/STITCH/GLIMPSE1). It can also contain the `hap.gz` files (required by QUILT). The posfile can be generated with `--steps panelprep`.
   - `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2). These files can be obtained with `--steps panelprep`.
 
-  #### Summary table of required parameters in `--steps impute`
+#### Summary table of required parameters in `--steps impute`
 
 |            | `--steps impute` | `--input` | `--genome` or `--fasta` | `--panel` | `--chunks` | `--posfile` |
 | ---------- | ---------------- | --------- | ----------------------- | --------- | ---------- | ----------- |
-| `GLIMPSE1` | ✅               | ✅        | ✅                      | ✅        | ✅         | ✅ ¹        |
-| `GLIMPSE2` | ✅               | ✅        | ✅                      | ✅        | ✅         | ❌          |
-| `QUILT`    | ✅               | ✅        | ✅                      | ❌        | ✅         | ✅ ²        |
-| `STITCH`   | ✅               | ✅        | ✅                      | ❌        | ❌         | ✅ ¹        |
+| `GLIMPSE1` | ✅               | ✅ ¹      | ✅                      | ✅        | ✅         | ✅ ³        |
+| `GLIMPSE2` | ✅               | ✅ ¹      | ✅                      | ✅        | ✅         | ❌          |
+| `QUILT`    | ✅               | ✅ ²      | ✅                      | ❌        | ✅         | ✅ ⁴        |
+| `STITCH`   | ✅               | ✅ ²      | ✅                      | ❌        | ❌         | ✅ ³        |
 
-#### Details:
+> ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
+> ² Alignment files only (i.e. BAM or CRAM)
+> ³ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
+> ⁴ `GLIMPSE1 and STITCH`: Should be a CSV with columns [panel id, chr, legend]
 
-³ `GLIMPSE1 and STITCH`: Should be a CSV with columns [panel id, chr, legend]
-² `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
+Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
-### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
+[![InputSoftwareCompatibility](./images/InputSoftware_compatibility.png)](./images/InputSoftware_compatibility.png)
+
+#### Argument `--batch_size`
+
+The `--batch_size` argument is used to specify the number of samples to be processed at once. This is useful when the number of samples is large and the memory is limited. The default value is 100 but it might need to be adapted to the size of each individuals data, the number of samples to be processed in parallel and the available memory.
+
+Imputation softwares algorithm are time consuming. The computational load depend on the number of individuals, the region size and the panel size. [Some steps are computationally fixed](https://doi.org/10.1038/s41588-023-01438-3), meaning they run similarly whether you are imputing 2 individuals or 200. By grouping individuals into larger batches, these fixed-cost steps are shared among more samples, reducing the per-individual computational overhead and improving overall efficiency. This step is recommended
+On the other hand we also need to limit the memory usage when working with a huge amount of individuals within a process.
+Hence the necessity to use a batch_size large enough to reduce the fixed-cost stepts / individuals and not to large for the memory usage to be sustainable.
+
+When the number of samples exceeds the batch size, the pipeline will split the samples into batches and process them sequentially. The files used in each batch are stored in the `${outputdir}/imputation/batch` folder.
+[STITCH](#stitch) and [GLIMPSE1](#glimpse1) do not support a batch size inferior to the number of samples. This limit is set up to not induce batch effect in the imputation process, as this two tools take into account the information of the target file to perform the imputation. This does on the other hand enhances the accuracy of phasing and imputation, as the target individuals might provide more informative genetic context (e.g. you have related individuals in the target).
+
+To summarize:
+
+- If you have Variant Calling Format file you should join them in one and choose either GLIMPSE1 or GLIMPSE2
+- If you have alignment files all the tools are available and their will be processed in batch_size
+  - Glimpse1 and Stitch might induce batch effect so all the samples need to be imputed together
+  - Glimpse2 and Quilt can process the samples in different batches
+- If you want to disable this option and run each sample separately you can set `--batch_size 1`
+
+#### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
-#### QUILT
+##### QUILT
 
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a csv file with the genomic chunks (`--chunks`).
 
@@ -313,7 +336,7 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-#### STITCH
+##### STITCH
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`). See [Posfile section](#samplesheet-posfile) for more information.
 
@@ -358,7 +381,7 @@ bcftools view -G -m 2 -M 2 -v ${vcf}
 bcftools convert --haplegendsample ${vcf}
 ```
 
-#### GLIMPSE1
+##### GLIMPSE1
 
 [GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. Glimpse1 works with alignment (i.e. BAM or CRAM) as well as variant (i.e. VCF or BCF) files as input. This is an example command to run this tool from the `--steps impute`:
 
@@ -384,7 +407,7 @@ panel,chr,legend
 
 The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].
 
-#### GLIMPSE2
+##### GLIMPSE2
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
 
@@ -556,47 +579,6 @@ process {
 }
 ```
 
-### nf-core/configs
-
-In most cases, you will only need to create a custom config as a one-off but if you and others within your organisation are likely to be running nf-core pipelines regularly and need to use the same settings regularly it may be a good idea to request that your custom config file is uploaded to the `nf-core/configs` git repository. Before you do this please can you test that the config file works with your pipeline of choice using the `-c` parameter. You can then create a pull request to the `nf-core/configs` repository with the addition of your config file, associated documentation file (see examples in [`nf-core/configs/docs`](https://github.com/nf-core/configs/tree/master/docs)), and amending [`nfcore_custom.config`](https://github.com/nf-core/configs/blob/master/nfcore_custom.config) to include your custom profile.
-
-See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
-
-If you have any questions or issues please send us a message on [Slack](https://nf-co.re/join/slack) on the [`#configs` channel](https://nfcore.slack.com/channels/configs).
-
-## Running in the background
-
-Nextflow handles job submissions and supervises the running jobs. The Nextflow process must run until the pipeline is finished.
-
-The Nextflow `-bg` flag launches Nextflow in the background, detached from your terminal so that the workflow does not stop if you log out of your session. The logs are saved to a file.
-
-Alternatively, you can use `screen` / `tmux` or similar tool to create a detached session which you can log back into at a later time.
-Some HPC setups also allow you to run nextflow within a cluster job submitted your job scheduler (from where it submits more jobs).
-
-## Nextflow memory requirements
-
-In some cases, the Nextflow Java virtual machines can start to request a large amount of memory.
-We recommend adding the following line to your environment to limit this (typically in `~/.bashrc` or `~./bash_profile`):
-Specify the path to a specific config file (this is a core Nextflow command). See the [nf-core website documentation](https://nf-co.re/usage/configuration) for more information.
-
-## Custom configuration
-
-### Resource requests
-
-Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each steps in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the steps in the pipeline, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher requests (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
-
-To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
-
-### Custom Containers
-
-In some cases you may wish to change which container or conda environment a steps of the pipeline uses for a particular tool. By default nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However in some cases the pipeline specified version maybe out of date.
-
-To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
-
-### Custom Tool Arguments
-
-A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
-
 To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
 
 ### nf-core/configs
@@ -625,8 +607,4 @@ We recommend adding the following line to your environment to limit this (typica
 NXF_OPTS='-Xms1g -Xmx4g'
 ```
 
-NXF_OPTS='-Xms1g -Xmx4g'
-
-```
-
-```
+Specify the path to a specific config file (this is a core Nextflow command). See the [nf-core website documentation](https://nf-co.re/usage/configuration) for more information.

@@ -104,16 +104,23 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.input) {
         ch_input = Channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
-        }
-
-        // Check if all extension are identical
-        getFilesSameExt(ch_input)
+            .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+            .map { samplesheet ->
+                validateInputSamplesheet(samplesheet)
+            }
+            .map { meta, file, index -> [meta + [batch: 0], file, index] } // Set batch to 0 by default
     } else {
         ch_input = Channel.of([[], [], []])
     }
+
+    // Check that the batch size and extension is compatible with the tools
+    validateInputBatchTools(
+        ch_input,
+        params.batch_size,
+        getFilesSameExt(ch_input),
+        params.tools ? params.tools.split(',') : []
+    )
+
     //
     // Create channel from input file provided through params.input_truth
     //
@@ -213,6 +220,14 @@ workflow PIPELINE_INITIALISATION {
             .fromList(samplesheetToList(params.posfile, "${projectDir}/assets/schema_posfile.json"))
     } else {
         ch_posfile = Channel.of([[],[],[],[],[]])
+    }
+
+    if (!params.steps.split(',').contains("panelprep") & !params.steps.split(',').contains("all")) {
+        validatePosfileTools(
+            ch_posfile,
+            params.tools ? params.tools.split(','): [],
+            params.steps.split(',')
+        )
     }
 
     //
@@ -383,6 +398,56 @@ def validateInputParameters() {
             error("To use `--remove_samples` you need to include `--normalize`.")
         }
     }
+}
+
+//
+// Check compatibility between input files size, extension and tools
+//
+def validateInputBatchTools(ch_input, batch_size, extension, tools) {
+    ch_input
+        .count()
+        .map{ nb_input ->
+            if (extension ==~ "(vcf|bcf)(.gz)?") {
+                if (tools.contains("stitch") || tools.contains("quilt")) {
+                    error "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+                }
+                if (nb_input > 1) {
+                    error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
+                }
+            }
+
+            if (nb_input > batch_size) {
+                if (tools.contains("glimpse2") || tools.contains("quilt")) {
+                    log.warn("Glimpse2 or Quilt software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${(int) Math.ceil(nb_input / batch_size)} batches.")
+                }
+                if (tools.contains("stitch") || tools.contains("glimpse1")) {
+                    error "Stitch or Glimpse1 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
+                }
+            }
+        }
+}
+
+//
+// Check if posfile is compatible with tools and steps selected
+//
+def validatePosfileTools(ch_posfile, tools, steps){
+    ch_posfile
+        .map{ meta, vcf, index, hap, legend ->
+            if (tools.contains("glimpse1")) {
+                assert legend, "Glimpse1 tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+            }
+            if (tools.contains("stitch")) {
+                assert legend, "Stitch tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+            }
+            if (tools.contains("quilt")) {
+                assert legend, "Quilt tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+                assert hap, "Quilt tool needs a hap file provided in the posfile. This file can be created through the panelprep step."
+            }
+            if (steps.contains("validate")) {
+                assert vcf, "Validation step needs a vcf file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
+                assert index, "Validation step needs an index file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
+            }
+        }
 }
 
 //

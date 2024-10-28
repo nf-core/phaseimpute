@@ -33,7 +33,7 @@ workflow BAM_REGION_SAMTOOLS {
     SAMTOOLS_MERGE(
         ch_bam_region
             .map{
-                metaICR, bam, index -> [metaICR.subMap("id") + [chr: "all"], bam, index]
+                metaICR, bam, index -> [metaICR.subMap("id", "batch") + [chr: "all"], bam, index]
             }
             .groupTuple(),
         ch_fasta
