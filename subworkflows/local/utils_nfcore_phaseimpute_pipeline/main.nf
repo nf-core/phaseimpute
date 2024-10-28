@@ -469,7 +469,9 @@ def checkMetaChr(chr_a, chr_b, name){
         .map{
             a, b ->
             if (b != [[]] && !(a - b).isEmpty()) {
-                log.warn "Chr : ${a - b} is missing from ${name}"
+                chr_names = (a - b).size() > 5 ? (a - b)[0..5] + ['...'] : (a - b)
+                verb = (a - b).size() == 1 ? "is" : "are"
+                log.warn "Chr : ${chr_names} ${verb} missing from ${name}"
                 return (a-b)
             }
             return []
