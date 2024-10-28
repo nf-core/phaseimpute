@@ -176,29 +176,29 @@
                     },
                     "shapeit5/phasecommon": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["vcf_phase_shapeit5"],
                         "patch": "modules/nf-core/shapeit5/phasecommon/shapeit5-phasecommon.diff"
                     },
                     "stitch": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "55e411128ca5036def5dae1aa28a09e3776f59ea",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/stitch/stitch.diff"
                     },
                     "tabix/bgzip": {
                         "branch": "master",
-                        "git_sha": "09d3c8c29b31a2dfd610305b10550f0e1dbcd4a9",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
                     },
                     "tabix/tabix": {
                         "branch": "master",
-                        "git_sha": "9502adb23c0b97ed8e616bbbdfa73b4585aec9a1",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
                     },
                     "vcflib/vcffixup": {
                         "branch": "master",
-                        "git_sha": "072cf562e143252953a1b5c5ed38ec55eaa930c8",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
                     }
                 }
