@@ -66,3 +66,12 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 ### `Dependencies`
 
 ### `Deprecated`
+
+### `Contributors`
+
+[Louis Le Nezet](https://github.com/LouisLeNezet)
+[Anabella Trigila](https://github.com/atrigila)
+[Eugenia Fontecha](https://github.com/eugeniafontecha)
+[Maxime U Garcia](https://github.com/maxulysse)
+[Matias Romero Victorica](https://github.com/mrvictorica)
+[Nicolas Schcolnicov](https://github.com/nschcolnicov)
