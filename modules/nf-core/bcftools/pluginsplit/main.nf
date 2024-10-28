@@ -32,6 +32,11 @@ process BCFTOOLS_PLUGINSPLIT {
     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
     def regions_arg = regions ? "--regions-file ${regions}" : ""
     def targets_arg = targets ? "--targets-file ${targets}" : ""
+    def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
+            args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
+            args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
+            args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
+            "vcf"
 
     """
     bcftools plugin split \\
@@ -48,10 +53,8 @@ process BCFTOOLS_PLUGINSPLIT {
         base_name=\$(basename "\$file")
         # Extract the part of the basename before the first dot
         name_before_dot="\${base_name%%.*}"
-
         # Extract the extension
         extension="\${base_name#\${name_before_dot}}"
-
         # Construct the new name
         new_name="\${name_before_dot}${suffix}\${extension}"
         mv "\$file" "./\$new_name"
