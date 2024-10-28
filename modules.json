@@ -41,7 +41,7 @@
                     },
                     "bcftools/norm": {
                         "branch": "master",
-                        "git_sha": "33ef773a7ea36e88323902f63662aa53c9b88988",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
                     },
                     "bcftools/pluginsplit": {
