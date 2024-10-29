@@ -21,7 +21,8 @@ workflow CHRCHECK {
         ch_input = ch_input.branch{
             bam: it[1] =~ 'bam|cram'
             vcf: it[1] =~ 'vcf|bcf'
-            other: true
+            other: it[1].size() > 0
+            empty: true
         }
 
         ch_input.other.map {
