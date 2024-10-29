@@ -20,23 +20,18 @@
 
 ## Introduction
 
-**nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data. Different steps are available each corresponding to a dedicated modes.
+**nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data. The pipeline is constituted of five main steps:
 
-### Main steps of the pipeline
-
-The **phaseimpute** pipeline is constituted of 5 main steps:
-
-| Metro map                                                              | Modes                                                                                                                                                                                                                                                                                                                                             |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="docs/images/metro/MetroMap.svg" alt="metromap" width="800"/> | - **Panel preparation**: Phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Impute the target dataset on the reference panel <br> - **Simulate**: Simulation of the target dataset from high quality target data <br> - **Concordance**: Concordance between the target dataset and a truth dataset |
+| Metro map                                                              | Modes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="docs/images/metro/MetroMap.svg" alt="metromap" width="800"/> | - **Check chromosome**: Validates the presence of contigs from the map file in the VCF, ensuring data compatibility for further processing <br> - **Panel preparation**: Perfoms the phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Imputes missing genotypes in the target dataset using the reference panel <br> - **Simulate**: Generates simulated datasets from high-quality target data for testing and validation purposes. <br> - **Concordance**: Evaluates the accuracy of imputation by comparing the imputed data against a truth dataset. |
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-The basic usage of this pipeline is to impute a target dataset based on a phased panel.
-First, prepare a samplesheet with your input data that looks as follows:
+The primary function of this pipeline is to impute a target dataset based on a phased panel. Begin by preparing a samplesheet with your input data, formatted as follows:
 
 `samplesheet.csv`:
 
@@ -45,10 +40,9 @@ sample,file,index
 SAMPLE_1X,/path/to/.<bam/cram>,/path/to/.<bai,crai>
 ```
 
-Each row represents a bam or a cram file with its index file. All input files need to be of the same extension.
-For some tools and steps, you will also need to submit a samplesheet with the reference panel.
+Each row represents either a bam or a cram file along with its corresponding index file. Ensure that all input files have consistent file extensions.
 
-A final samplesheet file for the reference panel may look something like the one below. This is for 3 chromosomes.
+For certain tools and steps within the pipeline, you will also need to provide a samplesheet for the reference panel. Here's an example of what a final samplesheet for a reference panel might look like, covering three chromosomes:
 
 ```csv
 panel,chr,vcf,index
@@ -57,7 +51,9 @@ Phase3,2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.
 Phase3,3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.csi
 ```
 
-Now, you can run the pipeline using:
+## Running the pipeline
+
+Execute the pipeline with the following command:
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -102,6 +98,7 @@ We thank the following people for their extensive assistance in the development 
 - Saul Pierotti
 - Eugenia Fontecha
 - Matias Romero Victorica
+- Hemanoel Passarelli
 
 ## Contributions and Support
 

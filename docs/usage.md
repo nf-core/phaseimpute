@@ -6,11 +6,11 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+The **nf-core/phaseimpute** pipeline is designed to perform the phasing and imputation techniques. Some key functionalities include chromosome checking, panel preparation, imputation, simulation, and concordance.
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use the `--input` parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -18,7 +18,7 @@ You will need to create a samplesheet with information about the samples you wou
 
 ### Structure
 
-The samplesheet can have as many columns as you desire, however, there is a strict requirement for at least 3 columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire. However, there is a strict requirement for at least 3 columns to match those defined in the table below.
 
 A final samplesheet file may look something like the one below. This is for 6 samples.
 
@@ -42,7 +42,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 ## Samplesheet reference panel
 
-You will need to create a samplesheet with information about the reference panel you would like to use. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the reference panel you would like to use. Use the `--panel` parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --panel '[path to samplesheet file]'
@@ -70,7 +70,7 @@ An [example samplesheet](../assets/samplesheet_reference.csv) has been provided 
 
 ## Samplesheet posfile
 
-You will need a samplesheet with information about the reference panel sites for using the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use this parameter to specify its location. It has to be a comma-separated file with at least 5 columns, and a header row as shown in the examples below.
+You will need a samplesheet with information about the reference panel sites for using the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use the `--posfile` parameter to specify its location. It has to be a comma-separated file with at least 5 columns, and a header row as shown in the examples below.
 
 ```bash
 --posfile '[path to samplesheet file]'
@@ -114,7 +114,7 @@ chr21:16609476_A_G 16609476 A G
 chr21:16609525_T_A 16609525 T A
 ```
 
-## Genome reference
+## Reference genome
 
 Remember to use the same reference genome for all the files. You can specify the [reference genome](https://nf-co.re/docs/usage/reference_genomes) using:
 
@@ -130,14 +130,32 @@ or you can specify a custom genome using:
 
 ## Running the pipeline
 
-The typical command for running the pre-processing of the panel and imputation of samples is as follows:
+A quick running example only with the imputation step can be performed as follows:
+
+```
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps impute \
+    --chunks chunks.csv \
+    --posfile posfile_legend.csv \
+    --outdir results \
+    --genome GRCh38 \
+    --panel panel.csv \
+    --tools glimpse1 \
+    -profile docker
+
+```
+
+The typical command for running the pre-processing of the panel and imputation of samples is shown below:
 
 ```bash
 nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
-    --steps panelprep,impute
+    --steps panelprep,impute \
     --outdir results \
-    --genome GRCh37 \
+    --genome GRCh38 \
+    --panel
+    --tools glimpse1 \
     -profile docker
 ```
 
@@ -152,21 +170,15 @@ work                # Directory containing the nextflow working files
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
 
-If you wish to repeatedly use the same parameters for multiple runs, rather than specifying each flag in the command, you can specify these in a params file.
+To facilitate multiple runs of the pipeline with consistent settings without specifying each parameter in the command line, you can use a parameter file. This allows for setting parameters once and reusing them across different executions.
 
-Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
-
-:::warning
-Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
-:::
-
-The above pipeline run specified with a params file in yaml format:
+You can provide pipeline settings in a `yaml` or `json` file, which can be specified using the `-params-file` option:
 
 ```bash
 nextflow run nf-core/phaseimpute -profile docker -params-file params.yaml
 ```
 
-with:
+Example of a `params.yaml` file:
 
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
@@ -175,7 +187,11 @@ genome: 'GRCh37'
 <...>
 ```
 
-You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+:::warning
+Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+:::
+
+You can also generate `YAML` or `JSON` files easily using the [nf-core/launch](https://nf-co.re/launch) tool, which guides you creating the files that can be used directly with `-params-file`.
 
 ### Check of the contigs name
 
