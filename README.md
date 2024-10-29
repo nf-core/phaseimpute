@@ -22,8 +22,8 @@
 
 **nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data. The pipeline is constituted of five main steps:
 
-| Metro map                                                              | Modes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Metro map                                                              | Modes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <img src="docs/images/metro/MetroMap.svg" alt="metromap" width="800"/> | - **Check chromosomes names**: Validates the presence of the different contigs in all variants and alignment files, ensuring data compatibility for further processing <br> - **Panel preparation**: Perfoms the phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Imputes genotypes in the target dataset using the reference panel <br> - **Simulate**: Generates simulated datasets from high-quality target data for testing and validation purposes. <br> - **Concordance**: Evaluates the accuracy of imputation by comparing the imputed data against a truth dataset. |
 
 ## Usage
@@ -40,8 +40,9 @@ sample,file,index
 SAMPLE_1X,/path/to/.<bam/cram>,/path/to/.<bai,crai>
 ```
 
-Each row represents a BAM or CRAM file along with its index file. All input files need to be of the same extension.
-For some tools and steps, you will also need to submit a samplesheet with the reference panel.
+Each row represents either a bam or a cram file along with its corresponding index file. Ensure that all input files have consistent file extensions.
+
+For certain tools and steps within the pipeline, you will also need to provide a samplesheet for the reference panel. Here's an example of what a final samplesheet for a reference panel might look like, covering three chromosomes:
 
 ```csv
 panel,chr,vcf,index

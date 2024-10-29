@@ -153,9 +153,7 @@ nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --steps panelprep,impute \
     --outdir results \
-    --genome GRCh38 \
-    --panel panel.csv
-    --tools glimpse1 \
+    --genome GRCh37 \
     -profile docker
 ```
 
