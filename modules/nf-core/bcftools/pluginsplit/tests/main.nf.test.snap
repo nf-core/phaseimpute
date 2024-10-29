@@ -52,28 +52,6 @@
         },
         "timestamp": "2024-07-09T15:56:42.307673651"
     },
-    "homo_sapiens - [ vcf, tbi ], [], groups, regions, targets - tbi": {
-        "content": [
-            [
-                [
-                    {
-                        "id": "test",
-                        "single_end": false
-                    },
-                    [
-                        "normal_split.vcf.gz:md5,78e962c3a724790b27041f28a4180600",
-                        "tumour_split.vcf.gz:md5,3008a0a06a2f319897fa04ea0018fcdd"
-                    ]
-                ]
-            ],
-            "normal_split.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-11T10:28:16.262880408"
-    },
     "homo_sapiens - [ vcf, tbi ], [], groups, regions, targets": {
         "content": null,
         "meta": {

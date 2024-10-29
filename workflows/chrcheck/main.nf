@@ -19,9 +19,16 @@ workflow CHRCHECK {
         ch_versions = Channel.empty()
         // Split the input between VCF and BAM files
         ch_input = ch_input.branch{
-            bam: it[1] =~ 'bam|cram|sam'
+            bam: it[1] =~ 'bam|cram'
             vcf: it[1] =~ 'vcf|bcf'
+            other: it[1].size() > 0
+            empty: true
         }
+
+        ch_input.other.map {
+            error "File: ${it[1]} is not a VCF, BCFT or BAM, CRAM file."
+        }
+
         // Check if channel is empty
         chr_vcf_disjoint = Channel.empty()
         // Extract the contig names from the VCF files
@@ -51,10 +58,12 @@ workflow CHRCHECK {
             ch_vcf_renamed = VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed
         } else {
             chr_vcf_disjoint.to_rename.map {
-                error "Contig names: ${it[3]} in VCF: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
+                chr_names = it[3].size() > params.max_chr_names ? it[3][0..params.max_chr_names - 1] + ['...'] : it[3]
+                error "Contig names: ${chr_names} in VCF: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
             }
             chr_bam_disjoint.to_rename.map {
-                error "Contig names: ${it[3]} in BAM: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
+                chr_names = it[3].size() > params.max_chr_names ? it[3][0..params.max_chr_names - 1] + ['...'] : it[3]
+                error "Contig names: ${chr_names} in BAM: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
             }
             ch_vcf_renamed = Channel.empty()
             ch_bam_renamed = Channel.empty()

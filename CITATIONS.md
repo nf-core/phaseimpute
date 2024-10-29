@@ -18,6 +18,14 @@
 
 > Rubinacci, S., Ribeiro, D. M., Hofmeister, R. J., & Delaneau, O. (2021). Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nature Genetics, 53(1), 120-126.
 
+- [GLIMPSE2](https://doi.org/10.1038/s41588-023-01438-3)
+
+> Rubinacci, S., Hofmeister, R. J., Sousa da Mota, B., & Delaneau, O. (2023). Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nature genetics 55, 1088–1090.
+
+- [STITCH](https://doi.org/10.1038/ng.3594)
+
+> Davies, R. W., Flint, J., Myers, S., & Mott, R.(2016). Rapid genotype imputation from sequence without reference panels. Nature genetics 48, 965–969.
+
 - [Shapeit](https://odelaneau.github.io/shapeit5/)
 
 > Hofmeister RJ, Ribeiro DM, Rubinacci S., Delaneau O. (2023). Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nature Genetics doi: https://doi.org/10.1038/s41588-023-01415-w

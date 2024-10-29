@@ -22,7 +22,7 @@ workflow BAM_REGION_SAMTOOLS {
     // Extract region of interest
     SAMTOOLS_VIEW(
         ch_input_region,
-        [[], []],
+        [[], [], []],
         []
     )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())

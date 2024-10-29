@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.0dev - [date]
+## v1.0.0 - Black Labrador [2024-10-28]
 
 Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co.re/) template.
 
@@ -22,6 +22,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#118](https://github.com/nf-core/phaseimpute/pull/118) - Explain how to customize arguments in the pipeline.
 - [#111](https://github.com/nf-core/phaseimpute/pull/111) - Add nf-test for all sbwf, wf, modules and functions.
 - [#131](https://github.com/nf-core/phaseimpute/pull/131) - Set normalisation as optional. Fix extension detection function. Add support for validation with vcf files. Concatenate vcf only if more than one file. Change `--phased` to `--phase` for consistency.
+- [#143](https://github.com/nf-core/phaseimpute/pull/143) - Improve contigs warning and error logging. The number of chromosomes contigs is summarized if above `max_chr_names`.
 
 ### `Changed`
 
@@ -56,6 +57,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Update all test and recompute snapshot to match new version of the phaseimpute test dataset.
 - [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update Glimpse2 phase, gunzip and multiqc
 - [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of 100 individuals by default using `--batch_size` parameter. All individuals BAM files are gathered and VCF are allowed for glimpse1 and glimpse2. Channel preprocessing of stitch is done in stitch subworkflow. Genotype likelihood computation for glimpse1 is now done outside of the subworkflow and merge the resulting vcf with all the samples. New test added to check batch separation. Improve `usage.md` documentation. Add validation to initialisation of the pipeline to ensure compatibility between tools, steps and the files provided by the user.
+- [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules
 
 ### `Fixed`
 
@@ -68,3 +70,12 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 ### `Dependencies`
 
 ### `Deprecated`
+
+### `Contributors`
+
+[Louis Le Nezet](https://github.com/LouisLeNezet)
+[Anabella Trigila](https://github.com/atrigila)
+[Eugenia Fontecha](https://github.com/eugeniafontecha)
+[Maxime U Garcia](https://github.com/maxulysse)
+[Matias Romero Victorica](https://github.com/mrvictorica)
+[Nicolas Schcolnicov](https://github.com/nschcolnicov)

@@ -9,7 +9,7 @@ process STITCH {
 
     input:
     tuple val(meta), path(collected_crams), path(collected_crais), path(cramlist), path(posfile), path(input, stageAs: "input"), path(rdata, stageAs: "RData_in"), val(chromosome_name), val(K), val(nGen)
-    tuple val(meta2), path(fasta), path(fasta_fai)
+    tuple val(meta3), path(fasta), path(fasta_fai)
     val seed
 
     output:

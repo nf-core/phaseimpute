@@ -49,7 +49,7 @@ nextflow_workflow {
             }
             workflow {
                 """
-                input[0] = BCFTOOLS_MERGE.out.merged_variants.join(BCFTOOLS_MERGE.out.tbi)
+                input[0] = BCFTOOLS_MERGE.out.vcf.join(BCFTOOLS_MERGE.out.tbi)
                 """
             }
         }

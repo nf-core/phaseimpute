@@ -92,13 +92,13 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     process.out.vcf,
-                    process.out.tbi.get(0).get(1).find { file(it).name.matches("normal_split.vcf.gz.tbi|tumor_split.vcf.gz.tbi") },
-                ).match() }
+                    process.out.tbi.get(0).get(1).find { file(it).name.matches("normal.vcf.gz.tbi|tumor.vcf.gz.tbi") },
+                ) }
             )
         }
 
     }
-    
+
     test("homo_sapiens - [ vcf, tbi ], samples, [], [], [] -stub") {
 
         options "-stub"

@@ -1,4 +1,6 @@
 Changes in module 'nf-core/shapeit5/phasecommon'
+'modules/nf-core/shapeit5/phasecommon/meta.yml' is unchanged
+Changes in 'shapeit5/phasecommon/main.nf':
 --- modules/nf-core/shapeit5/phasecommon/main.nf
 +++ modules/nf-core/shapeit5/phasecommon/main.nf
 @@ -8,10 +8,9 @@
@@ -14,4 +16,5 @@ Changes in module 'nf-core/shapeit5/phasecommon'
      output:
          tuple val(meta), path("*.{vcf,bcf,vcf.gz,bcf.gz}"), emit: phased_variant
 
+'modules/nf-core/shapeit5/phasecommon/environment.yml' is unchanged
 ************************************************************

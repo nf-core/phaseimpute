@@ -1,4 +1,6 @@
 Changes in module 'nf-core/bcftools/pluginsplit'
+'modules/nf-core/bcftools/pluginsplit/environment.yml' is unchanged
+Changes in 'bcftools/pluginsplit/main.nf':
 --- modules/nf-core/bcftools/pluginsplit/main.nf
 +++ modules/nf-core/bcftools/pluginsplit/main.nf
 @@ -26,11 +26,17 @@
@@ -19,14 +21,29 @@ Changes in module 'nf-core/bcftools/pluginsplit'
  
      """
      bcftools plugin split \\
-@@ -42,7 +48,7 @@
+@@ -42,7 +48,17 @@
          ${targets_arg} \\
          --output ${prefix}
  
 -    mv ${prefix}/* .
-+    for i in ${prefix}/*; do cp "\$i" "./\$(basename "\$i" .${extension})${suffix}.${extension}"; done
++    for file in ${prefix}/*; do
++        # Extract the basename
++        base_name=\$(basename "\$file")
++        # Extract the part of the basename before the first dot
++        name_before_dot="\${base_name%%.*}"
++        # Extract the extension
++        extension="\${base_name#\${name_before_dot}}"
++        # Construct the new name
++        new_name="\${name_before_dot}${suffix}\${extension}"
++        mv "\$file" "./\$new_name"
++    done
  
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
 
+'modules/nf-core/bcftools/pluginsplit/meta.yml' is unchanged
+'modules/nf-core/bcftools/pluginsplit/tests/main.nf.test' is unchanged
+'modules/nf-core/bcftools/pluginsplit/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/bcftools/pluginsplit/tests/nextflow.config' is unchanged
+'modules/nf-core/bcftools/pluginsplit/tests/tags.yml' is unchanged
 ************************************************************

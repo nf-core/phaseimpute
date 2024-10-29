@@ -35,8 +35,16 @@ process QUILT_QUILT {
     if (!(args ==~ /.*--seed.*/)) {args += " --seed=1"}
 
     """
+    if [ -n "$bamlist" ] ;
+    then
+        BAM_LIST="$bamlist"
+    else
+        printf "%s\\n" $bams | tr -d '[],' > all_files.txt
+        BAM_LIST="all_files.txt"
+    fi
+
     QUILT.R \\
-        ${list_command}${bamlist} \\
+        ${list_command}\$BAM_LIST \\
         $genetic_map_file_command \\
         $posfile_command \\
         $phasefile_command \\
