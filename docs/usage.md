@@ -6,7 +6,7 @@
 
 ## Introduction
 
-The **nf-core/phaseimpute** pipeline is designed to perform the phasing and imputation techniques. Some key functionalities include chromosome checking, panel preparation, imputation, simulation, and concordance.
+The **nf-core/phaseimpute** pipeline is designed to perform genomic phasing and imputation techniques. Some key functionalities include chromosome checking, panel preparation, imputation, simulation, and concordance.
 
 ## Samplesheet input
 
