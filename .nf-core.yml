@@ -1,6 +1,4 @@
 bump_version: null
-lint:
-  subworkflow_changes: false
 nf_core_version: 3.0.2
 org_path: null
 repository_type: pipeline
@@ -13,5 +11,5 @@ template:
   org: nf-core
   outdir: .
   skip_features: null
-  version: 1.0dev
+  version: 1.0.0
 update: null

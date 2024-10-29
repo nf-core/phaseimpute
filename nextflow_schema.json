@@ -154,6 +154,12 @@
                     "mimetype": "text/csv",
                     "schema": "/assets/schema_chunks.json",
                     "pattern": "^\\S+\\.csv$"
+                },
+                "seed": {
+                    "type": "integer",
+                    "description": "Seed for random number generation in Stitch and Quilt software",
+                    "hidden": true,
+                    "default": 1
                 }
             }
         },
@@ -426,10 +432,6 @@
             "description": "Arguments to customize STITCH run",
             "default": "",
             "properties": {
-                "seed": {
-                    "type": "integer",
-                    "default": 1
-                },
                 "posfile": {
                     "type": "string",
                     "description": "Path to comma-separated file containing tab-separated files describing the variable positions to be used for imputation. Refer to the documentation for the `--posfile` argument of STITCH for more information.",
