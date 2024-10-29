@@ -258,7 +258,10 @@ workflow PIPELINE_INITIALISATION {
     chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
         .unique()
         .toList()
-        .subscribe{ chr ->  if (chr.size() > 0) { log.warn "The following contigs are absent from at least one file : ${chr} and therefore won't be used" } }
+        .subscribe{ chr ->
+            if (chr.size() > 0) {
+                chr_names = chr.size() > params.max_chr_names ? chr[0..params.max_chr_names - 1] + ['...'] : chr
+                log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used" } }
 
     ch_regions = ch_regions
         .combine(chr_all_mis.toList())
@@ -266,6 +269,12 @@ workflow PIPELINE_INITIALISATION {
             !(meta.chr in chr_mis)
         }
         .map { meta, regions, chr_mis -> [meta, regions] }
+        .ifEmpty { error "No regions left to process" }
+
+    ch_regions
+        .map { it[1] }
+        .collect()
+        .subscribe { log.info "The following contigs will be processed: ${it}" }
 
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
@@ -469,7 +478,9 @@ def checkMetaChr(chr_a, chr_b, name){
         .map{
             a, b ->
             if (b != [[]] && !(a - b).isEmpty()) {
-                log.warn "Chr : ${a - b} is missing from ${name}"
+                chr_names = (a - b).size() > params.max_chr_names ? (a - b)[0..params.max_chr_names - 1] + ['...'] : (a - b)
+                verb = (a - b).size() == 1 ? "is" : "are"
+                log.warn "Chr : ${chr_names} ${verb} missing from ${name}"
                 return (a-b)
             }
             return []

@@ -41,6 +41,12 @@
                     "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
                     "pattern": "true|false"
                 },
+                "max_chr_names": {
+                    "type": "integer",
+                    "description": "Maximum number of contigs name to print before resuming (i.e. show only subset and add '...' at the end).",
+                    "hidden": true,
+                    "default": 4
+                },
                 "remove_samples": {
                     "type": "string",
                     "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes."
