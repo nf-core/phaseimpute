@@ -26,7 +26,6 @@
 | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <img src="docs/images/metro/MetroMap.svg" alt="metromap" width="800"/> | - **Check chromosome**: Validates the presence of contigs from the map file in the VCF, ensuring data compatibility for further processing <br> - **Panel preparation**: Perfoms the phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Imputes missing genotypes in the target dataset using the reference panel <br> - **Simulate**: Generates simulated datasets from high-quality target data for testing and validation purposes. <br> - **Concordance**: Evaluates the accuracy of imputation by comparing the imputed data against a truth dataset. |
 
-
 ## Usage
 
 > [!NOTE]
