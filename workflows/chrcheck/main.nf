@@ -19,9 +19,15 @@ workflow CHRCHECK {
         ch_versions = Channel.empty()
         // Split the input between VCF and BAM files
         ch_input = ch_input.branch{
-            bam: it[1] =~ 'bam|cram|sam'
+            bam: it[1] =~ 'bam|cram'
             vcf: it[1] =~ 'vcf|bcf'
+            other: true
         }
+
+        ch_input.other.map {
+            error "File: ${it[1]} is not a VCF, BCFT or BAM, CRAM file."
+        }
+
         // Check if channel is empty
         chr_vcf_disjoint = Channel.empty()
         // Extract the contig names from the VCF files

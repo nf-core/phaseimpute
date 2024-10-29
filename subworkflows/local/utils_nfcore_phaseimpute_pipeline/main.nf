@@ -258,7 +258,10 @@ workflow PIPELINE_INITIALISATION {
     chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
         .unique()
         .toList()
-        .subscribe{ chr ->  if (chr.size() > 0) { log.warn "The following contigs are absent from at least one file : ${chr} and therefore won't be used" } }
+        .subscribe{ chr ->
+            if (chr.size() > 0) {
+                chr_names = chr.size() > params.max_chr_names ? chr[0..params.max_chr_names - 1] + ['...'] : chr
+                log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used" } }
 
     ch_regions = ch_regions
         .combine(chr_all_mis.toList())
