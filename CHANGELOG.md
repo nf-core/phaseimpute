@@ -61,6 +61,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules
 - [#146](https://github.com/nf-core/phaseimpute/pull/146) - Remove conda CI check for PR due to nextflow error
 - [#144](https://github.com/nf-core/phaseimpute/pull/144) - Documentation updates
+- [#148](https://github.com/nf-core/phaseimpute/pull/148) - Fix awsfulltest github action for manual dispatch
 - [#149](https://github.com/nf-core/phaseimpute/pull/149) - Remove the map file from the awsfulltest
 
 ### `Fixed`
