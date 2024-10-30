@@ -74,7 +74,7 @@ For more details and further functionality, please refer to the [usage documenta
 ## Description of the different steps of the pipeline
 
 Here is a short description of the different steps of the pipeline.
-For more information please refer to the [documentation](https://nf-core.github.io/phaseimpute/usage/).
+For more information please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage).
 
 | steps           | Flow chart                                                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,39 +111,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 If you use nf-core/phaseimpute for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX)
 
-An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
-
-You can cite the main imputation methods as follows:
-
-[`QUILT`](https://github.com/rwdavies/QUILT):
-
-> **Rapid genotype imputation from sequence with reference panels.**
->
-> Davies, R. W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C. M., Chan, Y. F., & Myers, S.
->
-> _Nature genetics_ 2021 June 03. doi: [10.1038/s41588-021-00877-0](https://doi.org/10.1038/s41588-021-00877-0)
-
-[`GLIMPSE`](https://github.com/odelaneau/GLIMPSE):
-
-> **Efficient phasing and imputation of low-coverage sequencing data using large reference panels.**
->
-> Rubinacci, S., Ribeiro, D. M., Hofmeister, R. J., & Delaneau, O.
->
-> _Nature genetics_ 2021. doi:[10.1038/s41588-020-00756-0](https://doi.org/10.1038/s41588-020-00756-0)
-
-> **Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes**
->
-> Rubinacci, S., Hofmeister, R. J., Sousa da Mota, B., & Delaneau, O.
->
-> _Nature genetics_ 2023. doi:[10.1038/s41588-023-01438-3](https://doi.org/10.1038/s41588-023-01438-3)
-
-[`STITCH`](https://github.com/rwdavies/STITCH):
-
-> **Rapid genotype imputation from sequence without reference panels.**
->
-> Davies, R. W., Flint, J., Myers, S., & Mott, R.
->
-> _Nature genetics_ 2016 . doi: [10.1038/ng.3594](https://doi.org/10.1038/ng.3594).
+An extensive list of references for the tools used by the pipeline, including QUILT, GLIMPSE, and STITCH, can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 You can cite the `nf-core` publication as follows:
 
