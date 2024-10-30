@@ -61,14 +61,17 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules
 - [#146](https://github.com/nf-core/phaseimpute/pull/146) - Remove conda CI check for PR due to nextflow error
 - [#144](https://github.com/nf-core/phaseimpute/pull/144) - Documentation updates
+- [#148](https://github.com/nf-core/phaseimpute/pull/148) - Fix awsfulltest github action for manual dispatch
+- [#149](https://github.com/nf-core/phaseimpute/pull/149) - Remove the map file from the awsfulltest
 
 ### `Fixed`
 
 - [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
 - [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
 - [#65](https://github.com/nf-core/phaseimpute/pull/65) - Separate stitch output by individuals
-- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional with --compute_freq. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
+- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional with `--compute_freq`. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
 - [#117](https://github.com/nf-core/phaseimpute/pull/117) - Fix directories in CSV.
+- [#151](https://github.com/nf-core/phaseimpute/pull/151) - Fix `Type not supported: class org.codehaus.groovy.runtime.GStringImpl` error due to `String` test in `getFileExtension()`.
 
 ### `Dependencies`
 
