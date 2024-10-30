@@ -26,7 +26,7 @@
 
 > Davies, R. W., Flint, J., Myers, S., & Mott, R.(2016). Rapid genotype imputation from sequence without reference panels. Nature genetics 48, 965–969.
 
-- [Shapeit](https://odelaneau.github.io/shapeit5/)
+- [Shapeit](https://doi.org/10.1038/s41588-023-01415-w)
 
 > Hofmeister RJ, Ribeiro DM, Rubinacci S., Delaneau O. (2023). Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nature Genetics doi: https://doi.org/10.1038/s41588-023-01415-w
 

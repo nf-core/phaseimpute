@@ -12,12 +12,11 @@ The directories listed below will be created in the results directory after the 
 
 This steps of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--steps impute`). It has two optional modes: reference panel phasing with SHAPEIT5 and removal of specified samples from reference panel.
 
-- [Remove Multiallelics](#multiallelics) - Remove multiallelic sites from the reference panel
-- [Convert](#convert) - Convert reference panel to .hap and .legend files
-- [Posfile](#posfile) - Produce a TSV with the list of positions to genotype (for STITCH/QUILT)
-- [Sites](#sites) - Produce a TSV with the list of positions to genotype (for GLIMPSE1)
-- [Glimpse Chunk](#glimpse) - Create chunks of the reference panel
-- [CSV](#csv) - Obtain a CSV from this step
+- [Normalize reference panel](#panel-directory) - Remove multiallelic sites from the reference panel and compute allele frequencies if needed
+- [Convert](#haplegend-directory) - Convert reference panel to .hap and .legend files
+- [Posfile](#sites-directory) - Produce a TSV with the list of positions to genotype for the different tools
+- [Chromosomes chunks](#chunks-directory) - Create chunks of the reference panel
+- [CSV](#csv-directory) - Obtain a CSV from this step
 
 The directory structure from `--steps panelprep` is:
 
@@ -55,7 +54,7 @@ A directory containing the reference panel per chromosome after preprocessing. T
 
 </details>
 
-[bcftools](https://samtools.github.io/bcftools/bcftools.html) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files are input files used with `--tools quilt`.
+[`bcftools convert`](https://samtools.github.io/bcftools/bcftools.html#convert) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files are input files used with `--tools quilt`.
 
 ### Sites directory
 
@@ -72,9 +71,9 @@ A directory containing the reference panel per chromosome after preprocessing. T
 
 </details>
 
-[bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCFs can be gathered into a csv and used with all the tools in `--steps impute` using the flag `--panel`.
+[`bcftools query`](https://samtools.github.io/bcftools/bcftools.html#query) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCFs can be gathered into a csv and used with all the tools in `--steps impute` using the flag `--panel`.
 
-In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html) produces tab-delimited files (`*_tsv.txt`) and, together with the VCFs, they can be gathered into a samplesheet and directly submitted for imputation with `--tools glimpse1,stitch` and `--posfile`.
+In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html#query) produces tab-delimited files (`*_tsv.txt`) and, together with the VCFs, they can be gathered into a samplesheet and directly submitted for imputation with `--tools glimpse1,stitch` and `--posfile`.
 
 ### Chunks directory
 
@@ -86,7 +85,7 @@ In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html)
 
 </details>
 
-[Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation steps and directly submit this file for imputation.
+[Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/glimpse1/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation steps and directly submit this file for imputation.
 
 ### CSV directory
 
@@ -117,13 +116,12 @@ The results from steps impute will have the following directory structure:
 
 </details>
 
-[bcftools concat](https://samtools.github.io/bcftools/bcftools.html) will produce a single VCF from a list of imputed VCFs in chunks.
+[`bcftools concat`](https://samtools.github.io/bcftools/bcftools.html#concat) will produce a single VCF from a list of imputed VCFs in chunks.
 
 ## Reports
 
 Reports contain useful metrics and pipeline information for the different modes.
 
-- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
