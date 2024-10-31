@@ -23,36 +23,6 @@
         },
         "timestamp": "2024-07-12T17:12:47.079086374"
     },
-    "Test checkFileIndex no error with empty channel": [
-        [
-            "execution_report_2024-10-30_19-25-14.html:md5,0408afe271d24e31dd2f938ceb002775",
-            "execution_report_2024-10-30_19-38-19.html:md5,996966d40531bca5f4174e67b2aded46",
-            "execution_report_2024-10-30_19-39-22.html:md5,89af7dc337cbf20552d6530628b674a1",
-            "execution_report_2024-10-30_19-39-54.html:md5,6642ccdf221c8708d0920556ac1aeaa8",
-            "execution_report_2024-10-30_19-55-01.html:md5,faa7e82970e070a11794eedf0750a8b5",
-            "execution_timeline_2024-10-30_19-25-14.html:md5,a88f63f076c61f10190f79f19f61a9a7",
-            "execution_timeline_2024-10-30_19-38-19.html:md5,2d8d5c4eea6aabe44cab6dca418bed13",
-            "execution_timeline_2024-10-30_19-39-22.html:md5,3b5b6a61710e2f3bd48447fbc34523d9",
-            "execution_timeline_2024-10-30_19-39-54.html:md5,9b6c81942a9cee82f4dc4e3c7e27f2a4",
-            "execution_timeline_2024-10-30_19-55-01.html:md5,af07d7da37af25a494643c349b7b6fe6",
-            "execution_trace_2024-10-30_19-25-14.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-26-48.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-27-31.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-30-06.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-30-29.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-31-50.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-34-57.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-38-19.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-39-22.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-39-54.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-55-01.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "pipeline_dag_2024-10-30_19-25-14.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-38-19.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-39-22.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-39-54.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-55-01.html:md5,21fd28764a0974f8d3d912e6ca1c494d"
-        ]
-    ],
     "Test validateInputBatchTools only one vcf": {
         "content": [
             [
@@ -65,36 +35,6 @@
         },
         "timestamp": "2024-10-16T20:08:33.571723823"
     },
-    "Test Function exportCsv": [
-        [
-            "execution_report_2024-10-30_19-25-14.html:md5,0408afe271d24e31dd2f938ceb002775",
-            "execution_report_2024-10-30_19-38-19.html:md5,996966d40531bca5f4174e67b2aded46",
-            "execution_report_2024-10-30_19-39-22.html:md5,89af7dc337cbf20552d6530628b674a1",
-            "execution_report_2024-10-30_19-39-54.html:md5,6642ccdf221c8708d0920556ac1aeaa8",
-            "execution_report_2024-10-30_19-55-01.html:md5,faa7e82970e070a11794eedf0750a8b5",
-            "execution_timeline_2024-10-30_19-25-14.html:md5,a88f63f076c61f10190f79f19f61a9a7",
-            "execution_timeline_2024-10-30_19-38-19.html:md5,2d8d5c4eea6aabe44cab6dca418bed13",
-            "execution_timeline_2024-10-30_19-39-22.html:md5,3b5b6a61710e2f3bd48447fbc34523d9",
-            "execution_timeline_2024-10-30_19-39-54.html:md5,9b6c81942a9cee82f4dc4e3c7e27f2a4",
-            "execution_timeline_2024-10-30_19-55-01.html:md5,af07d7da37af25a494643c349b7b6fe6",
-            "execution_trace_2024-10-30_19-25-14.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-26-48.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-27-31.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-30-06.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-30-29.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-31-50.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-34-57.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-38-19.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-39-22.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-39-54.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "execution_trace_2024-10-30_19-55-01.txt:md5,8ad4a81ac400f067841cbfb3f18e6889",
-            "pipeline_dag_2024-10-30_19-25-14.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-38-19.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-39-22.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-39-54.html:md5,21fd28764a0974f8d3d912e6ca1c494d",
-            "pipeline_dag_2024-10-30_19-55-01.html:md5,21fd28764a0974f8d3d912e6ca1c494d"
-        ]
-    ],
     "Test validateInputBatchTools vcf only for glimpse": {
         "content": [
             [
@@ -106,6 +46,19 @@
             "nextflow": "24.04.4"
         },
         "timestamp": "2024-10-16T20:20:28.177195568"
+    },
+    "Test getFileExtension non empty list": {
+        "content": [
+            [
+                "vcf",
+                "txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-10-31T13:15:08.856706046"
     },
     "Test getFileExtension empty list": {
         "content": [
