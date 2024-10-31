@@ -38,7 +38,8 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert function.result == ['vcf', 'txt'] }
+                { assert function.result == ['vcf', 'txt'] },
+                { assert snapshot(function.result).match() }
             )
         }
     }
@@ -275,10 +276,11 @@ nextflow_function {
         }
 
         then {
-            assertAll(
-                { assert function.success },
-                { assert snapshot(function.result).match() }
-            )
+            with(function) {
+                println result
+                assert success
+                assert snapshot(result).match()
+            }
         }
     }
 
