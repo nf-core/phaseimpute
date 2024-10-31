@@ -13,6 +13,7 @@ workflow BAM_CHR_RENAME_SAMTOOLS {
     SAMTOOLS_REHEADER(
         ch_bam.map{
             meta, bam, index, prefix ->
+            def cmd = ""
             if (prefix == "nochr") {
                 cmd = 'sed -E "s/^(@SQ.*\\tSN:)chr/\\1/"'
             } else if (prefix == "chr") {

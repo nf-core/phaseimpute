@@ -351,40 +351,40 @@ workflow PIPELINE_COMPLETION {
 def validateInputParameters() {
     genomeExistsError()
     // Check that only genome or fasta is provided
-    assert params.genome == null || params.fasta == null, "Either --genome or --fasta must be provided"
-    assert !(params.genome == null && params.fasta == null), "Only one of --genome or --fasta must be provided"
+    assert (params.genome == null || params.fasta == null) : "Either --genome or --fasta must be provided"
+    assert !(params.genome == null && params.fasta == null) : "Only one of --genome or --fasta must be provided"
 
     // Check that a steps is provided
-    assert params.steps, "A step must be provided"
+    assert params.steps : "A step must be provided"
 
     // Check that at least one tool is provided
     if (params.steps.split(',').contains("impute")) {
-        assert params.tools, "No tools provided"
+        assert params.tools : "No tools provided"
     }
 
     // Check that input is provided for all steps, except panelprep
     if (params.steps.split(',').contains("all") || params.steps.split(',').contains("impute") || params.steps.split(',').contains("simulate") || params.steps.split(',').contains("validate")) {
-        assert params.input, "No input provided"
+        assert params.input : "No input provided"
     }
 
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2
         if (!params.tools.split(',').find { it in ["glimpse2"] }) {
-                assert params.posfile, "No --posfile provided for --steps impute"
+                assert params.posfile : "No --posfile provided for --steps impute"
         }
         // Required by all tools except STITCH
         if (params.tools != "stitch") {
-                assert params.chunks, "No --chunks provided for --steps impute"
+                assert params.chunks : "No --chunks provided for --steps impute"
         }
         // Required by GLIMPSE1 and GLIMPSE2 only
         if (params.tools.split(',').contains("glimpse")) {
-                assert params.panel, "No --panel provided for imputation with GLIMPSE"
+                assert params.panel : "No --panel provided for imputation with GLIMPSE"
         }
 
         // Check that input_truth is provided when running validate
         if (params.steps.split(',').find { it in ["all", "validate"] } ) {
-            assert params.input_truth, "No --input_truth was provided for --steps validate"
+            assert params.input_truth : "No --input_truth was provided for --steps validate"
         }
     }
 

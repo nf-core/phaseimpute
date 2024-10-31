@@ -18,12 +18,12 @@ workflow BAM_IMPUTE_QUILT {
     posfile_phasefile   = [[id: null], posfile, phasefile]
     genetic_map_file    = []
 
-    ngen                = params.ngen
-    buffer              = params.buffer
+    ngen_params         = params.ngen
+    buffer_params       = params.buffer
 
     ch_hap_chunks = ch_hap_legend
         .combine(ch_chunks, by:0)
-        .map { it + ngen + buffer + [[]] }
+        .map { it + ngen_params + buffer_params + [[]] }
 
     if (!genetic_map_file.isEmpty()) {
         // Add genetic map file (untested)

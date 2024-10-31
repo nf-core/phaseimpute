@@ -19,8 +19,8 @@ workflow BAM_IMPUTE_STITCH {
     // Value channels
     def input_empty         = [[]]
     def rdata_empty         = [[]]
-    k_val                   = params.k_val
-    ngen                    = params.ngen
+    k_val_params            = params.k_val
+    ngen_params             = params.ngen
 
     // Transform posfile to TSV with ','
     GAWK(ch_posfile, [])
@@ -38,7 +38,7 @@ workflow BAM_IMPUTE_STITCH {
     ch_parameters = ch_posfile
         .map { it + input_empty + rdata_empty}
         .join(ch_chromosomes)
-        .map { it + k_val + ngen}
+        .map { it + k_val_params + ngen_params}
         .map { metaC, metaPC, posfile, input, rdata, chr, k_val, ngen ->
             [metaPC, posfile, input, rdata, chr, k_val, ngen]
         }
