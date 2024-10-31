@@ -15,10 +15,52 @@ nextflow_function {
             }
         }
         then {
-            assert function.success
-            assert snapshot(function.result).match()
+            assertAll(
+                { assert function.success },
+                { assert function.result == "vcf" }
+            )
         }
     }
+
+    test ("Test getFileExtension non empty list") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = [
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExists: true),
+                    "test.myfile.txt.gz"
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ['vcf', 'txt'] }
+            )
+        }
+    }
+
+    test ("Test getFileExtension empty list") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = []
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == [] }
+            )
+        }
+    }
+
     test("Test checkFileIndex no error with empty channel") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -46,6 +88,7 @@ nextflow_function {
             assert snapshot(function.result).match()
         }
     }
+
     test("Test checkFileIndex no error") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -71,6 +114,7 @@ nextflow_function {
             assert function.success
         }
     }
+
     test("Test checkFileIndex bam bai") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -90,6 +134,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for .bam must have the extension .bai")
         }
     }
+
     test("Test checkFileIndex cram crai") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -109,6 +154,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for .cram must have the extension .crai")
         }
     }
+
     test("Test checkFileIndex bcf csi") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -128,6 +174,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
         }
     }
+
     test("Test checkFileIndex vcf csi") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -147,6 +194,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
         }
     }
+
     test("Test checkFileIndex vcf.gz csi") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -166,6 +214,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
         }
     }
+
     test("Test checkFileIndex fa fai") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -185,6 +234,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for [fa, fasta] must have the extension .fai")
         }
     }
+
     test("Test checkFileIndex fasta fai") {
         function "checkFileIndex"
         tag "checkFileIndex"
@@ -204,6 +254,7 @@ nextflow_function {
             assert function.stdout.contains("[id:input7]: Index file for [fa, fasta] must have the extension .fai")
         }
     }
+
     test("Test Function exportCsv") {
         function "exportCsv"
         tag "exportCsv"
@@ -230,6 +281,7 @@ nextflow_function {
             )
         }
     }
+
     test ("Test checkMetaChr") {
         function "checkMetaChr"
         tag "checkMetaChr"
@@ -246,6 +298,7 @@ nextflow_function {
             assert function.success
         }
     }
+
     test ("Test checkMetaChr warning") {
         function "checkMetaChr"
         tag "checkMetaChr"
