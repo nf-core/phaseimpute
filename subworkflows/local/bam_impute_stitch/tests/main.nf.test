@@ -16,12 +16,14 @@ nextflow_workflow {
     tag "bcftools_index"
 
     test("Prepare input stitch") {
-        setup {
-            run("PREPARE_INPUT_STITCH") {
-                script "../../prepare_input_stitch/main.nf"
-                process {
-                    """
-                    input[0] = Channel.fromList([
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                ch_samples = Channel.fromList([
                         [
                             [id: "NA12878"],
                             file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
@@ -33,27 +35,21 @@ nextflow_workflow {
                             file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
                         ],
                     ])
-                    input[1] = Channel.of([
-                            [id: "1000GP", chr: "chr22"],
-                            file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
-                        ]).collect()
-                    input[2] = Channel.of([
-                        [chr: "chr22", region: "chr22:16570000-16610000"], "chr22:16570000-16610000"
-                    ]).collect()
-                    """
-                }
-            }
-        }
-        when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
-            workflow {
-                """
-                input[0] = PREPARE_INPUT_STITCH.out.stitch_samples
-                input[1] = PREPARE_INPUT_STITCH.out.stitch_parameters
-                input[2] = Channel.of([
+                bamlist  = Channel.of("NA12878.s.bam", "NA19401.s.bam").collectFile(name: "bamlist")
+
+                ch_posfile = Channel.of([
+                    [id: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                ])
+
+                ch_region = Channel.of([
+                    [chr: "chr22", region: "chr22:16570000-16610000"], "chr22:16570000-16610000"
+                ])
+
+                input[0] = ch_samples.combine(bamlist)
+                input[1] = ch_posfile
+                input[2] = ch_region
+                input[3] = Channel.of([
                     [id: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
