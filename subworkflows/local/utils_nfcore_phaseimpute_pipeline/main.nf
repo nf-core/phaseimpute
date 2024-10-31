@@ -492,21 +492,24 @@ def checkMetaChr(chr_a, chr_b, name){
 //
 // Get file extension
 //
+import nextflow.file.http.XPath
+import java.nio.file.Path
+
 def getFileExtension(file) {
-    if (file instanceof Path) {
-        file = file.getName()
-    } else if (file instanceof ArrayList) {
-        if (file.size() == 0) {
-            return null
-        } else {
-            error "Type not supported: ${file} = ${file.getClass()}"
-        }
-    }
-    if (file instanceof CharSequence) {
-        return file.toString().replace(".gz", "").split("\\.").last()
+    def file_name = ""
+
+    if (file instanceof Path || file instanceof XPath) {
+        file_name = file.name
+    } else if (file instanceof CharSequence) {
+        file_name = file.toString()
+    } else if (file instanceof List) {
+        return file.collect { getFileExtension(it) }
     } else {
         error "Type not supported: ${file.getClass()}"
     }
+
+    // Remove .gz if present and get the last part after splitting by "."
+    return file_name.replace(".gz", "").split("\\.").last()
 }
 
 //
