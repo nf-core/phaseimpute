@@ -45,7 +45,9 @@ The directory structure from `--steps panelprep` is:
 
 </details>
 
-A directory containing the reference panel per chromosome after preprocessing. The files will be normalized if the flag `--normalize` is used (with `_normalized` suffix). The files will have their allele frequency computed if the flaq `--compute_freq` is used (with `_fixup` suffix). The files will be phased if the flag `--phase` is used (with `_phased` suffix).
+A directory containing the reference panel per chromosome after preprocessing.
+The files will be normalized if the flag `--normalize` is used (with `_normalized` suffix). The files will have their allele frequency computed if the flaq `--compute_freq` is used (with `_fixup` suffix).
+The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 ### Haplegend directory
 
