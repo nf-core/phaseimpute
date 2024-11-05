@@ -29,11 +29,11 @@ SAMPLE2,AEG588A2.bam,AEG588A2.bai
 SAMPLE3,AEG588A3.bam,AEG588A3.bai
 ```
 
-| Column   | Description                                                                                                                                                                                    |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                   |
-| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" optionally compressed with bgzip ".gz". All files need to have the same extension. |
-| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files need to have the same extension.                                                        |
+| Column   | Description                                                                                                                                                                                                       |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                                      |
+| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" and optionally compressed with bgzip ".gz". All files in this column need to have the same extension. |
+| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files in this column need to have the same extension.                                                            |     |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
