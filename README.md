@@ -19,11 +19,21 @@
 
 ## Introduction
 
-**nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data. The pipeline is constituted of five main steps:
+**nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data.
 
-| Metro map                                                                       | Modes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="docs/images/metro/MetroMap_animated.svg" alt="metromap" width="800"/> | - **Check chromosomes names**: Validates the presence of the different contigs in all variants and alignment files, ensuring data compatibility for further processing <br> - **Panel preparation**: Perfoms the phasing, QC, variant filtering, variant annotation of the reference panel <br> - **Imputation**: Imputes genotypes in the target dataset using the reference panel <br> - **Simulate**: Generates simulated datasets from high-quality target data for testing and validation purposes. <br> - **Concordance**: Evaluates the accuracy of imputation by comparing the imputed data against a truth dataset. |
+<img src="docs/images/metro/MetroMap_animated.svg" alt="metromap" width="800"/>
+
+The pipeline is constituted of five main steps:
+
+1. **Check chromosomes names**: Validates the presence of the different contigs in all variants and alignment files, ensuring data compatibility for further processing.
+
+2. **Panel preparation**: Performs phasing, QC, variant filtering, and variant annotation of the reference panel.
+
+3. **Imputation**: Imputes genotypes in the target dataset using the reference panel.
+
+4. **Simulation**: Generates simulated datasets from high-quality target data for testing and validation purposes.
+
+5. **Concordance**: Evaluates the accuracy of imputation by comparing the imputed data against a truth dataset.
 
 ## Usage
 
