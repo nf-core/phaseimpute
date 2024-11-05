@@ -42,9 +42,7 @@ The pipeline is constituted of five main steps:
 
 The primary function of this pipeline is to impute a target dataset based on a phased panel. Begin by preparing a samplesheet with your input data, formatted as follows:
 
-`samplesheet.csv`:
-
-```csv
+```csv title="samplesheet.csv"
 sample,file,index
 SAMPLE_1X,/path/to/.<bam/cram>,/path/to/.<bai,crai>
 ```
@@ -53,7 +51,7 @@ Each row represents either a bam or a cram file along with its corresponding ind
 
 For certain tools and steps within the pipeline, you will also need to provide a samplesheet for the reference panel. Here's an example of what a final samplesheet for a reference panel might look like, covering three chromosomes:
 
-```csv
+```csv title="panel.csv"
 panel,chr,vcf,index
 Phase3,1,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz,ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.csi
 Phase3,2,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz,ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.csi
