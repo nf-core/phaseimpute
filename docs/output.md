@@ -24,7 +24,7 @@ It has two optional modes:
 
 The directory structure from `--steps panelprep` is:
 
-```
+```tree
 ├── panel
 ├── haplegend
 ├── sites
