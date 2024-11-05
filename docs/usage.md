@@ -278,7 +278,7 @@ For starting from the imputation steps, the required flags are:
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
-[![InputSoftwareCompatibility](images/InputSoftware_compatibility.png)](images/InputSoftware_compatibility.png)
+![InputSoftwareCompatibility](images/InputSoftware_compatibility.png)
 
 #### Argument `--batch_size`
 
