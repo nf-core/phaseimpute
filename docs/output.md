@@ -10,7 +10,11 @@ The directories listed below will be created in the results directory after the 
 
 ## Panel preparation outputs `--steps panelprep`
 
-This steps of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--steps impute`). It has two optional modes: reference panel phasing with SHAPEIT5 and removal of specified samples from reference panel.
+This step of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--steps impute`).
+It has two optional modes:
+
+- reference panel phasing with SHAPEIT5
+- removal of specified samples from reference panel.
 
 - [Normalize reference panel](#panel-directory) - Remove multiallelic sites from the reference panel and compute allele frequencies if needed
 - [Convert](#haplegend-directory) - Convert reference panel to .hap and .legend files
