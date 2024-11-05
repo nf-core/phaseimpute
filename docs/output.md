@@ -40,7 +40,7 @@ The directory structure from `--steps panelprep` is:
 <summary>Output files</summary>
 
 - `prep_panel/panel/`
-  - `*.vcf.gz`: The reference panel vcf after all the preprocessing is done.
+  - `*.vcf.gz`: The reference panel VCF after all the preprocessing is done.
   - `*.tbi*`: A tbi for the prepared reference panel.
 
 </details>
@@ -60,7 +60,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 </details>
 
-[`bcftools convert`](https://samtools.github.io/bcftools/bcftools.html#convert) aids in the conversion of vcf files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files are input files used with `--tools quilt`.
+[`bcftools convert`](https://samtools.github.io/bcftools/bcftools.html#convert) aids in the conversion of VCF files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files are input files used with `--tools quilt`.
 
 ### Sites directory
 
@@ -101,7 +101,7 @@ In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html#
 - `prep_panel/csv/`
   - `chunks.csv`: A csv containing the list of chunks obtained for each chromosome and panel.
   - `panel.csv`: A csv containing the final phased and prepared for each chromosome and input panel.
-  - `posfile.csv`: A csv containing the final list of panel positions, in vcf and tsv, for each chromosome and input panel.
+  - `posfile.csv`: A csv containing the final list of panel positions, in VCF and tsv, for each chromosome and input panel.
 
 </details>
 
@@ -113,12 +113,12 @@ The results from steps impute will have the following directory structure:
 <summary>Output files</summary>
 
 - `imputation/csv/`
-  - `impute.csv`: A single csv containing the path to a vcf and its index, of each imputed sample with their corresponding tool.
+  - `impute.csv`: A single csv containing the path to a VCF and its index, of each imputed sample with their corresponding tool.
 - `imputation/[glimpse1,glimpse2,quilt,stitch]/`
-  - `concat/*.vcf.gz`: A vcf of each imputed sample.
-  - `concat/*.vcf.gz.tbi`: A tbi for the imputed vcf.
-  - `samples/*.vcf.gz`: A vcf of each imputed sample.
-  - `samples/*.vcf.gz.tbi`: A tbi for the imputed vcf.
+  - `concat/*.vcf.gz`: A VCF of each imputed sample.
+  - `concat/*.vcf.gz.tbi`: A tbi for the imputed VCF.
+  - `samples/*.vcf.gz`: A VCF of each imputed sample.
+  - `samples/*.vcf.gz.tbi`: A tbi for the imputed VCF.
 
 </details>
 
