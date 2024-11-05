@@ -27,9 +27,6 @@ sample,file,index
 SAMPLE1,AEG588A1.bam,AEG588A1.bai
 SAMPLE2,AEG588A2.bam,AEG588A2.bai
 SAMPLE3,AEG588A3.bam,AEG588A3.bai
-SAMPLE4,AEG588A4.bam,AEG588A4.bai
-SAMPLE5,AEG588A5.bam,AEG588A5.bai
-SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
 | Column   | Description                                                                                                                                                                                    |
