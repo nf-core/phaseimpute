@@ -83,12 +83,36 @@ For more details and further functionality, please refer to the [usage documenta
 Here is a short description of the different steps of the pipeline.
 For more information please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage).
 
-| steps           | Flow chart                                                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| --------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **--panelprep** | <img src="docs/images/metro/PanelPrep.png" alt="Panel preparation" width="600"/> | The preprocessing mode is responsible for preparing multiple input files that will be used by the phasing and imputation process. <br> The main processes are : <br> - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/). <br> - **Normalize** the reference panel to select only the necessary variants. <br> - **Chunking the reference panel** into a subset of regions for all the chromosomes. <br> - **Extract** the positions where to perform the imputation.                                                                                                                                                                                                                                                                                                                                           |
-| **--impute**    | <img src="docs/images/metro/Impute.png" alt="Impute target" width="600"/>        | The imputation mode is the core mode of this pipeline. <br> It consists of 3 main steps: <br> - **Imputation**: Impute the target dataset on the reference panel using either: <br> &emsp; - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html): It comes with the necessity to compute the genotype likelihoods of the target dataset (done using [`bcftools mpileup`](https://samtools.github.io/bcftools/bcftools.html#mpileup)). <br> &emsp; - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/) <br> &emsp; - [**Stitch**](https://github.com/rwdavies/stitch) This step does not require a reference panel but needs to merge the samples. <br> &emsp; - [**Quilt**](https://github.com/rwdavies/QUILT) <br> - **Ligation**: all the different chunks are merged together then all chromosomes are reunited to output one VCF per sample. |
-| **--simulate**  | <img src="docs/images/metro/Simulate.png" alt="simulate_metro" width="600"/>     | The simulation mode is used to create artificial low informative genetic information from high density data. This allows the comparison of the imputed result to a _truth_ and therefore evaluates the quality of the imputation. <br> For the moment it is possible to simulate: <br> - Low-pass data by **downsample** BAM or CRAM using [`samtools view -s`](https://www.htslib.org/doc/samtools-view.html) at different depth.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **--validate**  | <img src="docs/images/metro/Validate.png" alt="concordance_metro" width="600"/>  | This mode compares two VCF files together to compute a summary of the differences between them. <br> This step uses [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/) concordance process.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+1. **`--panelprep`**: The preprocessing mode is responsible for preparing multiple input files that will be used by the phasing and imputation process.
+   - The main processes are:
+     - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/).
+     - **Normalize** the reference panel to select only the necessary variants.
+     - **Chunking the reference panel** into a subset of regions for all the chromosomes.
+     - **Extract** the positions where to perform the imputation.
+
+<img src="docs/images/metro/PanelPrep.png" alt="Panel preparation" width="600"/>
+
+2. **`--impute`**: The imputation mode is the core mode of this pipeline.
+   - It consists of 3 main steps:
+     - **Imputation**: Impute the target dataset on the reference panel using either:
+       - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html).
+       - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/).
+       - [**Stitch**](https://github.com/rwdavies/stitch).
+       - [**Quilt**](https://github.com/rwdavies/QUILT)
+     - **Ligation**: Merges the different chunks together and reunites all chromosomes to output one VCF per sample.
+
+<img src="docs/images/metro/Impute.png" alt="Impute target" width="600"/>
+
+3. **`--simulate`**: The simulation mode is used to create artificial low informative genetic information from high-density data. This allows for the comparison of the imputed result to a _truth_ dataset, evaluating the quality of the imputation.
+   - Currently, it is possible to simulate:
+     - Low-pass data by **downsampling** BAM or CRAM using [`samtools view -s`](https://www.htslib.org/doc/samtools-view.html) at different depths.
+
+<img src="docs/images/metro/Simulate.png" alt="simulate_metro" width="600"/>
+
+4. **`--validate`**: This mode compares two VCF files to compute a summary of the differences between them.
+   - This step uses the [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/) concordance process.
+
+<img src="docs/images/metro/Validate.png" alt="concordance_metro" width="600"/>
 
 ## Pipeline output
 
