@@ -281,20 +281,21 @@ Here is a representation on how the input files will be processed depending on t
 
 The `--batch_size` argument is used to specify the number of samples to be processed at once. This is useful when the number of samples is large and the memory is limited. The default value is 100 but it might need to be adapted to the size of each individuals data, the number of samples to be processed in parallel and the available memory.
 
-Imputation softwares algorithm are time consuming. The computational load depend on the number of individuals, the region size and the panel size. [Some steps are computationally fixed](https://doi.org/10.1038/s41588-023-01438-3), meaning they run similarly whether you are imputing 2 individuals or 200. By grouping individuals into larger batches, these fixed-cost steps are shared among more samples, reducing the per-individual computational overhead and improving overall efficiency. This step is recommended
-On the other hand we also need to limit the memory usage when working with a huge amount of individuals within a process.
-Hence the necessity to use a batch_size large enough to reduce the fixed-cost stepts / individuals and not to large for the memory usage to be sustainable.
+Imputation software algorithms are time-consuming, with computational load dependent on the number of individuals, region size, and panel size. [Some steps have fixed computational costs](https://doi.org/10.1038/s41588-023-01438-3), meaning they take a similar amount of time whether imputing 2 or 200 individuals. By grouping individuals into larger batches, these fixed-cost steps are shared among more samples, reducing per-individual computational overhead and improving overall efficiency. However, memory usage must also be managed carefully when processing a large number of individuals within a single batch. Therefore, it is crucial to select a `batch_size` that is large enough to minimize fixed costs per individual but not so large that memory usage becomes unsustainable.
 
-When the number of samples exceeds the batch size, the pipeline will split the samples into batches and process them sequentially. The files used in each batch are stored in the `${outputdir}/imputation/batch` folder.
-[STITCH](#stitch) and [GLIMPSE1](#glimpse1) do not support a batch size inferior to the number of samples. This limit is set up to not induce batch effect in the imputation process, as this two tools take into account the information of the target file to perform the imputation. This does on the other hand enhances the accuracy of phasing and imputation, as the target individuals might provide more informative genetic context (e.g. you have related individuals in the target).
+When the number of samples exceeds the batch size, the pipeline will split the samples into batches and process them sequentially. The files for each batch are stored in the `${outputdir}/imputation/batch` folder.
+
+[STITCH](#stitch) and [GLIMPSE1](#glimpse1) do not support a batch size smaller than the total number of samples. This limit is set to prevent batch effects in the imputation process, as these tools rely on the genetic information from the entire target file to perform imputation. This approach, however, enhances the accuracy of phasing and imputation, as target individuals may provide a more informative genetic context (e.g., when related individuals are present in the target).
+
+> [!NOTE]
+> If you want to disable this option and run each sample separately you can set `--batch_size 1`
 
 To summarize:
 
-- If you have Variant Calling Format file you should join them in one and choose either GLIMPSE1 or GLIMPSE2
-- If you have alignment files all the tools are available and their will be processed in batch_size
-  - Glimpse1 and Stitch might induce batch effect so all the samples need to be imputed together
-  - Glimpse2 and Quilt can process the samples in different batches
-- If you want to disable this option and run each sample separately you can set `--batch_size 1`
+- If you have Variant Calling Format (VCF) files, join them into a single file and choose either GLIMPSE1 or GLIMPSE2.
+- If you have alignment files (e.g., BAM or CRAM), all tools are available, and processing will occur in `batch_size`:
+  - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
+  - GLIMPSE2 and QUILT can process samples in separate batches.
 
 #### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
