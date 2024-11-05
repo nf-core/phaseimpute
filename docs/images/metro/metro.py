@@ -3,7 +3,7 @@
 """
 Created on 25/05/2024
 @author: LouisLeNezet
-Main script fo the metrop maps
+Main script to the metro maps
 """
 
 import argparse
