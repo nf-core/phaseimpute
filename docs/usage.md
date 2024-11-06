@@ -125,11 +125,11 @@ or you can specify a custom genome using:
 --fasta Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
 ```
 
-## Running the pipeline
+## Running the pipeline: quick example
 
 A quick running example only with the imputation step can be performed as follows:
 
-```
+```bash
 nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --steps impute \
@@ -140,7 +140,6 @@ nextflow run nf-core/phaseimpute \
     --panel panel.csv \
     --tools glimpse1 \
     -profile docker
-
 ```
 
 The typical command for running the pre-processing of the panel and imputation of samples is shown below:
@@ -188,17 +187,11 @@ Do not use `-c <file>` to specify parameters as this will result in errors. Cust
 
 You can also generate `YAML` or `JSON` files easily using the [nf-core/launch](https://nf-co.re/launch) tool, which guides you creating the files that can be used directly with `-params-file`.
 
-### Check of the contigs name
-
-The pipeline parallelize the imputation process across contigs. To do so it will use either the `--regions` samplesheet or the `.fai` to extract the genomic region to process.
-From all those contigs some might not be present in the `--panel`, `--posfile`, `--chunks`, `--map` (column `chr`) or in the `--fasta`. In this case the pipeline will warn you that some of the contigs are absent in some of the file specified and will only parallelize on the intersection of all contigs.
-Afterwards the remaining contigs presence will be checked with the `CHECKCHR` pipeline to ensure that they are present in each `--input` and `--input_truth` file and that also in the individuals reference panel files.
-
-### Running the pipeline
+## Running the pipeline: detailed instructions
 
 nf-core/phaseimpute can be started at different points in the analysis by setting the flag `--steps` and the available options `[simulate, panelprep, impute, validate, all]`. You can also run several steps simultaneously by listing the required processes as `--steps panelprep,impute` or you can choose to run all steps sequentially by using `--steps all`.
 
-### Start with simulation `--steps simulate`
+## Start with simulation `--steps simulate`
 
 This steps of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
 
@@ -221,7 +214,7 @@ The required flags for this mode are:
 
 You can find an overview of the results produced by this step in the [Output](output.md).
 
-### Start with panel preparation `--steps panelprep`
+## Start with panel preparation `--steps panelprep`
 
 This steps pre-processes the reference panel in order to be ready for imputation. There are a few quality control steps that are applied to reference panels. These include actions such as removing multiallelic SNPs and indels and removing certain samples from the reference panel (such as related samples). In addition, chunks are produced which are then used in the imputation steps. It is recommended that this steps is run once and the produced files are saved, to minimize the cost of reading the reference panel each time. Then, the output files from `--steps panelprep` can be used as input in the subsequent imputation steps, such as `--steps impute`.
 
@@ -246,7 +239,7 @@ The required flags for this mode are:
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
-### Start with imputation `--steps impute`
+## Start with imputation `--steps impute`
 
 For starting from the imputation steps, the required flags are:
 
@@ -297,11 +290,11 @@ To summarize:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
   - GLIMPSE2 and QUILT can process samples in separate batches.
 
-#### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
+## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
-##### QUILT
+### QUILT
 
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a csv file with the genomic chunks (`--chunks`).
 
@@ -348,7 +341,7 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-##### STITCH
+### STITCH
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`). See [Posfile section](#samplesheet-posfile) for more information.
 
@@ -393,7 +386,7 @@ bcftools view -G -m 2 -M 2 -v ${vcf}
 bcftools convert --haplegendsample ${vcf}
 ```
 
-##### GLIMPSE1
+### GLIMPSE1
 
 [GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. Glimpse1 works with alignment (i.e. BAM or CRAM) as well as variant (i.e. VCF or BCF) files as input. This is an example command to run this tool from the `--steps impute`:
 
@@ -419,7 +412,7 @@ panel,chr,legend
 
 The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].
 
-##### GLIMPSE2
+### GLIMPSE2
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
 
@@ -437,7 +430,7 @@ nextflow run nf-core/phaseimpute \
 
 Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
 
-### Start with validation `--steps validate`
+## Start with validation `--steps validate`
 
 This steps compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
 This also needs the frequency of the alleles. They can be computed from the reference panel by running the `--steps panelprep` and using the `--panel` with the `--compute_freq` flag ; or by using `--posfile samplesheet.csv`.
@@ -469,7 +462,7 @@ panel,chr,vcf,index
 1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.csi
 ```
 
-### Run all steps sequentially `--steps all`
+## Run all steps sequentially `--steps all`
 
 This mode runs all the previous steps. This requires several flags:
 
@@ -483,6 +476,14 @@ This mode runs all the previous steps. This requires several flags:
 - `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
   This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
   The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
+
+### Contig Name Validation and QC
+
+The first step of the pipeline is to validate the consistency of contig names across all input files. Since the pipeline parallelizes the imputation process by contig, it needs to ensure that the contigs are consistently defined across several files. This step uses either the `--regions` samplesheet or the `.fai` file to identify the genomic regions to process.
+
+However, some contigs specified in these files may be absent from other key files, such as the `--panel`, `--posfile`, `--chunks`, `--map` (column `chr`), or `--fasta`. When this happens, the pipeline generates a warning to notify you of the missing contigs. It then narrows down the process to only the contigs that are **common across all required files**.
+
+Finally, the pipeline performs a detailed check with the `CHECKCHR` tool to verify that these contigs are present in every `--input` and `--input_truth` file, as well as in the individual reference panel files. This prevents inconsistencies in downstream steps.
 
 ### Updating the pipeline
 
