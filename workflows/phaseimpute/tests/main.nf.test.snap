@@ -190,10 +190,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-25T19:14:20.211846091"
+        "timestamp": "2024-11-06T21:16:53.209347713"
     },
     "Check test_batch": {
         "content": [
@@ -232,17 +232,17 @@
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
-                "NA19401",
-                "NA20359"
+                "NA12878",
+                "NA19401"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
-                "NA19401",
-                "NA20359"
+                "NA12878",
+                "NA19401"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
-                "NA12878"
+                "NA20359"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
@@ -268,10 +268,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-25T19:25:15.563226326"
+        "timestamp": "2024-11-06T21:03:44.505303287"
     },
     "Check test_quilt": {
         "content": [
