@@ -68,18 +68,12 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <summary>Output files</summary>
 
 - `prep_panel/sites/`
-  - `vcf/`
-    - `*.vcf.gz`: VCF with biallelic SNPs only.
-    - `*.csi`: Index file for VCF.
-  - `tsv/`
-    - `*.txt.gz`: TXT file for biallelic SNPs.
-    - `*.tbi`: Index file for TSV.
+  - `*.vcf.gz`: VCF with biallelic SNPs only.
+  - `*.csi`: Index file for VCF.
 
 </details>
 
 [`bcftools query`](https://samtools.github.io/bcftools/bcftools.html#query) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCFs can be gathered into a csv and used with all the tools in `--steps impute` using the flag `--panel`.
-
-In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html#query) produces tab-delimited files (`*_tsv.txt`) and, together with the VCFs, they can be gathered into a samplesheet and directly submitted for imputation with `--tools glimpse1,stitch` and `--posfile`.
 
 ### Chunks directory
 
@@ -87,7 +81,7 @@ In addition, [bcftools query](https://samtools.github.io/bcftools/bcftools.html#
 <summary>Output files</summary>
 
 - `prep_panel/chunks/`
-  - `*.txt`: TXT file containing the chunks obtained from running Glimpse chunks.
+  - `*.txt`: TXT file containing the chunks obtained from running `GLIMPSE1_CHUNK`.
 
 </details>
 
