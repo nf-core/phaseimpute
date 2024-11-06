@@ -230,7 +230,7 @@ workflow PHASEIMPUTE {
             .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         // Group BAMs by batch size
-        def nb_batch = 0
+        def nb_batch = -1
         ch_input_bams = ch_input_type.bam
             .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
             .map { list -> list.collate(params.batch_size)
