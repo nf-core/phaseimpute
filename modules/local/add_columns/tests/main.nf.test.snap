@@ -43,7 +43,7 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,b25787d2ba80184a94de82cf5cfe8e7a"
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
                 ],
                 "txt": [
                     [
@@ -58,7 +58,7 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,b25787d2ba80184a94de82cf5cfe8e7a"
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
                 ]
             }
         ],
@@ -66,7 +66,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-17T14:43:39.390342082"
+        "timestamp": "2024-11-06T13:32:32.608346737"
     },
     "Add columns to txt file with missing fields": {
         "content": [
@@ -81,7 +81,7 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,b25787d2ba80184a94de82cf5cfe8e7a"
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
                 ],
                 "txt": [
                     [
@@ -93,7 +93,7 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,b25787d2ba80184a94de82cf5cfe8e7a"
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
                 ]
             }
         ],
@@ -101,6 +101,6 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-17T14:44:39.317216249"
+        "timestamp": "2024-11-06T13:32:39.650698807"
     }
 }
