@@ -21,16 +21,16 @@
                             "id": "1000GP",
                             "chr": "chr21"
                         },
-                        "1000GP.vcf.gz:md5,a8af1c991fb1ca9e0919e0d5ddae8968",
-                        "1000GP.vcf.gz.csi:md5,b4c653bd398bb838b496e022705bb562"
+                        "1000GP.vcf.gz:md5,fa076304a5451d471c5714f173677431",
+                        "1000GP.vcf.gz.csi:md5,20c7a75a26dc678f9ecc2ab989a3a942"
                     ],
                     [
                         {
                             "id": "1000GP",
                             "chr": "chr22"
                         },
-                        "1000GP.vcf.gz:md5,106157dc553c3c19eebdce0567e69d4f",
-                        "1000GP.vcf.gz.csi:md5,58026cf302bd82382a078c5690429b5c"
+                        "1000GP.vcf.gz:md5,13e3166bf4a0779c1c13bd87facc2297",
+                        "1000GP.vcf.gz.csi:md5,ed1f6fd4d15139955d9d0e8bb6b2700f"
                     ]
                 ],
                 "1": [
@@ -46,16 +46,16 @@
                             "id": "1000GP",
                             "chr": "chr21"
                         },
-                        "1000GP.vcf.gz:md5,a8af1c991fb1ca9e0919e0d5ddae8968",
-                        "1000GP.vcf.gz.csi:md5,b4c653bd398bb838b496e022705bb562"
+                        "1000GP.vcf.gz:md5,fa076304a5451d471c5714f173677431",
+                        "1000GP.vcf.gz.csi:md5,20c7a75a26dc678f9ecc2ab989a3a942"
                     ],
                     [
                         {
                             "id": "1000GP",
                             "chr": "chr22"
                         },
-                        "1000GP.vcf.gz:md5,106157dc553c3c19eebdce0567e69d4f",
-                        "1000GP.vcf.gz.csi:md5,58026cf302bd82382a078c5690429b5c"
+                        "1000GP.vcf.gz:md5,13e3166bf4a0779c1c13bd87facc2297",
+                        "1000GP.vcf.gz.csi:md5,ed1f6fd4d15139955d9d0e8bb6b2700f"
                     ]
                 ],
                 "versions": [
@@ -68,9 +68,9 @@
             }
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-22T15:46:34.727932091"
+        "timestamp": "2024-11-06T15:36:12.498553422"
     }
 }

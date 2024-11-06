@@ -1,57 +1,56 @@
 {
-    "Prepare input stitch": {
+    "Impute with stitch two individuals with bamlist": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "all_samples",
+                            "id": "allid",
                             "chr": "chr22",
                             "panel": "1000GP",
                             "tools": "stitch"
                         },
-                        "stitch.chr22.vcf.gz:md5,9d3c27d9f0325cc92c22234665f5bb12",
-                        "stitch.chr22.vcf.gz.tbi:md5,7d8d37b65e631c2b40c54e4a175de86c"
+                        "stitch.chr22.vcf.gz:md5,bd5f0c37e08b601ba1cd9ffc8fd672fa",
+                        "stitch.chr22.vcf.gz.tbi:md5,bc2655a04da76a431481799d3a4515ee"
                     ]
                 ],
                 "1": [
                     "versions.yml:md5,4330856a215c4986b0591d550a4d22bf",
-                    "versions.yml:md5,8561197b98b9a1e1f8f1b01c1369da35"
+                    "versions.yml:md5,8561197b98b9a1e1f8f1b01c1369da35",
+                    "versions.yml:md5,c0772dccc2cc2a3c8f0b3fa5f02312bc"
                 ],
                 "vcf_tbi": [
                     [
                         {
-                            "id": "all_samples",
+                            "id": "allid",
                             "chr": "chr22",
                             "panel": "1000GP",
                             "tools": "stitch"
                         },
-                        "stitch.chr22.vcf.gz:md5,9d3c27d9f0325cc92c22234665f5bb12",
-                        "stitch.chr22.vcf.gz.tbi:md5,7d8d37b65e631c2b40c54e4a175de86c"
+                        "stitch.chr22.vcf.gz:md5,bd5f0c37e08b601ba1cd9ffc8fd672fa",
+                        "stitch.chr22.vcf.gz.tbi:md5,bc2655a04da76a431481799d3a4515ee"
                     ]
                 ],
                 "versions": [
                     "versions.yml:md5,4330856a215c4986b0591d550a4d22bf",
-                    "versions.yml:md5,8561197b98b9a1e1f8f1b01c1369da35"
+                    "versions.yml:md5,8561197b98b9a1e1f8f1b01c1369da35",
+                    "versions.yml:md5,c0772dccc2cc2a3c8f0b3fa5f02312bc"
                 ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-17T16:32:53.365697746"
-    },
-    "SummaryMixed": {
-        "content": [
+            },
             [
-                "VcfFile [chromosomes=[22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                [
+                    "NA12878",
+                    "NA19401"
+                ]
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-17T16:32:53.598743638"
+        "timestamp": "2024-11-06T16:29:44.891707584"
     }
 }

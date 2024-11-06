@@ -15,7 +15,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools_index"
 
-    test("Prepare input stitch") {
+    test("Impute with stitch two individuals with bamlist") {
         when {
             params {
                 max_cpus   = 2
@@ -23,19 +23,23 @@ nextflow_workflow {
             }
             workflow {
                 """
+                bamlist = Channel.of(
+                    "NA12878.s.bam",
+                    "NA19401.s.bam"
+                ).collectFile(name: 'bamlist.txt', newLine: true)
                 ch_samples = Channel.fromList([
+                    [
+                        [id: "allid"],
                         [
-                            [id: "NA12878"],
                             file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true)
                         ],
                         [
-                            [id: "NA19401"],
-                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
-                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
-                        ],
-                    ])
-                bamlist  = Channel.of("NA12878.s.bam", "NA19401.s.bam").collectFile(name: "bamlist")
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true)
+                        ]
+                    ],
+                ])
 
                 ch_posfile = Channel.of([
                     [id: "1000GP", chr: "chr22"],
@@ -61,8 +65,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("SummaryMixed") }
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }

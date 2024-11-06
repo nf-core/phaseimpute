@@ -23,29 +23,63 @@
         },
         "timestamp": "2024-07-12T17:12:47.079086374"
     },
+    "Test checkFileIndex no error with empty channel": {
+        "content": null,
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T15:32:04.356171769"
+    },
     "Test validateInputBatchTools only one vcf": {
         "content": [
             [
-                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple samples, please merge them into a single VCF file."
+                "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
+                "",
+                " -- Check script '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-3966cf4e416fef97090bd07fa5b5d788.nf' at line: 38 or see '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/3966cf4e416fef97090bd07fa5b5d788/meta/nextflow.log' file for more details"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-16T20:08:33.571723823"
+        "timestamp": "2024-11-06T15:33:20.783776531"
+    },
+    "Test checkMetaChr warning": {
+        "content": [
+            [
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-af0bb48a0b40b23797dfa4c90d16a9be.nf` [distracted_curie] DSL2 - revision: 1e291df575",
+                "WARN: Chr : [chrY] is missing from test"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T16:42:18.153356973"
+    },
+    "Test Function exportCsv": {
+        "content": null,
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T15:32:58.039856651"
     },
     "Test validateInputBatchTools vcf only for glimpse": {
         "content": [
             [
-                "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+                "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
+                "",
+                " -- Check script '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-ee405acbb326c194af37173eb2b9b995.nf' at line: 38 or see '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/ee405acbb326c194af37173eb2b9b995/meta/nextflow.log' file for more details"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-16T20:20:28.177195568"
+        "timestamp": "2024-11-06T15:33:15.239178517"
     },
     "Test getFileExtension non empty list": {
         "content": [
@@ -75,13 +109,15 @@
     "Test validateInputBatchTools error batch": {
         "content": [
             [
-                "Stitch or Glimpse1 software is selected and the number of input files (150) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
+                "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
+                "",
+                " -- Check script '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-5de66bc0f91fbd42ad23f770871f349d.nf' at line: 38 or see '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/5de66bc0f91fbd42ad23f770871f349d/meta/nextflow.log' file for more details"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-16T20:27:27.025786146"
+        "timestamp": "2024-11-06T15:33:26.334112895"
     }
 }

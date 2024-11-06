@@ -20,16 +20,14 @@
     "Should run with an error": {
         "content": [
             [
-                "N E X T F L O W  ~  version 23.10.1",
-                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/68cf57ba96afcf7b8ba9414fb03e77b1/meta/mock.nf` [angry_babbage] DSL2 - revision: d7db2c206c",
                 "Invalid input_region: chr22:0-4000:4648"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-18T10:00:37.781505704"
+        "timestamp": "2024-11-06T15:31:15.872517093"
     },
     "Should run with specified chr": {
         "content": [

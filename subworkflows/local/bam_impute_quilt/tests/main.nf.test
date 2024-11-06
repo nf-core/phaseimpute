@@ -17,22 +17,27 @@ nextflow_workflow {
     tag "bcftools/index"
     tag "bcftools/annotate"
 
-    test("Impute with quilt two individuals") {
+    test("Impute with quilt two individuals with bamlist") {
         when {
             workflow {
                 """
+                bamlist = Channel.of(
+                    "NA12878.s.bam",
+                    "NA19401.s.bam"
+                ).collectFile(name: 'bamlist.txt', newLine: true)
                 input[0] = Channel.fromList([
                     [
-                        [id: "NA12878"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                        [id: "allid"],
+                        [
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true)
+                        ],
+                        [
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true)
+                        ]
                     ],
-                    [
-                        [id: "NA19401"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
-                    ],
-                ])
+                ]).combine(bamlist)
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.hap.gz", checkIfExist:true),
@@ -53,8 +58,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_two_merged") }
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }
@@ -68,6 +76,7 @@ nextflow_workflow {
                         [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                        []
                     ]
                 ])
                 input[1] = Channel.of([
@@ -90,8 +99,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one") }
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }

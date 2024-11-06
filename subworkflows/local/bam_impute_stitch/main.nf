@@ -5,7 +5,7 @@ include { BCFTOOLS_INDEX       } from '../../../modules/nf-core/bcftools/index'
 workflow BAM_IMPUTE_STITCH {
 
     take:
-    ch_input        // channel:   [ [id], bam, bai, bamlist ]
+    ch_input        // channel:   [ [id], [bam], [bai], bamlist ]
     ch_posfile      // channel:   [ [panel, chr], legend ]
     ch_region       // channel:   [ [chr, region], region ]
     ch_fasta        // channel:   [ [genome], fa, fai ]
