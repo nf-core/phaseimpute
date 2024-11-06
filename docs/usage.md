@@ -580,7 +580,7 @@ A pipeline might not always support every possible argument or option of a parti
 
 One of the parameters that you might want to modify could be specific to each imputation software. As an example, running the pipeline, you may encounter that to reduce the impact of individual reads (for example in QUILT), you might need to lower coverage. This can be achieved by including any modification to a Nextflow process as an external argument using `ext.args`. You would customize the run by providing:
 
-```
+```groovy
 process {
   withName:'NFCORE_PHASEIMPUTE:PHASEIMPUTE:BAM_IMPUTE_QUILT:QUILT_QUILT' {
     ext.args = "--downsampleToCov=1"
