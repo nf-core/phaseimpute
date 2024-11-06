@@ -7,7 +7,7 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bc
 workflow VCF_IMPUTE_GLIMPSE1 {
 
     take:
-    ch_input        // channel (mandatory): [ [id], bam, bai ]
+    ch_input        // channel (mandatory): [ [id], vcf, tbi ]
     ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
     ch_chunks       // channel  (optional): [ [panel, chr], region1, region2 ]
 
@@ -29,8 +29,8 @@ workflow VCF_IMPUTE_GLIMPSE1 {
     // Join input and chunks reference
     ch_phase_input = ch_input
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-        .combine(samples_file)
-        .combine(ch_chunks_panel, by: 0)
+        .combine(samples_file).view()
+        .combine(ch_chunks_panel, by: 0).view()
         .combine(gmap_file)
         .map{ _metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
             [metaIPC + ["chunk": regionout],
