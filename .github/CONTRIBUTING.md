@@ -51,23 +51,6 @@ Each `nf-core` pipeline should be set up with a minimal set of test-data.
 If there are any failures then the automated tests fail.
 These tests are run both with the latest available version of `Nextflow` and also the minimum required version that is stated in the pipeline code.
 
-### Launch with Nextflow
-
-```bash
-nextflow run main.nf -profile singularity,test --outdir results -resume
-nextflow run main.nf -profile singularity,test_sim --outdir results -resume
-nextflow run main.nf -profile singularity,test_validate --outdir results -resume
-nextflow run main.nf -profile singularity,test_all --outdir results -resume
-nextflow run main.nf -profile singularity,test_quilt --outdir results -resume
-```
-
-### Launch with nf-test
-
-```bash
-nf-test test --verbose --profile singularity --tag test_all
-nf-test test --verbose --profile singularity --tag test_all --update-snapshot #To update the snaps of a given test
-```
-
 ## Patch
 
 :warning: Only in the unlikely and regretful event of a release happening with a bug.
@@ -117,10 +100,6 @@ Please use the following naming schemes, to make it easy to understand what is g
 
 - initial process channel: `ch_output_from_<process>`
 - intermediate and terminal channels: `ch_<previousprocess>_for_<nextprocess>`
-
-### Release naming scheme
-
-Names of releases are composed of a color + a dog breed.
 
 ### Nextflow version bumping
 
