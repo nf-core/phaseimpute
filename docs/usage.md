@@ -317,14 +317,14 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-The csv provided in `--posfile` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
+The csv provided in `--posfile` has been described before and is produced by `--steps panelprep`. The hap and legend files in this csv are mandatory to use QUILT.
 
 ```console title="posfile.csv"
 panel,chr,hap,legend
 1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
-The csv provided in `--chunks` must contain two columns [chr, file]. The first column is the chromosome and the file column are txt with the chunks produced by GLIMPSE1, unique to each chromosome.
+The csv provided in `--chunks` has been described before in this document and is necessary to run this tool.
 
 ```console title="chunks.csv"
 panel,chr,file
