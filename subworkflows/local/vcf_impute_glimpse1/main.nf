@@ -29,8 +29,8 @@ workflow VCF_IMPUTE_GLIMPSE1 {
     // Join input and chunks reference
     ch_phase_input = ch_input
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
-        .combine(samples_file).view()
-        .combine(ch_chunks_panel, by: 0).view()
+        .combine(samples_file)
+        .combine(ch_chunks_panel, by: 0)
         .combine(gmap_file)
         .map{ _metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
             [metaIPC + ["chunk": regionout],
