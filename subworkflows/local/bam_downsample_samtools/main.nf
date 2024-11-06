@@ -35,7 +35,7 @@ workflow BAM_DOWNSAMPLE_SAMTOOLS {
     // Add all necessary channel for downsampling
     ch_input_downsample = ch_bam
         .combine(ch_depth_factor, by : 0)
-        .map{ metaICR, bam, index, metaICRD, depth ->
+        .map{ _metaICR, bam, index, metaICRD, depth ->
             [ metaICRD, bam, index, [], depth ]
         }
 

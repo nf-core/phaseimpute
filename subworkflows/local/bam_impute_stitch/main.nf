@@ -32,14 +32,14 @@ workflow BAM_IMPUTE_STITCH {
 
     // Get chromosomes of fasta
     ch_chromosomes = ch_region
-        .map{metaCR, region -> [[chr: metaCR.chr], metaCR.chr]}
+        .map{metaCR, _region -> [[chr: metaCR.chr], metaCR.chr]}
 
     // Make final channel with parameters
     ch_parameters = ch_posfile
         .map { it + input_empty + rdata_empty}
         .join(ch_chromosomes)
         .map { it + k_val_params + ngen_params}
-        .map { metaC, metaPC, posfile, input, rdata, chr, k_val, ngen ->
+        .map { _metaC, metaPC, posfile, input, rdata, chr, k_val, ngen ->
             [metaPC, posfile, input, rdata, chr, k_val, ngen]
         }
 

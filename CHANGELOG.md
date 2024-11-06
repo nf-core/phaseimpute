@@ -64,6 +64,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#148](https://github.com/nf-core/phaseimpute/pull/148) - Fix awsfulltest github action for manual dispatch
 - [#149](https://github.com/nf-core/phaseimpute/pull/149) - Remove the map file from the awsfulltest
 - [#152](https://github.com/nf-core/phaseimpute/pull/152) - Fix URLs in the documentation and remove tools citation in the README, use a white background for all images in the documentation.
+- [#153](https://github.com/nf-core/phaseimpute/pull/153) - Remove normalisation, frequency commputation and phasing from full test to reduce cost and computational time. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necesary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input
 
 ### `Fixed`
 

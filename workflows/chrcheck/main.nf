@@ -32,13 +32,13 @@ workflow CHRCHECK {
         // Check if channel is empty
         chr_vcf_disjoint = Channel.empty()
         // Extract the contig names from the VCF files
-        VCF_CHR_EXTRACT(ch_input.vcf.map{ meta, file, index, chr -> [meta, file] })
+        VCF_CHR_EXTRACT(ch_input.vcf.map{ meta, file, _index, _chr -> [meta, file] })
         ch_versions = ch_versions.mix(VCF_CHR_EXTRACT.out.versions)
         chr_vcf_disjoint = checkChr(VCF_CHR_EXTRACT.out.chr, ch_input.vcf)
 
         chr_bam_disjoint = Channel.empty()
         // Extract the contig names from the BAM files
-        BAM_CHR_EXTRACT(ch_input.bam.map{ meta, file, index, chr -> [meta, file] })
+        BAM_CHR_EXTRACT(ch_input.bam.map{ meta, file, _index, _chr -> [meta, file] })
         ch_versions = ch_versions.mix(BAM_CHR_EXTRACT.out.versions)
         chr_bam_disjoint = checkChr(BAM_CHR_EXTRACT.out.chr, ch_input.bam)
 
@@ -46,7 +46,7 @@ workflow CHRCHECK {
             ch_bam_renamed = Channel.empty()
             // Rename the contigs in the BAM files
             BAM_CHR_RENAME_SAMTOOLS(
-                chr_bam_disjoint.to_rename.map{meta, bam, csi, diff, prefix -> [meta, bam, csi, prefix]}
+                chr_bam_disjoint.to_rename.map{meta, bam, csi, _diff, prefix -> [meta, bam, csi, prefix]}
             )
             ch_versions = ch_versions.mix(BAM_CHR_RENAME_SAMTOOLS.out.versions)
             ch_bam_renamed = BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed

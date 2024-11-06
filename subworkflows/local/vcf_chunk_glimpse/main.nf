@@ -45,7 +45,7 @@ workflow VCF_CHUNK_GLIMPSE {
         }
         .join(ch_map)
         .map{
-            metaC, metaPC, vcf, csi, chr, gmap -> [metaPC, vcf, csi, chr, gmap]
+            _metaC, metaPC, vcf, csi, chr, gmap -> [metaPC, vcf, csi, chr, gmap]
         }
     GLIMPSE2_CHUNK ( ch_input_glimpse2, chunk_model )
     ch_versions = ch_versions.mix( GLIMPSE2_CHUNK.out.versions.first() )

@@ -9,7 +9,7 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     main:
 
     ch_versions = Channel.empty()
-    ch_fasta = ch_fasta.map { meta, fasta, fai -> [meta, fasta] }
+    ch_fasta = ch_fasta.map { meta, fasta, _fai -> [meta, fasta] }
 
     // Convert VCF to Hap and Legend files
     BCFTOOLS_CONVERT(ch_vcf, ch_fasta, [])

@@ -26,7 +26,7 @@ workflow BAM_GL_BCFTOOLS {
 
     ch_mpileup = ch_bam
         .combine(TABIX_BGZIP.out.output)
-        .map{metaI, bam, bai, metaPC, tsv ->
+        .map{metaI, bam, _bai, metaPC, tsv ->
                 [metaI + ["panel": metaPC.id, "chr": metaPC.chr], bam, tsv]
         }
 

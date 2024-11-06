@@ -24,7 +24,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         )
         .combine(ch_vcf_freq)
         .combine(ch_region.map{[it[1]]}.collect().toList())
-        .map{metaI, metaIPTC, emul, e_csi, truth, t_csi, metaP, freq, f_csi, regions ->
+        .map{ _metaI, metaIPTC, emul, e_csi, truth, t_csi, _metaP, freq, f_csi, regions ->
             [metaIPTC, emul, e_csi, truth, t_csi, freq, f_csi, [], regions]
         }
 
@@ -35,12 +35,12 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     )
     ch_versions = ch_versions.mix(GLIMPSE2_CONCORDANCE.out.versions.first())
 
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_cal.map{meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_grp.map{meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_spl.map{meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_grp.map{meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_spl.map{meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_per_site.map{meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_cal.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_grp.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_spl.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_grp.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_spl.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_per_site.map{ _meta, txt -> [txt]})
 
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
     ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
@@ -50,7 +50,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GAWK(
         ADD_COLUMNS.out.txt
-            .map{meta, txt -> [["id":"TestQuality"], txt]}
+            .map{ _meta, txt -> [["id":"TestQuality"], txt]}
             .groupTuple(),
         []
     )
