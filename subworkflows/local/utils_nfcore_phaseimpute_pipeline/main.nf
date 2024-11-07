@@ -425,6 +425,8 @@ def validateInputParameters() {
             error("To use `--remove_samples` you need to include `--normalize`.")
         }
     }
+
+    return null
 }
 
 //
@@ -476,6 +478,7 @@ def validatePosfileTools(ch_posfile, tools, steps){
                 assert index : "Validation step needs an index file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
             }
         }
+    return null
 }
 
 //
