@@ -277,7 +277,6 @@ nextflow_function {
 
         then {
             with(function) {
-                println result
                 assert success
                 assert snapshot(result).match()
             }
