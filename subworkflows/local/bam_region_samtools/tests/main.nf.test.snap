@@ -1,142 +1,44 @@
 {
     "Get subregion of bam file 10000bp": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "chr": "all"
-                        },
-                        "NA12878.bam:md5,12f8d7f8fa1d9f7694ef738dbcd61f5a",
-                        "NA12878.bam.bai:md5,484505b0727206e1e523dd90fa31cd16"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "chr": "all"
-                        },
-                        "NA19401.bam:md5,ded5cea4d4b696cfcf8a8c9aa5e7dbf5",
-                        "NA19401.bam.bai:md5,5a9429b877ffee92f7694d3579b4354b"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
-                    "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
-                    "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
-                ],
-                "bam_region": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "chr": "all"
-                        },
-                        "NA12878.bam:md5,12f8d7f8fa1d9f7694ef738dbcd61f5a",
-                        "NA12878.bam.bai:md5,484505b0727206e1e523dd90fa31cd16"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "chr": "all"
-                        },
-                        "NA19401.bam:md5,ded5cea4d4b696cfcf8a8c9aa5e7dbf5",
-                        "NA19401.bam.bai:md5,5a9429b877ffee92f7694d3579b4354b"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
-                    "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
-                    "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
-        },
-        "timestamp": "2024-11-06T15:30:24.020472297"
-    },
-    "Summary10000bp": {
-        "content": [
+            [
+                "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
+                "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
+                "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
+            ],
+            [
+                
+            ],
             [
                 2498,
                 2510
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-17T16:44:44.886794567"
+        "timestamp": "2024-11-07T13:55:45.543427226"
     },
     "Get subregion of bam file 1000bp": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "chr": "all"
-                        },
-                        "NA12878.bam:md5,9337dfef8712c9d22259eb14b2e0231d",
-                        "NA12878.bam.bai:md5,8d864fd88a20d14d4aff3de607655cbb"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "chr": "all"
-                        },
-                        "NA19401.bam:md5,2bf30334abe9c8efd042e8515d2240e3",
-                        "NA19401.bam.bai:md5,ee992cd617b553c5fcfddd897193a0e5"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
-                    "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
-                    "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
-                ],
-                "bam_region": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "chr": "all"
-                        },
-                        "NA12878.bam:md5,9337dfef8712c9d22259eb14b2e0231d",
-                        "NA12878.bam.bai:md5,8d864fd88a20d14d4aff3de607655cbb"
-                    ],
-                    [
-                        {
-                            "id": "NA19401",
-                            "chr": "all"
-                        },
-                        "NA19401.bam:md5,2bf30334abe9c8efd042e8515d2240e3",
-                        "NA19401.bam.bai:md5,ee992cd617b553c5fcfddd897193a0e5"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
-                    "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
-                    "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
-        },
-        "timestamp": "2024-11-06T15:30:39.622920828"
-    },
-    "Summary1000bp": {
-        "content": [
+            [
+                "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
+                "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
+                "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
+            ],
+            [
+                
+            ],
             [
                 368,
                 327
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-17T16:45:00.954762728"
+        "timestamp": "2024-11-07T13:57:19.117705738"
     }
 }

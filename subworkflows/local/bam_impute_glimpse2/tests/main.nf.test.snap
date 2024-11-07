@@ -1,48 +1,26 @@
 {
     "Impute with glimpse2 one vcf - input bcf": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "tools": "glimpse2"
-                        },
-                        "NA12878.vcf.gz:md5,7639fbde7f7406f79bfd4146fc05390b",
-                        "NA12878.vcf.gz.tbi:md5,91cf385c7f8783ab54ab71f2c7c3d0d6"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "tools": "glimpse2"
-                        },
-                        "NA12878.vcf.gz:md5,7639fbde7f7406f79bfd4146fc05390b",
-                        "NA12878.vcf.gz.tbi:md5,91cf385c7f8783ab54ab71f2c7c3d0d6"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            [
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi"
                 ]
-            },
+            ],
             [
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
@@ -53,55 +31,33 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T16:10:40.1574896"
+        "timestamp": "2024-11-07T13:51:00.205148681"
     },
     "Impute with glimpse2 one individual - input file bam with bamlist": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "tools": "glimpse2"
-                        },
-                        "NA12878.vcf.gz:md5,d676a65fa0f75d22aa1d7c79e3295679",
-                        "NA12878.vcf.gz.tbi:md5,b5d3918a535c1aa01028635c9d94bf6f"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "tools": "glimpse2"
-                        },
-                        "NA12878.vcf.gz:md5,d676a65fa0f75d22aa1d7c79e3295679",
-                        "NA12878.vcf.gz.tbi:md5,b5d3918a535c1aa01028635c9d94bf6f"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            [
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi"
                 ]
-            },
+            ],
             [
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
@@ -112,55 +68,33 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T16:11:24.161757976"
+        "timestamp": "2024-11-07T13:52:40.66012322"
     },
     "Impute with glimpse2 two individuals - input bam  with bamlist": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "allid",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "tools": "glimpse2"
-                        },
-                        "allid.vcf.gz:md5,4e99e5d80dfaf5eadfd9e876bc8124d3",
-                        "allid.vcf.gz.tbi:md5,8ae3d3bb8a295d3ed194f2f3c82da77f"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "allid",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "tools": "glimpse2"
-                        },
-                        "allid.vcf.gz:md5,4e99e5d80dfaf5eadfd9e876bc8124d3",
-                        "allid.vcf.gz.tbi:md5,8ae3d3bb8a295d3ed194f2f3c82da77f"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
-                    "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
-                    "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            [
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            ],
+            [
+                [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse2"
+                    },
+                    "allid.vcf.gz",
+                    "allid.vcf.gz.tbi"
                 ]
-            },
+            ],
             [
                 "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
@@ -172,9 +106,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T16:11:02.194341913"
+        "timestamp": "2024-11-07T13:51:55.269054819"
     }
 }

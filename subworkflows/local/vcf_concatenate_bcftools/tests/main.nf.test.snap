@@ -1,51 +1,27 @@
 {
-    "Concat content": {
+    "Concatenate vcf": {
         "content": [
+            [
+                "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "all"
+                    },
+                    "1000GP_all.vcf.gz",
+                    "1000GP_all.vcf.gz.tbi"
+                ]
+            ],
             [
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=3196, variantCount=1739, phased=true, phasedAutodetect=true]"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-18T11:56:39.376973769"
-    },
-    "Concatenate vcf": {
-        "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "all"
-                        },
-                        "1000GP_all.vcf.gz:md5,fc8f8ceff29246d96337302072f8a3bb",
-                        "1000GP_all.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "all"
-                        },
-                        "1000GP_all.vcf.gz:md5,fc8f8ceff29246d96337302072f8a3bb",
-                        "1000GP_all.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:34:39.215613472"
+        "timestamp": "2024-11-07T14:07:30.535498349"
     }
 }

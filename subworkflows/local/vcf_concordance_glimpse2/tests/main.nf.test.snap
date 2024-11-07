@@ -7,7 +7,7 @@
                         {
                             "id": "TestQuality"
                         },
-                        "TestQuality.txt:md5,10e837d99ad7a390747962c0eed9babd"
+                        "TestQuality.txt:md5,0e199fabdd479db15849394e148bd1e1"
                     ]
                 ],
                 "1": [
@@ -85,7 +85,7 @@
                         {
                             "id": "TestQuality"
                         },
-                        "TestQuality.txt:md5,10e837d99ad7a390747962c0eed9babd"
+                        "TestQuality.txt:md5,0e199fabdd479db15849394e148bd1e1"
                     ]
                 ],
                 "versions": [
@@ -97,9 +97,9 @@
             }
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:34:58.441704416"
+        "timestamp": "2024-11-07T14:08:13.256185601"
     }
 }

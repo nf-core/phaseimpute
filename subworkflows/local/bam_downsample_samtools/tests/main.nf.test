@@ -50,8 +50,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.bam_emul.collect{ bam(it[1]).getReads().size() }).match("Reads2X") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.bam_emul.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_emul.collect{
+                        bam(it[1]).getReads().size()
+                    }
+                ).match() }
             )
         }
     }
@@ -89,8 +98,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.bam_emul.collect{ bam(it[1]).getReads().size() }).match("Reads4X") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.bam_emul.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_emul.collect{
+                        bam(it[1]).getReads().size()
+                    }
+                ).match() }
             )
         }
     }

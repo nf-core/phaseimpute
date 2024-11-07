@@ -1,76 +1,40 @@
 {
-    "Phasing content": {
+    "Phase vcf with regions, no map, no ref, no scaffold": {
         "content": [
+            [
+                "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
+                "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
+                "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
+                "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
+                "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
+                ],
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
+                ]
+            ],
             [
                 "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
                 "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-18T15:56:20.067633938"
-    },
-    "Phase vcf with regions, no map, no ref, no scaffold": {
-        "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP.vcf.gz:md5,fa076304a5451d471c5714f173677431",
-                        "1000GP.vcf.gz.csi:md5,20c7a75a26dc678f9ecc2ab989a3a942"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP.vcf.gz:md5,13e3166bf4a0779c1c13bd87facc2297",
-                        "1000GP.vcf.gz.csi:md5,ed1f6fd4d15139955d9d0e8bb6b2700f"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
-                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
-                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
-                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
-                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP.vcf.gz:md5,fa076304a5451d471c5714f173677431",
-                        "1000GP.vcf.gz.csi:md5,20c7a75a26dc678f9ecc2ab989a3a942"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP.vcf.gz:md5,13e3166bf4a0779c1c13bd87facc2297",
-                        "1000GP.vcf.gz.csi:md5,ed1f6fd4d15139955d9d0e8bb6b2700f"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
-                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
-                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
-                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
-                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:36:12.498553422"
+        "timestamp": "2024-11-07T14:12:06.629168089"
     }
 }

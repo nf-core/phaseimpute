@@ -36,28 +36,26 @@
             [
                 "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
                 "",
-                " -- Check script '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-3966cf4e416fef97090bd07fa5b5d788.nf' at line: 38 or see '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/3966cf4e416fef97090bd07fa5b5d788/meta/nextflow.log' file for more details"
+                " -- Check script '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-d46c3ae4355f57c428b5399cb25385a3.nf' at line: 38 or see '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/d46c3ae4355f57c428b5399cb25385a3/meta/nextflow.log' file for more details"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:33:20.783776531"
+        "timestamp": "2024-11-07T14:04:16.896325441"
     },
     "Test checkMetaChr warning": {
         "content": [
             [
-                "N E X T F L O W  ~  version 24.10.0",
-                "Launching `/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-af0bb48a0b40b23797dfa4c90d16a9be.nf` [distracted_curie] DSL2 - revision: 1e291df575",
-                "WARN: Chr : [chrY] is missing from test"
+                
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T16:42:18.153356973"
+        "timestamp": "2024-11-07T14:03:45.047353204"
     },
     "Test Function exportCsv": {
         "content": null,
@@ -72,14 +70,14 @@
             [
                 "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
                 "",
-                " -- Check script '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-ee405acbb326c194af37173eb2b9b995.nf' at line: 38 or see '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/ee405acbb326c194af37173eb2b9b995/meta/nextflow.log' file for more details"
+                " -- Check script '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-ee1562fb7668b97a4ee2fa78f0a93342.nf' at line: 38 or see '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/ee1562fb7668b97a4ee2fa78f0a93342/meta/nextflow.log' file for more details"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:33:15.239178517"
+        "timestamp": "2024-11-07T14:04:00.742774334"
     },
     "Test getFileExtension non empty list": {
         "content": [
@@ -111,13 +109,13 @@
             [
                 "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
                 "",
-                " -- Check script '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test-5de66bc0f91fbd42ad23f770871f349d.nf' at line: 38 or see '/mnt/s/Users/Main/Documents/Louis/Travail/IGDR/Repositories/phaseimpute/.nf-test/tests/5de66bc0f91fbd42ad23f770871f349d/meta/nextflow.log' file for more details"
+                " -- Check script '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-87470b2a8c60f98b5dc561cea5e9bc6f.nf' at line: 38 or see '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/87470b2a8c60f98b5dc561cea5e9bc6f/meta/nextflow.log' file for more details"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:33:26.334112895"
+        "timestamp": "2024-11-07T14:04:30.351215657"
     }
 }

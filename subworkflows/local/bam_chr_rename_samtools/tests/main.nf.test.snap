@@ -1,57 +1,26 @@
 {
     "Should remove chr prefix": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test_MT"
-                        },
-                        "test_MT_withchr.bam:md5,d954fdf4c600dcf02e3ff8687bf842d7",
-                        "test_MT_withchr.bam.bai:md5,3a8e131f5666db321bdb9da17197096d"
-                    ],
-                    [
-                        {
-                            "id": "test_paired"
-                        },
-                        "test_paired_withchr.bam:md5,89d71d9dd1953bf7f23d6e01c4c2f11f",
-                        "test_paired_withchr.bam.bai:md5,c96c56313430a3c8c806f9eac4d58ce9"
-                    ]
+            [
+                "versions.yml:md5,3777f4a1f04f5087333fbe98eee09df9",
+                "versions.yml:md5,fc2d8252e26e8b681f2dd73d8b08fdde"
+            ],
+            [
+                [
+                    {
+                        "id": "test_MT"
+                    },
+                    "test_MT_withchr.bam",
+                    "test_MT_withchr.bam.bai"
                 ],
-                "1": [
-                    "versions.yml:md5,3777f4a1f04f5087333fbe98eee09df9",
-                    "versions.yml:md5,fc2d8252e26e8b681f2dd73d8b08fdde"
-                ],
-                "bam_renamed": [
-                    [
-                        {
-                            "id": "test_MT"
-                        },
-                        "test_MT_withchr.bam:md5,d954fdf4c600dcf02e3ff8687bf842d7",
-                        "test_MT_withchr.bam.bai:md5,3a8e131f5666db321bdb9da17197096d"
-                    ],
-                    [
-                        {
-                            "id": "test_paired"
-                        },
-                        "test_paired_withchr.bam:md5,89d71d9dd1953bf7f23d6e01c4c2f11f",
-                        "test_paired_withchr.bam.bai:md5,c96c56313430a3c8c806f9eac4d58ce9"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,3777f4a1f04f5087333fbe98eee09df9",
-                    "versions.yml:md5,fc2d8252e26e8b681f2dd73d8b08fdde"
+                [
+                    {
+                        "id": "test_paired"
+                    },
+                    "test_paired_withchr.bam",
+                    "test_paired_withchr.bam.bai"
                 ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
-        },
-        "timestamp": "2024-11-06T15:27:46.769666251"
-    },
-    "headernochr": {
-        "content": [
+            ],
             [
                 [
                     "@SQ\tSN:M\tLN:16569"
@@ -62,64 +31,33 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:27:47.170803881"
+        "timestamp": "2024-11-07T13:27:45.777831517"
     },
     "Should add chr prefix": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test_MT"
-                        },
-                        "test_MT_withchr.bam:md5,e4080be5180ea52ce8bd1437c18101ed",
-                        "test_MT_withchr.bam.bai:md5,33b4ed892348364beceb9a2bfba07448"
-                    ],
-                    [
-                        {
-                            "id": "test_paired"
-                        },
-                        "test_paired_withchr.bam:md5,959888c3cc8c3f3d0b920b398b872c46",
-                        "test_paired_withchr.bam.bai:md5,549e36a5953c22164b3b821125dd9482"
-                    ]
+            [
+                "versions.yml:md5,3777f4a1f04f5087333fbe98eee09df9",
+                "versions.yml:md5,fc2d8252e26e8b681f2dd73d8b08fdde"
+            ],
+            [
+                [
+                    {
+                        "id": "test_MT"
+                    },
+                    "test_MT_withchr.bam",
+                    "test_MT_withchr.bam.bai"
                 ],
-                "1": [
-                    "versions.yml:md5,3777f4a1f04f5087333fbe98eee09df9",
-                    "versions.yml:md5,fc2d8252e26e8b681f2dd73d8b08fdde"
-                ],
-                "bam_renamed": [
-                    [
-                        {
-                            "id": "test_MT"
-                        },
-                        "test_MT_withchr.bam:md5,e4080be5180ea52ce8bd1437c18101ed",
-                        "test_MT_withchr.bam.bai:md5,33b4ed892348364beceb9a2bfba07448"
-                    ],
-                    [
-                        {
-                            "id": "test_paired"
-                        },
-                        "test_paired_withchr.bam:md5,959888c3cc8c3f3d0b920b398b872c46",
-                        "test_paired_withchr.bam.bai:md5,549e36a5953c22164b3b821125dd9482"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,3777f4a1f04f5087333fbe98eee09df9",
-                    "versions.yml:md5,fc2d8252e26e8b681f2dd73d8b08fdde"
+                [
+                    {
+                        "id": "test_paired"
+                    },
+                    "test_paired_withchr.bam",
+                    "test_paired_withchr.bam.bai"
                 ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
-        },
-        "timestamp": "2024-11-06T15:27:58.280092004"
-    },
-    "headerwithchr": {
-        "content": [
+            ],
             [
                 [
                     "@SQ\tSN:chrM\tLN:16569"
@@ -130,9 +68,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T15:27:58.809912843"
+        "timestamp": "2024-11-07T13:28:15.125413039"
     }
 }
