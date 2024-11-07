@@ -452,6 +452,7 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
                 }
             }
         }
+    return null
 }
 
 //

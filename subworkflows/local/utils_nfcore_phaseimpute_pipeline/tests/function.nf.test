@@ -336,8 +336,10 @@ nextflow_function {
             }
         }
         then {
-            assert function.failed
-            assert snapshot(function.stdout).match()
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(function.stdout).match() }
+            )
         }
     }
 
@@ -355,8 +357,10 @@ nextflow_function {
             }
         }
         then {
-            assert function.failed
-            assert snapshot(function.stdout).match()
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(function.stdout).match() }
+            )
         }
     }
 
@@ -374,8 +378,31 @@ nextflow_function {
             }
         }
         then {
-            assert function.failed
-            assert snapshot(function.stdout).match()
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(function.stdout).match() }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools success batch") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = Channel.of(0..150)
+                input[1] = 60
+                input[2] = "cram"
+                input[3] = ["quilt", "glimpse2"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success },
+                { assert snapshot(function.stdout).match() }
+            )
         }
     }
 }

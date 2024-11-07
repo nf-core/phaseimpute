@@ -34,16 +34,16 @@
     "Test validateInputBatchTools only one vcf": {
         "content": [
             [
-                "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
-                "",
-                " -- Check script '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-d46c3ae4355f57c428b5399cb25385a3.nf' at line: 38 or see '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/d46c3ae4355f57c428b5399cb25385a3/meta/nextflow.log' file for more details"
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-d46c3ae4355f57c428b5399cb25385a3.nf` [deadly_lamarck] DSL2 - revision: 89cd7edbc5",
+                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
             ]
         ],
         "meta": {
             "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-07T14:04:16.896325441"
+        "timestamp": "2024-11-07T16:40:38.015152671"
     },
     "Test checkMetaChr warning": {
         "content": [
@@ -68,16 +68,30 @@
     "Test validateInputBatchTools vcf only for glimpse": {
         "content": [
             [
-                "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
-                "",
-                " -- Check script '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-ee1562fb7668b97a4ee2fa78f0a93342.nf' at line: 38 or see '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/ee1562fb7668b97a4ee2fa78f0a93342/meta/nextflow.log' file for more details"
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-ee1562fb7668b97a4ee2fa78f0a93342.nf` [stupefied_gautier] DSL2 - revision: 33e883fb97",
+                "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
             ]
         ],
         "meta": {
             "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-07T14:04:00.742774334"
+        "timestamp": "2024-11-07T16:40:24.343659957"
+    },
+    "Test validateInputBatchTools success batch": {
+        "content": [
+            [
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-a882e6f88e44c954568a3552c82f8d3c.nf` [compassionate_keller] DSL2 - revision: edfeedf8f1",
+                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T16:41:05.86605167"
     },
     "Test getFileExtension non empty list": {
         "content": [
@@ -107,15 +121,16 @@
     "Test validateInputBatchTools error batch": {
         "content": [
             [
-                "ERROR ~ Cannot invoke \"groovyx.gpars.serial.SerialContext.add(groovyx.gpars.serial.SerialHandle)\" because \"this.context\" is null",
-                "",
-                " -- Check script '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-87470b2a8c60f98b5dc561cea5e9bc6f.nf' at line: 38 or see '/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test/tests/87470b2a8c60f98b5dc561cea5e9bc6f/meta/nextflow.log' file for more details"
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-87470b2a8c60f98b5dc561cea5e9bc6f.nf` [prickly_euclid] DSL2 - revision: 45ae3df33f",
+                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches.",
+                "Stitch or Glimpse1 software is selected and the number of input files (151) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
             ]
         ],
         "meta": {
             "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-07T14:04:30.351215657"
+        "timestamp": "2024-11-07T16:40:50.034843333"
     }
 }
