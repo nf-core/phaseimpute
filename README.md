@@ -60,16 +60,11 @@ Phase3,3,ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.
 
 ## Running the pipeline
 
-Execute the pipeline with the following command:
+Run one of the steps of the pipeline (imputation with glimpse1) using the following command and test profile:
 
 ```bash
 nextflow run nf-core/phaseimpute \
-   -profile <docker/singularity/.../institute> \
-   --input <samplesheet.csv>  \
-   --genome "GRCh38" \
-   --panel <phased_reference_panel.csv> \
-   --steps "panelprep,impute" \
-   --tools "glimpse1" \
+   -profile test, <docker/singularity/.../institute> \
    --outdir <OUTDIR>
 ```
 
