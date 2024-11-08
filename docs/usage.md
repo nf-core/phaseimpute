@@ -193,7 +193,9 @@ nf-core/phaseimpute can be started at different points in the analysis by settin
 
 ## Start with simulation `--steps simulate`
 
-This steps of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
+<img src="images/metro/Simulate.png" alt="simulate_metro" width="600"/>
+
+This step of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -215,6 +217,8 @@ The required flags for this mode are:
 You can find an overview of the results produced by this step in the [Output](output.md).
 
 ## Start with panel preparation `--steps panelprep`
+
+<img src="images/metro/PanelPrep.png" alt="Panel preparation" width="600"/>
 
 This steps pre-processes the reference panel in order to be ready for imputation. There are a few quality control steps that are applied to reference panels. These include actions such as removing multiallelic SNPs and indels and removing certain samples from the reference panel (such as related samples). In addition, chunks are produced which are then used in the imputation steps. It is recommended that this steps is run once and the produced files are saved, to minimize the cost of reading the reference panel each time. Then, the output files from `--steps panelprep` can be used as input in the subsequent imputation steps, such as `--steps impute`.
 
@@ -240,6 +244,8 @@ The required flags for this mode are:
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
 ## Start with imputation `--steps impute`
+
+<img src="images/metro/Impute.png" alt="Impute target" width="600"/>
 
 For starting from the imputation steps, the required flags are:
 
@@ -432,7 +438,9 @@ Make sure the csv with the input panel is the output from `--step panelprep` or 
 
 ## Start with validation `--steps validate`
 
-This steps compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
+<img src="images/metro/Validate.png" alt="concordance_metro" width="600"/>
+
+This step compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
 This also needs the frequency of the alleles. They can be computed from the reference panel by running the `--steps panelprep` and using the `--panel` with the `--compute_freq` flag ; or by using `--posfile samplesheet.csv`.
 
 ```bash

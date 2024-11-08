@@ -84,15 +84,15 @@ Here is a short description of the different steps of the pipeline.
 For more information please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage).
 
 1. **`--panelprep`**: The preprocessing mode is responsible for preparing multiple input files that will be used by the phasing and imputation process.
+
    - The main processes are:
      - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/).
      - **Normalize** the reference panel to select only the necessary variants.
      - **Chunking the reference panel** into a subset of regions for all the chromosomes.
      - **Extract** the positions where to perform the imputation.
 
-<img src="docs/images/metro/PanelPrep.png" alt="Panel preparation" width="600"/>
-
 2. **`--impute`**: The imputation mode is the core mode of this pipeline.
+
    - It consists of 3 main steps:
      - **Imputation**: Impute the target dataset on the reference panel using either:
        - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html).
@@ -101,18 +101,13 @@ For more information please refer to the [usage documentation](https://nf-co.re/
        - [**Quilt**](https://github.com/rwdavies/QUILT)
      - **Ligation**: Merges the different chunks together and reunites all chromosomes to output one VCF per sample.
 
-<img src="docs/images/metro/Impute.png" alt="Impute target" width="600"/>
-
 3. **`--simulate`**: The simulation mode is used to create artificial low informative genetic information from high-density data. This allows for the comparison of the imputed result to a _truth_ dataset, evaluating the quality of the imputation.
+
    - Currently, it is possible to simulate:
      - Low-pass data by **downsampling** BAM or CRAM using [`samtools view -s`](https://www.htslib.org/doc/samtools-view.html) at different depths.
 
-<img src="docs/images/metro/Simulate.png" alt="simulate_metro" width="600"/>
-
 4. **`--validate`**: This mode compares two VCF files to compute a summary of the differences between them.
    - This step uses the [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/) concordance process.
-
-<img src="docs/images/metro/Validate.png" alt="concordance_metro" width="600"/>
 
 ## Pipeline output
 
