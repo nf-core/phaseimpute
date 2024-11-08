@@ -12,10 +12,10 @@ To use drawio
 
 ```bash
 drawio --version
-drawio docs/images/metro/MetroMap.xml --export --format png --page-index 2 --layers 1 --output docs/images/metro/MetroMap.png --scale 3 --transparent
-drawio docs/images/metro/MetroMap.xml --export --format svg --page-index 2 --layers 2,3,4,5 --output docs/images/metro/MetroMap.svg --transparent
-drawio docs/images/metro/MetroMap.xml --export --format png --page-index 3 --layers 1 --output docs/images/metro/Simulate.png --scale 3 --transparent
-drawio docs/images/metro/MetroMap.xml --export --format png --page-index 4 --layers 0 --output docs/images/metro/PanelPrep.png --scale 3 --transparent
-drawio docs/images/metro/MetroMap.xml --export --format png --page-index 5 --layers 1 --output docs/images/metro/Impute.png --scale 3 --transparent
-drawio docs/images/metro/MetroMap.xml --export --format png --page-index 6 --layers 0 --output docs/images/metro/Validate.png --scale 3 --transparent
+drawio docs/images/metro/MetroMap.xml --export --format png --page-index 2 --layers 1 --output docs/images/metro/MetroMap.png --scale 3
+drawio docs/images/metro/MetroMap.xml --export --format svg --page-index 2 --layers 2,3,4,5 --output docs/images/metro/MetroMap.svg
+drawio docs/images/metro/MetroMap.xml --export --format png --page-index 3 --layers 1 --output docs/images/metro/Simulate.png --scale 3
+drawio docs/images/metro/MetroMap.xml --export --format png --page-index 4 --layers 0 --output docs/images/metro/PanelPrep.png --scale 3
+drawio docs/images/metro/MetroMap.xml --export --format png --page-index 5 --layers 1 --output docs/images/metro/Impute.png --scale 3
+drawio docs/images/metro/MetroMap.xml --export --format png --page-index 6 --layers 0 --output docs/images/metro/Validate.png --scale 3
 ```

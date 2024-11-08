@@ -23,6 +23,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#111](https://github.com/nf-core/phaseimpute/pull/111) - Add nf-test for all sbwf, wf, modules and functions.
 - [#131](https://github.com/nf-core/phaseimpute/pull/131) - Set normalisation as optional. Fix extension detection function. Add support for validation with vcf files. Concatenate vcf only if more than one file. Change `--phased` to `--phase` for consistency.
 - [#143](https://github.com/nf-core/phaseimpute/pull/143) - Improve contigs warning and error logging. The number of chromosomes contigs is summarized if above `max_chr_names`.
+- [#146](https://github.com/nf-core/phaseimpute/pull/146) - Add `seed` parameter for `QUILT`
 
 ### `Changed`
 
@@ -58,6 +59,11 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update Glimpse2 phase, gunzip and multiqc
 - [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of 100 individuals by default using `--batch_size` parameter. All individuals BAM files are gathered and VCF are allowed for glimpse1 and glimpse2. Channel preprocessing of stitch is done in stitch subworkflow. Genotype likelihood computation for glimpse1 is now done outside of the subworkflow and merge the resulting vcf with all the samples. New test added to check batch separation. Improve `usage.md` documentation. Add validation to initialisation of the pipeline to ensure compatibility between tools, steps and the files provided by the user.
 - [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules
+- [#146](https://github.com/nf-core/phaseimpute/pull/146) - Remove conda CI check for PR due to nextflow error
+- [#144](https://github.com/nf-core/phaseimpute/pull/144) - Documentation updates
+- [#148](https://github.com/nf-core/phaseimpute/pull/148) - Fix awsfulltest github action for manual dispatch
+- [#149](https://github.com/nf-core/phaseimpute/pull/149) - Remove the map file from the awsfulltest
+- [#152](https://github.com/nf-core/phaseimpute/pull/152) - Fix URLs in the documentation and remove tools citation in the README, use a white background for all images in the documentation.
 - [#157](https://github.com/nf-core/phaseimpute/pull/157) - Add `chunk_model` as parameter for better control over `GLIMPSE2_CHUNK`.
 
 ### `Fixed`
@@ -65,8 +71,9 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
 - [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
 - [#65](https://github.com/nf-core/phaseimpute/pull/65) - Separate stitch output by individuals
-- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional with --compute_freq. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
+- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional with `--compute_freq`. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
 - [#117](https://github.com/nf-core/phaseimpute/pull/117) - Fix directories in CSV.
+- [#151](https://github.com/nf-core/phaseimpute/pull/151) - Fix `Type not supported: class org.codehaus.groovy.runtime.GStringImpl` error due to `String` test in `getFileExtension()`.
 
 ### `Dependencies`
 
@@ -80,3 +87,4 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 [Maxime U Garcia](https://github.com/maxulysse)
 [Matias Romero Victorica](https://github.com/mrvictorica)
 [Nicolas Schcolnicov](https://github.com/nschcolnicov)
+[Hemanoel Passarelli](https://github.com/hemanoel)

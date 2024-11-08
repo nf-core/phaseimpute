@@ -6,9 +6,11 @@
 
 ## Introduction
 
+The **nf-core/phaseimpute** pipeline is designed to perform genomic phasing and imputation techniques. Some key functionalities include chromosome checking, panel preparation, imputation, simulation, and concordance.
+
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use the `--input` parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -16,7 +18,7 @@ You will need to create a samplesheet with information about the samples you wou
 
 ### Structure
 
-The samplesheet can have as many columns as you desire, however, there is a strict requirement for at least 3 columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire. However, there is a strict requirement for at least 3 columns to match those defined in the table below.
 
 A final samplesheet file may look something like the one below. This is for 6 samples.
 
@@ -40,7 +42,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 ## Samplesheet reference panel
 
-You will need to create a samplesheet with information about the reference panel you would like to use. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the reference panel you would like to use. Use the `--panel` parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --panel '[path to samplesheet file]'
@@ -68,7 +70,7 @@ An [example samplesheet](../assets/samplesheet_reference.csv) has been provided 
 
 ## Samplesheet posfile
 
-You will need a samplesheet with information about the reference panel sites for using the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use this parameter to specify its location. It has to be a comma-separated file with at least 5 columns, and a header row as shown in the examples below.
+You will need a samplesheet with information about the reference panel sites for using the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use the `--posfile` parameter to specify its location. It has to be a comma-separated file with at least 5 columns, and a header row as shown in the examples below.
 
 ```bash
 --posfile '[path to samplesheet file]'
@@ -93,7 +95,7 @@ panel,chr,vcf,index,hap,legend
 | `hap`    | Full path to ".hap.gz" compressed file containing the reference panel haplotypes in ["haps" format](https://www.cog-genomics.org/plink/2.0/formats#haps). (Required by QUILT)                        |
 | `legend` | Full path to ".legend.gz" compressed file containing the reference panel sites in ["legend" format](https://www.cog-genomics.org/plink/2.0/formats#legend). (Required by QUILT, GLIMPSE1 and STITCH) |
 
-The `legend` file should be a TSV with the following structure, similar to that from [BCFTOOLS convert documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is space separated with a header ("id,position,a0,a1"), one row per SNP, with the following columns:
+The `legend` file should be a TSV with the following structure, similar to that from [`bcftools convert` documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is space separated with a header ("id,position,a0,a1"), one row per SNP, with the following columns:
 
 - Column 1: chromosome:position_ref allele_alternate allele
 - Column 2: physical position (sorted from smallest to largest)
@@ -112,7 +114,7 @@ chr21:16609476_A_G 16609476 A G
 chr21:16609525_T_A 16609525 T A
 ```
 
-## Genome reference
+## Reference genome
 
 Remember to use the same reference genome for all the files. You can specify the [reference genome](https://nf-co.re/docs/usage/reference_genomes) using:
 
@@ -128,12 +130,28 @@ or you can specify a custom genome using:
 
 ## Running the pipeline
 
-The typical command for running the pre-processing of the panel and imputation of samples is as follows:
+A quick running example only with the imputation step can be performed as follows:
+
+```
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --steps impute \
+    --chunks chunks.csv \
+    --posfile posfile_legend.csv \
+    --outdir results \
+    --genome GRCh38 \
+    --panel panel.csv \
+    --tools glimpse1 \
+    -profile docker
+
+```
+
+The typical command for running the pre-processing of the panel and imputation of samples is shown below:
 
 ```bash
 nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
-    --steps panelprep,impute
+    --steps panelprep,impute \
     --outdir results \
     --genome GRCh37 \
     -profile docker
@@ -150,21 +168,15 @@ work                # Directory containing the nextflow working files
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
 
-If you wish to repeatedly use the same parameters for multiple runs, rather than specifying each flag in the command, you can specify these in a params file.
+To facilitate multiple runs of the pipeline with consistent settings without specifying each parameter in the command line, you can use a parameter file. This allows for setting parameters once and reusing them across different executions.
 
-Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
-
-:::warning
-Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
-:::
-
-The above pipeline run specified with a params file in yaml format:
+You can provide pipeline settings in a `yaml` or `json` file, which can be specified using the `-params-file` option:
 
 ```bash
 nextflow run nf-core/phaseimpute -profile docker -params-file params.yaml
 ```
 
-with:
+Example of a `params.yaml` file:
 
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
@@ -173,7 +185,11 @@ genome: 'GRCh37'
 <...>
 ```
 
-You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+:::warning
+Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+:::
+
+You can also generate `YAML` or `JSON` files easily using the [nf-core/launch](https://nf-co.re/launch) tool, which guides you creating the files that can be used directly with `-params-file`.
 
 ### Check of the contigs name
 
@@ -262,7 +278,7 @@ For starting from the imputation steps, the required flags are:
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
-[![InputSoftwareCompatibility](./images/InputSoftware_compatibility.png)](./images/InputSoftware_compatibility.png)
+![InputSoftwareCompatibility](images/InputSoftware_compatibility.png)
 
 #### Argument `--batch_size`
 
@@ -481,9 +497,7 @@ nextflow pull nf-core/phaseimpute
 ### Reproducibility
 
 It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
-It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [nf-core/phaseimpute releases page](https://github.com/nf-core/phaseimpute/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 First, go to the [nf-core/phaseimpute releases page](https://github.com/nf-core/phaseimpute/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
@@ -504,7 +518,6 @@ These options are part of Nextflow and use a _single_ hyphen (pipeline parameter
 
 Use this parameter to choose a configuration profile. Profiles can give configuration presets for different compute environments.
 
-Several generic profiles are bundled with the pipeline which instruct the pipeline to use software packaged using different methods (Docker, Singularity, Podman, Shifter, Charliecloud, Apptainer, Conda) - see below.
 Several generic profiles are bundled with the pipeline which instruct the pipeline to use software packaged using different methods (Docker, Singularity, Podman, Shifter, Charliecloud, Apptainer, Conda) - see below.
 
 :::info
@@ -540,7 +553,6 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 
 ### `-resume`
 
-Specify this when restarting a pipeline. Nextflow will use cached results from any pipeline steps where the inputs are the same, continuing from where it got to previously. For input to be considered the same, not only the names must be identical but the files' contents as well. For more info about this parameter, see [this blog post](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html).
 Specify this when restarting a pipeline. Nextflow will use cached results from any pipeline steps where the inputs are the same, continuing from where it got to previously. For input to be considered the same, not only the names must be identical but the files' contents as well. For more info about this parameter, see [this blog post](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html).
 
 You can also supply a run name to resume a specific run: `-resume [run-name]`. Use the `nextflow log` command to show previous run names.
