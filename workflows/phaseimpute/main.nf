@@ -171,14 +171,15 @@ workflow PHASEIMPUTE {
                 ch_region,
                 [[],[],[]],
                 [[],[],[]],
-                ch_map
+                ch_map,
+                params.chunk_model
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
             ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
         }
 
         // Create chunks from reference VCF
-        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map)
+        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map, params.chunk_model)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
         // Assign chunks channels

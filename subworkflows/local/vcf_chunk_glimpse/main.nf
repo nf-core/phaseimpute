@@ -7,6 +7,7 @@ workflow VCF_CHUNK_GLIMPSE {
     take:
     ch_reference  // channel: [ [panel, chr], vcf, csi ]
     ch_map        // channel  (optional): [ [chr], map ]
+    chunk_model   // channel : model
 
     main:
 
@@ -35,9 +36,6 @@ workflow VCF_CHUNK_GLIMPSE {
             sep: "\t", skip: 0
         )
         .map { metaPC, it -> [metaPC, it["RegionIn"], it["RegionOut"]]}
-
-    // Make chunks with Glimpse2 (does not work with "sequential" mode)
-    chunk_model = "recursive"
 
     ch_input_glimpse2 = ch_vcf_csi_chr
         .map{

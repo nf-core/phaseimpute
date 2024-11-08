@@ -47,6 +47,7 @@ nextflow_workflow {
                         file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_21.map", checkIfExist:true)
                     ]
                 )
+                input[2] = "recursive"
                 """
             }
         }
@@ -87,6 +88,7 @@ nextflow_workflow {
                     [[chr: "chr22"], []],
                     [[chr: "chr21"], []]
                 )
+                input[2] = "recursive"
                 """
             }
         }
