@@ -48,7 +48,8 @@
                 },
                 "remove_samples": {
                     "type": "string",
-                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes."
+                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes.",
+                    "pattern": "^([a-zA-Z0-9]+)(,[a-zA-Z0-9]+)*$"
                 },
                 "email": {
                     "type": "string",
