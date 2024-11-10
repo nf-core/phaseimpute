@@ -55,10 +55,12 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.chunks.collect{
-                    path(it[1]).readLines()
-                    }).match("chunksWithMap")
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.chunks.collect{
+                        path(it[1]).readLines()
+                    }
+                ).match()
                 }
             )
         }
@@ -96,10 +98,55 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.chunks.collect{
-                    path(it[1]).readLines()
-                    }).match("chunksWithoutMap")
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.chunks.collect{
+                        path(it[1]).readLines()
+                    }
+                ).match()
+                }
+            )
+        }
+    }
+
+    test("Chunks with sequential model") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]
+                )
+                input[1] = Channel.of(
+                    [[chr: "chr22"], []],
+                    [[chr: "chr21"], []]
+                )
+                input[2] = "sequential"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.chunks.collect{
+                        path(it[1]).readLines()
+                    }
+                ).match()
                 }
             )
         }

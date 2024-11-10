@@ -136,7 +136,7 @@
                 "chunk_model": {
                     "type": "string",
                     "description": "Model type to use for GLIMPSE2_CHUNK",
-                    "enum": ["recursive", "sequential", "uniform-number-variants"],
+                    "enum": ["recursive", "sequential"],
                     "default": "sequential",
                     "hidden": true
                 }

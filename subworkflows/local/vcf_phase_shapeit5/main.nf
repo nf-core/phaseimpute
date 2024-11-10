@@ -41,9 +41,6 @@ workflow VCF_PHASE_SHAPEIT5 {
         )
         .map { metaIC, it -> [metaIC, it["RegionBuf"], it["RegionCnk"]]}
 
-    ch_chunks_number = GLIMPSE2_CHUNK.out.chunk_chr
-        .map { meta, chunk -> [meta.subMap("chr"), chunk.countLines().intValue()]}
-
     ch_phase_input = ch_vcf
         .combine(ch_chunks_glimpse2, by:0)
         .map{
