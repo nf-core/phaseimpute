@@ -7,18 +7,16 @@ include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_2 } from '../../../modules/nf-cor
 workflow VCF_PHASE_SHAPEIT5 {
 
     take:
-    ch_vcf        // channel (mandatory): [ [id, chr], vcf, csi, pedigree ]
+    ch_vcf        // channel (mandatory) : [ [id, chr], vcf, csi, pedigree ]
     ch_region     // channel (mandatory) : [ [chr, region], region ]
-    ch_ref        // channel (optional) : [ [id, chr], ref, csi ]
-    ch_scaffold   // channel (optional) : [ [id, chr], scaffold, csi ]
+    ch_ref        // channel (optional)  : [ [id, chr], ref, csi ]
+    ch_scaffold   // channel (optional)  : [ [id, chr], scaffold, csi ]
     ch_map        // channel (mandatory) : [ [chr], map]
+    chunk_model   // channel (mandatory) : [ model ]
 
     main:
 
     ch_versions = Channel.empty()
-
-    // Make chunks with Glimpse2 (does not work with "sequential" mode)
-    chunk_model = "recursive"
 
     // Chunk with Glimpse2
     ch_input_glimpse2 = ch_vcf
@@ -42,9 +40,6 @@ workflow VCF_PHASE_SHAPEIT5 {
             ], sep: "\t", skip: 0
         )
         .map { metaIC, it -> [metaIC, it["RegionBuf"], it["RegionCnk"]]}
-
-    ch_chunks_number = GLIMPSE2_CHUNK.out.chunk_chr
-        .map { meta, chunk -> [meta.subMap("chr"), chunk.countLines().intValue()]}
 
     ch_phase_input = ch_vcf
         .combine(ch_chunks_glimpse2, by:0)

@@ -43,6 +43,7 @@ workflow NFCORE_PHASEIMPUTE {
     ch_map         // channel: map file for imputation
     ch_posfile     // channel: samplesheet read in from --posfile
     ch_chunks      // channel: samplesheet read in from --chunks
+    chunk_model    // parameter: chunk model
     ch_versions    // channel: versions of software used
 
     main:
@@ -101,6 +102,7 @@ workflow NFCORE_PHASEIMPUTE {
         ch_map,
         ch_posfile,
         ch_chunks,
+        chunk_model,
         ch_versions
     )
     emit:
@@ -141,6 +143,7 @@ workflow {
         PIPELINE_INITIALISATION.out.gmap,
         PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.chunks,
+        PIPELINE_INITIALISATION.out.chunk_model,
         PIPELINE_INITIALISATION.out.versions
     )
     //
