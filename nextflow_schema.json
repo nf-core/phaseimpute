@@ -38,7 +38,7 @@
                 },
                 "rename_chr": {
                     "type": "boolean",
-                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')"
+                    "description": "Should the panel VCF files be renamed to match the reference genome (e.g. 'chr1' -> '1')"
                 },
                 "max_chr_names": {
                     "type": "integer",
