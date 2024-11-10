@@ -21,19 +21,31 @@
 
 **nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data.
 
-<img src="docs/images/metro/MetroMap_animated.svg" alt="metromap" width="800"/>
+<img src="docs/images/metro/phaseimpute.drawio.png" alt="metromap"/>
 
-The pipeline is constituted of five main steps:
+The whole pipeline consists of five main steps, each of which can be run separately and independently. Users are not required to run all steps sequentially and can select specific steps based on their needs:
 
-1. **Check chromosomes names**: Validates the presence of the different contigs in all variants and alignment files, ensuring data compatibility for further processing.
+1. **QC: Chromosome Name Check**: Ensures compatibility by validating that all expected contigs are present in the variant and alignment files.
 
-2. **Panel preparation**: Performs phasing, QC, variant filtering, and variant annotation of the reference panel.
+2. **Simulation (`--simulate`)**: Generates artificial datasets by downsampling high-density data to simulate low-pass genetic information. This enables the comparison of imputation results against a high-quality dataset (truth set). Simulations may include:
 
-3. **Imputation**: Imputes genotypes in the target dataset using the reference panel.
+   - **Low-pass data generation** by downsampling BAM or CRAM files with [`samtools view -s`](https://www.htslib.org/doc/samtools-view.html) at different depths.
 
-4. **Simulation**: Generates simulated datasets from high-quality target data for testing and validation purposes.
+3. **Panel Preparation (`--panelprep`)**: Prepares the reference panel through phasing, quality control, variant filtering, and annotation. Key processes include:
 
-5. **Concordance**: Evaluates the accuracy of imputation by comparing the imputed data against a truth dataset.
+   - **Normalization** of the reference panel to retain essential variants.
+   - **Phasing** of haplotypes in the reference panel using [Shapeit5](https://odelaneau.github.io/shapeit5/).
+   - **Chunking** of the reference panel into specific regions across chromosomes.
+   - **Position Extraction** for targeted imputation sites.
+
+4. **Imputation (`--impute`)**: This is the primary step, where genotypes in the target dataset are imputed using the prepared reference panel. The main steps are:
+
+   - **Imputation** of the target dataset using tools like [Glimpse1](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html), [Glimpse2](https://odelaneau.github.io/GLIMPSE/), [Stitch](https://github.com/rwdavies/stitch), or [Quilt](https://github.com/rwdavies/QUILT).
+   - **Ligation** of imputed chunks to produce a final VCF file per sample, with all chromosomes unified.
+
+5. **Validation (`--validate`)**: Assesses imputation accuracy by comparing the imputed dataset to a truth dataset. This step leverages the [Glimpse2](https://odelaneau.github.io/GLIMPSE/) concordance process to summarize differences between two VCF files.
+
+For more detailed instructions, please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage).
 
 ## Usage
 
@@ -72,37 +84,6 @@ nextflow run nf-core/phaseimpute \
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage) and the [parameter documentation](https://nf-co.re/phaseimpute/parameters).
-
-## Description of the different steps of the pipeline
-
-Here is a short description of the different steps of the pipeline.
-For more information please refer to the [usage documentation](https://nf-co.re/phaseimpute/usage).
-
-1. **`--panelprep`**: The preprocessing mode is responsible for preparing multiple input files that will be used by the phasing and imputation process.
-
-   - The main processes are:
-     - **Haplotypes phasing** of the reference panel using [**Shapeit5**](https://odelaneau.github.io/shapeit5/).
-     - **Normalize** the reference panel to select only the necessary variants.
-     - **Chunking the reference panel** into a subset of regions for all the chromosomes.
-     - **Extract** the positions where to perform the imputation.
-
-2. **`--impute`**: The imputation mode is the core mode of this pipeline.
-
-   - It consists of 3 main steps:
-     - **Imputation**: Impute the target dataset on the reference panel using either:
-       - [**Glimpse1**](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html).
-       - [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/).
-       - [**Stitch**](https://github.com/rwdavies/stitch).
-       - [**Quilt**](https://github.com/rwdavies/QUILT)
-     - **Ligation**: Merges the different chunks together and reunites all chromosomes to output one VCF per sample.
-
-3. **`--simulate`**: The simulation mode is used to create artificial low informative genetic information from high-density data. This allows for the comparison of the imputed result to a _truth_ dataset, evaluating the quality of the imputation.
-
-   - Currently, it is possible to simulate:
-     - Low-pass data by **downsampling** BAM or CRAM using [`samtools view -s`](https://www.htslib.org/doc/samtools-view.html) at different depths.
-
-4. **`--validate`**: This mode compares two VCF files to compute a summary of the differences between them.
-   - This step uses the [**Glimpse2**](https://odelaneau.github.io/GLIMPSE/) concordance process.
 
 ## Pipeline output
 
