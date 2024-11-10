@@ -278,6 +278,9 @@ workflow PIPELINE_INITIALISATION {
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
+    // Chunk model
+    chunk_model = params.chunk_model
+
     emit:
     input                = ch_input         // [ [meta], file, index ]
     input_truth          = ch_input_truth   // [ [meta], file, index ]
@@ -288,6 +291,7 @@ workflow PIPELINE_INITIALISATION {
     gmap                 = ch_map           // [ [map], map ]
     posfile              = ch_posfile       // [ [panel, chr], vcf, index, hap, legend ]
     chunks               = ch_chunks        // [ [chr], txt ]
+    chunk_model          = chunk_model
     versions             = ch_versions
 }
 
@@ -406,6 +410,9 @@ def validateInputParameters() {
             error("To use `--remove_samples` you need to include `--normalize`.")
         }
     }
+
+    // Check that the chunk model is provided
+    assert params.chunk_model : "No chunk model provided"
 
     return null
 }

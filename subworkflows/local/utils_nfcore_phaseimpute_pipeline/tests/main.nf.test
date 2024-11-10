@@ -17,6 +17,7 @@ nextflow_workflow {
                 chunks = "../../../tests/csv/chunks.csv"
                 posfile = "../../../tests/csv/posfile.csv"
                 panel = "../../../tests/csv/panel.csv"
+                chunk_model = "recursive"
             }
             workflow {
                 """
@@ -47,6 +48,7 @@ nextflow_workflow {
                 posfile = "../../../tests/csv/posfile.csv"
                 panel = "../../../tests/csv/panel.csv"
                 input_region = "$moduleTestDir/region.csv"
+                chunk_model = "sequential"
             }
             workflow {
                 """
@@ -76,6 +78,7 @@ nextflow_workflow {
                 chunks = "../../../tests/csv/chunks.csv"
                 panel = "../../../tests/csv/panel.csv"
                 input_region = "$moduleTestDir/region.csv"
+                chunk_model = "recursive"
             }
             workflow {
                 """
