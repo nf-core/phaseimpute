@@ -66,7 +66,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#152](https://github.com/nf-core/phaseimpute/pull/152) - Fix URLs in the documentation and remove tools citation in the README, use a white background for all images in the documentation.
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Update and simplify subworkflows snapshot and check only for files names (no md5sum for bam and vcf files due to timestamp).
 - [#157](https://github.com/nf-core/phaseimpute/pull/157) - Add `chunk_model` as parameter for better control over `GLIMPSE2_CHUNK` and set window size in `GLIMPSE1_CHUNK` and `GLIMPSE2_chunk` to 4mb to reduce number of chunks (empirical).
-- []() - Remove frequency computation and phasing from full test to reduce cost and computational time.
+- [#158](https://github.com/nf-core/phaseimpute/pull/158) - Remove frequency computation and phasing from full test to reduce cost and computational time.
 
 ### `Fixed`
 
@@ -77,7 +77,7 @@ Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co
 - [#117](https://github.com/nf-core/phaseimpute/pull/117) - Fix directories in CSV.
 - [#151](https://github.com/nf-core/phaseimpute/pull/151) - Fix `Type not supported: class org.codehaus.groovy.runtime.GStringImpl` error due to `String` test in `getFileExtension()`.
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necesary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
-- []() - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed).
+- [#158](https://github.com/nf-core/phaseimpute/pull/158) - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed).
 
 ### `Dependencies`
 
