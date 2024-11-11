@@ -26,53 +26,111 @@
     "Test checkFileIndex no error with empty channel": {
         "content": null,
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-16T15:21:39.094768315"
+        "timestamp": "2024-11-06T15:32:04.356171769"
     },
     "Test validateInputBatchTools only one vcf": {
         "content": [
             [
-                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple samples, please merge them into a single VCF file."
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-d46c3ae4355f57c428b5399cb25385a3.nf` [deadly_lamarck] DSL2 - revision: 89cd7edbc5",
+                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-16T20:08:33.571723823"
+        "timestamp": "2024-11-07T16:40:38.015152671"
+    },
+    "Test checkMetaChr warning": {
+        "content": [
+            [
+                
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T14:03:45.047353204"
     },
     "Test Function exportCsv": {
         "content": null,
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-10T16:27:29.128695884"
+        "timestamp": "2024-11-06T15:32:58.039856651"
     },
     "Test validateInputBatchTools vcf only for glimpse": {
         "content": [
             [
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-ee1562fb7668b97a4ee2fa78f0a93342.nf` [stupefied_gautier] DSL2 - revision: 33e883fb97",
                 "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-16T20:20:28.177195568"
+        "timestamp": "2024-11-07T16:40:24.343659957"
     },
-    "Test validateInputBatchTools error batch": {
+    "Test validateInputBatchTools success batch": {
         "content": [
             [
-                "Stitch or Glimpse1 software is selected and the number of input files (150) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-a882e6f88e44c954568a3552c82f8d3c.nf` [compassionate_keller] DSL2 - revision: edfeedf8f1",
+                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T16:41:05.86605167"
+    },
+    "Test getFileExtension non empty list": {
+        "content": [
+            [
+                "vcf",
+                "txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-10-31T13:15:08.856706046"
+    },
+    "Test getFileExtension empty list": {
+        "content": [
+            [
+                
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.4"
         },
-        "timestamp": "2024-10-16T20:27:27.025786146"
+        "timestamp": "2024-10-30T20:00:55.32420517"
+    },
+    "Test validateInputBatchTools error batch": {
+        "content": [
+            [
+                "N E X T F L O W  ~  version 24.10.0",
+                "Launching `/mnt/c/Users/llenezet/Documents/Repositories/phaseimpute/.nf-test-87470b2a8c60f98b5dc561cea5e9bc6f.nf` [prickly_euclid] DSL2 - revision: 45ae3df33f",
+                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches.",
+                "Stitch or Glimpse1 software is selected and the number of input files (151) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T16:40:50.034843333"
     }
 }

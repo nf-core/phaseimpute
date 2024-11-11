@@ -26,14 +26,14 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "VCF_chr22"],
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
                         ["22"]
                     ],
                     [
                         [id: "BAM_chr22"],
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                         ["22"]
                     ]
                 ])
@@ -74,8 +74,8 @@ nextflow_workflow {
                     input[0] = Channel.fromList([
                         [
                             [id: "BAM_22"],
-                            file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
-                            file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                             "nochr"
                         ]
                     ])
@@ -91,8 +91,8 @@ nextflow_workflow {
                         Channel.fromList([
                             [
                                 [id: "VCF_AllNoChr"],
-                                file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz",checkIfExist:true),
-                                file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi",checkIfExist:true),
+                                file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz',checkIfExist:true),
+                                file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi',checkIfExist:true),
                             ],
                         ])
                     )
@@ -131,8 +131,8 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "VCF_chr22"],
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
                         ["22"]
                     ]
                 ])
@@ -158,8 +158,8 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "BAM_chr22"],
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                         ["22"]
                     ]
                 ])
@@ -186,8 +186,8 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "VCF_AllNoChr"],
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz',checkIfExist:true),
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi',checkIfExist:true),
                         lst_chr
                     ],
                 ])
@@ -211,8 +211,8 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "BAM_chr22"],
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
-                        file(params.modules_testdata_base_path + '/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                         ["chr1"]
                     ],
                 ])

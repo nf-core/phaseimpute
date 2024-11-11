@@ -4,12 +4,12 @@ nextflow_workflow {
     script "../main.nf"
     config "./nextflow.config"
 
-    workflow "BAM_IMPUTE_GLIMPSE1"
+    workflow "VCF_IMPUTE_GLIMPSE1"
 
     tag "subworkflows"
     tag "subworkflows_local"
-    tag "subworkflows/bam_impute_glimpse1"
-    tag "bam_impute_glimpse1"
+    tag "subworkflows/vcf_impute_glimpse1"
+    tag "vcf_impute_glimpse1"
     tag "bam_gl_bcftools"
 
     tag "glimpse"
@@ -24,34 +24,25 @@ nextflow_workflow {
                 """
                 input[0] = Channel.fromList([
                     [
-                        [id: "NA12878"],
+                        [id: "NA12878", panel: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true),
                     ],
                     [
-                        [id: "NA19401"],
+                        [id: "NA19401", panel: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi", checkIfExist:true),
                     ],
                 ])
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
-                    ]).collect()
-                input[2] = Channel.of([
-                        [id: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
                     ]).collect()
-                input[3] = Channel.of(
+                input[2] = Channel.of(
                     [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
                     [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
                 )
-                input[4] = Channel.of([
-                    [id: "GRCh38"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
-                ]).collect()
                 """
             }
         }
@@ -59,8 +50,16 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_two_vcf") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }
@@ -71,29 +70,20 @@ nextflow_workflow {
                 """
                 input[0] = Channel.fromList([
                     [
-                        [id: "NA12878"],
+                        [id: "NA12878", panel: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true),
                     ]
                 ])
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
-                    ]).collect()
-                input[2] = Channel.of([
-                        [id: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
                     ]).collect()
-                input[3] = Channel.of(
+                input[2] = Channel.of(
                     [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
                     [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
                 )
-                input[4] = Channel.of([
-                    [id: "GRCh38"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
-                ]).collect()
                 """
             }
         }
@@ -101,8 +91,16 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one_vcf") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }

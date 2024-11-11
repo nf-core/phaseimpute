@@ -30,10 +30,9 @@ workflow PIPELINE_INITIALISATION {
     take:
     version           // boolean: Display version and exit
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
+    _monochrome_logs  // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
-    input             //  string: Path to input samplesheet
 
     main:
 
@@ -191,7 +190,7 @@ workflow PIPELINE_INITIALISATION {
         }
     } else {
         ch_map = ch_regions
-            .map{ metaCR, regions -> [metaCR.subMap("chr"), []] }
+            .map{ metaCR, _regions -> [metaCR.subMap("chr"), []] }
     }
 
     //
@@ -244,7 +243,7 @@ workflow PIPELINE_INITIALISATION {
     // Check contigs name in different meta map
     //
     // Collect all chromosomes names in all different inputs
-    chr_ref = ch_ref_gen.map { meta, fasta, fai -> [fai.readLines()*.split('\t').collect{it[0]}] }
+    chr_ref = ch_ref_gen.map { _meta, _fasta, fai_file -> [fai_file.readLines()*.split('\t').collect{it[0]}] }
     chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
@@ -260,15 +259,15 @@ workflow PIPELINE_INITIALISATION {
         .toList()
         .subscribe{ chr ->
             if (chr.size() > 0) {
-                chr_names = chr.size() > params.max_chr_names ? chr[0..params.max_chr_names - 1] + ['...'] : chr
+                def chr_names = chr.size() > params.max_chr_names ? chr[0..params.max_chr_names - 1] + ['...'] : chr
                 log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used" } }
 
     ch_regions = ch_regions
         .combine(chr_all_mis.toList())
-        .filter { meta, regions, chr_mis ->
+        .filter { meta, _regions, chr_mis ->
             !(meta.chr in chr_mis)
         }
-        .map { meta, regions, chr_mis -> [meta, regions] }
+        .map { meta, regions, _chr_mis -> [meta, regions] }
         .ifEmpty { error "No regions left to process" }
 
     ch_regions
@@ -355,40 +354,40 @@ workflow PIPELINE_COMPLETION {
 def validateInputParameters() {
     genomeExistsError()
     // Check that only genome or fasta is provided
-    assert params.genome == null || params.fasta == null, "Either --genome or --fasta must be provided"
-    assert !(params.genome == null && params.fasta == null), "Only one of --genome or --fasta must be provided"
+    assert (params.genome == null || params.fasta == null) : "Either --genome or --fasta must be provided"
+    assert !(params.genome == null && params.fasta == null) : "Only one of --genome or --fasta must be provided"
 
     // Check that a steps is provided
-    assert params.steps, "A step must be provided"
+    assert params.steps : "A step must be provided"
 
     // Check that at least one tool is provided
     if (params.steps.split(',').contains("impute")) {
-        assert params.tools, "No tools provided"
+        assert params.tools : "No tools provided"
     }
 
     // Check that input is provided for all steps, except panelprep
     if (params.steps.split(',').contains("all") || params.steps.split(',').contains("impute") || params.steps.split(',').contains("simulate") || params.steps.split(',').contains("validate")) {
-        assert params.input, "No input provided"
+        assert params.input : "No input provided"
     }
 
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2
         if (!params.tools.split(',').find { it in ["glimpse2"] }) {
-                assert params.posfile, "No --posfile provided for --steps impute"
+                assert params.posfile : "No --posfile provided for --steps impute"
         }
         // Required by all tools except STITCH
         if (params.tools != "stitch") {
-                assert params.chunks, "No --chunks provided for --steps impute"
+                assert params.chunks : "No --chunks provided for --steps impute"
         }
         // Required by GLIMPSE1 and GLIMPSE2 only
         if (params.tools.split(',').contains("glimpse")) {
-                assert params.panel, "No --panel provided for imputation with GLIMPSE"
+                assert params.panel : "No --panel provided for imputation with GLIMPSE"
         }
 
         // Check that input_truth is provided when running validate
         if (params.steps.split(',').find { it in ["all", "validate"] } ) {
-            assert params.input_truth, "No --input_truth was provided for --steps validate"
+            assert params.input_truth : "No --input_truth was provided for --steps validate"
         }
     }
 
@@ -414,6 +413,8 @@ def validateInputParameters() {
 
     // Check that the chunk model is provided
     assert params.chunk_model : "No chunk model provided"
+
+    return null
 }
 
 //
@@ -434,13 +435,14 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
 
             if (nb_input > batch_size) {
                 if (tools.contains("glimpse2") || tools.contains("quilt")) {
-                    log.warn("Glimpse2 or Quilt software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${(int) Math.ceil(nb_input / batch_size)} batches.")
+                    log.warn("Glimpse2 or Quilt software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
                 }
                 if (tools.contains("stitch") || tools.contains("glimpse1")) {
                     error "Stitch or Glimpse1 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
                 }
             }
         }
+    return null
 }
 
 //
@@ -448,22 +450,23 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
 //
 def validatePosfileTools(ch_posfile, tools, steps){
     ch_posfile
-        .map{ meta, vcf, index, hap, legend ->
+        .map{ _meta, vcf, index, hap, legend ->
             if (tools.contains("glimpse1")) {
-                assert legend, "Glimpse1 tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+                assert legend : "Glimpse1 tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
             }
             if (tools.contains("stitch")) {
-                assert legend, "Stitch tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+                assert legend : "Stitch tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
             }
             if (tools.contains("quilt")) {
-                assert legend, "Quilt tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
-                assert hap, "Quilt tool needs a hap file provided in the posfile. This file can be created through the panelprep step."
+                assert legend : "Quilt tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+                assert hap : "Quilt tool needs a hap file provided in the posfile. This file can be created through the panelprep step."
             }
             if (steps.contains("validate")) {
-                assert vcf, "Validation step needs a vcf file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
-                assert index, "Validation step needs an index file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
+                assert vcf : "Validation step needs a vcf file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
+                assert index : "Validation step needs an index file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
             }
         }
+    return null
 }
 
 //
@@ -480,13 +483,13 @@ def extractChr(ch_input) {
 // Give back the intersection of a and b
 //
 def checkMetaChr(chr_a, chr_b, name){
-    intersect = chr_a
+    def intersect = chr_a
         .combine(chr_b)
         .map{
             a, b ->
             if (b != [[]] && !(a - b).isEmpty()) {
-                chr_names = (a - b).size() > params.max_chr_names ? (a - b)[0..params.max_chr_names - 1] + ['...'] : (a - b)
-                verb = (a - b).size() == 1 ? "is" : "are"
+                def chr_names = (a - b).size() > params.max_chr_names ? (a - b)[0..params.max_chr_names - 1] + ['...'] : (a - b)
+                def verb = (a - b).size() == 1 ? "is" : "are"
                 log.warn "Chr : ${chr_names} ${verb} missing from ${name}"
                 return (a-b)
             }
@@ -500,20 +503,20 @@ def checkMetaChr(chr_a, chr_b, name){
 // Get file extension
 //
 def getFileExtension(file) {
-    if (file instanceof Path) {
-        file = file.getName()
-    } else if (file instanceof ArrayList) {
-        if (file.size() == 0) {
-            return null
-        } else {
-            error "Type not supported: ${file} = ${file.getClass()}"
-        }
-    }
-    if (file instanceof CharSequence) {
-        return file.toString().replace(".gz", "").split("\\.").last()
+    def file_name = ""
+
+    if (file instanceof Path || file instanceof nextflow.file.http.XPath) {
+        file_name = file.name
+    } else if (file instanceof CharSequence) {
+        file_name = file.toString()
+    } else if (file instanceof List) {
+        return file.collect { getFileExtension(it) }
     } else {
         error "Type not supported: ${file.getClass()}"
     }
+
+    // Remove .gz if present and get the last part after splitting by "."
+    return file_name.replace(".gz", "").split("\\.").last()
 }
 
 //
@@ -563,10 +566,10 @@ def exportCsv(ch_files, metas, header, name, outdir) {
     ch_files.collectFile(keepHeader: true, skip: 1, sort: true, storeDir: "${params.outdir}/${outdir}") { it ->
         def meta = ""
         def file = ""
-        for (i in metas) {
+        metas.each { i ->
             meta += "${it[0][i]},"
         }
-        for (i in it[1]) {
+        it[1].each { i ->
             file += "${params.outdir}/${i.value}/${it[i.key].fileName},"
         }
         file = file.substring(0, file.length() - 1) // remove last comma

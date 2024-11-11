@@ -21,12 +21,12 @@ workflow VCF_PHASE_SHAPEIT5 {
     // Chunk with Glimpse2
     ch_input_glimpse2 = ch_vcf
         .map{
-            metaIC, vcf, csi, pedigree -> [metaIC.subMap("chr"), metaIC, vcf, csi]
+            metaIC, vcf, csi, _pedigree -> [metaIC.subMap("chr"), metaIC, vcf, csi]
         }
         .combine(ch_region.map{ metaCR, region -> [metaCR.subMap("chr"), region]}, by:0)
         .join(ch_map)
         .map{
-            metaC, metaIC, vcf, csi, region, gmap -> [metaIC, vcf, csi, region, gmap]
+            _metaC, metaIC, vcf, csi, region, gmap -> [metaIC, vcf, csi, region, gmap]
         }
     GLIMPSE2_CHUNK ( ch_input_glimpse2, chunk_model )
     ch_versions = ch_versions.mix( GLIMPSE2_CHUNK.out.versions.first() )
@@ -47,7 +47,7 @@ workflow VCF_PHASE_SHAPEIT5 {
             metaIC, vcf, csi, pedigree, regionbuf, regioncnk -> [metaIC.subMap("chr"), metaIC, vcf, csi, pedigree, regionbuf, regioncnk]
         }
         .combine(ch_map, by:0)
-        .map { metaC, metaIC, vcf, index, pedigree, regionbuf, regioncnk, gmap ->
+        .map { _metaC, metaIC, vcf, index, pedigree, regionbuf, regioncnk, gmap ->
             [metaIC + [chunk: regioncnk], vcf, index, pedigree, regionbuf, gmap]
         }
 

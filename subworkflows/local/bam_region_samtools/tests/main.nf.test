@@ -51,8 +51,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.bam_region.collect{ bam(it[1]).getReads().size() }).match("Summary10000bp") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_region.collect{
+                        bam(it[1]).getReads().size()
+                    }
+                ).match() }
             )
         }
     }
@@ -92,8 +101,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.bam_region.collect{ bam(it[1]).getReads().size() }).match("Summary1000bp") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_region.collect{
+                        bam(it[1]).getReads().size()
+                    }
+                ).match() }
             )
         }
     }

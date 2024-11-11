@@ -232,11 +232,11 @@ workflow PHASEIMPUTE {
             .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         // Group BAMs by batch size
-        def nb_batch = 0
+        def nb_batch = -1
         ch_input_bams = ch_input_type.bam
             .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
             .map { list -> list.collate(params.batch_size)
-                .collect{ [[id: "all", batch: nb_batch++], it] } }
+                .collect{ nb_batch += 1; [[id: "all", batch: nb_batch], it] } }
             .map { list -> [list.collect{ it[0] }, list.collect{ it[1] }] }
             .transpose()
             .map { metaI, filestuples-> [
@@ -245,7 +245,7 @@ workflow PHASEIMPUTE {
             ] }
 
         LIST_TO_FILE(
-            ch_input_bams.map{ meta, file, index -> [
+            ch_input_bams.map{ meta, file, _index -> [
                 meta, file, meta.metas.collect { it.id }
             ] }
         )
@@ -285,8 +285,7 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_GLIMPSE1(
                 ch_input_glimpse1,
                 ch_panel_phased,
-                ch_chunks_glimpse1,
-                ch_fasta
+                ch_chunks_glimpse1
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 

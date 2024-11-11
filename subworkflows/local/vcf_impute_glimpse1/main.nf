@@ -7,10 +7,9 @@ include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_2 } from '../../../modules/nf-core/bc
 workflow VCF_IMPUTE_GLIMPSE1 {
 
     take:
-    ch_input        // channel (mandatory): [ [id], bam, bai ]
+    ch_input        // channel (mandatory): [ [id], vcf, tbi ]
     ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
     ch_chunks       // channel  (optional): [ [panel, chr], region1, region2 ]
-    ch_fasta        // channel (mandatory): [ [genome], fa, fai ]
 
     main:
 
@@ -33,7 +32,7 @@ workflow VCF_IMPUTE_GLIMPSE1 {
         .combine(samples_file)
         .combine(ch_chunks_panel, by: 0)
         .combine(gmap_file)
-        .map{ metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
+        .map{ _metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
             [metaIPC + ["chunk": regionout],
             bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
         }

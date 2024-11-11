@@ -26,6 +26,7 @@ nextflow_workflow {
                         [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true),
+                        []
                     ]
                 ])
                 input[1] = Channel.of([
@@ -49,28 +50,41 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one_vcf") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }
 
-    test("Impute with glimpse2 two individuals - input bam") {
+    test("Impute with glimpse2 two individuals - input bam  with bamlist") {
         when {
             workflow {
                 """
+                bamlist = Channel.of(
+                    "NA12878.s.bam\tNA12878",
+                    "NA19401.s.bam\tNA19401"
+                ).collectFile(name: 'bamlist.txt', newLine: true)
                 input[0] = Channel.fromList([
                     [
-                        [id: "NA12878"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                        [id: "allid"],
+                        [
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true)
+                        ],
+                        [
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true)
+                        ]
                     ],
-                    [
-                        [id: "NA19401"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
-                    ],
-                ])
+                ]).combine(bamlist)
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
@@ -92,23 +106,34 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_two_merged") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }
 
-    test("Impute with glimpse2 one individual - input file bam") {
+    test("Impute with glimpse2 one individual - input file bam with bamlist") {
         when {
             workflow {
                 """
+                bamlist = Channel.of(
+                    "NA12878.s.bam\tNA12878"
+                ).collectFile(name: 'bamlist.txt', newLine: true)
                 input[0] = Channel.fromList([
                     [
                         [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
                     ]
-                ])
+                ]).combine(bamlist)
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
@@ -130,8 +155,16 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }).match("Summary_one") }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                ).match() }
             )
         }
     }

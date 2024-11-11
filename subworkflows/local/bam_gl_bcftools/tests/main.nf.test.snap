@@ -1,162 +1,76 @@
 {
     "Compute genotype likelihood with merging": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "id": "all",
-                            "metas": [
-                                {
-                                    "id": "NA12878",
-                                    "panel": "1000GP",
-                                    "chr": "22"
-                                },
-                                {
-                                    "id": "NA19401",
-                                    "panel": "1000GP",
-                                    "chr": "22"
-                                }
-                            ],
-                            "variantcaller": "bcftools"
-                        },
-                        "all.annotate.vcf.gz:md5,fd2e606f302c569d276011254a95a728",
-                        "all.annotate.vcf.gz.tbi:md5,e22a83a66d796dca37eab6d75e76f9c3"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,3779c6b3c000bc757d3d6109010518b0",
-                    "versions.yml:md5,4739962c934731254db8b31083aa0df5",
-                    "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                    "versions.yml:md5,74118beefc19065bed2de5d60277be55",
-                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d",
-                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
-                ],
-                "2": [
-                    "NA12878.bcftools_stats.txt:md5,4cacbe4d6dfba4a8035e37611c91923c",
-                    "NA19401.bcftools_stats.txt:md5,f91fd586acfdf3845d111a062fbb263f"
-                ],
-                "multiqc_files": [
-                    "NA12878.bcftools_stats.txt:md5,4cacbe4d6dfba4a8035e37611c91923c",
-                    "NA19401.bcftools_stats.txt:md5,f91fd586acfdf3845d111a062fbb263f"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "id": "all",
-                            "metas": [
-                                {
-                                    "id": "NA12878",
-                                    "panel": "1000GP",
-                                    "chr": "22"
-                                },
-                                {
-                                    "id": "NA19401",
-                                    "panel": "1000GP",
-                                    "chr": "22"
-                                }
-                            ],
-                            "variantcaller": "bcftools"
-                        },
-                        "all.annotate.vcf.gz:md5,fd2e606f302c569d276011254a95a728",
-                        "all.annotate.vcf.gz.tbi:md5,e22a83a66d796dca37eab6d75e76f9c3"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,3779c6b3c000bc757d3d6109010518b0",
-                    "versions.yml:md5,4739962c934731254db8b31083aa0df5",
-                    "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                    "versions.yml:md5,74118beefc19065bed2de5d60277be55",
-                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d",
-                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-10-16T09:20:35.609695151"
-    },
-    "Compute genotype likelihood with only one input": {
-        "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "variantcaller": "bcftools"
-                        },
-                        "NA12878.annotate.vcf.gz:md5,147ae3772f40a430036c7fabd10bb977",
-                        "NA12878.annotate.vcf.gz.tbi:md5,a31b4a912de0ab6e1c7a13ed18ccc153"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,3779c6b3c000bc757d3d6109010518b0",
-                    "versions.yml:md5,4739962c934731254db8b31083aa0df5",
-                    "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
-                ],
-                "2": [
-                    "NA12878.bcftools_stats.txt:md5,4cacbe4d6dfba4a8035e37611c91923c"
-                ],
-                "multiqc_files": [
-                    "NA12878.bcftools_stats.txt:md5,4cacbe4d6dfba4a8035e37611c91923c"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "NA12878",
-                            "panel": "1000GP",
-                            "chr": "22",
-                            "variantcaller": "bcftools"
-                        },
-                        "NA12878.annotate.vcf.gz:md5,147ae3772f40a430036c7fabd10bb977",
-                        "NA12878.annotate.vcf.gz.tbi:md5,a31b4a912de0ab6e1c7a13ed18ccc153"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,3779c6b3c000bc757d3d6109010518b0",
-                    "versions.yml:md5,4739962c934731254db8b31083aa0df5",
-                    "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                    "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
-                ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-10-16T09:21:00.8044734"
-    },
-    "Summary_one": {
-        "content": [
             [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-10-15T18:40:28.756168568"
-    },
-    "Summary_merge": {
-        "content": [
+                "versions.yml:md5,0980a298fde671494f5b4e9cb3a6ebc2",
+                "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
+                "versions.yml:md5,74118beefc19065bed2de5d60277be55",
+                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d",
+                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+            ],
+            [
+                [
+                    {
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "id": "all",
+                        "metas": [
+                            {
+                                "id": "NA12878",
+                                "panel": "1000GP",
+                                "chr": "22"
+                            },
+                            {
+                                "id": "NA19401",
+                                "panel": "1000GP",
+                                "chr": "22"
+                            }
+                        ],
+                        "variantcaller": "bcftools"
+                    },
+                    "all.annotate.vcf.gz",
+                    "all.annotate.vcf.gz.tbi"
+                ]
+            ],
             [
                 "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-15T18:35:39.946019792"
+        "timestamp": "2024-11-07T13:49:19.689761982"
+    },
+    "Compute genotype likelihood with only one input": {
+        "content": [
+            [
+                "versions.yml:md5,0980a298fde671494f5b4e9cb3a6ebc2",
+                "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
+                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "variantcaller": "bcftools"
+                    },
+                    "NA12878.annotate.vcf.gz",
+                    "NA12878.annotate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:50:09.373771371"
     }
 }

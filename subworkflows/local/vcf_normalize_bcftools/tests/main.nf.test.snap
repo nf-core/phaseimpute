@@ -1,154 +1,88 @@
 {
-    "Normalize content": {
-        "content": [
-            [
-                "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
-                "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-18T15:21:05.213839279"
-    },
     "Normalize vcf with computing frequencies after removing samples": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP_chr21_fixed.vcf.gz:md5,07239edd29a6c5a8ca1c3226d0f83de5",
-                        "1000GP_chr21_fixed.vcf.gz.tbi:md5,388eefaf444c084970d27dff0478b212"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP_chr22_fixed.vcf.gz:md5,5d4579b182241f5aa812206ac81835d7",
-                        "1000GP_chr22_fixed.vcf.gz.tbi:md5,9088246d10963b3cd8704715dc09c436"
-                    ]
+            [
+                "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
+                "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
+                "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
+                "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
+                "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
+                "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP_chr21_fixed.vcf.gz",
+                    "1000GP_chr21_fixed.vcf.gz.tbi"
                 ],
-                "1": [
-                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
-                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
-                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
-                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP_chr21_fixed.vcf.gz:md5,07239edd29a6c5a8ca1c3226d0f83de5",
-                        "1000GP_chr21_fixed.vcf.gz.tbi:md5,388eefaf444c084970d27dff0478b212"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP_chr22_fixed.vcf.gz:md5,5d4579b182241f5aa812206ac81835d7",
-                        "1000GP_chr22_fixed.vcf.gz.tbi:md5,9088246d10963b3cd8704715dc09c436"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
-                    "versions.yml:md5,3bba75c8e94eb2271ad38e3a1ee06ad8",
-                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
-                    "versions.yml:md5,bdf2c1ea1cace63b301158243f3fd12f",
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP_chr22_fixed.vcf.gz",
+                    "1000GP_chr22_fixed.vcf.gz.tbi"
                 ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-07-22T15:51:30.725699084"
-    },
-    "Norm content recomputed": {
-        "content": [
+            ],
             [
                 "VcfFile [chromosomes=[chr21], sampleCount=3190, variantCount=836, phased=true, phasedAutodetect=true]",
                 "VcfFile [chromosomes=[chr22], sampleCount=3190, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                3190,
+                3190
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-18T15:23:37.057826205"
+        "timestamp": "2024-11-07T14:11:08.9049564"
     },
     "Normalize vcf without computing frequencies nor removing samples": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP_chr21_biallelic_snps.vcf.gz:md5,17746c80b9e02787f4cb950a3c2efa93",
-                        "1000GP_chr21_biallelic_snps.vcf.gz.tbi:md5,006d0bec1050410aa64d427e2fad42e2"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP_chr22_biallelic_snps.vcf.gz:md5,817ebeceadcaea1e95f92c7b67659f28",
-                        "1000GP_chr22_biallelic_snps.vcf.gz.tbi:md5,d3460d21cacfbb15b34289454e2922a8"
-                    ]
+            [
+                "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
+                "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
+                "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP_chr21_biallelic_snps.vcf.gz",
+                    "1000GP_chr21_biallelic_snps.vcf.gz.tbi"
                 ],
-                "1": [
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP_chr21_biallelic_snps.vcf.gz:md5,17746c80b9e02787f4cb950a3c2efa93",
-                        "1000GP_chr21_biallelic_snps.vcf.gz.tbi:md5,006d0bec1050410aa64d427e2fad42e2"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP_chr22_biallelic_snps.vcf.gz:md5,817ebeceadcaea1e95f92c7b67659f28",
-                        "1000GP_chr22_biallelic_snps.vcf.gz.tbi:md5,d3460d21cacfbb15b34289454e2922a8"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,c1918a7ebe19e200e8981e12c8fd52d4",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490",
-                    "versions.yml:md5,da9510d939fc9cb45b897127f0d5e490"
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP_chr22_biallelic_snps.vcf.gz",
+                    "1000GP_chr22_biallelic_snps.vcf.gz.tbi"
                 ]
-            }
+            ],
+            [
+                "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                3196,
+                3196
+            ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-22T15:51:02.997348191"
+        "timestamp": "2024-11-07T14:10:11.989583075"
     }
 }

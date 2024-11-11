@@ -54,11 +54,20 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{
-                    path(it[1]).vcf.summary
-                    }).match("Normalize content")
-                },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.header.getGenotypeSamples().size()
+                    }
+                ).match() },
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.variantCount == path(it[1]).vcf.noSnps
                 }}
@@ -100,11 +109,20 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{
-                    path(it[1]).vcf.summary
-                    }).match("Norm content recomputed")
-                }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.header.getGenotypeSamples().size()
+                    }
+                ).match() }
             )
         }
     }

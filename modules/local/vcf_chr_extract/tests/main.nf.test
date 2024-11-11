@@ -15,15 +15,15 @@ nextflow_process {
                 input[0] = Channel.fromList([
                     [
                         [id:'test_bcf'], // meta map
-                        file(params.test_data['sarscov2']['illumina']['test_bcf'], checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.bcf', checkIfExists: true)
                     ],
                     [
                         [id: 'test2_vcf'], // meta map
-                        file(params.test_data['sarscov2']['illumina']['test2_vcf'], checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test2.vcf', checkIfExists: true)
                     ],
                     [
                         [id: 'test2_haplotc_vcf_gz'], // meta map
-                        file(params.test_data['homo_sapiens']['illumina']['test2_haplotc_vcf_gz'], checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true)
                     ]
                 ])
                 """

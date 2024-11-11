@@ -24,14 +24,14 @@ nextflow_workflow {
                 input[0] = Channel.fromList([
                     [
                         [id: "test_paired"],
-                        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
-                        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                         "nochr"
                     ],
                     [
                         [id: "test_MT"],
-                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
-                        file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam.bai', checkIfExist:true),
                         "nochr"
                     ],
                 ])
@@ -42,11 +42,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.bam_renamed.collect{
-                    bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
-                    }).match("headernochr")
-                }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.bam_renamed.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_renamed.collect{
+                        bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                    }
+                ).match() }
             )
         }
     }
@@ -60,14 +66,14 @@ nextflow_workflow {
                     input[0] = Channel.fromList([
                         [
                             [id: "test_paired"],
-                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExist:true),
-                            file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                             "nochr"
                         ],
                         [
                             [id: "test_MT"],
-                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam'], checkIfExist:true),
-                            file(params.test_data['homo_sapiens']['illumina']['test_illumina_mt_bam_bai'], checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam.bai', checkIfExist:true),
                             "nochr"
                         ],
                     ])
@@ -87,11 +93,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.bam_renamed.collect{
-                    bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
-                    }).match("headerwithchr")
-                }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.bam_renamed.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_renamed.collect{
+                        bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                    }
+                ).match() }
             )
         }
     }
