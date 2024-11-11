@@ -1,4 +1,73 @@
 {
+    "Split one sample vcf file": {
+        "content": [
+            [
+                
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878"
+                    },
+                    "NA12878.s_imputed.bcf",
+                    "NA12878.s_imputed.bcf.csi"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-11T16:06:03.822763802"
+    },
+    "Split no sample vcf file": {
+        "content": null,
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-11T16:06:10.131104388"
+    },
+    "Split multiple vcf file": {
+        "content": [
+            [
+                "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "NA19401"
+                    },
+                    "NA19401.vcf.gz",
+                    "NA19401.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "NA20359"
+                    },
+                    "NA20359.vcf.gz",
+                    "NA20359.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-11T14:42:48.076610625"
+    },
     "Split vcf file": {
         "content": [
             [

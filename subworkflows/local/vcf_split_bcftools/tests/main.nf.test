@@ -15,7 +15,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/split"
 
-    test("Split vcf file") {
+    test("Split multiple vcf file") {
         setup {
             run("BCFTOOLS_MERGE") {
                 script "../../../../modules/nf-core/bcftools/merge/main.nf"
@@ -43,10 +43,6 @@ nextflow_workflow {
             }
         }
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = BCFTOOLS_MERGE.out.vcf.join(BCFTOOLS_MERGE.out.tbi)
@@ -71,6 +67,59 @@ nextflow_workflow {
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.sampleCount == 1
                 }}
+            )
+        }
+    }
+
+    test("Split one sample vcf file") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: 'NA12878'],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf.csi", checkIfExist:true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] }
+                ).match() }
+            )
+        }
+    }
+
+    test("Split no sample vcf file") {
+        tag "error"
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: 'dbsnp_146.hg38'],
+                    file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz", checkIfExist:true),
+                    file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi", checkIfExist:true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.error },
+                { assert snapshot(
+                    workflow.out.stdout
+                ).match()
+                }
             )
         }
     }
