@@ -10,6 +10,7 @@ workflow VCF_SPLIT_BCFTOOLS {
     ch_versions = Channel.empty()
 
     BCFTOOLS_QUERY(ch_vcf, [], [], []) // List samples
+    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     ch_samples = ch_vcf
         .join(
