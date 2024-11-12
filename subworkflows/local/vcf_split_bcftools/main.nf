@@ -11,21 +11,17 @@ workflow VCF_SPLIT_BCFTOOLS {
 
     BCFTOOLS_QUERY(ch_vcf, [], [], []) // List samples
 
-    BCFTOOLS_QUERY.out.output.splitText().groupTuple().view()
-
     ch_samples = ch_vcf
-        .join(BCFTOOLS_QUERY.out.output.splitText().groupTuple())
+        .join(
+            BCFTOOLS_QUERY.out.output.splitText().groupTuple()
+                .ifEmpty{
+                    error "VCF_SPLIT_BCFTOOLS: File does not have any samples information"
+                }
+        )
         .branch {
             one : it[3].size() == 1
             multiple : it[3].size() > 1
-            other : true
         }
-
-    ch_samples.other.map {
-        def file = it[1]
-        def id = it[0].id
-        error "File ${file} with id : ${id} does not have any samples information"
-    }
 
     BCFTOOLS_PLUGINSPLIT(ch_samples.multiple.map{it[0..2]}, [], [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_PLUGINSPLIT.out.versions.first())

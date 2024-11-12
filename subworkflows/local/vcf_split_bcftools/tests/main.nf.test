@@ -100,7 +100,6 @@ nextflow_workflow {
     }
 
     test("Split no sample vcf file") {
-        tag "error"
         when {
             workflow {
                 """
@@ -115,9 +114,9 @@ nextflow_workflow {
 
         then {
             assertAll(
-                { assert workflow.error },
+                { assert workflow.failed },
                 { assert snapshot(
-                    workflow.out.stdout
+                    workflow.errorReport
                 ).match()
                 }
             )
