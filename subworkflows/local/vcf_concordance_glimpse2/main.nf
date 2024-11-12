@@ -50,7 +50,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GAWK(
         ADD_COLUMNS.out.txt
-            .map{ _meta, txt -> [["id":"TestQuality"], txt]}
+            .map{ _meta, txt -> [["id":"AllSamples"], txt]}
             .groupTuple(),
         []
     )
