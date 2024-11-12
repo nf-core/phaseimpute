@@ -1,58 +1,6 @@
 {
     "Phase vcf with regions, no map, no ref, no scaffold, sequential model": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP.vcf.gz:md5,4029303e3c083ebb2522fb5c8dc4b63a",
-                        "1000GP.vcf.gz.csi:md5,c57057d136f6c859aac4e6ae28ec793b"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP.vcf.gz:md5,23d09ba884eda7449702fece3f652d9d",
-                        "1000GP.vcf.gz.csi:md5,281791c87517a6f3e83c3fd736ec704e"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
-                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
-                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
-                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
-                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP.vcf.gz:md5,4029303e3c083ebb2522fb5c8dc4b63a",
-                        "1000GP.vcf.gz.csi:md5,c57057d136f6c859aac4e6ae28ec793b"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP.vcf.gz:md5,23d09ba884eda7449702fece3f652d9d",
-                        "1000GP.vcf.gz.csi:md5,281791c87517a6f3e83c3fd736ec704e"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
-                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
-                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
-                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
-                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
-                ]
-            },
             [
                 "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
                 "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
@@ -84,74 +32,47 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-10T19:18:52.508986134"
+        "timestamp": "2024-11-12T14:46:00.916017807"
     },
     "Phase vcf with regions, no map, no ref, no scaffold, recursive model": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP.vcf.gz:md5,d454c821a71b7c569540e381068fbe03",
-                        "1000GP.vcf.gz.csi:md5,13e80ee9a038a715efd6f97befec28c6"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP.vcf.gz:md5,68e488b81ea8ca52a52b20fec603bf3e",
-                        "1000GP.vcf.gz.csi:md5,98037a25e4112f8a4df62eba96d08634"
-                    ]
+            [
+                "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
+                "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
+                "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
+                "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
+                "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
                 ],
-                "1": [
-                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
-                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
-                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
-                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
-                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
-                ],
-                "vcf_tbi": [
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr21"
-                        },
-                        "1000GP.vcf.gz:md5,d454c821a71b7c569540e381068fbe03",
-                        "1000GP.vcf.gz.csi:md5,13e80ee9a038a715efd6f97befec28c6"
-                    ],
-                    [
-                        {
-                            "id": "1000GP",
-                            "chr": "chr22"
-                        },
-                        "1000GP.vcf.gz:md5,68e488b81ea8ca52a52b20fec603bf3e",
-                        "1000GP.vcf.gz.csi:md5,98037a25e4112f8a4df62eba96d08634"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
-                    "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
-                    "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
-                    "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
-                    "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
                 ]
-            },
+            ],
             [
                 "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
                 "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-10T19:18:20.407509527"
+        "timestamp": "2024-11-12T14:45:28.783070136"
     }
 }
