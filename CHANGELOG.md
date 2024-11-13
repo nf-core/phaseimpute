@@ -74,7 +74,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#117](https://github.com/nf-core/phaseimpute/pull/117) - Fix directories in CSV.
 - [#151](https://github.com/nf-core/phaseimpute/pull/151) - Fix `Type not supported: class org.codehaus.groovy.runtime.GStringImpl` error due to `String` test in `getFileExtension()`.
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necessary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
-- [#158](https://github.com/nf-core/phaseimpute/pull/158) - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed). Fix `VCF_SPLIT_BCFTOOLS` by checking first if there is at least one sample and only if more than one then proceed with splitting.
+- [#158](https://github.com/nf-core/phaseimpute/pull/158) - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed). Fix `multiQC` samples names for better comprehension. Fix `-resume` errors when `ch_fasta` is use by adding `cache = 'lenient'` in necessary processes. Fix `BCFTOOLS_PLUGINSPLIT` in edge case with only one sample. Fix `--window-size` of `GLIMPSE_CHUNK` from `4` to `4000000`.
 
 ### `Dependencies`
 
