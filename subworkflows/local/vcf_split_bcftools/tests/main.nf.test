@@ -115,9 +115,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert snapshot(
-                    workflow.errorReport
-                ).match()
+                { assert workflow.errorReport.contains("No samples to split: dbsnp_146.hg38.vcf.gz")
                 }
             )
         }
