@@ -109,7 +109,7 @@ The results from steps impute will have the following directory structure:
 - `imputation/csv/`
   - `impute.csv`: A single csv containing the path to a vcf and its index, of each imputed sample with their corresponding tool.
 - `imputation/[glimpse1,glimpse2,quilt,stitch]/`
-  - `concat/all.batch*.vcf.gz`: The concatenate vcf of all imputed sample.
+  - `concat/all.batch*.vcf.gz`: The concatenate vcf of all imputed sample by batches.
   - `concat/all.batch*.vcf.gz.tbi`: A tbi for the concatenated samples imputed vcf.
   - `samples/*.vcf.gz`: A vcf of each imputed sample.
   - `samples/*.vcf.gz.tbi`: A tbi for the imputed vcf.
