@@ -385,7 +385,7 @@ workflow PHASEIMPUTE {
         // Export all files to csv
         exportCsv(
             ch_input_validate.map{ meta, file, index ->
-                [meta, [2:"imputation/${meta.tools}/", 3:"imputation/${meta.tools}/"], file, index]
+                [meta, [2:"imputation/${meta.tools}/samples/", 3:"imputation/${meta.tools}/samples/"], file, index]
             },
             ["id", "tools"], "sample,tools,vcf,index",
             "impute.csv", "imputation/csv"
