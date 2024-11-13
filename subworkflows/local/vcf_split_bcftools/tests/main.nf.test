@@ -23,7 +23,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     [
-                        [id: "allSamples"],
+                        [id: "allSamples.batch0"],
                         [file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA20359/NA20359.s_imputed.bcf", checkIfExist:true)],
