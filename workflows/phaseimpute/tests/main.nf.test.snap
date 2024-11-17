@@ -123,7 +123,6 @@
                 "validation/samples/NA19401.truth.vcf.gz.tbi",
                 "validation/samples/NA20359.truth.vcf.gz",
                 "validation/samples/NA20359.truth.vcf.gz.tbi",
-                "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
@@ -138,7 +137,8 @@
                 "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
                 "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
                 "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt"
+                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt",
+                "validation/stats/TestQuality.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -180,13 +180,13 @@
                 "validation/samples/NA19401.truth.vcf.gz.tbi",
                 "validation/samples/NA20359.truth.vcf.gz",
                 "validation/samples/NA20359.truth.vcf.gz.tbi",
-                "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_SNP.txt",
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA19401_SNP.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt",
-                "validation/stats/NA20359_SNP.txt"
+                "validation/stats/NA20359_SNP.txt",
+                "validation/stats/TestQuality.txt"
             ]
         ],
         "meta": {
@@ -255,7 +255,6 @@
                 "validation/samples/NA19401.truth.vcf.gz.tbi",
                 "validation/samples/NA20359.truth.vcf.gz",
                 "validation/samples/NA20359.truth.vcf.gz.tbi",
-                "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
                 "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
@@ -264,7 +263,8 @@
                 "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt",
                 "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt"
+                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/TestQuality.txt"
             ]
         ],
         "meta": {
