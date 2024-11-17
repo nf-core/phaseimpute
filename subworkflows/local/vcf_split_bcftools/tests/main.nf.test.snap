@@ -1,5 +1,26 @@
 {
-    "Split vcf file": {
+    "Split one sample vcf file": {
+        "content": [
+            [
+                "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-13T14:06:59.745818945"
+    },
+    "Split multiple vcf file": {
         "content": [
             [
                 "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
@@ -34,9 +55,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
+            "nf-test": "0.9.2",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-07T14:13:06.801872176"
+        "timestamp": "2024-11-11T14:42:48.076610625"
     }
 }
