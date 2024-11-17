@@ -63,6 +63,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#152](https://github.com/nf-core/phaseimpute/pull/152) - Fix URLs in the documentation and remove tools citation in the README, use a white background for all images in the documentation.
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Update and simplify subworkflows snapshot and check only for files names (no md5sum for bam and vcf files due to timestamp).
 - [#157](https://github.com/nf-core/phaseimpute/pull/157) - Add `chunk_model` as parameter for better control over `GLIMPSE2_CHUNK` and set window size in `GLIMPSE1_CHUNK` and `GLIMPSE2_chunk` to 4mb to reduce number of chunks (empirical).
+- [#160](https://github.com/nf-core/phaseimpute/pull/160) - Improve `CHANGELOG.md` and add details to `usage.md`
 
 ### `Fixed`
 
