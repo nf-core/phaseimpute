@@ -3,19 +3,6 @@ Changes in module 'nf-core/bcftools/pluginsplit'
 Changes in 'bcftools/pluginsplit/main.nf':
 --- modules/nf-core/bcftools/pluginsplit/main.nf
 +++ modules/nf-core/bcftools/pluginsplit/main.nf
-@@ -15,9 +15,9 @@
-     path(targets)
- 
-     output:
--    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
--    tuple val(meta), path("*.tbi")                    , emit: tbi, optional: true
--    tuple val(meta), path("*.csi")                    , emit: csi, optional: true
-+    tuple val(meta), path("*/*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
-+    tuple val(meta), path("*/*.tbi")                    , emit: tbi, optional: true
-+    tuple val(meta), path("*/*.csi")                    , emit: csi, optional: true
-     path "versions.yml"                               , emit: versions
- 
-     when:
 @@ -26,11 +26,17 @@
      script:
      def args = task.ext.args ?: ''
@@ -48,7 +35,7 @@ Changes in 'bcftools/pluginsplit/main.nf':
 +        extension="\${base_name#\${name_before_dot}}"
 +        # Construct the new name
 +        new_name="\${name_before_dot}${suffix}\${extension}"
-+        mv "\$file" "${prefix}/\$new_name"
++        mv "\$file" "./\$new_name"
 +    done
  
      cat <<-END_VERSIONS > versions.yml
