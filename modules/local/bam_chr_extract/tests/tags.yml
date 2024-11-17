@@ -1,2 +1,0 @@
-bam_chr_extract:
-  - "modules/local/bam_chr_extract/**"

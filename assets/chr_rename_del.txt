@@ -36,4 +36,4 @@ chr35 35
 chr36 36
 chr37 37
 chr38 38
-chr39 X
+chrX X
