@@ -33,13 +33,13 @@
     "Check test_all": {
         "content": [
             [
-                "simulation/samples/NA12878_depth_1x.bam",
-                "simulation/samples/NA12878_depth_1x.bam.csi",
-                "simulation/samples/NA19401_depth_1x.bam",
-                "simulation/samples/NA19401_depth_1x.bam.csi",
-                "simulation/samples/NA20359_depth_1x.bam",
-                "simulation/samples/NA20359_depth_1x.bam.csi",
-                "simulation/csv/simulate.csv"
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ],
             [
                 "imputation/batch/all.0.id.txt",
@@ -166,10 +166,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-25T19:20:40.899116746"
+        "timestamp": "2024-11-17T21:32:08.538026091"
     },
     "Check test_validate": {
         "content": [
@@ -307,20 +307,20 @@
     "Check test_sim": {
         "content": [
             [
-                "simulation/samples/NA12878_depth_1x.bam",
-                "simulation/samples/NA12878_depth_1x.bam.csi",
-                "simulation/samples/NA19401_depth_1x.bam",
-                "simulation/samples/NA19401_depth_1x.bam.csi",
-                "simulation/samples/NA20359_depth_1x.bam",
-                "simulation/samples/NA20359_depth_1x.bam.csi",
-                "simulation/csv/simulate.csv"
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-11T18:31:15.202789733"
+        "timestamp": "2024-11-17T21:35:03.693487008"
     },
     "Check test_panelprep": {
         "content": [
