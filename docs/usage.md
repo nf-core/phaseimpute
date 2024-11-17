@@ -27,16 +27,13 @@ sample,file,index
 SAMPLE1,AEG588A1.bam,AEG588A1.bai
 SAMPLE2,AEG588A2.bam,AEG588A2.bai
 SAMPLE3,AEG588A3.bam,AEG588A3.bai
-SAMPLE4,AEG588A4.bam,AEG588A4.bai
-SAMPLE5,AEG588A5.bam,AEG588A5.bai
-SAMPLE6,AEG588A6.bam,AEG588A6.bai
 ```
 
-| Column   | Description                                                                                                                                                                                    |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                   |
-| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" optionally compressed with bgzip ".gz". All files need to have the same extension. |
-| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files need to have the same extension.                                                        |
+| Column   | Description                                                                                                                                                                                                       |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                                      |
+| `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" and optionally compressed with bgzip ".gz". All files in this column need to have the same extension. |
+| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files in this column need to have the same extension.                                                            |     |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -128,11 +125,11 @@ or you can specify a custom genome using:
 --fasta Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
 ```
 
-## Running the pipeline
+## Running the pipeline: quick example
 
 A quick running example only with the imputation step can be performed as follows:
 
-```
+```bash
 nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --steps impute \
@@ -143,7 +140,6 @@ nextflow run nf-core/phaseimpute \
     --panel panel.csv \
     --tools glimpse1 \
     -profile docker
-
 ```
 
 The typical command for running the pre-processing of the panel and imputation of samples is shown below:
@@ -191,19 +187,15 @@ Do not use `-c <file>` to specify parameters as this will result in errors. Cust
 
 You can also generate `YAML` or `JSON` files easily using the [nf-core/launch](https://nf-co.re/launch) tool, which guides you creating the files that can be used directly with `-params-file`.
 
-### Check of the contigs name
-
-The pipeline parallelize the imputation process across contigs. To do so it will use either the `--regions` samplesheet or the `.fai` to extract the genomic region to process.
-From all those contigs some might not be present in the `--panel`, `--posfile`, `--chunks`, `--map` (column `chr`) or in the `--fasta`. In this case the pipeline will warn you that some of the contigs are absent in some of the file specified and will only parallelize on the intersection of all contigs.
-Afterwards the remaining contigs presence will be checked with the `CHECKCHR` pipeline to ensure that they are present in each `--input` and `--input_truth` file and that also in the individuals reference panel files.
-
-### Running the pipeline
+## Running the pipeline: detailed instructions
 
 nf-core/phaseimpute can be started at different points in the analysis by setting the flag `--steps` and the available options `[simulate, panelprep, impute, validate, all]`. You can also run several steps simultaneously by listing the required processes as `--steps panelprep,impute` or you can choose to run all steps sequentially by using `--steps all`.
 
-### Start with simulation `--steps simulate`
+## Start with simulation `--steps simulate`
 
-This steps of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
+<img src="images/metro/Simulate.png" alt="simulate_metro" width="600"/>
+
+This step of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -224,7 +216,9 @@ The required flags for this mode are:
 
 You can find an overview of the results produced by this step in the [Output](output.md).
 
-### Start with panel preparation `--steps panelprep`
+## Start with panel preparation `--steps panelprep`
+
+<img src="images/metro/PanelPrep.png" alt="Panel preparation" width="600"/>
 
 This steps pre-processes the reference panel in order to be ready for imputation. There are a few quality control steps that are applied to reference panels. These include actions such as removing multiallelic SNPs and indels and removing certain samples from the reference panel (such as related samples). In addition, chunks are produced which are then used in the imputation steps. It is recommended that this steps is run once and the produced files are saved, to minimize the cost of reading the reference panel each time. Then, the output files from `--steps panelprep` can be used as input in the subsequent imputation steps, such as `--steps impute`.
 
@@ -249,7 +243,9 @@ The required flags for this mode are:
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
-### Start with imputation `--steps impute`
+## Start with imputation `--steps impute`
+
+<img src="images/metro/Impute.png" alt="Impute target" width="600"/>
 
 For starting from the imputation steps, the required flags are:
 
@@ -284,26 +280,27 @@ Here is a representation on how the input files will be processed depending on t
 
 The `--batch_size` argument is used to specify the number of samples to be processed at once. This is useful when the number of samples is large and the memory is limited. The default value is 100 but it might need to be adapted to the size of each individuals data, the number of samples to be processed in parallel and the available memory.
 
-Imputation softwares algorithm are time consuming. The computational load depend on the number of individuals, the region size and the panel size. [Some steps are computationally fixed](https://doi.org/10.1038/s41588-023-01438-3), meaning they run similarly whether you are imputing 2 individuals or 200. By grouping individuals into larger batches, these fixed-cost steps are shared among more samples, reducing the per-individual computational overhead and improving overall efficiency. This step is recommended
-On the other hand we also need to limit the memory usage when working with a huge amount of individuals within a process.
-Hence the necessity to use a batch_size large enough to reduce the fixed-cost stepts / individuals and not to large for the memory usage to be sustainable.
+Imputation software algorithms are time-consuming, with computational load dependent on the number of individuals, region size, and panel size. [Some steps have fixed computational costs](https://doi.org/10.1038/s41588-023-01438-3), meaning they take a similar amount of time whether imputing 2 or 200 individuals. By grouping individuals into larger batches, these fixed-cost steps are shared among more samples, reducing per-individual computational overhead and improving overall efficiency. However, memory usage must also be managed carefully when processing a large number of individuals within a single batch. Therefore, it is crucial to select a `batch_size` that is large enough to minimize fixed costs per individual but not so large that memory usage becomes unsustainable.
 
-When the number of samples exceeds the batch size, the pipeline will split the samples into batches and process them sequentially. The files used in each batch are stored in the `${outputdir}/imputation/batch` folder.
-[STITCH](#stitch) and [GLIMPSE1](#glimpse1) do not support a batch size inferior to the number of samples. This limit is set up to not induce batch effect in the imputation process, as this two tools take into account the information of the target file to perform the imputation. This does on the other hand enhances the accuracy of phasing and imputation, as the target individuals might provide more informative genetic context (e.g. you have related individuals in the target).
+When the number of samples exceeds the batch size, the pipeline will split the samples into batches and process them sequentially. The files for each batch are stored in the `${outputdir}/imputation/batch` folder.
+
+[STITCH](#stitch) and [GLIMPSE1](#glimpse1) do not support a batch size smaller than the total number of samples. This limit is set to prevent batch effects in the imputation process, as these tools rely on the genetic information from the entire target file to perform imputation. This approach, however, enhances the accuracy of phasing and imputation, as target individuals may provide a more informative genetic context (e.g., when related individuals are present in the target).
+
+> [!NOTE]
+> If you want to disable this option and run each sample separately you can set `--batch_size 1`
 
 To summarize:
 
-- If you have Variant Calling Format file you should join them in one and choose either GLIMPSE1 or GLIMPSE2
-- If you have alignment files all the tools are available and their will be processed in batch_size
-  - Glimpse1 and Stitch might induce batch effect so all the samples need to be imputed together
-  - Glimpse2 and Quilt can process the samples in different batches
-- If you want to disable this option and run each sample separately you can set `--batch_size 1`
+- If you have Variant Calling Format (VCF) files, join them into a single file and choose either GLIMPSE1 or GLIMPSE2.
+- If you have alignment files (e.g., BAM or CRAM), all tools are available, and processing will occur in `batch_size`:
+  - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
+  - GLIMPSE2 and QUILT can process samples in separate batches.
 
-#### Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
+## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
-##### QUILT
+### QUILT
 
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a csv file with the genomic chunks (`--chunks`).
 
@@ -319,14 +316,14 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-The csv provided in `--posfile` must contain at least four columns [panel, chr, hap, legend]. The first column is the name of the panel, the second is the chromosome, then the hap and legend files produced by `--steps panelprep` unique to each chromosome. The hap and legend files are mandatory to use QUILT.
+The csv provided in `--posfile` has been described before and is produced by `--steps panelprep`. The hap and legend files in this csv are mandatory to use QUILT.
 
 ```console title="posfile.csv"
 panel,chr,hap,legend
 1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
 ```
 
-The csv provided in `--chunks` must contain two columns [chr, file]. The first column is the chromosome and the file column are txt with the chunks produced by GLIMPSE1, unique to each chromosome.
+The csv provided in `--chunks` has been described before in this document and is necessary to run this tool.
 
 ```console title="chunks.csv"
 panel,chr,file
@@ -350,7 +347,7 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-##### STITCH
+### STITCH
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`). See [Posfile section](#samplesheet-posfile) for more information.
 
@@ -395,7 +392,7 @@ bcftools view -G -m 2 -M 2 -v ${vcf}
 bcftools convert --haplegendsample ${vcf}
 ```
 
-##### GLIMPSE1
+### GLIMPSE1
 
 [GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels. Glimpse1 works with alignment (i.e. BAM or CRAM) as well as variant (i.e. VCF or BCF) files as input. This is an example command to run this tool from the `--steps impute`:
 
@@ -421,7 +418,7 @@ panel,chr,legend
 
 The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].
 
-##### GLIMPSE2
+### GLIMPSE2
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
 
@@ -439,9 +436,11 @@ nextflow run nf-core/phaseimpute \
 
 Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
 
-### Start with validation `--steps validate`
+## Start with validation `--steps validate`
 
-This steps compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
+<img src="images/metro/Validate.png" alt="concordance_metro" width="600"/>
+
+This step compares a _truth_ VCF to an _imputed_ VCF in order to compute imputation accuracy.
 This also needs the frequency of the alleles. They can be computed from the reference panel by running the `--steps panelprep` and using the `--panel` with the `--compute_freq` flag ; or by using `--posfile samplesheet.csv`.
 
 ```bash
@@ -471,7 +470,7 @@ panel,chr,vcf,index
 1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.csi
 ```
 
-### Run all steps sequentially `--steps all`
+## Run all steps sequentially `--steps all`
 
 This mode runs all the previous steps. This requires several flags:
 
@@ -485,6 +484,14 @@ This mode runs all the previous steps. This requires several flags:
 - `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.
   This can also accept `bam` or `cram` files as input but will need the additional `legend` file in the `--posfile` to call the variants.
   The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
+
+### Contig Name Validation and QC
+
+The first step of the pipeline is to validate the consistency of contig names across all input files. Since the pipeline parallelizes the imputation process by contig, it needs to ensure that the contigs are consistently defined across several files. This step uses either the `--regions` samplesheet or the `.fai` file to identify the genomic regions to process.
+
+However, some contigs specified in these files may be absent from other key files, such as the `--panel`, `--posfile`, `--chunks`, `--map` (column `chr`), or `--fasta`. When this happens, the pipeline generates a warning to notify you of the missing contigs. It then narrows down the process to only the contigs that are **common across all required files**.
+
+Finally, the pipeline performs a detailed check with the `CHECKCHR` tool to verify that these contigs are present in every `--input` and `--input_truth` file, as well as in the individual reference panel files. This prevents inconsistencies in downstream steps.
 
 ### Updating the pipeline
 
@@ -581,7 +588,7 @@ A pipeline might not always support every possible argument or option of a parti
 
 One of the parameters that you might want to modify could be specific to each imputation software. As an example, running the pipeline, you may encounter that to reduce the impact of individual reads (for example in QUILT), you might need to lower coverage. This can be achieved by including any modification to a Nextflow process as an external argument using `ext.args`. You would customize the run by providing:
 
-```
+```groovy
 process {
   withName:'NFCORE_PHASEIMPUTE:PHASEIMPUTE:BAM_IMPUTE_QUILT:QUILT_QUILT' {
     ext.args = "--downsampleToCov=1"

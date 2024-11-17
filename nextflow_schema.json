@@ -38,8 +38,7 @@
                 },
                 "rename_chr": {
                     "type": "boolean",
-                    "description": "Should the panel vcf files be renamed to match the reference genome (e.g. 'chr1' -> '1')",
-                    "pattern": "true|false"
+                    "description": "Should the panel VCF files be renamed to match the reference genome (e.g. 'chr1' -> '1')"
                 },
                 "max_chr_names": {
                     "type": "integer",
@@ -49,7 +48,8 @@
                 },
                 "remove_samples": {
                     "type": "string",
-                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes."
+                    "description": "Comma-separated list of samples to remove from the reference panel. Useful for benchmarking purposes.",
+                    "pattern": "^([a-zA-Z0-9]+)(,[a-zA-Z0-9]+)*$"
                 },
                 "email": {
                     "type": "string",
@@ -126,8 +126,7 @@
                 },
                 "compute_freq": {
                     "description": "Should the allele frequency for each variant (AC/AN fields necessary for Glimpse1 and the validation step) be computed using VCFFIXUP tool. This can be necessary if the fields are absent from the panel or if samples have been removed.",
-                    "type": "boolean",
-                    "pattern": "true|false"
+                    "type": "boolean"
                 },
                 "binaryref": {
                     "type": "string",
@@ -151,8 +150,7 @@
                 "batch_size": {
                     "type": "integer",
                     "description": "Maximal number of individuals per batch for imputation.",
-                    "default": 100,
-                    "pattern": "^\\d+$"
+                    "default": 100
                 },
                 "chunks": {
                     "type": "string",
@@ -195,9 +193,10 @@
                 },
                 "min_val_gl": {
                     "type": "number",
-                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter of if using gt-validation",
+                    "description": "Minimum genotype likelihood probability P(G|R) in validation data. Set to zero to have no filter, if using gt-validation",
                     "default": 0.9,
-                    "pattern": "^\\d+(\\.\\d+)?$"
+                    "pattern": "^\\d+(\\.\\d+)?$",
+                    "minimum": 0
                 },
                 "min_val_dp": {
                     "type": "integer",
