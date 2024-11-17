@@ -185,7 +185,7 @@
                 "validation/stats/NA12878_SNP.txt",
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
                 "validation/stats/NA19401_SNP.txt",
-                "validation/stats/NA20359.truth.bcftools_stats.txt"
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
                 "validation/stats/NA20359_SNP.txt"
             ]
         ],
