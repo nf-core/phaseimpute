@@ -148,6 +148,7 @@ The results from `--steps validate` will have the following directory structure:
   - `stats/`:
     - `*.truth.bcftools_stats.txt`: The statistics of the truth VCF target file.
     - `*.P<panel name>_T<imputation tool>_SNP.txt`: Output of the `GLIMPSE2_CONCORDANCE` process with the concordance metrics for all SNP variants.
+    - `AllSamples.txt`: Aggregated concordance metrics across samples and tools.
 
 </details>
 
