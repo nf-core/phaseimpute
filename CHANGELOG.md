@@ -6,13 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v1.0.0 - Black Labrador [2024-10-28]
 
 Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co.re/) template.
-Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazzalab](https://github.com/mazzalab) for the review of this release.
 
 ### `Added`
 
-- [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs for the reference panel and automatic renaming available.
+- [#20](https://github.com/nf-core/phaseimpute/pull/20) - Added automatic detection of vcf contigs for the reference panel and automatic renaming available
 - [#22](https://github.com/nf-core/phaseimpute/pull/20) - Add validation step for concordance analysis. Input channels changed to match inputs steps. Outdir folder organised by steps. Modules config by subworkflows.
-- [#26](https://github.com/nf-core/phaseimpute/pull/26) - Added QUILT method.
+- [#26](https://github.com/nf-core/phaseimpute/pull/26) - Added QUILT method
 - [#47](https://github.com/nf-core/phaseimpute/pull/47) - Add possibility to remove samples from reference panel. Add glimpse2 chunking method. Add full-size test parameters.
 - [#58](https://github.com/nf-core/phaseimpute/pull/58) - Add external params posfile and chunks. Add glimpse2 phasing and imputation.
 - [#67](https://github.com/nf-core/phaseimpute/pull/67) - Export CSVs from each step.
@@ -21,29 +20,33 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Add dog panel test.
 - [#119](https://github.com/nf-core/phaseimpute/pull/119) - Add dog test with panelprep and imputation.
 - [#118](https://github.com/nf-core/phaseimpute/pull/118) - Explain how to customize arguments in the pipeline.
-- [#111](https://github.com/nf-core/phaseimpute/pull/111) - Add nf-test for all subworkflow, workflow, modules and functions.
+- [#111](https://github.com/nf-core/phaseimpute/pull/111) - Add nf-test for all sbwf, wf, modules and functions.
 - [#131](https://github.com/nf-core/phaseimpute/pull/131) - Set normalisation as optional. Fix extension detection function. Add support for validation with vcf files. Concatenate vcf only if more than one file. Change `--phased` to `--phase` for consistency.
 - [#143](https://github.com/nf-core/phaseimpute/pull/143) - Improve contigs warning and error logging. The number of chromosomes contigs is summarized if above `max_chr_names`.
-- [#146](https://github.com/nf-core/phaseimpute/pull/146) - Add `seed` parameter for `QUILT`.
+- [#146](https://github.com/nf-core/phaseimpute/pull/146) - Add `seed` parameter for `QUILT`
 
 ### `Changed`
 
-- [#18](https://github.com/nf-core/phaseimpute/pull/18) - Maps and region by chromosome. Update tests config files. Correct meta map propagation. `test_impute` and `test_sim` works.
+- [#18](https://github.com/nf-core/phaseimpute/pull/18)
+  - Maps and region by chromosome
+  - update tests config files
+  - correct meta map propagation
+  - Test impute and test sim works
 - [#19](https://github.com/nf-core/phaseimpute/pull/19) - Changed reference panel to accept a csv, update modules and subworkflows (glimpse1/2 and shapeit5)
-- [#40](https://github.com/nf-core/phaseimpute/pull/40) - Add `STITCH` method. Reorganize panelprep subworkflows.
-- [#51](https://github.com/nf-core/phaseimpute/pull/51) - Update all process and fix linting errors. Remove `FASTQC` added by the template.
+- [#40](https://github.com/nf-core/phaseimpute/pull/40) - Add STITCH method. Reorganize panelprep subworkflows.
+- [#51](https://github.com/nf-core/phaseimpute/pull/51) - Update all process and fix linting errors. Remove fastqc added by the template.
 - [#56](https://github.com/nf-core/phaseimpute/pull/56) - Move to nf-test to check the output files names generated. Fix validation and concatenation by chromosomes missing. Add dedicated GLIMPSE1 subworkflow. Fix posfile generation to be done once for glimpse and stitch.
-- [#68](https://github.com/nf-core/phaseimpute/pull/68) - `QUILT` can handle external params chunks and hap-legend files.
+- [#68](https://github.com/nf-core/phaseimpute/pull/68) - QUILT can handle external params chunks and hap-legend files.
 - [#78](https://github.com/nf-core/phaseimpute/pull/78) - Separate validate step from panel preparation.
-- [#84](https://github.com/nf-core/phaseimpute/pull/84) - Change depth computation to use `SAMTOOLS_DEPTH` and make separation by chromosome only if regions are specified.
+- [#84](https://github.com/nf-core/phaseimpute/pull/84) - Change depth computation to use SAMTOOLS_DEPTH and make separation by chromosome only if regions are specified.
 - [#85](https://github.com/nf-core/phaseimpute/pull/85) - Use external params in individual tests for tools.
-- [#86](https://github.com/nf-core/phaseimpute/pull/86) - Move `BCFTOOLS_CONVERT` to `VCF_SITES_EXTRACT_BCFTOOLS`.
-- [#88](https://github.com/nf-core/phaseimpute/pull/88) - Improve multiQC report with more information.
+- [#86](https://github.com/nf-core/phaseimpute/pull/86) - Move `bcftools_convert` to `vcf_sites_extract_bcftools`.
+- [#88](https://github.com/nf-core/phaseimpute/pull/88) - Improve multiqc report with more information.
 - [#91](https://github.com/nf-core/phaseimpute/pull/91) - Update metro map with all steps and remove deprecated ones.
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Add support for CRAM file.
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Check contigs name at workflow level for BAM and VCF.
-- [#93](https://github.com/nf-core/phaseimpute/pull/93) - Samples remove with multi-allelics records.
-- [#93](https://github.com/nf-core/phaseimpute/pull/93) - Samtools merge in `BAM_REGION` subworkflow.
+- [#93](https://github.com/nf-core/phaseimpute/pull/93) - Samples remove with multiallelics records.
+- [#93](https://github.com/nf-core/phaseimpute/pull/93) - Samtools merge in BAM_REGION sbwf.
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Fix glimpse2_phase output file names.
 - [#93](https://github.com/nf-core/phaseimpute/pull/93) - Fix fai combination to fasta.
 - [#96](https://github.com/nf-core/phaseimpute/pull/96) - Simplify csv export
@@ -53,13 +56,13 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Compute chr name from whole vcf.
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Only warn the user if some contigs are absent from files, the regions to compute is now the intersection of regions, panel, posfile, chunks, map.
 - [#102](https://github.com/nf-core/phaseimpute/pull/102) - Update all test and recompute snapshot to match new version of the phaseimpute test dataset.
-- [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update `GLIMPSE2_PHASE`, `GUNZIP` and `MULTIQC`
-- [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of 100 individuals by default using `--batch_size` parameter. All individuals BAM files are gathered and VCF are allowed for `GLIMPSE1` and `GLIMPSE2`. Channel preprocessing of stitch is done in stitch subworkflow. Genotype likelihood computation for `GLIMPSE1` is now done outside of the subworkflow and merge the resulting vcf with all the samples. New test added to check batch separation. Improve `usage.md` documentation. Add validation to initialization of the pipeline to ensure compatibility between tools, steps and the files provided by the user.
-- [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules.
-- [#146](https://github.com/nf-core/phaseimpute/pull/146) - Remove conda CI check for PR due to Nextflow error.
-- [#144](https://github.com/nf-core/phaseimpute/pull/144) - Documentation updates.
-- [#148](https://github.com/nf-core/phaseimpute/pull/148) - Fix AWS fulltest github action for manual dispatch.
-- [#149](https://github.com/nf-core/phaseimpute/pull/149) - Remove the map file from the AWS fulltest.
+- [#103](https://github.com/nf-core/phaseimpute/pull/103) - Update Glimpse2 phase, gunzip and multiqc
+- [#135](https://github.com/nf-core/phaseimpute/pull/135) - Impute by batch of 100 individuals by default using `--batch_size` parameter. All individuals BAM files are gathered and VCF are allowed for glimpse1 and glimpse2. Channel preprocessing of stitch is done in stitch subworkflow. Genotype likelihood computation for glimpse1 is now done outside of the subworkflow and merge the resulting vcf with all the samples. New test added to check batch separation. Improve `usage.md` documentation. Add validation to initialisation of the pipeline to ensure compatibility between tools, steps and the files provided by the user.
+- [#139](https://github.com/nf-core/phaseimpute/pull/139) - Update all nf-core modules
+- [#146](https://github.com/nf-core/phaseimpute/pull/146) - Remove conda CI check for PR due to nextflow error
+- [#144](https://github.com/nf-core/phaseimpute/pull/144) - Documentation updates
+- [#148](https://github.com/nf-core/phaseimpute/pull/148) - Fix awsfulltest github action for manual dispatch
+- [#149](https://github.com/nf-core/phaseimpute/pull/149) - Remove the map file from the awsfulltest
 - [#152](https://github.com/nf-core/phaseimpute/pull/152) - Fix URLs in the documentation and remove tools citation in the README, use a white background for all images in the documentation.
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Update and simplify subworkflows snapshot and check only for files names (no md5sum for bam and vcf files due to timestamp).
 - [#157](https://github.com/nf-core/phaseimpute/pull/157) - Add `chunk_model` as parameter for better control over `GLIMPSE2_CHUNK` and set window size in `GLIMPSE1_CHUNK` and `GLIMPSE2_chunk` to 4mb to reduce number of chunks (empirical).
@@ -67,43 +70,25 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 
 ### `Fixed`
 
-- [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository.
-- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed `outdir` from test config files.
-- [#65](https://github.com/nf-core/phaseimpute/pull/65) - Separate stitch output by individuals.
-- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with `VCFFIXUP` process as optional with `--compute_freq`. Use `GLIMPSE_CHUNK` on panel vcf to compute the chunk and not makewindows on fasta.
+- [#15](https://github.com/nf-core/phaseimpute/pull/15) - Changed test csv files to point to nf-core repository
+- [#16](https://github.com/nf-core/phaseimpute/pull/16) - Removed outdir from test config files
+- [#65](https://github.com/nf-core/phaseimpute/pull/65) - Separate stitch output by individuals
+- [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with VCFFIXUP process as optional with `--compute_freq`. Use Glimpse_chunk on panel vcf to compute the chunk and not makewindows on fasta.
 - [#117](https://github.com/nf-core/phaseimpute/pull/117) - Fix directories in CSV.
 - [#151](https://github.com/nf-core/phaseimpute/pull/151) - Fix `Type not supported: class org.codehaus.groovy.runtime.GStringImpl` error due to `String` test in `getFileExtension()`.
-- [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necessary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
-- [#158](https://github.com/nf-core/phaseimpute/pull/158) - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed). Fix `multiQC` samples names for better comprehension. Fix `-resume` errors when `ch_fasta` is use by adding `cache = 'lenient'` in necessary processes. Fix `BCFTOOLS_PLUGINSPLIT` in edge case with only one sample. Fix `--window-size` of `GLIMPSE_CHUNK` from `4` to `4000000`.
+- [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necesary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
+- [#158](https://github.com/nf-core/phaseimpute/pull/158) - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed). Fix `multiQC` samples names for better comprehension. Fix `BCFTOOLS_PLUGINSPLIT` in edge case with only one sample.
 
 ### `Dependencies`
-
-| Dependency    | New version |
-| ------------- | ----------- |
-| `bcftools`    | 1.20        |
-| `bedtools`    | 2.31.1      |
-| `gawk`        | 5.3.0       |
-| `glimpse-bio` | 1.1.1       |
-| `glimpse-bio` | 2.0.1       |
-| `gunzip`      | 1.10        |
-| `htslib`      | 1.21        |
-| `multiqc`     | 1.25.1      |
-| `r-quilt`     | 1.0.5       |
-| `r-stitch`    | 1.6.10      |
-| `samtools`    | 1.21        |
-| `shapeit5`    | 1.0.0       |
-| `tabix`       | 1.11        |
-| `vcflib`      | 1.0.3       |
 
 ### `Deprecated`
 
 ### `Contributors`
 
-[Louis Le Nézet](https://github.com/LouisLeNezet)
+[Louis Le Nezet](https://github.com/LouisLeNezet)
 [Anabella Trigila](https://github.com/atrigila)
 [Eugenia Fontecha](https://github.com/eugeniafontecha)
 [Maxime U Garcia](https://github.com/maxulysse)
 [Matias Romero Victorica](https://github.com/mrvictorica)
 [Nicolas Schcolnicov](https://github.com/nschcolnicov)
 [Hemanoel Passarelli](https://github.com/hemanoel)
-[Matthias Hörtenhuber](https://github.com/mashehu)
