@@ -15,9 +15,9 @@ process BCFTOOLS_PLUGINSPLIT {
     path(targets)
 
     output:
-    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
-    tuple val(meta), path("*.tbi")                    , emit: tbi, optional: true
-    tuple val(meta), path("*.csi")                    , emit: csi, optional: true
+    tuple val(meta), path("*/*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta), path("*/*.tbi")                    , emit: tbi, optional: true
+    tuple val(meta), path("*/*.csi")                    , emit: csi, optional: true
     path "versions.yml"                               , emit: versions
 
     when:
@@ -57,7 +57,7 @@ process BCFTOOLS_PLUGINSPLIT {
         extension="\${base_name#\${name_before_dot}}"
         # Construct the new name
         new_name="\${name_before_dot}${suffix}\${extension}"
-        mv "\$file" "./\$new_name"
+        mv "\$file" "${prefix}/\$new_name"
     done
 
     cat <<-END_VERSIONS > versions.yml
