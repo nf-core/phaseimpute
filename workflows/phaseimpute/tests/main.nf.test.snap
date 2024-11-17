@@ -33,12 +33,12 @@
     "Check test_all": {
         "content": [
             [
-                "simulation/NA12878_depth_1x.bam",
-                "simulation/NA12878_depth_1x.bam.csi",
-                "simulation/NA19401_depth_1x.bam",
-                "simulation/NA19401_depth_1x.bam.csi",
-                "simulation/NA20359_depth_1x.bam",
-                "simulation/NA20359_depth_1x.bam.csi",
+                "simulation/samples/NA12878_depth_1x.bam",
+                "simulation/samples/NA12878_depth_1x.bam.csi",
+                "simulation/samples/NA19401_depth_1x.bam",
+                "simulation/samples/NA19401_depth_1x.bam.csi",
+                "simulation/samples/NA20359_depth_1x.bam",
+                "simulation/samples/NA20359_depth_1x.bam.csi",
                 "simulation/csv/simulate.csv"
             ],
             [
@@ -307,12 +307,12 @@
     "Check test_sim": {
         "content": [
             [
-                "simulation/NA12878_depth_1x.bam",
-                "simulation/NA12878_depth_1x.bam.csi",
-                "simulation/NA19401_depth_1x.bam",
-                "simulation/NA19401_depth_1x.bam.csi",
-                "simulation/NA20359_depth_1x.bam",
-                "simulation/NA20359_depth_1x.bam.csi",
+                "simulation/samples/NA12878_depth_1x.bam",
+                "simulation/samples/NA12878_depth_1x.bam.csi",
+                "simulation/samples/NA19401_depth_1x.bam",
+                "simulation/samples/NA19401_depth_1x.bam.csi",
+                "simulation/samples/NA20359_depth_1x.bam",
+                "simulation/samples/NA20359_depth_1x.bam.csi",
                 "simulation/csv/simulate.csv"
             ]
         ],

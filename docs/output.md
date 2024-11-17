@@ -103,16 +103,27 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 The results from `--steps impute` will have the following directory structure:
 
+```tree
+├── batch
+├── csv
+├── glimpse1/glimpse2/quilt/stitch
+│   ├── concat/
+│   └── samples/
+├── stats
+```
+
 <details markdown="1">
 <summary>Output files</summary>
 
+- `imputation/batch/all.batchi.id.txt`: List of samples names processed in the i^th^ batch.
 - `imputation/csv/`
   - `impute.csv`: A single csv containing the path to a VCF and its index, of each imputed sample with their corresponding tool.
 - `imputation/[glimpse1,glimpse2,quilt,stitch]/`
-  - `concat/all.batch*.vcf.gz`: The concatenate vcf of all imputed samples by batches.
-  - `concat/all.batch*.vcf.gz.tbi`: A tbi for the concatenated samples imputed vcf.
-  - `samples/*.vcf.gz`: A vcf of each imputed sample.
-  - `samples/*.vcf.gz.tbi`: A tbi for the imputed vcf.
+  - `concat/all.batch*.vcf.gz`: The concatenate VCF of all imputed samples by batches.
+  - `concat/all.batch*.vcf.gz.tbi`: A tbi for the concatenated samples imputed VCF.
+  - `samples/*.vcf.gz`: A VCF of each imputed sample.
+  - `samples/*.vcf.gz.tbi`: A tbi for the imputed VCF.
+- `imputation/*.<tool>.bcftools_stats.txt`: The statistics of the imputed VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
 
 </details>
 
@@ -122,12 +133,17 @@ The results from `--steps impute` will have the following directory structure:
 
 The results from `--steps simulate` will have the following directory structure:
 
+```tree
+├── csv
+├── samples
+```
+
 <details markdown="1">
 <summary>Output files</summary>
 
 - `simulation/`
   - `csv`:
-    - `simulate.csv`: Samplesheet listing all downsampled target alignement files.
+    - `simulate.csv`: Samplesheet listing all downsampled target alignment files.
   - `*.depth_*x.bam`: An alignment file from the target file down-sampled at the desired depth.
   - `*.bam.csi`: The corresponding index of the alignment file.
 
@@ -137,18 +153,24 @@ The results from `--steps simulate` will have the following directory structure:
 
 The results from `--steps validate` will have the following directory structure:
 
+```tree
+├── concat
+├── samples
+├── stats
+```
+
 <details markdown="1">
 <summary>Output files</summary>
 
 - `validation/`
-  - `concat/all.truth.vcf.gz`: The concatenate vcf of all truth sample.
-  - `concat/all.truth.vcf.gz.tbi`: A tbi for the concatenated samples truth vcf.
-  - `samples/*.vcf.gz`: A vcf of each truth sample.
-  - `samples/*.vcf.gz.tbi`: A tbi for the truth vcf.
+  - `concat/all.truth.vcf.gz`: The concatenate VCF of all truth sample.
+  - `concat/all.truth.vcf.gz.tbi`: A tbi for the concatenated samples truth VCF.
+  - `samples/*.vcf.gz`: A VCF of each truth sample.
+  - `samples/*.vcf.gz.tbi`: A tbi for the truth VCF.
   - `stats/`:
-    - `*.truth.bcftools_stats.txt`: The statistics of the truth VCF target file.
-    - `*.P<panel name>_T<imputation tool>_SNP.txt`: Output of the `GLIMPSE2_CONCORDANCE` process with the concordance metrics for all SNP variants.
-    - `AllSamples.txt`: Aggregated concordance metrics across samples and tools.
+    - `*.truth.bcftools_stats.txt`: The statistics of the truth VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
+    - `*.P<panel name>_T<imputation tool>_SNP.txt`: Concordance metrics of the SNP variants obtained with [`GLIMPSE2_CONCORDANCE`](https://odelaneau.github.io/GLIMPSE/docs/documentation/concordance/).
+    - `AllSamples.txt`: Aggregation of the above `GLIMPSE_CONCORDANCE` output across samples and tools.
 
 </details>
 
