@@ -142,7 +142,7 @@ workflow PHASEIMPUTE {
         // Create CSV from simulate step
         exportCsv(
             ch_input_impute.map{ meta, file, index ->
-                [meta, [2:"simulation", 3:"simulation"], file, index]
+                [meta, [2:"simulation/samples", 3:"simulation/samples"], file, index]
             },
             ["id"], "sample,file,index",
             "simulate.csv", "simulation/csv"

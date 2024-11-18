@@ -33,13 +33,13 @@
     "Check test_all": {
         "content": [
             [
-                "simulation/NA12878_depth_1x.bam",
-                "simulation/NA12878_depth_1x.bam.csi",
-                "simulation/NA19401_depth_1x.bam",
-                "simulation/NA19401_depth_1x.bam.csi",
-                "simulation/NA20359_depth_1x.bam",
-                "simulation/NA20359_depth_1x.bam.csi",
-                "simulation/csv/simulate.csv"
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ],
             [
                 "imputation/batch/all.0.id.txt",
@@ -115,19 +115,6 @@
                 "prep_panel/stats/1000GP.panel.bcftools_stats.txt"
             ],
             [
-                "validation/NA12878_P1000GP_Tglimpse1_SNP.txt",
-                "validation/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                "validation/NA12878_P1000GP_Tquilt_SNP.txt",
-                "validation/NA12878_P1000GP_Tstitch_SNP.txt",
-                "validation/NA19401_P1000GP_Tglimpse1_SNP.txt",
-                "validation/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                "validation/NA19401_P1000GP_Tquilt_SNP.txt",
-                "validation/NA19401_P1000GP_Tstitch_SNP.txt",
-                "validation/NA20359_P1000GP_Tglimpse1_SNP.txt",
-                "validation/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                "validation/NA20359_P1000GP_Tquilt_SNP.txt",
-                "validation/NA20359_P1000GP_Tstitch_SNP.txt",
-                "validation/TestQuality.txt",
                 "validation/concat/all.A-truth.vcf.gz",
                 "validation/concat/all.A-truth.vcf.gz.tbi",
                 "validation/samples/NA12878.vcf.gz",
@@ -139,6 +126,22 @@
                 "validation/stats/NA12878.bcftools_stats.txt",
                 "validation/stats/NA19401.bcftools_stats.txt",
                 "validation/stats/NA20359.bcftools_stats.txt"
+                "validation/stats/AllSamples.txt",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tstitch_SNP.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA19401_P1000GP_Tglimpse1_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tstitch_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -166,10 +169,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-10-25T19:20:40.899116746"
+        "timestamp": "2024-11-17T21:32:08.538026091"
     },
     "Check test_validate": {
         "content": [
@@ -187,6 +190,19 @@
                 "validation/stats/NA12878.bcftools_stats.txt",
                 "validation/stats/NA19401.bcftools_stats.txt",
                 "validation/stats/NA20359.bcftools_stats.txt"
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_SNP.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA19401_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_SNP.txt"
             ]
         ],
         "meta": {
@@ -265,6 +281,22 @@
                 "validation/stats/NA12878.bcftools_stats.txt",
                 "validation/stats/NA19401.bcftools_stats.txt",
                 "validation/stats/NA20359.bcftools_stats.txt"
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt"
             ]
         ],
         "meta": {
@@ -307,20 +339,20 @@
     "Check test_sim": {
         "content": [
             [
-                "simulation/NA12878_depth_1x.bam",
-                "simulation/NA12878_depth_1x.bam.csi",
-                "simulation/NA19401_depth_1x.bam",
-                "simulation/NA19401_depth_1x.bam.csi",
-                "simulation/NA20359_depth_1x.bam",
-                "simulation/NA20359_depth_1x.bam.csi",
-                "simulation/csv/simulate.csv"
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
         },
-        "timestamp": "2024-07-11T18:31:15.202789733"
+        "timestamp": "2024-11-17T21:35:03.693487008"
     },
     "Check test_panelprep": {
         "content": [
