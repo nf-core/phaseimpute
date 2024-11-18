@@ -168,7 +168,7 @@ The results from `--steps validate` will have the following directory structure:
   - `samples/*.vcf.gz`: A VCF of each truth sample.
   - `samples/*.vcf.gz.tbi`: A tbi for the truth VCF.
   - `stats/`:
-    - `*.truth.bcftools_stats.txt`: The statistics of the truth VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
+    - `*.bcftools_stats.txt`: The statistics of the truth VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
     - `*.P<panel name>_T<imputation tool>_SNP.txt`: Concordance metrics of the SNP variants obtained with [`GLIMPSE2_CONCORDANCE`](https://odelaneau.github.io/GLIMPSE/docs/documentation/concordance/).
     - `AllSamples.txt`: Aggregation of the above `GLIMPSE_CONCORDANCE` output across samples and tools.
 

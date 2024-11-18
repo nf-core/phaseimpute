@@ -123,9 +123,6 @@
                 "validation/samples/NA19401.vcf.gz.tbi",
                 "validation/samples/NA20359.vcf.gz",
                 "validation/samples/NA20359.vcf.gz.tbi",
-                "validation/stats/NA12878.bcftools_stats.txt",
-                "validation/stats/NA19401.bcftools_stats.txt",
-                "validation/stats/NA20359.bcftools_stats.txt"
                 "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
@@ -172,30 +169,17 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-17T21:32:08.538026091"
+        "timestamp": "2024-11-18T23:36:12.634065627"
     },
     "Check test_validate": {
         "content": [
             [
-                "validation/NA12878_SNP.txt",
-                "validation/NA19401_SNP.txt",
-                "validation/NA20359_SNP.txt",
-                "validation/TestQuality.txt",
                 "validation/samples/NA12878.vcf.gz",
                 "validation/samples/NA12878.vcf.gz.tbi",
                 "validation/samples/NA19401.vcf.gz",
                 "validation/samples/NA19401.vcf.gz.tbi",
                 "validation/samples/NA20359.vcf.gz",
                 "validation/samples/NA20359.vcf.gz.tbi",
-                "validation/stats/NA12878.bcftools_stats.txt",
-                "validation/stats/NA19401.bcftools_stats.txt",
-                "validation/stats/NA20359.bcftools_stats.txt"
-                "validation/samples/NA12878.truth.vcf.gz",
-                "validation/samples/NA12878.truth.vcf.gz.tbi",
-                "validation/samples/NA19401.truth.vcf.gz",
-                "validation/samples/NA19401.truth.vcf.gz.tbi",
-                "validation/samples/NA20359.truth.vcf.gz",
-                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_SNP.txt",
@@ -209,7 +193,7 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T21:16:53.209347713"
+        "timestamp": "2024-11-18T23:30:21.177496237"
     },
     "Check test_batch": {
         "content": [
@@ -265,28 +249,12 @@
                 "NA20359"
             ],
             [
-                "validation/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                "validation/NA12878_P1000GP_Tquilt_SNP.txt",
-                "validation/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                "validation/NA19401_P1000GP_Tquilt_SNP.txt",
-                "validation/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                "validation/NA20359_P1000GP_Tquilt_SNP.txt",
-                "validation/TestQuality.txt",
                 "validation/samples/NA12878.vcf.gz",
                 "validation/samples/NA12878.vcf.gz.tbi",
                 "validation/samples/NA19401.vcf.gz",
                 "validation/samples/NA19401.vcf.gz.tbi",
                 "validation/samples/NA20359.vcf.gz",
                 "validation/samples/NA20359.vcf.gz.tbi",
-                "validation/stats/NA12878.bcftools_stats.txt",
-                "validation/stats/NA19401.bcftools_stats.txt",
-                "validation/stats/NA20359.bcftools_stats.txt"
-                "validation/samples/NA12878.truth.vcf.gz",
-                "validation/samples/NA12878.truth.vcf.gz.tbi",
-                "validation/samples/NA19401.truth.vcf.gz",
-                "validation/samples/NA19401.truth.vcf.gz.tbi",
-                "validation/samples/NA20359.truth.vcf.gz",
-                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
@@ -303,7 +271,7 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-06T21:03:44.505303287"
+        "timestamp": "2024-11-18T23:47:48.301571495"
     },
     "Check test_quilt": {
         "content": [
