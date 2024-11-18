@@ -15,9 +15,9 @@ process BCFTOOLS_PLUGINSPLIT {
     path(targets)
 
     output:
-    tuple val(meta), path("*/*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
-    tuple val(meta), path("*/*.tbi")                    , emit: tbi, optional: true
-    tuple val(meta), path("*/*.csi")                    , emit: csi, optional: true
+    tuple val(meta), path("outputDir/*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta), path("outputDir/*.tbi")                    , emit: tbi, optional: true
+    tuple val(meta), path("outputDir/*.csi")                    , emit: csi, optional: true
     path "versions.yml"                                 , emit: versions
 
     when:
@@ -25,8 +25,9 @@ process BCFTOOLS_PLUGINSPLIT {
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-    def suffix = task.ext.suffix ?: ""
+    // Here the default prefix is an empty string as the filename is created by the plugin
+    // and the prefix is instead added to the output files in the script
+    def prefix = task.ext.prefix ?: ""
 
     def samples_arg = samples ? "--samples-file ${samples}" : ""
     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
@@ -41,22 +42,11 @@ process BCFTOOLS_PLUGINSPLIT {
         ${groups_arg} \\
         ${regions_arg} \\
         ${targets_arg} \\
-        --output ${prefix}
+        --output outputDir
 
-    if [ -n "${suffix}" ]; then
-        for file in ${prefix}/*; do
-            # Extract the basename
-            base_name=\$(basename "\$file")
-            # Extract the extension
-            extension=""
-            # Remove the extension if it exists
-            if [[ "\$base_name" =~ \\.(vcf|bcf)(\\.gz)?(\\.tbi|\\.csi)?\$ ]]; then
-                extension="\${BASH_REMATCH[0]}"
-                base_name="\${base_name%\$extension}"
-            fi
-            # Construct the new name
-            new_name="\${base_name}${suffix}\${extension}"
-            mv "\$file" "${prefix}/\$new_name"
+    if [ -n "${prefix}" ]; then
+        for file in outputDir/*; do
+            mv \$file outputDir/${prefix}\${file##*/}
         done
     fi
 
@@ -68,8 +58,7 @@ process BCFTOOLS_PLUGINSPLIT {
 
     stub:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-    def suffix = task.ext.suffix ?: ""
+    def prefix = task.ext.prefix ?: ""
 
     def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
                 args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
@@ -83,31 +72,20 @@ process BCFTOOLS_PLUGINSPLIT {
     def determination_file = samples ?: targets
     def create_cmd = extension.matches("vcf|bcf") ? "touch " : "echo '' | gzip > "
     """
-    mkdir -p ${prefix}
+    mkdir -p outputDir
 
     cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}/' > files.txt
     while IFS= read -r filename;
-    do ${create_cmd} "${prefix}/\$filename";
-    if [ -n "${index}" ]; then
-        index_file=\$(sed -e 's/\$/.${index}/' <<< \$filename);
-        touch ${prefix}/\$index_file;
-    fi;
+        do ${create_cmd} "outputDir/\$filename";
+        if [ -n "${index}" ]; then
+            index_file=\$(sed -e 's/\$/.${index}/' <<< \$filename);
+            touch outputDir/\$index_file;
+        fi;
     done < files.txt
 
-    if [ -n "${suffix}" ]; then
-        for file in ${prefix}/*; do
-            # Extract the basename
-            base_name=\$(basename "\$file")
-            # Extract the extension
-            extension=""
-            # Remove the extension if it exists
-            if [[ "\$base_name" =~ \\.(vcf|bcf)(\\.gz)?(\\.tbi|\\.csi)?\$ ]]; then
-                extension="\${BASH_REMATCH[0]}"
-                base_name="\${base_name%\$extension}"
-            fi
-            # Construct the new name
-            new_name="\${base_name}${suffix}\${extension}"
-            mv "\$file" "${prefix}/\$new_name"
+    if [ -n "${prefix}" ]; then
+        for file in outputDir/*; do
+            mv \$file outputDir/${prefix}\${file##*/}
         done
     fi
 
