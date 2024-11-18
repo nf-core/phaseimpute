@@ -19,6 +19,7 @@ workflow VCF_SPLIT_BCFTOOLS {
         .transpose()
         .view()
         .map{metaITC, tbi -> [metaITC + [id: tbi.getBaseName().tokenize(".")[0].tokenize("-")[-1]], tbi]}
+        .view()
 
     ch_vcf_tbi_samples = ch_vcf_samples
         .join(ch_tbi_samples)
