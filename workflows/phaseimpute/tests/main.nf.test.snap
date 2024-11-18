@@ -33,13 +33,13 @@
     "Check test_all": {
         "content": [
             [
-                "simulation/NA12878.depth_1x.bam",
-                "simulation/NA12878.depth_1x.bam.csi",
-                "simulation/NA19401.depth_1x.bam",
-                "simulation/NA19401.depth_1x.bam.csi",
-                "simulation/NA20359.depth_1x.bam",
-                "simulation/NA20359.depth_1x.bam.csi",
-                "simulation/csv/simulate.csv"
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ],
             [
                 "imputation/batch/all.batch0.id.txt",
@@ -123,6 +123,7 @@
                 "validation/samples/NA19401.truth.vcf.gz.tbi",
                 "validation/samples/NA20359.truth.vcf.gz",
                 "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
@@ -137,8 +138,7 @@
                 "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
                 "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
                 "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt",
-                "validation/stats/TestQuality.txt"
+                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -174,19 +174,19 @@
     "Check test_validate": {
         "content": [
             [
-                "validation/NA12878_SNP.txt",
-                "validation/NA19401_SNP.txt",
-                "validation/NA20359_SNP.txt",
-                "validation/TestQuality.txt",
                 "validation/samples/NA12878.truth.vcf.gz",
                 "validation/samples/NA12878.truth.vcf.gz.tbi",
                 "validation/samples/NA19401.truth.vcf.gz",
                 "validation/samples/NA19401.truth.vcf.gz.tbi",
                 "validation/samples/NA20359.truth.vcf.gz",
                 "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_SNP.txt",
                 "validation/stats/NA19401.truth.bcftools_stats.txt",
-                "validation/stats/NA20359.truth.bcftools_stats.txt"
+                "validation/stats/NA19401_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_SNP.txt"
             ]
         ],
         "meta": {
@@ -255,6 +255,7 @@
                 "validation/samples/NA19401.truth.vcf.gz.tbi",
                 "validation/samples/NA20359.truth.vcf.gz",
                 "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
                 "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
@@ -263,8 +264,7 @@
                 "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
                 "validation/stats/NA20359.truth.bcftools_stats.txt",
                 "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/TestQuality.txt"
+                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt"
             ]
         ],
         "meta": {
@@ -307,20 +307,20 @@
     "Check test_sim": {
         "content": [
             [
-                "simulation/NA12878.depth_1x.bam",
-                "simulation/NA12878.depth_1x.bam.csi",
-                "simulation/NA19401.depth_1x.bam",
-                "simulation/NA19401.depth_1x.bam.csi",
-                "simulation/NA20359.depth_1x.bam",
-                "simulation/NA20359.depth_1x.bam.csi",
-                "simulation/csv/simulate.csv"
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T21:58:40.027341891"
+        "timestamp": "2024-11-17T21:35:03.693487008"
     },
     "Check test_panelprep": {
         "content": [
