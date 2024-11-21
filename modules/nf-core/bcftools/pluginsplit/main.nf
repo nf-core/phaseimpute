@@ -15,19 +15,17 @@ process BCFTOOLS_PLUGINSPLIT {
     path(targets)
 
     output:
-    tuple val(meta), path("outputDir/*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
-    tuple val(meta), path("outputDir/*.tbi")                    , emit: tbi, optional: true
-    tuple val(meta), path("outputDir/*.csi")                    , emit: csi, optional: true
-    path "versions.yml"                                 , emit: versions
+    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta), path("*.tbi")                    , emit: tbi, optional: true
+    tuple val(meta), path("*.csi")                    , emit: csi, optional: true
+    path "versions.yml"                               , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     def args = task.ext.args ?: ''
-    // Here the default prefix is an empty string as the filename is created by the plugin
-    // and the prefix is instead added to the output files in the script
-    def prefix = task.ext.prefix ?: ""
+    def prefix = task.ext.prefix ?: "${meta.id}"
 
     def samples_arg = samples ? "--samples-file ${samples}" : ""
     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
@@ -42,13 +40,9 @@ process BCFTOOLS_PLUGINSPLIT {
         ${groups_arg} \\
         ${regions_arg} \\
         ${targets_arg} \\
-        --output outputDir
+        --output ${prefix}
 
-    if [ -n "${prefix}" ]; then
-        for file in outputDir/*; do
-            mv \$file outputDir/${prefix}\${file##*/}
-        done
-    fi
+    mv ${prefix}/* .
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -58,7 +52,7 @@ process BCFTOOLS_PLUGINSPLIT {
 
     stub:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: ""
+    def prefix = task.ext.prefix ?: "${meta.id}"
 
     def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
                 args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
@@ -71,23 +65,11 @@ process BCFTOOLS_PLUGINSPLIT {
                 ""
     def determination_file = samples ?: targets
     def create_cmd = extension.matches("vcf|bcf") ? "touch " : "echo '' | gzip > "
+    def create_files = "cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}/' > files.txt; while IFS= read -r filename; do ${create_cmd} \"\$filename\"; done < files.txt"
+    def create_index = index.matches("csi|tbi") ? "cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}.${index}/' > indices.txt; touch \$(<indices.txt)" : ""
     """
-    mkdir -p outputDir
-
-    cut -f 3 ${determination_file} | sed -e 's/\$/.${extension}/' > files.txt
-    while IFS= read -r filename;
-        do ${create_cmd} "outputDir/\$filename";
-        if [ -n "${index}" ]; then
-            index_file=\$(sed -e 's/\$/.${index}/' <<< \$filename);
-            touch outputDir/\$index_file;
-        fi;
-    done < files.txt
-
-    if [ -n "${prefix}" ]; then
-        for file in outputDir/*; do
-            mv \$file outputDir/${prefix}\${file##*/}
-        done
-    fi
+    ${create_files}
+    ${create_index}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
