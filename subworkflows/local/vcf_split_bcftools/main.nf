@@ -2,13 +2,13 @@ include { BCFTOOLS_PLUGINSPLIT  } from '../../../modules/nf-core/bcftools/plugin
 
 workflow VCF_SPLIT_BCFTOOLS {
     take:
-    ch_vcf          // channel: [ [id, chr, tools], vcf, index ]
+    ch_vcf          // channel: [ [id, chr, tools], vcf, index, samples ]
 
     main:
 
     ch_versions = Channel.empty()
 
-    BCFTOOLS_PLUGINSPLIT(ch_vcf, [], [], [], [])
+    BCFTOOLS_PLUGINSPLIT(ch_vcf, [], [], [])
     ch_versions = ch_versions.mix(BCFTOOLS_PLUGINSPLIT.out.versions.first())
 
     ch_vcf_samples = BCFTOOLS_PLUGINSPLIT.out.vcf

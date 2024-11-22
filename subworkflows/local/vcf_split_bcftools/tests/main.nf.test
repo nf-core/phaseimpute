@@ -15,7 +15,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/split"
 
-    test("Split multiple vcf file") {
+    test("Split multiple vcf file - with renaming") {
         setup {
             run("BCFTOOLS_MERGE") {
                 script "../../../../modules/nf-core/bcftools/merge/main.nf"
@@ -45,7 +45,12 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = BCFTOOLS_MERGE.out.vcf.join(BCFTOOLS_MERGE.out.tbi)
+                renaming_file = channel.of(
+                    "NA12878\tNA12878_test NA12878.myfile",
+                    "NA19401\t-\tNA19401",
+                    "NA20359\tNA20359_2\tNA20359_3"
+                ).collectFile(name: "samples.txt", newLine: true)
+                input[0] = BCFTOOLS_MERGE.out.vcf.join(BCFTOOLS_MERGE.out.tbi).combine(renaming_file)
                 """
             }
         }
@@ -78,7 +83,8 @@ nextflow_workflow {
                 input[0] = Channel.of([
                     [id: 'NA12878'],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf", checkIfExist:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf.csi", checkIfExist:true)
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf.csi", checkIfExist:true),
+                    []
                 ])
                 """
             }
@@ -106,7 +112,8 @@ nextflow_workflow {
                 input[0] = Channel.of([
                     [id: 'dbsnp_146.hg38'],
                     file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz", checkIfExist:true),
-                    file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi", checkIfExist:true)
+                    file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi", checkIfExist:true),
+                    []
                 ])
                 """
             }
@@ -115,7 +122,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert workflow.errorReport.contains("No samples to split: dbsnp_146.hg38.vcf.gz")
+                { assert workflow.errorReport.contains("No samples to split: input/dbsnp_146.hg38.vcf.gz")
                 }
             )
         }
