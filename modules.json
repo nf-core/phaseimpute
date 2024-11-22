@@ -46,9 +46,14 @@
                     },
                     "bcftools/pluginsplit": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "14c910af1f9c20c65e5df9325a1e4d3939d524d1",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/bcftools/pluginsplit/bcftools-pluginsplit.diff"
+                    },
+                    "bcftools/query": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["modules"]
                     },
                     "bcftools/stats": {
                         "branch": "master",
