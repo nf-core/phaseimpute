@@ -25,10 +25,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-10-25T16:47:19.203956394"
+        "timestamp": "2024-11-22T13:07:42.012993182"
     },
     "Check test_all": {
         "content": [
@@ -117,12 +117,12 @@
             [
                 "validation/concat/all.A-truth.vcf.gz",
                 "validation/concat/all.A-truth.vcf.gz.tbi",
-                "validation/samples/NA12878.vcf.gz",
-                "validation/samples/NA12878.vcf.gz.tbi",
-                "validation/samples/NA19401.vcf.gz",
-                "validation/samples/NA19401.vcf.gz.tbi",
-                "validation/samples/NA20359.vcf.gz",
-                "validation/samples/NA20359.vcf.gz.tbi",
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
@@ -167,19 +167,19 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-18T23:36:12.634065627"
+        "timestamp": "2024-11-22T13:58:54.188813202"
     },
     "Check test_validate": {
         "content": [
             [
-                "validation/samples/NA12878.vcf.gz",
-                "validation/samples/NA12878.vcf.gz.tbi",
-                "validation/samples/NA19401.vcf.gz",
-                "validation/samples/NA19401.vcf.gz.tbi",
-                "validation/samples/NA20359.vcf.gz",
-                "validation/samples/NA20359.vcf.gz.tbi",
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_SNP.txt",
@@ -191,9 +191,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-18T23:30:21.177496237"
+        "timestamp": "2024-11-22T13:54:09.435194577"
     },
     "Check test_batch": {
         "content": [
@@ -249,12 +249,12 @@
                 "NA20359"
             ],
             [
-                "validation/samples/NA12878.vcf.gz",
-                "validation/samples/NA12878.vcf.gz.tbi",
-                "validation/samples/NA19401.vcf.gz",
-                "validation/samples/NA19401.vcf.gz.tbi",
-                "validation/samples/NA20359.vcf.gz",
-                "validation/samples/NA20359.vcf.gz.tbi",
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
                 "validation/stats/AllSamples.txt",
                 "validation/stats/NA12878.truth.bcftools_stats.txt",
                 "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
@@ -269,9 +269,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-18T23:47:48.301571495"
+        "timestamp": "2024-11-22T14:06:57.642618122"
     },
     "Check test_quilt": {
         "content": [
@@ -299,10 +299,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-10-25T16:46:11.131198832"
+        "timestamp": "2024-11-22T13:05:58.709941089"
     },
     "Check test_sim": {
         "content": [
@@ -380,10 +380,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-10-25T16:44:41.049965503"
+        "timestamp": "2024-11-22T13:03:28.516026252"
     },
     "Check test": {
         "content": [
@@ -463,9 +463,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-10-25T16:56:33.72923425"
+        "timestamp": "2024-11-22T13:16:12.803136748"
     }
 }
