@@ -447,6 +447,8 @@
                 "imputation/csv/impute.csv",
                 "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz",
                 "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/dog_1735.vcf.gz",
+                "imputation/glimpse1/samples/dog_1735.vcf.gz.tbi",
                 "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
                 "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
                 "imputation/glimpse2/samples/dog_1735.vcf.gz",
@@ -456,6 +458,7 @@
                 "imputation/quilt/samples/1735.vcf.gz",
                 "imputation/quilt/samples/1735.vcf.gz.tbi",
                 "imputation/stats/1735.quilt.bcftools_stats.txt",
+                "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
                 "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt"
             ]
         ],
