@@ -61,6 +61,8 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-co
 
 // Concordance subworkflows
 include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
+include { BCFTOOLS_QUERY                             } from '../../modules/nf-core/bcftools/query'
+include { GAWK                                       } from '../../modules/nf-core/gawk'
 include { VCF_SPLIT_BCFTOOLS as SPLIT_TRUTH          } from '../../subworkflows/local/vcf_split_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
@@ -368,7 +370,7 @@ workflow PHASEIMPUTE {
         }
 
         // Split result by samples
-        VCF_SPLIT_BCFTOOLS(ch_input_validate)
+        VCF_SPLIT_BCFTOOLS(ch_input_validate.map{ [it[0], it[1], it[2], []] })
         ch_input_validate = VCF_SPLIT_BCFTOOLS.out.vcf_tbi
 
         // Compute stats on imputed files
@@ -439,8 +441,13 @@ workflow PHASEIMPUTE {
         CONCAT_TRUTH(ch_truth_vcf)
         ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
 
+        // Prepare renaming file
+        BCFTOOLS_QUERY(CONCAT_TRUTH.out.vcf_tbi, [], [], [])
+        GAWK(BCFTOOLS_QUERY.out.output, [])
+        ch_pluginsplit = CONCAT_TRUTH.out.vcf_tbi.join(GAWK.out.output.view())
+
         // Split truth vcf by samples
-        SPLIT_TRUTH(CONCAT_TRUTH.out.vcf_tbi)
+        SPLIT_TRUTH(ch_pluginsplit)
         ch_versions = ch_versions.mix(SPLIT_TRUTH.out.versions)
 
         // Compute stats on truth files

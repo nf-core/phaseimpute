@@ -3,43 +3,16 @@ Changes in module 'nf-core/bcftools/pluginsplit'
 Changes in 'bcftools/pluginsplit/main.nf':
 --- modules/nf-core/bcftools/pluginsplit/main.nf
 +++ modules/nf-core/bcftools/pluginsplit/main.nf
-@@ -26,11 +26,17 @@
-     script:
-     def args = task.ext.args ?: ''
-     def prefix = task.ext.prefix ?: "${meta.id}"
-+    def suffix = task.ext.suffix ?: ""
+@@ -8,8 +8,7 @@
+         'biocontainers/bcftools:1.20--h8b25389_0' }"
  
-     def samples_arg = samples ? "--samples-file ${samples}" : ""
-     def groups_arg  = groups  ? "--groups-file ${groups}"   : ""
-     def regions_arg = regions ? "--regions-file ${regions}" : ""
-     def targets_arg = targets ? "--targets-file ${targets}" : ""
-+    def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
-+            args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
-+            args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
-+            args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
-+            "vcf"
- 
-     """
-     bcftools plugin split \\
-@@ -42,7 +48,17 @@
-         ${targets_arg} \\
-         --output ${prefix}
- 
--    mv ${prefix}/* .
-+    for file in ${prefix}/*; do
-+        # Extract the basename
-+        base_name=\$(basename "\$file")
-+        # Extract the part of the basename before the first dot
-+        name_before_dot="\${base_name%%.*}"
-+        # Extract the extension
-+        extension="\${base_name#\${name_before_dot}}"
-+        # Construct the new name
-+        new_name="\${name_before_dot}${suffix}\${extension}"
-+        mv "\$file" "./\$new_name"
-+    done
- 
-     cat <<-END_VERSIONS > versions.yml
-     "${task.process}":
+     input:
+-    tuple val(meta), path(vcf, stageAs: "input/*"), path(tbi, stageAs: "input/*")
+-    path(samples)
++    tuple val(meta), path(vcf, stageAs: "input/*"), path(tbi, stageAs: "input/*"), path(samples)
+     path(groups)
+     path(regions)
+     path(targets)
 
 'modules/nf-core/bcftools/pluginsplit/meta.yml' is unchanged
 'modules/nf-core/bcftools/pluginsplit/tests/main.nf.test' is unchanged

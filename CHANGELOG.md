@@ -74,8 +74,9 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#75](https://github.com/nf-core/phaseimpute/pull/75) - Set frequency computation with `VCFFIXUP` process as optional with `--compute_freq`. Use `GLIMPSE_CHUNK` on panel vcf to compute the chunk and not makewindows on fasta.
 - [#117](https://github.com/nf-core/phaseimpute/pull/117) - Fix directories in CSV.
 - [#151](https://github.com/nf-core/phaseimpute/pull/151) - Fix `Type not supported: class org.codehaus.groovy.runtime.GStringImpl` error due to `String` test in `getFileExtension()`.
-- [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necesary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
 - [#158](https://github.com/nf-core/phaseimpute/pull/158) - Fix contigs usage when regions is only a subset of the given contigs (e.g. if panel file has the 22 chr and the region file only 2 then only the 2 common will be processed). Fix `multiQC` samples names for better comprehension. Fix `-resume` errors when `ch_fasta` is use by adding `cache = 'lenient'` in necessary processes. Fix `--window-size` of `GLIMPSE_CHUNK` from `4` to `4000000`.
+- [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necessary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
+- [#161](https://github.com/nf-core/phaseimpute/pull/161) - Fix `VCF_SPLIT_BCFTOOLS` when only one sample present by updating `BCFTOOLS_PLUGINSPLIT` and adding `BCFTOOLS_QUERY` to get truth samples names for renaming the resulting files.
 
 ### `Dependencies`
 
