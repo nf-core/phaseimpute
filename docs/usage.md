@@ -241,6 +241,18 @@ The required flags for this mode are:
 - `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference during the normalization process.
 - `--compute_freq`: (optional) Whether the frequency (AC/AN field) for each variants needs to be computed or not (true/false). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
 
+The panel will be chunked using the `GLIMPSE_CHUNKS` process. The size of the chunks can be optimized according to your needs (e.g. cluster resources, specie chromosomes size, ...) using the following config. The 4mb size (default value) is empirically determined to be a good value in humans (i.e. enough parallelization but not too much).
+
+```config title="panel.config"
+withName: 'NFCORE_PHASEIMPUTE:PHASEIMPUTE:VCF_CHUNK_GLIMPSE:GLIMPSE_CHUNK' {
+    ext.args   = "--window-size 4000000"
+}
+
+withName: 'NFCORE_PHASEIMPUTE:PHASEIMPUTE:VCF_CHUNK_GLIMPSE:GLIMPSE2_CHUNK' {
+    ext.args   = "--window-mb 4"
+}
+```
+
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
 ## Start with imputation `--steps impute`

@@ -275,6 +275,25 @@ workflow PIPELINE_INITIALISATION {
         .collect()
         .subscribe { log.info "The following contigs will be processed: ${it}" }
 
+    // Remove other contigs from panel and posfile files
+    ch_panel = ch_panel
+        .combine(ch_regions.collect{ it[0]["chr"]}.toList())
+        .filter { meta, _vcf, _index, chrs ->
+            meta.chr in chrs
+        }
+        .map {meta, vcf, index, _chrs ->
+            [meta, vcf, index]
+        }
+
+    ch_posfile = ch_posfile
+        .combine(ch_regions.collect{ it[0]["chr"]}.toList())
+        .filter { meta, _vcf, _index, _hap, _legend, chrs ->
+            meta.chr in chrs
+        }
+        .map {meta, vcf, index, hap, legend, _chrs ->
+            [meta, vcf, index, hap, legend]
+        }
+
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 

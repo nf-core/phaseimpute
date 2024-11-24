@@ -17,3 +17,10 @@ top_modules:
 export_plots: true
 
 disable_version_detection: true
+
+fn_clean_trim:
+  - ".panel"
+
+extra_fn_clean_exts:
+  - type: regex
+    pattern: "\\.batch[0-9]+"

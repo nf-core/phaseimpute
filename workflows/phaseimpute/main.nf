@@ -42,23 +42,19 @@ include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/
 include { BAM_GL_BCFTOOLS as GL_GLIMPSE1             } from '../../subworkflows/local/bam_gl_bcftools'
 include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { VCF_SPLIT_BCFTOOLS as SPLIT_GLIMPSE1       } from '../../subworkflows/local/vcf_split_bcftools'
 
 // GLIMPSE2 subworkflows
 include { BAM_IMPUTE_GLIMPSE2                        } from '../../subworkflows/local/bam_impute_glimpse2'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { VCF_SPLIT_BCFTOOLS as SPLIT_GLIMPSE2       } from '../../subworkflows/local/vcf_split_bcftools'
 
 // QUILT subworkflows
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/local/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { VCF_SPLIT_BCFTOOLS as SPLIT_QUILT          } from '../../subworkflows/local/vcf_split_bcftools'
 
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { VCF_SPLIT_BCFTOOLS as SPLIT_STITCH         } from '../../subworkflows/local/vcf_split_bcftools'
 
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
@@ -391,7 +387,7 @@ workflow PHASEIMPUTE {
         // Export all files to csv
         exportCsv(
             ch_input_validate.map{ meta, file, index ->
-                [meta, [2:"imputation/${meta.tools}/concat", 3:"imputation/${meta.tools}/concat"], file, index]
+                [meta, [2:"imputation/${meta.tools}/samples/", 3:"imputation/${meta.tools}/samples/"], file, index]
             },
             ["id", "tools"], "sample,tools,vcf,index",
             "impute.csv", "imputation/csv"
