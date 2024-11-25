@@ -84,6 +84,8 @@ workflow PIPELINE_INITIALISATION {
             SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
             ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
+        } else {
+            fai = Channel.of(file(fai, checkIfExists:true))
         }
     } else if (params.fasta) {
         genome = file(params.fasta, checkIfExists:true).getBaseName()
