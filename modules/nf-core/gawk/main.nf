@@ -24,10 +24,11 @@ process GAWK {
     prefix = task.ext.prefix ?: "${meta.id}"
     suffix = task.ext.suffix ?: "${input.collect{ it.getExtension()}.get(0)}" // use the first extension of the input files
 
-    program   = program_file ? "-f ${program_file}" : "${args2}"
-    lst_gz    = input.collect{ it.getExtension().endsWith("gz") }
-    unzip     = lst_gz.contains(false) ? "" : "find ${input} -exec zcat {} \\; | \\"
-    input_cmd = unzip ? "" : "${input}"
+    program    = program_file ? "-f ${program_file}" : "${args2}"
+    lst_gz     = input.collect{ it.getExtension().endsWith("gz") }
+    unzip      = lst_gz.contains(false) ? "" : "find ${input} -exec zcat {} \\; | \\"
+    input_cmd  = unzip ? "" : "${input}"
+    output_cmd = suffix.endsWith("gz") ? "| gzip" : ""
 
     """
     ${unzip}
@@ -35,6 +36,7 @@ process GAWK {
         ${args} \\
         ${program} \\
         ${input_cmd} \\
+        ${output_cmd} \\
         > ${prefix}.${suffix}
 
     cat <<-END_VERSIONS > versions.yml

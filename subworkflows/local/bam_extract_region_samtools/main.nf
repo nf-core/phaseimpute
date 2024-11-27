@@ -35,7 +35,7 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
             .map{
                 metaICR, bam, index -> [metaICR.subMap("id", "batch") + [chr: "all"], bam, index]
             }
-            .groupTuple(),
+            .groupTuple(sort: true),
         ch_fasta
     )
     ch_versions = ch_versions.mix(SAMTOOLS_MERGE.out.versions.first())

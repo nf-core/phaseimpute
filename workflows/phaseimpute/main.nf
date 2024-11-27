@@ -25,6 +25,8 @@ include { BAM_EXTRACT_REGION_SAMTOOLS                } from '../../subworkflows/
 include { BAM_DOWNSAMPLE_SAMTOOLS                    } from '../../subworkflows/local/bam_downsample_samtools'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_INP } from '../../modules/nf-core/samtools/coverage'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_DWN } from '../../modules/nf-core/samtools/coverage'
+include { GAWK as FILTER_CHR_INP                     } from '../../modules/nf-core/gawk'
+include { GAWK as FILTER_CHR_DWN                     } from '../../modules/nf-core/gawk'
 
 // Panelprep subworkflows
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
@@ -36,7 +38,9 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-co
 
 // Imputation
 include { LIST_TO_FILE                               } from '../../modules/local/list_to_file'
-include { VCF_SPLIT_BCFTOOLS                         } from '../../subworkflows/local/vcf_split_bcftools'
+include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
+include { GAWK as GAWK_IMPUTED                       } from '../../modules/nf-core/gawk'
+include { VCF_SPLIT_BCFTOOLS as SPLIT_IMPUTED        } from '../../subworkflows/local/vcf_split_bcftools'
 
 // GLIMPSE1 subworkflows
 include { BAM_GL_BCFTOOLS as GL_GLIMPSE1             } from '../../subworkflows/local/bam_gl_bcftools'
@@ -61,8 +65,8 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-co
 
 // Concordance subworkflows
 include { BAM_GL_BCFTOOLS as GL_TRUTH                } from '../../subworkflows/local/bam_gl_bcftools'
-include { BCFTOOLS_QUERY                             } from '../../modules/nf-core/bcftools/query'
-include { GAWK                                       } from '../../modules/nf-core/gawk'
+include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_TRUTH     } from '../../modules/nf-core/bcftools/query'
+include { GAWK as GAWK_TRUTH                         } from '../../modules/nf-core/gawk'
 include { VCF_SPLIT_BCFTOOLS as SPLIT_TRUTH          } from '../../subworkflows/local/vcf_split_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
@@ -116,10 +120,28 @@ workflow PHASEIMPUTE {
         // Use input for simulation as truth for validation step
         ch_input_truth = ch_input_sim
 
+        // Program to filter chromosomes
+        filter_chr_program = ch_region
+            .collect{ meta, region -> meta.chr }
+            .map { chr ->
+                "BEGIN { FS=\"\t\";\nsplit(\"" + chr.join(" ") + '", chr, " ");\n' +
+                'for (i in chr) {\nchr_map[chr[i]] = 1;\n}\n}\n' +
+                'NR == 1 || (\$1 in chr_map){\nprint \$0;\n}'
+            }
+            .collectFile(name:"program.txt")
+            .collect()
+
         // Compute coverage of input files
         SAMTOOLS_COVERAGE_INP(ch_input_sim, ch_fasta)
-        ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_INP.out.versions)
-        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_INP.out.coverage.map{it[1]})
+        ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_INP.out.versions)
+        ch_coverage = SAMTOOLS_COVERAGE_INP.out.coverage
+
+        FILTER_CHR_INP(
+            SAMTOOLS_COVERAGE_INP.out.coverage,
+            filter_chr_program
+        )
+        ch_versions = ch_versions.mix(FILTER_CHR_INP.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_INP.out.output.map{ it[1] })
 
         if (params.depth) {
             // Downsample input to desired depth
@@ -129,10 +151,17 @@ workflow PHASEIMPUTE {
 
             // Compute coverage of input files
             SAMTOOLS_COVERAGE_DWN(BAM_DOWNSAMPLE_SAMTOOLS.out.bam_emul, ch_fasta)
-            ch_versions      = ch_versions.mix(SAMTOOLS_COVERAGE_DWN.out.versions)
-            ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_COVERAGE_DWN.out.coverage.map{it[1]})
-        }
+            ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_DWN.out.versions)
 
+            FILTER_CHR_DWN(
+                SAMTOOLS_COVERAGE_DWN.out.coverage,
+                filter_chr_program
+            )
+            ch_versions = ch_versions.mix(FILTER_CHR_DWN.out.versions)
+            ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_DWN.out.output.map{ it[1] })
+        }
+        
+        
         if (params.genotype) {
             error "Genotype simulation not yet implemented"
         }
@@ -369,9 +398,15 @@ workflow PHASEIMPUTE {
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
 
+        // Prepare renaming file
+        BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
+        GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [])
+        ch_split_imputed = ch_input_validate.join(GAWK_IMPUTED.out.output)
+
         // Split result by samples
-        VCF_SPLIT_BCFTOOLS(ch_input_validate.map{ [it[0], it[1], it[2], []] })
-        ch_input_validate = VCF_SPLIT_BCFTOOLS.out.vcf_tbi
+        SPLIT_IMPUTED(ch_split_imputed)
+        ch_versions = ch_versions.mix(SPLIT_IMPUTED.out.versions)
+        ch_input_validate = SPLIT_IMPUTED.out.vcf_tbi
 
         // Compute stats on imputed files
         BCFTOOLS_STATS_TOOLS(
@@ -442,12 +477,12 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
 
         // Prepare renaming file
-        BCFTOOLS_QUERY(CONCAT_TRUTH.out.vcf_tbi, [], [], [])
-        GAWK(BCFTOOLS_QUERY.out.output, [])
-        ch_pluginsplit = CONCAT_TRUTH.out.vcf_tbi.join(GAWK.out.output.view())
+        BCFTOOLS_QUERY_TRUTH(CONCAT_TRUTH.out.vcf_tbi, [], [], [])
+        GAWK_TRUTH(BCFTOOLS_QUERY_TRUTH.out.output, [])
+        ch_split_truth = CONCAT_TRUTH.out.vcf_tbi.join(GAWK_TRUTH.out.output)
 
         // Split truth vcf by samples
-        SPLIT_TRUTH(ch_pluginsplit)
+        SPLIT_TRUTH(ch_split_truth)
         ch_versions = ch_versions.mix(SPLIT_TRUTH.out.versions)
 
         // Compute stats on truth files

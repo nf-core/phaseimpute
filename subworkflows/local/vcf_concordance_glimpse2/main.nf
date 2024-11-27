@@ -2,6 +2,8 @@ include { GLIMPSE2_CONCORDANCE        } from '../../../modules/nf-core/glimpse2/
 include { GAWK                        } from '../../../modules/nf-core/gawk'
 include { ADD_COLUMNS                 } from '../../../modules/local/add_columns'
 include { GUNZIP                      } from '../../../modules/nf-core/gunzip'
+include { GAWK as GAWK_ERROR_SPL      } from '../../../modules/nf-core/gawk'
+include { GAWK as GAWK_RSQUARE_SPL    } from '../../../modules/nf-core/gawk'
 
 workflow VCF_CONCORDANCE_GLIMPSE2 {
 
@@ -35,11 +37,23 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     )
     ch_versions = ch_versions.mix(GLIMPSE2_CONCORDANCE.out.versions.first())
 
+    GAWK_ERROR_SPL(
+        GLIMPSE2_CONCORDANCE.out.errors_spl,
+        []
+    )
+    ch_versions = ch_versions.mix(GAWK_ERROR_SPL.out.versions.first())
+
+    GAWK_RSQUARE_SPL(
+        GLIMPSE2_CONCORDANCE.out.rsquare_spl,
+        []
+    )
+    ch_versions = ch_versions.mix(GAWK_ERROR_SPL.out.versions.first())
+
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_cal.map{ _meta, txt -> [txt]})
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_grp.map{ _meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.errors_spl.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GAWK_ERROR_SPL.out.output.map{ _meta, txt -> [txt]})
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_grp.map{ _meta, txt -> [txt]})
-    ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_spl.map{ _meta, txt -> [txt]})
+    ch_multiqc_files = ch_multiqc_files.mix(GAWK_RSQUARE_SPL.out.output.map{ _meta, txt -> [txt]})
     ch_multiqc_files = ch_multiqc_files.mix(GLIMPSE2_CONCORDANCE.out.rsquare_per_site.map{ _meta, txt -> [txt]})
 
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
