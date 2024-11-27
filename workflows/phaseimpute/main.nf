@@ -160,8 +160,7 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(FILTER_CHR_DWN.out.versions)
             ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_DWN.out.output.map{ it[1] })
         }
-        
-        
+
         if (params.genotype) {
             error "Genotype simulation not yet implemented"
         }
