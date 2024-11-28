@@ -3,7 +3,7 @@
 ## Channel management and combination
 
 All channels need to be identified by a meta map. To follow which information is available, the `meta` argument
-is suffixed by a combination of the following capital letters:
+is suffixed with a combination of the following capital letters:
 
 - I : individual id
 - P : panel id
