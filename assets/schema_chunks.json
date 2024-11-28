@@ -25,6 +25,7 @@
                 "errorMessage": "File with chunks per chromosome must be provided. Must have .txt or .bin extension"
             }
         },
-        "required": ["panel", "chr", "file"]
+        "required": ["panel", "chr", "file"],
+        "uniqueEntries": ["panel", "chr"]
     }
 }

@@ -16,7 +16,7 @@
             "map": {
                 "type": "string",
                 "pattern": "^\\S+\\.(g)?map(\\.gz)?$",
-                "errorMessage": "Map file must be provided, cannot contain spaces and must have extension '.map' or '.gmap' with optional 'gz' extension"
+                "errorMessage": "Map file must be provided, cannot contain spaces and must have extension '.map' or '.gmap' with optional '.gz' extension"
             }
         },
         "required": ["chr", "map"]
