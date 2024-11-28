@@ -21,7 +21,7 @@
 
 **nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data.
 
-<img src="docs/images/metro/phaseimpute.drawio.png" alt="metromap"/>
+<img src="docs/images/metro/MetroMap_animated.svg" alt="metromap"/>
 
 The whole pipeline consists of five main steps, each of which can be run separately and independently. Users are not required to run all steps sequentially and can select specific steps based on their needs:
 
