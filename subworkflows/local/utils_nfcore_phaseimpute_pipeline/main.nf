@@ -174,7 +174,10 @@ workflow PIPELINE_INITIALISATION {
         ch_regions = Channel.fromList(samplesheetToList(
             params.input_region, "${projectDir}/assets/schema_input_region.json"
         ))
-        .map{ chr, start, end -> [["chr": chr], chr + ":" + start + "-" + end]}
+        .map{ chr, start, end ->
+            assert end >= start : "End position must be greater than or equal to start position"
+            [["chr": chr], chr + ":" + start + "-" + end]
+        }
         .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
@@ -635,6 +638,7 @@ def genomeExistsError() {
         error(error_string)
     }
 }
+
 //
 // Generate methods description for MultiQC
 //
