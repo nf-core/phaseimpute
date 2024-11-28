@@ -113,11 +113,6 @@
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/glimpse2/phase/glimpse2-phase.diff"
                     },
-                    "glimpse2/splitreference": {
-                        "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
-                        "installed_by": ["modules"]
-                    },
                     "gunzip": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
