@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.0.0 - Black Labrador [2024-10-28]
+## v1.0.0 - Black Labrador [2024-11-30]
 
 Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co.re/) template.
 Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab](https://github.com/mazzalab) and [Sofia Stamouli](https://github.com/sofstam) for the review of this release.
