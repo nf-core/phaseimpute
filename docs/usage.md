@@ -218,7 +218,7 @@ nf-core/phaseimpute can be started at different points in the analysis by settin
 
 <img src="images/metro/Simulate.png" alt="simulate_metro" width="600"/>
 
-This step of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to a truth dataset and evaluate the quality of the imputation. The truth file for each sample here, is obtained by calling the variants from the high density input data provided it can also be provided through `--input-truth` CSV samplesheet. You can skip this steps if you already have low-pass genome sequencing data.
+This step of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to a truth dataset and evaluate the quality of the imputation. The truth file for each sample here, is obtained by calling the variants from the high density input data provided it can also be provided through `--input-truth` CSV samplesheet. You can skip these steps if you already have low-pass genome sequencing data.
 
 A sample command for this steps is:
 
