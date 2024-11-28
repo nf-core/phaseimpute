@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v1.0.0 - Black Labrador [2024-10-28]
 
 Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co.re/) template.
-Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazzalab](https://github.com/mazzalab) for the review of this release.
+Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab](https://github.com/mazzalab) and [Sofia Stamouli](https://github.com/sofstam) for the review of this release.
 
 ### `Added`
 
@@ -25,6 +25,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#131](https://github.com/nf-core/phaseimpute/pull/131) - Set normalisation as optional. Fix extension detection function. Add support for validation with vcf files. Concatenate vcf only if more than one file. Change `--phased` to `--phase` for consistency.
 - [#143](https://github.com/nf-core/phaseimpute/pull/143) - Improve contigs warning and error logging. The number of chromosomes contigs is summarized if above `max_chr_names`.
 - [#146](https://github.com/nf-core/phaseimpute/pull/146) - Add `seed` parameter for `QUILT`.
+- [#164](https://github.com/nf-core/phaseimpute/pull/164) - Add additional requirement on input schema `"uniqueEntries": ["panel", "chr"]` and `end` should be greater than `start` in regions.
 
 ### `Changed`
 
@@ -65,6 +66,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#157](https://github.com/nf-core/phaseimpute/pull/157) - Add `chunk_model` as parameter for better control over `GLIMPSE2_CHUNK` and set window size in `GLIMPSE1_CHUNK` and `GLIMPSE2_chunk` to 4mb to reduce number of chunks (empirical).
 - [#160](https://github.com/nf-core/phaseimpute/pull/160) - Improve `CHANGELOG.md` and add details to `usage.md`
 - [#158](https://github.com/nf-core/phaseimpute/pull/158) - Remove frequency computation and phasing from full test to reduce cost and computational time.
+- [#164](https://github.com/nf-core/phaseimpute/pull/164) - Rename `BAM_REGION_SAMTOOLS` to `BAM_EXTRACT_REGION_SAMTOOLS`. Remove `GLIMPSE2_SPLITREFERENCE` as it is not used. Add more steps to `test_all` profile for more exhaustivity.
 
 ### `Fixed`
 
@@ -78,6 +80,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necessary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
 - [#161](https://github.com/nf-core/phaseimpute/pull/161) - Fix `VCF_SPLIT_BCFTOOLS` when only one sample present by updating `BCFTOOLS_PLUGINSPLIT` and adding `BCFTOOLS_QUERY` to get truth samples names for renaming the resulting files.
 - [#162](https://github.com/nf-core/phaseimpute/pull/162) - Fix `fai` usage when provided by `genomes` parameter.
+- [#164](https://github.com/nf-core/phaseimpute/pull/164) - Improve documentation writing
 
 ### `Dependencies`
 
@@ -110,3 +113,4 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu) and [Mazza
 [Nicolas Schcolnicov](https://github.com/nschcolnicov)
 [Hemanoel Passarelli](https://github.com/hemanoel)
 [Matthias Hörtenhuber](https://github.com/mashehu)
+[Sofia Stamouli](https://github.com/sofstam)
