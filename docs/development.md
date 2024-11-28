@@ -13,7 +13,7 @@ is suffixed with a combination of the following capital letters:
 - G : reference genome used (is it needed ?)
 - S : simulation (depth or genotype array)
 
-Therefore the following channel operation example contains in the meta map the panel id with the region and tool used:
+Therefore, the following channel operation example includes a meta map containing the panel id with the region and tool used:
 
 ```nextflow
 ch_panel_for_impute.map {
