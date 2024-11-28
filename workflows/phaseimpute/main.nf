@@ -21,7 +21,7 @@ include { exportCsv                   } from '../../subworkflows/local/utils_nfc
 //
 
 // Simulate subworkflows
-include { BAM_REGION_SAMTOOLS                        } from '../../subworkflows/local/bam_region_samtools'
+include { BAM_EXTRACT_REGION_SAMTOOLS                } from '../../subworkflows/local/bam_extract_region_samtools'
 include { BAM_DOWNSAMPLE_SAMTOOLS                    } from '../../subworkflows/local/bam_downsample_samtools'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_INP } from '../../modules/nf-core/samtools/coverage'
 include { SAMTOOLS_COVERAGE as SAMTOOLS_COVERAGE_DWN } from '../../modules/nf-core/samtools/coverage'
@@ -108,9 +108,9 @@ workflow PHASEIMPUTE {
 
         if (params.input_region) {
             // Split the bam into the regions specified
-            BAM_REGION_SAMTOOLS(ch_input_sim, ch_region, ch_fasta)
-            ch_versions  = ch_versions.mix(BAM_REGION_SAMTOOLS.out.versions)
-            ch_input_sim = BAM_REGION_SAMTOOLS.out.bam_region
+            BAM_EXTRACT_REGION_SAMTOOLS(ch_input_sim, ch_region, ch_fasta)
+            ch_versions  = ch_versions.mix(BAM_EXTRACT_REGION_SAMTOOLS.out.versions)
+            ch_input_sim = BAM_EXTRACT_REGION_SAMTOOLS.out.bam_region
         }
 
         // Use input for simulation as truth for validation step
