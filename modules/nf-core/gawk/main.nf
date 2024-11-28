@@ -24,11 +24,15 @@ process GAWK {
     prefix = task.ext.prefix ?: "${meta.id}"
     suffix = task.ext.suffix ?: "${input.collect{ it.getExtension()}.get(0)}" // use the first extension of the input files
 
-    program    = program_file ? "-f ${program_file}" : "${args2}"
-    lst_gz     = input.collect{ it.getExtension().endsWith("gz") }
-    unzip      = lst_gz.contains(false) ? "" : "find ${input} -exec zcat {} \\; | \\"
-    input_cmd  = unzip ? "" : "${input}"
+    program   = program_file ? "-f ${program_file}" : "${args2}"
+    lst_gz    = input.collect{ it.getExtension().endsWith("gz") }
+    unzip     = lst_gz.contains(false) ? "" : "find ${input} -exec zcat {} \\; | \\"
+    input_cmd = unzip ? "" : "${input}"
     output_cmd = suffix.endsWith("gz") ? "| gzip" : ""
+
+    input.collect{
+        assert it.name != "${prefix}.${suffix}" : "Input and output names are the same, set prefix in module configuration to disambiguate!"
+    }
 
     """
     ${unzip}

@@ -72,9 +72,8 @@
                     },
                     "gawk": {
                         "branch": "master",
-                        "git_sha": "97321eded31a12598837a476d3615300af413bb7",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/gawk/gawk.diff"
+                        "git_sha": "caab1314ca62679b629da4c79afa9a4cab2bb8ee",
+                        "installed_by": ["modules"]
                     },
                     "glimpse/chunk": {
                         "branch": "master",
