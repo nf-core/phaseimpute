@@ -32,8 +32,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GLIMPSE2_CONCORDANCE (
         ch_concordance,
-        [[], [], params.bins, [], []],
-        params.min_val_gl, params.min_val_dp
+        [[], [], params.bins, [], [], params.min_val_gl, params.min_val_dp]
     )
     ch_versions = ch_versions.mix(GLIMPSE2_CONCORDANCE.out.versions.first())
 
