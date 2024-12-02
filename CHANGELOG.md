@@ -67,6 +67,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab
 - [#160](https://github.com/nf-core/phaseimpute/pull/160) - Improve `CHANGELOG.md` and add details to `usage.md`
 - [#158](https://github.com/nf-core/phaseimpute/pull/158) - Remove frequency computation and phasing from full test to reduce cost and computational time.
 - [#164](https://github.com/nf-core/phaseimpute/pull/164) - Rename `BAM_REGION_SAMTOOLS` to `BAM_EXTRACT_REGION_SAMTOOLS`. Remove `GLIMPSE2_SPLITREFERENCE` as it is not used. Add more steps to `test_all` profile for more exhaustivity.
+- [#165](https://github.com/nf-core/phaseimpute/pull/165) - Update metro map and add logo to the documentation.
 
 ### `Fixed`
 
