@@ -118,7 +118,10 @@ workflow PHASEIMPUTE {
         }
 
         // Use input for simulation as truth for validation step
-        ch_input_truth = ch_input_sim
+        // if no truth is provided
+        if (!params.input_truth) {
+            ch_input_truth = ch_input_sim
+        }
 
         // Program to filter chromosomes
         filter_chr_program = ch_region
@@ -491,7 +494,7 @@ workflow PHASEIMPUTE {
             [[],[]],
             [[],[]],
             [[],[]],
-            ch_fasta.map{ [it[0], it[1]] }
+            [[],[]] //ch_fasta.map{ [it[0], it[1]] }
         )
         ch_versions = ch_versions.mix(BCFTOOLS_STATS_TRUTH.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TRUTH.out.stats.map{ [it[1]] })
