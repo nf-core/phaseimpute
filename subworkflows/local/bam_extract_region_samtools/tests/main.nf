@@ -110,7 +110,7 @@ workflow PHASEIMPUTE {
             // Split the bam into the regions specified
             BAM_EXTRACT_REGION_SAMTOOLS(ch_input_sim, ch_region, ch_fasta)
             ch_versions  = ch_versions.mix(BAM_EXTRACT_REGION_SAMTOOLS.out.versions)
-            ch_input_sim = BAM_EXTRACT_REGION_SAMTOOLS.out.bam_region
+            ch_input_sim = BAM_EXTRACT_REGION_SAMTOOLS.out.bam_extract_region
         }
 
         // Use input for simulation as truth for validation step

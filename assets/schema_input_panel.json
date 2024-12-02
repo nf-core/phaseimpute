@@ -30,6 +30,7 @@
                 "errorMessage": "Panel index file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension and with '.csi' or '.tbi' extension"
             }
         },
-        "required": ["panel", "chr", "vcf", "index"]
+        "required": ["panel", "chr", "vcf", "index"],
+        "uniqueEntries": ["panel", "chr"]
     }
 }

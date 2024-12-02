@@ -21,7 +21,7 @@
 
 **nf-core/phaseimpute** is a bioinformatics pipeline to phase and impute genetic data.
 
-<img src="docs/images/metro/phaseimpute.drawio.png" alt="metromap"/>
+<img src="docs/images/metro/MetroMap_animated.svg" alt="metromap"/>
 
 The whole pipeline consists of five main steps, each of which can be run separately and independently. Users are not required to run all steps sequentially and can select specific steps based on their needs:
 
@@ -103,7 +103,7 @@ We thank the following people for their extensive assistance in the development 
 
 ## Contributions and Support
 
-If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
+If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md). Further development tips can be found in the [development documentation](docs/development.md).
 
 For further information or help, don't hesitate to get in touch on the [Slack `#phaseimpute` channel](https://nfcore.slack.com/channels/phaseimpute) (you can join with [this invite](https://nf-co.re/join/slack)).
 

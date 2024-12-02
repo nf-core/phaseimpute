@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.1"
-   width="1143px"
-   height="523px"
-   viewBox="-0.5 -0.5 1143 523"
+   width="1180"
+   height="560"
+   viewBox="-0.5 -0.5 1180 560"
    id="svg502"
    sodipodi:docname="MetroMap_animated.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -22,13 +22,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.63815376"
-     inkscape:cx="476.37422"
-     inkscape:cy="602.51937"
+     inkscape:zoom="0.45124285"
+     inkscape:cx="428.81566"
+     inkscape:cy="375.62922"
      inkscape:window-width="1920"
-     inkscape:window-height="1111"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer2" />
   <defs
@@ -39,8 +39,15 @@
      inkscape:label="Back"
      style="display:inline">
     <rect
-       x="821"
-       y="381"
+       style="fill:#f7f7f7;fill-opacity:1;stroke:none;stroke-width:1.13386;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dashoffset:2.00001;paint-order:fill markers stroke;stop-color:#000000"
+       id="rect544"
+       width="1180"
+       height="560"
+       x="-0.5"
+       y="-0.5" />
+    <rect
+       x="839.5"
+       y="399.5"
        width="230"
        height="140"
        rx="5.5999999"
@@ -49,10 +56,10 @@
        stroke="#e6e6e6"
        pointer-events="all"
        id="rect4"
-       style="fill:#d9d9d9;stroke:none;fill-opacity:1" />
+       style="fill:#d9d9d9;fill-opacity:1;stroke:none" />
     <rect
-       x="451"
-       y="351"
+       x="469.5"
+       y="369.5"
        width="230"
        height="170"
        rx="6.8000002"
@@ -61,10 +68,10 @@
        stroke="#e6e6e6"
        pointer-events="all"
        id="rect6"
-       style="fill:#d9d9d9;stroke:none;fill-opacity:1" />
+       style="fill:#d9d9d9;fill-opacity:1;stroke:none" />
     <rect
-       x="826"
-       y="151"
+       x="844.5"
+       y="169.5"
        width="155"
        height="134"
        rx="4.02"
@@ -73,10 +80,10 @@
        stroke="#e6e6e6"
        pointer-events="all"
        id="rect8"
-       style="fill:#d9d9d9;stroke:none;fill-opacity:1" />
+       style="fill:#d9d9d9;fill-opacity:1;stroke:none" />
     <rect
-       x="101"
-       y="245"
+       x="119.5"
+       y="263.5"
        width="180"
        height="140"
        rx="5.5999999"
@@ -85,10 +92,10 @@
        stroke="#e6e6e6"
        pointer-events="all"
        id="rect10"
-       style="fill:#d9d9d9;stroke:none;fill-opacity:1" />
+       style="fill:#d9d9d9;fill-opacity:1;stroke:none" />
     <rect
-       x="381"
-       y="81"
+       x="399.5"
+       y="99.5"
        width="300"
        height="200"
        rx="4"
@@ -97,7 +104,7 @@
        stroke="#e6e6e6"
        pointer-events="all"
        id="rect12"
-       style="fill:#d9d9d9;stroke:none;fill-opacity:1" />
+       style="fill:#d9d9d9;fill-opacity:1;stroke:none" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -110,7 +117,7 @@
        inkscape:label="Target"
        style="stroke-width:0.9;stroke-dasharray:none">
       <path
-         d="m 61,355 h 10 c 6.666667,0 12.356667,-2.35667 17.07,-7.07 L 106,330 l 7.93,-7.93 C 118.64333,317.35667 124.33333,315 131,315 h 20 l 110,-0.77 c 6.66667,-0.0533 12.35667,2.27667 17.07,6.99 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 V 353.575 413 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 185.60359"
+         d="m 79.5,373.5 h 10 c 6.666667,0 12.35667,-2.35667 17.07,-7.07 l 17.93,-17.93 7.93,-7.93 c 4.71333,-4.71333 10.40333,-7.07 17.07,-7.07 h 20 l 110,-0.77 c 6.66667,-0.0533 12.35667,2.27667 17.07,6.99 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 9.425 59.425 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 185.60359"
          fill="none"
          stroke="#0dc09d"
          stroke-width="6"
@@ -121,7 +128,7 @@
          style="stroke:#24b064;stroke-width:0.9;stroke-dasharray:none;stroke-opacity:1"
          inkscape:label="TargetToRegions" />
       <path
-         d="M 1001,201 H 903.5"
+         d="M 1019.5,219.5 H 922"
          fill="none"
          stroke="#0dc09d"
          stroke-width="6"
@@ -132,7 +139,7 @@
          style="stroke:#24b064;stroke-width:0.9;stroke-dasharray:none;stroke-opacity:1"
          inkscape:label="ImputeToFinal" />
       <path
-         d="m 1006,404.95103 -5,0.049 c -6.66635,0.0653 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 C 973.15333,422.84667 971,428.33333 971,435 v 8 8 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 C 953.35667,478.64333 947.66667,481 941,481 H 926 589 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 L 560,462 548.07,450.07 C 543.35667,445.35667 537.66667,443 531,443 h -13.32933"
+         d="m 1024.5,423.45103 -5,0.049 c -6.6663,0.0653 -12.3567,2.35667 -17.07,7.07 l -6.47,6.47 c -4.30667,4.30664 -6.46,9.7933 -6.46,16.45997 v 8 8 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 c -4.71333,4.71333 -10.40333,7.07 -17.07,7.07 h -15 -337 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 L 578.5,480.5 566.57,468.57 c -4.71333,-4.71333 -10.40333,-7.07 -17.07,-7.07 h -13.32933"
          fill="none"
          stroke="#24b064"
          stroke-width="6"
@@ -143,25 +150,25 @@
          style="stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="RegionsToValidate" />
       <path
-         d="M 903.5,201 H 961 c 6.66667,0 10,3.33333 10,10 v 10 146 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 4.9989"
+         d="m 922,219.5 h 57.5 c 6.66667,0 10,3.33333 10,10 v 10 146 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.7133,4.71333 10.4033,7.07 17.07,7.07 h 4.9989"
          style="fill:none;stroke:#24b064;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
          id="ImputeToValidate"
          inkscape:label="ImputeToValidate"
          sodipodi:nodetypes="csscssssc" />
       <path
-         d="m 517.67067,443 73.49598,-0.0245"
+         d="m 536.17067,461.5 73.49598,-0.0245"
          style="fill:none;stroke:#24b064;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
          id="RegionsToDown"
          inkscape:label="RegionsToDown"
          sodipodi:nodetypes="cc" />
       <path
-         d="M 1022.7578,401 1071,400.81"
+         d="M 1041.2578,419.5 1089.5,419.31"
          style="display:inline;fill:none;stroke:#0dc09d;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none"
          id="ValidateToFinal"
          inkscape:label="ValidateToFinal"
          sodipodi:nodetypes="cc" />
       <path
-         d="M 624.43524,441 H 736.21529 781 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 808.84667,423.15333 811,417.66667 811,411 V 401 239 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40335,-7.0565 17.07,-7.07 l 34.23135,-0.0693"
+         d="M 642.93524,459.5 H 754.71529 799.5 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -10 -162 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40335,-7.0565 17.07,-7.07 l 34.23135,-0.0693"
          style="fill:none;stroke:#24b064;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
          id="TargetToImpute"
          inkscape:label="TargetToImpute"
@@ -173,7 +180,7 @@
        inkscape:label="Fasta"
        style="stroke-width:0.9;stroke-dasharray:none">
       <path
-         d="M 356.35758,301 H 771 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 798.84667,283.15333 801,277.66667 801,271 v -28 -8 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 C 818.64333,207.35667 824.33333,205 831,205 h 44.23197"
+         d="M 374.85758,319.5 H 789.5 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -28 -8 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.07 17.07,-7.07 h 44.23197"
          fill="none"
          stroke="#160f26"
          stroke-width="6"
@@ -184,7 +191,7 @@
          style="stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="FaToImpute" />
       <path
-         d="M 532.19836,203 H 531 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 C 503.15333,220.84667 501,226.33333 501,233 v 9 29 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 C 483.35667,298.64333 477.66667,301 471,301 H 356.35758"
+         d="M 550.69836,221.5 H 549.5 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 c -4.30667,4.30667 -6.46,9.79333 -6.46,16.46 v 9 29 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 c -4.71333,4.71333 -10.40333,7.07 -17.07,7.07 H 374.85758"
          fill="none"
          stroke="#160f26"
          stroke-width="6"
@@ -195,7 +202,7 @@
          style="stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="FaToExtract" />
       <path
-         d="M 411.19836,203 H 401 c -6.66667,0 -10,3.33333 -10,10 v 9 69 c 0,6.66667 -3.33333,10 -10,10 h -24.61242"
+         d="M 429.69836,221.5 H 419.5 c -6.66667,0 -10,3.33333 -10,10 v 9 69 c 0,6.66667 -3.33333,10 -10,10 h -24.61242"
          fill="none"
          stroke="#160f26"
          stroke-width="6"
@@ -206,7 +213,7 @@
          style="stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="FaToNorm" />
       <path
-         d="M 356.38758,301 H 521 c 6.66667,0 12.35667,2.35667 17.07,7.07 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 68 10 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40349,7.11544 17.07,7.07 l 10.16677,-0.0693"
+         d="M 374.88758,319.5 H 539.5 c 6.66667,0 12.35667,2.35667 17.07,7.07 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 68 10 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40349,7.11544 17.07,7.07 l 10.16677,-0.0693"
          fill="none"
          stroke="#160f26"
          stroke-width="6"
@@ -223,7 +230,7 @@
        inkscape:label="Panel"
        style="stroke-width:0.9;stroke-dasharray:none">
       <path
-         d="M 562.00045,201.09794 744.48946,201 H 781 c 6.66667,0 10,3.33333 10,10 v 5 155 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 185"
+         d="M 580.50045,219.59794 762.98946,219.5 H 799.5 c 6.66667,0 10,3.33333 10,10 v 5 155 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 185"
          fill="none"
          stroke="#0dc09d"
          stroke-width="6"
@@ -234,7 +241,7 @@
          style="display:inline;stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="ExtractToValidate" />
       <path
-         d="M 586.40674,121.64998 601,121 c 6.66007,-0.29664 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 628.84667,103.15333 631,97.666667 631,91 V 81 71 c 0,-6.666667 2.15333,-12.153333 6.46,-16.46 l 6.47,-6.47 C 648.64333,43.356667 654.33333,41 661,41 H 700.17516 781 c 6.66667,0 12.35667,2.356667 17.07,7.07 l 6.47,6.47 C 808.84667,58.846667 811,64.333333 811,71 v 6 86 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40344,7.03185 17.07,7.07 l 34.23283,0.19588"
+         d="M 604.90674,140.14998 619.5,139.5 c 6.66007,-0.29664 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -10 -10 c 0,-6.666667 2.15333,-12.153333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.713333 10.40333,-7.07 17.07,-7.07 H 718.67516 799.5 c 6.66667,0 12.35667,2.356667 17.07,7.07 l 6.47,6.47 c 4.30667,4.306667 6.46,9.793333 6.46,16.46 v 6 86 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40344,7.03185 17.07,7.07 l 34.23283,0.19588"
          fill="none"
          stroke="#0dc09d"
          stroke-width="6"
@@ -245,7 +252,7 @@
          style="display:inline;stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="PhaseToImpute" />
       <path
-         d="M 586.40674,121.64998 771,121 c 6.66663,-0.0235 12.35667,2.35667 17.07,7.07 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 8 8 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40335,7.08476 17.07,7.07 l 44.2321,-0.0979"
+         d="M 604.90674,140.14998 789.5,139.5 c 6.66663,-0.0235 12.35667,2.35667 17.07,7.07 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 8 8 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40335,7.08476 17.07,7.07 l 44.2321,-0.0979"
          fill="none"
          stroke="#0dc09d"
          stroke-width="6"
@@ -256,25 +263,25 @@
          style="display:inline;stroke-width:0.9;stroke-dasharray:none"
          inkscape:label="ChunkToImpute" />
       <path
-         d="M 583.33043,201.09794 875.23197,201"
+         d="M 601.83043,219.59794 893.73197,219.5"
          style="display:inline;fill:none;stroke:#0dc09d;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none"
          id="ExtractToImpute"
          inkscape:label="ExtractToImpute"
          sodipodi:nodetypes="cc" />
       <path
-         d="m 460.16775,199.27701 72.03016,-0.12051"
+         d="m 478.66775,217.77701 72.03016,-0.12051"
          style="display:inline;fill:none;stroke:#0dc09d;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none"
          id="NormToExtract"
          inkscape:label="NormToExtract"
          sodipodi:nodetypes="cc" />
       <path
-         d="M 460.16775,199.27701 471,199 c 6.66449,-0.17043 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 498.84667,181.15333 501,175.66667 501,169 v -9 -9 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.05333 17.07,-7.02 l 5.53998,0.0334"
+         d="M 478.66775,217.77701 489.5,217.5 c 6.66449,-0.17043 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -9 -9 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.05333 17.07,-7.02 l 5.53998,0.0334"
          style="display:inline;fill:none;stroke:#0dc09d;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none"
          id="NormToPhase"
          inkscape:label="NormToPhase"
          sodipodi:nodetypes="csssscssscc" />
       <path
-         d="m 61.000001,255 h 10 c 6.666667,0 12.356667,2.35667 17.07,7.07 L 106,280 l 7.93,7.93 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 20 110 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 288.84667,277.15333 291,271.66667 291,265 v -8 -28 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.07 17.07,-7.07 0,0 97.59002,-0.0979 89.85286,-0.0979"
+         d="m 79.500001,273.5 h 10 c 6.666667,0 12.356669,2.35667 17.069999,7.07 l 17.93,17.93 7.93,7.93 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 20 110 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -8 -28 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.07 17.07,-7.07 0,0 97.59002,-0.0979 89.85286,-0.0979"
          style="display:inline;fill:none;stroke:#0dc09d;stroke-width:0.9;stroke-miterlimit:10;stroke-dasharray:none"
          id="PanelToNorm"
          inkscape:label="PanelToNorm"
@@ -287,7 +294,7 @@
      inkscape:label="PathCol"
      style="display:inline">
     <path
-       d="M 1016,401 H 821 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 C 793.15333,383.15333 791,377.66667 791,371 v -155 -5 c 0,-6.66667 -3.33333,-10 -10,-10 h -10"
+       d="m 1034.5,419.5 h -195 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 c -4.30667,-4.30667 -6.46,-9.79333 -6.46,-16.46 v -155 -5 c 0,-6.66667 -3.33333,-10 -10,-10 h -10"
        fill="none"
        stroke="#9cabaa"
        stroke-width="6"
@@ -296,7 +303,7 @@
        id="path14"
        sodipodi:nodetypes="csssscssc" />
     <path
-       d="m 1026,400.8 64.99,0.01"
+       d="m 1044.5,419.3 64.99,0.01"
        fill="none"
        stroke="#212121"
        stroke-width="6"
@@ -304,7 +311,7 @@
        pointer-events="stroke"
        id="path16" />
     <path
-       d="m 661,121 59.98,0.18"
+       d="m 679.5,139.5 59.98,0.18"
        fill="none"
        stroke="#212121"
        stroke-width="6"
@@ -312,7 +319,7 @@
        pointer-events="stroke"
        id="path30" />
     <path
-       d="M 562,201 H 901"
+       d="m 580.5,219.5 h 339"
        fill="none"
        stroke="#9cabaa"
        stroke-width="6"
@@ -320,7 +327,7 @@
        pointer-events="stroke"
        id="path32" />
     <path
-       d="M 541,199 H 321 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 C 293.15333,216.84667 291,222.33333 291,229 v 28 8 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 C 273.35667,292.64333 267.66667,295 261,295 H 151 131 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 L 106,280 88.07,262.07 C 83.356667,257.35667 77.666667,255 71,255 H 61"
+       d="m 559.5,217.5 h -220 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 c -4.30667,4.30667 -6.46,9.79333 -6.46,16.46 v 28 8 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 c -4.71333,4.71333 -10.40333,7.07 -17.07,7.07 h -110 -20 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 L 124.5,298.5 106.57,280.57 C 101.85667,275.85667 96.166667,273.5 89.5,273.5 h -10"
        fill="none"
        stroke="#0dc09d"
        stroke-width="6"
@@ -329,7 +336,7 @@
        id="path34"
        sodipodi:nodetypes="csssscsssscsscssc" />
     <path
-       d="m 901,209 h -60 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 C 813.15333,226.84667 811,232.33333 811,239 v 162 10 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 C 793.35667,438.64333 787.66667,441 781,441 H 618.90043 L 611,442 l -9.27436,1 H 321 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 C 293.15333,425.15333 291,419.66667 291,413 v -59.425 -9.425 c 0,-6.66667 -2.15333,-12.15333 -6.46,-16.46 l -6.47,-6.47 c -4.71333,-4.71333 -10.40333,-7.0433 -17.07,-6.99 L 151,315 h -20 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 L 106,330 88.07,347.93 C 83.356667,352.64333 77.666667,355 71,355 H 61"
+       d="m 919.5,227.5 h -60 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 c -4.30667,4.30667 -6.46,9.79333 -6.46,16.46 v 162 10 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 c -4.71333,4.71333 -10.40333,7.07 -17.07,7.07 H 637.40043 l -7.90043,1 -9.27436,1 H 339.5 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 c -4.30667,-4.30667 -6.46,-9.79333 -6.46,-16.46 v -59.425 -9.425 c 0,-6.66667 -2.15333,-12.15333 -6.46,-16.46 l -6.47,-6.47 c -4.71333,-4.71333 -10.40333,-7.0433 -17.07,-6.99 l -110,0.77 h -20 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -7.93,7.93 -17.93,17.93 c -4.71333,4.71333 -10.403333,7.07 -17.07,7.07 h -10"
        fill="none"
        stroke="#24b064"
        stroke-width="6"
@@ -338,7 +345,7 @@
        id="path40"
        sodipodi:nodetypes="csssscsssscccsssscsssccsscssc" />
     <path
-       d="M 370.97,301 H 771 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 798.84667,283.15333 801,277.66667 801,271 v -28 -8 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 C 818.64333,207.35667 824.33333,205 831,205 h 70"
+       d="M 389.47,319.5 H 789.5 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -28 -8 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.07 17.07,-7.07 h 70"
        fill="none"
        stroke="#160f26"
        stroke-width="6"
@@ -347,7 +354,7 @@
        id="path44"
        sodipodi:nodetypes="csssscssssc" />
     <path
-       d="m 461,199 h 10 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 498.84667,181.15333 501,175.66667 501,169 v -9 -9 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.05333 17.07,-7.02 l 105.5,0.5"
+       d="m 479.5,217.5 h 10 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -9 -9 c 0,-6.66667 2.15333,-12.15333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.71333 10.40333,-7.05333 17.07,-7.02 l 105.5,0.5"
        fill="none"
        stroke="#0dc09d"
        stroke-width="6"
@@ -356,7 +363,7 @@
        id="path52"
        sodipodi:nodetypes="csssscssscc" />
     <path
-       d="m 591,121 h 10 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 C 628.84667,103.15333 631,97.666667 631,91 V 81 71 c 0,-6.666667 2.15333,-12.153333 6.46,-16.46 l 6.47,-6.47 C 648.64333,43.356667 654.33333,41 661,41 h 43.68"
+       d="m 609.5,139.5 h 10 c 6.66667,0 12.35667,-2.35667 17.07,-7.07 l 6.47,-6.47 c 4.30667,-4.30667 6.46,-9.79333 6.46,-16.46 v -10 -10 c 0,-6.666667 2.15333,-12.153333 6.46,-16.46 l 6.47,-6.47 c 4.71333,-4.713333 10.40333,-7.07 17.07,-7.07 h 43.68"
        fill="none"
        stroke="#0dc09d"
        stroke-width="6"
@@ -365,7 +372,7 @@
        id="path54"
        sodipodi:nodetypes="csssscssssc" />
     <path
-       d="m 661,41 h 120 c 6.66667,0 12.35667,2.356667 17.07,7.07 l 6.47,6.47 C 808.84667,58.846667 811,64.333333 811,71 v 6 86 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 60"
+       d="m 679.5,59.5 h 120 c 6.66667,0 12.35667,2.356667 17.07,7.07 l 6.47,6.47 c 4.30667,4.306667 6.46,9.793333 6.46,16.46 v 6 86 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 60"
        fill="none"
        stroke="#0dc09d"
        stroke-width="6"
@@ -374,7 +381,7 @@
        id="path64"
        sodipodi:nodetypes="csssscssssc" />
     <path
-       d="m 901,197 h -70 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 C 803.15333,179.15333 801,173.66667 801,167 v -8 -8 c 0,-6.66667 -2.15333,-12.15333 -6.46,-16.46 l -6.47,-6.47 C 783.35667,123.35667 777.66667,121 771,121 H 671"
+       d="m 919.5,215.5 h -70 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 c -4.30667,-4.30667 -6.46,-9.79333 -6.46,-16.46 v -8 -8 c 0,-6.66667 -2.15333,-12.15333 -6.46,-16.46 l -6.47,-6.47 c -4.71333,-4.71333 -10.40333,-7.07 -17.07,-7.07 h -100"
        fill="none"
        stroke="#212121"
        stroke-width="6"
@@ -383,7 +390,7 @@
        id="path66"
        sodipodi:nodetypes="csssscssssc" />
     <path
-       d="m 541,203 h -10 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 C 503.15333,220.84667 501,226.33333 501,233 v 9 29 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 C 483.35667,298.64333 477.66667,301 471,301 h -10"
+       d="m 559.5,221.5 h -10 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 c -4.30667,4.30667 -6.46,9.79333 -6.46,16.46 v 9 29 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 c -4.71333,4.71333 -10.40333,7.07 -17.07,7.07 h -10"
        fill="none"
        stroke="#160f26"
        stroke-width="6"
@@ -392,7 +399,7 @@
        id="path70"
        sodipodi:nodetypes="csssscssssc" />
     <path
-       d="m 421,203 h -20 c -6.66667,0 -10,3.33333 -10,10 v 9 69 c 0,6.66667 -3.33333,10 -10,10 h -10"
+       d="m 439.5,221.5 h -20 c -6.66667,0 -10,3.33333 -10,10 v 9 69 c 0,6.66667 -3.33333,10 -10,10 h -10"
        fill="none"
        stroke="#160f26"
        stroke-width="6"
@@ -401,7 +408,7 @@
        id="path72"
        sodipodi:nodetypes="csscssc" />
     <path
-       d="m 511,301 h 10 c 6.66667,0 12.35667,2.35667 17.07,7.07 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 68 10 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 10"
+       d="m 529.5,319.5 h 10 c 6.66667,0 12.35667,2.35667 17.07,7.07 l 6.47,6.47 c 4.30667,4.30667 6.46,9.79333 6.46,16.46 v 68 10 c 0,6.66667 2.15333,12.15333 6.46,16.46 l 6.47,6.47 c 4.71333,4.71333 10.40333,7.07 17.07,7.07 h 10"
        fill="none"
        stroke="#160f26"
        stroke-width="6"
@@ -410,7 +417,7 @@
        id="path78"
        sodipodi:nodetypes="csssscssssc" />
     <path
-       d="m 1011,397 h -10 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 l -6.47,-6.47 C 973.15333,379.15333 971,373.66667 971,367 V 221 211 c 0,-6.66667 -3.33333,-10 -10,-10 h -10"
+       d="m 1029.5,415.5 h -10 c -6.6667,0 -12.3567,-2.35667 -17.07,-7.07 l -6.47,-6.47 c -4.30667,-4.30667 -6.46,-9.79333 -6.46,-16.46 v -146 -10 c 0,-6.66667 -3.33333,-10 -10,-10 h -10"
        fill="none"
        stroke="#24b064"
        stroke-width="6"
@@ -419,7 +426,7 @@
        id="path80"
        sodipodi:nodetypes="csssscssc" />
     <path
-       d="m 1011,405 h -10 c -6.66667,0 -12.35667,2.35667 -17.07,7.07 l -6.47,6.47 C 973.15333,422.84667 971,428.33333 971,435 v 8 8 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 C 953.35667,478.64333 947.66667,481 941,481 H 926 589 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 L 560,462 548.07,450.07 C 543.35667,445.35667 537.66667,443 531,443 h -10"
+       d="m 1029.5,423.5 h -10 c -6.6667,0 -12.3567,2.35667 -17.07,7.07 l -6.47,6.47 c -4.30667,4.30667 -6.46,9.79333 -6.46,16.46 v 8 8 c 0,6.66667 -2.15333,12.15333 -6.46,16.46 l -6.47,6.47 c -4.71333,4.71333 -10.40333,7.07 -17.07,7.07 h -15 -337 c -6.66667,0 -12.35667,-2.35667 -17.07,-7.07 L 578.5,480.5 566.57,468.57 c -4.71333,-4.71333 -10.40333,-7.07 -17.07,-7.07 h -10"
        fill="none"
        stroke="#24b064"
        stroke-width="6"
@@ -428,7 +435,7 @@
        id="path82"
        sodipodi:nodetypes="csssscsssscsscssc" />
     <path
-       d="m 911,201 h 120"
+       d="m 929.5,219.5 h 120"
        fill="none"
        stroke="#24b064"
        stroke-width="6"
@@ -444,8 +451,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle1"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="0s"
@@ -461,8 +468,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle54"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="0s"
@@ -478,8 +485,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle44"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="3s"
@@ -495,8 +502,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle46"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="3s"
@@ -512,8 +519,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle56"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="3s"
@@ -529,8 +536,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle48"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="6s"
@@ -546,8 +553,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle50"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="6s"
@@ -563,8 +570,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle52"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="6s"
@@ -580,8 +587,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle53"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="6s"
@@ -597,8 +604,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle58"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="6s"
@@ -614,8 +621,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle59"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="9s"
@@ -631,8 +638,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle60"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="0s"
@@ -648,8 +655,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle64"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="3s"
@@ -665,8 +672,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle61"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="3s"
@@ -682,8 +689,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle68"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="3s"
@@ -699,8 +706,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle70"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="6s"
@@ -716,8 +723,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle72"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="9s"
@@ -733,8 +740,8 @@
     <circle
        style="fill:#ffffff;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
        id="circle71"
-       cx="0"
-       cy="0"
+       cx="-0.5"
+       cy="-0.5"
        r="3">
       <animateMotion
          begin="12s"
@@ -755,7 +762,7 @@
      style="display:inline">
     <g
        id="g96"
-       transform="translate(-0.5,-0.5)">
+       transform="translate(18,18)">
       <switch
          id="switch94">
         <foreignObject
@@ -787,7 +794,7 @@
       </switch>
     </g>
     <g
-       transform="rotate(-45,503.60645,399.83355)"
+       transform="rotate(-45,535.18793,386.75207)"
        id="g104">
       <switch
          id="switch102">
@@ -818,7 +825,7 @@
       </switch>
     </g>
     <g
-       transform="rotate(-45,617.14645,396.35355)"
+       transform="rotate(-45,648.72793,383.27207)"
        id="g112">
       <switch
          id="switch110">
@@ -850,7 +857,7 @@
     </g>
     <g
        id="g120"
-       transform="translate(-0.5,-0.5)">
+       transform="translate(18,18)">
       <switch
          id="switch118">
         <foreignObject
@@ -882,7 +889,7 @@
       </switch>
     </g>
     <g
-       transform="rotate(-45,900.94559,225.55441)"
+       transform="rotate(-45,932.52707,212.47293)"
        id="g128">
       <switch
          id="switch126">
@@ -909,6 +916,11 @@
 
 
 
+
+
+
+
+
 with tool</xhtml:div>
             </xhtml:div>
           </xhtml:div>
@@ -924,7 +936,7 @@ with tool</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,861.33645,449.71355)"
+       transform="rotate(-45,892.91793,436.63207)"
        id="g136">
       <switch
          id="switch134">
@@ -955,7 +967,7 @@ with tool</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,1008.1464,450.35355)"
+       transform="rotate(-45,1039.7279,437.27207)"
        id="g144">
       <switch
          id="switch142">
@@ -982,6 +994,11 @@ with tool</xhtml:div>
 
 
 
+
+
+
+
+
 concordance</xhtml:div>
             </xhtml:div>
           </xhtml:div>
@@ -998,7 +1015,7 @@ concordance</xhtml:div>
     </g>
     <g
        id="g152"
-       transform="translate(-0.5,-0.5)">
+       transform="translate(18,18)">
       <switch
          id="switch150">
         <foreignObject
@@ -1031,7 +1048,7 @@ concordance</xhtml:div>
     </g>
     <g
        id="g160"
-       transform="translate(-0.5,-0.5)">
+       transform="translate(18,18)">
       <switch
          id="switch158">
         <foreignObject
@@ -1066,7 +1083,7 @@ concordance</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,252.3278,338.4872)"
+       transform="rotate(-45,283.90928,325.40572)"
        id="g168">
       <switch
          id="switch166">
@@ -1100,7 +1117,7 @@ concordance</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,160.02056,339.47944)"
+       transform="rotate(-45,191.60204,326.39796)"
        id="g176">
       <switch
          id="switch174">
@@ -1128,6 +1145,11 @@ concordance</xhtml:div>
 
 
 
+
+
+
+
+
 chr</xhtml:font>
               </xhtml:div>
             </xhtml:div>
@@ -1144,7 +1166,7 @@ chr</xhtml:font>
       </switch>
     </g>
     <g
-       transform="rotate(-45,464.0165,224.4835)"
+       transform="rotate(-45,495.59798,211.40202)"
        id="g184">
       <switch
          id="switch182">
@@ -1171,6 +1193,11 @@ chr</xhtml:font>
 
 
 
+
+
+
+
+
 alleles</xhtml:div>
             </xhtml:div>
           </xhtml:div>
@@ -1186,7 +1213,7 @@ alleles</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,664.55635,146.09365)"
+       transform="rotate(-45,696.13783,133.01217)"
        id="g192">
       <switch
          id="switch190">
@@ -1213,6 +1240,11 @@ alleles</xhtml:div>
 
 
 
+
+
+
+
+
 chr</xhtml:div>
             </xhtml:div>
           </xhtml:div>
@@ -1228,7 +1260,7 @@ chr</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,573.76625,140.84375)"
+       transform="rotate(-45,605.34773,127.76227)"
        id="g200">
       <switch
          id="switch198">
@@ -1259,7 +1291,7 @@ chr</xhtml:div>
       </switch>
     </g>
     <g
-       transform="rotate(-45,571.7132,224.7868)"
+       transform="rotate(-45,603.29468,211.70532)"
        id="g208">
       <switch
          id="switch206">
@@ -1286,6 +1318,11 @@ chr</xhtml:div>
 
 
 
+
+
+
+
+
 sites</xhtml:div>
             </xhtml:div>
           </xhtml:div>
@@ -1302,7 +1339,7 @@ sites</xhtml:div>
     </g>
     <g
        id="g216"
-       transform="translate(-0.5,-0.5)">
+       transform="translate(18,18)">
       <switch
          id="switch214">
         <foreignObject
@@ -1334,8 +1371,8 @@ sites</xhtml:div>
       </switch>
     </g>
     <rect
-       x="304"
-       y="-261"
+       x="322.5"
+       y="-279.5"
        width="20"
        height="40"
        rx="3"
@@ -1347,8 +1384,8 @@ sites</xhtml:div>
        pointer-events="all"
        id="rect218" />
     <rect
-       x="284.14999"
-       y="-261"
+       x="302.64999"
+       y="-279.5"
        width="20"
        height="40"
        rx="3"
@@ -1360,8 +1397,8 @@ sites</xhtml:div>
        pointer-events="all"
        id="rect220" />
     <rect
-       x="304"
-       y="-171"
+       x="322.5"
+       y="-189.5"
        width="20"
        height="40"
        rx="10"
@@ -1373,8 +1410,8 @@ sites</xhtml:div>
        pointer-events="all"
        id="rect222" />
     <rect
-       x="284"
-       y="-171"
+       x="302.5"
+       y="-189.5"
        width="20"
        height="40"
        rx="10"
@@ -1386,7 +1423,8 @@ sites</xhtml:div>
        pointer-events="all"
        id="rect224" />
     <g
-       id="g1045">
+       id="g1045"
+       transform="translate(18.5,18.5)">
       <path
          d="m 4.68,215 h 41.95 l 17,17 v 49.67 H 4.68 Z"
          fill="#ffffff"
@@ -1534,6 +1572,11 @@ sites</xhtml:div>
 
 
 
+
+
+
+
+
 VCF<xhtml:br />
 </xhtml:font>
                     </xhtml:b>
@@ -1554,7 +1597,8 @@ VCF<xhtml:br />
       </g>
     </g>
     <g
-       id="g1061">
+       id="g1061"
+       transform="translate(18.5,18.5)">
       <path
          d="m 4.68,314 h 41.95 l 17,17 v 49.67 H 4.68 Z"
          fill="#ffffff"
@@ -1702,6 +1746,11 @@ VCF<xhtml:br />
 
 
 
+
+
+
+
+
 BAM<xhtml:br />
 </xhtml:font>
                     </xhtml:b>
@@ -1722,8 +1771,8 @@ BAM<xhtml:br />
       </g>
     </g>
     <rect
-       x="501"
-       y="431.14001"
+       x="519.5"
+       y="449.64001"
        width="20"
        height="20"
        rx="3"
@@ -1734,7 +1783,8 @@ BAM<xhtml:br />
        pointer-events="none"
        id="rect282" />
     <g
-       id="g1102">
+       id="g1102"
+       transform="translate(18.5,18.5)">
       <path
          d="m 1074.68,361 h 41.95 l 17,17 v 49.67 h -58.95 z"
          fill="#ffffff"
@@ -1882,6 +1932,11 @@ BAM<xhtml:br />
 
 
 
+
+
+
+
+
 CSV<xhtml:br />
 </xhtml:font>
                     </xhtml:b>
@@ -1902,8 +1957,8 @@ CSV<xhtml:br />
       </g>
     </g>
     <rect
-       x="848.65997"
-       y="471"
+       x="867.15997"
+       y="489.5"
        width="20"
        height="20"
        rx="3"
@@ -1914,7 +1969,7 @@ CSV<xhtml:br />
        pointer-events="none"
        id="rect312" />
     <path
-       d="m 661,471 10,10 -10,10 -10,-10 z"
+       d="m 679.5,489.5 10,10 -10,10 -10,-10 z"
        fill="#ffffff"
        stroke="#000000"
        stroke-width="2"
@@ -1922,7 +1977,7 @@ CSV<xhtml:br />
        pointer-events="none"
        id="path314" />
     <path
-       d="m 914.1,470.59 10,10 -10,10 -10,-10 z"
+       d="m 932.6,489.09 10,10 -10,10 -10,-10 z"
        fill="#ffffff"
        stroke="#000000"
        stroke-width="2"
@@ -1930,7 +1985,7 @@ CSV<xhtml:br />
        pointer-events="none"
        id="path316" />
     <path
-       d="m 911.5,391.45 10,10 -10,10 -10,-10 z"
+       d="m 930,409.95 10,10 -10,10 -10,-10 z"
        fill="#ffffff"
        stroke="#000000"
        stroke-width="2"
@@ -1938,8 +1993,8 @@ CSV<xhtml:br />
        pointer-events="none"
        id="path318" />
     <rect
-       x="111.64998"
-       y="-596.53998"
+       x="130.14998"
+       y="-615.03998"
        width="20"
        height="60"
        rx="3"
@@ -1951,7 +2006,8 @@ CSV<xhtml:br />
        pointer-events="none"
        id="rect320" />
     <g
-       id="g1150">
+       id="g1150"
+       transform="translate(18.5,18.5)">
       <path
          d="m 704.68,1 h 41.95 l 17,17 v 49.67 h -58.95 z"
          fill="#ffffff"
@@ -2109,7 +2165,8 @@ CSV<xhtml:br />
       </g>
     </g>
     <g
-       id="g1166">
+       id="g1166"
+       transform="translate(18.5,18.5)">
       <path
          d="m 704.68,81 h 41.95 l 17,17 v 49.67 h -58.95 z"
          fill="#ffffff"
@@ -2257,6 +2314,11 @@ CSV<xhtml:br />
 
 
 
+
+
+
+
+
 TXT<xhtml:br />
 </xhtml:font>
                     </xhtml:b>
@@ -2277,8 +2339,8 @@ TXT<xhtml:br />
       </g>
     </g>
     <rect
-       x="191"
-       y="-471"
+       x="209.5"
+       y="-489.5"
        width="20"
        height="60"
        rx="10"
@@ -2290,8 +2352,8 @@ TXT<xhtml:br />
        pointer-events="none"
        id="rect378" />
     <rect
-       x="111.65"
-       y="-676.5"
+       x="130.14999"
+       y="-695"
        width="20"
        height="40"
        rx="10"
@@ -2303,7 +2365,8 @@ TXT<xhtml:br />
        pointer-events="none"
        id="rect380" />
     <g
-       id="g1134">
+       id="g1134"
+       transform="translate(18.5,18.5)">
       <path
          d="m 704.68,161 h 41.95 l 17,17 v 49.67 h -58.95 z"
          fill="#ffffff"
@@ -2453,6 +2516,11 @@ TXT<xhtml:br />
 
 
 
+
+
+
+
+
 TSV</xhtml:font>
                         <xhtml:br />
                       </xhtml:font>
@@ -2474,7 +2542,8 @@ TSV</xhtml:font>
       </g>
     </g>
     <g
-       id="g1070">
+       id="g1070"
+       transform="translate(18.5,18.5)">
       <path
          d="m 308.37,264.33 h 43.95 l 15,15 V 331 h -58.95 z"
          fill="#ffffff"
@@ -2545,6 +2614,11 @@ TSV</xhtml:font>
 
 
 
+
+
+
+
+
 Fasta<xhtml:br />
 </xhtml:font>
                     </xhtml:b>
@@ -2565,8 +2639,8 @@ Fasta<xhtml:br />
       </g>
     </g>
     <rect
-       x="191"
-       y="-592"
+       x="209.5"
+       y="-610.5"
        width="20"
        height="60"
        rx="10"
@@ -2578,8 +2652,8 @@ Fasta<xhtml:br />
        pointer-events="none"
        id="rect424" />
     <circle
-       cx="1016"
-       cy="401"
+       cx="1034.5"
+       cy="419.5"
        fill="#ffffff"
        stroke="#000000"
        stroke-width="3"
@@ -2587,8 +2661,8 @@ Fasta<xhtml:br />
        id="ellipse426"
        r="10" />
     <rect
-       x="191"
-       y="-911.5"
+       x="209.5"
+       y="-930"
        width="20"
        height="40"
        rx="10"
@@ -2600,7 +2674,7 @@ Fasta<xhtml:br />
        pointer-events="none"
        id="rect428" />
     <path
-       d="m 941,191 10,10 -10,10 -10,-10 z"
+       d="m 959.5,209.5 10,10 -10,10 -10,-10 z"
        fill="#ffffff"
        stroke="#000000"
        stroke-width="2"
@@ -2608,7 +2682,8 @@ Fasta<xhtml:br />
        pointer-events="none"
        id="path430" />
     <g
-       id="g1118">
+       id="g1118"
+       transform="translate(18.5,18.5)">
       <path
          d="m 1004.68,161 h 41.95 l 17,17 v 49.67 h -58.95 z"
          fill="#ffffff"
@@ -2756,6 +2831,11 @@ Fasta<xhtml:br />
 
 
 
+
+
+
+
+
 VCF<xhtml:br />
 </xhtml:font>
                     </xhtml:b>
@@ -2776,8 +2856,8 @@ VCF<xhtml:br />
       </g>
     </g>
     <rect
-       x="431.14001"
-       y="-631"
+       x="449.64001"
+       y="-649.5"
        width="20"
        height="40"
        rx="10"
@@ -2789,7 +2869,7 @@ VCF<xhtml:br />
        pointer-events="none"
        id="rect460" />
     <path
-       d="m 661,431 10,10 -10,10 -10,-10 z"
+       d="m 679.5,449.5 10,10 -10,10 -10,-10 z"
        fill="#ffffff"
        stroke="#000000"
        stroke-width="2"
@@ -2797,7 +2877,8 @@ VCF<xhtml:br />
        pointer-events="none"
        id="path462" />
     <g
-       id="g1086">
+       id="g1086"
+       transform="translate(18.5,18.5)">
       <path
          d="m 704.68,400.59 h 41.95 l 17,17 v 49.67 h -58.95 z"
          fill="#ffffff"
@@ -2936,6 +3017,11 @@ VCF<xhtml:br />
                        style="font-size: 14px;">
                       <xhtml:font
                          style="font-size: 14px;">Target<xhtml:br />
+
+
+
+
+
 
 
 

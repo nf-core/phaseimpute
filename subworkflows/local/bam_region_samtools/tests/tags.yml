@@ -1,2 +1,0 @@
-subworkflows/bam_region_samtools:
-  - subworkflows/local/bam_region_samtools/**

@@ -30,10 +30,10 @@ SAMPLE3,AEG588A3.bam,AEG588A3.bai
 ```
 
 | Column   | Description                                                                                                                                                                                                       |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                                      |
 | `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" and optionally compressed with bgzip ".gz". All files in this column need to have the same extension. |
-| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files in this column need to have the same extension.                                                            |     |
+| `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files in this column need to have the same extension.                                                            |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -181,11 +181,34 @@ genome: 'GRCh37'
 <...>
 ```
 
-:::warning
-Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
-:::
+> [!WARNING]
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 You can also generate `YAML` or `JSON` files easily using the [nf-core/launch](https://nf-co.re/launch) tool, which guides you creating the files that can be used directly with `-params-file`.
+
+### Running with the `tests` profile
+
+Multiple tests profiles are available to test the different functionalities of the pipeline on a small dataset.
+The different tests profiles are:
+
+- `test`: A profile to evaluate the imputation step with the `glimpse1` tool.
+- `test_glimpse2`: A profile to evaluate the imputation step with the `glimpse2` tool.
+- `test_quilt`: A profile to evaluate the imputation step with the `quilt` tool.
+- `test_stitch`: A profile to evaluate the imputation step with the `stitch` tool.
+- `test_panelprep`: A profile to evaluate the panel preparation step.
+- `test_sim`: A profile to evaluate the simulation step.
+- `test_validate`: A profile to evaluate the validation step.
+- `test_batch`: A profile to evaluate the imputation and validation steps of the pipeline while splitting the input in different batch.
+- `test_dog`: A profile to evaluate the panel preparation and imputation steps on dog samples using `glimpse1`, `glimpse2` and `quilt` tools.
+- `test_all`: A profile with a complete configuration to evaluate all the steps of the pipeline.
+- `test_all_fullchr`: A profile with a complete configuration to evaluate all the steps of the pipeline on the full size chromosomes 21 and 22.
+- `test_full`: A profile with a complete configuration to evaluate all the steps of the pipeline on the whole genome.
+
+Each test can be run with the following command:
+
+```bash
+nextflow run nf-core/phaseimpute -profile <test,test_glimpse2,test_quilt,...>,<singularity,docker,conda> --outdir results
+```
 
 ## Running the pipeline: detailed instructions
 
@@ -195,7 +218,9 @@ nf-core/phaseimpute can be started at different points in the analysis by settin
 
 <img src="images/metro/Simulate.png" alt="simulate_metro" width="600"/>
 
-This step of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to the truth and evaluate the quality of the imputation. You can skip this steps if you already have low-pass genome sequencing data. A sample command for this steps is:
+This step of the pipeline allows to create synthetic low-coverage input files by downsizing high density input data. A typical use case is to obtain low-coverage input data from a sequenced sample. This method is useful for comparing the imputation results to a truth dataset and evaluate the quality of the imputation. The truth file for each sample here, is obtained by calling the variants from the high density input data provided it can also be provided through `--input-truth` CSV samplesheet. You can skip these steps if you already have low-pass genome sequencing data.
+
+A sample command for this steps is:
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -220,7 +245,7 @@ You can find an overview of the results produced by this step in the [Output](ou
 
 <img src="images/metro/PanelPrep.png" alt="Panel preparation" width="600"/>
 
-This steps pre-processes the reference panel in order to be ready for imputation. There are a few quality control steps that are applied to reference panels. These include actions such as removing multiallelic SNPs and indels and removing certain samples from the reference panel (such as related samples). In addition, chunks are produced which are then used in the imputation steps. It is recommended that this steps is run once and the produced files are saved, to minimize the cost of reading the reference panel each time. Then, the output files from `--steps panelprep` can be used as input in the subsequent imputation steps, such as `--steps impute`.
+These steps pre-process the reference panel in order to be ready for imputation. There are a few quality control steps that are applied to reference panels. These include actions such as removing multiallelic SNPs and indels and removing certain samples from the reference panel (such as related samples). In addition, chunks are produced which are then used in the imputation steps. It is recommended that these steps are run once and the produced files are saved, to minimize the cost of reading the reference panel each time. Then, the output files from `--steps panelprep` can be used as input in the subsequent imputation steps, such as `--steps impute`.
 
 For starting from panel preparation, the required flags are `--steps panelprep` and `--panel samplesheet_reference.csv`.
 
@@ -237,7 +262,7 @@ The required flags for this mode are:
 - `--steps panelprep`: The steps to run.
 - `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
 - `--phase`: (optional) Whether the reference panel should be phased (true|false).
-- `--normalize`: (optional) Whether the reference panel needs to be normalized or not (true|false). Default is true.
+- `--normalize`: (optional) Whether the reference panel needs to be normalized or not (true|false). The default value is true.
 - `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference during the normalization process.
 - `--compute_freq`: (optional) Whether the frequency (AC/AN field) for each variants needs to be computed or not (true/false). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
 
@@ -314,7 +339,7 @@ You can choose different software to perform the imputation. In the following se
 
 ### QUILT
 
-[QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a csv file with the genomic chunks (`--chunks`).
+[QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -328,7 +353,7 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-The csv provided in `--posfile` has been described before and is produced by `--steps panelprep`. The hap and legend files in this csv are mandatory to use QUILT.
+The CSV file provided in `--posfile` has been described before and is produced by `--steps panelprep`. The `.hap` and `.legend` files in this CSV file are mandatory to use QUILT.
 
 ```console title="posfile.csv"
 panel,chr,hap,legend
@@ -344,9 +369,9 @@ panel,chr,file
 1000GP,chr3,chunks_chr3.txt
 ```
 
-The file column should contain a TXT/TSV obtained from GLIMPSE1 with the following [structure](https://github.com/nf-core/test-datasets/blob/phaseimpute/hum_data/panel/chr22/1000GP.chr22_chunks.txt).
+The file column should contain a TXT/TSV file obtained from GLIMPSE1 with the following [structure](https://github.com/nf-core/test-datasets/blob/phaseimpute/hum_data/panel/chr22/1000GP.chr22_chunks.txt).
 
-If you do not have a csv with chunks, you can provide a reference panel to run the `--steps panelprep` which produces a csv with these chunks, which is then used as input for QUILT. You can choose to run both steps sequentially as `--steps panelprep,impute` or simply collect the files produced by `--steps panelprep`.
+If you do not have a CSV file with chunks, you can provide a reference panel to run the `--steps panelprep` which produces a CSV file with these chunks, which is then used as input for QUILT. You can choose to run both steps sequentially as `--steps panelprep,impute` or simply collect the files produced by `--steps panelprep`.
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -363,7 +388,7 @@ nextflow run nf-core/phaseimpute \
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`). See [Posfile section](#samplesheet-posfile) for more information.
 
-If you do not have a list of position to genotype, you can provide a reference panel to run the `--steps panelprep` which produces a tsv with this list.
+If you do not have a position file, you can run the `--steps panelprep` with a reference panel that will produces the TSV file.
 
 ```bash
 nextflow run nf-core/phaseimpute \
@@ -388,7 +413,7 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
+The CSV file provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console title="posfile.csv"
 panel,chr,legend
@@ -421,14 +446,14 @@ nextflow run nf-core/phaseimpute \
     --chunks chunks.csv
 ```
 
-The csv provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
+The CSV file provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console title="posfile.csv"
 panel,chr,legend
 1000GP,chr22,1000GP.s.norel_chr22.legend.gz
 ```
 
-The csv provided in `--panel` must be prepared with `--steps panelprep` and must contain two columns [panel, chr, vcf, index].
+The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
 
 ### GLIMPSE2
 
@@ -446,7 +471,7 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-Make sure the csv with the input panel is the output from `--step panelprep` or has been previously prepared.
+Make sure the CSV file with the input panel is the output from `--step panelprep` or has been previously prepared.
 
 ## Start with validation `--steps validate`
 
@@ -475,7 +500,7 @@ The required flags for this mode only are:
   The structure of the `input_truth.csv` is the same as the `input.csv` file. See [Samplesheet input](#samplesheet-input) for more information.
 - `--posfile posfile.csv`: A samplesheet containing the panel sites informations in `vcf` format for each chromosome.
 
-The csv provided in `--posfile` must contain three columns [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
+The CSV file provided in `--posfile` must contain four columns [panel, chr, vcf, index]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console title="posfile.csv"
 panel,chr,vcf,index
@@ -515,23 +540,21 @@ nextflow pull nf-core/phaseimpute
 
 ### Reproducibility
 
-It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
+It is a good idea to specify the pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
 First, go to the [nf-core/phaseimpute releases page](https://github.com/nf-core/phaseimpute/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
-:::tip
-If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
-:::
+> [!TIP]
+> If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
 ## Core Nextflow arguments
 
-:::note
-These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
-:::
+> [!NOTE]
+> These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
 
 ### `-profile`
 
@@ -539,11 +562,10 @@ Use this parameter to choose a configuration profile. Profiles can give configur
 
 Several generic profiles are bundled with the pipeline which instruct the pipeline to use software packaged using different methods (Docker, Singularity, Podman, Shifter, Charliecloud, Apptainer, Conda) - see below.
 
-:::info
-We highly recommend the use of Docker or Singularity containers for full pipeline reproducibility, however when this is not possible, Conda is also supported.
-:::
+> [!IMPORTANT]
+> We highly recommend the use of Docker or Singularity containers for full pipeline reproducibility, however when this is not possible, Conda is also supported.
 
-The pipeline also dynamically loads configurations from [https://github.com/nf-core/configs](https://github.com/nf-core/configs) when it runs, making multiple config profiles for various institutional clusters available at run time. For more information and to see if your system is available in these configs please see the [nf-core/configs documentation](https://github.com/nf-core/configs#documentation).
+The pipeline also dynamically loads configurations from [https://github.com/nf-core/configs](https://github.com/nf-core/configs) when it runs, making multiple config profiles for various institutional clusters available at run time. For more information and to check if your system is suported, please see the [nf-core/configs documentation](https://github.com/nf-core/configs#documentation).
 
 Note that multiple profiles can be loaded, for example: `-profile test,docker` - the order of arguments is important!
 They are loaded in sequence, so later profiles can overwrite earlier profiles.
@@ -584,19 +606,35 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 ### Resource requests
 
-Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each steps in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the steps in the pipeline, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher requests (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
+Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each steps in the pipeline has a default set of requirements for number of CPUs, memory and time. For most pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
 To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
 
 ### Custom Containers
 
-In some cases you may wish to change which container or conda environment a steps of the pipeline uses for a particular tool. By default nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However in some cases the pipeline specified version maybe out of date.
+In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
 
 To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
 
 ### Custom Tool Arguments
 
-A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
+A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default. The different configuration for the different processes are organized as follow:
+
+```tree
+├── conf
+│   ├── steps
+│   │   ├── chrcheck.config # Configuration for the chrcheck workflow
+│   │   ├── imputation_glimpse1.config # Configuration for the impute step with GLIMPSE1
+│   │   ├── imputation_glimpse2.config # Configuration for the impute step with GLIMPSE2
+│   │   ├── imputation_quilt.config # Configuration for the impute step with QUILT
+│   │   ├── imputation_stitch.config # Configuration for the impute step with STITCH
+│   │   ├── initialisation.config # Configuration for the initialisation subworkflow
+│   │   ├── panel_prep.config # Configuration for the panelprep step
+│   │   ├── simulation.config # Configuration for the simulation step
+│   │   └── validation.config # Configuration for the validation step
+│   ├── base.config # Base configuration for the pipeline
+│   └── modules.config # Configuration for the statistical and multiqc modules
+```
 
 One of the parameters that you might want to modify could be specific to each imputation software. As an example, running the pipeline, you may encounter that to reduce the impact of individual reads (for example in QUILT), you might need to lower coverage. This can be achieved by including any modification to a Nextflow process as an external argument using `ext.args`. You would customize the run by providing:
 

@@ -11,16 +11,20 @@ The directories listed below will be created in the results directory after the 
 ## Panel preparation outputs `--steps panelprep`
 
 This step of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--steps impute`).
-It has two optional modes:
 
-- reference panel phasing with SHAPEIT5
-- removal of specified samples from reference panel.
+It has the following optional modes:
 
-- [Normalize reference panel](#panel-directory) - Remove multiallelic sites from the reference panel and compute allele frequencies if needed
-- [Convert](#haplegend-directory) - Convert reference panel to .hap and .legend files
-- [Posfile](#sites-directory) - Produce a TSV with the list of positions to genotype for the different tools
-- [Chromosomes chunks](#chunks-directory) - Create chunks of the reference panel
-- [CSV](#csv-directory) - Obtain a CSV from this step
+- `--normalize` - Normalize the reference panel with `bcftools norm` and remove multiallelic sites. It also allow to remove samples using `--remove_samples`.
+- `--compute_freq` - Compute allele frequencies with `vcffixup`.
+- `--phase` - Phase the reference panel with `SHAPEIT5`.
+
+The pipeline will produce the following outputs:
+
+- [Normalize reference panel](#panel-directory) - Remove multiallelic sites from the reference panel and compute allele frequencies if needed.
+- [Convert](#haplegend-directory) - Convert reference panel to `.hap` and `.legend` files.
+- [Posfile](#sites-directory) - Produce a `.tsv` file with the list of positions to genotype for the different tools.
+- [Chromosomes chunks](#chunks-directory) - Create chunks of the reference panel.
+- [CSV](#csv-directory) - Obtained `.csv` files from this step.
 
 The directory structure from `--steps panelprep` is:
 
@@ -40,8 +44,8 @@ The directory structure from `--steps panelprep` is:
 <summary>Output files</summary>
 
 - `prep_panel/panel/`
-  - `*.vcf.gz`: The reference panel VCF after all the preprocessing is done.
-  - `*.tbi*`: A tbi for the prepared reference panel.
+  - `*.vcf.gz`: The reference panel VCF files after all the preprocessing steps are completed.
+  - `*.tbi`: The index file for the prepared reference panel.
 
 </details>
 
@@ -55,12 +59,13 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <summary>Output files</summary>
 
 - `prep_panel/haplegend/`
-  - `*.hap`: a .hap file for the reference panel.
-  - `*.legend*`: a .legend file for the reference panel.
+  - `*.hap`: a `.hap` file for the reference panel containing the genotype.
+  - `*.legend*`: a `.legend` file for the reference panel containing the variants informations.
+  - `*.samples`: a `.samples` file for the reference panel containing the samples informations.
 
 </details>
 
-[`bcftools convert`](https://samtools.github.io/bcftools/bcftools.html#convert) aids in the conversion of VCF files to .hap and .legend files. A .samples file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files are input files used with `--tools quilt`.
+[`bcftools convert`](https://samtools.github.io/bcftools/bcftools.html#convert) aids in the conversion of VCF files to `.hap` and `.legend` files. A `.samples` file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files can be used as input files with the `--tools quilt` option.
 
 ### Sites directory
 
@@ -68,12 +73,12 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <summary>Output files</summary>
 
 - `prep_panel/sites/`
-  - `*.vcf.gz`: VCF with biallelic SNPs only.
-  - `*.csi`: Index file for VCF.
+  - `*.vcf.gz`: A VCF file with biallelic SNPs only.
+  - `*.csi`: Index file of the VCF file.
 
 </details>
 
-[`bcftools query`](https://samtools.github.io/bcftools/bcftools.html#query) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCFs can be gathered into a csv and used with all the tools in `--steps impute` using the flag `--panel`.
+[`bcftools query`](https://samtools.github.io/bcftools/bcftools.html#query) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCF files can be gathered into a CSV file and used with all the tools in `--steps impute` using the flag `--panel`.
 
 ### Chunks directory
 
@@ -81,11 +86,11 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <summary>Output files</summary>
 
 - `prep_panel/chunks/`
-  - `*.txt`: TXT file containing the chunks obtained from running `GLIMPSE1_CHUNK`.
+  - `*.txt`: Text file containing the chunks obtained after running `GLIMPSE1_CHUNK`.
 
 </details>
 
-[Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/glimpse1/) defines chunks where to run imputation. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once that you have generated the chunks for your reference panel, you can skip the reference preparation steps and directly submit this file for imputation.
+[Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/glimpse1/) defines the chunks where imputation will be performed. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once you have generated the chunks for your reference panel, you can skip the reference preparation steps and directly submit this file for imputation.
 
 ### CSV directory
 
@@ -93,9 +98,9 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <summary>Output files</summary>
 
 - `prep_panel/csv/`
-  - `chunks.csv`: A csv containing the list of chunks obtained for each chromosome and panel.
-  - `panel.csv`: A csv containing the final phased and prepared for each chromosome and input panel.
-  - `posfile.csv`: A csv containing the final list of panel positions, in VCF and tsv, for each chromosome and input panel.
+  - `chunks.csv`: A CSV file containing the list of chunks obtained for each chromosome and panel.
+  - `panel.csv`: A CSV file containing the final phased and prepared for each chromosome and input panel.
+  - `posfile.csv`: A CSV file containing the final list of panel positions, in VCF and TSV files, for each chromosome and input panel.
 
 </details>
 
@@ -117,17 +122,17 @@ The results from `--steps impute` will have the following directory structure:
 
 - `imputation/batch/all.batchi.id.txt`: List of samples names processed in the i^th^ batch.
 - `imputation/csv/`
-  - `impute.csv`: A single csv containing the path to a VCF and its index, of each imputed sample with their corresponding tool.
+  - `impute.csv`: A single CSV file containing the path to a VCF file and its index, of each imputed sample with their corresponding tool.
 - `imputation/[glimpse1,glimpse2,quilt,stitch]/`
-  - `concat/all.batch*.vcf.gz`: The concatenate VCF of all imputed samples by batches.
-  - `concat/all.batch*.vcf.gz.tbi`: A tbi for the concatenated samples imputed VCF.
-  - `samples/*.vcf.gz`: A VCF of each imputed sample.
-  - `samples/*.vcf.gz.tbi`: A tbi for the imputed VCF.
+  - `concat/all.batch*.vcf.gz`: The concatenated VCF files of all imputed samples by batches.
+  - `concat/all.batch*.vcf.gz.tbi`: The index file for the concatenated imputed VCF files of the samples.
+  - `samples/*.vcf.gz`: A VCF file of each imputed sample.
+  - `samples/*.vcf.gz.tbi`: The index file of the imputed VCF files.
 - `imputation/*.<tool>.bcftools_stats.txt`: The statistics of the imputed VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
 
 </details>
 
-[`bcftools concat`](https://samtools.github.io/bcftools/bcftools.html#concat) will produce a single VCF from a list of imputed VCFs in chunks.
+[`bcftools concat`](https://samtools.github.io/bcftools/bcftools.html#concat) will produce a single VCF file from a list of imputed VCF files in chunks.
 
 ## Simulation outputs `--steps simulate`
 
@@ -144,7 +149,7 @@ The results from `--steps simulate` will have the following directory structure:
 - `simulation/`
   - `csv`:
     - `simulate.csv`: Samplesheet listing all downsampled target alignment files.
-  - `*.depth_*x.bam`: An alignment file from the target file down-sampled at the desired depth.
+  - `*.depth_*x.bam`: An alignment file from the target file downsampled at the desired depth.
   - `*.bam.csi`: The corresponding index of the alignment file.
 
 </details>
@@ -163,13 +168,13 @@ The results from `--steps validate` will have the following directory structure:
 <summary>Output files</summary>
 
 - `validation/`
-  - `concat/all.truth.vcf.gz`: The concatenate VCF of all truth sample.
-  - `concat/all.truth.vcf.gz.tbi`: A tbi for the concatenated samples truth VCF.
-  - `samples/*.vcf.gz`: A VCF of each truth sample.
-  - `samples/*.vcf.gz.tbi`: A tbi for the truth VCF.
+  - `concat/all.truth.vcf.gz`: The concatenated VCF file of all truth sample.
+  - `concat/all.truth.vcf.gz.tbi`: The index file of the concatenated truth VCF file of the samples.
+  - `samples/*.vcf.gz`: A VCF file of each truth sample.
+  - `samples/*.vcf.gz.tbi`: The index file of the truth VCF file.
   - `stats/`:
     - `*.truth.bcftools_stats.txt`: The statistics of the truth VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
-    - `*.P<panel name>_T<imputation tool>_SNP.txt`: Concordance metrics of the SNP variants obtained with [`GLIMPSE2_CONCORDANCE`](https://odelaneau.github.io/GLIMPSE/docs/documentation/concordance/).
+    - `*.P<panel name>_T<imputation tool>_SNP.txt`: Concordance metrics of the SNPs variants obtained with [`GLIMPSE2_CONCORDANCE`](https://odelaneau.github.io/GLIMPSE/docs/documentation/concordance/).
     - `AllSamples.txt`: Aggregation of the above `GLIMPSE_CONCORDANCE` output across samples and tools.
 
 </details>

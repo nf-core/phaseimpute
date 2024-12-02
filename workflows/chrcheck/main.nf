@@ -30,38 +30,38 @@ workflow CHRCHECK {
         }
 
         // Check if channel is empty
-        chr_vcf_disjoint = Channel.empty()
+        ch_vcf_split = Channel.empty()
         // Extract the contig names from the VCF files
         VCF_CHR_EXTRACT(ch_input.vcf.map{ meta, file, _index, _chr -> [meta, file] })
         ch_versions = ch_versions.mix(VCF_CHR_EXTRACT.out.versions)
-        chr_vcf_disjoint = checkChr(VCF_CHR_EXTRACT.out.chr, ch_input.vcf)
+        ch_vcf_split = checkChr(VCF_CHR_EXTRACT.out.chr, ch_input.vcf)
 
-        chr_bam_disjoint = Channel.empty()
+        ch_bam_split = Channel.empty()
         // Extract the contig names from the BAM files
         BAM_CHR_EXTRACT(ch_input.bam.map{ meta, file, _index, _chr -> [meta, file] })
         ch_versions = ch_versions.mix(BAM_CHR_EXTRACT.out.versions)
-        chr_bam_disjoint = checkChr(BAM_CHR_EXTRACT.out.chr, ch_input.bam)
+        ch_bam_split = checkChr(BAM_CHR_EXTRACT.out.chr, ch_input.bam)
 
         if (params.rename_chr == true) {
             ch_bam_renamed = Channel.empty()
             // Rename the contigs in the BAM files
             BAM_CHR_RENAME_SAMTOOLS(
-                chr_bam_disjoint.to_rename.map{meta, bam, csi, _diff, prefix -> [meta, bam, csi, prefix]}
+                ch_bam_split.to_rename.map{meta, bam, csi, _diff, prefix -> [meta, bam, csi, prefix]}
             )
             ch_versions = ch_versions.mix(BAM_CHR_RENAME_SAMTOOLS.out.versions)
             ch_bam_renamed = BAM_CHR_RENAME_SAMTOOLS.out.bam_renamed
 
             ch_vcf_renamed = Channel.empty()
             // Rename the contigs in the VCF files
-            VCF_CHR_RENAME_BCFTOOLS(chr_vcf_disjoint.to_rename)
+            VCF_CHR_RENAME_BCFTOOLS(ch_vcf_split.to_rename)
             ch_versions = ch_versions.mix(VCF_CHR_RENAME_BCFTOOLS.out.versions)
             ch_vcf_renamed = VCF_CHR_RENAME_BCFTOOLS.out.vcf_renamed
         } else {
-            chr_vcf_disjoint.to_rename.map {
+            ch_vcf_split.to_rename.map {
                 def chr_names = it[3].size() > params.max_chr_names ? it[3][0..params.max_chr_names - 1] + ['...'] : it[3]
                 error "Contig names: ${chr_names} in VCF: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
             }
-            chr_bam_disjoint.to_rename.map {
+            ch_bam_split.to_rename.map {
                 def chr_names = it[3].size() > params.max_chr_names ? it[3][0..params.max_chr_names - 1] + ['...'] : it[3]
                 error "Contig names: ${chr_names} in BAM: ${it[1]} are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs."
             }
@@ -69,8 +69,8 @@ workflow CHRCHECK {
             ch_bam_renamed = Channel.empty()
         }
 
-        ch_output = chr_bam_disjoint.no_rename
-            .mix(chr_vcf_disjoint.no_rename)
+        ch_output = ch_bam_split.no_rename
+            .mix(ch_vcf_split.no_rename)
             .mix(ch_bam_renamed)
             .mix(ch_vcf_renamed)
     emit:

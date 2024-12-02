@@ -128,10 +128,6 @@
                     "description": "Should the allele frequency for each variant (AC/AN fields necessary for Glimpse1 and the validation step) be computed using VCFFIXUP tool. This can be necessary if the fields are absent from the panel or if samples have been removed.",
                     "type": "boolean"
                 },
-                "binaryref": {
-                    "type": "string",
-                    "description": "Whether to generate a binary reference file to be used with GLIMPSE2"
-                },
                 "chunk_model": {
                     "type": "string",
                     "description": "Model type to use for GLIMPSE2_CHUNK",
