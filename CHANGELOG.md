@@ -81,8 +81,8 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab
 - [#153](https://github.com/nf-core/phaseimpute/pull/153) - Fix getFileExtension function. Fix image in `usage.md`. Fix small warnings and errors with updated language server. `def` has been added when necessary, `:` use instead of `,` in assertions, `_` added to variables not used in closures, `for` loop replaced by `.each{}`, remove unused code / input.
 - [#161](https://github.com/nf-core/phaseimpute/pull/161) - Fix `VCF_SPLIT_BCFTOOLS` when only one sample present by updating `BCFTOOLS_PLUGINSPLIT` and adding `BCFTOOLS_QUERY` to get truth samples names for renaming the resulting files.
 - [#162](https://github.com/nf-core/phaseimpute/pull/162) - Fix `fai` usage when provided by `genomes` parameter.
-- [#163](https://github.com/nf-core/phaseimpute/pull/163) - Fix MULTIQC samples names (add post-processing for clean up `FILTER_CHR_DWN`, `FILTER_CHR_INP`, `GAWK_ERROR_SPL`, `GAWK_RSQUARE_SPL`). Fix output panel `publisDir`.
 - [#164](https://github.com/nf-core/phaseimpute/pull/164) - Improve documentation writing
+- [#163](https://github.com/nf-core/phaseimpute/pull/163) - Fix MULTIQC samples names (add post-processing for clean up `FILTER_CHR_DWN`, `FILTER_CHR_INP`, `GAWK_ERROR_SPL`, `GAWK_RSQUARE_SPL`). Fix output panel `publisDir`. Fix java version to `17` in `ci.yml` due to new nextflow version.
 
 ### `Dependencies`
 
