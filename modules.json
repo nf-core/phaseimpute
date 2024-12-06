@@ -72,9 +72,8 @@
                     },
                     "gawk": {
                         "branch": "master",
-                        "git_sha": "97321eded31a12598837a476d3615300af413bb7",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/gawk/gawk.diff"
+                        "git_sha": "caab1314ca62679b629da4c79afa9a4cab2bb8ee",
+                        "installed_by": ["modules"]
                     },
                     "glimpse/chunk": {
                         "branch": "master",
@@ -99,7 +98,7 @@
                     },
                     "glimpse2/concordance": {
                         "branch": "master",
-                        "git_sha": "cc64e71652f67ce627064af51008fe0a00850987",
+                        "git_sha": "6aed50284f6b208fd8eff1ec1dae4b25bf03c432",
                         "installed_by": ["modules"]
                     },
                     "glimpse2/ligate": {
