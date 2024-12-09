@@ -1,0 +1,2 @@
+subworkflows/vcf_phase_shapeit5:
+  - subworkflows/local/vcf_phase_shapeit5/**

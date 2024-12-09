@@ -1,0 +1,102 @@
+{
+    "Impute with quilt two individuals with bamlist": {
+        "content": [
+            [
+                "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
+            ],
+            [
+                [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "chunk": "16570065-16597215",
+                        "tools": "quilt"
+                    },
+                    "allid_22_16570065-16597215.impute.annotate.vcf.gz",
+                    "allid_22_16570065-16597215.impute.annotate.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "chunk": "16587172-16609999",
+                        "tools": "quilt"
+                    },
+                    "allid_22_16587172-16609999.impute.annotate.vcf.gz",
+                    "allid_22_16587172-16609999.impute.annotate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=570, phased=true, phasedAutodetect=false]"
+            ],
+            [
+                [
+                    "NA12878",
+                    "NA19401"
+                ],
+                [
+                    "NA12878",
+                    "NA19401"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:53:40.231874326"
+    },
+    "Impute with quilt one individuals": {
+        "content": [
+            [
+                "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "chunk": "16570065-16597215",
+                        "tools": "quilt"
+                    },
+                    "NA12878_22_16570065-16597215.impute.annotate.vcf.gz",
+                    "NA12878_22_16570065-16597215.impute.annotate.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "chunk": "16587172-16609999",
+                        "tools": "quilt"
+                    },
+                    "NA12878_22_16587172-16609999.impute.annotate.vcf.gz",
+                    "NA12878_22_16587172-16609999.impute.annotate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=572, phased=true, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=570, phased=true, phasedAutodetect=false]"
+            ],
+            [
+                [
+                    "NA12878"
+                ],
+                [
+                    "NA12878"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:54:20.551354608"
+    }
+}

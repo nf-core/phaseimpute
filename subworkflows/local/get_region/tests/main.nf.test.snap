@@ -1,0 +1,75 @@
+{
+    "Should run with specified region without fasta": {
+        "content": [
+            [
+                [
+                    {
+                        "chr": "chr22",
+                        "region": "chr22:0-4000"
+                    },
+                    "chr22:0-4000"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-17T15:20:16.458964814"
+    },
+    "Should run with an error": {
+        "content": [
+            [
+                "Invalid input_region: chr22:0-4000:4648"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T15:31:15.872517093"
+    },
+    "Should run with specified chr": {
+        "content": [
+            [
+                [
+                    {
+                        "chr": "chr22",
+                        "region": "chr22:0-50818468"
+                    },
+                    "chr22:0-50818468"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T09:59:50.83303021"
+    },
+    "Should run with 'all'": {
+        "content": [
+            [
+                [
+                    {
+                        "chr": "chr21",
+                        "region": "chr21:0-46709983"
+                    },
+                    "chr21:0-46709983"
+                ],
+                [
+                    {
+                        "chr": "chr22",
+                        "region": "chr22:0-50818468"
+                    },
+                    "chr22:0-50818468"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-07-18T09:59:45.078764008"
+    }
+}

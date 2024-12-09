@@ -1,0 +1,407 @@
+nextflow_function {
+
+    name "Test function phaseimpute"
+    script "../main.nf"
+    tag "function"
+
+    test ("Test getFileExtension") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExists: true)
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == "vcf" }
+            )
+        }
+    }
+
+    test ("Test getFileExtension non empty list") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = [
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExists: true),
+                    "test.myfile.txt.gz"
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ['vcf', 'txt'] },
+                { assert snapshot(function.result).match() }
+            )
+        }
+    }
+
+    test ("Test getFileExtension empty list") {
+        function "getFileExtension"
+        tag "getFileExtension"
+        when {
+            function {
+                """
+                input[0] = []
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == [] }
+            )
+        }
+    }
+
+    test("Test checkFileIndex no error with empty channel") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[], [], []],
+                    [[id: "input"], file("input.vcf"), file("input.csi")],
+                    [[], [], []],
+                    [[id: "input3"], file("input3.bcf"), file("input3.csi")],
+                    [[], [], []],
+                    [[id: "input5"], file("input5.vcf.gz"), file("input5.csi")],
+                    [[], [], []],
+                    [[id: "input7"], file("input7.bam"), file("input5.bai")],
+                    [[], [], []],
+                    [[id: "input9"], file("input9.fa"), file("input9.fai")],
+                    [[], [], []]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.success
+            assert snapshot(function.result).match()
+        }
+    }
+
+    test("Test checkFileIndex no error") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input"], file("input.vcf"), file("input.csi")],
+                    [[id: "input2"], file("input2.vcf"), file("input2.tbi")],
+                    [[id: "input3"], file("input3.bcf"), file("input3.csi")],
+                    [[id: "input4"], file("input4.bcf"), file("input4.tbi")],
+                    [[id: "input5"], file("input5.vcf.gz"), file("input5.csi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input7"], file("input7.bam"), file("input5.bai")],
+                    [[id: "input8"], file("input8.cram"), file("input6.crai")],
+                    [[id: "input9"], file("input9.fa"), file("input9.fai")],
+                    [[id: "input10"], file("input10.fa"), file("input10.fai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.success
+        }
+    }
+
+    test("Test checkFileIndex bam bai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.bam"), file("input5.csi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for .bam must have the extension .bai")
+        }
+    }
+
+    test("Test checkFileIndex cram crai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.cram"), file("input7.tbi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for .cram must have the extension .crai")
+        }
+    }
+
+    test("Test checkFileIndex bcf csi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.bcf"), file("input7.txt")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
+        }
+    }
+
+    test("Test checkFileIndex vcf csi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.vcf"), file("input7.bai")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
+        }
+    }
+
+    test("Test checkFileIndex vcf.gz csi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.vcf.gz"), file("input7.bai")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [.vcf, .vcf.gz, bcf] must have the extension [.tbi, .csi]")
+        }
+    }
+
+    test("Test checkFileIndex fa fai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.fa"), file("input7.tbi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [fa, fasta] must have the extension .fai")
+        }
+    }
+
+    test("Test checkFileIndex fasta fai") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        when {
+            function {
+                """
+                input[0] = Channel.fromList([
+                    [[id: "input7"], file("input7.fasta"), file("input6.fia")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for [fa, fasta] must have the extension .fai")
+        }
+    }
+
+    test("Test Function exportCsv") {
+        function "exportCsv"
+        tag "exportCsv"
+        when {
+            params {
+                outdir = "results"
+            }
+            function {
+                """
+                // define inputs of the function here. Example:
+                input[0] = Channel.of( [ [id:'test'], [2:"vcf",3:"index"], file("test1.vcf"), file("test2.csi") ] )
+                input[1] = ["id"]
+                input[2] = "id,vcf,index"
+                input[3] = "impute.csv"
+                input[4] = "imputation/csv"
+                """
+            }
+        }
+
+        then {
+            with(function) {
+                assert success
+                assert snapshot(result).match()
+            }
+        }
+    }
+
+    test ("Test checkMetaChr") {
+        function "checkMetaChr"
+        tag "checkMetaChr"
+        when {
+            function {
+                """
+                input[0] = Channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
+                input[1] = Channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
+                input[2] = "test"
+                """
+            }
+        }
+        then {
+            assert function.success
+        }
+    }
+
+    test ("Test checkMetaChr warning") {
+        function "checkMetaChr"
+        tag "checkMetaChr"
+        when {
+            function {
+                """
+                input[0] = Channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX", "chrY" ]])
+                input[1] = Channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
+                input[2] = "test"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success },
+                { assert snapshot(function.stdout).match() },
+                { assert function.stdout.contains("WARN: Chr : [chrY] is missing from test") }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools vcf only for glimpse") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = Channel.of("A")
+                input[1] = 60
+                input[2] = "vcf.gz"
+                input[3] = ["glimpse2", "quilt"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(function.stdout).match() }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools only one vcf") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = Channel.of("A", "B", "C", "D", "E")
+                input[1] = 60
+                input[2] = "vcf.gz"
+                input[3] = ["glimpse2", "glimpse1"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(function.stdout).match() }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools error batch") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = Channel.of(0..150)
+                input[1] = 60
+                input[2] = "cram"
+                input[3] = ["glimpse1", "quilt"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(function.stdout).match() }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools success batch") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = Channel.of(0..150)
+                input[1] = 60
+                input[2] = "cram"
+                input[3] = ["quilt", "glimpse2"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success },
+                { assert snapshot(function.stdout).match() }
+            )
+        }
+    }
+}

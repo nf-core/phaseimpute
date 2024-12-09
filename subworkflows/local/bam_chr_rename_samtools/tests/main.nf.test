@@ -1,0 +1,110 @@
+nextflow_workflow {
+
+    name "Test Subworkflow BAM_CHR_RENAME_SAMTOOLS"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "BAM_CHR_RENAME_SAMTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/bam_chr_rename_samtools"
+    tag "bam_chr_rename_samtools"
+
+    tag "samtools"
+    tag "samtools/reheader"
+    tag "samtools/index"
+    tag "gawk"
+
+    test("Should remove chr prefix") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "test_paired"],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        "nochr"
+                    ],
+                    [
+                        [id: "test_MT"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam.bai', checkIfExist:true),
+                        "nochr"
+                    ],
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.bam_renamed.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_renamed.collect{
+                        bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                    }
+                ).match() }
+            )
+        }
+    }
+
+    test("Should add chr prefix") {
+        setup {
+            run("BAM_CHR_RENAME_SAMTOOLS", alias: "PREPROCESS") {
+                script "../main.nf"
+                process {
+                    """
+                    input[0] = Channel.fromList([
+                        [
+                            [id: "test_paired"],
+                            file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                            "nochr"
+                        ],
+                        [
+                            [id: "test_MT"],
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test_illumina_mt.bam.bai', checkIfExist:true),
+                            "nochr"
+                        ],
+                    ])
+                    """
+                }
+            }
+        }
+
+        when {
+            workflow {
+                """
+                input[0] = PREPROCESS.out.bam_renamed.combine(["chr"])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.bam_renamed.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.bam_renamed.collect{
+                        bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                    }
+                ).match() }
+            )
+        }
+    }
+}

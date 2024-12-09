@@ -1,0 +1,78 @@
+{
+    "Phase vcf with regions, no map, no ref, no scaffold, sequential model": {
+        "content": [
+            [
+                "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
+                "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
+                "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
+                "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
+                "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
+                ],
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-12T14:46:00.916017807"
+    },
+    "Phase vcf with regions, no map, no ref, no scaffold, recursive model": {
+        "content": [
+            [
+                "versions.yml:md5,529c03b8d921c72026e91d71c0321811",
+                "versions.yml:md5,714bb0db6e2d39cf0042359a64915bc6",
+                "versions.yml:md5,8ffcda8a9d22f60c90d0e4276da3e714",
+                "versions.yml:md5,cab7592ebcb3d391afcd3191a175723b",
+                "versions.yml:md5,ed131d2608f28f8ada06ccc42717575e"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
+                ],
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP.vcf.gz",
+                    "1000GP.vcf.gz.csi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-12T14:45:28.783070136"
+    }
+}

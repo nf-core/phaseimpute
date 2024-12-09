@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input_panel.json",
+    "title": "nf-core/phaseimpute pipeline - params.panel schema",
+    "description": "Schema for the file provided with params.panel",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "panel": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "chr": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome must be provided as a string and cannot contain spaces",
+                "meta": ["chr"]
+            },
+            "vcf": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf|bcf)(.gz)?$",
+                "errorMessage": "Panel file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension"
+            },
+            "index": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(tbi|csi)$",
+                "errorMessage": "Panel index file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension and with '.csi' or '.tbi' extension"
+            }
+        },
+        "required": ["panel", "chr", "vcf", "index"],
+        "uniqueEntries": ["panel", "chr"]
+    }
+}

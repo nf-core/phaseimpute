@@ -1,0 +1,114 @@
+{
+    "Impute with glimpse2 one vcf - input bcf": {
+        "content": [
+            [
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                [
+                    "NA12878"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:51:00.205148681"
+    },
+    "Impute with glimpse2 one individual - input file bam with bamlist": {
+        "content": [
+            [
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                [
+                    "NA12878"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:52:40.66012322"
+    },
+    "Impute with glimpse2 two individuals - input bam  with bamlist": {
+        "content": [
+            [
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,02e20b0099653bc476dac65a92e768c1",
+                "versions.yml:md5,1d8512dd2d5f6649a1111faabd24b399",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,2bfd212564086adb64cf01741a0d83ad",
+                "versions.yml:md5,7d3bb3301fbcde0b12f553a2ae7d5b56"
+            ],
+            [
+                [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse2"
+                    },
+                    "allid.vcf.gz",
+                    "allid.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                [
+                    "NA12878",
+                    "NA19401"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:51:55.269054819"
+    }
+}

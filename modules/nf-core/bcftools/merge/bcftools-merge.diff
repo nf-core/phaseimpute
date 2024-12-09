@@ -1,0 +1,48 @@
+Changes in module 'nf-core/bcftools/merge'
+'modules/nf-core/bcftools/merge/environment.yml' is unchanged
+Changes in 'bcftools/merge/main.nf':
+--- modules/nf-core/bcftools/merge/main.nf
++++ modules/nf-core/bcftools/merge/main.nf
+@@ -8,14 +8,13 @@
+         'biocontainers/bcftools:1.20--h8b25389_0' }"
+ 
+     input:
+-    tuple val(meta), path(vcfs), path(tbis)
+-    tuple val(meta2), path(fasta)
+-    tuple val(meta3), path(fai)
+-    tuple val(meta4), path(bed)
++    tuple val(meta), path(vcfs), path(tbis), path(bed)
++    tuple val(meta2), path(fasta), path(fai)
+ 
+     output:
+     tuple val(meta), path("*.{bcf,vcf}{,.gz}"), emit: vcf
+-    tuple val(meta), path("*.{csi,tbi}")      , emit: index, optional: true
++    tuple val(meta), path("*.tbi")            , emit: tbi, optional: true
++    tuple val(meta), path("*.csi")            , emit: csi, optional: true
+     path "versions.yml"                       , emit: versions
+ 
+     when:
+@@ -31,7 +30,7 @@
+                     args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
+                     args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
+                     args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
+-                    "vcf"
++                    "vcf.gz"
+ 
+     """
+     bcftools merge \\
+
+'modules/nf-core/bcftools/merge/meta.yml' is unchanged
+'modules/nf-core/bcftools/merge/tests/bcf.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/bcf_gz.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/main.nf.test' is unchanged
+'modules/nf-core/bcftools/merge/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/bcftools/merge/tests/nextflow.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/nextflow.gvcf.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/tags.yml' is unchanged
+'modules/nf-core/bcftools/merge/tests/vcf.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/vcf_gz.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/vcf_gz_index.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/vcf_gz_index_csi.config' is unchanged
+'modules/nf-core/bcftools/merge/tests/vcf_gz_index_tbi.config' is unchanged
+************************************************************

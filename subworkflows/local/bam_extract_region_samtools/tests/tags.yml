@@ -1,0 +1,2 @@
+subworkflows/bam_extract_region_samtools:
+  - subworkflows/local/bam_extract_region_samtools/**

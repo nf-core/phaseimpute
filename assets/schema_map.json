@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_map.json",
+    "title": "nf-core/phaseimpute pipeline - params.map schema",
+    "description": "Schema for the file provided with params.map",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "chr": {
+                "type": "string",
+                "pattern": "^(chr)?[0-9]+$",
+                "errorMessage": "Chromosome must be provided and must be a string containing only numbers, with or without the prefix 'chr'",
+                "meta": ["chr"]
+            },
+            "map": {
+                "type": "string",
+                "pattern": "^\\S+\\.(g)?map(\\.gz)?$",
+                "errorMessage": "Map file must be provided, cannot contain spaces and must have extension '.map' or '.gmap' with optional '.gz' extension"
+            }
+        },
+        "required": ["chr", "map"]
+    }
+}

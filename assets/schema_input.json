@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_input.json",
+    "title": "nf-core/phaseimpute pipeline - params.input",
+    "description": "Schema for the file provided with params.input",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "sample": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]+$",
+                "errorMessage": "Sample name must be provided and cannot contain spaces nor special character '.' .",
+                "meta": ["id"]
+            },
+            "tools": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_]+$",
+                "errorMessage": "Tool name cannot contain spaces nor special character '.' .",
+                "meta": ["tools"]
+            },
+            "file": {
+                "type": "string",
+                "pattern": "^\\S+\\.(bam|cram)|((vcf|bcf)(\\.gz))?$",
+                "errorMessage": "BAM, CRAM, VCF or BCF file must be provided, cannot contain spaces and must have extension '.bam', '.cram' or '.vcf', '.bcf' with optional '.gz' extension"
+            },
+            "index": {
+                "errorMessage": "Input file index must be provided, cannot contain spaces and must have extension '.bai', 'crai', '.tbi' or '.csi'",
+                "type": "string",
+                "pattern": "^\\S+\\.(bai|crai|tbi|csi)$"
+            }
+        },
+        "required": ["sample", "file", "index"]
+    }
+}

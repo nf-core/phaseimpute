@@ -1,0 +1,64 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_CONCORDANCE_GLIMPSE2"
+    script "../main.nf"
+    config "./nextflow.config"
+
+    workflow "VCF_CONCORDANCE_GLIMPSE2"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_concordance_glimpse2"
+    tag "vcf_concordance_glimpse2"
+
+    tag "bcftools"
+    tag "bcftools/index"
+    tag "glimpse"
+    tag "glimpse/phase"
+    tag "glimpse/concordance"
+
+    test("vcf_concordance_glimpse2") {
+        when {
+            workflow {
+                """
+                allele_freq = Channel.fromList([
+                    [
+                        [panel:'1000GP', chr:'21'], // meta map
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz",checkIfExists:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz.csi",checkIfExists:true)
+                    ]
+                ])
+                truth = Channel.fromList([
+                    [[id:'NA12878'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
+                    [[id:'NA19401'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)],
+                ])
+                estimate = Channel.fromList([
+                    [[id:'NA12878'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf.csi",checkIfExists:true)],
+                    [[id:'NA19401'], // meta map
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf.csi",checkIfExists:true)]
+                ])
+                region = Channel.of([ [chr:'21', region:'chr21:16570000-16610000'],  "chr21:16570000-16610000"])
+                input[0] = estimate
+                input[1] = truth
+                input[2] = allele_freq
+                input[3] = region
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+
+    }
+}

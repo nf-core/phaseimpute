@@ -1,0 +1,29 @@
+Changes in module 'nf-core/samtools/coverage'
+'modules/nf-core/samtools/coverage/environment.yml' is unchanged
+Changes in 'samtools/coverage/main.nf':
+--- modules/nf-core/samtools/coverage/main.nf
++++ modules/nf-core/samtools/coverage/main.nf
+@@ -9,8 +9,7 @@
+ 
+     input:
+     tuple val(meta), path(input), path(input_index)
+-    tuple val(meta2), path(fasta)
+-    tuple val(meta3), path(fai)
++    tuple val(meta2), path(fasta), path(fai)
+ 
+     output:
+     tuple val(meta), path("*.txt"), emit: coverage
+@@ -41,6 +40,7 @@
+     def prefix = task.ext.prefix ?: "${meta.id}"
+     """
+     touch ${prefix}.txt
++    echo "#rname\tstartpos\tendpos\tnumreads\tcovbases\tcoverage\tmeandepth\tmeanbaseq\tmeanmapq" > ${prefix}.txt
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+
+'modules/nf-core/samtools/coverage/meta.yml' is unchanged
+'modules/nf-core/samtools/coverage/tests/main.nf.test' is unchanged
+'modules/nf-core/samtools/coverage/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/samtools/coverage/tests/tags.yml' is unchanged
+************************************************************

@@ -1,0 +1,83 @@
+{
+    "Extract chr from vcf": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test2_haplotc_vcf_gz"
+                        },
+                        "test2_haplotc_vcf_gz.txt:md5,e99d7d1051eee43ceab5563c2d09fcee"
+                    ],
+                    [
+                        {
+                            "id": "test2_vcf"
+                        },
+                        "test2_vcf.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ],
+                    [
+                        {
+                            "id": "test_bcf"
+                        },
+                        "test_bcf.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ef0347837e562ce29da2cf994c87ebbe",
+                    "versions.yml:md5,ef0347837e562ce29da2cf994c87ebbe",
+                    "versions.yml:md5,ef0347837e562ce29da2cf994c87ebbe"
+                ],
+                "chr": [
+                    [
+                        {
+                            "id": "test2_haplotc_vcf_gz"
+                        },
+                        "test2_haplotc_vcf_gz.txt:md5,e99d7d1051eee43ceab5563c2d09fcee"
+                    ],
+                    [
+                        {
+                            "id": "test2_vcf"
+                        },
+                        "test2_vcf.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ],
+                    [
+                        {
+                            "id": "test_bcf"
+                        },
+                        "test_bcf.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ef0347837e562ce29da2cf994c87ebbe",
+                    "versions.yml:md5,ef0347837e562ce29da2cf994c87ebbe",
+                    "versions.yml:md5,ef0347837e562ce29da2cf994c87ebbe"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T14:52:17.414553172"
+    },
+    "chr": {
+        "content": [
+            [
+                [
+                    "chr21"
+                ],
+                [
+                    "MT192765.1"
+                ],
+                [
+                    "MT192765.1"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T14:55:53.822382037"
+    }
+}

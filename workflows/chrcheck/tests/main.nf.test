@@ -1,0 +1,230 @@
+nextflow_workflow {
+
+    name "Test workflow CHRCHECK"
+    script "../main.nf"
+
+    workflow "CHRCHECK"
+
+    tag "workflows"
+    tag "workflows_local"
+    tag "workflows/chrcheck"
+    tag "chrcheck"
+
+    tag "bcftools"
+    tag "bcftools/annotate"
+    tag "bcftools/index"
+    tag "gawk"
+    tag "samtools"
+    tag "samtools/reheader"
+    tag "samtools/index"
+
+    test("Rename: VCF BAM chr + fasta no chr") {
+        config "./nextflow_rename.config"
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "VCF_chr22"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
+                        ["22"]
+                    ],
+                    [
+                        [id: "BAM_chr22"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        ["22"]
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.output
+                    .collect{
+                        if (it[1].endsWith("vcf.gz")) {
+                            path(it[1]).vcf.summary
+                        } else {
+                            bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                        }
+                    },
+                    workflow.out.output.collect{
+                        file(it[1]).getName()
+                        file(it[2]).getName()
+                    },
+                    workflow.out.versions
+                ).match()
+                }
+            )
+        }
+    }
+
+    test("Rename: VCF no chr + fasta chr") {
+        config "./nextflow_rename.config"
+        tag "test"
+        setup {
+            run("BAM_CHR_RENAME_SAMTOOLS", alias: "PREPROCESS") {
+                script "../../../subworkflows/local/bam_chr_rename_samtools/main.nf"
+                process {
+                    """
+                    input[0] = Channel.fromList([
+                        [
+                            [id: "BAM_22"],
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                            file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                            "nochr"
+                        ]
+                    ])
+                    """
+                }
+            }
+        }
+        when {
+            workflow {
+                """
+                input[0] = PREPROCESS.out.bam_renamed
+                    .mix(
+                        Channel.fromList([
+                            [
+                                [id: "VCF_AllNoChr"],
+                                file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz',checkIfExist:true),
+                                file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi',checkIfExist:true),
+                            ],
+                        ])
+                    )
+                    .combine(Channel.of(["chr22"]).collect().toList())
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.output.collect{
+                        if (it[1].endsWith("vcf.gz")) {
+                            path(it[1]).vcf.summary
+                        } else {
+                            bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
+                        }
+                    },
+                    workflow.out.output.collect{
+                        file(it[1]).getName()
+                        file(it[2]).getName()
+                    },
+                    workflow.out.versions
+                    ).match()
+                }
+            )
+        }
+    }
+
+    test("Error : missing renaming VCF") {
+        config "./nextflow.config"
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "VCF_chr22"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
+                        ["22"]
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.errorReport
+                    .contains("Contig names: [chr22] in VCF: /nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs.")
+                }
+            )
+        }
+    }
+
+    test("Error : missing renaming BAM") {
+        config "./nextflow.config"
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "BAM_chr22"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        ["22"]
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.errorReport
+                    .contains("Contig names: [chr22] in BAM: /nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam are not present in reference genome with same writing. Please set `rename_chr` to `true` to rename the contigs.")
+                }
+            )
+        }
+    }
+
+    test("Error : still difference after renaming VCF"){
+        config "./nextflow_rename.config"
+        when {
+            workflow {
+                """
+                lst_chr = ["chr22", "chr34", "GL000207.1", "chr45", "chr46", "chr47", "chr48", "chr49"]
+                input[0] = Channel.fromList([
+                    [
+                        [id: "VCF_AllNoChr"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz',checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi',checkIfExist:true),
+                        lst_chr
+                    ],
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.errorReport.contains("Contig names: [chr34, GL000207.1, chr45, chr46, ...] absent from file: /nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz and cannot be solved by adding or removing the `chr` prefix.")}
+            )
+        }
+    }
+
+    test("Error : still difference after renaming BAM"){
+        config "./nextflow_rename.config"
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "BAM_chr22"],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
+                        ["chr1"]
+                    ],
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.errorReport.contains("Contig names: [chr1] absent from file: /nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam and cannot be solved by adding or removing the `chr` prefix.")}
+            )
+        }
+    }
+}

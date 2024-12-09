@@ -1,0 +1,106 @@
+{
+    "Content": {
+        "content": [
+            [
+                "Col1 Col2 ID Depth GPArray Tools Panel",
+                "A 1 MyId 2 SNPArray Glimpse 1000GP",
+                "B 2 MyId 2 SNPArray Glimpse 1000GP"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T14:43:39.482844695"
+    },
+    "ContentWithNA": {
+        "content": [
+            [
+                "Col1 Col2 ID Depth GPArray Tools Panel",
+                "A 1 MyId null null Glimpse null",
+                "B 2 MyId null null Glimpse null"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-17T14:44:39.395698015"
+    },
+    "Add columns to txt file": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "MyId",
+                            "depth": 2,
+                            "gparray": "SNPArray",
+                            "tools": "Glimpse",
+                            "panel": "1000GP"
+                        },
+                        "MyId.txt:md5,da3aa04353303c5566d1bea2dbc8f883"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
+                ],
+                "txt": [
+                    [
+                        {
+                            "id": "MyId",
+                            "depth": 2,
+                            "gparray": "SNPArray",
+                            "tools": "Glimpse",
+                            "panel": "1000GP"
+                        },
+                        "MyId.txt:md5,da3aa04353303c5566d1bea2dbc8f883"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-11-06T13:32:32.608346737"
+    },
+    "Add columns to txt file with missing fields": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "MyId",
+                            "tools": "Glimpse"
+                        },
+                        "MyId.txt:md5,87ae2dd6e6451eee25c04e23f7219fa5"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
+                ],
+                "txt": [
+                    [
+                        {
+                            "id": "MyId",
+                            "tools": "Glimpse"
+                        },
+                        "MyId.txt:md5,87ae2dd6e6451eee25c04e23f7219fa5"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ab0afe509bddeef28fcf8d00db1cec81"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-11-06T13:32:39.650698807"
+    }
+}

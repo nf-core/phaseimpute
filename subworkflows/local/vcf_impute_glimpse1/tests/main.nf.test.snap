@@ -1,0 +1,96 @@
+{
+    "Impute with glimpse1 one vcf": {
+        "content": [
+            [
+                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
+                "versions.yml:md5,9d78fceae32ec42b1818bb5890e9a6ba",
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse1"
+                    },
+                    "NA12878_22_ligate.vcf.gz",
+                    "NA12878_22_ligate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                [
+                    "NA12878"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T12:31:45.012960487"
+    },
+    "Impute with glimpse1 two vcf": {
+        "content": [
+            [
+                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
+                "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
+                "versions.yml:md5,9d78fceae32ec42b1818bb5890e9a6ba",
+                "versions.yml:md5,9d78fceae32ec42b1818bb5890e9a6ba",
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse1"
+                    },
+                    "NA12878_22_ligate.vcf.gz",
+                    "NA12878_22_ligate.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "NA19401",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse1"
+                    },
+                    "NA19401_22_ligate.vcf.gz",
+                    "NA19401_22_ligate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                [
+                    "NA12878"
+                ],
+                [
+                    "NA19401"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T12:31:10.854492318"
+    }
+}

@@ -1,0 +1,109 @@
+nextflow_workflow {
+
+    name "Test Subworkflow BAM_GL_BCFTOOLS"
+    script "../main.nf"
+    config "./nextflow.config"
+
+    workflow "BAM_GL_BCFTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/bam_gl_bcftools"
+    tag "bam_gl_bcftools"
+
+    tag "gawk"
+    tag "tabix"
+    tag "tabix/bgzip"
+    tag "bcftools"
+    tag "bcftools/mpileup"
+    tag "bcftools/annotate"
+
+    test("Compute genotype likelihood with merging") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                    ],
+                    [
+                        [id: "NA19401"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
+                    ],
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    }
+                ).match() }
+            )
+        }
+    }
+
+    test("Compute genotype likelihood with only one input") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                    ],
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    }
+                ).match() }
+            )
+        }
+    }
+}

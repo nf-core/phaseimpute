@@ -3,6 +3,10 @@ work/
 data/
 results/
 .DS_Store
-tests/
 testing/
+testing*
 *.pyc
+null/
+*.code-workspace
+.nf-test*
+*.xml.bkp

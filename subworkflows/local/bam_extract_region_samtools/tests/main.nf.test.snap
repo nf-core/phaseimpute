@@ -1,0 +1,44 @@
+{
+    "Get subregion of bam file 10000bp": {
+        "content": [
+            [
+                "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
+                "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
+                "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
+            ],
+            [
+                
+            ],
+            [
+                2498,
+                2510
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:55:45.543427226"
+    },
+    "Get subregion of bam file 1000bp": {
+        "content": [
+            [
+                "versions.yml:md5,17ab59cf0e993cc8db9086093cdeb6e2",
+                "versions.yml:md5,3043c69a324445a251b7e9569bd012d3",
+                "versions.yml:md5,4dbd8db078f2e38fb335b8c3ee3db169"
+            ],
+            [
+                
+            ],
+            [
+                368,
+                327
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:57:19.117705738"
+    }
+}

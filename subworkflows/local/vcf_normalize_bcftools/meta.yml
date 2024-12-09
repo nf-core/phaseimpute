@@ -1,0 +1,44 @@
+name: "vcf_normalize_bcftools"
+description: Normalize VCF files (bcftools norm -m +any). Combine records spanning different lines into a single line.
+  Keep only biallelic SNPs and remove multiallelic records (bcftools view -m 2 -M 2 -v snps).
+  Convert to hap/legend format (bcftools convert --haplegendsample).
+  Optionally, remove samples from the reference panel (bcftools view -s ^SAMPLENAME).
+keywords:
+  - bcftools
+  - norm
+  - view
+components:
+  - bcftools/norm
+  - bcftools/view
+  - bcftools/index
+  - bcftools/convert
+input:
+  - ch_vcf:
+      type: file
+      description: |
+        Reference panel of haplotypes in VCF/BCF format.
+        Index file of the Reference panel file.
+        Target region, usually a full chromosome (e.g. chr20:1000000-2000000 or chr20).
+        The file could possibly be without GT field (for efficiency reasons a file containing only the positions is recommended).
+        Structure: [ meta, vcf, csi, region ]
+  - ch_fasta:
+      type: file
+      description: |
+        Reference genome in fasta format.
+        Reference genome index in fai format
+        Structure: [ meta, fasta, fai ]
+output:
+  - vcf_tbi:
+      type: file
+      description: |
+        Output VCF/BCF file for the normalized, only biallelic SNPs.
+        Structure: [meta, vcf, tbi]
+  - hap_legend:
+      type: file
+      description: |
+        Output Hap/Legend files for the normalized, only biallelic SNPs.
+        Structure: [meta, hap, legend]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"

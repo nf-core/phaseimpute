@@ -1,0 +1,31 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_chunks.json",
+    "title": "nf-core/phaseimpute pipeline - params.chunks schema",
+    "description": "Schema for the file provided with params.chunks",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "panel": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "chr": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces",
+                "meta": ["chr"]
+            },
+            "file": {
+                "type": "string",
+                "pattern": "^\\S+\\.(txt|bin)$",
+                "errorMessage": "File with chunks per chromosome must be provided. Must have .txt or .bin extension"
+            }
+        },
+        "required": ["panel", "chr", "file"],
+        "uniqueEntries": ["panel", "chr"]
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "Concatenate vcf": {
+        "content": [
+            [
+                "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
+            ],
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "all"
+                    },
+                    "1000GP_all.vcf.gz",
+                    "1000GP_all.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=3196, variantCount=1739, phased=true, phasedAutodetect=true]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T14:07:30.535498349"
+    }
+}

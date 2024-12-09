@@ -1,0 +1,188 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_PHASE_SHAPEIT5"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_PHASE_SHAPEIT5"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_phase_shapeit5"
+    tag "vcf_phase_shapeit5"
+
+    tag "glimpse2"
+    tag "glimpse2/chunk"
+    tag "shapeit5"
+    tag "shapeit5/phasecommon"
+    tag "shapeit5/ligate"
+    tag "bcftools"
+    tag "bcftools/index"
+
+    test("Phase vcf with regions, no map, no ref, no scaffold, recursive model") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                        []
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                        []
+                    ]
+                )
+                input[1] = Channel.of(
+                    [[chr: "chr22", region:"chr22:16570000-16610000"], "chr22:16570000-16610000"],
+                    [[chr: "chr21", region:"chr21:16570000-16610000"], "chr21:16570000-16610000"]
+                )
+                input[2] = Channel.of([[],[],[]]).collect()
+                input[3] = Channel.of([[],[],[]]).collect()
+                input[4] = Channel.of(
+                    [[chr: "chr22"],[]],
+                    [[chr: "chr21"], []]
+                )
+                input[5] = "recursive"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    }
+                ).match() },
+                { workflow.out.vcf_tbi.collect{
+                    assert path(it[1]).vcf.phased
+                }}
+            )
+        }
+    }
+
+    test("Phase vcf with regions, no map, no ref, no scaffold, sequential model") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                        []
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                        []
+                    ]
+                )
+                input[1] = Channel.of(
+                    [[chr: "chr22", region:"chr22:16570000-16610000"], "chr22:16570000-16610000"],
+                    [[chr: "chr21", region:"chr21:16570000-16610000"], "chr21:16570000-16610000"]
+                )
+                input[2] = Channel.of([[],[],[]]).collect()
+                input[3] = Channel.of([[],[],[]]).collect()
+                input[4] = Channel.of(
+                    [[chr: "chr22"],[]],
+                    [[chr: "chr21"], []]
+                )
+                input[5] = "sequential"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    }
+                ).match() },
+                { workflow.out.vcf_tbi.collect{
+                    assert path(it[1]).vcf.phased
+                }}
+            )
+        }
+    }
+
+    /* TODO: Fix this test with https://github.com/odelaneau/shapeit5/issues/96
+    test("Phase vcf with regions, with map, no ref, no scaffold") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                        []
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                        []
+                    ]
+                )
+                input[1] = Channel.of(
+                    [[chr: "chr22", region:"chr22:16570000-16610000"], "chr22:16570000-16610000"],
+                    [[chr: "chr21", region:"chr21:16570000-16610000"], "chr21:16570000-16610000"]
+                )
+                input[2] = Channel.of([[],[],[]]).collect()
+                input[3] = Channel.of([[],[],[]]).collect()
+                input[4] = Channel.of(
+                    [ [chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_22.map", checkIfExist:true)],
+                    [ [chr: "chr21"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_21.map", checkIfExist:true)]
+                )
+                input[5] = "recursive"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_tbi.collect{
+                    path(it[1]).vcf.summary
+                    }).match("Phasing content with map")
+                }
+            )
+        }
+    }*/
+}

@@ -1,0 +1,74 @@
+{
+    "Downsample to 2X": {
+        "content": [
+            [
+                "versions.yml:md5,43ed2e6d85cac7ccd2fb22a733f585dc",
+                "versions.yml:md5,9eef568f4fc903d70199abf5a48bd08f",
+                "versions.yml:md5,a61d007b27e86103db8d68a8c79a98fb"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "depth": 2
+                    },
+                    "NA12878.bam",
+                    "NA12878.bam.csi"
+                ],
+                [
+                    {
+                        "id": "NA19401",
+                        "depth": 2
+                    },
+                    "NA19401.bam",
+                    "NA19401.bam.csi"
+                ]
+            ],
+            [
+                1164,
+                1196
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:28:49.191579339"
+    },
+    "Downsample to 4X": {
+        "content": [
+            [
+                "versions.yml:md5,43ed2e6d85cac7ccd2fb22a733f585dc",
+                "versions.yml:md5,9eef568f4fc903d70199abf5a48bd08f",
+                "versions.yml:md5,a61d007b27e86103db8d68a8c79a98fb"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "depth": 4
+                    },
+                    "NA12878.bam",
+                    "NA12878.bam.csi"
+                ],
+                [
+                    {
+                        "id": "NA19401",
+                        "depth": 4
+                    },
+                    "NA19401.bam",
+                    "NA19401.bam.csi"
+                ]
+            ],
+            [
+                2402,
+                2321
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:29:24.179563513"
+    }
+}

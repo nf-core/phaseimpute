@@ -1,0 +1,76 @@
+{
+    "Compute genotype likelihood with merging": {
+        "content": [
+            [
+                "versions.yml:md5,0980a298fde671494f5b4e9cb3a6ebc2",
+                "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
+                "versions.yml:md5,74118beefc19065bed2de5d60277be55",
+                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d",
+                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+            ],
+            [
+                [
+                    {
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "id": "all",
+                        "metas": [
+                            {
+                                "id": "NA12878",
+                                "panel": "1000GP",
+                                "chr": "22"
+                            },
+                            {
+                                "id": "NA19401",
+                                "panel": "1000GP",
+                                "chr": "22"
+                            }
+                        ],
+                        "variantcaller": "bcftools"
+                    },
+                    "all.annotate.vcf.gz",
+                    "all.annotate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:49:19.689761982"
+    },
+    "Compute genotype likelihood with only one input": {
+        "content": [
+            [
+                "versions.yml:md5,0980a298fde671494f5b4e9cb3a6ebc2",
+                "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
+                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "variantcaller": "bcftools"
+                    },
+                    "NA12878.annotate.vcf.gz",
+                    "NA12878.annotate.vcf.gz.tbi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-07T13:50:09.373771371"
+    }
+}

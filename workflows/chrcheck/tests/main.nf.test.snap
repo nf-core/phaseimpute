@@ -1,0 +1,54 @@
+{
+    "Rename: VCF BAM chr + fasta no chr": {
+        "content": [
+            [
+                [
+                    "@SQ\tSN:22\tLN:40001"
+                ],
+                "VcfFile [chromosomes=[22], sampleCount=0, variantCount=2174, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                "BAM_chr22.bam.bai",
+                "VCF_chr22_chrrename.vcf.gz.tbi"
+            ],
+            [
+                "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
+                "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                "versions.yml:md5,7f7a21902e7f8f2e02152817c324e63f",
+                "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-28T23:39:02.415897354"
+    },
+    "Rename: VCF no chr + fasta chr": {
+        "content": [
+            [
+                [
+                    "@SQ\tSN:chr22\tLN:40001"
+                ],
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=4, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                "BAM_22.bam.bai",
+                "VCF_AllNoChr_chrrename.vcf.gz.tbi"
+            ],
+            [
+                "versions.yml:md5,3ef072b2911c4ec69e8577fbc6cc26ab",
+                "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
+                "versions.yml:md5,7f7a21902e7f8f2e02152817c324e63f",
+                "versions.yml:md5,a36d2316798f70758d1fa92fa3b05cd3",
+                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-10-28T23:39:22.12563119"
+    }
+}

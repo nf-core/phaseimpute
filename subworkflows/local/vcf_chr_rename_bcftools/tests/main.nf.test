@@ -1,0 +1,98 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_CHR_RENAME_BCFTOOLS"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_CHR_RENAME_BCFTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_chr_rename_bcftools"
+    tag "vcf_chr_rename_bcftools"
+
+    tag "bcftools"
+    tag "bcftools/annotate"
+    tag "bcftools/index"
+    tag "gawk"
+
+    test("Should run without error") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "multi"],
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["21", "22"],
+                        "chr"
+                    ],
+                    [
+                        [id: "21"],
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["21"],
+                        "nochr"
+                    ],
+                    [
+                        [id: "chr21"],
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file( params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["chr21"],
+                        "nochr"
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_renamed.collect{
+                    path(it[1]).vcf.getVariantsAsStrings(2)
+                    }).match("headerwithchr")
+                }
+            )
+        }
+    }
+
+    test("Should run with same id") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "input1", chr: "21"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["21"],
+                        "nochr"
+                    ],
+                    [
+                        [id: "input1", chr: "22"],
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
+                        file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
+                        ["22"],
+                        "nochr"
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert snapshot(workflow.out.vcf_renamed.collect{
+                    path(it[1]).vcf.getVariantsAsStrings(2)
+                    }).match("header21and22")
+                }
+            )
+        }
+    }
+}

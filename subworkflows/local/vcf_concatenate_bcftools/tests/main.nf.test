@@ -1,0 +1,60 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_CONCATENATE_BCFTOOLS"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_CONCATENATE_BCFTOOLS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_concatenate_bcftools"
+    tag "vcf_concatenate_bcftools"
+
+    tag "bcftools"
+    tag "bcftools/concatenate"
+
+
+    test("Concatenate vcf") {
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    }
+                ).match() }
+            )
+        }
+    }
+}

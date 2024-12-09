@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_posfile.json",
+    "title": "nf-core/phaseimpute pipeline - params.posfile schema",
+    "description": "Schema for the file provided with params.posfile",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "panel": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "chr": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces",
+                "meta": ["chr"]
+            },
+            "vcf": {
+                "type": "string",
+                "pattern": "^\\S+\\.((vcf)(\\.gz))?$",
+                "errorMessage": "VCF with sites per chromosome must be provided. Must have .vcf.gz extension"
+            },
+            "index": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf|bcf)(\\.gz)?\\.(tbi|csi)$",
+                "errorMessage": "VCF index with sites per chromosome file must be provided, cannot contain spaces and must have extension '.vcf' or '.bcf' with optional '.gz' extension and with '.csi' or '.tbi' extension"
+            },
+            "hap": {
+                "type": "string",
+                "pattern": "^\\S+\\.(hap)(\\.gz)?$",
+                "errorMessage": "Hap file can be provided, cannot contain spaces and must have extension '.hap' with '.gz' extension"
+            },
+            "legend": {
+                "type": "string",
+                "pattern": "^\\S+\\.(legend)(\\.gz)?$",
+                "errorMessage": "Legend file can be provided, cannot contain spaces and must have extension '.legend' with '.gz' extension"
+            }
+        },
+        "required": ["panel", "chr"],
+        "uniqueEntries": ["panel", "chr"]
+    }
+}
