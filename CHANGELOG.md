@@ -3,6 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.0dev
+
+### `Added`
+
+### `Changed`
+
+- [#166](https://github.com/nf-core/phaseimpute/pull/166) - Bump version to 1.1.0dev and update `CHANGELOG.md`.
+
+### `Fixed`
+
 ## v1.0.0 - Black Labrador [2024-12-09]
 
 Initial release of nf-core/phaseimpute, created with the [nf-core](https://nf-co.re/) template.
