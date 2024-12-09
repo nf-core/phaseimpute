@@ -1,7 +1,7 @@
 <h1>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-phaseimpute_logo_dark.png">
-    <img alt="nf-core/phaseimpute" src="docs/images/nf-core-phaseimpute_logo_light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/logo/nf-core-phaseimpute_logo_dark.png">
+    <img alt="nf-core/phaseimpute" src="docs/images/logo/nf-core-phaseimpute_logo_light.png">
   </picture>
 </h1>
 
