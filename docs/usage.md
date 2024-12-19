@@ -166,13 +166,18 @@ work                # Directory containing the nextflow working files
 
 To facilitate multiple runs of the pipeline with consistent settings without specifying each parameter in the command line, you can use a parameter file. This allows for setting parameters once and reusing them across different executions.
 
-You can provide pipeline settings in a `yaml` or `json` file, which can be specified using the `-params-file` option:
+Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
+
+> [!WARNING]
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+
+The above pipeline run specified with a params file in yaml format:
 
 ```bash
 nextflow run nf-core/phaseimpute -profile docker -params-file params.yaml
 ```
 
-Example of a `params.yaml` file:
+with:
 
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
@@ -546,7 +551,7 @@ First, go to the [nf-core/phaseimpute releases page](https://github.com/nf-core/
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and reuse [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 > [!TIP]
 > If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
@@ -554,7 +559,7 @@ To further assist in reproducibility, you can use share and re-use [parameter fi
 ## Core Nextflow arguments
 
 > [!NOTE]
-> These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
+> These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen)
 
 ### `-profile`
 
@@ -570,7 +575,7 @@ The pipeline also dynamically loads configurations from [https://github.com/nf-c
 Note that multiple profiles can be loaded, for example: `-profile test,docker` - the order of arguments is important!
 They are loaded in sequence, so later profiles can overwrite earlier profiles.
 
-If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer enviroment.
+If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer environment.
 
 - `test`
   - A profile with a complete configuration for automated testing
@@ -606,7 +611,7 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 ### Resource requests
 
-Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each steps in the pipeline has a default set of requirements for number of CPUs, memory and time. For most pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
+Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
 To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
 
