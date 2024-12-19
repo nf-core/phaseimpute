@@ -92,7 +92,7 @@ For more details on the output files and reports, please refer to the [output do
 
 ## Credits
 
-nf-core/phaseimpute was originally written by Louis Le Nézet & Anabella Trigila.
+nf-core/phaseimpute was originally written by Louis Le Nézet, Anabella Trigila.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
