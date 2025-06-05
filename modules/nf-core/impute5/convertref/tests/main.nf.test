@@ -1,0 +1,64 @@
+nextflow_process {
+    name "Test Process IMPUTE5_CONVERTREF"
+    script "../main.nf"
+    process "IMPUTE5_CONVERTREF"
+
+    tag "impute5/convertref"
+    tag "modules"
+    tag "modules_nfcore"
+
+    test("Should run without error") {
+        config "tests/nextflow.config"
+        when {
+            process { """
+                input[0] = [
+                    [ id:'test' ],
+                    file(params.modules_testdata_base_path + 'testdata/reference.bcf', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/reference.bcf.csi', checkIfExists: true),
+                    '20'
+                ]
+            """ }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out.xcf_file[0][1], // le fichier .bcf
+                    process.out.xcf_file[0][2], // le fichier .csi  
+                    process.out.xcf_file[0][3], // le fichier .bin
+                    process.out.xcf_file[0][4], // le fichier .fam
+                    process.out.versions
+                ).match() }
+            )
+        }
+    }
+
+   test("impute5-convertref-basic-stub") {
+    config "tests/nextflow.config"
+    options '-stub'
+    when {
+        process { """
+            input[0] = [
+                [ id:'test' ],
+                file('dummy.bcf'),
+                file('dummy.bcf.csi'),
+                '20'
+            ]
+        """ }
+    }
+    then {
+        assertAll(
+            { assert process.success },
+            { assert snapshot(
+                // on reprend la même structure que pour le vrai output
+                process.out.xcf_file[0][1],  // fichier .bcf stub
+                process.out.xcf_file[0][2],  // fichier .csi stub
+                process.out.xcf_file[0][3],  // fichier .bin stub
+                process.out.xcf_file[0][4],  // fichier .fam stub
+                process.out.versions          // versions.yml stub
+            ).match() }
+        )
+    }
+}
+
+}

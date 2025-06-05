@@ -1,0 +1,8 @@
+name: nf-core-impute5-convertref
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - htslib
+  - tabix
+  # xcftools is included in the Docker image as a static binary

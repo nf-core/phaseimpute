@@ -30,6 +30,21 @@
         },
         "timestamp": "2024-11-27T18:17:15.103980096"
     },
+    "Check test_impute5": {
+        "content": [
+            [
+                "imputation/impute5/convertref/1000GP_xcf.bcf",
+                "imputation/impute5/convertref/1000GP_xcf.bcf.csi",
+                "imputation/impute5/convertref/1000GP_xcf.bin",
+                "imputation/impute5/convertref/1000GP_xcf.fam"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-03T15:23:02.256990679"
+    },
     "Check test_all": {
         "content": [
             [

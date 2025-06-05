@@ -72,7 +72,8 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-co
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
 
-
+include { VCF_IMPUTE_IMPUTE5                         } from '../../subworkflows/local/vcf_impute_impute5'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_IMPUTE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -373,6 +374,8 @@ workflow PHASEIMPUTE {
 
         }
 
+
+
         if (params.tools.split(',').contains("quilt")) {
             log.info("Impute with QUILT")
 
@@ -398,6 +401,113 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
+
+
+
+
+
+
+
+
+if (params.tools.split(',').contains("impute5")) {
+    log.info("Impute with IMPUTE5")
+
+    // Vérifier que l'input contient des VCF (IMPUTE5 ne prend pas de BAM)
+    ch_input_vcf_count = ch_input_type.vcf.count()
+
+    ch_input_vcf_count
+        .filter { it > 0 }
+        .subscribe {
+            log.info("Found ${it} VCF files for IMPUTE5 imputation")
+        }
+
+    // DEBUG: Vérifier les canaux avant utilisation
+    ch_panel.subscribe { log.info("DEBUG: ch_panel = ${it}") }
+    ch_region.subscribe { log.info("DEBUG: ch_region = ${it}") }
+    ch_map.subscribe { log.info("DEBUG: ch_map = ${it}") }
+
+    // CORRECTION: Utiliser les paramètres directement comme GLIMPSE2
+    // au lieu de ch_panel_phased qui n'existe que dans panelprep
+
+    // Utiliser panel depuis les paramètres si pas de panelprep
+    if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
+        ch_panel_for_impute5 = ch_panel
+        log.info("DEBUG: Using ch_panel for IMPUTE5")
+    } else {
+        ch_panel_for_impute5 = ch_panel_phased
+        log.info("DEBUG: Using ch_panel_phased for IMPUTE5")
+    }
+
+    // CORRECTION: Combiner sans jointure par clé, puis mapper manuellement
+    ch_target_data = ch_input_type.vcf
+        .combine(ch_region)
+        .map { meta_target, vcf, index, meta_region, region ->
+            // Garder l'ID du target et ajouter le chr de la région
+            def unified_meta = meta_target + [chr: meta_region.chr, region: meta_region.region]
+            log.info("DEBUG: Target data prepared: ${unified_meta}")
+            tuple(unified_meta, vcf, index, region)
+        }
+
+    ch_ref_data = ch_panel_for_impute5
+        .combine(ch_region)
+        .filter { meta_panel, vcf, index, meta_region, region ->
+            // Joindre seulement si les chromosomes matchent
+            meta_panel.chr == meta_region.chr
+        }
+        .map { meta_panel, vcf, index, meta_region, region ->
+            def unified_meta = meta_panel + meta_region
+            log.info("DEBUG: Ref data prepared: ${unified_meta}")
+            tuple(unified_meta, vcf, index, region)
+        }
+
+    ch_genetic_map = ch_map
+        .combine(ch_region)
+        .filter { meta_map, map_file, meta_region, region ->
+            // Joindre seulement si les chromosomes matchent
+            meta_map.chr == meta_region.chr
+        }
+        .map { meta_map, map_file, meta_region, region ->
+            def unified_meta = meta_map + meta_region
+            log.info("DEBUG: Map data prepared: ${unified_meta}")
+            tuple(unified_meta, map_file, region)
+        }
+
+    // DEBUG: Vérifier qu'on va appeler le subworkflow
+    ch_target_data.subscribe { log.info("DEBUG: About to call VCF_IMPUTE_IMPUTE5") }
+
+    // Utiliser ton subworkflow VCF_IMPUTE_IMPUTE5
+    VCF_IMPUTE_IMPUTE5(
+        ch_target_data,
+        ch_ref_data,
+        ch_genetic_map
+    )
+    ch_versions = ch_versions.mix(VCF_IMPUTE_IMPUTE5.out.versions)
+
+    // DEBUG: Vérifier les sorties
+    VCF_IMPUTE_IMPUTE5.out.imputed_bcf.subscribe {
+        log.info("DEBUG: IMPUTE5 output: ${it}")
+    }
+
+    // Formater pour la concaténation
+    ch_impute5_results = VCF_IMPUTE_IMPUTE5.out.imputed_bcf
+        .map { meta, vcf ->
+            def meta_with_tool = meta + [tools: "impute5"]
+            tuple(meta_with_tool, vcf, [])
+        }
+
+    // Concatenate by chromosomes
+    CONCAT_IMPUTE5(ch_impute5_results)
+    ch_versions = ch_versions.mix(CONCAT_IMPUTE5.out.versions)
+
+    // Add results to input validate
+    ch_input_validate = ch_input_validate.mix(CONCAT_IMPUTE5.out.vcf_tbi)
+}
+
+
+
+
+
+
 
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])

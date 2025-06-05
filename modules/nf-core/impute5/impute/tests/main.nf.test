@@ -1,0 +1,66 @@
+nextflow_process {
+    name "Test Process IMPUTE5_IMPUTE"
+    script "../main.nf"
+    process "IMPUTE5_IMPUTE"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "impute5"
+    tag "impute5/impute"
+
+    test("test-impute5-impute-file") {
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.modules_testdata_base_path + 'testdata/target.bcf', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/target.bcf.csi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/reference_xcf.bcf', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/reference_xcf.bcf.csi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/reference_xcf.bin', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/reference_xcf.fam', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/chr20.b37.gmap.gz', checkIfExists: true),
+                    '20:2000000-7000000'
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    file(process.out.bcf[0][1]).name,
+                    file(process.out.log[0][1]).name,
+                    process.out.versions
+                ).match() }
+            )
+        }
+    }
+
+   // pourquoi pas rajouter vcf output ou vcf input en test, demander à Louis
+
+    test("test-impute5-impute-file-stub") {
+        options '-stub'
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    [],[], // target files (empty for stub)
+                    [],[], // reference files (empty for stub)  
+                    [],[], // reference bin/fam (empty for stub)
+                    [],    // genetic map (empty for stub)
+                    ''     // region (empty string instead of empty array)
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

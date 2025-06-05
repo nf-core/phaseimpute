@@ -118,6 +118,29 @@ nextflow_pipeline {
 
     }
 
+   test("Check test_impute5") {
+    tag "test_impute5"
+    config "../../../conf/test_impute5.config"
+    when {
+        params {
+            pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/'
+            outdir = "$outputDir"
+        }
+    }
+
+    then {
+        assertAll(
+            { assert workflow.success },
+            { assert snapshot(
+                path("${outputDir}/imputation/")
+                    .list()
+                    .collect { getRecursiveFileNames(it, outputDir) }
+                    .flatten()
+            ).match()
+            }
+        )
+    }
+}
     test("Check test_sim") {
         tag "test_sim"
         config "../../../conf/test_sim.config"

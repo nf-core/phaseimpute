@@ -1,0 +1,40 @@
+name: convertref
+description: Convert reference VCF/BCF to XCF format using xcftools.
+keywords:
+  - imputation
+  - xcftools
+  - reference panel
+tools:
+  - xcftools:
+      description: Convert between VCF/BCF and XCF reference panel formats.
+      homepage: https://github.com/odelaneau/xcftools
+      documentation: https://github.com/odelaneau/xcftools
+      licence: ["MIT"]
+input:
+  - name: meta
+    type: map
+    description: Groovy map with sample metadata
+  - name: ref_vcf
+    type: file
+    description: Input reference VCF or BCF file
+  - name: ref_index
+    type: file
+    description: Index for the reference file (.tbi or .csi)
+  - name: chrom
+    type: string
+    description: Chromosome to convert (e.g. 20)
+output:
+  - name: ref_xcf
+    type: file
+    description: Converted reference file in XCF format (.bcf)
+  - name: ref_xcf_index
+    type: file
+    description: Index for the XCF file (.csi)
+  - name: ref_bin
+    type: file
+    description: XCF binary data file
+  - name: ref_fam
+    type: file
+    description: XCF fam file
+authors:
+  - gaspardichas

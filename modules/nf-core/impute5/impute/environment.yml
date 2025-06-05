@@ -1,0 +1,8 @@
+name: nf-core-impute5-impute
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - htslib
+  - tabix
+  # impute5 is included as a static binary

@@ -1,0 +1,47 @@
+name: impute
+description: Perform genotype imputation using IMPUTE5 on one genomic chunk.
+keywords:
+  - imputation
+  - vcf
+  - pbwt
+  - genetics
+tools:
+  - impute5:
+      description: Fast genotype imputation using PBWT with XCF reference panels.
+      homepage: http://www.stats.ox.ac.uk/~marchini/software/gwas/impute5.html
+      documentation: http://www.stats.ox.ac.uk/~marchini/software/gwas/impute5.html
+      licence: ["Custom"]
+input:
+  - name: meta
+    type: map
+    description: Metadata map
+  - name: target_vcf
+    type: file
+    description: Phased target VCF file
+  - name: target_index
+    type: file
+    description: Tabix index for the target VCF
+  - name: ref_xcf
+    type: file
+    description: Reference panel in XCF format (.bcf)
+  - name: ref_index
+    type: file
+    description: Index for the XCF reference (.csi)
+  - name: genetic_map
+    type: file
+    description: Genetic recombination map (.gmap.gz)
+  - name: region
+    type: string
+    description: Genomic region to impute (e.g. 20:2000000-7000000)
+  - name: output_prefix
+    type: string
+    description: Prefix for output files
+output:
+  - name: imputed_vcf
+    type: file
+    description: Imputed VCF (.vcf.gz)
+  - name: log
+    type: file
+    description: Log file from IMPUTE5
+authors:
+  - gaspardichas

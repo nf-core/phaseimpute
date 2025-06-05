@@ -1,0 +1,7 @@
+name: nf-core-impute5-chunk
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - htslib
+  - tabix

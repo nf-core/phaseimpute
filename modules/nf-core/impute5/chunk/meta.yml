@@ -1,0 +1,31 @@
+name: chunk
+description: Create imputation regions from target and reference using imp5Chunker.
+keywords:
+  - chunking
+  - imputation
+  - region
+tools:
+  - imp5Chunker:
+      description: Generates imputation chunks using phased reference and target VCFs.
+      homepage: https://jmarchini.org/software/
+      documentation: https://jmarchini.org/software/
+      licence: ["Custom"]
+input:
+  - name: meta
+    type: map
+    description: Groovy map with metadata
+  - name: ref_xcf
+    type: file
+    description: Reference panel in XCF format
+  - name: target_vcf
+    type: file
+    description: Phased target VCF file
+  - name: chrom
+    type: string
+    description: Chromosome ID (e.g. 20)
+output:
+  - name: chunk_coords
+    type: file
+    description: File with coordinates of chunks for imputation
+authors:
+  - gaspardichas

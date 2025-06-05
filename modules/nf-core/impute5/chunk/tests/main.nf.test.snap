@@ -1,0 +1,147 @@
+{
+    "impute5-chunk-basic": {
+        "content": [
+            "chunks_20.txt:md5,4eb773daad128bcc7d829eb977bad26f",
+            "reference_xcf.bcf:md5,33a84e9b45798b5c3c1aa94a28c39b16",
+            "reference_xcf.bcf.csi:md5,a64fa1b6eae8a3d10d7a9a48642c4d23",
+            "reference_xcf.bin:md5,bffb28fbd136f2d41f482d1658c2bdc3",
+            "reference_xcf.fam:md5,3ce801e6f2e7887aebc9972ca669372d",
+            "target.bcf:md5,030d6f5eed529c357f3d350edf1e9707",
+            "target.bcf.csi:md5,afc2cd456986148c083b0a67cadb0cee"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-05-26T11:41:45.588228787"
+    },
+    "impute5-chunk-basic-stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "chunks_test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.xcf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.xcf.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.bin:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.fam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "5": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_target.bcf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "6": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_target.bcf.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "7": [
+                    "versions.yml:md5,253ad03135b4459d6392b15dd9b61750"
+                ],
+                "chunks": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "chunks_test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ref_bin": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.bin:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ref_fam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.fam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ref_index": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.xcf.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ref_xcf": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_ref.xcf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "target": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_target.bcf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tbi": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "stub_target.bcf.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,253ad03135b4459d6392b15dd9b61750"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-05-26T11:41:58.592245027"
+    }
+}

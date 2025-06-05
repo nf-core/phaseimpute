@@ -1,0 +1,79 @@
+nextflow_process {
+
+    name "Test Process IMPUTE5_CHUNK"
+    script "../main.nf"
+    process "IMPUTE5_CHUNK"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "impute5"
+    tag "impute5/chunk"
+
+    test("impute5-chunk-basic") {
+
+        when {
+            process {
+                """
+                println "modules_testdata_base_path = ${params.modules_testdata_base_path}"
+                println "projectDir = ${projectDir}"
+                input[0] = [
+                  [ id:'test' ],
+                  file(params.modules_testdata_base_path + 'testdata/reference_xcf.bcf',    checkIfExists: true),
+                  file(params.modules_testdata_base_path + 'testdata/reference_xcf.bcf.csi', checkIfExists: true),
+                  file(params.modules_testdata_base_path + 'testdata/reference_xcf.bin',    checkIfExists: true),
+                  file(params.modules_testdata_base_path + 'testdata/reference_xcf.fam',    checkIfExists: true),
+                  file(params.modules_testdata_base_path + 'testdata/target.bcf',           checkIfExists: true),
+                  file(params.modules_testdata_base_path + 'testdata/target.bcf.csi',      checkIfExists: true),
+                  '20'
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    // on vérifie que le fichier de chunks existe
+                    process.out.chunks[0][1],
+                    // et que les autres outputs sont bien passés
+                    process.out.ref_xcf  [0][1],
+                    process.out.ref_index[0][1],
+                    process.out.ref_bin  [0][1],
+                    process.out.ref_fam  [0][1],
+                    process.out.target  [0][1],
+                    process.out.tbi     [0][1]
+                ).match() }
+            )
+        }
+    }
+
+    test("impute5-chunk-basic-stub") {
+
+        options '-stub'
+
+        when {
+            process {
+                """
+                input[0] = [
+                  [ id:'test' ],
+                  file('stub_ref.xcf'),
+                  file('stub_ref.xcf.csi'),
+                  file('stub_ref.bin'),
+                  file('stub_ref.fam'),
+                  file('stub_target.bcf'),
+                  file('stub_target.bcf.csi'),
+                  'test'
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

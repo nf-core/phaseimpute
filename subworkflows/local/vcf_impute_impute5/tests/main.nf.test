@@ -1,0 +1,114 @@
+nextflow_workflow {
+
+    name "Test Subworkflow IMPUTE5_SUBWORKFLOW"
+    script "../main.nf"
+    workflow "IMPUTE5_SUBWORKFLOW"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "impute5"
+    tag "impute5/subworkflow"
+
+    test("impute5-subworkflow-basic") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                // CORRECTION: Utiliser la même région partout pour éviter les problèmes de jointure
+                def test_region = '20:2000000-7000000'
+
+                // Canal des données target
+                ch_target_data = Channel.of([
+                    [ id: 'test' ],
+                    file(params.modules_testdata_base_path + 'testdata/target.bcf', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/target.bcf.csi', checkIfExists: true),
+                    test_region  // Utiliser la même région
+                ])
+
+                // Canal des données de référence
+                ch_ref_data = Channel.of([
+                    [ id: 'test' ],
+                    file(params.modules_testdata_base_path + 'testdata/reference.bcf', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'testdata/reference.bcf.csi', checkIfExists: true),
+                    test_region  // Utiliser la même région
+                ])
+
+                // Canal de la carte génétique
+                ch_genetic_map = Channel.of([
+                    [ id: 'test' ],
+                    file(params.modules_testdata_base_path + 'testdata/chr20.b37.gmap.gz', checkIfExists: true),
+                    test_region  // Utiliser la même région
+                ])
+
+                input[0] = ch_target_data
+                input[1] = ch_ref_data
+                input[2] = ch_genetic_map
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    // Vérifier les fichiers imputés
+                    file(workflow.out.imputed_bcf[0][1]).name,
+                    file(workflow.out.imputed_log[0][1]).name,
+                    // Vérifier les chunks - le nom sera chunks_20.txt (seulement le chromosome)
+                    file(workflow.out.chunks[0][1]).name,
+                    // Vérifier les fichiers XCF convertis
+                    file(workflow.out.xcf_files[0][1]).name,
+                    file(workflow.out.xcf_files[0][2]).name,
+                    file(workflow.out.xcf_files[0][3]).name,
+                    file(workflow.out.xcf_files[0][4]).name,
+                    // Vérifier les versions
+                    workflow.out.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("impute5-subworkflow-stub") {
+
+        options '-stub'
+
+        when {
+            workflow {
+                """
+                def test_region = 'test'
+
+                ch_target_data = Channel.of([
+                    [ id: 'test_stub' ],
+                    file('stub_target.bcf'),
+                    file('stub_target.bcf.csi'),
+                    test_region
+                ])
+                ch_ref_data = Channel.of([
+                    [ id: 'test_stub' ],
+                    file('stub_reference.bcf'),
+                    file('stub_reference.bcf.csi'),
+                    test_region
+                ])
+                ch_genetic_map = Channel.of([
+                    [ id: 'test_stub' ],
+                    file('stub_genetic.gmap.gz'),
+                    test_region
+                ])
+
+                input[0] = ch_target_data
+                input[1] = ch_ref_data
+                input[2] = ch_genetic_map
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}
