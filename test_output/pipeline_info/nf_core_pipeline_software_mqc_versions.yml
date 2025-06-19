@@ -1,0 +1,3 @@
+Workflow:
+    nf-core/phaseimpute: v1.1.0dev
+    Nextflow: 24.04.2

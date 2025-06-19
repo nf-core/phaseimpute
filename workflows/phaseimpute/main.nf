@@ -56,6 +56,10 @@ include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/local/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
+// BEAGLE5 subworkflows
+include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/local/vcf_impute_beagle5'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
+
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
@@ -394,6 +398,26 @@ workflow PHASEIMPUTE {
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
+        }
+
+        if (params.tools.split(',').contains("beagle5")) {
+            log.info("Impute with BEAGLE5")
+
+            // Combine vcf and processed bam
+            ch_input_beagle5 = ch_input_type.vcf
+                .mix(GL_GLIMPSE1.out.vcf_tbi)
+
+            // Run imputation
+            VCF_IMPUTE_BEAGLE5(
+                ch_input_beagle5,
+                ch_panel_phased,
+                ch_map
+            )
+            ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
+
         }
 
         // Prepare renaming file
