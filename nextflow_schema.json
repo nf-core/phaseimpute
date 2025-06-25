@@ -74,7 +74,7 @@
                     "description": "Imputation tool to use.",
                     "help_text": "Multiple tools separated with commas. Used when starting from `--steps impute` or `--steps all`.",
                     "fa_icon": "fas fa-step-forward",
-                    "pattern": "^((glimpse1|glimpse2|quilt|stitch)?,?)*(?<!,)$"
+                    "pattern": "^((glimpse1|glimpse2|quilt|stitch|beagle5)?,?)*(?<!,)$"
                 }
             }
         },

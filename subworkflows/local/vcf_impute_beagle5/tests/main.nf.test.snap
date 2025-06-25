@@ -2,43 +2,64 @@
     "Impute with beagle5 one vcf": {
         "content": [
             [
-                
+                "versions.yml:md5,07ce89771b59f5323f140125584786cf",
+                "versions.yml:md5,9b1a38e40b39eec07923f563eb0199f3",
+                "versions.yml:md5,a5a5fa7864bdac8dc26a1c9dac492219"
             ],
             [
-                
+                [
+                    {
+                        "id": "NA12878",
+                        "chr": "22",
+                        "tools": "beagle5"
+                    },
+                    "NA12878_beagle5_imputed.vcf.gz",
+                    "NA12878_beagle5_imputed.vcf.gz.csi"
+                ]
             ],
             [
-                
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-16T11:48:34.135251352"
+        "timestamp": "2025-06-24T17:08:45.728667711"
     },
     "Impute with beagle5 two vcf": {
         "content": [
             [
-                
+                "versions.yml:md5,07ce89771b59f5323f140125584786cf",
+                "versions.yml:md5,9b1a38e40b39eec07923f563eb0199f3",
+                "versions.yml:md5,a5a5fa7864bdac8dc26a1c9dac492219"
             ],
             [
-                
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "beagle5"
+                    },
+                    "NA12878_imputed.vcf.gz",
+                    "NA12878_imputed.vcf.gz.csi"
+                ]
             ],
             [
-                
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-16T11:49:09.341720154"
+        "timestamp": "2025-06-24T10:02:35.316194127"
     },
     "Impute with beagle5 one vcf with map": {
         "content": [
             [
-                
+                "versions.yml:md5,07ce89771b59f5323f140125584786cf"
             ],
             [
                 
@@ -49,8 +70,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-16T11:48:52.080904403"
+        "timestamp": "2025-06-24T08:33:09.01582931"
     }
 }

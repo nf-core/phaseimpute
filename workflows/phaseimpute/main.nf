@@ -401,24 +401,42 @@ workflow PHASEIMPUTE {
         }
 
         if (params.tools.split(',').contains("beagle5")) {
-            log.info("Impute with BEAGLE5")
+    log.info("Impute with BEAGLE5")
 
-            // Combine vcf and processed bam
-            ch_input_beagle5 = ch_input_type.vcf
-                .mix(GL_GLIMPSE1.out.vcf_tbi)
 
-            // Run imputation
-            VCF_IMPUTE_BEAGLE5(
-                ch_input_beagle5,
-                ch_panel_phased,
-                ch_map
-            )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
+      ch_input_type.vcf.view { sample ->
+        log.info "MAIN WORKFLOW - Sample entering BEAGLE5: ${sample[0]?.id ?: 'NULL'}, Meta: ${sample[0]}"
+        return "MAIN INPUT: ${sample}"
+    }
 
-            // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
+    ch_input_beagle = ch_input_type.vcf
+    .map { meta, vcf, tbi -> 
+        [[id: meta.id], vcf, tbi]
+    }
 
-        }
+    ch_input_beagle.view { sample ->
+        log.info "MAIN WORKFLOW - Sample entering BEAGLE5: ${sample[0]?.id ?: 'NULL'}, Meta: ${sample[0]}"
+        return "MAIN INPUT: ${sample}"
+    }
+
+    ch_input_beagle.view { "DEBUG MAIN - BEFORE BEAGLE5: ${it}" }
+
+
+    ch_input_beagle.view { "DEBUG BEAGLE5 INPUT VCF_TBI: ${it}" }
+    // Run imputation
+    VCF_IMPUTE_BEAGLE5(
+        ch_input_beagle,      // [ [id], vcf, tbi ]
+        ch_panel_phased,        // [ [id, chr], vcf, tbi ]
+        ch_map                  // [ [chr], map]
+    )
+
+
+    ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
+
+    // Plus besoin de CONCAT_BEAGLE5 - le subworkflow fait déjà la concaténation
+    // Add results directly to input validate
+    ch_input_validate = ch_input_validate.mix(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
+}
 
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
