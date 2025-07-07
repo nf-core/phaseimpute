@@ -59,6 +59,10 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 // BEAGLE5 subworkflows
 include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/local/vcf_impute_beagle5'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCFCHREXTRACT as VCFCHREXTRACT_BEAGLE5     } from '../../modules/local/vcfchrextract'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SPLITCHR } from '../../modules/nf-core/bcftools/view'
+
+
 
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
@@ -250,6 +254,7 @@ workflow PHASEIMPUTE {
     //
     // Impute target files
     //
+
     if (params.steps.split(',').contains("impute") || params.steps.split(',').contains("all")) {
         // Split input files into BAMs and VCFs
         ch_input_type = ch_input_impute
@@ -401,73 +406,71 @@ workflow PHASEIMPUTE {
         }
 
         if (params.tools.split(',').contains("beagle5")) {
-    log.info("Impute with BEAGLE5")
+            log.info("Impute with BEAGLE5")
 
+            // Prepare VCF input channel with clean metadata
+            ch_vcf_clean = ch_input_type.vcf
+                .map { meta, vcf, index -> 
+                    def clean_meta = [id: meta.id]
+                    [clean_meta, vcf, index]
+                }
 
-      ch_input_type.vcf.view { sample ->
-        log.info "MAIN WORKFLOW - Sample entering BEAGLE5: ${sample[0]?.id ?: 'NULL'}, Meta: ${sample[0]}"
-        return "MAIN INPUT: ${sample}"
+            // Extract chromosome information from VCF
+            VCFCHREXTRACT_BEAGLE5(ch_vcf_clean.map { meta, vcf, index -> [meta, vcf] })
+            
+            // Create per-chromosome VCF channels
+            ch_vcf_per_chr = VCFCHREXTRACT_BEAGLE5.out.chr
+                .join(ch_vcf_clean, by: 0)
+                .map { meta, chr_file, vcf, index ->
+                    def chromosomes = chr_file.readLines()
+                    def result = []
+                    chromosomes.each { chr ->
+                        def meta_chr = [id: meta.id, chr: chr]
+                        result << [meta_chr, vcf, index]
+                    }
+                    result
+                }
+                .flatten()
+                .collate(3)
+
+            // Split VCF physically by chromosome
+            BCFTOOLS_VIEW_SPLITCHR(
+                ch_vcf_per_chr,
+                [],
+                [],
+                []
+            )
+
+            // Update channel with split VCF files
+            ch_input_beagle5 = BCFTOOLS_VIEW_SPLITCHR.out.vcf
+                .join(BCFTOOLS_VIEW_SPLITCHR.out.csi, by: 0)
+        
+            // Run imputation with BEAGLE5
+            VCF_IMPUTE_BEAGLE5(
+                ch_input_beagle5,
+                ch_panel_phased,  
+                ch_map            
+            )
+            ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
+
+            // Group by sample for concatenation
+            ch_beagle5_to_concat = VCF_IMPUTE_BEAGLE5.out.vcf_tbi
+                .map { meta, vcf, index ->
+                    // Remove chr from meta to group by sample
+                    def sample_meta = [id: meta.id]
+                    [sample_meta, vcf, index]
+                }
+                .groupTuple(by: 0)
+
+            // Concatenate by chromosomes
+            CONCAT_BEAGLE5(ch_beagle5_to_concat)
+            ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
+        }
     }
 
-    ch_input_beagle = ch_input_type.vcf
-    .map { meta, vcf, tbi -> 
-        [[id: meta.id], vcf, tbi]
-    }
-
-    ch_input_beagle.view { sample ->
-        log.info "MAIN WORKFLOW - Sample entering BEAGLE5: ${sample[0]?.id ?: 'NULL'}, Meta: ${sample[0]}"
-        return "MAIN INPUT: ${sample}"
-    }
-
-    ch_input_beagle.view { "DEBUG MAIN - BEFORE BEAGLE5: ${it}" }
-
-
-    ch_input_beagle.view { "DEBUG BEAGLE5 INPUT VCF_TBI: ${it}" }
-    // Run imputation
-    VCF_IMPUTE_BEAGLE5(
-        ch_input_beagle,      // [ [id], vcf, tbi ]
-        ch_panel_phased,        // [ [id, chr], vcf, tbi ]
-        ch_map                  // [ [chr], map]
-    )
-
-
-    ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
-
-    // Plus besoin de CONCAT_BEAGLE5 - le subworkflow fait déjà la concaténation
-    // Add results directly to input validate
-    ch_input_validate = ch_input_validate.mix(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
-}
-
-        // Prepare renaming file
-        BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
-        GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [])
-        ch_split_imputed = ch_input_validate.join(GAWK_IMPUTED.out.output)
-
-        // Split result by samples
-        SPLIT_IMPUTED(ch_split_imputed)
-        ch_versions = ch_versions.mix(SPLIT_IMPUTED.out.versions)
-        ch_input_validate = SPLIT_IMPUTED.out.vcf_tbi
-
-        // Compute stats on imputed files
-        BCFTOOLS_STATS_TOOLS(
-            ch_input_validate,
-            [[],[]],
-            [[],[]],
-            [[],[]],
-            [[],[]],
-            ch_fasta.map{ [it[0], it[1]] })
-        ch_versions = ch_versions.mix(BCFTOOLS_STATS_TOOLS.out.versions)
-        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TOOLS.out.stats.map{ [it[1]] })
-
-        // Export all files to csv
-        exportCsv(
-            ch_input_validate.map{ meta, file, index ->
-                [meta, [2:"imputation/${meta.tools}/samples", 3:"imputation/${meta.tools}/samples"], file, index]
-            },
-            ["id", "tools"], "sample,tools,file,index",
-            "impute.csv", "imputation/csv"
-        )
-    }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)

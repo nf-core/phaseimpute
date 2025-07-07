@@ -1,0 +1,47 @@
+name: "vcf_split_bychromosome"
+description: Split VCF/BCF files by chromosome
+keywords:
+  - vcf
+  - split
+  - chromosome
+  - bcftools
+tools:
+  - "bcftools":
+      description: "BCFtools is a set of utilities that manipulate variant calls in the Variant Call Format (VCF) and its binary counterpart BCF."
+      homepage: "http://samtools.github.io/bcftools/"
+      documentation: "http://www.htslib.org/doc/bcftools.html"
+      doi: "10.1093/bioinformatics/btr509"
+      licence: "MIT"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test' ]
+  - vcf:
+      type: file
+      description: VCF/BCF file
+      pattern: "*.{vcf,vcf.gz,bcf,bcf.gz}"
+  - index:
+      type: file
+      description: Index file for VCF/BCF (TBI or CSI)
+      pattern: "*.{tbi,csi}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information with chromosome info
+        e.g. [ id:'test', chr:'chr1' ]
+  - vcf_per_chr:
+      type: file
+      description: VCF files split by chromosome with CSI indices
+      pattern: "*_chr*.vcf.gz"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+      
+authors:
+  - "@gichas"

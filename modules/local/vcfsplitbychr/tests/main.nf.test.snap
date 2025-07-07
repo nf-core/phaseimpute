@@ -1,0 +1,49 @@
+{
+    "Split vcf by chromosome": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_split"
+                        },
+                        [
+                            "test_split_chr21.vcf.gz:md5,535fc2581406673ddbfd098332caf9d0",
+                            "test_split_chr22.vcf.gz:md5,2c70a438df83b5d03800ac1b2ddc6048"
+                        ],
+                        [
+                            "test_split_chr21.vcf.gz.csi:md5,4b4bdfd58f088dedb9aa5e0b8bf72251",
+                            "test_split_chr22.vcf.gz.csi:md5,e3b2e0b612551a1e91aa62c10c44bed0"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,9915307cda967fa30d5e79624f1f5d75"
+                ],
+                "vcf_per_chr": [
+                    [
+                        {
+                            "id": "test_split"
+                        },
+                        [
+                            "test_split_chr21.vcf.gz:md5,535fc2581406673ddbfd098332caf9d0",
+                            "test_split_chr22.vcf.gz:md5,2c70a438df83b5d03800ac1b2ddc6048"
+                        ],
+                        [
+                            "test_split_chr21.vcf.gz.csi:md5,4b4bdfd58f088dedb9aa5e0b8bf72251",
+                            "test_split_chr22.vcf.gz.csi:md5,e3b2e0b612551a1e91aa62c10c44bed0"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,9915307cda967fa30d5e79624f1f5d75"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-06-26T16:46:43.902433346"
+    }
+}
