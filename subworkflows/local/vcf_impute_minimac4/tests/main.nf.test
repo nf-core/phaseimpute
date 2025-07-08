@@ -1,0 +1,105 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_IMPUTE_MINIMAC4"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_IMPUTE_MINIMAC4"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_impute_minimac4"
+    tag "vcf_impute_minimac4"
+
+    tag "minimac4"
+    tag "minimac4/compressref"
+    tag "minimac4/impute"
+
+    test("Impute with minimac4 one vcf") {
+        tag "one_vcf"
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ]
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([[chr: "22"], []])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf.collect{ path(it[1]).vcf.summary }
+                ).match() }
+            )
+        }
+    }
+
+    test("Impute with minimac4 two vcf") {
+        tag "two_vcf"
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ],
+                    [
+                        [id: "NA19401", panel: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi", checkIfExist:true)
+                    ]
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of([[chr: "22"], []])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf.collect{ path(it[1]).vcf.summary }
+                ).match() }
+            )
+        }
+    }
+}

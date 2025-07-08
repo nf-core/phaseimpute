@@ -10,7 +10,6 @@ workflow VCF_IMPUTE_MINIMAC4 {
     take:
     ch_target       // channel: [ val(meta), path(target_vcf), path(target_index) ]
     ch_reference    // channel: [ val(meta), path(ref_vcf), path(ref_index) ]
-    ch_sites        // channel: [ val(meta), path(sites_vcf), path(sites_index) ] or [ [], [], [] ]
     ch_map          // channel: [ val(meta), path(map) ] or [ [], [] ]
 
     main:
@@ -28,11 +27,10 @@ workflow VCF_IMPUTE_MINIMAC4 {
     //
     // MODULE: Perform imputation
     //
-    // Combine target data with compressed reference
+    // Combine target data with compressed reference and map
     ch_impute_input = ch_target
         .combine(MINIMAC4_COMPRESSREF.out.msav.map{ meta, msav -> msav })
-        .combine(ch_sites.map{ meta, sites_vcf, sites_index -> [sites_vcf, sites_index] })
-        .combine(ch_map.map{ meta, map -> map })
+        .combine(ch_map.map{ meta, map -> [[], [], map] })
         .map{ target_meta, target_vcf, target_index, msav, sites_vcf, sites_index, map -> 
             [target_meta, target_vcf, target_index, msav, sites_vcf, sites_index, map]
         }
@@ -43,6 +41,6 @@ workflow VCF_IMPUTE_MINIMAC4 {
     ch_versions = ch_versions.mix(MINIMAC4_IMPUTE.out.versions)
 
     emit:
-    vcf      = MINIMAC4_IMPUTE.out.vcf      // channel: [ val(meta), path(vcf) ]
-    versions = ch_versions                   // channel: [ path(versions.yml) ]
+    vcf      = MINIMAC4_IMPUTE.out.vcf       // channel: [ val(meta), path(vcf) ]
+    versions = ch_versions                    // channel: [ path(versions.yml) ]
 }
