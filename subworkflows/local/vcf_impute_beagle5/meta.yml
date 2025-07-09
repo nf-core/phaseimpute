@@ -32,7 +32,7 @@ input:
           description: Input index file
           pattern: "*.{tbi,csi}"
   - ch_panel:
-      description: Channel with reference panel data
+      description: Channel with phased reference panel data
       structure:
         - meta:
           type: map
