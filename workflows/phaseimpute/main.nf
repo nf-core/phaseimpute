@@ -441,11 +441,44 @@ workflow PHASEIMPUTE {
             CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
 
+            
+
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
 
         }
+
+        // Prepare renaming file
+        BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
+        GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [])
+        ch_split_imputed = ch_input_validate.join(GAWK_IMPUTED.out.output)
+
+        // Split result by samples
+        SPLIT_IMPUTED(ch_split_imputed)
+        ch_versions = ch_versions.mix(SPLIT_IMPUTED.out.versions)
+        ch_input_validate = SPLIT_IMPUTED.out.vcf_tbi
+
+        // Compute stats on imputed files
+        BCFTOOLS_STATS_TOOLS(
+            ch_input_validate,
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            [[],[]],
+            ch_fasta.map{ [it[0], it[1]] })
+        ch_versions = ch_versions.mix(BCFTOOLS_STATS_TOOLS.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TOOLS.out.stats.map{ [it[1]] })
+
+        // Export all files to csv
+        exportCsv(
+            ch_input_validate.map{ meta, file, index ->
+                [meta, [2:"imputation/${meta.tools}/samples", 3:"imputation/${meta.tools}/samples"], file, index]
+            },
+            ["id", "tools"], "sample,tools,file,index",
+            "impute.csv", "imputation/csv"
+        )
     }
+    
 
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
