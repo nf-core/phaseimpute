@@ -1,8 +1,6 @@
 include { BEAGLE5_BEAGLE                           } from '../../../modules/nf-core/beagle5/beagle'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_BEAGLE } from '../../../modules/nf-core/bcftools/index'
 include { BCFTOOLS_VIEW                           } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_CONCAT                         } from '../../../modules/nf-core/bcftools/concat'
-include { BCFTOOLS_NORM                           } from '../../../modules/nf-core/bcftools/norm'
 
 
 workflow VCF_IMPUTE_BEAGLE5 {
@@ -37,39 +35,19 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
-        .map { meta, vcf, tbi -> 
-            [meta.chr, meta, vcf, tbi]
-        }
-        .combine(
-            ch_panel.map { meta, vcf, idx -> 
-                [meta.chr, vcf]
-            },
-            by: 0
-        )
-        .combine(
-            ch_map.map { meta, map -> 
-                [meta.chr, map]
-            },
-            by: 0
-        )
-        .map { chr, meta, vcf, tbi, panel_vcf, map_file ->
-            [meta, vcf, panel_vcf, map_file]
-        }
-
-    // Split channels for BEAGLE5 input requirements
-    ch_beagle_input
-        .multiMap { meta, vcf, panel, map ->
+        .map { meta, vcf, tbi -> [meta.chr, meta, vcf, tbi] }
+        .combine(ch_panel.map { meta, vcf, idx -> [meta.chr, vcf] }, by: 0)
+        .combine(ch_map.map { meta, map -> [meta.chr, map] }, by: 0)
+        .multiMap { chr, meta, vcf, tbi, panel_vcf, map_file ->
             input: [meta, vcf]
-            panel: panel
-            map: map ?: []
+            panel: panel_vcf
+            map: map_file
         }
-        .set { ch_beagle_channels }
-
     // Run BEAGLE5 imputation
     BEAGLE5_BEAGLE(
-        ch_beagle_channels.input,
-        ch_beagle_channels.panel,
-        ch_beagle_channels.map,
+        ch_beagle_input.input,
+        ch_beagle_input.panel,
+        ch_beagle_input.map,
         [],
         []
     )
@@ -78,6 +56,7 @@ workflow VCF_IMPUTE_BEAGLE5 {
     // Index the imputed VCF files
     BCFTOOLS_INDEX_BEAGLE(BEAGLE5_BEAGLE.out.vcf)
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_BEAGLE.out.versions.first())
+
 
     // Prepare final output channel with clean metadata
     ch_imputed_vcf_tbi = BEAGLE5_BEAGLE.out.vcf
@@ -90,6 +69,8 @@ workflow VCF_IMPUTE_BEAGLE5 {
             ]
             [clean_meta, vcf, index]
         }
+
+    
 
     emit:
     vcf_tbi  = ch_imputed_vcf_tbi // channel: [ [id, chr, tools], vcf, tbi ]

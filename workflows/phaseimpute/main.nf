@@ -60,7 +60,8 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/local/vcf_impute_beagle5'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
 include { VCFCHREXTRACT as VCFCHREXTRACT_BEAGLE5     } from '../../modules/local/vcfchrextract'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SPLITCHR } from '../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SPLITCHR    } from '../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_DEBUG             } from '../../modules/nf-core/bcftools/query'
 
 
 
@@ -411,63 +412,38 @@ workflow PHASEIMPUTE {
             // Prepare VCF input channel with clean metadata
             ch_vcf_clean = ch_input_type.vcf
                 .map { meta, vcf, index -> 
-                    def clean_meta = [id: meta.id]
-                    [clean_meta, vcf, index]
+                    [[id: meta.id], vcf, index]
                 }
 
             // Extract chromosome information from VCF
             VCFCHREXTRACT_BEAGLE5(ch_vcf_clean.map { meta, vcf, index -> [meta, vcf] })
             
-            // Create per-chromosome VCF channels
-            ch_vcf_per_chr = VCFCHREXTRACT_BEAGLE5.out.chr
+            // Create per-chromosome channels for BEAGLE5
+            ch_beagle5_input = VCFCHREXTRACT_BEAGLE5.out.chr
                 .join(ch_vcf_clean, by: 0)
                 .map { meta, chr_file, vcf, index ->
-                    def chromosomes = chr_file.readLines()
-                    def result = []
-                    chromosomes.each { chr ->
-                        def meta_chr = [id: meta.id, chr: chr]
-                        result << [meta_chr, vcf, index]
+                    chr_file.readLines().collect { chr ->
+                        [[id: meta.id, chr: chr], vcf, index]
                     }
-                    result
                 }
                 .flatten()
                 .collate(3)
 
-            // Split VCF physically by chromosome
-            BCFTOOLS_VIEW_SPLITCHR(
-                ch_vcf_per_chr,
-                [],
-                [],
-                []
-            )
-
-            // Update channel with split VCF files
-            ch_input_beagle5 = BCFTOOLS_VIEW_SPLITCHR.out.vcf
-                .join(BCFTOOLS_VIEW_SPLITCHR.out.csi, by: 0)
-        
-            // Run imputation with BEAGLE5
+            // Run imputation with BEAGLE5 directly
             VCF_IMPUTE_BEAGLE5(
-                ch_input_beagle5,
+                ch_beagle5_input,
                 ch_panel_phased,  
                 ch_map            
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
 
-            // Group by sample for concatenation
-            ch_beagle5_to_concat = VCF_IMPUTE_BEAGLE5.out.vcf_tbi
-                .map { meta, vcf, index ->
-                    // Remove chr from meta to group by sample
-                    def sample_meta = [id: meta.id]
-                    [sample_meta, vcf, index]
-                }
-                .groupTuple(by: 0)
-
             // Concatenate by chromosomes
-            CONCAT_BEAGLE5(ch_beagle5_to_concat)
+            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
+
         }
     }
 

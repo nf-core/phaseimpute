@@ -312,14 +312,19 @@
     "Check test_beagle5": {
         "content": [
             [
-                
+                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
+                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.csi",
+                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
+                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.csi",
+                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
+                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.csi"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-23T15:09:25.261255598"
+        "timestamp": "2025-07-09T14:27:28.357747114"
     },
     "Check test_sim": {
         "content": [
