@@ -59,50 +59,50 @@ nextflow_workflow {
         }
     }
 
-    // // // // // The map is at the wrong format, need a plink map file // // // // //
-    // test("Impute with beagle5 one vcf with map") {
-    //     tag "with_map"
-    //     when {
-    //         params {
-    //             max_cpus   = 2
-    //             max_memory = '2.GB'
-    //         }
-    //         workflow {
-    //             """
-    //             input[0] = Channel.fromList([
-    //                 [
-    //                     [id: "NA12878", panel: "1000GP", chr: "22"],
-    //                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
-    //                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
-    //                 ]
-    //             ])
-    //             input[1] = Channel.of([
-    //                     [id: "1000GP", chr: "22"],
-    //                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
-    //                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
-    //                 ]).collect()
-    //             input[2] = Channel.of(
-    //                 [[chr: "22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_22.map", checkIfExist:true)]
-    //             )
-    //             """
-    //         }
-    //     }
+    // // // // The map is at the wrong format, need a plink map file // // // // //
+    test("Impute with beagle5 one vcf with map") {
+        tag "with_map"
+        when {
+            params {
+                max_cpus   = 2
+                max_memory = '2.GB'
+            }
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ]
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                    ]).collect()
+                input[2] = Channel.of(
+                    [[chr: "22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)]
+                )
+                """
+            }
+        }
 
-    //     then {
-    //         assertAll(
-    //             { assert workflow.success },
-    //             { assert snapshot(
-    //                 workflow.out.versions,
-    //                 workflow.out.vcf_tbi.collect{[
-    //                     it[0],
-    //                     path(it[1]).getFileName().toString(),
-    //                     path(it[2]).getFileName().toString()
-    //                 ] },
-    //                 workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }
-    //             ).match() }
-    //         )
-    //     }
-    // }
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString()
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }
+                ).match() }
+            )
+        }
+    }
 
     test("Impute with beagle5 two vcf") {
         tag "two_vcf"
