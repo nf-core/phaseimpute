@@ -60,12 +60,6 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
-// MINIMAC4 subworkflows
-include { VCF_IMPUTE_MINIMAC4 } from '../../subworkflows/local/vcf_impute_minimac4'
-include {VCFCHREXTRACT as VCFCHREXTRACT_MINIMAC4} from '../../modules/local/vcfchrextract'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_MINIMAC4 } from '../../subworkflows/local/vcf_concatenate_bcftools'
-
-
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
 
@@ -401,61 +395,6 @@ workflow PHASEIMPUTE {
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
-
-        if (params.tools.split(',').contains("minimac4")) {
-            log.info("Impute with MINIMAC4")
-
-            // Prepare VCF input channel with clean metadata
-            ch_vcf_clean = ch_input_type.vcf
-                .map { meta, vcf, index -> 
-                    [[id: meta.id], vcf, index]
-                }
-
-            // Extract chromosome information from VCF
-            VCFCHREXTRACT_MINIMAC4(ch_vcf_clean.map { meta, vcf, index -> [meta, vcf] })
-            
-            // Create per-chromosome channels for MINIMAC4
-            ch_minimac4_input = VCFCHREXTRACT_MINIMAC4.out.chr
-                .join(ch_vcf_clean, by: 0)
-                .map { meta, chr_file, vcf, index ->
-                    chr_file.readLines().collect { chr ->
-                        [[id: meta.id, chr: chr], vcf, index]
-                    }
-                }
-                .flatten()
-                .collate(3)
-
-            // Run imputation with MINIMAC4
-            VCF_IMPUTE_MINIMAC4(
-                ch_minimac4_input,
-                ch_panel_phased,  
-                ch_map            
-            )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
-
-            VCF_IMPUTE_MINIMAC4.out.vcf_tbi
-                .map { meta, vcf, index -> 
-                    [[id: meta.id, tools: meta.tools], vcf, index] 
-                }
-                .groupTuple(by: 0)
-                .set { ch_grouped_for_concat }
-
-            // DEBUG: View grouped data
-            ch_grouped_for_concat.view { "GROUPED FOR CONCAT: $it" }
-
-            // Concatenate by chromosomes
-            CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_tbi)
-            ch_versions = ch_versions.mix(CONCAT_MINIMAC4.out.versions)
-
-            CONCAT_MINIMAC4.out.vcf_tbi.view { "CONCAT OUTPUT: $it" }
-
-
-            // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_tbi)
-
-        }
-
-    
 
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])

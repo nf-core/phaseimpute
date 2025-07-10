@@ -11,7 +11,9 @@ workflow VCF_CONCATENATE_BCFTOOLS {
 
     // Keep only id from meta
     ch_vcf_tbi_grouped = ch_vcf_tbi
-        .map{ metaIPTC, vcf, tbi -> [metaIPTC.subMap("id", "tools", "panel", "batch") + ["chr": "all"], vcf, tbi] }
+    ch_vcf_tbi_grouped = ch_vcf_tbi
+        .map{ metaIPTC, vcf, tbi -> [
+            metaIPTC.findAll { k, v -> k in ["id", "tools", "panel", "batch"] } + ["chr": "all"], vcf, tbi ] }        
         .groupTuple( by:0 )
         .map{ metaIPTC, vcf, tbi -> [metaIPTC, vcf, tbi, vcf.size() ] } // Compute number of records
         .branch{
