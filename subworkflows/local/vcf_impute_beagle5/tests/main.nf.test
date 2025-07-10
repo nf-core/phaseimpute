@@ -59,7 +59,6 @@ nextflow_workflow {
         }
     }
 
-    // // // // The map is at the wrong format, need a plink map file // // // // //
     test("Impute with beagle5 one vcf with map") {
         tag "with_map"
         when {
