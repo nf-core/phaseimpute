@@ -441,8 +441,6 @@ workflow PHASEIMPUTE {
             CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
 
-            
-
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
 

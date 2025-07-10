@@ -12,7 +12,7 @@ workflow VCF_IMPUTE_BEAGLE5 {
     main:
     ch_versions = Channel.empty()
 
-    // Branch input files based on format (BCF vs VCF)
+    // Branch input files based on format 
     ch_input
         .branch { meta, vcf, tbi ->
             bcf: vcf.toString().contains('.bcf')
@@ -36,13 +36,14 @@ workflow VCF_IMPUTE_BEAGLE5 {
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
         .map { meta, vcf, tbi -> [meta.chr, meta, vcf, tbi] }
-        .combine(ch_panel.map { meta, vcf, idx -> [meta.chr, vcf] }, by: 0)
-        .combine(ch_map.map { meta, map -> [meta.chr, map] }, by: 0)
-        .multiMap { chr, meta, vcf, tbi, panel_vcf, map_file ->
-            input: [meta, vcf]
+        .combine(ch_panel.map { meta, vcf, idx -> [meta.chr, meta.id, vcf] }, by: 0)
+        .combine(ch_map.map { meta, map -> [meta.chr, map] }, by: 0) 
+        .multiMap { chr, target_meta, vcf, tbi, panel_id, panel_vcf, map ->
+            input: [target_meta, vcf] 
             panel: panel_vcf
-            map: map_file
+            map: map
         }
+
     // Run BEAGLE5 imputation
     BEAGLE5_BEAGLE(
         ch_beagle_input.input,
@@ -58,17 +59,9 @@ workflow VCF_IMPUTE_BEAGLE5 {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_BEAGLE.out.versions.first())
 
 
-    // Prepare final output channel with clean metadata
     ch_imputed_vcf_tbi = BEAGLE5_BEAGLE.out.vcf
-        .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
-        .map{ meta, vcf, index -> 
-            def clean_meta = [
-                id: meta.id,
-                chr: meta.chr,
-                tools: "beagle5"
-            ]
-            [clean_meta, vcf, index]
-        }
+    .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
+    .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
 
     
 
