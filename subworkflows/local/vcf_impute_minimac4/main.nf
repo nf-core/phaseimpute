@@ -1,7 +1,3 @@
-//
-// Subworkflow to perform genotype imputation using Minimac4
-//
-
 include { MINIMAC4_COMPRESSREF } from '../../../modules/nf-core/minimac4/compressref/main'
 include { MINIMAC4_IMPUTE }      from '../../../modules/nf-core/minimac4/impute/main'
 include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_MINIMAC4 } from '../../../modules/nf-core/bcftools/index/main'
@@ -17,7 +13,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
     
     ch_versions = Channel.empty()
 
-    // Compress reference panel to MSAV format (spécifique à MINIMAC4)
+    // Compress reference panel to MSAV format 
     MINIMAC4_COMPRESSREF(
         ch_panel
     )
@@ -44,7 +40,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
     )
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX_MINIMAC4.out.versions.first())
 
-    // Join imputed and index files (même structure que BEAGLE5)
+    // Join imputed and index files 
     ch_imputed_vcf_tbi = MINIMAC4_IMPUTE.out.vcf
         .join(BCFTOOLS_INDEX_MINIMAC4.out.csi)
         .map{ meta, vcf, index -> [meta + [tools: "minimac4"], vcf, index] }
