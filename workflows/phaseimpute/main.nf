@@ -433,16 +433,6 @@ workflow PHASEIMPUTE {
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 
-            VCF_IMPUTE_MINIMAC4.out.vcf_tbi
-                .map { meta, vcf, index -> 
-                    [[id: meta.id, tools: meta.tools], vcf, index] 
-                }
-                .groupTuple(by: 0)
-                .set { ch_grouped_for_concat }
-
-            // DEBUG: View grouped data
-            ch_grouped_for_concat.view { "GROUPED FOR CONCAT: $it" }
-
             // Concatenate by chromosomes
             CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_MINIMAC4.out.versions)

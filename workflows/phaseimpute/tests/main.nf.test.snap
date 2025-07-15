@@ -31,6 +31,27 @@
         },
         "timestamp": "2025-06-18T18:23:01.818626445"
     },
+    "Check test_minimac4": {
+        "content": [
+            [
+                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.csi",
+                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.csi",
+                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+            [
+                "NA12878"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-07-15T09:58:04.016447313"
+    },
     "Check test_all": {
         "content": [
             [
