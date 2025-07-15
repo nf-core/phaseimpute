@@ -437,15 +437,10 @@ workflow PHASEIMPUTE {
             CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_tbi)
             ch_versions = ch_versions.mix(CONCAT_MINIMAC4.out.versions)
 
-            CONCAT_MINIMAC4.out.vcf_tbi.view { "CONCAT OUTPUT: $it" }
-
-
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_tbi)
 
         }
-
-    
 
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
