@@ -42,7 +42,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
 
     // Join imputed and index files 
     ch_imputed_vcf_tbi = MINIMAC4_IMPUTE.out.vcf
-        .join(BCFTOOLS_INDEX_MINIMAC4.out.csi)
+        .join(BCFTOOLS_INDEX_MINIMAC4.out.tbi)
         .map{ meta, vcf, index -> [meta + [tools: "minimac4"], vcf, index] }
 
     emit:

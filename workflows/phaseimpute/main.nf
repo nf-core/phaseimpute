@@ -61,9 +61,8 @@ include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // MINIMAC4 subworkflows
-include { VCF_IMPUTE_MINIMAC4 } from '../../subworkflows/local/vcf_impute_minimac4'
-include {VCFCHREXTRACT as VCFCHREXTRACT_MINIMAC4} from '../../modules/local/vcfchrextract'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_MINIMAC4 } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_IMPUTE_MINIMAC4                        } from '../../subworkflows/local/vcf_impute_minimac4'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_MINIMAC4} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 
 // Imputation stats
@@ -405,29 +404,16 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("minimac4")) {
             log.info("Impute with MINIMAC4")
 
-            // Prepare VCF input channel with clean metadata
-            ch_vcf_clean = ch_input_type.vcf
-                .map { meta, vcf, index -> 
-                    [[id: meta.id], vcf, index]
+            // Create input channel combining VCF with regions 
+            ch_input_minimac4 = ch_input_type.vcf
+                .combine(ch_region)
+                .map { meta_vcf, vcf, index, meta_region, region ->
+                    [meta_vcf + meta_region, vcf, index]
                 }
-
-            // Extract chromosome information from VCF
-            VCFCHREXTRACT_MINIMAC4(ch_vcf_clean.map { meta, vcf, index -> [meta, vcf] })
-            
-            // Create per-chromosome channels for MINIMAC4
-            ch_minimac4_input = VCFCHREXTRACT_MINIMAC4.out.chr
-                .join(ch_vcf_clean, by: 0)
-                .map { meta, chr_file, vcf, index ->
-                    chr_file.readLines().collect { chr ->
-                        [[id: meta.id, chr: chr], vcf, index]
-                    }
-                }
-                .flatten()
-                .collate(3)
 
             // Run imputation with MINIMAC4
             VCF_IMPUTE_MINIMAC4(
-                ch_minimac4_input,
+                ch_input_minimac4,
                 ch_panel_phased,  
                 ch_map            
             )
@@ -439,8 +425,12 @@ workflow PHASEIMPUTE {
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_tbi)
-
         }
+
+
+
+
+
 
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
