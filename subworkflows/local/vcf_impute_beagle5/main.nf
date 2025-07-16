@@ -1,6 +1,6 @@
 include { BEAGLE5_BEAGLE                           } from '../../../modules/nf-core/beagle5/beagle'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_BEAGLE } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_VIEW                           } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_BEAGLE  } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_VIEW                            } from '../../../modules/nf-core/bcftools/view'
 
 
 workflow VCF_IMPUTE_BEAGLE5 {

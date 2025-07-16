@@ -18,12 +18,8 @@ nextflow_workflow {
     tag "bcftools/index"
 
     test("Impute with beagle5 one vcf") {
-        tag "one_vcf"
+
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.fromList([
@@ -60,12 +56,9 @@ nextflow_workflow {
     }
 
     test("Impute with beagle5 one vcf with map") {
-        tag "with_map"
+        
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
+
             workflow {
                 """
                 input[0] = Channel.fromList([
@@ -104,12 +97,8 @@ nextflow_workflow {
     }
 
     test("Impute with beagle5 two vcf") {
-        tag "two_vcf"
+
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.fromList([
