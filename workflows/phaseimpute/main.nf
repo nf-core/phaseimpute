@@ -59,11 +59,6 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 // BEAGLE5 subworkflows
 include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/local/vcf_impute_beagle5'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
-include { VCFCHREXTRACT as VCFCHREXTRACT_BEAGLE5     } from '../../modules/local/vcfchrextract'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SPLITCHR    } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_DEBUG             } from '../../modules/nf-core/bcftools/query'
-
-
 
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
@@ -409,29 +404,16 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("beagle5")) {
             log.info("Impute with BEAGLE5")
 
-            // Prepare VCF input channel with clean metadata
-            ch_vcf_clean = ch_input_type.vcf
-                .map { meta, vcf, index -> 
-                    [[id: meta.id], vcf, index]
+            // Create input channel combining VCF with regions 
+            ch_input_beagle5 = ch_input_type.vcf
+                .combine(ch_region)
+                .map { meta_vcf, vcf, index, meta_region, region ->
+                    [meta_vcf + meta_region, vcf, index]
                 }
 
-            // Extract chromosome information from VCF
-            VCFCHREXTRACT_BEAGLE5(ch_vcf_clean.map { meta, vcf, index -> [meta, vcf] })
-            
-            // Create per-chromosome channels for BEAGLE5
-            ch_beagle5_input = VCFCHREXTRACT_BEAGLE5.out.chr
-                .join(ch_vcf_clean, by: 0)
-                .map { meta, chr_file, vcf, index ->
-                    chr_file.readLines().collect { chr ->
-                        [[id: meta.id, chr: chr], vcf, index]
-                    }
-                }
-                .flatten()
-                .collate(3)
-
-            // Run imputation with BEAGLE5 directly
+            // Impute with BEAGLE5
             VCF_IMPUTE_BEAGLE5(
-                ch_beagle5_input,
+                ch_input_beagle5,
                 ch_panel_phased,  
                 ch_map            
             )
@@ -443,7 +425,6 @@ workflow PHASEIMPUTE {
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
-
         }
 
         // Prepare renaming file
