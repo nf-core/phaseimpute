@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#181](https://github.com/nf-core/phaseimpute/pull/181) - Add nf-co2footprint plugin to the config file.
 - [#184](https://github.com/nf-core/phaseimpute/pull/184) - Add support `.csi` index for `.bam` files.
 - [#188](https://github.com/nf-core/phaseimpute/pull/188) - Add documentation for all subworkflows
+- [#204](https://github.com/nf-core/phaseimpute/pull/204) - Add MINIMAC4 support for genotype imputation.
 
 ### `Changed`
 
@@ -140,6 +141,7 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab
 | `r-stitch`    | 1.6.10      |
 | `samtools`    | 1.21        |
 | `shapeit5`    | 1.0.0       |
+| `minimac4`    | 4.1.6       |    
 | `tabix`       | 1.11        |
 | `vcflib`      | 1.0.3       |
 
