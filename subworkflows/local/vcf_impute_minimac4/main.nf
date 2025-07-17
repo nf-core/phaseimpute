@@ -14,12 +14,12 @@ workflow VCF_IMPUTE_MINIMAC4 {
     
     ch_versions = Channel.empty()
 
-    // Créer un posfile par défaut pour chaque chromosome basé sur ch_input
+    // Create default posfile for each chromosome based on ch_input
     ch_default_posfile = ch_input
         .map { meta, vcf, tbi -> [[chr: meta.chr], [], []] }
         .unique()
 
-    // Utiliser le posfile fourni ou créer un par défaut
+    // Use provided posfile or create default empty one
     ch_sites_combined = ch_posfile
         .mix(ch_default_posfile)
         .unique()
