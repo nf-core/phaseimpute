@@ -1,0 +1,23 @@
+Changes in component 'nf-core/beagle5/beagle'
+'modules/nf-core/beagle5/beagle/environment.yml' is unchanged
+Changes in 'beagle5/beagle/main.nf':
+--- modules/nf-core/beagle5/beagle/main.nf
++++ modules/nf-core/beagle5/beagle/main.nf
+@@ -8,11 +8,7 @@
+         'biocontainers/beagle:5.2_21Apr21.304--hdfd78af_0' }"
+ 
+     input:
+-    tuple val(meta), path(vcf)
+-    path(refpanel)
+-    path(genmap)
+-    path(exclsamples)
+-    path(exclmarkers)
++    tuple val(meta), path(vcf), path(refpanel), path(genmap), path(exclsamples), path(exclmarkers)
+ 
+     output:
+     tuple val(meta), path("*.vcf.gz")     , emit: vcf
+
+'modules/nf-core/beagle5/beagle/meta.yml' is unchanged
+'modules/nf-core/beagle5/beagle/tests/main.nf.test' is unchanged
+'modules/nf-core/beagle5/beagle/tests/main.nf.test.snap' is unchanged
+************************************************************

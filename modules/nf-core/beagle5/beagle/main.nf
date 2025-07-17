@@ -8,11 +8,7 @@ process BEAGLE5_BEAGLE {
         'biocontainers/beagle:5.2_21Apr21.304--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(vcf)
-    path(refpanel)
-    path(genmap)
-    path(exclsamples)
-    path(exclmarkers)
+    tuple val(meta), path(vcf), path(refpanel), path(genmap), path(exclsamples), path(exclmarkers)
 
     output:
     tuple val(meta), path("*.vcf.gz")     , emit: vcf

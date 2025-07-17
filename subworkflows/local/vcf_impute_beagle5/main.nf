@@ -35,23 +35,28 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
-        .map { meta, vcf, tbi -> [meta.chr, meta, vcf, tbi] }
-        .combine(ch_panel.map { meta, vcf, idx -> [meta.chr, meta.id, vcf] }, by: 0)
-        .combine(ch_map.map { meta, map -> [meta.chr, map] }, by: 0) 
-        .multiMap { chr, target_meta, vcf, tbi, panel_id, panel_vcf, map ->
-            input: [target_meta, vcf] 
-            panel: panel_vcf
-            map: map
-        }
+    .map { meta, vcf, tbi ->
+        [ meta.chr, meta, vcf, tbi ]
+    }
+    .combine(
+        ch_panel.map { meta, vcf, idx ->
+            [ meta.chr, meta.id, vcf ]
+        },
+        by: 0
+    )
+    .combine(
+        ch_map.map { meta, map ->
+            [ meta.chr, map ]
+        },
+        by: 0
+    )
+    .map { chr, target_meta, vcf, tbi, panel_id, panel_vcf, map ->
+        [ target_meta, vcf, panel_vcf, map, [], [] ]
+    }
+
 
     // Run BEAGLE5 imputation
-    BEAGLE5_BEAGLE(
-        ch_beagle_input.input,
-        ch_beagle_input.panel,
-        ch_beagle_input.map,
-        [],
-        []
-    )
+    BEAGLE5_BEAGLE(ch_beagle_input)
     ch_versions = ch_versions.mix(BEAGLE5_BEAGLE.out.versions.first())
 
     // Index the imputed VCF files
