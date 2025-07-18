@@ -59,7 +59,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.bam_emul.collect{
                         bam(it[1]).getReads().size()
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -107,7 +108,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.bam_emul.collect{
                         bam(it[1]).getReads().size()
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }

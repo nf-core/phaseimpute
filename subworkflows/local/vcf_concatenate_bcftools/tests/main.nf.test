@@ -52,7 +52,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.vcf_tbi.collect{
                         path(it[1]).vcf.summary
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }

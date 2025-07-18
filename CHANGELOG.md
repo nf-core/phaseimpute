@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#175](https://github.com/nf-core/phaseimpute/pull/175) - Add support for all input files in `.json` or `.yaml` format.
 - [#181](https://github.com/nf-core/phaseimpute/pull/181) - Add nf-co2footprint plugin to the config file.
 - [#184](https://github.com/nf-core/phaseimpute/pull/184) - Add support `.csi` index for `.bam` files.
-- [#188](https://github.com/nf-core/phaseimpute/pull/188) - Add documentation for all subworkflows
+- [#188](https://github.com/nf-core/phaseimpute/pull/188) - Add documentation for all subworkflows.
 
 ### `Changed`
 
@@ -19,9 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#175](https://github.com/nf-core/phaseimpute/pull/175) - Update TEMPLATE to nf-core tools version 3.2.0. Move `CHRCHECK` functions to the workflow directory.
 - [#182](https://github.com/nf-core/phaseimpute/pull/182) - Add dark version of the metromap and dynamically change it in the README.
 - [#185](https://github.com/nf-core/phaseimpute/pull/185) - Add `--sampleNames_file` option for `STICH` and `QUILT`.
-- [#187](https://github.com/nf-core/phaseimpute/pull/187) - Update modules and subworkflows
+- [#187](https://github.com/nf-core/phaseimpute/pull/187) - Update modules and subworkflows.
 - [#197](https://github.com/nf-core/phaseimpute/pull/187) - Update to nf-core/tools version 3.3.1 and update nf-test.
-- [#188](https://github.com/nf-core/phaseimpute/pull/188) - Change name of `BAM_IMPUTE_GLIMPSE2` to `BAM\_VCF_IMPUTE_GLIMPSE2`
+- [#188](https://github.com/nf-core/phaseimpute/pull/188) - Change name of `BAM_IMPUTE_GLIMPSE2` to `BAM\_VCF_IMPUTE_GLIMPSE2`.
+- [#199](https://github.com/nf-core/phaseimpute/pull/199) - Update all modules to latest nf-core versions.
+- [#201](https://github.com/nf-core/phaseimpute/pull/201) - Update TEMPLATE to nf-core tools version 3.3.2.
 
 ### `Fixed`
 
@@ -35,10 +37,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
+| `bcftools` | 1.20        | 1.21        |
 | `gunzip`   | 1.10        | 1.13        |
 | `lbzip2`   |             | 2.5         |
-| `shapeit5` | 1.0.0       | 5.1.1       |
+| `multiqc`  | 1.27        | 1.29        |
 | `r-stitch` | 1.6.10      | 1.7.3       |
+| `shapeit5` | 1.0.0       | 5.1.1       |
+| `vcflib`   | 1.0.3       | 1.0.14      |
 
 ## v1.0.0 - Black Labrador [2024-12-09]
 

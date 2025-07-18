@@ -2,7 +2,7 @@
     "Impute with quilt two individuals with bamlist and renaming": {
         "content": [
             [
-                "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                "versions.yml:md5,368923a17bb1c2669ee3890a1bc04909",
                 "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
             ],
             [
@@ -42,18 +42,31 @@
                     "MySample1",
                     "MySample2"
                 ]
+            ],
+            [
+                {
+                    "BAM_IMPUTE_QUILT:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_IMPUTE_QUILT:QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-02-21T10:42:24.328715085"
+        "timestamp": "2025-07-08T15:18:47.615517638"
     },
     "Impute with quilt one individuals": {
         "content": [
             [
-                "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                "versions.yml:md5,368923a17bb1c2669ee3890a1bc04909",
                 "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
             ],
             [
@@ -94,15 +107,15 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-02-21T10:42:53.807053378"
+        "timestamp": "2025-07-08T14:49:41.007893216"
     },
     "Impute with quilt two individuals with bamlist and no renaming": {
         "content": [
             [
-                "versions.yml:md5,ac2d0f2a8e77cd796d3b4b84fdd46b0d",
+                "versions.yml:md5,368923a17bb1c2669ee3890a1bc04909",
                 "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
             ],
             [
@@ -142,12 +155,25 @@
                     "NA12878",
                     "NA19401"
                 ]
+            ],
+            [
+                {
+                    "BAM_IMPUTE_QUILT:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_IMPUTE_QUILT:QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-02-21T10:41:47.938284565"
+        "timestamp": "2025-07-08T15:18:26.42848484"
     }
 }

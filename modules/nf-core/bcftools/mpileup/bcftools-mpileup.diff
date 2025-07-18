@@ -26,5 +26,4 @@ Changes in 'bcftools/mpileup/main.nf':
 'modules/nf-core/bcftools/mpileup/tests/main.nf.test' is unchanged
 'modules/nf-core/bcftools/mpileup/tests/main.nf.test.snap' is unchanged
 'modules/nf-core/bcftools/mpileup/tests/nextflow.config' is unchanged
-'modules/nf-core/bcftools/mpileup/tests/tags.yml' is unchanged
 ************************************************************

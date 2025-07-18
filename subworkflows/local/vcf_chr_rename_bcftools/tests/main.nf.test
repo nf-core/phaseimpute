@@ -51,11 +51,13 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_renamed.collect{
-                    path(it[1]).vcf.getVariantsAsStrings(2)
-                    }).match("headerwithchr")
-                }
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.vcf_renamed.collect{
+                        path(it[1]).vcf.getVariantsAsStrings(2)
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
+                ).match() }
             )
         }
     }
@@ -87,11 +89,13 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_renamed.collect{
-                    path(it[1]).vcf.getVariantsAsStrings(2)
-                    }).match("header21and22")
-                }
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.vcf_renamed.collect{
+                        path(it[1]).vcf.getVariantsAsStrings(2)
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
+                ).match() }
             )
         }
     }

@@ -49,16 +49,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.posfile.collect{
-                    path(it[1]).vcf.summary
-                    }).match("Extract sites content")
-                },
-                { assert snapshot(workflow.out.posfile.collect{[
-                    path(it[3]).linesGzip[5],
-                    path(it[4]).linesGzip[5]
-                    ]}).match("Hap legend content")
-                }
+                { assert snapshot(
+                    workflow.out,
+                    workflow.out.posfile.collect{
+                        path(it[1]).vcf.summary
+                    },
+                    workflow.out.posfile.collect{[
+                        path(it[3]).linesGzip[5],
+                        path(it[4]).linesGzip[5]
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
+                ).match() }
             )
         }
     }

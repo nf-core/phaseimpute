@@ -1,5 +1,5 @@
-Changes in module 'nf-core/samtools/depth'
-'modules/nf-core/samtools/depth/environment.yml' is unchanged
+Changes in component 'nf-core/samtools/depth'
+'modules/nf-core/samtools/depth/meta.yml' is unchanged
 Changes in 'samtools/depth/main.nf':
 --- modules/nf-core/samtools/depth/main.nf
 +++ modules/nf-core/samtools/depth/main.nf
@@ -13,7 +13,7 @@ Changes in 'samtools/depth/main.nf':
  
      output:
 
-'modules/nf-core/samtools/depth/meta.yml' is unchanged
+'modules/nf-core/samtools/depth/environment.yml' is unchanged
 'modules/nf-core/samtools/depth/tests/main.nf.test' is unchanged
 'modules/nf-core/samtools/depth/tests/main.nf.test.snap' is unchanged
 ************************************************************

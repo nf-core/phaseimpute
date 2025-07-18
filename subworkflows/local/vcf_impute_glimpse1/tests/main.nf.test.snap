@@ -2,12 +2,12 @@
     "Impute with glimpse1 one vcf": {
         "content": [
             [
-                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
-                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
+                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
                 "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
-                "versions.yml:md5,9d78fceae32ec42b1818bb5890e9a6ba",
                 "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa"
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
+                "versions.yml:md5,e824b15ce9cbc3f2fee665eabea4b42e"
             ],
             [
                 [
@@ -28,29 +28,61 @@
                 [
                     "NA12878"
                 ]
+            ],
+            [
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-07T12:31:45.012960487"
+        "timestamp": "2025-07-08T15:23:52.452434359"
     },
     "Impute with glimpse1 two vcf": {
         "content": [
             [
-                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
-                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
-                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
-                "versions.yml:md5,2f8b6f8bb3b3972bb0375abf1de08807",
+                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
+                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
+                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
+                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
                 "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
                 "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
-                "versions.yml:md5,9d78fceae32ec42b1818bb5890e9a6ba",
-                "versions.yml:md5,9d78fceae32ec42b1818bb5890e9a6ba",
                 "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
                 "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
                 "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa"
+                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
+                "versions.yml:md5,e824b15ce9cbc3f2fee665eabea4b42e",
+                "versions.yml:md5,e824b15ce9cbc3f2fee665eabea4b42e"
             ],
             [
                 [
@@ -85,12 +117,74 @@
                 [
                     "NA19401"
                 ]
+            ],
+            [
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-07T12:31:10.854492318"
+        "timestamp": "2025-07-08T15:23:43.920521467"
     }
 }
