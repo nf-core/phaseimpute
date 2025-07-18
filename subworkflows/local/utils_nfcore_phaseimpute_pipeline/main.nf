@@ -80,7 +80,7 @@ workflow PIPELINE_INITIALISATION {
         ch_fasta  = Channel.of([[genome:genome], getGenomeAttribute('fasta')])
         fai       = getGenomeAttribute('fai')
         if (fai == null) {
-            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]), false)
             ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         } else {
@@ -92,7 +92,7 @@ workflow PIPELINE_INITIALISATION {
         if (params.fasta_fai) {
             fai = Channel.of(file(params.fasta_fai, checkIfExists:true))
         } else {
-            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]), false)
             ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }

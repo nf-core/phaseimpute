@@ -67,7 +67,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.vcf_tbi.collect{
                         path(it[1]).vcf.summary
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() },
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.sampleCount == 1
@@ -99,7 +100,8 @@ nextflow_workflow {
                         it[0],
                         path(it[1]).getFileName().toString(),
                         path(it[2]).getFileName().toString()
-                    ] }
+                    ] },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -122,8 +124,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert workflow.errorReport.contains("No samples to split: input/dbsnp_146.hg38.vcf.gz")
-                }
+                { assert workflow.errorReport.contains("No samples to split: input/dbsnp_146.hg38.vcf.gz") }
             )
         }
     }

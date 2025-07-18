@@ -17,12 +17,12 @@ workflow BAM_GL_BCFTOOLS {
     ch_multiqc_files = Channel.empty()
 
     // Convert legend to TSV with ','
-    GAWK(ch_posfile, [])
-    ch_versions = ch_versions.mix(GAWK.out.versions)
+    GAWK(ch_posfile, [], false)
+    ch_versions = ch_versions.mix(GAWK.out.versions.first())
 
     // Compress TSV
     TABIX_BGZIP(GAWK.out.output)
-    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions)
+    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
     ch_mpileup = ch_bam
         .combine(TABIX_BGZIP.out.output)
@@ -35,7 +35,7 @@ workflow BAM_GL_BCFTOOLS {
         ch_fasta,
         false
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_MPILEUP.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_MPILEUP.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it[1] })
 
     // Branch depending on number of files
@@ -59,7 +59,7 @@ workflow BAM_GL_BCFTOOLS {
         ch_all_vcf.more.map{ [it[0], it[1], it[2], []] },
         ch_fasta
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions.first())
 
     // Mix all vcfs
     ch_to_annotate = ch_all_vcf.one
@@ -73,7 +73,7 @@ workflow BAM_GL_BCFTOOLS {
     BCFTOOLS_ANNOTATE(ch_to_annotate
         .combine(Channel.of([[], [], [], []]))
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 
     // Output
     ch_output = BCFTOOLS_ANNOTATE.out.vcf

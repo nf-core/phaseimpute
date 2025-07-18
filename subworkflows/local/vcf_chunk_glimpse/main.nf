@@ -17,7 +17,7 @@ workflow VCF_CHUNK_GLIMPSE {
 
     // Make chunks with Glimpse1
     GLIMPSE_CHUNK(ch_vcf_csi_chr)
-    ch_versions = ch_versions.mix(GLIMPSE_CHUNK.out.versions)
+    ch_versions = ch_versions.mix(GLIMPSE_CHUNK.out.versions.first())
 
     // Rearrange chunks into channel for QUILT
     ch_chunks_quilt = GLIMPSE_CHUNK.out.chunk_chr
@@ -44,8 +44,8 @@ workflow VCF_CHUNK_GLIMPSE {
         .map{
             _metaC, metaPC, vcf, csi, chr, gmap -> [metaPC, vcf, csi, chr, gmap]
         }
-    GLIMPSE2_CHUNK ( ch_input_glimpse2, chunk_model )
-    ch_versions = ch_versions.mix( GLIMPSE2_CHUNK.out.versions.first() )
+    GLIMPSE2_CHUNK(ch_input_glimpse2, chunk_model)
+    ch_versions = ch_versions.mix(GLIMPSE2_CHUNK.out.versions.first())
 
     // Rearrange channels
     ch_chunks_glimpse2 = GLIMPSE2_CHUNK.out.chunk_chr

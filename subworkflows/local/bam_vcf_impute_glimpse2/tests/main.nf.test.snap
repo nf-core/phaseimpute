@@ -3,10 +3,8 @@
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
+                "versions.yml:md5,56504adad23a0a94f39593f038622311",
+                "versions.yml:md5,b1f40849c21576f374f74e04c423a44b",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
             ],
             [
@@ -28,22 +26,42 @@
                 [
                     "NA12878"
                 ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-19T09:36:17.248793755"
+        "timestamp": "2025-07-08T15:19:34.732342368"
     },
     "Impute with glimpse2 one individual - input file bam with bamlist": {
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
+                "versions.yml:md5,56504adad23a0a94f39593f038622311",
+                "versions.yml:md5,b1f40849c21576f374f74e04c423a44b",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
             ],
             [
@@ -65,22 +83,42 @@
                 [
                     "NA12878"
                 ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-19T09:36:37.996190744"
+        "timestamp": "2025-07-08T15:19:57.582183388"
     },
     "Impute with glimpse2 two individuals - input bam  with bamlist": {
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
+                "versions.yml:md5,56504adad23a0a94f39593f038622311",
+                "versions.yml:md5,b1f40849c21576f374f74e04c423a44b",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
             ],
             [
@@ -103,12 +141,34 @@
                     "NA12878",
                     "NA19401"
                 ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-19T09:36:26.921579417"
+        "timestamp": "2025-07-08T15:19:46.943682026"
     }
 }

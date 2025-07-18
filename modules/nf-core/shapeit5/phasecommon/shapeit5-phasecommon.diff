@@ -1,10 +1,10 @@
-Changes in module 'nf-core/shapeit5/phasecommon'
+Changes in component 'nf-core/shapeit5/phasecommon'
 'modules/nf-core/shapeit5/phasecommon/meta.yml' is unchanged
 Changes in 'shapeit5/phasecommon/main.nf':
 --- modules/nf-core/shapeit5/phasecommon/main.nf
 +++ modules/nf-core/shapeit5/phasecommon/main.nf
 @@ -8,10 +8,9 @@
-         'biocontainers/shapeit5:1.0.0--h0c8ee15_0'}"
+         'biocontainers/shapeit5:5.1.1--hb60d31d_0'}"
  
      input:
 -        tuple val(meta) , path(input), path(input_index), path(pedigree), val(region)
@@ -17,4 +17,6 @@ Changes in 'shapeit5/phasecommon/main.nf':
          tuple val(meta), path("*.{vcf,bcf,vcf.gz,bcf.gz}"), emit: phased_variant
 
 'modules/nf-core/shapeit5/phasecommon/environment.yml' is unchanged
+'modules/nf-core/shapeit5/phasecommon/tests/main.nf.test' is unchanged
+'modules/nf-core/shapeit5/phasecommon/tests/main.nf.test.snap' is unchanged
 ************************************************************

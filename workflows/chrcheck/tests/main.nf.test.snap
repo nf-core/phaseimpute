@@ -12,18 +12,17 @@
                 "VCF_chr22_chrrename.vcf.gz.tbi"
             ],
             [
-                "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
                 "versions.yml:md5,76c5765c6982445c026914d680b5b320",
-                "versions.yml:md5,7f7a21902e7f8f2e02152817c324e63f",
                 "versions.yml:md5,bf7a6d687c7715a6e81755d9612dc87b",
-                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6"
+                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6",
+                "versions.yml:md5,efbcec5e73882cc92aac076a8c7d9561"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-19T11:36:16.916392401"
+        "timestamp": "2025-07-08T15:42:12.747169434"
     },
     "Rename: VCF no chr + fasta chr": {
         "content": [
@@ -38,17 +37,16 @@
                 "VCF_AllNoChr_chrrename.vcf.gz.tbi"
             ],
             [
-                "versions.yml:md5,4ed3594603719fe5e9dd7b9f41ec1424",
                 "versions.yml:md5,76c5765c6982445c026914d680b5b320",
-                "versions.yml:md5,7f7a21902e7f8f2e02152817c324e63f",
                 "versions.yml:md5,bf7a6d687c7715a6e81755d9612dc87b",
-                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6"
+                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6",
+                "versions.yml:md5,efbcec5e73882cc92aac076a8c7d9561"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-19T11:36:27.014231354"
+        "timestamp": "2025-07-08T15:42:21.706650954"
     }
 }

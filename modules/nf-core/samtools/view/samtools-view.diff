@@ -12,9 +12,9 @@ Changes in 'samtools/view/main.nf':
 +    tuple val(meta), path(input), path(index), val(region), val(subsample)
 +    tuple val(meta2), path(fasta), path(fai)
      path qname
+     val index_format
  
-     output:
-@@ -31,6 +31,8 @@
+@@ -32,6 +32,8 @@
      def args2 = task.ext.args2 ?: ''
      prefix = task.ext.prefix ?: "${meta.id}"
      def reference = fasta ? "--reference ${fasta}" : ""
@@ -23,12 +23,12 @@ Changes in 'samtools/view/main.nf':
      file_type = args.contains("--output-fmt sam") ? "sam" :
                  args.contains("--output-fmt bam") ? "bam" :
                  args.contains("--output-fmt cram") ? "cram" :
-@@ -44,9 +46,11 @@
+@@ -57,9 +59,11 @@
          ${reference} \\
          ${readnames} \\
          $args \\
 +        ${subsample_cmd} \\
-         -o ${prefix}.${file_type} \\
+         -o ${output_file} \\
          $input \\
 -        $args2
 +        $args2 \\
@@ -38,9 +38,9 @@ Changes in 'samtools/view/main.nf':
      "${task.process}":
 
 'modules/nf-core/samtools/view/environment.yml' is unchanged
+'modules/nf-core/samtools/view/tests/cram_index.config' is unchanged
 'modules/nf-core/samtools/view/tests/bam_index.config' is unchanged
 'modules/nf-core/samtools/view/tests/main.nf.test' is unchanged
 'modules/nf-core/samtools/view/tests/main.nf.test.snap' is unchanged
 'modules/nf-core/samtools/view/tests/bam.config' is unchanged
-'modules/nf-core/samtools/view/tests/tags.yml' is unchanged
 ************************************************************

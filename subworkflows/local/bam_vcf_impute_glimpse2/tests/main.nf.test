@@ -58,7 +58,8 @@ nextflow_workflow {
                         path(it[2]).getFileName().toString()
                     ] },
                     workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -114,7 +115,8 @@ nextflow_workflow {
                         path(it[2]).getFileName().toString()
                     ] },
                     workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -163,7 +165,8 @@ nextflow_workflow {
                         path(it[2]).getFileName().toString()
                     ] },
                     workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }

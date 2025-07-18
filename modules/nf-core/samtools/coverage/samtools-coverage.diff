@@ -25,5 +25,4 @@ Changes in 'samtools/coverage/main.nf':
 'modules/nf-core/samtools/coverage/environment.yml' is unchanged
 'modules/nf-core/samtools/coverage/tests/main.nf.test' is unchanged
 'modules/nf-core/samtools/coverage/tests/main.nf.test.snap' is unchanged
-'modules/nf-core/samtools/coverage/tests/tags.yml' is unchanged
 ************************************************************

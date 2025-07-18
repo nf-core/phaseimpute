@@ -2,7 +2,7 @@
     "Concatenate vcf": {
         "content": [
             [
-                "versions.yml:md5,0370775d4b565f1cf95dcbea437fa36a"
+                "versions.yml:md5,a61813bb38bb5d3889da32644c4c2367"
             ],
             [
                 [
@@ -16,12 +16,19 @@
             ],
             [
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=3196, variantCount=1739, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                {
+                    "VCF_CONCATENATE_BCFTOOLS:BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T19:21:21.356386731"
+        "timestamp": "2025-07-08T15:23:24.290459327"
     }
 }

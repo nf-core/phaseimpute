@@ -40,11 +40,11 @@ workflow BAM_VCF_IMPUTE_GLIMPSE2 {
 
     // Impute with Glimpse2
     GLIMPSE2_PHASE(ch_phase_input, ch_fasta)
-    ch_versions = ch_versions.mix(GLIMPSE2_PHASE.out.versions)
+    ch_versions = ch_versions.mix(GLIMPSE2_PHASE.out.versions.first())
 
     // Index phased file
     BCFTOOLS_INDEX_1(GLIMPSE2_PHASE.out.phased_variants)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_1.out.versions.first())
 
     // Ligate all phased files in one and index it
     ligate_input = GLIMPSE2_PHASE.out.phased_variants
@@ -52,11 +52,11 @@ workflow BAM_VCF_IMPUTE_GLIMPSE2 {
         .map{ metaIPCR, vcf, index -> [metaIPCR.subMap("id", "panel", "chr", "batch"), vcf, index] }
         .groupTuple()
 
-    GLIMPSE2_LIGATE ( ligate_input )
-    ch_versions = ch_versions.mix(GLIMPSE2_LIGATE.out.versions )
+    GLIMPSE2_LIGATE(ligate_input)
+    ch_versions = ch_versions.mix(GLIMPSE2_LIGATE.out.versions.first())
 
-    BCFTOOLS_INDEX_2 ( GLIMPSE2_LIGATE.out.merged_variants )
-    ch_versions = ch_versions.mix( BCFTOOLS_INDEX_2.out.versions )
+    BCFTOOLS_INDEX_2(GLIMPSE2_LIGATE.out.merged_variants)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_2.out.versions.first())
 
     // Join imputed and index files
     ch_imputed_vcf_tbi = GLIMPSE2_LIGATE.out.merged_variants

@@ -2,7 +2,7 @@
     "Split one sample vcf file": {
         "content": [
             [
-                "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
+                "versions.yml:md5,5afd1059f77ed866d599fc4c6d27b7c6"
             ],
             [
                 [
@@ -12,18 +12,25 @@
                     "NA12878.vcf.gz",
                     "NA12878.vcf.gz.tbi"
                 ]
+            ],
+            [
+                {
+                    "VCF_SPLIT_BCFTOOLS:BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.1"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-22T13:53:09.194659411"
+        "timestamp": "2025-07-08T15:25:03.579850569"
     },
     "Split multiple vcf file - with renaming": {
         "content": [
             [
-                "versions.yml:md5,6c3351d97e3a99f7a7a3231fc49f92e2"
+                "versions.yml:md5,5afd1059f77ed866d599fc4c6d27b7c6"
             ],
             [
                 [
@@ -52,12 +59,19 @@
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                {
+                    "VCF_SPLIT_BCFTOOLS:BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.1"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-22T13:53:01.127637055"
+        "timestamp": "2025-07-08T15:24:57.258170968"
     }
 }

@@ -51,7 +51,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.bam_renamed.collect{
                         bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -102,7 +103,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.bam_renamed.collect{
                         bam(it[1]).getHeader().findAll { it.startsWith ("@SQ") }
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
