@@ -50,10 +50,11 @@ nextflow_workflow {
                     workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
+                        file(it[1]).name,
+                        file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -93,10 +94,11 @@ nextflow_workflow {
                     workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
+                        file(it[1]).name,
+                        file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -140,12 +142,67 @@ nextflow_workflow {
                     workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
+                        file(it[1]).name,
+                        file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
                 ).match() }
             )
+        }
+    }
+
+    test("Impute with beagle5 multiple chromosomes") { 
+
+    when {
+        workflow {
+            """
+            input[0] = Channel.fromList([
+                [
+                    [id: "NA12878", panel: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                ],
+                [
+                    [id: "NA12878", panel: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                ]
+            ])
+            input[1] = Channel.fromList([
+                [
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true)
+                ],
+                [
+                    [id: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                ]
+            ])
+            input[2] = Channel.fromList([
+                [[chr: "chr21"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr21.plink.map", checkIfExist:true)],
+                [[chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)]
+            ])
+            """
+        }
+    }
+
+    then {
+        assertAll(
+            { assert workflow.success },
+            { assert snapshot(
+                workflow.out.versions,
+                workflow.out.vcf_tbi.collect{[
+                    it[0],
+                    file(it[1]).name,
+                    file(it[2]).name
+                ] }.sort { it[0].chr },  
+                workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary }.sort(),
+                workflow.out.vcf_tbi.collect{ path(it[1]).md5 }.sort()
+            ).match() }
+        )
         }
     }
 }

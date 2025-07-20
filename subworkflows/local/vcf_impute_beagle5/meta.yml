@@ -76,7 +76,7 @@ output:
         - index:
           type: file
           description: VCF index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.csi"
   - versions:
       description: Channel containing software versions file
       structure:
