@@ -8,11 +8,16 @@ workflow VCF_IMPUTE_MINIMAC4 {
     ch_input     // channel: [ [id, chr], vcf, tbi ]
     ch_panel     // channel: [ [id, chr], vcf, tbi ]  
     ch_map       // channel: [ [chr], map]
-    ch_posfile   // channel: [ [chr], sites_vcf, sites_index]
+    ch_posfile   // channel: [ [chr], sites_vcf, sites_index, hap, legend ]
 
     main:
     
     ch_versions = Channel.empty()
+
+    ch_posfile_minimac4 = ch_posfile
+        .map { meta, sites_vcf, sites_index, hap, legend ->
+            [meta, sites_vcf ?: [], sites_index ?: []]
+        }
 
     // Compress reference panel to MSAV format 
     MINIMAC4_COMPRESSREF(ch_panel)
@@ -32,8 +37,8 @@ workflow VCF_IMPUTE_MINIMAC4 {
             by: 0
         )
         .combine(  
-            ch_posfile.map { meta, sites_vcf, sites_index -> 
-                [meta.chr, sites_vcf ?: [], sites_index ?: []] 
+            ch_posfile_minimac4.map { meta, sites_vcf, sites_index -> 
+                [meta.chr, sites_vcf, sites_index]
             },
             by: 0
         )

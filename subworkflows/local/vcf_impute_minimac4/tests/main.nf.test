@@ -34,7 +34,7 @@ nextflow_workflow {
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
                     ]).collect()
                 input[2] = Channel.of([[chr: "chr22"], []])
-                input[3] = Channel.of([[chr: "chr22"], [], []])
+                input[3] = Channel.of([[chr: "chr22"], [], [], [], []])
                 """
             }
         }
@@ -74,7 +74,7 @@ nextflow_workflow {
                     ]).collect()
                 input[2] = Channel.of(
                     [[chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)])
-                input[3] = Channel.of([[chr: "chr22"], [], []])
+                input[3] = Channel.of([[chr: "chr22"], [], [], [], []])
                 """
             }
         }
@@ -118,7 +118,7 @@ nextflow_workflow {
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
                     ]).collect()
                 input[2] = Channel.of([[chr: "chr22"], []])
-                input[3] = Channel.of([[chr: "chr22"], [], []])
+                input[3] = Channel.of([[chr: "chr22"], [], [], [], []])
                 """
             }
         }
@@ -165,7 +165,9 @@ nextflow_workflow {
                     [
                         [chr: "chr22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.sites.vcf.gz", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.sites.vcf.gz.csi", checkIfExist:true)
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.sites.vcf.gz.csi", checkIfExist:true),
+                        [],
+                        []
                     ]
                 ])
                 """
