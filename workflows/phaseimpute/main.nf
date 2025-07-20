@@ -64,7 +64,6 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/
 include { VCF_IMPUTE_MINIMAC4                        } from '../../subworkflows/local/vcf_impute_minimac4'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_MINIMAC4} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
-
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
 
@@ -412,7 +411,7 @@ workflow PHASEIMPUTE {
                 .map { meta_vcf, vcf, index, meta_region, region ->
                     [meta_vcf + meta_region, vcf, index]
                 }
-                
+
             // Run imputation with MINIMAC4
             VCF_IMPUTE_MINIMAC4(
                 ch_input_minimac4,
