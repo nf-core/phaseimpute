@@ -413,11 +413,18 @@ workflow PHASEIMPUTE {
                     [meta_vcf + meta_region, vcf, index]
                 }
 
+            // Adapt posfile for MINIMAC4
+            ch_posfile_minimac4 = ch_posfile
+                .map { meta, sites_vcf, sites_index, hap, legend ->
+                    [meta, sites_vcf, sites_index]  
+                }
+
             // Run imputation with MINIMAC4
             VCF_IMPUTE_MINIMAC4(
                 ch_input_minimac4,
                 ch_panel_phased,  
-                ch_map            
+                ch_map,
+                ch_posfile_minimac4
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 

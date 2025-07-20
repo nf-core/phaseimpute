@@ -34,7 +34,7 @@ nextflow_workflow {
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
                     ]).collect()
                 input[2] = Channel.of([[chr: "chr22"], []])
-                input[3] = Channel.empty()
+                input[3] = Channel.of([[chr: "chr22"], [], []])
                 """
             }
         }
@@ -44,12 +44,12 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
                         file(it[1]).name
                     ] },
-                    workflow.out.vcf.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf.collect{ file(it[1]).md5 }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -74,7 +74,7 @@ nextflow_workflow {
                     ]).collect()
                 input[2] = Channel.of(
                     [[chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)])
-                input[3] = Channel.empty() 
+                input[3] = Channel.of([[chr: "chr22"], [], []])
                 """
             }
         }
@@ -84,12 +84,12 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
                         file(it[1]).name
                     ] },
-                    workflow.out.vcf.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf.collect{ file(it[1]).md5 }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -118,7 +118,7 @@ nextflow_workflow {
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
                     ]).collect()
                 input[2] = Channel.of([[chr: "chr22"], []])
-                input[3] = Channel.empty()
+                input[3] = Channel.of([[chr: "chr22"], [], []])
                 """
             }
         }
@@ -128,14 +128,64 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
                         file(it[1]).name
                     ] },
-                    workflow.out.vcf.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf.collect{ file(it[1]).md5 }
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
     }
+
+        test("Impute with minimac4 one vcf with sites") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ]
+                ])
+                input[1] = Channel.fromList([
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                    ]
+                ])
+                input[2] = Channel.fromList([
+                    [[chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)]
+                ])
+                input[3] = Channel.fromList([
+                    [
+                        [chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.sites.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.sites.vcf.gz.csi", checkIfExist:true)
+                    ]
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        file(it[1]).name,
+                    ] },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
+                ).match() }
+            )
+        }
+    }
+
 }
