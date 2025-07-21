@@ -294,7 +294,7 @@ For starting from the imputation steps, the required flags are:
 - `--steps impute`
 - `--input input.csv`: The samplesheet containing the input sample files in `bam`, `cram` or `vcf`, `bcf` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
-- `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
+- `--tools [glimpse1, quilt, stitch, minimac4]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
   - `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1`.
   - `--posfile posfile.csv`: A samplesheet containing a `.legend.gz` file with the list of positions to genotype per chromosome. These are required by tools ( QUILT/STITCH/GLIMPSE1). It can also contain the `hap.gz` files (required by QUILT). The posfile can be generated with `--steps panelprep`.
   - `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2). These files can be obtained with `--steps panelprep`.
@@ -307,6 +307,7 @@ For starting from the imputation steps, the required flags are:
 | `GLIMPSE2` | ✅               | ✅ ¹      | ✅                      | ✅        | ✅         | ❌          |
 | `QUILT`    | ✅               | ✅ ²      | ✅                      | ❌        | ✅         | ✅ ⁴        |
 | `STITCH`   | ✅               | ✅ ²      | ✅                      | ❌        | ❌         | ✅ ³        |
+| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌         |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
@@ -332,12 +333,12 @@ When the number of samples exceeds the batch size, the pipeline will split the s
 
 To summarize:
 
-- If you have Variant Calling Format (VCF) files, join them into a single file and choose either GLIMPSE1 or GLIMPSE2.
+- If you have Variant Calling Format (VCF) files, join them into a single file and choose either GLIMPSE1, GLIMPSE2 or MINIMAC4.
 - If you have alignment files (e.g., BAM or CRAM), all tools are available, and processing will occur in `batch_size`:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
   - GLIMPSE2 and QUILT can process samples in separate batches.
 
-## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch]`
+## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch, minimac4]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
@@ -476,6 +477,26 @@ nextflow run nf-core/phaseimpute \
 ```
 
 Make sure the CSV file with the input panel is the output from `--step panelprep` or has been previously prepared.
+
+### MINIMAC4
+
+[MINIMAC4](https://github.com/statgen/Minimac4) is a low memory, computationally efficient implementation of the MaCH algorithm for genotype imputation. It is designed to work on phased haplotypes and can handle very large reference panels.
+
+```bash
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --panel samplesheet_reference.csv \
+    --steps impute \
+    --tool minimac4 \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker \
+    --posfile posfile.csv
+```
+
+The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
+
+ MINIMAC4 works only with variant calling format files (VCF or BCF) as input.
 
 ## Start with validation `--steps validate`
 
