@@ -457,7 +457,6 @@ workflow PHASEIMPUTE {
             "impute.csv", "imputation/csv"
         )
     }
-    
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
