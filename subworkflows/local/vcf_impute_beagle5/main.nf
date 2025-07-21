@@ -65,8 +65,8 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
 
     ch_imputed_vcf_tbi = BEAGLE5_BEAGLE.out.vcf
-    .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
-    .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
+        .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
+        .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
 
     
 
