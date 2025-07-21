@@ -50,8 +50,8 @@ workflow VCF_IMPUTE_BEAGLE5 {
         },
         by: 0
     )
-    .map { chr, target_meta, vcf, tbi, panel_id, panel_vcf, map ->
-        [ target_meta, vcf, panel_vcf, map, [], [] ]
+    .map { chr, target_meta, vcf, tbi, panel_meta, panel_vcf, map ->
+        [ target_meta + { panel: panel_meta.id }, vcf, panel_vcf, map, [], [] ]
     }
 
 
