@@ -135,8 +135,6 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab
 - [#164](https://github.com/nf-core/phaseimpute/pull/164) - Improve documentation writing
 - [#163](https://github.com/nf-core/phaseimpute/pull/163) - Fix MULTIQC samples names (add post-processing for clean up `FILTER_CHR_DWN`, `FILTER_CHR_INP`, `GAWK_ERROR_SPL`, `GAWK_RSQUARE_SPL`). Fix output panel `publishDir`. Fix java version to `17` in `ci.yml` due to new nextflow version.
 
-
-
 ### `Dependencies`
 
 | Dependency    | New version |
