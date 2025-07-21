@@ -404,8 +404,6 @@ workflow PHASEIMPUTE {
         }
 
         if (params.tools.split(',').contains("beagle5")) {
-            log.info("Impute with BEAGLE5")
-
             // Create input channel combining VCF with regions 
             ch_input_beagle5 = ch_input_type.vcf
                 .combine(ch_region)
@@ -459,7 +457,6 @@ workflow PHASEIMPUTE {
             "impute.csv", "imputation/csv"
         )
     }
-    
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })

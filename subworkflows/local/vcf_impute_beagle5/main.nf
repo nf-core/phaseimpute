@@ -40,7 +40,7 @@ workflow VCF_IMPUTE_BEAGLE5 {
     }
     .combine(
         ch_panel.map { meta, vcf, idx ->
-            [ meta.chr, meta.id, vcf ]
+            [ meta.chr, meta, vcf ]
         },
         by: 0
     )
@@ -50,8 +50,8 @@ workflow VCF_IMPUTE_BEAGLE5 {
         },
         by: 0
     )
-    .map { chr, target_meta, vcf, tbi, panel_id, panel_vcf, map ->
-        [ target_meta, vcf, panel_vcf, map, [], [] ]
+    .map { chr, target_meta, vcf, tbi, panel_meta, panel_vcf, map ->
+        [ target_meta + { panel: panel_meta.id }, vcf, panel_vcf, map, [], [] ]
     }
 
 
@@ -65,8 +65,8 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
 
     ch_imputed_vcf_tbi = BEAGLE5_BEAGLE.out.vcf
-    .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
-    .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
+        .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
+        .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
 
     
 
