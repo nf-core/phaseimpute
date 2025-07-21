@@ -40,7 +40,7 @@ workflow VCF_IMPUTE_BEAGLE5 {
     }
     .combine(
         ch_panel.map { meta, vcf, idx ->
-            [ meta.chr, meta.id, vcf ]
+            [ meta.chr, meta, vcf ]
         },
         by: 0
     )
