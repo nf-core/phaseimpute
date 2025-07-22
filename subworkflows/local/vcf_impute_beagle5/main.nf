@@ -1,6 +1,6 @@
-include { BEAGLE5_BEAGLE                           } from '../../../modules/nf-core/beagle5/beagle'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_BEAGLE  } from '../../../modules/nf-core/bcftools/index'
-include { BCFTOOLS_VIEW                            } from '../../../modules/nf-core/bcftools/view'
+include { BEAGLE5_BEAGLE } from '../../../modules/nf-core/beagle5/beagle'
+include { BCFTOOLS_INDEX } from '../../../modules/nf-core/bcftools/index'
+include { BCFTOOLS_VIEW  } from '../../../modules/nf-core/bcftools/view'
 
 
 workflow VCF_IMPUTE_BEAGLE5 {
@@ -51,7 +51,7 @@ workflow VCF_IMPUTE_BEAGLE5 {
         by: 0
     )
     .map { chr, target_meta, vcf, tbi, panel_meta, panel_vcf, map ->
-        [ target_meta + { panel: panel_meta.id }, vcf, panel_vcf, map, [], [] ]
+        [ target_meta + [ panel: panel_meta.id ], vcf, panel_vcf, map, [], [] ]
     }
 
 
@@ -60,17 +60,20 @@ workflow VCF_IMPUTE_BEAGLE5 {
     ch_versions = ch_versions.mix(BEAGLE5_BEAGLE.out.versions.first())
 
     // Index the imputed VCF files
-    BCFTOOLS_INDEX_BEAGLE(BEAGLE5_BEAGLE.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX_BEAGLE.out.versions.first())
+    BCFTOOLS_INDEX(BEAGLE5_BEAGLE.out.vcf)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
 
-    ch_imputed_vcf_tbi = BEAGLE5_BEAGLE.out.vcf
-        .join(BCFTOOLS_INDEX_BEAGLE.out.csi)
+    ch_vcf_index = BEAGLE5_BEAGLE.out.vcf
+        .join(
+            BCFTOOLS_INDEX.out.tbi
+                .mix(BCFTOOLS_INDEX.out.csi)
+        )
         .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
 
     
 
     emit:
-    vcf_tbi  = ch_imputed_vcf_tbi // channel: [ [id, chr, tools], vcf, tbi ]
+    vcf_index  = ch_vcf_index // channel: [ [id, chr, tools], vcf, index ]
     versions = ch_versions // channel: [ versions.yml ]
 }
