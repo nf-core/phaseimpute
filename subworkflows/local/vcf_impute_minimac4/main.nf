@@ -16,7 +16,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
 
     ch_posfile_minimac4 = ch_posfile
         .map { meta, sites_vcf, sites_index, hap, legend ->
-            [meta, sites_vcf ?: [], sites_index ?: []]
+            [meta, sites_vcf, sites_index]
         }
 
     // Compress reference panel to MSAV format 
@@ -25,8 +25,6 @@ workflow VCF_IMPUTE_MINIMAC4 {
 
     // Prepare input channels for MINIMAC4
     ch_minimac4_input = ch_input
-        .map { meta, vcf, tbi -> [meta.chr, meta, vcf, tbi] }
-        ch_minimac4_input = ch_input
         .map { meta, vcf, tbi -> [meta.chr, meta, vcf, tbi] }
         .combine(  
             MINIMAC4_COMPRESSREF.out.msav.map { meta, msav -> [meta.chr, meta.id, msav] }, 
@@ -42,8 +40,8 @@ workflow VCF_IMPUTE_MINIMAC4 {
             },
             by: 0
         )
-        .map { chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
-            [target_meta, target_vcf, target_tbi, ref_msav, sites_vcf, sites_index, map]
+               .map { chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
+            [target_meta + [panel: panel_id], target_vcf, target_tbi, ref_msav, sites_vcf, sites_index, map]
         }
     // Perform imputation 
     MINIMAC4_IMPUTE(ch_minimac4_input)
@@ -56,11 +54,13 @@ workflow VCF_IMPUTE_MINIMAC4 {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     // Join imputed and index files 
-    ch_imputed_vcf_tbi = MINIMAC4_IMPUTE.out.vcf
-        .join(BCFTOOLS_INDEX.out.csi)
-        .map{ meta, vcf, index -> [meta + [tools: "minimac4"], vcf, index] }
+    ch_vcf_index = MINIMAC4_IMPUTE.out.vcf
+        .join(
+            BCFTOOLS_INDEX.out.tbi
+                .mix(BCFTOOLS_INDEX.out.csi)
+        )
 
         emit:
-        vcf_tbi  = ch_imputed_vcf_tbi // channel: [ [id, chr, tools], vcf, tbi ]
+        vcf_index  = ch_vcf_index // channel: [ [id, chr, tools], vcf, tbi ]
         versions = ch_versions        // channel: [ versions.yml ]
     }

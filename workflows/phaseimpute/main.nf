@@ -422,18 +422,13 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_tbi)
+            CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_index)
             ch_versions = ch_versions.mix(CONCAT_MINIMAC4.out.versions)
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_tbi)
         }
-
-
-
-
-
-
+        
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
         GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [], false)
