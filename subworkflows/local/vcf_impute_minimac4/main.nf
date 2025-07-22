@@ -59,6 +59,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
             BCFTOOLS_INDEX.out.tbi
                 .mix(BCFTOOLS_INDEX.out.csi)
         )
+        .map{ meta, vcf, index -> [meta + [tools: "minimac4"], vcf, index] }
 
         emit:
         vcf_index  = ch_vcf_index // channel: [ [id, chr, tools], vcf, index ]

@@ -42,13 +42,13 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf_tbi.collect{[
+                    workflow.out.vcf_index.collect{[
                         it[0],
                         file(it[1]).name,
                         file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -83,13 +83,13 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf_tbi.collect{[
+                    workflow.out.vcf_index.collect{[
                         it[0],
                         file(it[1]).name,
                         file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -128,13 +128,13 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf_tbi.collect{[
+                    workflow.out.vcf_index.collect{[
                         it[0],
                         file(it[1]).name,
                         file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
@@ -175,13 +175,13 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(
                     workflow.out.versions,
-                    workflow.out.vcf_tbi.collect{[
+                    workflow.out.vcf_index.collect{[
                         it[0],
                         file(it[1]).name,
                         file(it[2]).name
                     ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
                 ).match() }
             )
         }
