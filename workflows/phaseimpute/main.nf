@@ -429,11 +429,6 @@ workflow PHASEIMPUTE {
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_tbi)
         }
 
-
-
-
-
-
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
         GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [], false)
