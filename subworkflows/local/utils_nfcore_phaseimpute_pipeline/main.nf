@@ -407,7 +407,7 @@ def validateInputParameters() {
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2
-        if (!params.tools.split(',').find { it in ["glimpse2"] }) {
+        if (!params.tools.split(',').find { it in ["glimpse2", "minimac4"] }) {
                 assert params.posfile : "No --posfile provided for --steps impute"
         }
         // Required by all tools except STITCH and MINIMAC4
