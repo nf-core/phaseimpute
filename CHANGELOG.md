@@ -47,11 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `vcflib`   | 1.0.3       | 1.0.14      |
 | `minimac4` |             | 4.1.6       |    
 
-
 ### `Contributors`
 
 [Gaspard Ichas](https://github.com/gichas)
-
 
 ## v1.0.0 - Black Labrador [2024-12-09]
 
@@ -167,4 +165,3 @@ Special thanks to [Matthias Hörtenhuber](https://github.com/mashehu), [Mazzalab
 [Hemanoel Passarelli](https://github.com/hemanoel)
 [Matthias Hörtenhuber](https://github.com/mashehu)
 [Sofia Stamouli](https://github.com/sofstam)
-
