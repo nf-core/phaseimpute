@@ -71,8 +71,6 @@ workflow VCF_IMPUTE_BEAGLE5 {
         )
         .map{ meta, vcf, index -> [meta + [tools: "beagle5"], vcf, index] }
 
-    
-
     emit:
     vcf_index  = ch_vcf_index // channel: [ [id, chr, tools], vcf, index ]
     versions = ch_versions // channel: [ versions.yml ]
