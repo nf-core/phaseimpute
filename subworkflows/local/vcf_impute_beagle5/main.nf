@@ -35,8 +35,8 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
-    .map { meta, vcf, tbi ->
-        [ meta.chr, meta, vcf, tbi ]
+    .map { meta, vcf, index ->
+        [ meta.chr, meta, vcf, index ]
     }
     .combine(
         ch_panel.map { meta, vcf, idx ->
