@@ -420,7 +420,7 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_tbi)
+            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_index)
             ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
 
             // Add results to input validate
