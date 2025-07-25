@@ -60,7 +60,8 @@ input:
           description: PLINK format genetic map files
           pattern: "*.map"
 output:
-  - vcf_tbi:
+  - vcf_index:
+
       description: Channel with imputed and phased VCF files
       structure:
         - meta:
