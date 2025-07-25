@@ -60,7 +60,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-07-16T12:56:29.239404787"
+        "timestamp": "2025-07-24T09:25:16.978538151"
     },
     "Check test_all": {
         "content": [

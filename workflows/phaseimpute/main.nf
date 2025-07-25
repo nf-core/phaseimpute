@@ -36,6 +36,11 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { chunkPrepareChannel                        } from './function.nf'
 
+//Target phasing 
+
+include { VCF_PHASE_SHAPEIT5 as VCF_PHASE_TARGET     } from '../../subworkflows/local/vcf_phase_shapeit5'
+include { VCF_CHUNK_GLIMPSE as TARGET_CHUNK       } from '../../subworkflows/local/vcf_chunk_glimpse'
+
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
@@ -287,6 +292,20 @@ workflow PHASEIMPUTE {
         ch_input_bams_withlist = ch_input_bams
             .join(LISTTOFILE.out.txt)
 
+        // if (params.target_phase == true) {
+
+        //     VCF_PHASE_TARGET(
+        //         ch_input_impute.combine(Channel.of([[]])),
+        //         ch_region,
+        //         Channel.empty(), // ref
+        //         Channel.empty(), // scaffold
+        //         ch_map,
+        //         chunk_model
+        //     )
+        //     ch_input_impute = VCF_PHASE_TARGET.out.vcf_tbi
+        //     ch_versions = ch_versions.mix(VCF_PHASE_TARGET.out.versions)
+        // }
+
         // Use panel from parameters if provided
         if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
@@ -411,6 +430,20 @@ workflow PHASEIMPUTE {
                 .map { meta_vcf, vcf, index, meta_region, region ->
                     [meta_vcf + meta_region, vcf, index]
                 }
+
+            ch_input_phase = ch_input_minimac4
+                .map { meta, vcf, index -> [meta, vcf, index, []] }
+
+            VCF_PHASE_TARGET(
+                ch_input_phase,
+                ch_region,
+                Channel.empty(), // ref
+                Channel.empty(), // scaffold
+                ch_map,
+                chunk_model
+            )
+            ch_input_impute = VCF_PHASE_TARGET.out.vcf_tbi
+            ch_versions = ch_versions.mix(VCF_PHASE_TARGET.out.versions)
 
             // Run imputation with MINIMAC4
             VCF_IMPUTE_MINIMAC4(

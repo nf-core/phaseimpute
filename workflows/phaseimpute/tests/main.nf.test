@@ -134,7 +134,8 @@ nextflow_pipeline {
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                ).match() }
+                ).match() 
+                }
             )
         }
     }
