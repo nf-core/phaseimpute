@@ -40,11 +40,11 @@ nextflow_workflow {
                 input[1] = Channel.of(
                     [
                         [chr: "chr22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_22.map", checkIfExist:true)
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
                     ],
                     [
                         [chr: "chr21"],
-                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_21.map", checkIfExist:true)
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr21.glimpse.map", checkIfExist:true)
                     ]
                 )
                 input[2] = "recursive"
