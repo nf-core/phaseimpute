@@ -292,20 +292,6 @@ workflow PHASEIMPUTE {
         ch_input_bams_withlist = ch_input_bams
             .join(LISTTOFILE.out.txt)
 
-        // if (params.target_phase == true) {
-
-        //     VCF_PHASE_TARGET(
-        //         ch_input_impute.combine(Channel.of([[]])),
-        //         ch_region,
-        //         Channel.empty(), // ref
-        //         Channel.empty(), // scaffold
-        //         ch_map,
-        //         chunk_model
-        //     )
-        //     ch_input_impute = VCF_PHASE_TARGET.out.vcf_tbi
-        //     ch_versions = ch_versions.mix(VCF_PHASE_TARGET.out.versions)
-        // }
-
         // Use panel from parameters if provided
         if (params.panel && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
