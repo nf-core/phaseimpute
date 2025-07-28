@@ -40,7 +40,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
             },
             by: 0
         )
-               .map { chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
+        .map { chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
             [target_meta + [panel: panel_id], target_vcf, target_tbi, ref_msav, sites_vcf, sites_index, map]
         }
     // Perform imputation
