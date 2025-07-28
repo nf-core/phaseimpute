@@ -307,7 +307,7 @@ For starting from the imputation steps, the required flags are:
 | `GLIMPSE2` | ✅               | ✅ ¹      | ✅                      | ✅        | ✅         | ❌          |
 | `QUILT`    | ✅               | ✅ ²      | ✅                      | ❌        | ✅         | ✅ ⁴        |
 | `STITCH`   | ✅               | ✅ ²      | ✅                      | ❌        | ❌         | ✅ ³        |
-| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌         |
+| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌          |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
@@ -496,7 +496,7 @@ nextflow run nf-core/phaseimpute \
 
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
 
- MINIMAC4 works only with variant calling format files (VCF or BCF) as input.
+MINIMAC4 works only with variant calling format files (VCF or BCF) as input.
 
 ## Start with validation `--steps validate`
 

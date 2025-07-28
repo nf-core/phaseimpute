@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `r-stitch` | 1.6.10      | 1.7.3       |
 | `shapeit5` | 1.0.0       | 5.1.1       |
 | `vcflib`   | 1.0.3       | 1.0.14      |
-| `minimac4` |             | 4.1.6       |    
+| `minimac4` |             | 4.1.6       |
 
 ### `Contributors`
 
