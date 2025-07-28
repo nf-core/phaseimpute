@@ -36,11 +36,6 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { chunkPrepareChannel                        } from './function.nf'
 
-//Target phasing
-
-include { VCF_PHASE_SHAPEIT5 as VCF_PHASE_TARGET     } from '../../subworkflows/local/vcf_phase_shapeit5'
-include { VCF_CHUNK_GLIMPSE as TARGET_CHUNK       } from '../../subworkflows/local/vcf_chunk_glimpse'
-
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
