@@ -410,7 +410,7 @@ def validateInputParameters() {
         if (!params.tools.split(',').find { it in ["glimpse2", "minimac4"] }) {
                 assert params.posfile : "No --posfile provided for --steps impute"
         }
-        // Required by all tools except STITCH and MINIMAC4
+        // Required by all tools except stitch and minimac4
         if (!params.tools.split(',').any { it in ['stitch', 'minimac4'] }) {
             assert params.chunks : "No --chunks provided for --steps impute"
         }
