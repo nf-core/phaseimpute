@@ -33,15 +33,15 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "7138507d3b188578d9096673e44056b4",
-                "ff8f5448e068306c30bdd733f60f103b"
+                "290a299ed0aab0d8405d83698092a313",
+                "59921c25ff0120aaa705431cad320b64"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-07-28T11:48:02.519234466"
+        "timestamp": "2025-09-02T22:06:08.436085329"
     },
     "Impute with beagle5 one vcf": {
         "content": [
@@ -66,14 +66,14 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "7138507d3b188578d9096673e44056b4"
+                "290a299ed0aab0d8405d83698092a313"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-07-28T11:59:07.572500489"
+        "timestamp": "2025-09-02T22:04:07.584682315"
     },
     "Impute with beagle5 two vcf": {
         "content": [
@@ -109,15 +109,15 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "7138507d3b188578d9096673e44056b4",
-                "3a702fffa0018be6a1fca1d95633e058"
+                "290a299ed0aab0d8405d83698092a313",
+                "7c27e9d721214aaed84ad23e9385583b"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-07-28T11:47:13.911295587"
+        "timestamp": "2025-09-02T22:05:24.994562893"
     },
     "Impute with beagle5 one vcf with map": {
         "content": [
@@ -142,13 +142,13 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "7138507d3b188578d9096673e44056b4"
+                "290a299ed0aab0d8405d83698092a313"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-07-28T11:46:17.943590923"
+        "timestamp": "2025-09-02T22:04:43.870733495"
     }
 }
