@@ -42,7 +42,7 @@ The whole pipeline consists of five main steps, each of which can be run separat
    - **Position Extraction** for targeted imputation sites.
 
 4. **Imputation (`--impute`)**: This is the primary step, where genotypes in the target dataset are imputed using the prepared reference panel. The main steps are:
-   - **Imputation** of the target dataset using tools like [Glimpse1](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html), [Glimpse2](https://odelaneau.github.io/GLIMPSE/), [Stitch](https://github.com/rwdavies/stitch), or [Quilt](https://github.com/rwdavies/QUILT), or [Beagle5](https://faculty.washington.edu/browning/beagle/beagle.html).
+   - **Imputation** of the target dataset using tools like [Glimpse1](https://odelaneau.github.io/GLIMPSE/glimpse1/index.html), [Glimpse2](https://odelaneau.github.io/GLIMPSE/), [Stitch](https://github.com/rwdavies/stitch), [Quilt](https://github.com/rwdavies/QUILT), [Beagle5](https://faculty.washington.edu/browning/beagle/beagle.html) or [Minimac4](https://github.com/statgen/Minimac4).
    - **Ligation** of imputed chunks to produce a final VCF file per sample, with all chromosomes unified.
 
 5. **Validation (`--validate`)**: Assesses imputation accuracy by comparing the imputed dataset to a truth dataset. This step leverages the [Glimpse2](https://odelaneau.github.io/GLIMPSE/) concordance process to summarize differences between two VCF files.

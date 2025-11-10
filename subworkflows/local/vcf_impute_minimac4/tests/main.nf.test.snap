@@ -1,0 +1,142 @@
+{
+    "Impute with minimac4 two vcf": {
+        "content": [
+            [
+                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
+                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
+                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "minimac4"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.csi"
+                ],
+                [
+                    {
+                        "id": "NA19401",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "minimac4"
+                    },
+                    "NA19401.vcf.gz",
+                    "NA19401.vcf.gz.csi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]",
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                "76a94fd1ad228e1cd9010312ec2a18dd",
+                "098833b0617876411ea68dd0c8709986"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-07-22T11:52:33.317647396"
+    },
+    "Impute with minimac4 one vcf": {
+        "content": [
+            [
+                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
+                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
+                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "minimac4"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.csi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                "76a94fd1ad228e1cd9010312ec2a18dd"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-07-22T11:51:38.719726645"
+    },
+    "Impute with minimac4 one vcf with sites": {
+        "content": [
+            [
+                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
+                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
+                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "minimac4"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.csi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                "2eac9b4d102fb38fd75b7efd19bfb837"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-07-22T11:53:00.151658756"
+    },
+    "Impute with minimac4 one vcf with map": {
+        "content": [
+            [
+                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
+                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
+                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+            ],
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "minimac4"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.csi"
+                ]
+            ],
+            [
+                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
+            ],
+            [
+                "2eac9b4d102fb38fd75b7efd19bfb837"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-07-22T11:52:07.324270788"
+    }
+}
