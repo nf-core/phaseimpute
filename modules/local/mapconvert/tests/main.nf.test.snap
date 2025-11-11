@@ -1,0 +1,183 @@
+{
+    "Convert map with pos rate cm (stitch format)": {
+        "content": [
+            [
+                "versions.yml:md5,d134ab3835b714cd2d735f5240a3fa3e"
+            ],
+            [
+                "position COMBINED_rate.cM.Mb. Genetic_Map.cM.",
+                "55550 0 0.000000000000000",
+                "632942 0 0.000000000000000",
+                "633147 0 0.000000000000000",
+                "785910 2.68581 0.410292036939447",
+                "788439 2.82227 0.417429561063975",
+                "788511 2.98131 0.417644215424158",
+                "792862 2.98062 0.430612871834774",
+                "794568 3.0781 0.435864105231133"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-11T21:18:11.309972553"
+    },
+    "Convert map with pos cm": {
+        "content": [
+            [
+                "versions.yml:md5,d134ab3835b714cd2d735f5240a3fa3e"
+            ],
+            [
+                "position COMBINED_rate.cM.Mb. Genetic_Map.cM.",
+                "55550 0 0.000000000000000",
+                "632942 0 0.000000000000000",
+                "633147 0 0.000000000000000",
+                "785910 2.68581 0.410292036939447",
+                "788439 2.82227 0.417429561063975",
+                "788511 2.98131 0.417644215424158",
+                "792862 2.98062 0.430612871834774",
+                "794568 3.0781 0.435864105231133"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-11T21:17:54.918861779"
+    },
+    "Convert map with chr id cm pos (plink format)": {
+        "content": [
+            [
+                "versions.yml:md5,d134ab3835b714cd2d735f5240a3fa3e"
+            ],
+            [
+                "position COMBINED_rate.cM.Mb. Genetic_Map.cM.",
+                "55550 0 0.000000000000000",
+                "632942 0 0.000000000000000",
+                "633147 0 0.000000000000000",
+                "785910 2.68581 0.410292036939447",
+                "788439 2.82227 0.417429561063975",
+                "788511 2.98131 0.417644215424158",
+                "792862 2.98062 0.430612871834774",
+                "794568 3.0781 0.435864105231133"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-11T21:18:02.655586976"
+    },
+    "Convert map with pos\\tchr\\tcm (glimpse format)": {
+        "content": [
+            [
+                "versions.yml:md5,d134ab3835b714cd2d735f5240a3fa3e"
+            ],
+            [
+                "position COMBINED_rate.cM.Mb. Genetic_Map.cM.",
+                "55550 0 0.000000000000000",
+                "632942 0 0.000000000000000",
+                "633147 0 0.000000000000000",
+                "785910 2.68581 0.410292036939447",
+                "788439 2.82227 0.417429561063975",
+                "788511 2.98131 0.417644215424158",
+                "792862 2.98062 0.430612871834774",
+                "794568 3.0781 0.435864105231133"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-11T21:17:46.410681167"
+    },
+    "Test stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.glimpse.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.plink.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.stitch.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.minimac.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    "versions.yml:md5,d134ab3835b714cd2d735f5240a3fa3e"
+                ],
+                "glimpse_map": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.glimpse.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "minimac_map": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.minimac.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "plink_map": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.plink.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "stitch_map": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.stitch.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d134ab3835b714cd2d735f5240a3fa3e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-11T21:24:35.437687349"
+    }
+}
