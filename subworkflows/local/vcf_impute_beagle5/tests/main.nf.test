@@ -51,7 +51,7 @@ nextflow_workflow {
                         file(it[2]).name
                     ] },
                     workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
                 ).match() }
             )
         }
@@ -91,7 +91,7 @@ nextflow_workflow {
                         file(it[2]).name
                     ] },
                     workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
                 ).match() }
             )
         }
@@ -137,7 +137,7 @@ nextflow_workflow {
                         file(it[2]).name
                     ] },
                     workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
                 ).match() }
             )
         }
@@ -197,7 +197,7 @@ nextflow_workflow {
                         file(it[2]).name
                     ] }.sort { it[0].chr },
                     workflow.out.vcf_index.collect{ path(it[1]).vcf.summary }.sort(),
-                    workflow.out.vcf_index.collect{ path(it[1]).md5 }.sort()
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }.sort()
                 ).match() }
             )
         }

@@ -33,15 +33,15 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "76a94fd1ad228e1cd9010312ec2a18dd",
-                "098833b0617876411ea68dd0c8709986"
+                "c4327d84f0355b88979ec03dd037514b",
+                "1b1c49668e75466692e0f586fc47f747"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-22T11:52:33.317647396"
+        "timestamp": "2025-11-11T12:36:15.295537018"
     },
     "Impute with minimac4 one vcf": {
         "content": [
@@ -66,14 +66,14 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "76a94fd1ad228e1cd9010312ec2a18dd"
+                "c4327d84f0355b88979ec03dd037514b"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-22T11:51:38.719726645"
+        "timestamp": "2025-11-11T12:35:46.826956402"
     },
     "Impute with minimac4 one vcf with sites": {
         "content": [
@@ -98,14 +98,14 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "2eac9b4d102fb38fd75b7efd19bfb837"
+                "ab57a5554b8c01ae0494318233d1b1dd"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-22T11:53:00.151658756"
+        "timestamp": "2025-11-11T12:36:28.874465664"
     },
     "Impute with minimac4 one vcf with map": {
         "content": [
@@ -130,13 +130,13 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "2eac9b4d102fb38fd75b7efd19bfb837"
+                "ab57a5554b8c01ae0494318233d1b1dd"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-22T11:52:07.324270788"
+        "timestamp": "2025-11-11T12:36:00.295884864"
     }
 }
