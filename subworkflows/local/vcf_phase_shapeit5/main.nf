@@ -11,7 +11,7 @@ workflow VCF_PHASE_SHAPEIT5 {
     ch_region     // channel (mandatory) : [ [chr, region], region ]
     ch_ref        // channel (optional)  : [ [id, chr], vcf, index ]
     ch_scaffold   // channel (optional)  : [ [id, chr], vcf, index ]
-    ch_map        // channel (optional) : [ [chr], map]
+    ch_map        // channel (optional)  : [ [chr], map]
     chunk_model   // channel (mandatory) : [ model ]
 
     main:
@@ -24,7 +24,7 @@ workflow VCF_PHASE_SHAPEIT5 {
             metaIC, vcf, csi, _pedigree -> [metaIC.subMap("chr"), metaIC, vcf, csi]
         }
         .combine(ch_region.map{ metaCR, region -> [metaCR.subMap("chr"), region]}, by:0)
-        .join(ch_map)
+        .combine(ch_map, by:0)
         .map{
             _metaC, metaIC, vcf, csi, region, gmap -> [metaIC, vcf, csi, region, gmap]
         }

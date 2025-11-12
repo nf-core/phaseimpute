@@ -22,10 +22,6 @@ nextflow_workflow {
 
     test("Phase vcf with regions, no map, no ref, no scaffold, recursive model") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.of(
@@ -80,10 +76,6 @@ nextflow_workflow {
 
     test("Phase vcf with regions, no map, no ref, no scaffold, sequential model") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.of(
@@ -136,13 +128,8 @@ nextflow_workflow {
         }
     }
 
-    /* TODO: Fix this test with https://github.com/odelaneau/shapeit5/issues/96
     test("Phase vcf with regions, with map, no ref, no scaffold") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = Channel.of(
@@ -166,8 +153,8 @@ nextflow_workflow {
                 input[2] = Channel.of([[],[],[]]).collect()
                 input[3] = Channel.of([[],[],[]]).collect()
                 input[4] = Channel.of(
-                    [ [chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_22.map", checkIfExist:true)],
-                    [ [chr: "chr21"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_21.map", checkIfExist:true)]
+                    [ [chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)],
+                    [ [chr: "chr21"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr21.glimpse.map", checkIfExist:true)]
                 )
                 input[5] = "recursive"
                 """
@@ -177,12 +164,13 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert snapshot(workflow.out.vcf_tbi.collect{
-                    path(it[1]).vcf.summary
-                    }).match("Phasing content with map")
-                }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_tbi.collect{
+                        path(it[1]).vcf.summary
+                    }
+                ).match()}
             )
         }
-    }*/
+    }
 }
