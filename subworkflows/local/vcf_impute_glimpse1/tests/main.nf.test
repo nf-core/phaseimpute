@@ -18,7 +18,7 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/index"
 
-    test("Impute with glimpse1 two vcf") {
+    test("Impute with glimpse1 two vcf no map") {
         when {
             workflow {
                 """
@@ -43,6 +43,7 @@ nextflow_workflow {
                     [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
                     [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
                 )
+                input[3] = Channel.of([[chr: "22"],[]])
                 """
             }
         }
@@ -64,7 +65,7 @@ nextflow_workflow {
         }
     }
 
-    test("Impute with glimpse1 one vcf") {
+    test("Impute with glimpse1 one vcf with map") {
         when {
             workflow {
                 """
@@ -84,6 +85,10 @@ nextflow_workflow {
                     [[chr: "22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
                     [[chr: "22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
                 )
+                input[3] = Channel.of([
+                    [chr: "22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
+                ])
                 """
             }
         }

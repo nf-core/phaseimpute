@@ -36,6 +36,9 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { chunkPrepareChannel                        } from './function.nf'
 
+// Genetic map conversion module
+include { MAPCONVERT                                 } from '../../modules/local/mapconvert/main.nf'
+
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
@@ -99,6 +102,13 @@ workflow PHASEIMPUTE {
     main:
 
     ch_multiqc_files = Channel.empty()
+
+    MAPCONVERT(
+        ch_map,
+        params.map_sep,
+        params.map_header,
+        params.map_col_names
+    )
 
     //
     // Simulate data if asked
@@ -200,7 +210,7 @@ workflow PHASEIMPUTE {
                 ch_region,
                 [[],[],[]],
                 [[],[],[]],
-                ch_map,
+                MAPCONVERT.out.glimpse_map,
                 chunk_model
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
@@ -208,7 +218,7 @@ workflow PHASEIMPUTE {
         }
 
         // Create chunks from reference VCF
-        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map, chunk_model)
+        VCF_CHUNK_GLIMPSE(ch_panel_phased, MAPCONVERT.out.glimpse_map, chunk_model)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
         // Assign chunks channels
@@ -312,7 +322,8 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_GLIMPSE1(
                 ch_input_glimpse1,
                 ch_panel_phased,
-                ch_chunks_glimpse1
+                ch_chunks_glimpse1,
+                MAPCONVERT.out.glimpse_map
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 
