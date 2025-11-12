@@ -3,8 +3,6 @@
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
                 "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
                 "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
@@ -14,7 +12,7 @@
                     {
                         "id": "NA12878",
                         "panel": "1000GP",
-                        "chr": "22",
+                        "chr": "chr22",
                         "tools": "glimpse2"
                     },
                     "NA12878.vcf.gz",
@@ -32,16 +30,14 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-06-19T09:36:17.248793755"
+        "timestamp": "2025-11-12T17:41:47.376002955"
     },
     "Impute with glimpse2 one individual - input file bam with bamlist": {
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
                 "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
                 "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
@@ -51,7 +47,7 @@
                     {
                         "id": "NA12878",
                         "panel": "1000GP",
-                        "chr": "22",
+                        "chr": "chr22",
                         "tools": "glimpse2"
                     },
                     "NA12878.vcf.gz",
@@ -69,16 +65,14 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-06-19T09:36:37.996190744"
+        "timestamp": "2025-11-12T17:43:26.429324225"
     },
-    "Impute with glimpse2 two individuals - input bam  with bamlist": {
+    "Impute with glimpse2 two individuals - input bam  with bamlist - two chromosomes": {
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
                 "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
                 "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
@@ -88,7 +82,17 @@
                     {
                         "id": "allid",
                         "panel": "1000GP",
-                        "chr": "22",
+                        "chr": "chr21",
+                        "tools": "glimpse2"
+                    },
+                    "allid.vcf.gz",
+                    "allid.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "chr22",
                         "tools": "glimpse2"
                     },
                     "allid.vcf.gz",
@@ -96,9 +100,14 @@
                 ]
             ],
             [
+                "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=836, phased=true, phasedAutodetect=true]",
                 "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
+                [
+                    "NA12878",
+                    "NA19401"
+                ],
                 [
                     "NA12878",
                     "NA19401"
@@ -107,8 +116,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-06-19T09:36:26.921579417"
+        "timestamp": "2025-11-12T17:42:17.568142962"
     }
 }
