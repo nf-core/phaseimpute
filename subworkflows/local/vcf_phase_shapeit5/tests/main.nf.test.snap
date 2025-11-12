@@ -1,5 +1,5 @@
 {
-    "Phase vcf with regions, with map, no ref, no scaffold": {
+    "Phase vcf with regions, no map, no ref, no scaffold, sequential model": {
         "content": [
             [
                 [
@@ -106,10 +106,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-11-17T10:32:42.391946685"
+        "timestamp": "2025-07-08T15:24:40.698051511"
     },
     "Phase vcf with regions, no map, no ref, no scaffold, recursive model": {
         "content": [
@@ -162,9 +162,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-11-17T10:32:27.917460264"
+        "timestamp": "2025-07-08T15:24:27.989188019"
     }
 }
