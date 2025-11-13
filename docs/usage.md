@@ -316,8 +316,7 @@ For starting from the imputation steps, the required flags are:
 > ² Alignment files only (i.e. BAM or CRAM)
 > ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, legend]
 > ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
-> ⁵ `MINIMAC4`: Optionally, a vcf with its index can be provided for more control over the imputed positions.
-Should be a CSV with columns [panel id, chr, vcf, index]
+> ⁵ `MINIMAC4`: Optionally, a vcf with its index can be provided for more control over the imputed positions. Should be a CSV with columns [panel id, chr, vcf, index]
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
@@ -523,7 +522,7 @@ nextflow run nf-core/phaseimpute \
     --posfile posfile.csv
 ```
 
-The CSV file can  be provided in `--posfile` with four columns [panel, chr, vcf, index]. This file is used to select which position to impute. See [Posfile section](#samplesheet-posfile) for more information.
+The CSV file can be provided in `--posfile` with four columns [panel, chr, vcf, index]. This file is used to select which position to impute. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console title="posfile.csv"
 panel,chr,vcf,index
