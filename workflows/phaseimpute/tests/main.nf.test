@@ -329,10 +329,24 @@ nextflow_pipeline {
 }
 
 def getRecursiveFileNames(fileOrDir, outputDir) {
-    if(file(fileOrDir.toString()).isDirectory()) {
-        return fileOrDir.list().collect { getRecursiveFileNames(it, outputDir) }
+    def f = new File(fileOrDir.toString())
+    if ( f.isDirectory() ) {
+        return f.listFiles()
+            .collect { getRecursiveFileNames(it, outputDir) }
+            .sort { it.file }
     }
-    return fileOrDir.toString().replace("${outputDir}/", "")
+
+    def check = null
+    file_name = f.toString().replace("${outputDir}/","")
+    if ( f.name.endsWith('.txt') || f.name.endsWith('.log') || f.name.endsWith('.csv')) {
+        check = path(f.toString()).md5
+        return ["file": file_name, "md5": check ]
+    } else if ( f.name.endsWith('.vcf.gz') ) {
+        check = path(f.toString()).vcf.variantsMD5
+        return ["file": file_name, "variants": check ]
+    } else{
+        return ["file": file_name]
+    }
 }
 
 def removeTimestamp(filename) {

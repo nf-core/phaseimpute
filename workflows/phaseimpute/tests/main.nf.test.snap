@@ -2,21 +2,62 @@
     "Check test_stitch": {
         "content": [
             [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
-                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
-                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
-                "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
-                "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA12878.stitch.vcf.gz",
-                "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA19401.stitch.vcf.gz",
-                "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA20359.stitch.vcf.gz",
-                "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
+                {
+                    "file": "imputation/batch/all.batch0.id.txt",
+                    "md5": "19595d0c2ee3d3d4e0db213e4469dac6"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.idonly.txt",
+                    "md5": "b16baeecc412602ee233e14bcbe592b7"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.noid.txt",
+                    "md5": "2b87699e9ed5101bc2addb7596cf16c7"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "bf1b19c334aef2d2788a0004f61b4acb"
+                },
+                {
+                    "file": "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                    "md5": "994f53d38322b1b2f0a305f5cef594b9"
+                },
+                {
+                    "file": "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                    "md5": "fbf6ca898c25414895ad5d9a6abc084f"
+                },
+                {
+                    "file": "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                    "md5": "93266d3d797ce3ee9cf2a4806bbbcf61"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz",
+                    "variants": "473e41be62e36c9d81a370217966ce33"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz",
+                    "variants": "ab0a0c790f8751c21adff2ffc94d1634"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz",
+                    "variants": "3d5221667e2eec3353eb54c7b8413525"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
+                    "variants": "e3dd9fc32de979e002e98eb25522af06"
+                },
+                {
+                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi"
+                }
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -26,339 +67,72 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-06-18T18:23:01.818626445"
-    },
-    "Check test_all": {
-        "content": [
-            [
-                "simulation/csv/simulate.csv",
-                "simulation/samples/NA12878.depth_1x.bam",
-                "simulation/samples/NA12878.depth_1x.bam.csi",
-                "simulation/samples/NA19401.depth_1x.bam",
-                "simulation/samples/NA19401.depth_1x.bam.csi",
-                "simulation/samples/NA20359.depth_1x.bam",
-                "simulation/samples/NA20359.depth_1x.bam.csi"
-            ],
-            [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz",
-                "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi",
-                "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
-                "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
-                "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
-                "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi",
-                "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
-                "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA12878.quilt.vcf.gz",
-                "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA19401.quilt.vcf.gz",
-                "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA20359.quilt.vcf.gz",
-                "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
-                "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
-                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
-                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
-                "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
-                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
-                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
-                "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
-                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA20359.quilt.bcftools_stats.txt",
-                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
-                "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
-                "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA12878.stitch.vcf.gz",
-                "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA19401.stitch.vcf.gz",
-                "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA20359.stitch.vcf.gz",
-                "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
-            ],
-            [
-                "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
-                "prep_panel/csv/chunks_glimpse1.csv",
-                "prep_panel/csv/panel.csv",
-                "prep_panel/csv/posfile.csv",
-                "prep_panel/haplegend/1000GP_chr21.hap.gz",
-                "prep_panel/haplegend/1000GP_chr21.legend.gz",
-                "prep_panel/haplegend/1000GP_chr21.samples",
-                "prep_panel/haplegend/1000GP_chr22.hap.gz",
-                "prep_panel/haplegend/1000GP_chr22.legend.gz",
-                "prep_panel/haplegend/1000GP_chr22.samples",
-                "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
-                "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
-                "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
-                "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
-                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
-                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi",
-                "prep_panel/stats/1000GP.panel.bcftools_stats.txt"
-            ],
-            [
-                "validation/concat/all.batch0.truth.vcf.gz",
-                "validation/concat/all.batch0.truth.vcf.gz.tbi",
-                "validation/samples/NA12878.truth.vcf.gz",
-                "validation/samples/NA12878.truth.vcf.gz.tbi",
-                "validation/samples/NA19401.truth.vcf.gz",
-                "validation/samples/NA19401.truth.vcf.gz.tbi",
-                "validation/samples/NA20359.truth.vcf.gz",
-                "validation/samples/NA20359.truth.vcf.gz.tbi",
-                "validation/stats/AllSamples.txt",
-                "validation/stats/NA12878.truth.bcftools_stats.txt",
-                "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
-                "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA12878_P1000GP_Tstitch_SNP.txt",
-                "validation/stats/NA19401.truth.bcftools_stats.txt",
-                "validation/stats/NA19401_P1000GP_Tglimpse1_SNP.txt",
-                "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA19401_P1000GP_Tstitch_SNP.txt",
-                "validation/stats/NA20359.truth.bcftools_stats.txt",
-                "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
-            [
-                "NA12878",
-                "NA19401",
-                "NA20359"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
-            [
-                "NA12878",
-                "NA19401",
-                "NA20359"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
-            [
-                "NA12878",
-                "NA19401",
-                "NA20359"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
-            [
-                "NA12878",
-                "NA19401",
-                "NA20359"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
-        },
-        "timestamp": "2025-06-18T18:16:56.012371707"
-    },
-    "Check test_validate": {
-        "content": [
-            [
-                "validation/samples/NA12878.truth.vcf.gz",
-                "validation/samples/NA12878.truth.vcf.gz.tbi",
-                "validation/samples/NA19401.truth.vcf.gz",
-                "validation/samples/NA19401.truth.vcf.gz.tbi",
-                "validation/samples/NA20359.truth.vcf.gz",
-                "validation/samples/NA20359.truth.vcf.gz.tbi",
-                "validation/stats/AllSamples.txt",
-                "validation/stats/NA12878.truth.bcftools_stats.txt",
-                "validation/stats/NA12878_SNP.txt",
-                "validation/stats/NA19401.truth.bcftools_stats.txt",
-                "validation/stats/NA19401_SNP.txt",
-                "validation/stats/NA20359.truth.bcftools_stats.txt",
-                "validation/stats/NA20359_SNP.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.1"
-        },
-        "timestamp": "2024-11-22T13:54:09.435194577"
-    },
-    "Check test_batch": {
-        "content": [
-            [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/batch/all.batch1.id.txt",
-                "imputation/batch/all.batch1.idonly.txt",
-                "imputation/batch/all.batch1.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz",
-                "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
-                "imputation/quilt/concat/all.batch1.quilt.vcf.gz",
-                "imputation/quilt/concat/all.batch1.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA12878.quilt.vcf.gz",
-                "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA19401.quilt.vcf.gz",
-                "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA20359.quilt.vcf.gz",
-                "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
-                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
-                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
-                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
-            [
-                "NA12878",
-                "NA19401"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
-            [
-                "NA12878",
-                "NA19401"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
-            [
-                "NA20359"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
-            [
-                "NA20359"
-            ],
-            [
-                "validation/samples/NA12878.truth.vcf.gz",
-                "validation/samples/NA12878.truth.vcf.gz.tbi",
-                "validation/samples/NA19401.truth.vcf.gz",
-                "validation/samples/NA19401.truth.vcf.gz.tbi",
-                "validation/samples/NA20359.truth.vcf.gz",
-                "validation/samples/NA20359.truth.vcf.gz.tbi",
-                "validation/stats/AllSamples.txt",
-                "validation/stats/NA12878.truth.bcftools_stats.txt",
-                "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA19401.truth.bcftools_stats.txt",
-                "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
-                "validation/stats/NA20359.truth.bcftools_stats.txt",
-                "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
-        },
-        "timestamp": "2025-06-18T18:31:17.429981393"
-    },
-    "Check test_quilt": {
-        "content": [
-            [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA12878.quilt.vcf.gz",
-                "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA19401.quilt.vcf.gz",
-                "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/NA20359.quilt.vcf.gz",
-                "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
-                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
-                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
-                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
-            [
-                "NA12878",
-                "NA19401",
-                "NA20359"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
-        },
-        "timestamp": "2025-06-18T18:21:52.724004392"
-    },
-    "Check test_beagle5": {
-        "content": [
-            [
-                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
-                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
-                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
-                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
-                "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
-                "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
-                "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
-                "imputation/csv/impute.csv",
-                "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
-                "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
-                "imputation/stats/NA20359.beagle5.bcftools_stats.txt"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
-            [
-                "NA12878"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
-        },
-        "timestamp": "2025-07-16T14:23:13.488246056"
+        "timestamp": "2025-11-13T12:18:42.973756309"
     },
     "Check test_minimac4": {
         "content": [
             [
-                "imputation/csv/impute.csv",
-                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
-                "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
-                "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
-                "imputation/stats/NA20359.minimac4.bcftools_stats.txt"
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "e7762d0ff6fbb691537b4df9022fe939"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "variants": "c74d089d2cf38846e568392bc9937e3f"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "variants": "8ea63fb223041415af6b5ecc8744d739"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "variants": "59ab2f53f42ad5cefe496f5e619137b9"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                    "variants": "c74d089d2cf38846e568392bc9937e3f"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                    "variants": "8ea63fb223041415af6b5ecc8744d739"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                    "variants": "59ab2f53f42ad5cefe496f5e619137b9"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "md5": "512207546154b2d025f7548d8af5ed44"
+                },
+                {
+                    "file": "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "md5": "94a21347545f8c638203682c207f38b8"
+                },
+                {
+                    "file": "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
+                    "md5": "2d76824534c1c590cab1fcd0d122fda6"
+                }
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
@@ -366,79 +140,406 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-24T09:25:16.978538151"
+        "timestamp": "2025-11-13T12:19:54.511827445"
     },
-    "Check test_sim": {
+    "Check test_all": {
         "content": [
             [
-                "simulation/csv/simulate.csv",
-                "simulation/samples/NA12878.depth_1x.bam",
-                "simulation/samples/NA12878.depth_1x.bam.csi",
-                "simulation/samples/NA19401.depth_1x.bam",
-                "simulation/samples/NA19401.depth_1x.bam.csi",
-                "simulation/samples/NA20359.depth_1x.bam",
-                "simulation/samples/NA20359.depth_1x.bam.csi"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
-        },
-        "timestamp": "2024-11-17T21:35:03.693487008"
-    },
-    "Check test_panelprep": {
-        "content": [
+                {
+                    "file": "simulation/csv/simulate.csv",
+                    "md5": "47515cc90198b3319acfc8838d960d93"
+                },
+                {
+                    "file": "simulation/samples/NA12878.depth_1x.bam"
+                },
+                {
+                    "file": "simulation/samples/NA12878.depth_1x.bam.csi"
+                },
+                {
+                    "file": "simulation/samples/NA19401.depth_1x.bam"
+                },
+                {
+                    "file": "simulation/samples/NA19401.depth_1x.bam.csi"
+                },
+                {
+                    "file": "simulation/samples/NA20359.depth_1x.bam"
+                },
+                {
+                    "file": "simulation/samples/NA20359.depth_1x.bam.csi"
+                }
+            ],
             [
-                "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
-                "prep_panel/csv/chunks_glimpse1.csv",
-                "prep_panel/csv/panel.csv",
-                "prep_panel/csv/posfile.csv",
-                "prep_panel/haplegend/1000GP_chr21.hap.gz",
-                "prep_panel/haplegend/1000GP_chr21.legend.gz",
-                "prep_panel/haplegend/1000GP_chr21.samples",
-                "prep_panel/haplegend/1000GP_chr22.hap.gz",
-                "prep_panel/haplegend/1000GP_chr22.legend.gz",
-                "prep_panel/haplegend/1000GP_chr22.samples",
-                "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
-                "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
-                "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
-                "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
-                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
-                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
-        },
-        "timestamp": "2025-02-20T11:48:45.440753818"
-    },
-    "Check test_glimpse2": {
-        "content": [
+                {
+                    "file": "imputation/batch/all.batch0.id.txt",
+                    "md5": "a4c01a39309f9522d5b01108e3b75c64"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.idonly.txt",
+                    "md5": "b16baeecc412602ee233e14bcbe592b7"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.noid.txt",
+                    "md5": "276f71c6daa405e34b4b88783aeef913"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "3addfa18fae129617bd10ceb599fa432"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
+                    "variants": "5e902888b16a3af124710b05582a49fc"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
+                    "variants": "c6493c41d56c619ea92addf7b088cace"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
+                    "variants": "749b86516b2520c890dcdb620ada4461"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz",
+                    "variants": "4c4b0efe9004991ab33d7a16cec9a2b7"
+                },
+                {
+                    "file": "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                    "variants": "fb1944edd03f05d2beff80663a58d855"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                    "variants": "1c94b858c819a43d99bc257c0e6f0c47"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                    "variants": "4275669012cc987ebb24fb062d8b988f"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                    "variants": "d1c20f98210c5ce296032c98493112cc"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                    "variants": "df04ab0bc98810a678a431f63e8cbe42"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                    "variants": "de4b773c752cfb134c480b2e7b05553"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                    "variants": "9ed1a117c8511ffe71bd16e29be4d0e2"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                    "variants": "6ba55a93520ac438f423cef4486a1a9b"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                    "md5": "99540b424213d0f1d19b124b58f2aef3"
+                },
+                {
+                    "file": "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                    "md5": "5ba6b1b27ac5854a2ecf55fc0f8a22f9"
+                },
+                {
+                    "file": "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                    "md5": "3e76a1f94b1f329a394a666a280053d7"
+                },
+                {
+                    "file": "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                    "md5": "994f53d38322b1b2f0a305f5cef594b9"
+                },
+                {
+                    "file": "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                    "md5": "7721a67c0a9e8577ce4989d0636351d5"
+                },
+                {
+                    "file": "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                    "md5": "c08797787df151d7879976cbfe278349"
+                },
+                {
+                    "file": "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                    "md5": "61270a3361f5bef26923a8d0efaf5190"
+                },
+                {
+                    "file": "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                    "md5": "fbf6ca898c25414895ad5d9a6abc084f"
+                },
+                {
+                    "file": "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
+                    "md5": "234914fa488b4e770f0d17ac7c116374"
+                },
+                {
+                    "file": "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "md5": "9914feff5725ed303909b7e09a9fc9e4"
+                },
+                {
+                    "file": "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "md5": "28871f0ce4a6e8a707817ade3848a2b2"
+                },
+                {
+                    "file": "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                    "md5": "93266d3d797ce3ee9cf2a4806bbbcf61"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz",
+                    "variants": "495fc6320cc648f178878be495f745bc"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz",
+                    "variants": "c762a1fb7e80067c6c2759c95d8b939e"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz",
+                    "variants": "542b17991b9c91b70e58055c70f8d430"
+                },
+                {
+                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
+                    "variants": "4108de3c3617bd7e96ae6f4b265f18f4"
+                },
+                {
+                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi"
+                }
+            ],
             [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
-                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
+                {
+                    "file": "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                    "md5": "834dea86a63b5a49d36f53c0ac7e01a2"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                    "md5": "c363e235162ca0f7d22e5604c192e256"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                    "md5": "64ca4a1655363e4a4e558836e5ac12f9"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                    "md5": "3344e171251722cf58ae31136da223ac"
+                },
+                {
+                    "file": "prep_panel/csv/chunks_glimpse1.csv",
+                    "md5": "3be3adc822aef4022c8262d2627a2ac9"
+                },
+                {
+                    "file": "prep_panel/csv/panel.csv",
+                    "md5": "30b85a2a329655263b98e182a3a5dde2"
+                },
+                {
+                    "file": "prep_panel/csv/posfile.csv",
+                    "md5": "be6ab1f307db2216ebe89af41bdee7fc"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr21.hap.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr21.legend.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr21.samples"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr22.hap.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr22.legend.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr22.samples"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                    "variants": "9e45423aa0df5855bedc58a8abf63cc4"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                    "variants": "1d456697797dcef4666784e5ff13b2da"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                    "variants": "6a6015e06338ef14f58749dd067f4a78"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                    "variants": "321a19489c56a5d670ee49b26d9052b9"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                },
+                {
+                    "file": "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
+                    "md5": "e0d0b672e2cb7531b5e452de05c988be"
+                }
+            ],
+            [
+                {
+                    "file": "validation/concat/all.batch0.truth.vcf.gz",
+                    "variants": "83f2bfc948a3d2a449b0239e73843c56"
+                },
+                {
+                    "file": "validation/concat/all.batch0.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA12878.truth.vcf.gz",
+                    "variants": "7c37879a396314354b76f8a5a90a40fc"
+                },
+                {
+                    "file": "validation/samples/NA12878.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA19401.truth.vcf.gz",
+                    "variants": "e0722e6af17e3837459a7cf23de886b8"
+                },
+                {
+                    "file": "validation/samples/NA19401.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA20359.truth.vcf.gz",
+                    "variants": "b63773c8d5a695b27a0108ec0c7590e7"
+                },
+                {
+                    "file": "validation/samples/NA20359.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/stats/AllSamples.txt",
+                    "md5": "a6f3b4bb03fa9172b50245de16dfd5c6"
+                },
+                {
+                    "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
+                    "md5": "bf3771cd532fe7e0519d037f18272057"
+                },
+                {
+                    "file": "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
+                    "md5": "9982ee7708a32f0925b6797028d09708"
+                },
+                {
+                    "file": "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                    "md5": "19a5a57d8853d9108983bd86b20f01d9"
+                },
+                {
+                    "file": "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                    "md5": "f704189733a0823716fff870a410b4ec"
+                },
+                {
+                    "file": "validation/stats/NA12878_P1000GP_Tstitch_SNP.txt",
+                    "md5": "9078b9c006ec51068eef4152ddc06864"
+                },
+                {
+                    "file": "validation/stats/NA19401.truth.bcftools_stats.txt",
+                    "md5": "633ad472ef97d29cae255b45a500dc20"
+                },
+                {
+                    "file": "validation/stats/NA19401_P1000GP_Tglimpse1_SNP.txt",
+                    "md5": "14926c8e83e0cee86c456e73e4d9a77a"
+                },
+                {
+                    "file": "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                    "md5": "f078ca2820bb0624fe8390d3a460ea6f"
+                },
+                {
+                    "file": "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                    "md5": "a45e2afa8ad143fc19cba0ce84a40370"
+                },
+                {
+                    "file": "validation/stats/NA19401_P1000GP_Tstitch_SNP.txt",
+                    "md5": "52cd921f0673e1f404957665d6ab2aff"
+                },
+                {
+                    "file": "validation/stats/NA20359.truth.bcftools_stats.txt",
+                    "md5": "76f012e31d566bc73c6bd794e9f82944"
+                },
+                {
+                    "file": "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
+                    "md5": "7d32fbfc837f776e9fdd81fcfa543568"
+                },
+                {
+                    "file": "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                    "md5": "eb8da1ef7de16f2df9c6bab8bb83d4e6"
+                },
+                {
+                    "file": "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
+                    "md5": "d8c67a40f8f715c0229b1f3985314061"
+                },
+                {
+                    "file": "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt",
+                    "md5": "b055112477038c2431d87b12d2815810"
+                }
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
+            [
+                "NA12878",
+                "NA19401",
+                "NA20359"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+            [
+                "NA12878",
+                "NA19401",
+                "NA20359"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
+            [
+                "NA12878",
+                "NA19401",
+                "NA20359"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
@@ -448,62 +549,777 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-06-18T18:20:11.87226965"
+        "timestamp": "2025-11-13T12:22:19.080807791"
+    },
+    "Check test_validate": {
+        "content": [
+            [
+                {
+                    "file": "validation/samples/NA12878.truth.vcf.gz",
+                    "variants": "1c6e1633095b15b785a9a447b189b3dd"
+                },
+                {
+                    "file": "validation/samples/NA12878.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA19401.truth.vcf.gz",
+                    "variants": "2eb9050ab10a91dca199333df0a9e8"
+                },
+                {
+                    "file": "validation/samples/NA19401.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA20359.truth.vcf.gz",
+                    "variants": "3834cc13ce04bb53696883b7f6de7b42"
+                },
+                {
+                    "file": "validation/samples/NA20359.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/stats/AllSamples.txt",
+                    "md5": "8e84c088b83ca17b6d72443f25fff35a"
+                },
+                {
+                    "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
+                    "md5": "17fedf85670e3e67dc38ea4ed65721af"
+                },
+                {
+                    "file": "validation/stats/NA12878_SNP.txt",
+                    "md5": "88996cab2016d66d2275a4a863515286"
+                },
+                {
+                    "file": "validation/stats/NA19401.truth.bcftools_stats.txt",
+                    "md5": "7e034bced77e4e726d97a8bc3a2ce6c5"
+                },
+                {
+                    "file": "validation/stats/NA19401_SNP.txt",
+                    "md5": "518ba241a4f9ac3aeee06754e64063ee"
+                },
+                {
+                    "file": "validation/stats/NA20359.truth.bcftools_stats.txt",
+                    "md5": "348dce308e0fdaab25b86435bb1dd56d"
+                },
+                {
+                    "file": "validation/stats/NA20359_SNP.txt",
+                    "md5": "6a701caafb156d43f62c4dcea58ffcc4"
+                }
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:20:57.019395523"
+    },
+    "Check test_batch": {
+        "content": [
+            [
+                {
+                    "file": "imputation/batch/all.batch0.id.txt",
+                    "md5": "3c45ad855aa40de6e979b7c4bb697a83"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.idonly.txt",
+                    "md5": "a9a5ab03ba2329ce141c76bb5bb25cda"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.noid.txt",
+                    "md5": "603fcb6ef7c13985ecc2094ce1c6a29c"
+                },
+                {
+                    "file": "imputation/batch/all.batch1.id.txt",
+                    "md5": "41d3f29a40566b10760e53b4112b9cb9"
+                },
+                {
+                    "file": "imputation/batch/all.batch1.idonly.txt",
+                    "md5": "5732a4ed24904236f034a6e13be24cff"
+                },
+                {
+                    "file": "imputation/batch/all.batch1.noid.txt",
+                    "md5": "cc74a26d0a0449bdb003ce20644996b7"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "571c94d52cb488ec49b5b6d791d37d63"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                    "variants": "e895011e5489d002aff40e45ae71722b"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz",
+                    "variants": "a29cca7e8f63fd1f63bf2cb3661351a3"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                    "variants": "70f8b8de32af38f074a86fb26bb07094"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                    "variants": "29da6089389c1848b0cfcb9c885545f4"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                    "variants": "a29cca7e8f63fd1f63bf2cb3661351a3"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                    "variants": "4891b726d4cba5a3999982231f21b07b"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch1.quilt.vcf.gz",
+                    "variants": "117962a8cf883bc3f8ff2ebb2deeb97d"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch1.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                    "variants": "51c1a203677175a2bc09cbea0c46b3ce"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                    "variants": "9fd6040017904593bc5f786fde4dfa84"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                    "variants": "117962a8cf883bc3f8ff2ebb2deeb97d"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                    "md5": "5ba6b1b27ac5854a2ecf55fc0f8a22f9"
+                },
+                {
+                    "file": "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                    "md5": "3e76a1f94b1f329a394a666a280053d7"
+                },
+                {
+                    "file": "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                    "md5": "c08797787df151d7879976cbfe278349"
+                },
+                {
+                    "file": "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                    "md5": "61270a3361f5bef26923a8d0efaf5190"
+                },
+                {
+                    "file": "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "md5": "9914feff5725ed303909b7e09a9fc9e4"
+                },
+                {
+                    "file": "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "md5": "28871f0ce4a6e8a707817ade3848a2b2"
+                }
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
+            [
+                "NA12878",
+                "NA19401"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
+            [
+                "NA12878",
+                "NA19401"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+            [
+                "NA20359"
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+            [
+                "NA20359"
+            ],
+            [
+                {
+                    "file": "validation/samples/NA12878.truth.vcf.gz",
+                    "variants": "1c6e1633095b15b785a9a447b189b3dd"
+                },
+                {
+                    "file": "validation/samples/NA12878.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA19401.truth.vcf.gz",
+                    "variants": "2eb9050ab10a91dca199333df0a9e8"
+                },
+                {
+                    "file": "validation/samples/NA19401.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/samples/NA20359.truth.vcf.gz",
+                    "variants": "3834cc13ce04bb53696883b7f6de7b42"
+                },
+                {
+                    "file": "validation/samples/NA20359.truth.vcf.gz.tbi"
+                },
+                {
+                    "file": "validation/stats/AllSamples.txt",
+                    "md5": "84ed01ba4fa391e750c0ec1d366a88b4"
+                },
+                {
+                    "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
+                    "md5": "17fedf85670e3e67dc38ea4ed65721af"
+                },
+                {
+                    "file": "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                    "md5": "f31e300cc338d9b5fb287c7c9a0c451b"
+                },
+                {
+                    "file": "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                    "md5": "1c20a195c2abda0ee8f03d9abbd41e2f"
+                },
+                {
+                    "file": "validation/stats/NA19401.truth.bcftools_stats.txt",
+                    "md5": "7e034bced77e4e726d97a8bc3a2ce6c5"
+                },
+                {
+                    "file": "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                    "md5": "a57555960b5e2f4d252181f4affc4f9d"
+                },
+                {
+                    "file": "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                    "md5": "f93669e6c2de9354d887db77870db1fb"
+                },
+                {
+                    "file": "validation/stats/NA20359.truth.bcftools_stats.txt",
+                    "md5": "348dce308e0fdaab25b86435bb1dd56d"
+                },
+                {
+                    "file": "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                    "md5": "b183a92dccc907bf8041160c9164f5f5"
+                },
+                {
+                    "file": "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
+                    "md5": "378a3f6cb9866eb1b8300caa337fc2d0"
+                }
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:25:03.726038785"
+    },
+    "Check test_quilt": {
+        "content": [
+            [
+                {
+                    "file": "imputation/batch/all.batch0.id.txt",
+                    "md5": "19595d0c2ee3d3d4e0db213e4469dac6"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.idonly.txt",
+                    "md5": "b16baeecc412602ee233e14bcbe592b7"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.noid.txt",
+                    "md5": "2b87699e9ed5101bc2addb7596cf16c7"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "4e96c3bbe21a678dfcd60f227cb571a1"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                    "variants": "87de21ea20d311cd4bcbb06fae254ab9"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                    "variants": "ca0f0ab948a0f6dc7d25d845423447e"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                    "variants": "bd961af4206e241f6b9199e9868c1264"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                    "variants": "7f125e919ea2ff383e8e745c97b4b7a5"
+                },
+                {
+                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                    "md5": "3e76a1f94b1f329a394a666a280053d7"
+                },
+                {
+                    "file": "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                    "md5": "61270a3361f5bef26923a8d0efaf5190"
+                },
+                {
+                    "file": "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "md5": "28871f0ce4a6e8a707817ade3848a2b2"
+                }
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+            [
+                "NA12878",
+                "NA19401",
+                "NA20359"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:18:10.163759763"
+    },
+    "Check test_beagle5": {
+        "content": [
+            [
+                {
+                    "file": "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
+                    "variants": "a9a50e67d972a9577b1a25ef0d16566a"
+                },
+                {
+                    "file": "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
+                    "variants": "22946033f83794de8fa1e08e4e50ca2c"
+                },
+                {
+                    "file": "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
+                    "variants": "894c6fa94a58284b6a28fa4913cc7875"
+                },
+                {
+                    "file": "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
+                    "variants": "6d999c8071e5bbfa2e4b067a62cd9932"
+                },
+                {
+                    "file": "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
+                    "variants": "4b8f4eceb36ea5ab0e242be1718882cb"
+                },
+                {
+                    "file": "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
+                    "variants": "16a503a5498bbff0296612d8b8a2bb44"
+                },
+                {
+                    "file": "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "f47e3229671cbb3ad92bb8f7b0c2ada7"
+                },
+                {
+                    "file": "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
+                    "md5": "6fa8e266447c0ff1c22d6f8ae36bf9bb"
+                },
+                {
+                    "file": "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
+                    "md5": "053686e1dbe0a25cad0efed5cf2ad04a"
+                },
+                {
+                    "file": "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "md5": "9ffd9717a055f8f6fe1c0092da3ebf30"
+                }
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+            [
+                "NA12878"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:19:23.206751548"
+    },
+    "Check test_sim": {
+        "content": [
+            [
+                {
+                    "file": "simulation/csv/simulate.csv",
+                    "md5": "7a37eabd4c60cefa8128db5c035aa3bf"
+                },
+                {
+                    "file": "simulation/samples/NA12878.depth_1x.bam"
+                },
+                {
+                    "file": "simulation/samples/NA12878.depth_1x.bam.csi"
+                },
+                {
+                    "file": "simulation/samples/NA19401.depth_1x.bam"
+                },
+                {
+                    "file": "simulation/samples/NA19401.depth_1x.bam.csi"
+                },
+                {
+                    "file": "simulation/samples/NA20359.depth_1x.bam"
+                },
+                {
+                    "file": "simulation/samples/NA20359.depth_1x.bam.csi"
+                }
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:20:24.466722517"
+    },
+    "Check test_panelprep": {
+        "content": [
+            [
+                {
+                    "file": "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                    "md5": "834dea86a63b5a49d36f53c0ac7e01a2"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                    "md5": "c363e235162ca0f7d22e5604c192e256"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                    "md5": "64ca4a1655363e4a4e558836e5ac12f9"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                    "md5": "3344e171251722cf58ae31136da223ac"
+                },
+                {
+                    "file": "prep_panel/csv/chunks_glimpse1.csv",
+                    "md5": "fb19b3426423be89bc8d25fc8806db35"
+                },
+                {
+                    "file": "prep_panel/csv/panel.csv",
+                    "md5": "d3fe3f71d3218413f8cf88bec0fdcb0a"
+                },
+                {
+                    "file": "prep_panel/csv/posfile.csv",
+                    "md5": "4d0f9afff7a825d3a6bc37eb31698710"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr21.hap.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr21.legend.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr21.samples"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr22.hap.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr22.legend.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/1000GP_chr22.samples"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                    "variants": "4a357beec79dd27be9d1179a6b481440"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                    "variants": "d51ebb7999f3990a33ed4d431c609607"
+                },
+                {
+                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                    "variants": "6a6015e06338ef14f58749dd067f4a78"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                    "variants": "321a19489c56a5d670ee49b26d9052b9"
+                },
+                {
+                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                }
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:23:38.690925591"
+    },
+    "Check test_glimpse2": {
+        "content": [
+            [
+                {
+                    "file": "imputation/batch/all.batch0.id.txt",
+                    "md5": "19595d0c2ee3d3d4e0db213e4469dac6"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.idonly.txt",
+                    "md5": "b16baeecc412602ee233e14bcbe592b7"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.noid.txt",
+                    "md5": "2b87699e9ed5101bc2addb7596cf16c7"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "8f774809b15b603ccbdd8f2afab43a70"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                    "variants": "e94815c6a5b9904c4f9dd4affb1450d9"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                    "variants": "4a48b0b95d381a1bc40a8bed0e45b916"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                    "variants": "fea91f8f985189f8c827b3fa7302fecb"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                    "variants": "ff41ac1e077ff6f0f225b6876f1eec99"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                    "md5": "5ba6b1b27ac5854a2ecf55fc0f8a22f9"
+                },
+                {
+                    "file": "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                    "md5": "c08797787df151d7879976cbfe278349"
+                },
+                {
+                    "file": "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "md5": "9914feff5725ed303909b7e09a9fc9e4"
+                }
+            ],
+            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+            [
+                "NA12878",
+                "NA19401",
+                "NA20359"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-13T12:17:07.891409498"
     },
     "Check test_dog": {
         "content": [
             [
-                "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
-                "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
-                "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
-                "prep_panel/csv/chunks_glimpse1.csv",
-                "prep_panel/csv/panel.csv",
-                "prep_panel/csv/posfile.csv",
-                "prep_panel/haplegend/658Dog_chr21.hap.gz",
-                "prep_panel/haplegend/658Dog_chr21.legend.gz",
-                "prep_panel/haplegend/658Dog_chr21.samples",
-                "prep_panel/haplegend/658Dog_chr22.hap.gz",
-                "prep_panel/haplegend/658Dog_chr22.legend.gz",
-                "prep_panel/haplegend/658Dog_chr22.samples",
-                "prep_panel/panel/658Dog_chr21_phased.vcf.gz",
-                "prep_panel/panel/658Dog_chr21_phased.vcf.gz.csi",
-                "prep_panel/panel/658Dog_chr22_phased.vcf.gz",
-                "prep_panel/panel/658Dog_chr22_phased.vcf.gz.csi",
-                "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
-                "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
-                "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
+                {
+                    "file": "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
+                    "md5": "76a5a9b772ce2f8e6f5bef47743a24aa"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
+                    "md5": "087f226af57448b5777a0fac6806a776"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
+                    "md5": "fc93d5f473c8bff30c1244c968be6b8c"
+                },
+                {
+                    "file": "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
+                    "md5": "846073f9a512a680f7e7155cc4ac1f70"
+                },
+                {
+                    "file": "prep_panel/csv/chunks_glimpse1.csv",
+                    "md5": "cb14a3f0eca1979a0df107f2505bc6d9"
+                },
+                {
+                    "file": "prep_panel/csv/panel.csv",
+                    "md5": "3c61e1da0508eef81f46d75b6fa16ab6"
+                },
+                {
+                    "file": "prep_panel/csv/posfile.csv",
+                    "md5": "2ca81f2689f6e4ef00c21bbfe4a8cae0"
+                },
+                {
+                    "file": "prep_panel/haplegend/658Dog_chr21.hap.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/658Dog_chr21.legend.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/658Dog_chr21.samples"
+                },
+                {
+                    "file": "prep_panel/haplegend/658Dog_chr22.hap.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/658Dog_chr22.legend.gz"
+                },
+                {
+                    "file": "prep_panel/haplegend/658Dog_chr22.samples"
+                },
+                {
+                    "file": "prep_panel/panel/658Dog_chr21_phased.vcf.gz",
+                    "variants": "e1ff42e5d47f34f305191c3294498d3c"
+                },
+                {
+                    "file": "prep_panel/panel/658Dog_chr21_phased.vcf.gz.csi"
+                },
+                {
+                    "file": "prep_panel/panel/658Dog_chr22_phased.vcf.gz",
+                    "variants": "fe0c160e8a271d9f31b4e092c26fb76d"
+                },
+                {
+                    "file": "prep_panel/panel/658Dog_chr22_phased.vcf.gz.csi"
+                },
+                {
+                    "file": "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
+                    "variants": "7dc63300f31df6ecfce688400a8e1b97"
+                },
+                {
+                    "file": "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi"
+                },
+                {
+                    "file": "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
+                    "variants": "1a884f2ef710ee27a3fa647388c27d45"
+                },
+                {
+                    "file": "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
+                }
             ],
             [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz",
-                "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz.tbi",
-                "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz",
-                "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz.tbi",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
-                "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz",
-                "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz.tbi",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
-                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
-                "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
-                "imputation/quilt/samples/dog_1735.quilt.vcf.gz.tbi",
-                "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
-                "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
-                "imputation/stats/dog_1735.quilt.bcftools_stats.txt"
+                {
+                    "file": "imputation/batch/all.batch0.id.txt",
+                    "md5": "2181a5165013a23885b1b8c986765963"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.idonly.txt",
+                    "md5": "b8903a12c45a3a7d10a69ee27f502c87"
+                },
+                {
+                    "file": "imputation/batch/all.batch0.noid.txt",
+                    "md5": "3efb890bd71c27e79d736153c6870953"
+                },
+                {
+                    "file": "imputation/csv/impute.csv",
+                    "md5": "f753d9d28d642873d82ea951e16d9a67"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz",
+                    "variants": "4c8f80570ba50b071018ebb87721a54"
+                },
+                {
+                    "file": "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz",
+                    "variants": "4c8f80570ba50b071018ebb87721a54"
+                },
+                {
+                    "file": "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                    "variants": "10fc82c6a209973b93d5e068c0479f3b"
+                },
+                {
+                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz",
+                    "variants": "10fc82c6a209973b93d5e068c0479f3b"
+                },
+                {
+                    "file": "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
+                    "variants": "8bf89dee8759dea4579fefe4cc4efd4e"
+                },
+                {
+                    "file": "imputation/quilt/samples/dog_1735.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                    "variants": "8bf89dee8759dea4579fefe4cc4efd4e"
+                },
+                {
+                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
+                    "md5": "73c664e61ea7a8fee4880d7219bedc27"
+                },
+                {
+                    "file": "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
+                    "md5": "1265ba28e72199ec3d0079bf65e30ded"
+                },
+                {
+                    "file": "imputation/stats/dog_1735.quilt.bcftools_stats.txt",
+                    "md5": "fc32717325fb393083e7fbf83f9f7ad0"
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-06-18T18:27:27.451155385"
+        "timestamp": "2025-11-13T12:23:03.166701371"
     }
 }
