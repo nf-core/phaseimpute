@@ -2,57 +2,21 @@
     "Check test_stitch": {
         "content": [
             [
-                {
-                    "file": "imputation/batch/all.batch0.id.txt",
-                    "md5": "19595d0c2ee3d3d4e0db213e4469dac6"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.idonly.txt",
-                    "md5": "b16baeecc412602ee233e14bcbe592b7"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.noid.txt",
-                    "md5": "2b87699e9ed5101bc2addb7596cf16c7"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/stats/NA12878.stitch.bcftools_stats.txt",
-                    "md5": "994f53d38322b1b2f0a305f5cef594b9"
-                },
-                {
-                    "file": "imputation/stats/NA19401.stitch.bcftools_stats.txt",
-                    "md5": "fbf6ca898c25414895ad5d9a6abc084f"
-                },
-                {
-                    "file": "imputation/stats/NA20359.stitch.bcftools_stats.txt",
-                    "md5": "93266d3d797ce3ee9cf2a4806bbbcf61"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi"
-                }
+                "imputation/batch/all.batch0.id.txt",
+                "imputation/batch/all.batch0.idonly.txt",
+                "imputation/batch/all.batch0.noid.txt",
+                "imputation/csv/impute.csv",
+                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
+                "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA12878.stitch.vcf.gz",
+                "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA19401.stitch.vcf.gz",
+                "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA20359.stitch.vcf.gz",
+                "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -65,68 +29,27 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T14:08:56.814990845"
+        "timestamp": "2025-11-13T16:30:45.683607262"
     },
     "Check test_minimac4": {
         "content": [
             [
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                    "variants": "c74d089d2cf38846e568392bc9937e3f"
-                },
-                {
-                    "file": "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                    "variants": "8ea63fb223041415af6b5ecc8744d739"
-                },
-                {
-                    "file": "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                    "variants": "59ab2f53f42ad5cefe496f5e619137b9"
-                },
-                {
-                    "file": "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                    "variants": "c74d089d2cf38846e568392bc9937e3f"
-                },
-                {
-                    "file": "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                    "variants": "8ea63fb223041415af6b5ecc8744d739"
-                },
-                {
-                    "file": "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                    "variants": "59ab2f53f42ad5cefe496f5e619137b9"
-                },
-                {
-                    "file": "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
-                    "md5": "512207546154b2d025f7548d8af5ed44"
-                },
-                {
-                    "file": "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
-                    "md5": "94a21347545f8c638203682c207f38b8"
-                },
-                {
-                    "file": "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
-                    "md5": "2d76824534c1c590cab1fcd0d122fda6"
-                }
+                "imputation/csv/impute.csv",
+                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
+                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
+                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
+                "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                "imputation/stats/NA20359.minimac4.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
@@ -137,364 +60,118 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:06:56.884863759"
+        "timestamp": "2025-11-13T16:31:55.652339556"
     },
     "Check test_all": {
         "content": [
             [
-                {
-                    "file": "simulation/csv/simulate.csv"
-                },
-                {
-                    "file": "simulation/samples/NA12878.depth_1x.bam"
-                },
-                {
-                    "file": "simulation/samples/NA12878.depth_1x.bam.csi"
-                },
-                {
-                    "file": "simulation/samples/NA19401.depth_1x.bam"
-                },
-                {
-                    "file": "simulation/samples/NA19401.depth_1x.bam.csi"
-                },
-                {
-                    "file": "simulation/samples/NA20359.depth_1x.bam"
-                },
-                {
-                    "file": "simulation/samples/NA20359.depth_1x.bam.csi"
-                }
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ],
             [
-                {
-                    "file": "imputation/batch/all.batch0.id.txt",
-                    "md5": "a4c01a39309f9522d5b01108e3b75c64"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.idonly.txt",
-                    "md5": "b16baeecc412602ee233e14bcbe592b7"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.noid.txt",
-                    "md5": "276f71c6daa405e34b4b88783aeef913"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
-                    "md5": "99540b424213d0f1d19b124b58f2aef3"
-                },
-                {
-                    "file": "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                    "md5": "5ba6b1b27ac5854a2ecf55fc0f8a22f9"
-                },
-                {
-                    "file": "imputation/stats/NA12878.quilt.bcftools_stats.txt",
-                    "md5": "3e76a1f94b1f329a394a666a280053d7"
-                },
-                {
-                    "file": "imputation/stats/NA12878.stitch.bcftools_stats.txt",
-                    "md5": "994f53d38322b1b2f0a305f5cef594b9"
-                },
-                {
-                    "file": "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
-                    "md5": "7721a67c0a9e8577ce4989d0636351d5"
-                },
-                {
-                    "file": "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                    "md5": "c08797787df151d7879976cbfe278349"
-                },
-                {
-                    "file": "imputation/stats/NA19401.quilt.bcftools_stats.txt",
-                    "md5": "61270a3361f5bef26923a8d0efaf5190"
-                },
-                {
-                    "file": "imputation/stats/NA19401.stitch.bcftools_stats.txt",
-                    "md5": "fbf6ca898c25414895ad5d9a6abc084f"
-                },
-                {
-                    "file": "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
-                    "md5": "234914fa488b4e770f0d17ac7c116374"
-                },
-                {
-                    "file": "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
-                    "md5": "9914feff5725ed303909b7e09a9fc9e4"
-                },
-                {
-                    "file": "imputation/stats/NA20359.quilt.bcftools_stats.txt",
-                    "md5": "28871f0ce4a6e8a707817ade3848a2b2"
-                },
-                {
-                    "file": "imputation/stats/NA20359.stitch.bcftools_stats.txt",
-                    "md5": "93266d3d797ce3ee9cf2a4806bbbcf61"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz"
-                },
-                {
-                    "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi"
-                }
+                "imputation/batch/all.batch0.id.txt",
+                "imputation/batch/all.batch0.idonly.txt",
+                "imputation/batch/all.batch0.noid.txt",
+                "imputation/csv/impute.csv",
+                "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
+                "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
+                "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
+                "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
+                "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA12878.stitch.vcf.gz",
+                "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA19401.stitch.vcf.gz",
+                "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
+                "imputation/stitch/samples/NA20359.stitch.vcf.gz",
+                "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
             ],
             [
-                {
-                    "file": "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                    "md5": "834dea86a63b5a49d36f53c0ac7e01a2"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
-                    "md5": "c363e235162ca0f7d22e5604c192e256"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
-                    "md5": "64ca4a1655363e4a4e558836e5ac12f9"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                    "md5": "3344e171251722cf58ae31136da223ac"
-                },
-                {
-                    "file": "prep_panel/csv/chunks_glimpse1.csv"
-                },
-                {
-                    "file": "prep_panel/csv/panel.csv"
-                },
-                {
-                    "file": "prep_panel/csv/posfile.csv"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr21.hap.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr21.legend.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr21.samples"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr22.hap.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr22.legend.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr22.samples"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
-                    "variants": "89ed15660e25d32ffef9023221ad8b19"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
-                    "variants": "c99a67c7e249f9e683959c2fd3ff4b06"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
-                    "variants": "6a6015e06338ef14f58749dd067f4a78"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "variants": "321a19489c56a5d670ee49b26d9052b9"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
-                },
-                {
-                    "file": "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
-                    "md5": "e0d0b672e2cb7531b5e452de05c988be"
-                }
+                "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks_glimpse1.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                "prep_panel/haplegend/1000GP_chr21.samples",
+                "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                "prep_panel/haplegend/1000GP_chr22.samples",
+                "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
+                "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/stats/1000GP.panel.bcftools_stats.txt"
             ],
             [
-                {
-                    "file": "validation/concat/all.batch0.truth.vcf.gz",
-                    "variants": "83f2bfc948a3d2a449b0239e73843c56"
-                },
-                {
-                    "file": "validation/concat/all.batch0.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA12878.truth.vcf.gz",
-                    "variants": "7c37879a396314354b76f8a5a90a40fc"
-                },
-                {
-                    "file": "validation/samples/NA12878.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA19401.truth.vcf.gz",
-                    "variants": "e0722e6af17e3837459a7cf23de886b8"
-                },
-                {
-                    "file": "validation/samples/NA19401.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA20359.truth.vcf.gz",
-                    "variants": "b63773c8d5a695b27a0108ec0c7590e7"
-                },
-                {
-                    "file": "validation/samples/NA20359.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/stats/AllSamples.txt",
-                    "md5": "f1adf0b4996377e8cc83987660b92512"
-                },
-                {
-                    "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
-                    "md5": "bf3771cd532fe7e0519d037f18272057"
-                },
-                {
-                    "file": "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
-                    "md5": "0a2e9682f6e14d63354686fdf3f1ad73"
-                },
-                {
-                    "file": "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "18b6dcb434dab86e4732bd5435d843f9"
-                },
-                {
-                    "file": "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
-                    "md5": "f704189733a0823716fff870a410b4ec"
-                },
-                {
-                    "file": "validation/stats/NA12878_P1000GP_Tstitch_SNP.txt",
-                    "md5": "9078b9c006ec51068eef4152ddc06864"
-                },
-                {
-                    "file": "validation/stats/NA19401.truth.bcftools_stats.txt",
-                    "md5": "633ad472ef97d29cae255b45a500dc20"
-                },
-                {
-                    "file": "validation/stats/NA19401_P1000GP_Tglimpse1_SNP.txt",
-                    "md5": "a0ec2acab6a57b14005258887acdb086"
-                },
-                {
-                    "file": "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "5f086ee08ef9895a74cda242943a3dc6"
-                },
-                {
-                    "file": "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
-                    "md5": "a45e2afa8ad143fc19cba0ce84a40370"
-                },
-                {
-                    "file": "validation/stats/NA19401_P1000GP_Tstitch_SNP.txt",
-                    "md5": "52cd921f0673e1f404957665d6ab2aff"
-                },
-                {
-                    "file": "validation/stats/NA20359.truth.bcftools_stats.txt",
-                    "md5": "76f012e31d566bc73c6bd794e9f82944"
-                },
-                {
-                    "file": "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
-                    "md5": "e846f9e385661bf76d813312e06b548b"
-                },
-                {
-                    "file": "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "a64421b0a68186ef88d8ed0d91cc0686"
-                },
-                {
-                    "file": "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
-                    "md5": "d8c67a40f8f715c0229b1f3985314061"
-                },
-                {
-                    "file": "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt",
-                    "md5": "b055112477038c2431d87b12d2815810"
-                }
+                "validation/concat/all.batch0.truth.vcf.gz",
+                "validation/concat/all.batch0.truth.vcf.gz.tbi",
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tstitch_SNP.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA19401_P1000GP_Tglimpse1_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tstitch_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
             [
@@ -525,182 +202,68 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:09:21.744850628"
+        "timestamp": "2025-11-13T16:34:20.959322131"
     },
     "Check test_validate": {
         "content": [
             [
-                {
-                    "file": "validation/samples/NA12878.truth.vcf.gz",
-                    "variants": "1c6e1633095b15b785a9a447b189b3dd"
-                },
-                {
-                    "file": "validation/samples/NA12878.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA19401.truth.vcf.gz",
-                    "variants": "2eb9050ab10a91dca199333df0a9e8"
-                },
-                {
-                    "file": "validation/samples/NA19401.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA20359.truth.vcf.gz",
-                    "variants": "3834cc13ce04bb53696883b7f6de7b42"
-                },
-                {
-                    "file": "validation/samples/NA20359.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/stats/AllSamples.txt",
-                    "md5": "8e84c088b83ca17b6d72443f25fff35a"
-                },
-                {
-                    "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
-                    "md5": "17fedf85670e3e67dc38ea4ed65721af"
-                },
-                {
-                    "file": "validation/stats/NA12878_SNP.txt",
-                    "md5": "88996cab2016d66d2275a4a863515286"
-                },
-                {
-                    "file": "validation/stats/NA19401.truth.bcftools_stats.txt",
-                    "md5": "7e034bced77e4e726d97a8bc3a2ce6c5"
-                },
-                {
-                    "file": "validation/stats/NA19401_SNP.txt",
-                    "md5": "518ba241a4f9ac3aeee06754e64063ee"
-                },
-                {
-                    "file": "validation/stats/NA20359.truth.bcftools_stats.txt",
-                    "md5": "348dce308e0fdaab25b86435bb1dd56d"
-                },
-                {
-                    "file": "validation/stats/NA20359_SNP.txt",
-                    "md5": "6a701caafb156d43f62c4dcea58ffcc4"
-                }
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_SNP.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA19401_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_SNP.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T12:20:57.019395523"
+        "timestamp": "2025-11-13T16:33:00.28621765"
     },
     "Check test_batch": {
         "content": [
             [
-                {
-                    "file": "imputation/batch/all.batch0.id.txt",
-                    "md5": "3c45ad855aa40de6e979b7c4bb697a83"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.idonly.txt",
-                    "md5": "a9a5ab03ba2329ce141c76bb5bb25cda"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.noid.txt",
-                    "md5": "603fcb6ef7c13985ecc2094ce1c6a29c"
-                },
-                {
-                    "file": "imputation/batch/all.batch1.id.txt",
-                    "md5": "41d3f29a40566b10760e53b4112b9cb9"
-                },
-                {
-                    "file": "imputation/batch/all.batch1.idonly.txt",
-                    "md5": "5732a4ed24904236f034a6e13be24cff"
-                },
-                {
-                    "file": "imputation/batch/all.batch1.noid.txt",
-                    "md5": "cc74a26d0a0449bdb003ce20644996b7"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch1.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch1.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                    "md5": "5ba6b1b27ac5854a2ecf55fc0f8a22f9"
-                },
-                {
-                    "file": "imputation/stats/NA12878.quilt.bcftools_stats.txt",
-                    "md5": "3e76a1f94b1f329a394a666a280053d7"
-                },
-                {
-                    "file": "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                    "md5": "c08797787df151d7879976cbfe278349"
-                },
-                {
-                    "file": "imputation/stats/NA19401.quilt.bcftools_stats.txt",
-                    "md5": "61270a3361f5bef26923a8d0efaf5190"
-                },
-                {
-                    "file": "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
-                    "md5": "9914feff5725ed303909b7e09a9fc9e4"
-                },
-                {
-                    "file": "imputation/stats/NA20359.quilt.bcftools_stats.txt",
-                    "md5": "28871f0ce4a6e8a707817ade3848a2b2"
-                }
+                "imputation/batch/all.batch0.id.txt",
+                "imputation/batch/all.batch0.idonly.txt",
+                "imputation/batch/all.batch0.noid.txt",
+                "imputation/batch/all.batch1.id.txt",
+                "imputation/batch/all.batch1.idonly.txt",
+                "imputation/batch/all.batch1.noid.txt",
+                "imputation/csv/impute.csv",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/all.batch1.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
+                "imputation/quilt/concat/all.batch1.quilt.vcf.gz",
+                "imputation/quilt/concat/all.batch1.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
             [
@@ -721,133 +284,48 @@
                 "NA20359"
             ],
             [
-                {
-                    "file": "validation/samples/NA12878.truth.vcf.gz",
-                    "variants": "1c6e1633095b15b785a9a447b189b3dd"
-                },
-                {
-                    "file": "validation/samples/NA12878.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA19401.truth.vcf.gz",
-                    "variants": "2eb9050ab10a91dca199333df0a9e8"
-                },
-                {
-                    "file": "validation/samples/NA19401.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/samples/NA20359.truth.vcf.gz",
-                    "variants": "3834cc13ce04bb53696883b7f6de7b42"
-                },
-                {
-                    "file": "validation/samples/NA20359.truth.vcf.gz.tbi"
-                },
-                {
-                    "file": "validation/stats/AllSamples.txt",
-                    "md5": "f80bdd2619404e81930b2d7d758c3165"
-                },
-                {
-                    "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
-                    "md5": "17fedf85670e3e67dc38ea4ed65721af"
-                },
-                {
-                    "file": "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "a8c4cc546551eb1dcd5453f2c542c18a"
-                },
-                {
-                    "file": "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
-                    "md5": "1c20a195c2abda0ee8f03d9abbd41e2f"
-                },
-                {
-                    "file": "validation/stats/NA19401.truth.bcftools_stats.txt",
-                    "md5": "7e034bced77e4e726d97a8bc3a2ce6c5"
-                },
-                {
-                    "file": "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "a57555960b5e2f4d252181f4affc4f9d"
-                },
-                {
-                    "file": "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
-                    "md5": "f93669e6c2de9354d887db77870db1fb"
-                },
-                {
-                    "file": "validation/stats/NA20359.truth.bcftools_stats.txt",
-                    "md5": "348dce308e0fdaab25b86435bb1dd56d"
-                },
-                {
-                    "file": "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "b183a92dccc907bf8041160c9164f5f5"
-                },
-                {
-                    "file": "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
-                    "md5": "378a3f6cb9866eb1b8300caa337fc2d0"
-                }
+                "validation/samples/NA12878.truth.vcf.gz",
+                "validation/samples/NA12878.truth.vcf.gz.tbi",
+                "validation/samples/NA19401.truth.vcf.gz",
+                "validation/samples/NA19401.truth.vcf.gz.tbi",
+                "validation/samples/NA20359.truth.vcf.gz",
+                "validation/samples/NA20359.truth.vcf.gz.tbi",
+                "validation/stats/AllSamples.txt",
+                "validation/stats/NA12878.truth.bcftools_stats.txt",
+                "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA19401.truth.bcftools_stats.txt",
+                "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                "validation/stats/NA20359.truth.bcftools_stats.txt",
+                "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:11:53.281490512"
+        "timestamp": "2025-11-13T16:36:52.646749749"
     },
     "Check test_quilt": {
         "content": [
             [
-                {
-                    "file": "imputation/batch/all.batch0.id.txt",
-                    "md5": "19595d0c2ee3d3d4e0db213e4469dac6"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.idonly.txt",
-                    "md5": "b16baeecc412602ee233e14bcbe592b7"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.noid.txt",
-                    "md5": "2b87699e9ed5101bc2addb7596cf16c7"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
-                    "variants": "87de21ea20d311cd4bcbb06fae254ab9"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz",
-                    "variants": "ca0f0ab948a0f6dc7d25d845423447e"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz",
-                    "variants": "bd961af4206e241f6b9199e9868c1264"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz",
-                    "variants": "7f125e919ea2ff383e8e745c97b4b7a5"
-                },
-                {
-                    "file": "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stats/NA12878.quilt.bcftools_stats.txt",
-                    "md5": "3e76a1f94b1f329a394a666a280053d7"
-                },
-                {
-                    "file": "imputation/stats/NA19401.quilt.bcftools_stats.txt",
-                    "md5": "61270a3361f5bef26923a8d0efaf5190"
-                },
-                {
-                    "file": "imputation/stats/NA20359.quilt.bcftools_stats.txt",
-                    "md5": "28871f0ce4a6e8a707817ade3848a2b2"
-                }
+                "imputation/batch/all.batch0.id.txt",
+                "imputation/batch/all.batch0.idonly.txt",
+                "imputation/batch/all.batch0.noid.txt",
+                "imputation/csv/impute.csv",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
+                "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                "imputation/stats/NA20359.quilt.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
@@ -860,68 +338,27 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:05:13.1481971"
+        "timestamp": "2025-11-13T16:30:13.091032307"
     },
     "Check test_beagle5": {
         "content": [
             [
-                {
-                    "file": "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
-                    "variants": "a9a50e67d972a9577b1a25ef0d16566a"
-                },
-                {
-                    "file": "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
-                    "variants": "22946033f83794de8fa1e08e4e50ca2c"
-                },
-                {
-                    "file": "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
-                    "variants": "894c6fa94a58284b6a28fa4913cc7875"
-                },
-                {
-                    "file": "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
-                    "variants": "6d999c8071e5bbfa2e4b067a62cd9932"
-                },
-                {
-                    "file": "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
-                    "variants": "4b8f4eceb36ea5ab0e242be1718882cb"
-                },
-                {
-                    "file": "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
-                    "variants": "16a503a5498bbff0296612d8b8a2bb44"
-                },
-                {
-                    "file": "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
-                    "md5": "6fa8e266447c0ff1c22d6f8ae36bf9bb"
-                },
-                {
-                    "file": "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
-                    "md5": "053686e1dbe0a25cad0efed5cf2ad04a"
-                },
-                {
-                    "file": "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
-                    "md5": "9ffd9717a055f8f6fe1c0092da3ebf30"
-                }
+                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
+                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
+                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
+                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
+                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
+                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
+                "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
+                "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
+                "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
+                "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
+                "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
+                "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
+                "imputation/csv/impute.csv",
+                "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
+                "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
+                "imputation/stats/NA20359.beagle5.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
@@ -932,176 +369,76 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:06:26.491331039"
+        "timestamp": "2025-11-13T16:31:24.717148502"
     },
     "Check test_sim": {
         "content": [
             [
-                {
-                    "file": "simulation/csv/simulate.csv"
-                },
-                {
-                    "file": "simulation/samples/NA12878.depth_1x.bam"
-                },
-                {
-                    "file": "simulation/samples/NA12878.depth_1x.bam.csi"
-                },
-                {
-                    "file": "simulation/samples/NA19401.depth_1x.bam"
-                },
-                {
-                    "file": "simulation/samples/NA19401.depth_1x.bam.csi"
-                },
-                {
-                    "file": "simulation/samples/NA20359.depth_1x.bam"
-                },
-                {
-                    "file": "simulation/samples/NA20359.depth_1x.bam.csi"
-                }
+                "simulation/csv/simulate.csv",
+                "simulation/samples/NA12878.depth_1x.bam",
+                "simulation/samples/NA12878.depth_1x.bam.csi",
+                "simulation/samples/NA19401.depth_1x.bam",
+                "simulation/samples/NA19401.depth_1x.bam.csi",
+                "simulation/samples/NA20359.depth_1x.bam",
+                "simulation/samples/NA20359.depth_1x.bam.csi"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:07:28.649490784"
+        "timestamp": "2025-11-13T16:32:26.32064035"
     },
     "Check test_panelprep": {
         "content": [
             [
-                {
-                    "file": "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                    "md5": "834dea86a63b5a49d36f53c0ac7e01a2"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
-                    "md5": "c363e235162ca0f7d22e5604c192e256"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
-                    "md5": "64ca4a1655363e4a4e558836e5ac12f9"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                    "md5": "3344e171251722cf58ae31136da223ac"
-                },
-                {
-                    "file": "prep_panel/csv/chunks_glimpse1.csv"
-                },
-                {
-                    "file": "prep_panel/csv/panel.csv"
-                },
-                {
-                    "file": "prep_panel/csv/posfile.csv"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr21.hap.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr21.legend.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr21.samples"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr22.hap.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr22.legend.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/1000GP_chr22.samples"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
-                    "variants": "eb4634a7663a03f61aee579265c8a7da"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
-                    "variants": "c3886f501ffa9d67ed85beb8a014e672"
-                },
-                {
-                    "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
-                    "variants": "6a6015e06338ef14f58749dd067f4a78"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "variants": "321a19489c56a5d670ee49b26d9052b9"
-                },
-                {
-                    "file": "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
-                }
+                "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks_glimpse1.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                "prep_panel/haplegend/1000GP_chr21.samples",
+                "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                "prep_panel/haplegend/1000GP_chr22.samples",
+                "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
+                "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T16:10:36.774560639"
+        "timestamp": "2025-11-13T16:35:38.84113414"
     },
     "Check test_glimpse2": {
         "content": [
             [
-                {
-                    "file": "imputation/batch/all.batch0.id.txt",
-                    "md5": "19595d0c2ee3d3d4e0db213e4469dac6"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.idonly.txt",
-                    "md5": "b16baeecc412602ee233e14bcbe592b7"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.noid.txt",
-                    "md5": "2b87699e9ed5101bc2addb7596cf16c7"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                    "md5": "5ba6b1b27ac5854a2ecf55fc0f8a22f9"
-                },
-                {
-                    "file": "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                    "md5": "c08797787df151d7879976cbfe278349"
-                },
-                {
-                    "file": "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
-                    "md5": "9914feff5725ed303909b7e09a9fc9e4"
-                }
+                "imputation/batch/all.batch0.id.txt",
+                "imputation/batch/all.batch0.idonly.txt",
+                "imputation/batch/all.batch0.noid.txt",
+                "imputation/csv/impute.csv",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                "imputation/stats/NA20359.glimpse2.bcftools_stats.txt"
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
             [
@@ -1114,153 +451,59 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:04:12.93956837"
+        "timestamp": "2025-11-13T16:29:10.08315332"
     },
     "Check test_dog": {
         "content": [
             [
-                {
-                    "file": "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
-                    "md5": "76a5a9b772ce2f8e6f5bef47743a24aa"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
-                    "md5": "087f226af57448b5777a0fac6806a776"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
-                    "md5": "fc93d5f473c8bff30c1244c968be6b8c"
-                },
-                {
-                    "file": "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
-                    "md5": "846073f9a512a680f7e7155cc4ac1f70"
-                },
-                {
-                    "file": "prep_panel/csv/chunks_glimpse1.csv"
-                },
-                {
-                    "file": "prep_panel/csv/panel.csv"
-                },
-                {
-                    "file": "prep_panel/csv/posfile.csv"
-                },
-                {
-                    "file": "prep_panel/haplegend/658Dog_chr21.hap.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/658Dog_chr21.legend.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/658Dog_chr21.samples"
-                },
-                {
-                    "file": "prep_panel/haplegend/658Dog_chr22.hap.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/658Dog_chr22.legend.gz"
-                },
-                {
-                    "file": "prep_panel/haplegend/658Dog_chr22.samples"
-                },
-                {
-                    "file": "prep_panel/panel/658Dog_chr21_phased.vcf.gz",
-                    "variants": "12b602ef81415b6115de962c733e6f1e"
-                },
-                {
-                    "file": "prep_panel/panel/658Dog_chr21_phased.vcf.gz.csi"
-                },
-                {
-                    "file": "prep_panel/panel/658Dog_chr22_phased.vcf.gz",
-                    "variants": "1161a6c35179ebb384e85da6dcc4ad5b"
-                },
-                {
-                    "file": "prep_panel/panel/658Dog_chr22_phased.vcf.gz.csi"
-                },
-                {
-                    "file": "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
-                    "variants": "7dc63300f31df6ecfce688400a8e1b97"
-                },
-                {
-                    "file": "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi"
-                },
-                {
-                    "file": "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
-                    "variants": "1a884f2ef710ee27a3fa647388c27d45"
-                },
-                {
-                    "file": "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
-                }
+                "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
+                "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
+                "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
+                "prep_panel/csv/chunks_glimpse1.csv",
+                "prep_panel/csv/panel.csv",
+                "prep_panel/csv/posfile.csv",
+                "prep_panel/haplegend/658Dog_chr21.hap.gz",
+                "prep_panel/haplegend/658Dog_chr21.legend.gz",
+                "prep_panel/haplegend/658Dog_chr21.samples",
+                "prep_panel/haplegend/658Dog_chr22.hap.gz",
+                "prep_panel/haplegend/658Dog_chr22.legend.gz",
+                "prep_panel/haplegend/658Dog_chr22.samples",
+                "prep_panel/panel/658Dog_chr21_phased.vcf.gz",
+                "prep_panel/panel/658Dog_chr21_phased.vcf.gz.csi",
+                "prep_panel/panel/658Dog_chr22_phased.vcf.gz",
+                "prep_panel/panel/658Dog_chr22_phased.vcf.gz.csi",
+                "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
+                "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
+                "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
             ],
             [
-                {
-                    "file": "imputation/batch/all.batch0.id.txt",
-                    "md5": "2181a5165013a23885b1b8c986765963"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.idonly.txt",
-                    "md5": "b8903a12c45a3a7d10a69ee27f502c87"
-                },
-                {
-                    "file": "imputation/batch/all.batch0.noid.txt",
-                    "md5": "3efb890bd71c27e79d736153c6870953"
-                },
-                {
-                    "file": "imputation/csv/impute.csv"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz"
-                },
-                {
-                    "file": "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/samples/dog_1735.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/samples/dog_1735.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz"
-                },
-                {
-                    "file": "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi"
-                },
-                {
-                    "file": "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
-                    "md5": "73c664e61ea7a8fee4880d7219bedc27"
-                },
-                {
-                    "file": "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
-                    "md5": "1265ba28e72199ec3d0079bf65e30ded"
-                },
-                {
-                    "file": "imputation/stats/dog_1735.quilt.bcftools_stats.txt",
-                    "md5": "fc32717325fb393083e7fbf83f9f7ad0"
-                }
+                "imputation/batch/all.batch0.id.txt",
+                "imputation/batch/all.batch0.idonly.txt",
+                "imputation/batch/all.batch0.noid.txt",
+                "imputation/csv/impute.csv",
+                "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/dog_1735.batch0.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz",
+                "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
+                "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
+                "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz",
+                "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz.tbi",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
+                "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
+                "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
+                "imputation/quilt/samples/dog_1735.quilt.vcf.gz.tbi",
+                "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
+                "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
+                "imputation/stats/dog_1735.quilt.bcftools_stats.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T15:10:05.223045955"
+        "timestamp": "2025-11-13T16:35:04.269037693"
     }
 }

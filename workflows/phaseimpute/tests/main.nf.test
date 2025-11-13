@@ -22,7 +22,7 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("${outputDir}/imputation/")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("$outputDir/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
                     path("$outputDir/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz").vcf.header.getGenotypeSamples().sort()
@@ -77,7 +77,7 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("${outputDir}/imputation/")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("$outputDir/imputation/stitch/concat/all.batch0.stitch.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
                     path("$outputDir/imputation/stitch/concat/all.batch0.stitch.vcf.gz").vcf.header.getGenotypeSamples().sort()
@@ -183,7 +183,7 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("${outputDir}/validation/")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, true, false) } // disable txt md5 for validation reports due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten()
                 ).match() }
             )
@@ -212,15 +212,15 @@ nextflow_pipeline {
                         .flatten(),
                     path("${outputDir}/imputation")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("${outputDir}/prep_panel")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("${outputDir}/validation")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, true, false) } // disable txt md5 for validation reports due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("${outputDir}/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
                     path("${outputDir}/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples().sort(),
@@ -253,11 +253,11 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("${outputDir}/prep_panel")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("${outputDir}/imputation")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                 ).match()
                 }
@@ -282,7 +282,7 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("${outputDir}/prep_panel")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                 ).match()
                 }
@@ -307,7 +307,7 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("${outputDir}/imputation/")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, false) } // disable variant md5 for stitch due to non-deterministic output
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
                     path("${outputDir}/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
                     path("${outputDir}/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz").vcf.header.getGenotypeSamples().sort(),
@@ -319,7 +319,7 @@ nextflow_pipeline {
                     path("${outputDir}/imputation/quilt/concat/all.batch1.quilt.vcf.gz").vcf.header.getGenotypeSamples().sort(),
                     path("${outputDir}/validation/")
                         .list()
-                        .collect { getRecursiveFileNames(it, outputDir, true, false) }
+                        .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten()
                 ).match()
                 }
@@ -328,25 +328,12 @@ nextflow_pipeline {
     }
 }
 
-def getRecursiveFileNames(fileOrDir, outputDir, variants_md5=true, txt_md5=true) {
-    def f = new File(fileOrDir.toString())
-    if ( f.isDirectory() ) {
-        return f.listFiles()
-            .collect { getRecursiveFileNames(it, outputDir, variants_md5) }
-            .sort { it.file }
-    }
 
-    def check = null
-    file_name = f.toString().replace("${outputDir}/","")
-    if ( (f.name.endsWith('.txt') || f.name.endsWith('.log')) && txt_md5 ) {
-        check = path(f.toString()).md5
-        return ["file": file_name, "md5": check ]
-    } else if ( f.name.endsWith('.vcf.gz') && variants_md5 ) {
-        check = path(f.toString()).vcf.variantsMD5
-        return ["file": file_name, "variants": check ]
-    } else{
-        return ["file": file_name]
+def getRecursiveFileNames(fileOrDir, outputDir) {
+    if(file(fileOrDir.toString()).isDirectory()) {
+        return fileOrDir.list().collect { getRecursiveFileNames(it, outputDir) }
     }
+    return fileOrDir.toString().replace("${outputDir}/", "")
 }
 
 def removeTimestamp(filename) {
