@@ -310,12 +310,14 @@ For starting from the imputation steps, the required flags are:
 | `QUILT`    | ✅               | ✅ ²      | ✅                      | ❌        | ✅         | ✅ ⁴        |
 | `STITCH`   | ✅               | ✅ ²      | ✅                      | ❌        | ❌         | ✅ ³        |
 | `BEAGLE5`  | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌          |
-| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌          |
+| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ✅ ⁵        |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
-> ³ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
-> ⁴ `GLIMPSE1 and STITCH`: Should be a CSV with columns [panel id, chr, legend]
+> ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, legend]
+> ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
+> ⁵ `MINIMAC4`: Optionally, a vcf with its index can be provided for more control over the imputed positions.
+Should be a CSV with columns [panel id, chr, vcf, index]
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
@@ -519,6 +521,13 @@ nextflow run nf-core/phaseimpute \
     --genome GRCh37 \
     -profile docker \
     --posfile posfile.csv
+```
+
+The CSV file can  be provided in `--posfile` with four columns [panel, chr, vcf, index]. This file is used to select which position to impute. See [Posfile section](#samplesheet-posfile) for more information.
+
+```console title="posfile.csv"
+panel,chr,vcf,index
+1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.vcf.gz.csi
 ```
 
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].

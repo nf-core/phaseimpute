@@ -12,10 +12,10 @@ workflow VCF_IMPUTE_MINIMAC4 {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ch_posfile_minimac4 = ch_posfile
-        .map { meta, sites_vcf, sites_index, hap, legend ->
+        .map { meta, sites_vcf, sites_index, _hap, _legend ->
             [meta, sites_vcf, sites_index]
         }
 
@@ -40,7 +40,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
             },
             by: 0
         )
-        .map { chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
+        .map { _chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
             [target_meta + [panel: panel_id], target_vcf, target_tbi, ref_msav, sites_vcf, sites_index, map]
         }
     // Perform imputation
