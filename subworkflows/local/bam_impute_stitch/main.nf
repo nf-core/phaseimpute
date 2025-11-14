@@ -13,8 +13,6 @@ workflow BAM_IMPUTE_STITCH {
     main:
 
     ch_versions      = Channel.empty()
-    // Run STITCH
-    seed = params.seed
 
     // Value channels
     def input_empty         = [[]]
@@ -53,7 +51,7 @@ workflow BAM_IMPUTE_STITCH {
             ]
         }
 
-    STITCH( ch_bam_params, ch_fasta, seed )
+    STITCH( ch_bam_params, ch_fasta, params.seed )
     ch_versions = ch_versions.mix(STITCH.out.versions.first())
 
     // Index imputed annotated VCF
