@@ -271,7 +271,7 @@
                 "map_col_names": {
                     "type": "string",
                     "description": "Column names for the genetic map file.",
-                    "default": "chr,id,cm,pos",
+                    "default": "pos,chr,cm",
                     "fa_icon": "fas fa-columns",
                     "pattern": "^(chr|id|cm|pos)(,(chr|id|cm|pos))*$",
                     "hidden": true
