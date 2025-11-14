@@ -29,11 +29,10 @@
                         "variantcaller": "bcftools"
                     },
                     "all.annotate.vcf.gz",
-                    "all.annotate.vcf.gz.tbi"
+                    "all.annotate.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
+                    "36cfa7a92ace3d2db00d825f299b2fc2"
                 ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
             ],
             [
                 {
@@ -65,9 +64,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:17:52.849546366"
+        "timestamp": "2025-11-14T19:36:03.580546639"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
@@ -86,11 +85,10 @@
                         "variantcaller": "bcftools"
                     },
                     "NA12878.annotate.vcf.gz",
-                    "NA12878.annotate.vcf.gz.tbi"
+                    "NA12878.annotate.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                    "6fea613c5a1786d27fbb31c682115701"
                 ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
             ],
             [
                 {
@@ -117,8 +115,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:18:04.489143134"
+        "timestamp": "2025-11-14T19:36:21.763544692"
     }
 }
