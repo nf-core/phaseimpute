@@ -36,7 +36,7 @@ process MAPCONVERT {
     COLS=${col_names}
 
     # Single AWK to extract columns, validate, compute rate, and produce all outputs
-    \$MAP_CMD | awk -v FS="\$SEP" -v chr="\$CHR" -v hdr="\$HDR" -v cols="\$COLS" '
+    \$MAP_CMD | awk --bignum -v FS="\$SEP" -v chr="\$CHR" -v hdr="\$HDR" -v cols="\$COLS" '
     BEGIN {
         n = split(cols, c, ",")
         for (i=1;i<=n;i++) colname[i] = tolower(c[i])
@@ -51,36 +51,74 @@ process MAPCONVERT {
         printf "pos\\tchr\\tcM\\n" > glimpse
         printf "#chr\\tposition\\tGenetic_Map(cM)\\n" > minimac
         printf "position COMBINED_rate.cM.Mb. Genetic_Map.cM.\\n" > stitch
+
+        data_nr = 0
+        init_cm_set = 0
     }
+
     NR==1 && hdr=="true" { next }
+
     {
         delete val
-        for (i=1;i<=NF && i<=n;i++) val[colname[i]] = \$i
+        for (i=1; i<=NF && i<=n; i++) val[colname[i]] = \$i
 
         chr_file = ("chr" in val  ? val["chr"] : chr)
         pos      = ("pos" in val  ? val["pos"] : "NA")
         cm       = ("cm"  in val  ? val["cm"]  : "NA")
-        rate     = ("rate" in val ? val["rate"]: "NA")
         id       = ("id"  in val  ? val["id"]  : ".")
 
-        if (pos=="NA" || cm=="NA" || pos=="" || cm=="") { print "Error: Position and cM missing" > "/dev/stderr"; exit 1 }
-        if (chr_file != chr) { print "Error: Chromosome mismatch" > "/dev/stderr"; exit 1 }
-
-        if (NR==1) {
-            prev_pos = pos; prev_cm = cm
+        if (pos=="NA" || cm=="NA" || pos=="" || cm=="") {
+            print "Error: Position and cM missing" > "/dev/stderr"; exit 1
         }
-        if (rate=="NA" || rate=="" || rate==".") {
-            delta_bp = pos - prev_pos
-            delta_cm = cm - prev_cm
-            rate = (delta_bp>0 ? delta_cm/delta_bp*1e6 : 0)
+        if (chr_file != chr) {
+            print "Error: Chromosome mismatch" > "/dev/stderr"; exit 1
         }
-        prev_pos = pos; prev_cm = cm
 
-        # Write tool-specific outputs
+        data_nr++
+
+        # first data row: capture initial cM offset
+        if (data_nr == 1) {
+            prev_pos = pos
+            prev_cm  = cm
+            prev_id  = id
+            init_cm  = cm
+            init_cm_set = 1
+
+            # output non-stitch files for the current row
+            printf "%s\\t%s\\t%s\\n", pos, chr, cm >> glimpse
+            printf "%s\\t%s\\t%s\\n", chr, pos, cm >> minimac
+            printf "%s %s %s %s\\n", chr, id, cm, pos >> plink
+            next
+        }
+
+        # compute forward rate for previous row (interval prev -> current)
+        delta_bp = pos - prev_pos
+        delta_cm = cm - prev_cm
+        rate_prev = (delta_bp > 0 ? (delta_cm / delta_bp * 1e6) : 0)
+
+        # adjusted cM for previous row (subtract init offset)
+        adj_prev_cm = prev_cm - init_cm
+
+        # write STITCH row for previous entry (position, rate, adjusted cM)
+        printf "%.0f %.15f %.12f\\n", prev_pos, rate_prev, adj_prev_cm >> stitch
+
+        # outputs for current row (non-STITCH)
         printf "%s\\t%s\\t%s\\n", pos, chr, cm >> glimpse
         printf "%s\\t%s\\t%s\\n", chr, pos, cm >> minimac
         printf "%s %s %s %s\\n", chr, id, cm, pos >> plink
-        printf "%s %s %s\\n", pos, rate, cm >> stitch
+
+        # shift to next
+        prev_pos = pos
+        prev_cm  = cm
+        prev_id  = id
+    }
+
+    END {
+        if (data_nr == 0) exit 0
+
+        # last row: no forward interval -> rate = 0
+        adj_prev_cm = prev_cm - init_cm
+        printf "%.0f %.15f %.12f\\n", prev_pos, 0, adj_prev_cm >> stitch
     }'
 
     cat <<-END_VERSIONS > versions.yml

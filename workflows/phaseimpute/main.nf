@@ -401,7 +401,8 @@ workflow PHASEIMPUTE {
                 ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4], it[5]] },
                 ch_posfile.map{ [it[0], it[3], it[4]] },
                 ch_chunks_quilt,
-                ch_fasta.map{ [it[0], it[1]] }
+                ch_fasta.map{ [it[0], it[1]] },
+                MAPCONVERT.out.stitch_map,
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
