@@ -76,7 +76,7 @@ nextflow_workflow {
         }
     }
 
-    test("Impute with quilt two individuals with bamlist and renaming with map") {
+    test("Impute with quilt two individuals with bamlist and renaming no map") {
         when {
             workflow {
                 """
@@ -141,7 +141,6 @@ nextflow_workflow {
     }
 
     test("Impute with quilt one individuals with map") {
-        tag "test"
         setup{
             run("MAPCONVERT") {
                 script "../../../../modules/local/mapconvert"
