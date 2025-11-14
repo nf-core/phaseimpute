@@ -111,7 +111,7 @@ nextflow_process {
         when {
             process {
                 """
-                def file = Channel.fromPath("${moduleDir}/tests/resources/pos_chr_cm_tab_header.map")
+                def file = Channel.fromPath("${moduleDir}/tests/resources/pos_chr_cm_tab_header.map.gz")
                 input[0] = Channel.of([[id: "test", chr: "chr2"]]).combine(file)
                 input[1] = '\\t'
                 input[2] = 'true'
