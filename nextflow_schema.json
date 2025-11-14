@@ -253,6 +253,29 @@
                     "mimetype": "text/csv",
                     "schema": "assets/schema_map.json"
                 },
+                "map_sep": {
+                    "type": "string",
+                    "description": "Separator used in the genetic map file.",
+                    "default": "\\t",
+                    "fa_icon": "fas fa-arrows-alt-h",
+                    "enum": ["\\t", ",", ";", " "],
+                    "hidden": true
+                },
+                "map_header": {
+                    "type": "boolean",
+                    "description": "Does the genetic map file contain a header line?",
+                    "default": true,
+                    "fa_icon": "fas fa-heading",
+                    "hidden": true
+                },
+                "map_col_names": {
+                    "type": "string",
+                    "description": "Column names for the genetic map file.",
+                    "default": "chr,id,cm,pos",
+                    "fa_icon": "fas fa-columns",
+                    "pattern": "^(chr|id|cm|pos)(,(chr|id|cm|pos))*$",
+                    "hidden": true
+                },
                 "igenomes_ignore": {
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",
