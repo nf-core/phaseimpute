@@ -5,6 +5,8 @@ nextflow_pipeline {
     tag "pipeline"
     tag "pipeline/phaseimpute"
 
+    config "./nextflow.config"
+
     test("Check test_glimpse2") {
         tag "test_glimpse2"
         config "../../../conf/test_glimpse2.config"
