@@ -436,17 +436,17 @@ def validateInputParameters() {
 
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-        // Required by all tools except glimpse2 and beagle5
-        if (!params.tools.split(',').find { it in ["glimpse2", "beagle5"] }) {
-                assert params.posfile : "No --posfile provided for --steps impute"
+        // Required by all tools except glimpse2, beagle5, minimac4
+        if (!params.tools.split(',').find { it in ["glimpse2", "beagle5", "minimac4"] }) {
+            assert params.posfile : "No --posfile provided for --steps impute"
         }
-        // Required by all tools except stitch and beagle5
-        if (!params.tools.split(',').find { it in ["stitch", "beagle5"] }) {
-                assert params.chunks : "No --chunks provided for --steps impute"
+        // Required by all tools except stitch, beagle5, minimac4
+        if (!params.tools.split(',').find { it in ["stitch", "beagle5", "minimac4"] }) {
+            assert params.chunks : "No --chunks provided for --steps impute"
         }
         // Required by glimpse1 and glimpse2 only
         if (params.tools.split(',').contains("glimpse")) {
-                assert params.panel : "No --panel provided for imputation with GLIMPSE"
+            assert params.panel : "No --panel provided for imputation with GLIMPSE"
         }
 
         // Check that input_truth is provided when running validate

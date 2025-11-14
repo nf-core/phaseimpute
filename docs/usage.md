@@ -200,6 +200,8 @@ The different tests profiles are:
 - `test_glimpse2`: A profile to evaluate the imputation step with the `glimpse2` tool.
 - `test_quilt`: A profile to evaluate the imputation step with the `quilt` tool.
 - `test_stitch`: A profile to evaluate the imputation step with the `stitch` tool.
+- `test_beagle5`: A profile to evaluate the imputation step with the `beagle5` tool.
+- `test_minimac4`: A profile to evaluate the imputation step with the `minimac4` tool.
 - `test_panelprep`: A profile to evaluate the panel preparation step.
 - `test_sim`: A profile to evaluate the simulation step.
 - `test_validate`: A profile to evaluate the validation step.
@@ -294,7 +296,7 @@ For starting from the imputation steps, the required flags are:
 - `--steps impute`
 - `--input input.csv`: The samplesheet containing the input sample files in `bam`, `cram` or `vcf`, `bcf` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
-- `--tools [glimpse1, quilt, stitch]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
+- `--tools [glimpse1, glimpse2, quilt, stitch, beagle5, minimac4]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
   - `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1`.
   - `--posfile posfile.csv`: A samplesheet containing a `.legend.gz` file with the list of positions to genotype per chromosome. These are required by tools ( QUILT/STITCH/GLIMPSE1). It can also contain the `hap.gz` files (required by QUILT). The posfile can be generated with `--steps panelprep`.
   - `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2). These files can be obtained with `--steps panelprep`.
@@ -308,11 +310,13 @@ For starting from the imputation steps, the required flags are:
 | `QUILT`    | ✅               | ✅ ²      | ✅                      | ❌        | ✅         | ✅ ⁴        |
 | `STITCH`   | ✅               | ✅ ²      | ✅                      | ❌        | ❌         | ✅ ³        |
 | `BEAGLE5`  | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌          |
+| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ✅ ⁵        |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
-> ³ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
-> ⁴ `GLIMPSE1 and STITCH`: Should be a CSV with columns [panel id, chr, legend]
+> ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, legend]
+> ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
+> ⁵ `MINIMAC4`: Optionally, a VCF with its index can be provided for more control over the imputed positions. Should be a CSV with columns [panel id, chr, vcf, index]
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
@@ -333,14 +337,14 @@ When the number of samples exceeds the batch size, the pipeline will split the s
 
 To summarize:
 
-- If you have Variant Calling Format (VCF) files, join them into a single file and choose either GLIMPSE1, GLIMPSE2 or BEAGLE5.
+- If you have Variant Calling Format (VCF) files, join them into a single file and choose either GLIMPSE1, GLIMPSE2, BEAGLE5 or MINIMAC4.
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
   - GLIMPSE2 should not do target-to-target imputation.
 - If you have alignment files (e.g., BAM or CRAM), all tools are available, and processing will occur in `batch_size`:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
   - GLIMPSE2 and QUILT can process samples in separate batches.
 
-## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch, beagle5]`
+## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch, beagle5, minimac4]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
@@ -501,6 +505,33 @@ nextflow run nf-core/phaseimpute \
 ```
 
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
+
+### MINIMAC4
+
+[MINIMAC4](https://github.com/statgen/Minimac4) is a low memory, computationally efficient implementation of the MaCH algorithm for genotype imputation. It is designed to work on phased haplotypes and can handle very large reference panels.
+
+```bash
+nextflow run nf-core/phaseimpute \
+    --input samplesheet.csv \
+    --panel samplesheet_reference.csv \
+    --steps impute \
+    --tool minimac4 \
+    --outdir results \
+    --genome GRCh37 \
+    -profile docker \
+    --posfile posfile.csv
+```
+
+The CSV file can be provided in `--posfile` with four columns [panel, chr, vcf, index]. This file is used to select which position to impute. See [Posfile section](#samplesheet-posfile) for more information.
+
+```console title="posfile.csv"
+panel,chr,vcf,index
+1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.vcf.gz.csi
+```
+
+The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
+
+MINIMAC4 works only with variant calling format files (VCF or BCF) as input.
 
 ## Start with validation `--steps validate`
 

@@ -115,6 +115,33 @@ nextflow_pipeline {
         }
     }
 
+    test("Check test_minimac4") {
+        tag "test_minimac4"
+        config "../../../conf/test_minimac4.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    path("${outputDir}/imputation/")
+                        .list()
+                        .collect { getRecursiveFileNames(it, outputDir) }
+                        .flatten(),
+                    path("$outputDir/imputation/minimac4/concat/NA12878.minimac4.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/minimac4/concat/NA12878.minimac4.vcf.gz").vcf.header.getGenotypeSamples().sort()
+                ).match()
+                }
+            )
+        }
+    }
+
     test("Check test_sim") {
         tag "test_sim"
         config "../../../conf/test_sim.config"

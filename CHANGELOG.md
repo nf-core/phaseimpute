@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#184](https://github.com/nf-core/phaseimpute/pull/184) - Add support `.csi` index for `.bam` files.
 - [#188](https://github.com/nf-core/phaseimpute/pull/188) - Add documentation for all subworkflows.
 - [#210](https://github.com/nf-core/phaseimpute/pull/200) - Add BEAGLE5 support for genotype imputation.
+- [#211](https://github.com/nf-core/phaseimpute/pull/211) - Add MINIMAC4 support for genotype imputation.
 
 ### `Changed`
 
@@ -47,6 +48,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `shapeit5` | 1.0.0       | 5.1.1       |
 | `vcflib`   | 1.0.3       | 1.0.14      |
 | `beagle5`  |             | 5.2         |
+| `minimac4` |             | 4.1.6       |
+
+### New contributors
+
+[Gaspard Ichas](https://github.com/gichas)
 
 ## v1.0.0 - Black Labrador [2024-12-09]
 
