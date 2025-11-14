@@ -359,7 +359,8 @@ workflow PHASEIMPUTE {
                     .mix(ch_input_type.vcf.combine(Channel.of([[]]))),
                 ch_panel_phased,
                 ch_chunks_glimpse2,
-                ch_fasta
+                ch_fasta,
+                ch_map_glimpse
             )
             ch_versions = ch_versions.mix(BAM_VCF_IMPUTE_GLIMPSE2.out.versions)
             // Concatenate by chromosomes
