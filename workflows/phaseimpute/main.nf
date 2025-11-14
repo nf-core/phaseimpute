@@ -114,6 +114,9 @@ workflow PHASEIMPUTE {
         params.map_col_names
     )
 
+    ch_map_glimpse = MAPCONVERT.out.glimpse_map.ifEmpty(ch_map)
+    ch_map_stitch  = MAPCONVERT.out.stitch_map.ifEmpty(ch_map)
+
     //
     // Simulate data if asked
     //
@@ -216,7 +219,7 @@ workflow PHASEIMPUTE {
                 ch_region,
                 [[],[],[]],
                 [[],[],[]],
-                MAPCONVERT.out.glimpse_map,
+                ch_map_glimpse,
                 chunk_model
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
@@ -224,7 +227,7 @@ workflow PHASEIMPUTE {
         }
 
         // Create chunks from reference VCF
-        VCF_CHUNK_GLIMPSE(ch_panel_phased, MAPCONVERT.out.glimpse_map, chunk_model)
+        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map_glimpse, chunk_model)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
         // Assign chunks channels
@@ -329,7 +332,7 @@ workflow PHASEIMPUTE {
                 ch_input_glimpse1,
                 ch_panel_phased,
                 ch_chunks_glimpse1,
-                MAPCONVERT.out.glimpse_map
+                ch_map_glimpse
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 
@@ -402,7 +405,7 @@ workflow PHASEIMPUTE {
                 ch_posfile.map{ [it[0], it[3], it[4]] },
                 ch_chunks_quilt,
                 ch_fasta.map{ [it[0], it[1]] },
-                MAPCONVERT.out.stitch_map,
+                ch_map_stitch,
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
