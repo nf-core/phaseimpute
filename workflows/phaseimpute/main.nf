@@ -63,6 +63,10 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
+// BEAGLE5 subworkflows
+include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/local/vcf_impute_beagle5'
+include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
+
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
 
@@ -146,13 +150,14 @@ workflow PHASEIMPUTE {
 
         // Compute coverage of input files
         SAMTOOLS_COVERAGE_INP(ch_input_sim, ch_fasta)
-        ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_INP.out.versions)
+        ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_INP.out.versions.first())
 
         FILTER_CHR_INP(
             SAMTOOLS_COVERAGE_INP.out.coverage,
-            filter_chr_program
+            filter_chr_program,
+            false
         )
-        ch_versions = ch_versions.mix(FILTER_CHR_INP.out.versions)
+        ch_versions = ch_versions.mix(FILTER_CHR_INP.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_INP.out.output.map{ it[1] })
 
         if (params.depth) {
@@ -163,13 +168,14 @@ workflow PHASEIMPUTE {
 
             // Compute coverage of input files
             SAMTOOLS_COVERAGE_DWN(BAM_DOWNSAMPLE_SAMTOOLS.out.bam_emul, ch_fasta)
-            ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_DWN.out.versions)
+            ch_versions = ch_versions.mix(SAMTOOLS_COVERAGE_DWN.out.versions.first())
 
             FILTER_CHR_DWN(
                 SAMTOOLS_COVERAGE_DWN.out.coverage,
-                filter_chr_program
+                filter_chr_program,
+                false
             )
-            ch_versions = ch_versions.mix(FILTER_CHR_DWN.out.versions)
+            ch_versions = ch_versions.mix(FILTER_CHR_DWN.out.versions.first())
             ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_DWN.out.output.map{ it[1] })
         }
 
@@ -407,9 +413,33 @@ workflow PHASEIMPUTE {
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
         }
 
+        if (params.tools.split(',').contains("beagle5")) {
+            // Create input channel combining VCF with regions
+            ch_input_beagle5 = ch_input_type.vcf
+                .combine(ch_region)
+                .map { meta_vcf, vcf, index, meta_region, _region ->
+                    [meta_vcf + meta_region, vcf, index]
+                }
+
+            // Impute with BEAGLE5
+            VCF_IMPUTE_BEAGLE5(
+                ch_input_beagle5,
+                ch_panel_phased,
+                ch_map
+            )
+            ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
+
+            // Concatenate by chromosomes
+            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_index)
+            ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
+
+            // Add results to input validate
+            ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
+        }
+
         // Prepare renaming file
         BCFTOOLS_QUERY_IMPUTED(ch_input_validate, [], [], [])
-        GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [])
+        GAWK_IMPUTED(BCFTOOLS_QUERY_IMPUTED.out.output, [], false)
         ch_split_imputed = ch_input_validate.join(GAWK_IMPUTED.out.output)
 
         // Split result by samples
@@ -487,7 +517,7 @@ workflow PHASEIMPUTE {
 
         // Prepare renaming file
         BCFTOOLS_QUERY_TRUTH(CONCAT_TRUTH.out.vcf_tbi, [], [], [])
-        GAWK_TRUTH(BCFTOOLS_QUERY_TRUTH.out.output, [])
+        GAWK_TRUTH(BCFTOOLS_QUERY_TRUTH.out.output, [], false)
         ch_split_truth = CONCAT_TRUTH.out.vcf_tbi.join(GAWK_TRUTH.out.output)
 
         // Split truth vcf by samples

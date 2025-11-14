@@ -2,12 +2,11 @@
     "Compute genotype likelihood with merging": {
         "content": [
             [
-                "versions.yml:md5,0980a298fde671494f5b4e9cb3a6ebc2",
-                "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
                 "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                "versions.yml:md5,74118beefc19065bed2de5d60277be55",
-                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d",
-                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+                "versions.yml:md5,5c1d0190110ff1887f49323dec613345",
+                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
+                "versions.yml:md5,c2283f2ed9ba03c3c825227e66e9f962"
             ],
             [
                 [
@@ -35,21 +34,48 @@
             ],
             [
                 "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                {
+                    "BAM_GL_BCFTOOLS:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:GAWK": {
+                        "gawk": "5.3.0"
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:BCFTOOLS_MERGE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:BCFTOOLS_MPILEUP": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:TABIX_BGZIP": {
+                        "tabix": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-07T13:49:19.689761982"
+        "timestamp": "2025-07-08T15:17:52.849546366"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
             [
-                "versions.yml:md5,0980a298fde671494f5b4e9cb3a6ebc2",
-                "versions.yml:md5,4739962c934731254db8b31083aa0df5",
+                "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
                 "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                "versions.yml:md5,c9d32dd20061f19422ff4d4b6f3fb24d"
+                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
+                "versions.yml:md5,c2283f2ed9ba03c3c825227e66e9f962"
             ],
             [
                 [
@@ -65,12 +91,34 @@
             ],
             [
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
+            ],
+            [
+                {
+                    "BAM_GL_BCFTOOLS:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:GAWK": {
+                        "gawk": "5.3.0"
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:BCFTOOLS_MPILEUP": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:TABIX_BGZIP": {
+                        "tabix": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-07T13:50:09.373771371"
+        "timestamp": "2025-07-08T15:18:04.489143134"
     }
 }

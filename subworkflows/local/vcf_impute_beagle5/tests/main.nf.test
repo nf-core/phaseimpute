@@ -1,0 +1,205 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_IMPUTE_BEAGLE5"
+    script "../main.nf"
+
+    config "./nextflow.config"
+
+    workflow "VCF_IMPUTE_BEAGLE5"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/vcf_impute_beagle5"
+    tag "vcf_impute_beagle5"
+
+    tag "beagle5"
+    tag "beagle5/beagle"
+    tag "bcftools"
+    tag "bcftools/index"
+
+    test("Impute with beagle5 one vcf") {
+        tag "test"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                ])
+                input[1] = Channel.of([
+                    [id: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                ])
+                input[2] = Channel.of([
+                    [chr: "chr22"], []
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_index.collect{[
+                        it[0],
+                        file(it[1]).name,
+                        file(it[2]).name
+                    ] },
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
+                ).match() }
+            )
+        }
+    }
+
+    test("Impute with beagle5 one vcf with map") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                ])
+                input[1] = Channel.of([
+                    [id: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                ])
+                input[2] = Channel.of([
+                    [chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_index.collect{[
+                        it[0],
+                        file(it[1]).name,
+                        file(it[2]).name
+                    ] },
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
+                ).match() }
+            )
+        }
+    }
+
+    test("Impute with beagle5 two vcf") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ],
+                    [
+                        [id: "NA19401", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi", checkIfExist:true)
+                    ]
+                )
+                input[1] = Channel.of([
+                    [id: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                ])
+                input[2] = Channel.of([
+                    [chr: "chr22"], []
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_index.collect{[
+                        it[0],
+                        file(it[1]).name,
+                        file(it[2]).name
+                    ] },
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }
+                ).match() }
+            )
+        }
+    }
+
+    test("Impute with beagle5 multiple chromosomes") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "chr21", region: "chr21:16570000-16610000"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ],
+                    [
+                        [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true)
+                    ],
+                    [
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr21.plink.map", checkIfExist:true)
+                    ],
+                    [
+                        [chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.vcf_index.collect{[
+                        it[0],
+                        file(it[1]).name,
+                        file(it[2]).name
+                    ] }.sort { it[0].chr },
+                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary }.sort(),
+                    workflow.out.vcf_index.collect{ path(it[1]).md5 }.sort()
+                ).match() }
+            )
+        }
+    }
+}

@@ -16,7 +16,7 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     // Join duplicated biallelic sites into multiallelic records
     if (params.normalize) {
         BCFTOOLS_NORM(ch_vcf_tbi, ch_fasta)
-        ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions)
+        ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
         // Join multiallelic VCF and TBI
         ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf
@@ -24,7 +24,7 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
         // Remove all multiallelic records and samples specified in the `--remove_samples` command:
         BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
-        ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions)
+        ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
         // Join biallelic VCF and TBI
         ch_vcf_tbi = BCFTOOLS_VIEW.out.vcf
@@ -34,11 +34,11 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
     if (params.compute_freq == true) {
         VCFLIB_VCFFIXUP(ch_vcf_tbi)
-        ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions)
+        ch_versions = ch_versions.mix(VCFLIB_VCFFIXUP.out.versions.first())
 
         // Index fixed panel
         BCFTOOLS_INDEX(VCFLIB_VCFFIXUP.out.vcf)
-        ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions)
+        ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
         // Join fixed vcf and tbi
         ch_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf

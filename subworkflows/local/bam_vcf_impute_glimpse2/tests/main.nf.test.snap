@@ -26,6 +26,28 @@
                 [
                     "NA12878"
                 ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
             ]
         ],
         "meta": {
@@ -61,6 +83,28 @@
                 [
                     "NA12878"
                 ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
             ]
         ],
         "meta": {
@@ -112,6 +156,28 @@
                     "NA12878",
                     "NA19401"
                 ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
             ]
         ],
         "meta": {

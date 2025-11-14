@@ -20,19 +20,22 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
                     path("${outputDir}/imputation/")
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten(),
-                    path("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples().sort(),
                     path("${outputDir}/pipeline_info/")
                         .list()
                         .collect { getRecursiveFileNames(it, outputDir) }
                         .flatten()
                         .collect { removeTimestamp(it) },
-                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
-                ).match()}
+                    // All files with stable contents
+                    path("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples().sort(),
+                ).match() }
             )
         }
 

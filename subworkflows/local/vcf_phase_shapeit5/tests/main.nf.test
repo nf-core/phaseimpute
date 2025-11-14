@@ -65,7 +65,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.vcf_tbi.collect{
                         path(it[1]).vcf.summary
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() },
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.phased
@@ -119,7 +120,8 @@ nextflow_workflow {
                     ] },
                     workflow.out.vcf_tbi.collect{
                         path(it[1]).vcf.summary
-                    }
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() },
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.phased
@@ -165,11 +167,12 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
+                    workflow.out,
                     workflow.out.vcf_tbi.collect{
                         path(it[1]).vcf.summary
-                    }
-                ).match()}
+                    },
+                    workflow.out.versions.collect{ path(it).yaml }
+                ).match() }
             )
         }
     }

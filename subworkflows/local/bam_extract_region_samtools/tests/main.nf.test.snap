@@ -12,13 +12,30 @@
             [
                 2498,
                 2510
+            ],
+            [
+                {
+                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_MERGE": {
+                        "samtools": 1.21
+                    }
+                },
+                {
+                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_VIEW": {
+                        "samtools": 1.21
+                    }
+                },
+                {
+                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_INDEX": {
+                        "samtools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T15:50:29.339863683"
+        "timestamp": "2025-07-08T15:17:32.953231788"
     },
     "Get subregion of bam file 1000bp": {
         "content": [
@@ -33,12 +50,29 @@
             [
                 368,
                 327
+            ],
+            [
+                {
+                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_MERGE": {
+                        "samtools": 1.21
+                    }
+                },
+                {
+                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_VIEW": {
+                        "samtools": 1.21
+                    }
+                },
+                {
+                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_INDEX": {
+                        "samtools": 1.21
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T15:50:46.00756499"
+        "timestamp": "2025-07-08T15:17:42.263549029"
     }
 }

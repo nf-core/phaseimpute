@@ -1,0 +1,2 @@
+subworkflows/vcf_impute_beagle5:
+  - subworkflows/local/vcf_impute_beagle5/**

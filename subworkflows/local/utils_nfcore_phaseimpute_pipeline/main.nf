@@ -10,6 +10,7 @@
 
 include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
 include { samplesheetToList         } from 'plugin/nf-schema'
+include { paramsHelp                } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
 include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
@@ -32,6 +33,10 @@ workflow PIPELINE_INITIALISATION {
     _monochrome_logs  // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
+    _input             //  string: Path to input samplesheet
+    help              // boolean: Display help message and exit
+    help_full         // boolean: Show the full help message
+    show_hidden       // boolean: Show hidden parameters in the help message
 
     main:
 
@@ -51,10 +56,35 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+    before_text = """
+-\033[2m----------------------------------------------------\033[0m-
+                                        \033[0;32m,--.\033[0;30m/\033[0;32m,-.\033[0m
+\033[0;34m        ___     __   __   __   ___     \033[0;32m/,-._.--~\'\033[0m
+\033[0;34m  |\\ | |__  __ /  ` /  \\ |__) |__         \033[0;33m}  {\033[0m
+\033[0;34m  | \\| |       \\__, \\__/ |  \\ |___     \033[0;32m\\`-._,-`-,\033[0m
+                                        \033[0;32m`._,._,\'\033[0m
+\033[0;35m  nf-core/phaseimpute ${workflow.manifest.version}\033[0m
+-\033[2m----------------------------------------------------\033[0m-
+"""
+    after_text = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { "    https://doi.org/${it.trim().replace('https://doi.org/','')}"}.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/phaseimpute/blob/master/CITATIONS.md
+"""
+    command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
+
     UTILS_NFSCHEMA_PLUGIN (
         workflow,
         validate_params,
-        null
+        null,
+        help,
+        help_full,
+        show_hidden,
+        before_text,
+        after_text,
+        command
     )
 
 
@@ -80,7 +110,7 @@ workflow PIPELINE_INITIALISATION {
         ch_fasta  = Channel.of([[genome:genome], getGenomeAttribute('fasta')])
         fai       = getGenomeAttribute('fai')
         if (fai == null) {
-            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]), false)
             ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         } else {
@@ -92,7 +122,7 @@ workflow PIPELINE_INITIALISATION {
         if (params.fasta_fai) {
             fai = Channel.of(file(params.fasta_fai, checkIfExists:true))
         } else {
-            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]))
+            SAMTOOLS_FAIDX(ch_fasta, Channel.of([[], []]), false)
             ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
             fai         = SAMTOOLS_FAIDX.out.fai.map{ it[1] }
         }
@@ -173,8 +203,8 @@ workflow PIPELINE_INITIALISATION {
         // #TODO Add support for string input
         ch_regions  = getRegionFromFai("all", ch_ref_gen)
     }  else  if (params.input_region.endsWith(".csv")) {
-        println "Region file provided as input is a csv file"
-        ch_regions = Channel.fromList(samplesheetToList(
+        println "Region file provided as input is a samplesheet"
+        ch_regions = Channel.from(samplesheetToList(
             params.input_region, "${projectDir}/assets/schema_input_region.json"
         ))
         .map{ chr, start, end ->
@@ -406,15 +436,15 @@ def validateInputParameters() {
 
     // Check that posfile and chunks are provided when running impute only. Steps with panelprep generate those files.
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { it in ["all", "panelprep"] }) {
-        // Required by all tools except glimpse2
-        if (!params.tools.split(',').find { it in ["glimpse2"] }) {
+        // Required by all tools except glimpse2 and beagle5
+        if (!params.tools.split(',').find { it in ["glimpse2", "beagle5"] }) {
                 assert params.posfile : "No --posfile provided for --steps impute"
         }
-        // Required by all tools except STITCH
-        if (params.tools != "stitch") {
+        // Required by all tools except stitch and beagle5
+        if (!params.tools.split(',').find { it in ["stitch", "beagle5"] }) {
                 assert params.chunks : "No --chunks provided for --steps impute"
         }
-        // Required by GLIMPSE1 and GLIMPSE2 only
+        // Required by glimpse1 and glimpse2 only
         if (params.tools.split(',').contains("glimpse")) {
                 assert params.panel : "No --panel provided for imputation with GLIMPSE"
         }
@@ -464,6 +494,12 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
                 }
                 if (nb_input > 1) {
                     error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
+                }
+            }
+
+            if (extension ==~ "(bam|cram)?") {
+                if (tools.contains("beagle5")) {
+                    error "Beagle5 software cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
                 }
             }
 

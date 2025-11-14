@@ -13,7 +13,7 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
 
     // Convert VCF to Hap and Legend files
     BCFTOOLS_CONVERT(ch_vcf, ch_fasta, [])
-    ch_versions = ch_versions.mix(BCFTOOLS_CONVERT.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_CONVERT.out.versions.first())
 
     // Extract sites positions
     BCFTOOLS_VIEW(ch_vcf, [], [], [])

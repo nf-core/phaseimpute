@@ -111,7 +111,7 @@ The results from `--steps impute` will have the following directory structure:
 ```tree
 ├── batch
 ├── csv
-├── glimpse1/glimpse2/quilt/stitch
+├── glimpse1/glimpse2/quilt/stitch/beagle5
 │   ├── concat/
 │   └── samples/
 ├── stats

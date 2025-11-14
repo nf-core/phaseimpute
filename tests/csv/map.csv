@@ -1,3 +1,0 @@
-chr,map
-chr21,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38_21.map
-chr22,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38_22.map

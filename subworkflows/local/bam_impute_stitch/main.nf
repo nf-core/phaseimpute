@@ -23,8 +23,8 @@ workflow BAM_IMPUTE_STITCH {
     ngen_params             = params.ngen
 
     // Transform posfile to TSV with ','
-    GAWK(ch_posfile, [])
-    ch_versions = ch_versions.mix(GAWK.out.versions)
+    GAWK(ch_posfile, [], false)
+    ch_versions = ch_versions.mix(GAWK.out.versions.first())
 
     // Get chromosomes of posfile
     ch_posfile = GAWK.out.output
@@ -54,11 +54,11 @@ workflow BAM_IMPUTE_STITCH {
         }
 
     STITCH( ch_bam_params, ch_fasta, seed )
-    ch_versions = ch_versions.mix(STITCH.out.versions)
+    ch_versions = ch_versions.mix(STITCH.out.versions.first())
 
     // Index imputed annotated VCF
     BCFTOOLS_INDEX(STITCH.out.vcf)
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     // Join VCFs and TBIs
     ch_vcf_tbi = STITCH.out.vcf

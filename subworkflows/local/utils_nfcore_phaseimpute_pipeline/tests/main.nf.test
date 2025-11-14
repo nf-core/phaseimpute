@@ -14,7 +14,7 @@ nextflow_workflow {
                 fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
                 fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
-                map = "../../../tests/csv/map.csv"
+                map = "../../../tests/csv/map_glimpse.csv"
                 chunks = "../../../tests/csv/chunks.csv"
                 posfile = "../../../tests/csv/posfile.csv"
                 panel = "../../../tests/csv/panel.csv"
@@ -27,6 +27,10 @@ nextflow_workflow {
                 input[2] = false
                 input[3] = []
                 input[4] = "results"
+                input[5] = [] // input
+                input[6] = [] // help
+                input[7] = [] // help_full
+                input[8] = [] // show_hidden
                 """
             }
         }
@@ -45,7 +49,7 @@ nextflow_workflow {
                 fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
                 fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
-                map = "../../../tests/csv/map.csv"
+                map = "../../../tests/csv/map_glimpse.csv"
                 chunks = "../../../tests/csv/chunks.csv"
                 posfile = "../../../tests/csv/posfile.csv"
                 panel = "../../../tests/csv/panel.csv"
@@ -59,6 +63,10 @@ nextflow_workflow {
                 input[2] = false
                 input[3] = []
                 input[4] = "results"
+                input[5] = [] // input
+                input[6] = [] // help
+                input[7] = [] // help_full
+                input[8] = [] // show_hidden
                 """
             }
         }
@@ -90,6 +98,10 @@ nextflow_workflow {
                 input[2] = false
                 input[3] = []
                 input[4] = "results"
+                input[5] = [] // input
+                input[6] = [] // help
+                input[7] = [] // help_full
+                input[8] = [] // show_hidden
                 """
             }
         }

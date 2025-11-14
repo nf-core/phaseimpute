@@ -38,13 +38,15 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GAWK_ERROR_SPL(
         GLIMPSE2_CONCORDANCE.out.errors_spl,
-        []
+        [],
+        false
     )
     ch_versions = ch_versions.mix(GAWK_ERROR_SPL.out.versions.first())
 
     GAWK_RSQUARE_SPL(
         GLIMPSE2_CONCORDANCE.out.rsquare_spl,
-        []
+        [],
+        false
     )
     ch_versions = ch_versions.mix(GAWK_RSQUARE_SPL.out.versions.first())
 
@@ -68,7 +70,8 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
                 def all_files = sorted_list.collect { it[1] }
                 [["id": "AllSamples"], all_files]
             },
-        []
+        [],
+        false
     )
     ch_versions = ch_versions.mix(GAWK.out.versions.first())
 
