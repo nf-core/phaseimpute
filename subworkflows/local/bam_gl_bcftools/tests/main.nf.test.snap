@@ -2,13 +2,6 @@
     "Compute genotype likelihood with merging": {
         "content": [
             [
-                "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
-                "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                "versions.yml:md5,5c1d0190110ff1887f49323dec613345",
-                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
-                "versions.yml:md5,c2283f2ed9ba03c3c825227e66e9f962"
-            ],
-            [
                 [
                     {
                         "panel": "1000GP",
@@ -31,6 +24,10 @@
                     "all.annotate.vcf.gz",
                     "all.annotate.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA12878",
+                        "NA19401"
+                    ],
                     "36cfa7a92ace3d2db00d825f299b2fc2"
                 ]
             ],
@@ -63,19 +60,13 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T19:36:03.580546639"
+        "timestamp": "2025-11-17T16:41:23.996716684"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
-            [
-                "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
-                "versions.yml:md5,544ff5e39aa23f18c41587a739beaf34",
-                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
-                "versions.yml:md5,c2283f2ed9ba03c3c825227e66e9f962"
-            ],
             [
                 [
                     {
@@ -87,6 +78,9 @@
                     "NA12878.annotate.vcf.gz",
                     "NA12878.annotate.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA12878"
+                    ],
                     "6fea613c5a1786d27fbb31c682115701"
                 ]
             ],
@@ -114,9 +108,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T19:36:21.763544692"
+        "timestamp": "2025-11-17T16:41:36.238465198"
     }
 }

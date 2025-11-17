@@ -51,12 +51,12 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
                         path(it[2]).getFileName().toString(),
                         path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
                         path(it[1]).vcf.variantsMD5
                     ]},
                     workflow.out.versions.collect{ path(it).yaml }
@@ -93,12 +93,12 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
                         path(it[2]).getFileName().toString(),
                         path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
                         path(it[1]).vcf.variantsMD5
                     ]},
                     workflow.out.versions.collect{ path(it).yaml }
