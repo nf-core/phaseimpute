@@ -256,9 +256,8 @@
                 "map_sep": {
                     "type": "string",
                     "description": "Separator used in the genetic map file.",
-                    "default": "\\\\t",
+                    "default": "\\t",
                     "fa_icon": "fas fa-arrows-alt-h",
-                    "enum": ["\\\\t", ",", ";", " "],
                     "hidden": true
                 },
                 "map_header": {
