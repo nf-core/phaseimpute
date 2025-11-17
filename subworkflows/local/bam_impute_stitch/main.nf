@@ -39,7 +39,7 @@ workflow BAM_IMPUTE_STITCH {
         .map{
             metaI, bam, bai, bampath, bamname, metaPC, posfile, input, map, rdata, chr, k_val, ngen ->
             [
-                metaI + metaPC,
+                metaI + [chr: metaPC.chr, panel:metaPC.id],
                 bam, bai, bampath, bamname, posfile, input, map, rdata, chr, k_val, ngen
             ]
         }
