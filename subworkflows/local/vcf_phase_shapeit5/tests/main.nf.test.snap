@@ -1,5 +1,5 @@
 {
-    "Phase vcf with regions, no map, no ref, no scaffold, sequential model": {
+    "Phase vcf with regions, with map, no ref, no scaffold": {
         "content": [
             [
                 [
@@ -53,7 +53,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-17T10:32:57.204364086"
+        "timestamp": "2025-11-17T15:06:56.338958285"
     },
     "Phase vcf with regions, no map, no ref, no scaffold, sequential model": {
         "content": [
