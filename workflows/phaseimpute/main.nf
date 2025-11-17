@@ -368,7 +368,8 @@ workflow PHASEIMPUTE {
                 ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4], it[5]] },
                 ch_posfile.map{ [it[0], it[4]] },
                 ch_region,
-                ch_fasta
+                ch_fasta,
+                params.seed
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
