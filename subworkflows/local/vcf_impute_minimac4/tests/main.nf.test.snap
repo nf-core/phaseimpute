@@ -130,13 +130,13 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
             ],
             [
-                "ab57a5554b8c01ae0494318233d1b1dd"
+                "be422cc0fa79826edbaad1f9208640a1"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:00.295884864"
+        "timestamp": "2025-11-17T15:21:10.26386476"
     }
 }

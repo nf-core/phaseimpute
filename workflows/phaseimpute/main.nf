@@ -128,9 +128,10 @@ workflow PHASEIMPUTE {
         params.map_col_names
     )
 
-    // For glimpse: use converted maps when available, otherwise use original (empty) maps
     ch_map_glimpse = MAPCONVERT.out.glimpse_map.mix(ch_map_branched.empty)
-    ch_map_stitch = MAPCONVERT.out.stitch_map.mix(ch_map_branched.empty)
+    ch_map_stitch  = MAPCONVERT.out.stitch_map.mix(ch_map_branched.empty)
+    ch_map_plink   = MAPCONVERT.out.plink_map.mix(ch_map_branched.empty)
+    ch_map_minimac = MAPCONVERT.out.minimac_map.mix(ch_map_branched.empty)
 
     //
     // Simulate data if asked
@@ -445,7 +446,7 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_BEAGLE5(
                 ch_input_beagle5,
                 ch_panel_phased,
-                ch_map
+                ch_map_plink
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
 
@@ -471,7 +472,7 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_MINIMAC4(
                 ch_input_minimac4,
                 ch_panel_phased,
-                ch_map,
+                ch_map_minimac,
                 ch_posfile
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)

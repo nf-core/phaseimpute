@@ -55,7 +55,22 @@ nextflow_workflow {
     }
 
     test("Impute with minimac4 one vcf with map") {
-
+        setup{
+            run("MAPCONVERT") {
+                script "../../../../modules/local/mapconvert"
+                process {
+                    """
+                    input[0] = Channel.of([
+                        [chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
+                    ])
+                    input[1] = '\\t'
+                    input[2] = 'true'
+                    input[3] = 'pos,chr,cm'
+                    """
+                }
+            }
+        }
         when {
             workflow {
                 """
@@ -69,10 +84,7 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
                 ])
-                input[2] = Channel.of([
-                    [chr: "chr22"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
-                ])
+                input[2] = MAPCONVERT.out.minimac_map
                 input[3] = Channel.of([[chr: "chr22"], [], [], [], []])
                 """
             }
