@@ -31,28 +31,28 @@
                 },
                 {
                     "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz",
-                    "variants": "8be64b1d733dd35ef3fffb8dbf0811"
+                    "variants": "599d1405e45692254673ca70da46324e"
                 },
                 {
                     "file": "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz",
-                    "variants": "6c098621dbf68faeaf9694e20a15a507"
+                    "variants": "98764e151d545d5105a06533919fd7d0"
                 },
                 {
                     "file": "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz",
-                    "variants": "6c67f1eaef24639bbba89b6c82c2d4c9"
+                    "variants": "d8bafd94c2e557bcf18ce58c53712017"
                 },
                 {
                     "file": "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
-                    "variants": "1a01f157d01e8c24d73aa38aac76aba3"
+                    "variants": "128b5b6d7ab282a35d93d58b64388d86"
                 },
                 {
                     "file": "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi"
@@ -69,27 +69,68 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T16:30:45.683607262"
+        "timestamp": "2025-11-17T12:28:23.861003973"
     },
     "Check test_minimac4": {
         "content": [
             [
-                "imputation/csv/impute.csv",
-                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
-                "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
-                "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
-                "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
-                "imputation/stats/NA20359.minimac4.bcftools_stats.txt"
+                {
+                    "file": "imputation/csv/impute.csv"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "variants": "c74d089d2cf38846e568392bc9937e3f"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "variants": "8ea63fb223041415af6b5ecc8744d739"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "variants": "59ab2f53f42ad5cefe496f5e619137b9"
+                },
+                {
+                    "file": "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                    "variants": "c74d089d2cf38846e568392bc9937e3f"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                    "variants": "8ea63fb223041415af6b5ecc8744d739"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                    "variants": "59ab2f53f42ad5cefe496f5e619137b9"
+                },
+                {
+                    "file": "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi"
+                },
+                {
+                    "file": "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "md5": "512207546154b2d025f7548d8af5ed44"
+                },
+                {
+                    "file": "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "md5": "94a21347545f8c638203682c207f38b8"
+                },
+                {
+                    "file": "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
+                    "md5": "2d76824534c1c590cab1fcd0d122fda6"
+                }
             ],
             "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
             [
@@ -100,7 +141,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T16:31:55.652339556"
+        "timestamp": "2025-11-17T12:29:35.012358587"
     },
     "Check test_all": {
         "content": [
@@ -145,56 +186,56 @@
                 },
                 {
                     "file": "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
-                    "variants": "d5abde400d65c02769b95edc6eeb2824"
+                    "variants": "e83dd0904d67f653eb6794442d23c601"
                 },
                 {
                     "file": "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
-                    "variants": "8b032d362fef106dd4653c1dd92876d9"
+                    "variants": "94f53401e78a011f43aad56f2c98383"
                 },
                 {
                     "file": "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
-                    "variants": "6c6ed3672a6f2ebf8466a4cad9951ec4"
+                    "variants": "bf0b44768eda58f009726de64ed78763"
                 },
                 {
                     "file": "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz",
-                    "variants": "4cb0a54f35b6b84317774e48dfff5d0a"
+                    "variants": "646222174e920528274eb681e3699dd0"
                 },
                 {
                     "file": "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                    "variants": "ddf9ac51529bcb9eb689167481ef2ab3"
+                    "variants": "24bbf3f1ef923cfcb185de51df710817"
                 },
                 {
                     "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "variants": "e57e5252fdc8c3e2dab5a63bc9f4dc1f"
+                    "variants": "4209aa97a144dc463ba1cb970db8c49c"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "variants": "cd5d9c9275904711ce675e57e7377598"
+                    "variants": "3deb06740dbf050907d17014cb55e842"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "variants": "49812c7042a509e9ee3e270e4665c9d2"
+                    "variants": "ee20b777fb6c7ef3fa8d5ee6d91a3662"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
@@ -350,14 +391,14 @@
                 },
                 {
                     "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
-                    "variants": "ea065259234305ed739d1f090262cb85"
+                    "variants": "717edbcf352f88374ef5cc752ec65bb"
                 },
                 {
                     "file": "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi"
                 },
                 {
                     "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
-                    "variants": "8d590667ab1908c63dd9681834afe931"
+                    "variants": "481928a52994a1c1dcdc147199f053c7"
                 },
                 {
                     "file": "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi"
@@ -412,7 +453,7 @@
                 },
                 {
                     "file": "validation/stats/AllSamples.txt",
-                    "md5": "ebb450003722e664e6a074c3b80053dc"
+                    "md5": "ca6c79f7e86ded3e1748c423ad725c4a"
                 },
                 {
                     "file": "validation/stats/NA12878.truth.bcftools_stats.txt",
@@ -420,11 +461,11 @@
                 },
                 {
                     "file": "validation/stats/NA12878_P1000GP_Tglimpse1_SNP.txt",
-                    "md5": "ba2d742522613b970b54538066ca3f1a"
+                    "md5": "efcd7e595413ed93103727e7caf46664"
                 },
                 {
                     "file": "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "d02693a9b4c9ea113561c1cbc566e082"
+                    "md5": "f8aec2b9a61f2e51901316246e9d8c7a"
                 },
                 {
                     "file": "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
@@ -440,11 +481,11 @@
                 },
                 {
                     "file": "validation/stats/NA19401_P1000GP_Tglimpse1_SNP.txt",
-                    "md5": "dc8640317662c5a2d0b9ea66dec9f681"
+                    "md5": "938a13624344c62623dd8001aac4d10b"
                 },
                 {
                     "file": "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "66e033483df5ee88af145b6ef6198327"
+                    "md5": "34e3895a09bb23a949b407250dcbfd66"
                 },
                 {
                     "file": "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
@@ -460,11 +501,11 @@
                 },
                 {
                     "file": "validation/stats/NA20359_P1000GP_Tglimpse1_SNP.txt",
-                    "md5": "5ce185a2ad94195c91bd8b4424a35dd7"
+                    "md5": "0353a9871b0afe81c0a169d1e6bed459"
                 },
                 {
                     "file": "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
-                    "md5": "40479f6339aeb3c5ef52c3a894b7edaf"
+                    "md5": "0b64bd723880c5cf81936d50d479e228"
                 },
                 {
                     "file": "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt",
@@ -504,7 +545,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T20:20:35.898585112"
+        "timestamp": "2025-11-17T12:32:06.552793568"
     },
     "Check test_validate": {
         "content": [
@@ -1057,28 +1098,28 @@
                 },
                 {
                     "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                    "variants": "9790cb98e9962718219b010ef3c437a6"
+                    "variants": "f785418667371a848de972ca2e1a7e60"
                 },
                 {
                     "file": "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "variants": "ba01c584c5796df11ac816c6adcffb77"
+                    "variants": "43231c96d48eb43cbc5e4de17630629c"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "variants": "733b03300e1a988c45beb729ab85311c"
+                    "variants": "21b6a457a9283d70fad89e0081206577"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "variants": "5d8fa0cd3d01242d84f20afb10912198"
+                    "variants": "997b3bb1a835bd789993f2ca56a4e949"
                 },
                 {
                     "file": "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi"
@@ -1107,7 +1148,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T20:11:32.824928238"
+        "timestamp": "2025-11-17T12:26:44.505737616"
     },
     "Check test_dog": {
         "content": [
