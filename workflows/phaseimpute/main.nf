@@ -36,6 +36,9 @@ include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { chunkPrepareChannel                        } from './function.nf'
 
+// Genetic map conversion module
+include { MAPCONVERT                                 } from '../../modules/local/mapconvert/main.nf'
+
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
@@ -107,6 +110,27 @@ workflow PHASEIMPUTE {
     main:
 
     ch_multiqc_files = Channel.empty()
+
+    // Split the channel into empty and non-empty map files
+    ch_map
+        .branch { meta, map_file ->
+            empty: !map_file || map_file.isEmpty()
+                return [meta, map_file]
+            valid: true
+                return [meta, map_file]
+        }
+        .set { ch_map_branched }
+
+    MAPCONVERT(
+        ch_map_branched.valid,
+        params.map_sep,
+        params.map_header,
+        params.map_col_names
+    )
+
+    // For glimpse: use converted maps when available, otherwise use original (empty) maps
+    ch_map_glimpse = MAPCONVERT.out.glimpse_map.mix(ch_map_branched.empty)
+    ch_map_stitch = MAPCONVERT.out.stitch_map.mix(ch_map_branched.empty)
 
     //
     // Simulate data if asked
@@ -210,7 +234,7 @@ workflow PHASEIMPUTE {
                 ch_region,
                 [[],[],[]],
                 [[],[],[]],
-                ch_map,
+                ch_map_glimpse,
                 chunk_model
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
@@ -218,7 +242,7 @@ workflow PHASEIMPUTE {
         }
 
         // Create chunks from reference VCF
-        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map, chunk_model)
+        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map_glimpse, chunk_model)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
         // Assign chunks channels
@@ -322,7 +346,8 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_GLIMPSE1(
                 ch_input_glimpse1,
                 ch_panel_phased,
-                ch_chunks_glimpse1
+                ch_chunks_glimpse1,
+                ch_map_glimpse
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 
@@ -349,7 +374,8 @@ workflow PHASEIMPUTE {
                     .mix(ch_input_type.vcf.combine(Channel.of([[]]))),
                 ch_panel_phased,
                 ch_chunks_glimpse2,
-                ch_fasta
+                ch_fasta,
+                ch_map_glimpse
             )
             ch_versions = ch_versions.mix(BAM_VCF_IMPUTE_GLIMPSE2.out.versions)
             // Concatenate by chromosomes
@@ -394,7 +420,8 @@ workflow PHASEIMPUTE {
                 ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4], it[5]] },
                 ch_posfile.map{ [it[0], it[3], it[4]] },
                 ch_chunks_quilt,
-                ch_fasta.map{ [it[0], it[1]] }
+                ch_fasta.map{ [it[0], it[1]] },
+                ch_map_stitch
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
