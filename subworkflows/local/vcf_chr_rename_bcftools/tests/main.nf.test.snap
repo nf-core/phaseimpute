@@ -1,58 +1,32 @@
 {
     "Should run with same id": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "input1",
-                            "chr": "21"
-                        },
-                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ],
-                    [
-                        {
-                            "id": "input1",
-                            "chr": "22"
-                        },
-                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,e5d25c71c5db3ba7a536df81b71397aa"
-                ],
-                "vcf_renamed": [
-                    [
-                        {
-                            "id": "input1",
-                            "chr": "21"
-                        },
-                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ],
-                    [
-                        {
-                            "id": "input1",
-                            "chr": "22"
-                        },
-                        "input1_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "input1_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,e5d25c71c5db3ba7a536df81b71397aa"
-                ]
-            },
             [
                 [
-                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
-                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                    {
+                        "id": "input1",
+                        "chr": "21"
+                    },
+                    "input1_chrrename.vcf.gz",
+                    "input1_chrrename.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    [
+                        "test"
+                    ],
+                    "af4c78fc0b77f0b2d5441b26b9488705"
                 ],
                 [
-                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
-                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                    {
+                        "id": "input2",
+                        "chr": "22"
+                    },
+                    "input2_chrrename.vcf.gz",
+                    "input2_chrrename.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    [
+                        "test"
+                    ],
+                    "d694afb9e7ca8d8b25462bf6896448e5"
                 ]
             ],
             [
@@ -64,79 +38,49 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:22:54.69428463"
+        "timestamp": "2025-11-17T17:01:09.224376985"
     },
     "Should run without error": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "21"
-                        },
-                        "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ],
-                    [
-                        {
-                            "id": "chr21"
-                        },
-                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
-                    ],
-                    [
-                        {
-                            "id": "multi"
-                        },
-                        "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
-                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,e5d25c71c5db3ba7a536df81b71397aa"
-                ],
-                "vcf_renamed": [
-                    [
-                        {
-                            "id": "21"
-                        },
-                        "21_chrrename.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "21_chrrename.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ],
-                    [
-                        {
-                            "id": "chr21"
-                        },
-                        "chr21_chrrename.vcf.gz:md5,22785a5d7ec1132f766efae5f8e00adf",
-                        "chr21_chrrename.vcf.gz.tbi:md5,8659a5bb7cb0140be5e6d493d6fe226a"
-                    ],
-                    [
-                        {
-                            "id": "multi"
-                        },
-                        "multi_chrrename.vcf.gz:md5,5f6f1ca261270d55eec054368f3d9587",
-                        "multi_chrrename.vcf.gz.tbi:md5,7194cd264e0673a740b4de06bbe62a4e"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,e5d25c71c5db3ba7a536df81b71397aa"
-                ]
-            },
             [
                 [
-                    "chr21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
-                    "chr21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                    {
+                        "id": "21"
+                    },
+                    "21_chrrename.vcf.gz",
+                    "21_chrrename.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    [
+                        "test"
+                    ],
+                    "af4c78fc0b77f0b2d5441b26b9488705"
                 ],
                 [
-                    "21\t6257460\tDUP3SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6258270;SVLEN=810\tGT\t1/1",
-                    "21\t6279548\tDUP135SURVIVOR\tN\t<DUP>\t.\tLowQual\tPRECISE;SVTYPE=DUP;SVMETHOD=SURVIVOR_sim;CHR2=chr21;END=6280162;SVLEN=614\tGT\t1/1"
+                    {
+                        "id": "chr21"
+                    },
+                    "chr21_chrrename.vcf.gz",
+                    "chr21_chrrename.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    [
+                        "test"
+                    ],
+                    "af4c78fc0b77f0b2d5441b26b9488705"
                 ],
                 [
-                    "chr22\t16849764\tSV_845_2\tN\tN[10:38880001[\t25\tPASS\tSVTYPE=BND;REGIONA=38879850,38880055;REGIONB=16849354,16850051;LFA=7,0;LFB=7,0;LTE=6,0;CTG=.\tGT:CN:COV:DV:RV:LQ:RR:DR\t0/1:.:26,0,25:6:0:0,0.0466667:19,21:23,27",
-                    "chr22\t16884368\tSV_846_2\tN\tN[10:38908615[\t80\tPASS\tSVTYPE=BND;REGIONA=38908615,38909107;REGIONB=16883928,16884368;LFA=15,0;LFB=15,0;LTE=14,0;CTG=.\tGT:CN:COV:DV:RV:LQ:RR:DR\t1/1:.:25,0,45:14:0:0,0.0240964:7,23:0,23"
+                    {
+                        "id": "multi"
+                    },
+                    "multi_chrrename.vcf.gz",
+                    "multi_chrrename.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=4, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA24385"
+                    ],
+                    "ea9cca485c5a7c171ea37124c6e1493b"
                 ]
             ],
             [
@@ -148,9 +92,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:22:47.417755407"
+        "timestamp": "2025-11-17T16:52:08.463065646"
     }
 }

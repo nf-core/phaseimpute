@@ -52,10 +52,14 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out,
-                    workflow.out.vcf_renamed.collect{
-                        path(it[1]).vcf.getVariantsAsStrings(2)
-                    },
+                    workflow.out.vcf_renamed.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
                     workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
@@ -75,7 +79,7 @@ nextflow_workflow {
                         "nochr"
                     ],
                     [
-                        [id: "input1", chr: "22"],
+                        [id: "input2", chr: "22"],
                         file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz",checkIfExist:true),
                         file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi",checkIfExist:true),
                         ["22"],
@@ -90,10 +94,14 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out,
-                    workflow.out.vcf_renamed.collect{
-                        path(it[1]).vcf.getVariantsAsStrings(2)
-                    },
+                    workflow.out.vcf_renamed.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
                     workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )

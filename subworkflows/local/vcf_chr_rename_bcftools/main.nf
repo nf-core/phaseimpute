@@ -18,15 +18,19 @@ workflow VCF_CHR_RENAME_BCFTOOLS {
     }
 
     // Generate the chromosome renaming file
-    ch_rename_file = ch_vcf
-        .collectFile{ meta, _vcf, _index, diff, prefix ->
-            def chr = diff.collect { i ->
-                prefix == "chr" ? "${i} chr${i}" :
-                "${i} ${i.replace('chr', '')}"
-            }.join('\n')
-            ["${meta.id}.txt", "${chr}\n"]
-        }
-        .map{ file -> [[id: file.getBaseName()], file] }
+    ch_rename_file = ch_vcf.map { meta, _vcf, _index, diff, prefix ->
+        def chr = diff.collect { i ->
+            prefix == "chr" ?
+                "${i.replace('chr', '')}\tchr${i.replace('chr', '')}" :
+                "chr${i.replace('chr', '')}\t${i.replace('chr', '')}"
+        }.join('\n')
+
+        def rename_filename = "${meta.id}.txt"
+        def rename_file = file(rename_filename)
+        rename_file.text = chr + '\n'
+
+        [[id: meta.id], rename_file]
+    }
 
     // Add the chromosome renaming file to the input channel
     ch_annotate_input = ch_vcf.map {
