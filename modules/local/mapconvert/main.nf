@@ -21,7 +21,7 @@ process MAPCONVERT {
     path "versions.yml"                   , emit: versions
 
     when:
-        map_file && (task.ext.when == null || task.ext.when)
+        task.ext.when == null || task.ext.when
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"

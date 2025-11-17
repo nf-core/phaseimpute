@@ -107,15 +107,26 @@ workflow PHASEIMPUTE {
 
     ch_multiqc_files = Channel.empty()
 
+    // Split the channel into empty and non-empty map files
+    ch_map
+        .branch { meta, map_file ->
+            empty: !map_file || map_file.isEmpty()
+                return [meta, map_file]
+            valid: true
+                return [meta, map_file]
+        }
+        .set { ch_map_branched }
+
     MAPCONVERT(
-        ch_map,
+        ch_map_branched.valid,
         params.map_sep,
         params.map_header,
         params.map_col_names
     )
 
-    ch_map_glimpse = MAPCONVERT.out.glimpse_map.ifEmpty(ch_map)
-    ch_map_stitch  = MAPCONVERT.out.stitch_map.ifEmpty(ch_map)
+    // For glimpse: use converted maps when available, otherwise use original (empty) maps
+    ch_map_glimpse = MAPCONVERT.out.glimpse_map.mix(ch_map_branched.empty)
+    ch_map_stitch = MAPCONVERT.out.stitch_map.mix(ch_map_branched.empty)
 
     //
     // Simulate data if asked
