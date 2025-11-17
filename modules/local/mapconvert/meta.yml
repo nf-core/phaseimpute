@@ -1,0 +1,91 @@
+name: mapconvert
+description: Convert a map to different file formats
+keywords:
+  - map
+  - gawk
+tools:
+  - annotate:
+      description: |
+        Convert a genomic map file to different format.
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test', single_end:false ]
+    - map_file:
+        type: file
+        description: Genomic map file to process
+  - sep:
+      type: string
+      description: Separator used in the input map file
+  - header:
+      type: boolean
+      description: Whether the input map file contains a header line
+  - col_names:
+      type: string
+      description: |
+        Comma-separated list of column names in the input map file
+        Recognized names are: chr, pos, cM, rate and id
+output:
+  glimpse_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.glimpse.map":
+          type: file
+          description: |
+            File containing the map in Glimpse format:
+            tab-delimited file with header and columns:
+            pos, chr, cM
+          pattern: "*.glimpse.map"
+  plink_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.plink.map":
+          type: file
+          description: |
+            File containing the map in PLINK format:
+            space-delimited file without header and columns:
+            chr, id, cM, pos
+          pattern: "*.plink.map"
+  stitch_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.stitch.map":
+          type: file
+          description: |
+            File containing the map in STITCH format:
+            space-delimited file with header and columns:
+            pos, rate, cM
+          pattern: "*.stitch.map"
+  minimac_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.minimac.map":
+          type: file
+          description: |
+            File containing the map in Minimac format:
+            tab-delimited file with header and columns:
+            chr, pos, cM
+          pattern: "*.minimac.map"
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"
