@@ -3,8 +3,8 @@
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
+                "versions.yml:md5,56504adad23a0a94f39593f038622311",
+                "versions.yml:md5,b1f40849c21576f374f74e04c423a44b",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
             ],
             [
@@ -54,14 +54,14 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T21:17:25.525373066"
+        "timestamp": "2025-11-17T15:02:39.428995692"
     },
     "Impute with glimpse2 one individual - input file bam with bamlist": {
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
+                "versions.yml:md5,56504adad23a0a94f39593f038622311",
+                "versions.yml:md5,b1f40849c21576f374f74e04c423a44b",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
             ],
             [
@@ -111,14 +111,14 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T21:18:20.282109065"
+        "timestamp": "2025-11-17T15:03:04.379862955"
     },
     "Impute with glimpse2 two individuals - input bam  with bamlist - two chromosomes": {
         "content": [
             [
                 "versions.yml:md5,3500318c881e3f24e9dd2fddc593142a",
-                "versions.yml:md5,678ab7ae0760a640287ef58f437e597e",
-                "versions.yml:md5,77e0f5e84850663e3641f03b3b7a564f",
+                "versions.yml:md5,56504adad23a0a94f39593f038622311",
+                "versions.yml:md5,b1f40849c21576f374f74e04c423a44b",
                 "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9"
             ],
             [
@@ -184,6 +184,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T21:17:58.233557523"
+        "timestamp": "2025-11-17T15:02:53.75618926"
     }
 }
