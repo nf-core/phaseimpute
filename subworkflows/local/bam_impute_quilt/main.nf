@@ -8,26 +8,24 @@ workflow BAM_IMPUTE_QUILT {
     ch_hap_legend        // channel: [ [panel, chr], hap, legend ]
     ch_chunks            // channel: [ [panel, chr], chr, start_coordinate, end_coordinate ]
     ch_fasta             // channel: [ [genome], fa, fai ]
+    ch_map               // channel: [ [chr], map_file ]
 
     main:
 
     ch_versions = Channel.empty()
-
-    genetic_map_file    = []
 
     ngen_params         = params.ngen
     buffer_params       = params.buffer
 
     ch_hap_chunks = ch_hap_legend
         .combine(ch_chunks, by:0)
-        .map { it + ngen_params + buffer_params + [[]] }
-
-    if (!genetic_map_file.isEmpty()) {
-        // Add genetic map file (untested)
-        ch_hap_chunks = ch_hap_chunks
-            .map{it[0..-1]}
-            .join(genetic_map_file)
-    }
+        .map{ metaPC, hap, legend, chr, start, end ->
+            [metaPC.subMap("chr"), metaPC, hap, legend, chr, start, end]
+        }
+        .combine(ch_map, by:0)
+        .map{ _metaC, metaPC, hap, legend, chr, start, end, map ->
+            [metaPC, hap, legend, chr, start, end, ngen_params, buffer_params, map]
+        }
 
     ch_quilt = ch_input
         .combine(ch_hap_chunks)
