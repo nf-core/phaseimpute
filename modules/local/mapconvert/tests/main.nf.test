@@ -33,6 +33,30 @@ nextflow_process {
         }
     }
 
+    test("Convert map with pos\tchr\tcm (glimpse format)") {
+        when {
+            process {
+                """
+                def file = Channel.fromPath("${moduleDir}/tests/resources/pos_chr_cm_tab_header.map.gz")
+                input[0] = Channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = '\t'
+                input[2] = 'true'
+                input[3] = 'pos,chr,cm'
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out.versions,
+                    path(process.out.stitch_map[0][1]).readLines()
+                ).match() }
+            )
+        }
+    }
+
     test("Convert map with pos cm") {
 
         when {
@@ -92,6 +116,33 @@ nextflow_process {
                 input[1] = ' '
                 input[2] = 'true'
                 input[3] = 'pos,rate,cm'
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out.versions,
+                    path(process.out.stitch_map[0][1]).readLines()
+                ).match() }
+            )
+        }
+    }
+
+    test("Convert map with chr id cm pos (plink format) distant") {
+        tag "test"
+        when {
+            process {
+                """
+                input[0] = Channel.of([
+                    [id: "test", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)
+                ])
+                input[1] = ' '
+                input[2] = 'false'
+                input[3] = 'chr,id,pos,cm'
                 """
             }
         }
