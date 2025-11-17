@@ -9,6 +9,7 @@ workflow BAM_IMPUTE_STITCH {
     ch_posfile      // channel:   [ [panel, chr], legend ]
     ch_region       // channel:   [ [chr, region], region ]
     ch_fasta        // channel:   [ [genome], fa, fai ]
+    seed            // value:     random seed for stitch
 
     main:
 
@@ -51,7 +52,7 @@ workflow BAM_IMPUTE_STITCH {
             ]
         }
 
-    STITCH( ch_bam_params, ch_fasta, params.seed )
+    STITCH( ch_bam_params, ch_fasta, seed )
     ch_versions = ch_versions.mix(STITCH.out.versions.first())
 
     // Index imputed annotated VCF

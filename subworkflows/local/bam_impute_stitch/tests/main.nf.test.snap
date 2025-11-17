@@ -2,11 +2,6 @@
     "Impute with stitch two individuals with bamlist and no renaming": {
         "content": [
             [
-                "versions.yml:md5,6f24e95192f2dde0f16d27dfe922b651",
-                "versions.yml:md5,8b0020b997bad45e9e3cf0d9b868a3b2",
-                "versions.yml:md5,c0772dccc2cc2a3c8f0b3fa5f02312bc"
-            ],
-            [
                 [
                     {
                         "id": "allid",
@@ -15,16 +10,13 @@
                         "tools": "stitch"
                     },
                     "allid.stitch.vcf.gz",
-                    "allid.stitch.vcf.gz.tbi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
-            ],
-            [
-                [
-                    "NA12878",
-                    "NA19401"
+                    "allid.stitch.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA12878",
+                        "NA19401"
+                    ],
+                    "79340bfc00aac4b559a732078a38291c"
                 ]
             ],
             [
@@ -47,19 +39,14 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:19:24.346949068"
+        "timestamp": "2025-11-17T16:06:28.406817003"
     },
     "Impute with stitch two individuals with bamlist and renaming": {
         "content": [
             [
-                "versions.yml:md5,6f24e95192f2dde0f16d27dfe922b651",
-                "versions.yml:md5,8b0020b997bad45e9e3cf0d9b868a3b2",
-                "versions.yml:md5,c0772dccc2cc2a3c8f0b3fa5f02312bc"
-            ],
-            [
                 [
                     {
                         "id": "allid",
@@ -68,16 +55,13 @@
                         "tools": "stitch"
                     },
                     "allid.stitch.vcf.gz",
-                    "allid.stitch.vcf.gz.tbi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
-            ],
-            [
-                [
-                    "MySample1",
-                    "MySample2"
+                    "allid.stitch.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "MySample1",
+                        "MySample2"
+                    ],
+                    "79340bfc00aac4b559a732078a38291c"
                 ]
             ],
             [
@@ -100,9 +84,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:19:13.509502869"
+        "timestamp": "2025-11-17T16:06:13.43712631"
     }
 }
