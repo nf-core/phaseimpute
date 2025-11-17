@@ -1,5 +1,5 @@
 {
-    "Impute with glimpse1 one vcf": {
+    "Impute with glimpse1 one vcf with map": {
         "content": [
             [
                 "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
@@ -68,7 +68,7 @@
         },
         "timestamp": "2025-07-08T15:23:52.452434359"
     },
-    "Impute with glimpse1 two vcf": {
+    "Impute with glimpse1 two vcf no map": {
         "content": [
             [
                 "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
