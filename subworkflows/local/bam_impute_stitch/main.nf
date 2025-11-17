@@ -7,14 +7,13 @@ workflow BAM_IMPUTE_STITCH {
     take:
     ch_input        // channel:   [ [id], [bam], [bai], bampaths, bamnames ]
     ch_posfile      // channel:   [ [panel, chr], legend ]
-    ch_region       // channel:   [ [chr, region], region ]
     ch_fasta        // channel:   [ [genome], fa, fai ]
+    ch_map          // channel:   [ [chr], map ]
+    seed            // value:     seed for random number generator
 
     main:
 
     ch_versions      = Channel.empty()
-    // Run STITCH
-    seed = params.seed
 
     // Value channels
     def input_empty         = [[]]
@@ -26,30 +25,22 @@ workflow BAM_IMPUTE_STITCH {
     GAWK(ch_posfile, [], false)
     ch_versions = ch_versions.mix(GAWK.out.versions.first())
 
-    // Get chromosomes of posfile
-    ch_posfile = GAWK.out.output
-        .map{metaPC, posfile -> [[chr: metaPC.chr], metaPC, posfile]}
-
-    // Get chromosomes of fasta
-    ch_chromosomes = ch_region
-        .map{metaCR, _region -> [[chr: metaCR.chr], metaCR.chr]}
-
     // Make final channel with parameters
-    ch_parameters = ch_posfile
-        .map { it + input_empty + rdata_empty}
-        .join(ch_chromosomes)
-        .map { it + k_val_params + ngen_params}
-        .map { _metaC, metaPC, posfile, input, rdata, chr, k_val, ngen ->
-            [metaPC, posfile, input, rdata, chr, k_val, ngen]
+    ch_parameters = GAWK.out.output
+        .map{metaPC, posfile -> [[chr: metaPC.chr], metaPC, posfile]}
+        .map { it + input_empty + rdata_empty + k_val_params + ngen_params}
+        .combine(ch_map, by: 0)
+        .map { _metaC, metaPC, posfile, input, rdata, k_val, ngen, map ->
+            [metaPC, posfile, input, map, rdata, metaPC.chr, k_val, ngen]
         }
 
     ch_bam_params = ch_input // Add chr to meta map
         .combine(ch_parameters)
         .map{
-            metaI, bam, bai, bampath, bamname, metaPC, posfile, input, rdata, chr, k_val, ngen ->
+            metaI, bam, bai, bampath, bamname, metaPC, posfile, input, map, rdata, chr, k_val, ngen ->
             [
-                metaI + [chr: metaPC.chr, panel:metaPC.id],
-                bam, bai, bampath, bamname, posfile, input, rdata, chr, k_val, ngen
+                metaI + metaPC,
+                bam, bai, bampath, bamname, posfile, input, map, rdata, chr, k_val, ngen
             ]
         }
 
@@ -63,7 +54,7 @@ workflow BAM_IMPUTE_STITCH {
     // Join VCFs and TBIs
     ch_vcf_tbi = STITCH.out.vcf
         .join(BCFTOOLS_INDEX.out.tbi)
-        .map { metaI, vcf, tbi -> [ metaI + [tools: "stitch"], vcf, tbi ] }
+        .map { metaIPC, vcf, tbi -> [ metaIPC + [tools: "stitch"], vcf, tbi ] }
 
     emit:
     vcf_tbi  = ch_vcf_tbi                        // channel:   [ [id, chr], vcf, tbi ]
