@@ -27,14 +27,16 @@ input:
           description: Panel VCF index files
           pattern: "*.{tbi,csi}"
   - ch_map:
-      description: Channel with genetic map data (optional)
+      description: Channel with genetic map data
       structure:
         - meta:
           type: map
-          description: Metadata map
+          description: |
+            Metadata map containing chromosome information
+            Need to have "chr" as chromosome name
         - map:
           type: file
-          description: Map file
+          description: Glimpse format genetic map files
           pattern: "*.map"
   - chunk_model:
       description: Chunk model for Glimpse2

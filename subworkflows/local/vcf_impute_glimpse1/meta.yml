@@ -58,6 +58,18 @@ input:
           type: string
           description: Target imputed region, excluding left and right buffers
           pattern: "[chr][0-9]+:[0-9]+-[0-9]+"
+  - ch_map:
+      description: Channel with genetic map data
+      structure:
+        - meta:
+          type: map
+          description: |
+            Metadata map containing chromosome information
+            Need to have "chr" as chromosome name
+        - map:
+          type: file
+          description: Glimpse format genetic map files
+          pattern: "*.map"
 output:
   - vcf_tbi:
       description: Channel with imputed VCF files
