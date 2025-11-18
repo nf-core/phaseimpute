@@ -43,7 +43,7 @@ workflow BAM_IMPUTE_QUILT {
     // Annotate the variants
     BCFTOOLS_ANNOTATE(QUILT_QUILT.out.vcf
         .join(QUILT_QUILT.out.tbi)
-        .combine(Channel.of([[], [], [], []]))
+        .combine(channel.of([[], [], [], []]))
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
 
