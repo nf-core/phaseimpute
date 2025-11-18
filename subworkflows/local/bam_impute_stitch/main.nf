@@ -13,11 +13,11 @@ workflow BAM_IMPUTE_STITCH {
 
     main:
 
-    ch_versions      = Channel.empty()
+    ch_versions      = channel.empty()
 
     // Value channels
-    def input_empty         = [[]]
-    def rdata_empty         = [[]]
+    def input_empty         = []
+    def rdata_empty         = []
     k_val_params            = params.k_val
     ngen_params             = params.ngen
 
@@ -27,8 +27,10 @@ workflow BAM_IMPUTE_STITCH {
 
     // Make final channel with parameters
     ch_parameters = GAWK.out.output
-        .map{metaPC, posfile -> [[chr: metaPC.chr], metaPC, posfile]}
-        .map { it + input_empty + rdata_empty + k_val_params + ngen_params}
+        .map { metaPC, posfile -> [
+            [chr: metaPC.chr], metaPC, posfile,
+            input_empty, rdata_empty, k_val_params, ngen_params
+        ]}
         .combine(ch_map, by: 0)
         .map { _metaC, metaPC, posfile, input, rdata, k_val, ngen, map ->
             [metaPC, posfile, input, map, rdata, metaPC.chr, k_val, ngen]
