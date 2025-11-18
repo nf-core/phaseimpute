@@ -1,5 +1,5 @@
 {
-    "Impute with stitch two individuals with bamlist and no renaming": {
+    "Impute with stitch two individuals with bamlist, renaming and map ": {
         "content": [
             [
                 "versions.yml:md5,6f24e95192f2dde0f16d27dfe922b651",
@@ -9,50 +9,28 @@
             [
                 [
                     {
-                        "id": "allid",
+                        "id": "1000GP",
                         "chr": "chr22",
-                        "panel": "1000GP",
                         "tools": "stitch"
                     },
-                    "allid.stitch.vcf.gz",
-                    "allid.stitch.vcf.gz.tbi"
+                    "1000GP.stitch.vcf.gz",
+                    "1000GP.stitch.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "MySample1",
+                        "MySample2"
+                    ],
+                    "9fe2a3afe1a9c77ca72a40d8fa1db8b0"
                 ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
-            ],
-            [
-                [
-                    "NA12878",
-                    "NA19401"
-                ]
-            ],
-            [
-                {
-                    "BAM_IMPUTE_STITCH:BCFTOOLS_INDEX": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:STITCH": {
-                        "r-base": "4.4.2",
-                        "r-stitch": "1.7.3"
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:GAWK": {
-                        "gawk": "5.3.0"
-                    }
-                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:19:24.346949068"
+        "timestamp": "2025-11-17T19:02:00.292510597"
     },
-    "Impute with stitch two individuals with bamlist and renaming": {
+    "Impute with stitch two individuals with bamlist, no renaming, no map": {
         "content": [
             [
                 "versions.yml:md5,6f24e95192f2dde0f16d27dfe922b651",
@@ -62,47 +40,25 @@
             [
                 [
                     {
-                        "id": "allid",
+                        "id": "1000GP",
                         "chr": "chr22",
-                        "panel": "1000GP",
                         "tools": "stitch"
                     },
-                    "allid.stitch.vcf.gz",
-                    "allid.stitch.vcf.gz.tbi"
+                    "1000GP.stitch.vcf.gz",
+                    "1000GP.stitch.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA12878",
+                        "NA19401"
+                    ],
+                    "79340bfc00aac4b559a732078a38291c"
                 ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
-            ],
-            [
-                [
-                    "MySample1",
-                    "MySample2"
-                ]
-            ],
-            [
-                {
-                    "BAM_IMPUTE_STITCH:BCFTOOLS_INDEX": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:STITCH": {
-                        "r-base": "4.4.2",
-                        "r-stitch": "1.7.3"
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:GAWK": {
-                        "gawk": "5.3.0"
-                    }
-                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:19:13.509502869"
+        "timestamp": "2025-11-17T19:02:21.279618762"
     }
 }
