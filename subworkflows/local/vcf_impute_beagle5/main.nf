@@ -23,15 +23,14 @@ workflow VCF_IMPUTE_BEAGLE5 {
     // Convert BCF to VCF if necessary
     BCFTOOLS_VIEW(
         ch_input_branched.bcf,
-        [],
-        [],
-        []
+        [], [], []
     )
     ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
     // Combine VCF files
     ch_ready_vcf = ch_input_branched.vcf
         .mix(BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_VIEW.out.csi))
+        .view()
 
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
@@ -40,11 +39,9 @@ workflow VCF_IMPUTE_BEAGLE5 {
             metaI, input_vcf, input_index, metaPC, panel_vcf, panel_index -> [
             metaPC.subMap("chr"), metaI + [ panel: metaPC.id, chr: metaPC.chr ],
             input_vcf, input_index, panel_vcf, panel_index
-        ]}.view()
+        ]}
         .combine(
-            ch_map.map { metaC, map ->
-                [ metaC.subMap("chr"), map ]
-            }.view(),
+            ch_map.map { metaC, map -> [ metaC.subMap("chr"), map ]},
             by: 0
         )
         .map { _metaC, metaIPC, input_vcf, input_index, panel_vcf, panel_index, map ->
