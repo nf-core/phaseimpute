@@ -18,13 +18,11 @@ nextflow_workflow {
     tag "bcftools/index"
 
     test("Impute with beagle5 one vcf") {
-        tag "test"
-
         when {
             workflow {
                 """
                 input[0] = Channel.of([
-                    [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                    [id: "NA12878"],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
                 ])
@@ -44,14 +42,15 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_index.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -63,7 +62,7 @@ nextflow_workflow {
             workflow {
                 """
                 input[0] = Channel.of([
-                    [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                    [id: "NA12878"],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
                 ])
@@ -84,14 +83,15 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_index.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -104,12 +104,12 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     [
-                        [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                        [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
                     ],
                     [
-                        [id: "NA19401", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
+                        [id: "NA19401"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi", checkIfExist:true)
                     ]
@@ -130,34 +130,36 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_index.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
     }
 
     test("Impute with beagle5 multiple chromosomes") {
+        tag "test"
 
         when {
             workflow {
                 """
                 input[0] = Channel.of(
                     [
-                        [id: "NA12878", panel: "1000GP", chr: "chr21", region: "chr21:16570000-16610000"],
+                        [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
                     ],
                     [
-                        [id: "NA12878", panel: "1000GP", chr: "chr22", region: "chr22:16570000-16610000"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true)
+                        [id: "NA19401"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi", checkIfExist:true)
                     ]
                 )
                 input[1] = Channel.of(
@@ -190,14 +192,15 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_index.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] }.sort { it[0].chr },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary }.sort(),
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }.sort()
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }

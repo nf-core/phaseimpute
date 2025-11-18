@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#183](https://github.com/nf-core/phaseimpute/pull/183) - Remove wrongfully added files in `BAM_EXTRACT_REGION_SAMTOOLS`.
 - [#185](https://github.com/nf-core/phaseimpute/pull/185) - Fix CSV generation and check that all mentioned path files exist.
 - [#189](https://github.com/nf-core/phaseimpute/pull/189) - Set meta map id as string to avoid error when using numbers in csv files.
+- [#224](https://github.com/nf-core/phaseimpute/pull/224) - Fix channel aggregation in `VCF_IMPUTE_BEAGLE5` subworkflow.
 
 ### `Dependencies`
 

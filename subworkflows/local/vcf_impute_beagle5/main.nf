@@ -5,7 +5,7 @@ include { BCFTOOLS_VIEW  } from '../../../modules/nf-core/bcftools/view'
 
 workflow VCF_IMPUTE_BEAGLE5 {
     take:
-    ch_input  // channel: [ [id, chr], vcf, tbi ]
+    ch_input  // channel: [ [id], vcf, tbi ]
     ch_panel  // channel: [ [id, chr], vcf, tbi ]
     ch_map    // channel: [ [chr], map]
 
@@ -35,24 +35,21 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
-    .map { meta, vcf, index ->
-        [ meta.chr, meta, vcf, index ]
-    }
-    .combine(
-        ch_panel.map { meta, vcf, idx ->
-            [ meta.chr, meta, vcf, idx ]
-        },
-        by: 0
-    )
-    .combine(
-        ch_map.map { meta, map ->
-            [ meta.chr, map ]
-        },
-        by: 0
-    )
-    .map { _chr, target_meta, vcf, vcf_index, panel_meta, panel_vcf, panel_vcf_index, map ->
-        [ target_meta + [ panel: panel_meta.id ], vcf, vcf_index, panel_vcf, panel_vcf_index, map, [], [] ]
-    }
+        .combine(ch_panel)
+        .map {
+            metaI, input_vcf, input_index, metaPC, panel_vcf, panel_index -> [
+            metaPC.subMap("chr"), metaI + [ panel: metaPC.id, chr: metaPC.chr ],
+            input_vcf, input_index, panel_vcf, panel_index
+        ]}.view()
+        .combine(
+            ch_map.map { metaC, map ->
+                [ metaC.subMap("chr"), map ]
+            }.view(),
+            by: 0
+        )
+        .map { _metaC, metaIPC, input_vcf, input_index, panel_vcf, panel_index, map ->
+            [ metaIPC, input_vcf, input_index, panel_vcf, panel_index, map, [], [] ]
+        }.view()
 
 
     // Run BEAGLE5 imputation
@@ -73,5 +70,5 @@ workflow VCF_IMPUTE_BEAGLE5 {
 
     emit:
     vcf_index  = ch_vcf_index // channel: [ [id, chr, tools], vcf, index ]
-    versions = ch_versions    // channel: [ versions.yml ]
+    versions   = ch_versions  // channel: [ versions.yml ]
 }
