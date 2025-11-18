@@ -3,6 +3,13 @@
         "content": [
             [
                 [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
                     "NA12878.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]",
                     [
@@ -38,12 +45,19 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-18T13:05:37.999508611"
+        "timestamp": "2025-11-18T13:14:27.159097873"
     },
     "Impute with glimpse2 two individuals - input bam  with bamlist - two chromosomes - with map": {
         "content": [
             [
                 [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "chr21",
+                        "tools": "glimpse2"
+                    },
+                    "allid.vcf.gz",
                     "allid.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=836, phased=true, phasedAutodetect=true]",
                     [
@@ -53,6 +67,13 @@
                     "e4bdd0ec2e17ffb5519287751129af3b"
                 ],
                 [
+                    {
+                        "id": "allid",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "glimpse2"
+                    },
+                    "allid.vcf.gz",
                     "allid.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=true, phasedAutodetect=true]",
                     [
@@ -89,12 +110,19 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-18T13:05:22.305519835"
+        "timestamp": "2025-11-18T13:14:11.063399414"
     },
     "Impute with glimpse2 one vcf - input bcf - no map": {
         "content": [
             [
                 [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
                     "NA12878.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]",
                     [
@@ -130,6 +158,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-18T13:05:01.683166692"
+        "timestamp": "2025-11-18T13:13:50.758305609"
     }
 }
