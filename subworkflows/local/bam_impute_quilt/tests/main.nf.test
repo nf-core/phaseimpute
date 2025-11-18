@@ -17,7 +17,7 @@ nextflow_workflow {
     tag "bcftools/index"
     tag "bcftools/annotate"
 
-    test("Impute with quilt two individuals with bamlist and no renaming") {
+    test("Impute with quilt two individuals with bamlist and no renaming no map") {
         when {
             workflow {
                 """
@@ -52,6 +52,9 @@ nextflow_workflow {
                     [id: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
                 ]).collect()
+                input[4] = Channel.of([
+                    [chr: "chr22"], []
+                ])
                 """
             }
         }
@@ -63,17 +66,17 @@ nextflow_workflow {
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
-                    ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() },
-                    workflow.out.versions.collect{ path(it).yaml }
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]}
                 ).match() }
             )
         }
     }
 
-    test("Impute with quilt two individuals with bamlist and renaming") {
+    test("Impute with quilt two individuals with bamlist and renaming no map") {
         when {
             workflow {
                 """
@@ -112,6 +115,9 @@ nextflow_workflow {
                     [id: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
                 ]).collect()
+                input[4] = Channel.of([
+                    [chr: "chr22"], []
+                ])
                 """
             }
         }
@@ -124,17 +130,17 @@ nextflow_workflow {
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
-                    ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() },
-                    workflow.out.versions.collect{ path(it).yaml }
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]}
                 ).match() }
             )
         }
     }
 
-    test("Impute with quilt one individuals") {
+    test("Impute with quilt one individuals with map") {
         when {
             workflow {
                 """
@@ -160,6 +166,10 @@ nextflow_workflow {
                     [id: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
                 ]).collect()
+                input[4] = Channel.of([
+                    [chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.stitch.map", checkIfExist:true)
+                ])
                 """
             }
         }
@@ -172,10 +182,11 @@ nextflow_workflow {
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
-                    ] },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_tbi.collect{ path(it[1]).vcf.header.getGenotypeSamples().sort() }
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
                 ).match() }
             )
         }

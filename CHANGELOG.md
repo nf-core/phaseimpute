@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#188](https://github.com/nf-core/phaseimpute/pull/188) - Add documentation for all subworkflows.
 - [#210](https://github.com/nf-core/phaseimpute/pull/200) - Add BEAGLE5 support for genotype imputation.
 - [#211](https://github.com/nf-core/phaseimpute/pull/211) - Add MINIMAC4 support for genotype imputation.
+- [#219](https://github.com/nf-core/phaseimpute/pull/219) - Add genetic map support for `QUILT`.
 
 ### `Changed`
 
