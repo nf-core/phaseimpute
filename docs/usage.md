@@ -113,7 +113,8 @@ chr21:16609525_T_A 16609525 T A
 
 ## Samplesheet genetic map
 
-To improve imputation quality, you can optionally provide a genetic map. This allows the software to better estimate recombination rates across each chromosome. Use the `--map` parameter to specify the location of the genetic map file. The file must be a comma-separated table with at least two columns and a header row, as shown below:
+To improve imputation quality, you can optionally provide a genetic map. This allows all imputation and phasing softwares used in `nf-core/phaseimpute` to better estimate recombination rates across each chromosome. These genetic maps can be obtained from public resources such as the [HapMap Project](https://ftp.ncbi.nlm.nih.gov/hapmap/recombination/latest/rates/), some imputation softwares like [`BEAGLE5`](https://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/) or directly from scientific publications (e.g. for dogs: [Auton et al. 2013](https://github.com/auton1/dog_recomb)).
+Use the `--map` parameter to specify the location of the genetic map file. The file must be a comma-separated table with at least two columns and a header row, as shown below:
 
 ```bash
 --map '[path to samplesheet file]'
@@ -151,7 +152,6 @@ For the example below, the map file uses tab separators, contains a header, and 
 `--map_sep "\t" --map_header true --map_col_names "chr,id,cm,pos"`
 
 ```csv title="chr21.map"
-chr	id	centimorgan	position
 chr1	id1	0.00000	55550
 chr1	id2	0.00000	632942
 chr1	id3	0.00000	633147
