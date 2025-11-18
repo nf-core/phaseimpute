@@ -1,142 +1,118 @@
 {
-    "Impute with minimac4 two vcf": {
+    "Impute with minimac4 one vcf no map": {
         "content": [
             [
-                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
-                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
-                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+                
             ],
             [
-                [
-                    {
-                        "id": "NA12878",
-                        "panel": "1000GP",
-                        "chr": "chr22",
-                        "tools": "minimac4"
-                    },
-                    "NA12878.vcf.gz",
-                    "NA12878.vcf.gz.csi"
-                ],
-                [
-                    {
-                        "id": "NA19401",
-                        "panel": "1000GP",
-                        "chr": "chr22",
-                        "tools": "minimac4"
-                    },
-                    "NA19401.vcf.gz",
-                    "NA19401.vcf.gz.csi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]",
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
-            ],
-            [
-                "c4327d84f0355b88979ec03dd037514b",
-                "1b1c49668e75466692e0f586fc47f747"
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:BCFTOOLS_INDEX": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:15.295537018"
+        "timestamp": "2025-11-18T14:57:42.013572476"
     },
-    "Impute with minimac4 one vcf": {
+    "Impute with minimac4 two vcf with map": {
         "content": [
             [
-                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
-                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
-                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+                
             ],
             [
-                [
-                    {
-                        "id": "NA12878",
-                        "panel": "1000GP",
-                        "chr": "chr22",
-                        "tools": "minimac4"
-                    },
-                    "NA12878.vcf.gz",
-                    "NA12878.vcf.gz.csi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
-            ],
-            [
-                "c4327d84f0355b88979ec03dd037514b"
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:BCFTOOLS_INDEX": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:35:46.826956402"
+        "timestamp": "2025-11-18T14:58:06.940677488"
     },
-    "Impute with minimac4 one vcf with sites": {
+    "Impute with minimac4 one vcf with sites, no map": {
         "content": [
             [
-                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
-                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
-                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+                
             ],
             [
-                [
-                    {
-                        "id": "NA12878",
-                        "panel": "1000GP",
-                        "chr": "chr22",
-                        "tools": "minimac4"
-                    },
-                    "NA12878.vcf.gz",
-                    "NA12878.vcf.gz.csi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
-            ],
-            [
-                "ab57a5554b8c01ae0494318233d1b1dd"
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:BCFTOOLS_INDEX": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:28.874465664"
+        "timestamp": "2025-11-18T14:58:19.03416638"
     },
     "Impute with minimac4 one vcf with map": {
         "content": [
             [
-                "versions.yml:md5,373fe12da367d3891473f487a9536d04",
-                "versions.yml:md5,99b8cb34e87147cec893f4bcf7a9b244",
-                "versions.yml:md5,a4842af8fedc3522b989d4ee28f08d80"
+                
             ],
             [
-                [
-                    {
-                        "id": "NA12878",
-                        "panel": "1000GP",
-                        "chr": "chr22",
-                        "tools": "minimac4"
-                    },
-                    "NA12878.vcf.gz",
-                    "NA12878.vcf.gz.csi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]"
-            ],
-            [
-                "ab57a5554b8c01ae0494318233d1b1dd"
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:BCFTOOLS_INDEX": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_MINIMAC4:MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    }
+                }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:00.295884864"
+        "timestamp": "2025-11-18T15:00:50.226056725"
     }
 }

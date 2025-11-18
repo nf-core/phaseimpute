@@ -58,7 +58,7 @@ input:
             Need to have "chr" as chromosome name
         - map:
           type: file
-          description: PLINK format genetic map files
+          description: Minimac format genetic map files
           pattern: "*.map"
 output:
   - vcf_tbi:

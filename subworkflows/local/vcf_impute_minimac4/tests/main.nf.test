@@ -16,7 +16,7 @@ nextflow_workflow {
     tag "minimac4/compressref"
     tag "minimac4/impute"
 
-    test("Impute with minimac4 one vcf") {
+    test("Impute with minimac4 one vcf no map") {
 
         when {
             workflow {
@@ -41,14 +41,15 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
-                    workflow.out.vcf_index.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
@@ -71,7 +72,7 @@ nextflow_workflow {
                 ])
                 input[2] = Channel.of([
                     [chr: "chr22"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.minimac.map", checkIfExist:true)
                 ])
                 input[3] = Channel.of([[chr: "chr22"], [], [], [], []])
                 """
@@ -82,20 +83,21 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
-                    workflow.out.vcf_index.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
     }
 
-    test("Impute with minimac4 two vcf") {
+    test("Impute with minimac4 two vcf with map") {
 
         when {
             workflow {
@@ -117,7 +119,10 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true)
                 ])
-                input[2] = Channel.of([[chr: "chr22"], []])
+                input[2] = Channel.of([
+                    [chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.minimac.map", checkIfExist:true)
+                ])
                 input[3] = Channel.of([[chr: "chr22"], [], [], [], []])
                 """
             }
@@ -127,20 +132,21 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
-                    workflow.out.vcf_index.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
     }
 
-    test("Impute with minimac4 one vcf with sites") {
+    test("Impute with minimac4 one vcf with sites, no map") {
 
         when {
             workflow {
@@ -157,7 +163,7 @@ nextflow_workflow {
                 ])
                 input[2] = Channel.of([
                     [chr: "chr22"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
+                    []
                 ])
                 input[3] = Channel.of([
                     [chr: "chr22"],
@@ -174,14 +180,15 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
-                    workflow.out.vcf_index.collect{[
+                    workflow.out.vcf_tbi.collect{[
                         it[0],
-                        file(it[1]).name,
-                        file(it[2]).name
-                    ] },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.summary },
-                    workflow.out.vcf_index.collect{ path(it[1]).vcf.variantsMD5 }
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
                 ).match() }
             )
         }
