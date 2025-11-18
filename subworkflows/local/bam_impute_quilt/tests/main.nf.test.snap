@@ -2,10 +2,6 @@
     "Impute with quilt one individuals with map": {
         "content": [
             [
-                "versions.yml:md5,368923a17bb1c2669ee3890a1bc04909",
-                "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
-            ],
-            [
                 [
                     {
                         "id": "NA12878",
@@ -38,21 +34,30 @@
                     ],
                     "482fb77561a9306bf1d60918a4a14e17"
                 ]
+            ],
+            [
+                {
+                    "BAM_IMPUTE_QUILT:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_IMPUTE_QUILT:QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T20:47:27.950667566"
+        "timestamp": "2025-11-18T13:17:47.076918116"
     },
     "Impute with quilt two individuals with bamlist and renaming no map": {
         "content": [
             [
-                "versions.yml:md5,368923a17bb1c2669ee3890a1bc04909",
-                "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
-            ],
-            [
                 [
                     {
                         "id": "allid",
@@ -87,21 +92,30 @@
                     ],
                     "a8cd9326ed51159f348bb265ebd67fd4"
                 ]
+            ],
+            [
+                {
+                    "BAM_IMPUTE_QUILT:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_IMPUTE_QUILT:QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T20:46:51.092719103"
+        "timestamp": "2025-11-18T13:17:19.752582565"
     },
     "Impute with quilt two individuals with bamlist and no renaming no map": {
         "content": [
             [
-                "versions.yml:md5,368923a17bb1c2669ee3890a1bc04909",
-                "versions.yml:md5,cb038a1f67a47a76d0e0a983cfd56789"
-            ],
-            [
                 [
                     {
                         "id": "allid",
@@ -136,12 +150,25 @@
                     ],
                     "a8cd9326ed51159f348bb265ebd67fd4"
                 ]
+            ],
+            [
+                {
+                    "BAM_IMPUTE_QUILT:BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_IMPUTE_QUILT:QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    }
+                }
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-14T20:40:53.789126668"
+        "timestamp": "2025-11-18T13:16:49.193580025"
     }
 }
