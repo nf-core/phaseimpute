@@ -16,7 +16,7 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Chunk with Glimpse2
     ch_input_glimpse2 = ch_vcf
@@ -24,7 +24,7 @@ workflow VCF_PHASE_SHAPEIT5 {
             metaIC, vcf, csi, _pedigree -> [metaIC.subMap("chr"), metaIC, vcf, csi]
         }
         .combine(ch_region.map{ metaCR, region -> [metaCR.subMap("chr"), region]}, by:0)
-        .join(ch_map)
+        .combine(ch_map, by:0)
         .map{
             _metaC, metaIC, vcf, csi, region, gmap -> [metaIC, vcf, csi, region, gmap]
         }
@@ -64,16 +64,17 @@ workflow VCF_PHASE_SHAPEIT5 {
         .join(VCF_BCFTOOLS_INDEX_1.out.csi, failOnMismatch:true, failOnDuplicate:true)
         .map{ meta, vcf, csi -> [meta.subMap("id", "chr"), [vcf, meta.chunk], csi]}
         .groupTuple()
-        .map{ meta, vcf, csi ->
-                [ meta,
-                vcf
-                    .sort { a, b ->
-                        def aStart = a.last().split("-")[-1].toInteger()
-                        def bStart = b.last().split("-")[-1].toInteger()
-                        aStart <=> bStart
-                    }
-                    .collect{it.first()},
-                csi]}
+        .map{ meta, vcf, csi -> [
+            meta,
+            vcf
+                .sort { a, b ->
+                    def aStart = a.last().split("-")[-1].toInteger()
+                    def bStart = b.last().split("-")[-1].toInteger()
+                    aStart <=> bStart
+                }
+                .collect{ file -> file.first() },
+            csi
+        ]}
 
     SHAPEIT5_LIGATE(ch_ligate_input)
     ch_versions = ch_versions.mix(SHAPEIT5_LIGATE.out.versions.first())
