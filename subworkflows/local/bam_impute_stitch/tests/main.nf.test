@@ -16,22 +16,7 @@ nextflow_workflow {
     tag "bcftools_index"
 
     test("Impute with stitch two individuals with bamlist, renaming and map ") {
-        setup{
-            run("MAPCONVERT") {
-                script "../../../../modules/local/mapconvert"
-                process {
-                    """
-                    input[0] = Channel.of([
-                        [chr: "chr22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
-                    ])
-                    input[1] = '\\t'
-                    input[2] = 'true'
-                    input[3] = 'pos,chr,cm'
-                    """
-                }
-            }
-        }
+        tag "test"
         when {
             workflow {
                 """
@@ -69,7 +54,10 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
                 ]).collect()
-                input[3] = MAPCONVERT.out.stitch_map
+                input[3] = Channel.of([
+                    [chr: "chr22"],
+                    file("https://github.com/rwdavies/QUILT/raw/refs/heads/master/maps/hg38/CEU-chr22-final.b38.txt.gz", checkIfExist:true)
+                ])
                 input[4] = 1
                 """
             }

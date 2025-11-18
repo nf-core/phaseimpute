@@ -2,33 +2,17 @@
     "Impute with stitch two individuals with bamlist, renaming and map ": {
         "content": [
             [
-                "versions.yml:md5,6f24e95192f2dde0f16d27dfe922b651",
-                "versions.yml:md5,8b0020b997bad45e9e3cf0d9b868a3b2",
                 "versions.yml:md5,c0772dccc2cc2a3c8f0b3fa5f02312bc"
             ],
             [
-                [
-                    {
-                        "id": "1000GP",
-                        "chr": "chr22",
-                        "tools": "stitch"
-                    },
-                    "1000GP.stitch.vcf.gz",
-                    "1000GP.stitch.vcf.gz.tbi",
-                    "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
-                    [
-                        "MySample1",
-                        "MySample2"
-                    ],
-                    "9fe2a3afe1a9c77ca72a40d8fa1db8b0"
-                ]
+                
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-17T19:02:00.292510597"
+        "timestamp": "2025-11-18T10:15:38.26650526"
     },
     "Impute with stitch two individuals with bamlist, no renaming, no map": {
         "content": [
@@ -40,18 +24,19 @@
             [
                 [
                     {
-                        "id": "1000GP",
+                        "id": "allid",
                         "chr": "chr22",
+                        "panel": "1000GP",
                         "tools": "stitch"
                     },
-                    "1000GP.stitch.vcf.gz",
-                    "1000GP.stitch.vcf.gz.tbi",
+                    "allid.stitch.vcf.gz",
+                    "allid.stitch.vcf.gz.tbi",
                     "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]",
                     [
                         "NA12878",
                         "NA19401"
                     ],
-                    "79340bfc00aac4b559a732078a38291c"
+                    "b52e0a32418abb5e7d4f109519e9c92a"
                 ]
             ]
         ],
@@ -59,6 +44,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-17T19:02:21.279618762"
+        "timestamp": "2025-11-18T10:06:04.428786538"
     }
 }
