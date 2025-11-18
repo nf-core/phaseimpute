@@ -9,13 +9,13 @@ workflow VCF_IMPUTE_GLIMPSE1 {
     ch_input        // channel (mandatory): [ [id], vcf, tbi ]
     ch_panel        // channel (mandatory): [ [panel, chr], vcf, tbi ]
     ch_chunks       // channel  (optional): [ [panel, chr], region1, region2 ]
+    ch_map          // channel  (optional): [ [chr], map ]
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
-    samples_file = Channel.of([[]]).collect()
-    gmap_file    = Channel.of([[]]).collect()
+    samples_file = channel.of([[]]).collect()
 
     // Combine chunks with panel
     ch_chunks_panel = ch_chunks
@@ -29,10 +29,13 @@ workflow VCF_IMPUTE_GLIMPSE1 {
         .map{ metaIPC, vcf, index -> [metaIPC.subMap("panel", "chr"), metaIPC, vcf, index] }
         .combine(samples_file)
         .combine(ch_chunks_panel, by: 0)
-        .combine(gmap_file)
-        .map{ _metaPC, metaIPC, bam, bai, samples, regionin, regionout, panel, panel_index, gmap ->
+        .map{ _metaPC, metaIPC, vcf, index, samples, regionin, regionout, panel, panel_index ->
+            [metaIPC.subMap("chr"), metaIPC, vcf, index, samples, regionin, regionout, panel, panel_index]
+        }
+        .combine(ch_map, by: 0) // by chr
+        .map{ _metaC, metaIPC, vcf, index, samples, regionin, regionout, panel, panel_index, gmap ->
             [metaIPC + ["chunk": regionout],
-            bam, bai, samples, regionin, regionout, panel, panel_index, gmap]
+            vcf, index, samples, regionin, regionout, panel, panel_index, gmap]
         }
 
     GLIMPSE_PHASE ( ch_phase_input ) // [meta, vcf, index, sample, regionin, regionout, ref, ref_index, map]

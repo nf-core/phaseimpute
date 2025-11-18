@@ -322,7 +322,8 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_GLIMPSE1(
                 ch_input_glimpse1,
                 ch_panel_phased,
-                ch_chunks_glimpse1
+                ch_chunks_glimpse1,
+                ch_map
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 

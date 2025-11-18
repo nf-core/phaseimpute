@@ -1,14 +1,6 @@
 {
-    "Impute with glimpse1 one vcf": {
+    "Impute with glimpse1 two vcf no map": {
         "content": [
-            [
-                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
-                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
-                "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,e824b15ce9cbc3f2fee665eabea4b42e"
-            ],
             [
                 [
                     {
@@ -18,82 +10,12 @@
                         "tools": "glimpse1"
                     },
                     "NA12878_22_ligate.vcf.gz",
-                    "NA12878_22_ligate.vcf.gz.tbi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
-            ],
-            [
-                [
-                    "NA12878"
-                ]
-            ],
-            [
-                {
-                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_LIGATE": {
-                        "glimpse": "1.1.1"
-                    }
-                },
-                {
-                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
-                        "glimpse": "1.1.1"
-                    }
-                },
-                {
-                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
-                        "glimpse": "1.1.1"
-                    }
-                },
-                {
-                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_2": {
-                        "bcftools": 1.21
-                    }
-                }
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-07-08T15:23:52.452434359"
-    },
-    "Impute with glimpse1 two vcf": {
-        "content": [
-            [
-                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
-                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
-                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
-                "versions.yml:md5,585ed05509d112ae6f1808c66935c97f",
-                "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
-                "versions.yml:md5,8c79d92b93fe75a9094499ce5d5eaca2",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,bf4a479eb73467775a4afeebd25841aa",
-                "versions.yml:md5,e824b15ce9cbc3f2fee665eabea4b42e",
-                "versions.yml:md5,e824b15ce9cbc3f2fee665eabea4b42e"
-            ],
-            [
-                [
-                    {
-                        "id": "NA12878",
-                        "panel": "1000GP",
-                        "chr": "22",
-                        "tools": "glimpse1"
-                    },
-                    "NA12878_22_ligate.vcf.gz",
-                    "NA12878_22_ligate.vcf.gz.tbi"
+                    "NA12878_22_ligate.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA12878"
+                    ],
+                    "1391ee2899dbe6bc6ab913dd4fdebb1f"
                 ],
                 [
                     {
@@ -103,19 +25,12 @@
                         "tools": "glimpse1"
                     },
                     "NA19401_22_ligate.vcf.gz",
-                    "NA19401_22_ligate.vcf.gz.tbi"
-                ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
-                "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]"
-            ],
-            [
-                [
-                    "NA12878"
-                ],
-                [
-                    "NA19401"
+                    "NA19401_22_ligate.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA19401"
+                    ],
+                    "5e0b6627a37be976d2c0036d7c93875b"
                 ]
             ],
             [
@@ -182,9 +97,67 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:23:43.920521467"
+        "timestamp": "2025-11-18T14:45:52.472734681"
+    },
+    "Impute with glimpse1 one vcf with map": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "22",
+                        "tools": "glimpse1"
+                    },
+                    "NA12878_22_ligate.vcf.gz",
+                    "NA12878_22_ligate.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=false, phasedAutodetect=false]",
+                    [
+                        "NA12878"
+                    ],
+                    "1391ee2899dbe6bc6ab913dd4fdebb1f"
+                ]
+            ],
+            [
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    }
+                },
+                {
+                    "VCF_IMPUTE_GLIMPSE1:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                }
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-18T14:46:05.824077936"
     }
 }
