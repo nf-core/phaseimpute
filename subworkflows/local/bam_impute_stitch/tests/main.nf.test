@@ -56,7 +56,7 @@ nextflow_workflow {
                 ]).collect()
                 input[3] = Channel.of([
                     [chr: "chr22"],
-                    file("https://github.com/rwdavies/QUILT/raw/refs/heads/master/maps/hg38/CEU-chr22-final.b38.txt.gz", checkIfExist:true)
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.stitch.map", checkIfExist:true)
                 ])
                 input[4] = 1
                 """
