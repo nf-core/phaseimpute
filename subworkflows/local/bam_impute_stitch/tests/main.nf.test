@@ -15,6 +15,67 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools_index"
 
+    test("Impute with stitch two individuals with bamlist, renaming and no map ") {
+        when {
+            workflow {
+                """
+                bampath = Channel.of(
+                    "NA12878.s.bam",
+                    "NA19401.s.bam"
+                ).collectFile(name: 'bampath.txt', newLine: true)
+                bamname = Channel.of(
+                    "MySample1",
+                    "MySample2"
+                ).collectFile(name: 'bamname.txt', newLine: true)
+                ch_samples = Channel.fromList([
+                    [
+                        [id: "allid"],
+                        [
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam", checkIfExist:true)
+                        ],
+                        [
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                            file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true)
+                        ]
+                    ],
+                ])
+
+                ch_posfile = Channel.of([
+                    [id: "1000GP", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.legend.gz", checkIfExist:true)
+                ])
+
+                input[0] = ch_samples.combine(bampath).combine(bamname)
+                input[1] = ch_posfile
+                input[2] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                input[3] = Channel.of([ [chr: "chr22"], [] ])
+                input[4] = 1
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
+                ).match() }
+            )
+        }
+    }
+
     test("Impute with stitch two individuals with bamlist, renaming and map ") {
         when {
             workflow {
