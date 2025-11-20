@@ -21,7 +21,7 @@ workflow BAM_VCF_IMPUTE_GLIMPSE2 {
 
     // Create input channel to impute with Glimpse2
 
-    // Join chunks and panel
+    // Join chunks, panel and map
     ch_chunks_panel_map = ch_chunks
         .combine(ch_panel, by:0)
         .map{ metaPC, regionin, regionout, panel, panel_index ->
@@ -33,6 +33,9 @@ workflow BAM_VCF_IMPUTE_GLIMPSE2 {
         .combine(ch_map, by:0)
         .map{ _metaC, metaPCC, regionin, regionout, panel, panel_index, gmap ->
             [metaPCC, regionin, regionout, panel, panel_index, gmap]
+        }
+        .ifEmpty{
+            error "BAM_VCF_IMPUTE_GLIMPSE2: join operation resulted in an empty channel. Please provide a valid ch_chunks and ch_map channel as input."
         }
 
     // Join input and chunks reference

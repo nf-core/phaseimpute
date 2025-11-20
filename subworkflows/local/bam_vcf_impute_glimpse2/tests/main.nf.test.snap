@@ -1,5 +1,5 @@
 {
-    "Impute with glimpse2 one individual - input file bam with bamlist - with map": {
+    "Impute with glimpse2 one vcf - input bcf - with map": {
         "content": [
             [
                 [
@@ -15,7 +15,7 @@
                     [
                         "NA12878"
                     ],
-                    "1fd870e5ad66345dddef088b5911ac7f"
+                    "ae622836ba8da4974dfb7da4f89351b6"
                 ]
             ],
             [
@@ -45,9 +45,57 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-18T13:14:27.159097873"
+        "timestamp": "2025-11-20T10:09:08.002323123"
     },
-    "Impute with glimpse2 two individuals - input bam  with bamlist - two chromosomes - with map": {
+    "Impute with glimpse2 one vcf - input bcf - no map": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "NA12878",
+                        "panel": "1000GP",
+                        "chr": "chr22",
+                        "tools": "glimpse2"
+                    },
+                    "NA12878.vcf.gz",
+                    "NA12878.vcf.gz.tbi",
+                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]",
+                    [
+                        "NA12878"
+                    ],
+                    "13532bb1d590a296404fb98b1ecf9ac7"
+                ]
+            ],
+            [
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    }
+                },
+                {
+                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    }
+                }
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-11-20T10:08:51.824217963"
+    },
+    "Impute with glimpse2 two individuals - input bam with bamlist - two chromosomes - with map": {
         "content": [
             [
                 [
@@ -110,54 +158,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-18T13:14:11.063399414"
-    },
-    "Impute with glimpse2 one vcf - input bcf - no map": {
-        "content": [
-            [
-                [
-                    {
-                        "id": "NA12878",
-                        "panel": "1000GP",
-                        "chr": "chr22",
-                        "tools": "glimpse2"
-                    },
-                    "NA12878.vcf.gz",
-                    "NA12878.vcf.gz.tbi",
-                    "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=903, phased=true, phasedAutodetect=true]",
-                    [
-                        "NA12878"
-                    ],
-                    "13532bb1d590a296404fb98b1ecf9ac7"
-                ]
-            ],
-            [
-                {
-                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_PHASE": {
-                        "glimpse2": "2.0.0"
-                    }
-                },
-                {
-                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_2": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "BAM_VCF_IMPUTE_GLIMPSE2:BCFTOOLS_INDEX_1": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "BAM_VCF_IMPUTE_GLIMPSE2:GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-11-18T13:13:50.758305609"
+        "timestamp": "2025-11-20T10:09:28.557838093"
     }
 }

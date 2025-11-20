@@ -66,8 +66,59 @@ nextflow_workflow {
         }
     }
 
-    test("Impute with glimpse2 two individuals - input bam  with bamlist - two chromosomes - with map") {
-        tag "test"
+    test("Impute with glimpse2 one vcf - input bcf - with map") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.fromList([
+                    [
+                        [id: "NA12878"],
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true),
+                        []
+                    ]
+                ])
+                input[1] = Channel.of([
+                        [id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]).collect()
+                input[2] = Channel.of(
+                    [[chr: "chr22", id: "1000GP"], "chr22:16570065-16597215", "chr22:16570065-16592216"],
+                    [[chr: "chr22", id: "1000GP"], "chr22:16587172-16609999", "chr22:16592229-16609999"]
+                )
+                input[3] = Channel.of([
+                    [id: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
+                ]).collect()
+                input[4] = Channel.of([
+                    [chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.vcf_tbi.collect{[
+                        it[0],
+                        path(it[1]).getFileName().toString(),
+                        path(it[2]).getFileName().toString(),
+                        path(it[1]).vcf.summary,
+                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
+                        path(it[1]).vcf.variantsMD5
+                    ]},
+                    workflow.out.versions.collect{ path(it).yaml }
+                ).match() }
+            )
+        }
+    }
+
+    test("Impute with glimpse2 two individuals - input bam with bamlist - two chromosomes - with map") {
         when {
             workflow {
                 """
@@ -137,20 +188,18 @@ nextflow_workflow {
         }
     }
 
-    test("Impute with glimpse2 one individual - input file bam with bamlist - with map") {
+    test("Impute with glimpse2 - error no map channel") {
         when {
             workflow {
                 """
-                bamlist = Channel.of(
-                    "NA12878.s.bam\tNA12878"
-                ).collectFile(name: 'bamlist.txt', newLine: true)
                 input[0] = Channel.fromList([
                     [
                         [id: "NA12878"],
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
-                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam.bai", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi", checkIfExist:true),
+                        []
                     ]
-                ]).combine(bamlist)
+                ])
                 input[1] = Channel.of([
                         [id: "1000GP", chr: "chr22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
@@ -165,27 +214,15 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
                 ]).collect()
-                input[4] = Channel.of([
-                    [chr: "chr22"], file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
-                ])
+                input[4] = []  // empty channel
                 """
             }
         }
 
         then {
             assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    workflow.out.vcf_tbi.collect{[
-                        it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString(),
-                        path(it[1]).vcf.summary,
-                        path(it[1]).vcf.header.getGenotypeSamples().sort(),
-                        path(it[1]).vcf.variantsMD5
-                    ]},
-                    workflow.out.versions.collect{ path(it).yaml }
-                ).match() }
+                { assert workflow.failed },
+                { assert workflow.errorMessage.contains("BAM_VCF_IMPUTE_GLIMPSE2: join operation resulted in an empty channel. Please provide a valid ch_chunks and ch_map channel as input.") }
             )
         }
     }
