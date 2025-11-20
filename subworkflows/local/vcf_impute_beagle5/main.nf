@@ -30,7 +30,6 @@ workflow VCF_IMPUTE_BEAGLE5 {
     // Combine VCF files
     ch_ready_vcf = ch_input_branched.vcf
         .mix(BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_VIEW.out.csi))
-        .view()
 
     // Prepare input channels for BEAGLE5 by combining VCF, panel, and map files
     ch_beagle_input = ch_ready_vcf
