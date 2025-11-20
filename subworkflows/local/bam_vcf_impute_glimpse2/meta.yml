@@ -40,7 +40,7 @@ input:
           type: map
           description: |
             Metadata map that will be combined with the input data map
-            Need to have the "chr" as chromosome name and "id" as panel name
+            The key "chr" must be present to define the chromosome name as well as the "id" key as panel name
         - vcf:
           type: file
           description: Panel VCF files by chromosomes
@@ -86,7 +86,7 @@ input:
           type: map
           description: |
             Metadata map containing chromosome information
-            Need to have "chr" as chromosome name
+            The key "chr" must be present to match with ch_panel and ch_chunks
         - map:
           type: file
           description: Glimpse format genetic map files
