@@ -16,7 +16,6 @@ nextflow_workflow {
     tag "bcftools_index"
 
     test("Impute with stitch two individuals with bamlist, renaming and map ") {
-        tag "test"
         when {
             workflow {
                 """
