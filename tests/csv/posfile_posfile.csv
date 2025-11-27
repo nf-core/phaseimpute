@@ -1,0 +1,3 @@
+panel,chr,posfile
+None,chr21,"https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/panel/chr21/1000GP.chr21.posfile"
+None,chr22,"https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/panel/chr22/1000GP.chr22.posfile"
