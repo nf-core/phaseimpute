@@ -57,7 +57,7 @@ include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
-include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
+include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/nf-core/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // BEAGLE5 subworkflows
@@ -99,7 +99,7 @@ workflow PHASEIMPUTE {
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
-    ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend]
+    ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
     chunk_model             // parameter: chunk model
     ch_versions             // channel: versions of software used
@@ -237,10 +237,10 @@ workflow PHASEIMPUTE {
         )
         // Posfile
         exportCsv(
-            ch_posfile.map{ meta, vcf, index, hap, legend ->
-                [meta, [2:"prep_panel/sites", 3:"prep_panel/sites", 4:"prep_panel/haplegend", 5:"prep_panel/haplegend"], vcf, index, hap, legend]
+            ch_posfile.map{ meta, vcf, index, hap, legend, posfile ->
+                [meta, [2:"prep_panel/sites", 3:"prep_panel/sites", 4:"prep_panel/haplegend", 5:"prep_panel/haplegend", 6:"prep_panel/posfile"], vcf, index, hap, legend, posfile]
             },
-            ["id", "chr"], "panel,chr,vcf,index,hap,legend",
+            ["id", "chr"], "panel,chr,vcf,index,hap,legend,posfile",
             "posfile.csv", "prep_panel/csv"
         )
         // Chunks
@@ -363,23 +363,35 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("stitch")) {
             log.info("Impute with STITCH")
 
+            ch_chunks_quilt = chunkPrepareChannel(ch_chunks, "quilt")
+
             // Impute with STITCH
             BAM_IMPUTE_STITCH (
-                ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4], it[5]] },
-                ch_posfile.map{ [it[0], it[4]] },
-                ch_fasta,
+                ch_input_bams_withlist.map{
+                    meta, file, index, _bampath_id, bampath_noid, bamnames->
+                    [meta, file, index, bampath_noid, bamnames]
+                },
+                ch_posfile.map{
+                    meta, _vcf, _index, _hap, _legend, posfile ->
+                    [ meta, posfile]
+                },
+                ch_chunks_quilt,
                 ch_map,
+                ch_fasta,
+                params.k_val,
+                params.ngen,
                 params.seed
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
+            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_index.map{
+                meta, vcf, index -> [meta + [tools:"stitch"], vcf, index]
+            })
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
-
         }
 
         if (params.tools.split(',').contains("quilt")) {
@@ -446,7 +458,7 @@ workflow PHASEIMPUTE {
                 ch_input_minimac4,
                 ch_panel_phased,
                 ch_map,
-                ch_posfile
+                ch_posfile.map{ meta, vcf, index, hap, legend, _posfile -> [meta, vcf, index, hap, legend] }
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 
