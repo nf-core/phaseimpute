@@ -24,7 +24,7 @@
                     "bcftools/index": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "installed_by": ["bam_impute_stitch", "modules"]
                     },
                     "bcftools/merge": {
                         "branch": "master",
@@ -107,7 +107,7 @@
                     "glimpse2/ligate": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "installed_by": ["bam_impute_stitch", "modules"]
                     },
                     "glimpse2/phase": {
                         "branch": "master",
@@ -192,8 +192,8 @@
                     },
                     "stitch": {
                         "branch": "master",
-                        "git_sha": "7fb11b3e0a60a5994890947bc1346d3ccae34876",
-                        "installed_by": ["modules"]
+                        "git_sha": "6adf848ab473ecef1e0d34af291051885cb7b635",
+                        "installed_by": ["bam_impute_stitch", "modules"]
                     },
                     "tabix/bgzip": {
                         "branch": "master",
@@ -214,6 +214,11 @@
             },
             "subworkflows": {
                 "nf-core": {
+                    "bam_impute_stitch": {
+                        "branch": "master",
+                        "git_sha": "6adf848ab473ecef1e0d34af291051885cb7b635",
+                        "installed_by": ["subworkflows"]
+                    },
                     "utils_nextflow_pipeline": {
                         "branch": "master",
                         "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
