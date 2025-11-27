@@ -176,27 +176,6 @@ workflow PIPELINE_INITIALISATION {
     }
 
     //
-    // Create channel for panel
-    //
-    if (params.panel) {
-        if (params.panel.endsWith("csv")) {
-            println "Panel file provided as input is a samplesheet"
-            ch_panel = Channel.fromList(samplesheetToList(
-                params.panel, "${projectDir}/assets/schema_input_panel.json"
-            )).map {
-                meta, file, index ->
-                    [ meta + [id:meta.id.toString()], file, index ]
-            }
-        } else {
-            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
-            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
-        }
-    } else {
-        // #TODO check if panel is required
-        ch_panel = Channel.of([[],[],[]])
-    }
-
-    //
     // Create channel from region input
     //
     if (params.input_region == null){
@@ -214,6 +193,28 @@ workflow PIPELINE_INITIALISATION {
         .map{ metaC, region -> [metaC + ["region": region], region]}
     } else {
         error "Region file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
+    }
+
+    //
+    // Create channel for panel
+    //
+    if (params.panel) {
+        if (params.panel.endsWith("csv")) {
+            println "Panel file provided as input is a samplesheet"
+            ch_panel = Channel.fromList(samplesheetToList(
+                params.panel, "${projectDir}/assets/schema_input_panel.json"
+            )).map {
+                meta, file, index ->
+                    [ meta + [panel_id:meta.panel_id.toString()], file, index ]
+            }
+        } else {
+            // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
+            error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
+        }
+    } else {
+        // #TODO check if panel is required
+        ch_panel = ch_regions
+            .map{ metaCR, _regions -> [[panel_id: "None"] + metaCR.subMap("chr"), [], []] }
     }
 
     //
@@ -253,13 +254,14 @@ workflow PIPELINE_INITIALISATION {
     // Create posfile channel
     //
     if (params.posfile) {
-        ch_posfile = Channel // ["meta", "vcf", "index", "hap", "legend"]
+        ch_posfile = Channel // ["meta", "vcf", "index", "hap", "legend", "posfile"]
             .fromList(samplesheetToList(params.posfile, "${projectDir}/assets/schema_posfile.json"))
-            .map { meta, vcf, index, hap, legend ->
-                [ meta + [id:meta.id.toString()], vcf, index, hap, legend ]
+            .map { meta, vcf, index, hap, legend, posfile ->
+                [ meta + [panel_id:meta.panel_id.toString()], vcf, index, hap, legend, posfile ]
             }
     } else {
-        ch_posfile = Channel.of([[],[],[],[],[]])
+        ch_posfile = ch_panel
+            .map{ metaPC, _vcf, _index -> [metaPC, [],[],[],[],[]]}
     }
 
     if (!params.steps.split(',').contains("panelprep") & !params.steps.split(',').contains("all")) {
@@ -277,10 +279,11 @@ workflow PIPELINE_INITIALISATION {
         ch_chunks = Channel
             .fromList(samplesheetToList(params.chunks, "${projectDir}/assets/schema_chunks.json"))
             .map { meta, chunks ->
-                [ meta + [id:meta.id.toString()], chunks ]
+                [ meta + [panel_id:meta.id.toString()], chunks ]
             }
     } else {
-        ch_chunks = Channel.of([[],[]])
+        ch_chunks = ch_panel
+            .map{ metaPC, _vcf, _index -> [metaPC, []] }
     }
 
     //
@@ -331,12 +334,21 @@ workflow PIPELINE_INITIALISATION {
 
     ch_posfile = ch_posfile
         .combine(ch_regions.collect{ it[0]["chr"] }.toList())
-        .filter { meta, _vcf, _index, _hap, _legend, chrs ->
+        .filter { meta, _vcf, _index, _hap, _legend, _posfile, chrs ->
             meta.chr in chrs
         }
-        .map {meta, vcf, index, hap, legend, _chrs ->
-            [meta, vcf, index, hap, legend]
+        .map {meta, vcf, index, hap, legend, posfile, _chrs ->
+            [meta, vcf, index, hap, legend, posfile]
         }
+
+    // Combine map and panel for joint operations
+    ch_map = ch_map
+        .combine(ch_panel.map{ metaPC, _vcf, _index -> [
+            metaPC.subMap("chr"), metaPC
+        ]}, by: 0)
+        .map{ _metaC, map, metaPC -> [
+            metaPC, map
+        ]}
 
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
@@ -351,9 +363,9 @@ workflow PIPELINE_INITIALISATION {
     panel                = ch_panel         // [ [panel, chr], vcf, index ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
-    gmap                 = ch_map           // [ [map], map ]
-    posfile              = ch_posfile       // [ [panel, chr], vcf, index, hap, legend ]
-    chunks               = ch_chunks        // [ [chr], txt ]
+    gmap                 = ch_map           // [ [chr], map ]
+    posfile              = ch_posfile       // [ [panel, chr], vcf, index, hap, legend, posfile ]
+    chunks               = ch_chunks        // [ [panel, chr], txt ]
     chunk_model          = chunk_model
     versions             = ch_versions
 }
@@ -520,12 +532,12 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
 //
 def validatePosfileTools(ch_posfile, tools, steps){
     ch_posfile
-        .map{ _meta, vcf, index, hap, legend ->
+        .map{ _meta, vcf, index, hap, legend, posfile ->
             if (tools.contains("glimpse1")) {
                 assert legend : "Glimpse1 tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
             }
             if (tools.contains("stitch")) {
-                assert legend : "Stitch tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
+                assert posfile : "Stitch tool needs a posfile file provided in the posfile. This file can be created through the panelprep step."
             }
             if (tools.contains("quilt")) {
                 assert legend : "Quilt tool needs a legend file provided in the posfile. This file can be created through the panelprep step."
