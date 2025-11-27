@@ -17,7 +17,7 @@ def chunkPrepareChannel(ch_chunks, tool) {
                 [ metaC, metaC.chr, startEnd[0], startEnd[1] ]
             }
         def ch_chunks_empty = ch_chunks_branched.empty.map { metaC, _empty -> [
-            metaC, metaC.chr, metaC.chr, metaC.chr
+            metaC, metaC.chr, [], []
         ]}
         return ch_chunks_txt.mix(ch_chunks_empty)
     } else {
