@@ -44,7 +44,7 @@ input:
           type: map
           description: |
             Metadata map that will be combined with the input data map
-            Need to have the "chr" as chromosome name and "id" as panel name
+            Need to have the "chr" as chromosome name and "panel_id" as panel name
         - hap:
           type: file
           description: Panel VCF haplotypes files by chromosomes
@@ -91,8 +91,6 @@ output:
           type: map
           description: |
             Metadata map combined with the ch_panel data map.
-            It contains the "chr" name of the ch_panel map and
-            "panel" as the "id" of ch_posfile.
             {"tools" : "quilt"} is added.
         - vcf:
           type: file

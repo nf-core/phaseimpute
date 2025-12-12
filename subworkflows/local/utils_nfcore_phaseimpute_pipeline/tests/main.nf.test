@@ -113,4 +113,40 @@ nextflow_workflow {
             )
         }
     }
+
+    test("Should give an error due to multiple panel_id") {
+        when {
+            params {
+                pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
+                fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
+                fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
+                steps = "panelprep"
+                map = "../../../tests/csv/map_glimpse.csv"
+                chunks = "../../../tests/csv/chunks.csv"
+                posfile = "../../../tests/csv/posfile.csv"
+                panel = "../../../tests/csv/panel_multiple.csv"
+                chunk_model = "recursive"
+            }
+            workflow {
+                """
+                input[0] = false
+                input[1] = false
+                input[2] = false
+                input[3] = []
+                input[4] = "results"
+                input[5] = [] // input
+                input[6] = [] // help
+                input[7] = [] // help_full
+                input[8] = [] // show_hidden
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.errorMessage.contains("Multiple panel IDs detected: [1000GP, 1000GP_2]. Please provide only one across panel, chunks and posfile.")}
+            )
+        }
+    }
 }

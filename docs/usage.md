@@ -67,7 +67,7 @@ An [example samplesheet](../assets/samplesheet_reference.csv) has been provided 
 
 ## Samplesheet posfile
 
-You will need a samplesheet with information about the reference panel sites for using the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use the `--posfile` parameter to specify its location. It has to be a comma-separated file with at least 5 columns, and a header row as shown in the examples below.
+You will need a samplesheet with conversion of the reference panel or informations about the variants to use the `--steps [impute,validate]`. You can generate this samplesheet from `--steps panelprep`. Use the `--posfile` parameter to specify its location. It has to be a comma-separated file with at least 2 columns (i.e., panel and chr), and a header row as shown in the examples below.
 
 ```bash
 --posfile '[path to samplesheet file]'
@@ -78,19 +78,20 @@ You will need a samplesheet with information about the reference panel sites for
 A final samplesheet file for the posfile may look something like the one below. This is for 2 chromosomes.
 
 ```console title="posfile.csv"
-panel,chr,vcf,index,hap,legend
-1000GP.s.norel,chr21,1000GP.chr21.s.norel.sites.vcf.gz,1000GP.chr21.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr21.hap.gz,1000GP.s.norel_chr21.legend.gz
-1000GP.s.norel,chr22,1000GP.chr22.s.norel.sites.vcf.gz,1000GP.chr22.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
+panel,chr,vcf,index,hap,legend,posfile
+1000GP.s.norel,chr21,1000GP.chr21.s.norel.sites.vcf.gz,1000GP.chr21.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr21.hap.gz,1000GP.s.norel_chr21.legend.gz,1000GP.s.norel_chr21.posfile.gz
+1000GP.s.norel,chr22,1000GP.chr22.s.norel.sites.vcf.gz,1000GP.chr22.s.norel.sites.vcf.gz.csi,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz,1000GP.s.norel_chr22.posfile.gz
 ```
 
-| Column   | Description                                                                                                                                                                                          |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `panel`  | Name of the reference panel used.                                                                                                                                                                    |
-| `chr`    | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                                                                                                           |
-| `vcf`    | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz". (Required for validation step)                                                 |
-| `index`  | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi". (Necessary for validation step)                                                   |
-| `hap`    | Full path to ".hap.gz" compressed file containing the reference panel haplotypes in ["haps" format](https://www.cog-genomics.org/plink/2.0/formats#haps). (Required by QUILT)                        |
-| `legend` | Full path to ".legend.gz" compressed file containing the reference panel sites in ["legend" format](https://www.cog-genomics.org/plink/2.0/formats#legend). (Required by QUILT, GLIMPSE1 and STITCH) |
+| Column    | Description                                                                                                                                                                                                                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `panel`   | Name of the reference panel used.                                                                                                                                                                                                                                                                          |
+| `chr`     | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                                                                                                                                                                                                                                 |
+| `vcf`     | Full path to a VCF containing the sites for that chromosome. File has to be gzipped and have the extension ".vcf.gz". (Required for validation step)                                                                                                                                                       |
+| `index`   | Full path to the index for the VCF file for that chromosome. File has to be gzipped and have the extension ".tbi". (Necessary for validation step)                                                                                                                                                         |
+| `hap`     | Full path to ".hap.gz" compressed file containing the reference panel haplotypes in ["haps" format](https://www.cog-genomics.org/plink/2.0/formats#haps). (Required by QUILT)                                                                                                                              |
+| `legend`  | Full path to ".legend.gz" compressed file containing the reference panel sites in ["legend" format](https://www.cog-genomics.org/plink/2.0/formats#legend). (Required by QUILT)                                                                                                                            |
+| `posfile` | Full path to ".posfile.gz" optionally compressed file containing position of variants to impute in ["--targets-file" format of bcftools](https://samtools.github.io/bcftools/bcftools.html#common_options): '%CHROM\t%POS\t%REF,%ALT\n' with no header. (Required by GLIMPSE1, STITCH and validation step) |
 
 The `legend` file should be a TSV with the following structure, similar to that from [`bcftools convert` documentation](https://samtools.github.io/bcftools/bcftools.html#convert) with the `--haplegendsample` command : File is space separated with a header ("id,position,a0,a1"), one row per SNP, with the following columns:
 
@@ -111,6 +112,140 @@ chr21:16609476_A_G 16609476 A G
 chr21:16609525_T_A 16609525 T A
 ```
 
+The `posfile` file should be a TSV with the following structure, similar to that from ["--targets-file" format of bcftools](https://samtools.github.io/bcftools/bcftools.html#common_options) : File is tab separated with no header, one row per SNP, with the following columns:
+
+- Column 1: chromosome
+- Column 2: physical position (sorted from smallest to largest)
+- Column 3: reference base,alternate base
+
+```csv title="posfile.tsv"
+chr21	16609287	C,T
+chr21	16609295	T,G
+chr21	16609345	A,T
+chr21	16609400	C,A
+chr21	16609437	G,A
+chr21	16609443	C,T
+chr21	16609476	A,G
+chr21	16609525	T,A
+```
+
+## Samplesheet region
+
+You can provide a samplesheet with information about the chromosomal region you want to process.
+These regions will be used to:
+
+- filter input BAM files during downsampling,
+- select regions for phasing when processing the reference panel,
+- filter chromosome chunks for imputation,
+- restrict the region used for statistics in simulation and validation.
+
+Use the `--input_region` parameter to specify its location. It has to be a comma-separated file with 3 columns (i.e., chr, start, end), and a header row as shown in the examples below. Only **one region per chromosome** is accepted.
+
+```bash
+--input_region '[path to samplesheet file]'
+```
+
+If not provided, the fasta index will be necessary to get each chromosome length. This fasta index can be directly provided by the `--fasta_fai` parameter, obtained through `--genome` or computed from the `--fasta` file.
+
+### Structure
+
+A samplesheet file for the input regions look like the one below. This is for 2 chromosomes.
+
+```console title="samplesheet_region.csv"
+chr,start,end
+chr21,16570000,16610000
+chr22,16570000,16610000
+```
+
+| Column  | Description                                                                |
+| ------- | -------------------------------------------------------------------------- |
+| `chr`   | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix. |
+| `start` | Region start position in base pair.                                        |
+| `end`   | Region end position in base pair.                                          |
+
+## Samplesheet chunks
+
+You will need a samplesheet with information about the chromosomes chunks to perform imputation on for `--steps impute`. You can generate this samplesheet from `--steps panelprep`. Use the `--chunks` parameter to specify its location. It has to be a comma-separated file with 3 columns (i.e., panel, chr, file), and a header row as shown in the examples below.
+
+If not provided the full region per chromosome will be used instead. See [region section](#samplesheet-region) for more information.
+
+```bash
+--chunks '[path to samplesheet file]'
+```
+
+### Structure
+
+A final samplesheet file for the chunks may look something like the one below. This is for 2 chromosomes.
+
+```console title="samplesheet_chunks.csv"
+panel,chr,file
+1000GP.s.norel,chr21,1000GP.chr21_chunks.txt
+1000GP.s.norel,chr22,1000GP.chr22_chunks.txt
+```
+
+| Column  | Description                                                                                         |
+| ------- | --------------------------------------------------------------------------------------------------- |
+| `panel` | Name of the reference panel used.                                                                   |
+| `chr`   | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                          |
+| `file`  | Full path to a txt file containing the different chunks with and without buffer for each chromosome |
+
+The `file` should be a TSV with the following structure, similar to that from [`GLIMPSE_chunk` documentation](https://odelaneau.github.io/GLIMPSE/docs/documentation/chunk/#output-files): File is tab separated with no header, one row per chunk, with the following columns:
+
+- Column 1: chunk id
+- Column 2: chromosome name
+- Column 3: region without buffer
+- Column 4: region with buffer
+- Column 5: region size in bp
+- Column 6: number of variants
+
+```csv title="chunks.txt"
+0	chr22	chr22:16570065-16597215	chr22:16570065-16592216	22152	452
+1	chr22	chr22:16587172-16609999	chr22:16592229-16609999	17771	451
+```
+
+## Samplesheet map
+
+You will need to create a samplesheet with information about the genetic map you would like to use.
+This genetic map is used by the different phasing and imputation software to better estimate the recombination rate along each chromosome.
+See the summary table of required parameters in `--steps impute` to know which tools support it.
+Use the `--map` parameter to specify its location.
+It has to be a comma-separated file with 2 columns (i.e., chr, map), and a header row as shown in the examples below.
+
+```bash
+--map '[path to samplesheet file]'
+```
+
+### Structure
+
+A final samplesheet file for the reference panel may look something like the one below. This is for 2 chromosomes.
+
+```console title="samplesheet_map.csv"
+chr,map
+chr21,GRCh38_chr21.plink.map
+chr22,GRCh38_chr22.plink.map
+```
+
+| Column | Description                                                                |
+| ------ | -------------------------------------------------------------------------- |
+| `chr`  | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix. |
+| `map`  | Full path to the genetic map to use.                                       |
+
+The genetic `map` file should be a TSV with the following structure, similar to that from [`plink` documentation](https://www.cog-genomics.org/plink/1.9/formats#map): File is space separated with no header, with the following columns:
+
+- Column 1: chromosome name
+- Column 2: variant id
+- Column 3: position in centiMorgans
+- Column 4: base-pair coordinate
+
+```csv title="map.txt"
+chr21 . 0.584144 10326676
+chr21 . 0.584144 12968320
+chr21 . 0.585474 12970435
+chr21 . 0.589953 12977762
+chr21 . 0.5932 12983047
+chr21 . 0.594723 12985513
+```
+
 ## Reference genome
 
 Remember to use the same reference genome for all the files. You can specify the [reference genome](https://nf-co.re/docs/usage/reference_genomes) using:
@@ -123,6 +258,7 @@ or you can specify a custom genome using:
 
 ```bash
 --fasta Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
+--fasta_fai Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz.fai
 ```
 
 ## Running the pipeline: quick example
@@ -296,27 +432,32 @@ For starting from the imputation steps, the required flags are:
 - `--steps impute`
 - `--input input.csv`: The samplesheet containing the input sample files in `bam`, `cram` or `vcf`, `bcf` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
-- `--tools [glimpse1, glimpse2, quilt, stitch, beagle5, minimac4]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
-  - `--chunks chunks.csv`: A samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1`.
-  - `--posfile posfile.csv`: A samplesheet containing a `.legend.gz` file with the list of positions to genotype per chromosome. These are required by tools ( QUILT/STITCH/GLIMPSE1). It can also contain the `hap.gz` files (required by QUILT). The posfile can be generated with `--steps panelprep`.
-  - `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2). These files can be obtained with `--steps panelprep`.
+- `--tools [glimpse1,glimpse2,quilt,stitch,beagle5,minimac4]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
+- `--posfile posfile.csv`: A samplesheet containing all the different files required by the imputation tool. This file can be generated with `--steps panelprep`.
+- `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2). These files can be obtained with `--steps panelprep`.
 
-#### Summary table of required parameters in `--steps impute`
+Optionnaly you can provide the following flags:
 
-|            | `--steps impute` | `--input` | `--genome` or `--fasta` | `--panel` | `--chunks` | `--posfile` |
-| ---------- | ---------------- | --------- | ----------------------- | --------- | ---------- | ----------- |
-| `GLIMPSE1` | ✅               | ✅ ¹      | ✅                      | ✅        | ✅         | ✅ ³        |
-| `GLIMPSE2` | ✅               | ✅ ¹      | ✅                      | ✅        | ✅         | ❌          |
-| `QUILT`    | ✅               | ✅ ²      | ✅                      | ❌        | ✅         | ✅ ⁴        |
-| `STITCH`   | ✅               | ✅ ²      | ✅                      | ❌        | ❌         | ✅ ³        |
-| `BEAGLE5`  | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ❌          |
-| `MINIMAC4` | ✅               | ✅ ¹      | ✅                      | ✅        | ❌         | ✅ ⁵        |
+- `--chunks chunks.csv`: An optional samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1` or `GLIMPSE2`. See [chunks section](#samplesheet-chunks) for more informations.
+- `--map map.csv`: An optional samplesheet containing genetic map per chromosome. See [map section](#samplesheet-map) for more informations.
+
+#### Summary table of mandatory (m) and optional (o) parameters in `--steps impute`
+
+|            | `--steps impute`(m) | `--input`(m) | `--genome` or `--fasta`(m) | `--panel`(m) | `--posfile`(m) | `--map`(o) | `--chunks`(o) |
+| ---------- | ------------------- | ------------ | -------------------------- | ------------ | -------------- | ---------- | ------------- |
+| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³           | ❌⁶        | ✅            |
+| `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ❌⁶        | ✅            |
+| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴           | ❌⁶        | ✅            |
+| `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³           | ✅         | ✅            |
+| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ❌⁶        | ❌⁶           |
+| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁵           | ❌⁶        | ❌⁶           |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
-> ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, legend]
+> ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, posfile]
 > ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
 > ⁵ `MINIMAC4`: Optionally, a VCF with its index can be provided for more control over the imputed positions. Should be a CSV with columns [panel id, chr, vcf, index]
+> ⁶ Not yet supported
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
@@ -344,7 +485,7 @@ To summarize:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
   - GLIMPSE2 and QUILT can process samples in separate batches.
 
-## Imputation tools `--steps impute --tools [glimpse1, glimpse2, quilt, stitch, beagle5, minimac4]`
+## Imputation tools `--steps impute --tools [glimpse1,glimpse2,quilt,stitch,beagle5,minimac4]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
@@ -397,7 +538,7 @@ nextflow run nf-core/phaseimpute \
 
 ### STITCH
 
-[STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.legend.gz` file with the list of positions to genotype (`--posfile`). See [Posfile section](#samplesheet-posfile) for more information.
+[STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.posfile.gz` file with the list of positions to genotype (`--posfile`). Internally, the pipeline converts the posfile with CHROM POS REF,ALT file to STITCH’s CHROM POS REF ALT format; users should always provide the comma-separated format described in the [Posfile section](#samplesheet-posfile).
 
 If you do not have a position file, you can run the `--steps panelprep` with a reference panel that will produces the TSV file.
 
@@ -418,17 +559,17 @@ nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --steps impute \
     --posfile posfile.csv  \
-    --tool stitch \
+    --tools stitch \
     --outdir results \
     --genome GRCh37 \
     -profile docker
 ```
 
-The CSV file provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
+The CSV file provided in `--posfile` must contain three columns [panel, chr, posfile]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console title="posfile.csv"
-panel,chr,legend
-1000GP,chr22,1000GP.s.norel_chr22.legend.gz
+panel,chr,posfile
+None,chr22,1000GP.s.norel_chr22.posfile.gz
 ```
 
 STITCH only handles bi-allelic SNPs.
@@ -437,8 +578,15 @@ If you do not have a reference panel and you would like to obtain the posfile yo
 
 ```bash
 bcftools view -G -m 2 -M 2 -v ${vcf}
-bcftools convert --haplegendsample ${vcf}
+bcftools convert --haplegendsample ${vcf} | bcftools query -f'%CHROM\t%POS\t%REF,%ALT\n' | bgzip -c > ${vcf}.posfile.gz
 ```
+
+You can optionally provide chunks to parallelize the imputation process using `--chunks`.
+If not provided the full region per chromosome will be used.
+See [Chunks section](#samplesheet-chunks) for more information.
+
+Genetic map can also be provided for better accuracy.
+See [Map section](#samplesheet-map) for more information.
 
 ### GLIMPSE1
 
@@ -452,7 +600,7 @@ nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --panel samplesheet_reference.csv \
     --steps impute \
-    --tool glimpse1 \
+    --tools glimpse1 \
     --outdir results \
     --genome GRCh37 \
     -profile docker \
@@ -460,11 +608,11 @@ nextflow run nf-core/phaseimpute \
     --chunks chunks.csv
 ```
 
-The CSV file provided in `--posfile` must contain three columns [panel, chr, legend]. See [Posfile section](#samplesheet-posfile) for more information.
+The CSV file provided in `--posfile` must contain three columns [panel, chr, posfile]. See [Posfile section](#samplesheet-posfile) for more information.
 
 ```console title="posfile.csv"
-panel,chr,legend
-1000GP,chr22,1000GP.s.norel_chr22.legend.gz
+panel,chr,posfile
+1000GP,chr22,1000GP.s.norel_chr22.posfile.gz
 ```
 
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
@@ -478,7 +626,7 @@ nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --panel samplesheet_reference.csv \
     --steps impute \
-    --tool glimpse2 \
+    --tools glimpse2 \
     --outdir results \
     --chunks chunks.csv \
     --genome GRCh37 \
@@ -515,7 +663,7 @@ nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --panel samplesheet_reference.csv \
     --steps impute \
-    --tool minimac4 \
+    --tools minimac4 \
     --outdir results \
     --genome GRCh37 \
     -profile docker \
@@ -575,7 +723,7 @@ This mode runs all the previous steps. This requires several flags:
 - `--input input.csv`: The samplesheet containing the input sample files in `bam` or `cram` format.
 - `--depth`: The final depth of the input file [default: 1].
 - `--genome` or `--fasta`: The reference genome of the samples.
-- `--tools [glimpse1, glimpse2, quilt, stitch, beagle5]`: A selection of one or more of the available imputation tools.
+- `--tools [glimpse1,glimpse2,quilt,stitch,beagle5]`: A selection of one or more of the available imputation tools.
 - `--panel panel.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
 - `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference.
 - `--input_truth input_truth.csv`: The samplesheet containing the truth VCF files in `vcf` format.

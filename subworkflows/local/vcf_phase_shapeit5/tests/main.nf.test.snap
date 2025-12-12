@@ -11,19 +11,19 @@
             [
                 [
                     {
-                        "id": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr21"
                     },
-                    "1000GP.vcf.gz",
-                    "1000GP.vcf.gz.csi"
+                    "1000GP_ligate.vcf.gz",
+                    "1000GP_ligate.vcf.gz.csi"
                 ],
                 [
                     {
-                        "id": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22"
                     },
-                    "1000GP.vcf.gz",
-                    "1000GP.vcf.gz.csi"
+                    "1000GP_ligate.vcf.gz",
+                    "1000GP_ligate.vcf.gz.csi"
                 ]
             ],
             [
@@ -59,10 +59,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:24:40.698051511"
+        "timestamp": "2025-11-28T14:36:04.360746426"
     },
     "Phase vcf with regions, no map, no ref, no scaffold, recursive model": {
         "content": [
@@ -76,19 +76,19 @@
             [
                 [
                     {
-                        "id": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr21"
                     },
-                    "1000GP.vcf.gz",
-                    "1000GP.vcf.gz.csi"
+                    "1000GP_ligate.vcf.gz",
+                    "1000GP_ligate.vcf.gz.csi"
                 ],
                 [
                     {
-                        "id": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22"
                     },
-                    "1000GP.vcf.gz",
-                    "1000GP.vcf.gz.csi"
+                    "1000GP_ligate.vcf.gz",
+                    "1000GP_ligate.vcf.gz.csi"
                 ]
             ],
             [
@@ -124,9 +124,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:24:27.989188019"
+        "timestamp": "2025-11-28T14:35:37.802726945"
     }
 }

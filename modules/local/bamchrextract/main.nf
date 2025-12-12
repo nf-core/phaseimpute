@@ -30,7 +30,6 @@ process BAMCHREXTRACT {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         samtools: \$( samtools --version |& sed '1!d; s/^.*samtools //' )
-        grep: \$( grep --version |& grep -o -E '[0-9]+\\.[0-9]+' )
     END_VERSIONS
     """
 
@@ -42,7 +41,6 @@ process BAMCHREXTRACT {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         samtools: \$( samtools --version |& sed '1!d; s/^.*samtools //' )
-        grep: \$( grep --help |& grep -o -E '[0-9]+\\.[0-9]+\\.[0-9]+' )
     END_VERSIONS
     """
 }

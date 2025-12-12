@@ -11,7 +11,8 @@
                         "1000GP_chr21_glimpse1_sites.vcf.gz:md5,9eff24bfee06f8fe274922ad06ccaf59",
                         "1000GP_chr21_glimpse1_sites.vcf.gz.tbi:md5,92f4dca4b3ed85b53e88c2ce6caa1ba4",
                         "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
-                        "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372"
+                        "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
+                        "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12"
                     ],
                     [
                         {
@@ -21,12 +22,15 @@
                         "1000GP_chr22_glimpse1_sites.vcf.gz:md5,2bd01ad6efeb5e33fc9cc0fb59c5ca4d",
                         "1000GP_chr22_glimpse1_sites.vcf.gz.tbi:md5,89c2c5662e869750dbe0044993b66cb3",
                         "1000GP_chr22.hap.gz:md5,9500b831dcfee86a98577dde9e2cce73",
-                        "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037"
+                        "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
+                        "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541"
                     ]
                 ],
                 "1": [
                     "versions.yml:md5,4c26423b76a6d9ff520103dd2ebfd753",
-                    "versions.yml:md5,5781a81f52eb1daf57bef4f255ff5d58"
+                    "versions.yml:md5,5781a81f52eb1daf57bef4f255ff5d58",
+                    "versions.yml:md5,775bd20464c616f8eacd53774326f790",
+                    "versions.yml:md5,7a82826782ad1f6ea20ba37b55bbb169"
                 ],
                 "posfile": [
                     [
@@ -37,7 +41,8 @@
                         "1000GP_chr21_glimpse1_sites.vcf.gz:md5,9eff24bfee06f8fe274922ad06ccaf59",
                         "1000GP_chr21_glimpse1_sites.vcf.gz.tbi:md5,92f4dca4b3ed85b53e88c2ce6caa1ba4",
                         "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
-                        "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372"
+                        "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
+                        "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12"
                     ],
                     [
                         {
@@ -47,12 +52,15 @@
                         "1000GP_chr22_glimpse1_sites.vcf.gz:md5,2bd01ad6efeb5e33fc9cc0fb59c5ca4d",
                         "1000GP_chr22_glimpse1_sites.vcf.gz.tbi:md5,89c2c5662e869750dbe0044993b66cb3",
                         "1000GP_chr22.hap.gz:md5,9500b831dcfee86a98577dde9e2cce73",
-                        "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037"
+                        "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
+                        "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541"
                     ]
                 ],
                 "versions": [
                     "versions.yml:md5,4c26423b76a6d9ff520103dd2ebfd753",
-                    "versions.yml:md5,5781a81f52eb1daf57bef4f255ff5d58"
+                    "versions.yml:md5,5781a81f52eb1daf57bef4f255ff5d58",
+                    "versions.yml:md5,775bd20464c616f8eacd53774326f790",
+                    "versions.yml:md5,7a82826782ad1f6ea20ba37b55bbb169"
                 ]
             },
             [
@@ -79,13 +87,23 @@
                     "VCF_SITES_EXTRACT_BCFTOOLS:BCFTOOLS_CONVERT": {
                         "bcftools": 1.21
                     }
+                },
+                {
+                    "VCF_SITES_EXTRACT_BCFTOOLS:TABIX_BGZIP": {
+                        "tabix": 1.21
+                    }
+                },
+                {
+                    "VCF_SITES_EXTRACT_BCFTOOLS:GAWK": {
+                        "gawk": "5.3.0"
+                    }
                 }
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:24:48.881720493"
+        "timestamp": "2025-12-02T14:52:35.342592428"
     }
 }

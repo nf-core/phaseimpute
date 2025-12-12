@@ -34,7 +34,9 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     SAMTOOLS_MERGE(
         ch_bam_region
             .map{
-                metaICR, bam, index -> [metaICR.subMap("id", "batch") + [chr: "all"], bam, index]
+                metaICR, bam, index ->
+                def meta_keys = metaICR.keySet() - ['chr', 'region']
+                [metaICR.subMap(meta_keys) + [chr: "all"], bam, index]
             }
             .groupTuple(sort: true),
         ch_fasta

@@ -11,7 +11,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
-                "meta": ["id"]
+                "meta": ["panel_id"]
             },
             "chr": {
                 "type": "string",

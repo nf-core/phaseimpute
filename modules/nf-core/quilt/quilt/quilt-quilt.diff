@@ -1,0 +1,31 @@
+Changes in component 'nf-core/quilt/quilt'
+'modules/nf-core/quilt/quilt/meta.yml' is unchanged
+Changes in 'quilt/quilt/main.nf':
+--- modules/nf-core/quilt/quilt/main.nf
++++ modules/nf-core/quilt/quilt/main.nf
+@@ -33,6 +33,8 @@
+     def posfile_command             =   posfile               ? "--posfile=${posfile}"              : ""
+     def phasefile_command           =   phasefile             ? "--phasefile=${phasefile}"          : ""
+     def samplename_command          =   samplename            ? "--sampleNames_file=${samplename}"  : ""
++    def region_start_command        =   regions_start         ? "--regionStart=${regions_start}"    : ""
++    def region_end_command          =   regions_end          ? "--regionEnd=${regions_end}"    : ""
+ 
+     if (!(args ==~ /.*--seed.*/)) {args += " --seed=1"}
+ 
+@@ -52,8 +54,8 @@
+         $phasefile_command \\
+         $samplename_command \\
+         --chr=$chr \\
+-        --regionStart=$regions_start \\
+-        --regionEnd=$regions_end \\
++        $region_start_command \\
++        $region_end_command \\
+         --nGen=$ngen \\
+         --buffer=$buffer \\
+         --nCores=$task.cpus \\
+
+'modules/nf-core/quilt/quilt/environment.yml' is unchanged
+'modules/nf-core/quilt/quilt/tests/main.nf.test' is unchanged
+'modules/nf-core/quilt/quilt/tests/nextflow.config' is unchanged
+'modules/nf-core/quilt/quilt/tests/main.nf.test.snap' is unchanged
+************************************************************

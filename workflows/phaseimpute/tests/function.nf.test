@@ -8,7 +8,7 @@ nextflow_function {
     script "../function.nf"
     tag "function"
 
-    test("Prepare chunks channel Glimpse") {
+    test("Prepare chunks channel Glimpse - with chunks") {
         function "chunkPrepareChannel"
         tag "chunkPrepareChannel"
         when {
@@ -18,7 +18,11 @@ nextflow_function {
                     [id: "1000GP", chr: "chr21"],
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
                 ])
-                input[1] = "glimpse"
+                input[1] = Channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse1"
                 """
             }
         }
@@ -33,7 +37,7 @@ nextflow_function {
         }
     }
 
-    test("Prepare chunks channel Quilt") {
+    test("Prepare chunks channel Quilt - with chunks") {
         function "chunkPrepareChannel"
         tag "chunkPrepareChannel"
         when {
@@ -43,7 +47,63 @@ nextflow_function {
                     [id: "1000GP", chr: "chr21"],
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
                 ])
-                input[1] = "quilt"
+                input[1] = Channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "quilt"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(
+                    function.result
+                ).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel Glimpse - no chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = Channel.of([ [id: "1000GP", chr: "chr21"], [] ])
+                input[1] = Channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse1"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(
+                    function.result
+                ).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel Quilt - no chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = Channel.of([ [id: "1000GP", chr: "chr21"], [] ])
+                input[1] = Channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "quilt"
                 """
             }
         }
@@ -68,7 +128,11 @@ nextflow_function {
                     [id: "1000GP", chr: "chr21"],
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
                 ])
-                input[1] = "glimpse2"
+                input[1] = Channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse2"
                 """
             }
         }
@@ -76,10 +140,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert snapshot(
-                    workflow.stdout[2..-1]
-                        .findAll { !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) }
-                ).match() }
+                { assert workflow.stdout.join("\n").contains("ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got glimpse2") }
             )
         }
     }

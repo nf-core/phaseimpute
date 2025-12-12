@@ -8,21 +8,21 @@
                 "VcfFile [chromosomes=[22], sampleCount=0, variantCount=2174, phased=true, phasedAutodetect=true]"
             ],
             [
-                "BAM_chr22.bam.bai",
-                "VCF_chr22_chrrename.vcf.gz.tbi"
+                "BAM_chr_to_nochr.bam.bai",
+                "VCF_chr_to_nochr_chrrename.vcf.gz.tbi"
             ],
             [
-                "versions.yml:md5,76c5765c6982445c026914d680b5b320",
-                "versions.yml:md5,bf7a6d687c7715a6e81755d9612dc87b",
                 "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6",
+                "versions.yml:md5,dd93461a37f97a9676d2fbcc57ff8bd5",
+                "versions.yml:md5,e4a4a1f2ac045690726cd095221f69cb",
                 "versions.yml:md5,efbcec5e73882cc92aac076a8c7d9561"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:42:12.747169434"
+        "timestamp": "2025-12-01T10:25:48.532844847"
     },
     "Rename: VCF no chr + fasta chr": {
         "content": [
@@ -33,20 +33,20 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=4, phased=false, phasedAutodetect=false]"
             ],
             [
-                "BAM_22.bam.bai",
-                "VCF_AllNoChr_chrrename.vcf.gz.tbi"
+                "BAM_nochr_to_chr.bam.bai",
+                "VCF_nochr_to_chr_chrrename.vcf.gz.tbi"
             ],
             [
-                "versions.yml:md5,76c5765c6982445c026914d680b5b320",
-                "versions.yml:md5,bf7a6d687c7715a6e81755d9612dc87b",
                 "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6",
+                "versions.yml:md5,dd93461a37f97a9676d2fbcc57ff8bd5",
+                "versions.yml:md5,e4a4a1f2ac045690726cd095221f69cb",
                 "versions.yml:md5,efbcec5e73882cc92aac076a8c7d9561"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:42:21.706650954"
+        "timestamp": "2025-12-01T10:25:58.51804983"
     }
 }

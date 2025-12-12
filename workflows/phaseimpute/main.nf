@@ -57,7 +57,9 @@ include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
-include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/local/bam_impute_stitch'
+include { GAWK as GAWK_POSFILE_STITCH                } from '../../modules/nf-core/gawk'
+include { TABIX_BGZIP as BGZIP_POSFILE_STITCH        } from '../../modules/nf-core/tabix/bgzip'
+include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/nf-core/bam_impute_stitch'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // BEAGLE5 subworkflows
@@ -99,7 +101,7 @@ workflow PHASEIMPUTE {
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
     ch_map                  // channel: genetic map   [ [chr], map]
-    ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend]
+    ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
     chunk_model             // parameter: chunk model
     ch_versions             // channel: versions of software used
@@ -201,7 +203,9 @@ workflow PHASEIMPUTE {
         ch_versions = ch_versions.mix(VCF_SITES_EXTRACT_BCFTOOLS.out.versions)
 
         // Generate all necessary channels
-        ch_posfile          = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
+        if (!params.posfile){
+            ch_posfile  = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
+        }
 
         // Phase panel with Shapeit5
         if (params.phase == true) {
@@ -221,10 +225,10 @@ workflow PHASEIMPUTE {
         VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map, chunk_model)
         ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
 
-        // Assign chunks channels
-        ch_chunks_glimpse1  = VCF_CHUNK_GLIMPSE.out.chunks_glimpse1
-        ch_chunks_glimpse2  = VCF_CHUNK_GLIMPSE.out.chunks_glimpse2
-        ch_chunks_quilt     = VCF_CHUNK_GLIMPSE.out.chunks_quilt
+        // Use glimpse 1 for chunks
+        if (!params.chunks){
+            ch_chunks  = VCF_CHUNK_GLIMPSE.out.chunks
+        }
 
         // Create CSVs from panelprep step
         // Phased panel
@@ -232,15 +236,18 @@ workflow PHASEIMPUTE {
             ch_panel_phased.map{ meta, vcf, index ->
                 [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
             },
-            ["id", "chr"], "panel,chr,vcf,index",
+            ["panel_id", "chr"], "panel,chr,vcf,index",
             "panel.csv", "prep_panel/csv"
         )
         // Posfile
         exportCsv(
-            ch_posfile.map{ meta, vcf, index, hap, legend ->
-                [meta, [2:"prep_panel/sites", 3:"prep_panel/sites", 4:"prep_panel/haplegend", 5:"prep_panel/haplegend"], vcf, index, hap, legend]
+            ch_posfile.map{ meta, vcf, index, hap, legend, posfile ->
+                [
+                    meta, [2:"prep_panel/sites", 3:"prep_panel/sites", 4:"prep_panel/haplegend", 5:"prep_panel/haplegend", 6:"prep_panel/posfile"],
+                    vcf, index, hap, legend, posfile
+                ]
             },
-            ["id", "chr"], "panel,chr,vcf,index,hap,legend",
+            ["panel_id", "chr"], "panel,chr,vcf,index,hap,legend,posfile",
             "posfile.csv", "prep_panel/csv"
         )
         // Chunks
@@ -248,7 +255,7 @@ workflow PHASEIMPUTE {
             VCF_CHUNK_GLIMPSE.out.chunks.map{ meta, file ->
                 [meta, [2:"prep_panel/chunks/glimpse1"], file]
             },
-            ["id", "chr"], "panel,chr,file",
+            ["panel_id", "chr"], "panel,chr,file",
             "chunks_glimpse1.csv", "prep_panel/csv"
         )
     }
@@ -300,15 +307,17 @@ workflow PHASEIMPUTE {
             log.info("Impute with GLIMPSE1")
 
             // Use chunks from parameters if provided or use previous chunks from panelprep
-            if (params.chunks) {
-                ch_chunks_glimpse1 = chunkPrepareChannel(ch_chunks, "glimpse")
-            }
+            ch_chunks_glimpse1 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
             // Glimpse1 subworkflow
             // Compute GL from BAM files and merge them
             GL_GLIMPSE1(
                 ch_input_type.bam,
-                ch_posfile.map{ [it[0], it[4]] },
+                ch_posfile.map{
+                    meta, _site, _site_index, _hap, _legend, posfile -> [
+                        meta, posfile
+                    ]
+                },
                 ch_fasta
             )
             ch_multiqc_files = ch_multiqc_files.mix(GL_GLIMPSE1.out.multiqc_files)
@@ -338,9 +347,7 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("glimpse2")) {
             log.info("Impute with GLIMPSE2")
 
-            if (params.chunks) {
-                ch_chunks_glimpse2 = chunkPrepareChannel(ch_chunks, "glimpse")
-            }
+            ch_chunks_glimpse2 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
             // Run imputation
             BAM_VCF_IMPUTE_GLIMPSE2(
@@ -364,17 +371,40 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("stitch")) {
             log.info("Impute with STITCH")
 
+            ch_chunks_stitch = chunkPrepareChannel(ch_chunks, ch_region, "quilt")
+
+            // Transform posfile to tabulated format
+            GAWK_POSFILE_STITCH(
+                ch_posfile.map{
+                    meta, _site, _site_index, _hap, _legend, posfile -> [
+                        meta, posfile
+                    ]
+                }, [], false)
+            ch_versions = ch_versions.mix(GAWK_POSFILE_STITCH.out.versions.first())
+
+            BGZIP_POSFILE_STITCH(GAWK_POSFILE_STITCH.out.output)
+            ch_versions = ch_versions.mix(BGZIP_POSFILE_STITCH.out.versions.first())
+
             // Impute with STITCH
             BAM_IMPUTE_STITCH (
-                ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4], it[5]] },
-                ch_posfile.map{ [it[0], it[4]] },
-                ch_region,
-                ch_fasta
+                ch_input_bams_withlist.map{
+                    meta, file, index, _bampath_id, bampath_noid, bamnames->
+                    [meta, file, index, bampath_noid, bamnames]
+                },
+                BGZIP_POSFILE_STITCH.out.output,
+                ch_chunks_stitch,
+                ch_map,
+                ch_fasta,
+                params.k_val,
+                params.ngen,
+                params.seed
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_tbi)
+            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_index.map{
+                meta, vcf, index -> [meta + [tools:"stitch"], vcf, index]
+            })
             ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
 
             // Add results to input validate
@@ -385,17 +415,19 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("quilt")) {
             log.info("Impute with QUILT")
 
-            // Use provided chunks if --chunks
-            if (params.chunks) {
-                ch_chunks_quilt = chunkPrepareChannel(ch_chunks, "quilt")
-            }
+            // Use provided chunks if --chunks or whole chromosome
+            ch_chunks_quilt = chunkPrepareChannel(ch_chunks, ch_region, "quilt")
 
             // Impute BAMs with QUILT
             BAM_IMPUTE_QUILT(
                 ch_input_bams_withlist.map{ [it[0], it[1], it[2], it[4], it[5]] },
-                ch_posfile.map{ [it[0], it[3], it[4]] },
+                ch_posfile.map{
+                    meta, _site, _site_index, hap, legend, _posfile -> [
+                        meta, hap, legend
+                    ]
+                },
                 ch_chunks_quilt,
-                ch_fasta.map{ [it[0], it[1]] }
+                ch_fasta
             )
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
@@ -446,7 +478,11 @@ workflow PHASEIMPUTE {
                 ch_input_minimac4,
                 ch_panel_phased,
                 ch_map,
-                ch_posfile
+                ch_posfile.map{
+                    meta, site, site_index, _hap, _legend, _posfile -> [
+                        meta, site, site_index
+                    ]
+                }
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 
@@ -491,7 +527,11 @@ workflow PHASEIMPUTE {
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
-        CONCAT_PANEL(ch_posfile.map{ [it[0], it[1], it[2]] })
+        CONCAT_PANEL(ch_posfile.map{
+            meta, site, site_index, _hap, _legend, _posfile -> [
+                meta, site, site_index
+            ]
+        })
         ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
         ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
 
@@ -522,7 +562,11 @@ workflow PHASEIMPUTE {
 
         GL_TRUTH(
             ch_truth.bam.map { [it[0], it[1], it[2]] },
-            ch_posfile.map{ [it[0], it[4]] },
+            ch_posfile.map{
+                meta, _site, _site_index, _hap, _legend, posfile -> [
+                    meta, posfile
+                ]
+            },
             ch_fasta
         )
         ch_versions = ch_versions.mix(GL_TRUTH.out.versions)
@@ -571,11 +615,31 @@ workflow PHASEIMPUTE {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
+
+    def topic_versions = Channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
-            name: 'nf_core_'  + 'pipeline_software_' +  'mqc_'  + 'versions.yml',
-            sort: true, newLine: true
+            name: 'nf_core_'  +  'phaseimpute_software_'  + 'mqc_'  + 'versions.yml',
+            sort: true,
+            newLine: true
         ).set { ch_collated_versions }
 
     //

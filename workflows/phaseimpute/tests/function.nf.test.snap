@@ -1,4 +1,16 @@
 {
+    "Prepare chunks channel Quilt - no chunks": {
+        "content": [
+            {
+                
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-09T13:57:51.32676673"
+    },
     "Prepare chunks channel Quilt": {
         "content": [
             {
@@ -11,18 +23,6 @@
         },
         "timestamp": "2025-03-03T16:53:24.615848886"
     },
-    "Prepare chunks channel error tool": {
-        "content": [
-            [
-                "Only 'glimpse' and 'quilt' output format are supported. Got glimpse2"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
-        },
-        "timestamp": "2025-06-19T12:09:56.512996688"
-    },
     "Prepare chunks channel Glimpse": {
         "content": [
             {
@@ -34,5 +34,41 @@
             "nextflow": "24.10.4"
         },
         "timestamp": "2025-03-03T16:53:17.567651555"
+    },
+    "Prepare chunks channel Glimpse - no chunks": {
+        "content": [
+            {
+                
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-09T13:57:45.339666018"
+    },
+    "Prepare chunks channel Glimpse - with chunks": {
+        "content": [
+            {
+                
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-09T13:57:33.893363487"
+    },
+    "Prepare chunks channel Quilt - with chunks": {
+        "content": [
+            {
+                
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-09T13:57:39.720885438"
     }
 }

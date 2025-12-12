@@ -5,8 +5,8 @@ workflow BAM_IMPUTE_QUILT {
 
     take:
     ch_input             // channel: [ [id], [bam], [bai], bampaths, bamnames ]
-    ch_hap_legend        // channel: [ [panel, chr], hap, legend ]
-    ch_chunks            // channel: [ [panel, chr], chr, start_coordinate, end_coordinate ]
+    ch_hap_legend        // channel: [ [panel_id, chr], hap, legend ]
+    ch_chunks            // channel: [ [panel_id, chr], chr, start_coordinate, end_coordinate ]
     ch_fasta             // channel: [ [genome], fa, fai ]
 
     main:
@@ -20,12 +20,12 @@ workflow BAM_IMPUTE_QUILT {
 
     ch_hap_chunks = ch_hap_legend
         .combine(ch_chunks, by:0)
-        .map { it + ngen_params + buffer_params + [[]] }
+        .map {it -> it + ngen_params + buffer_params + [[]] }
 
     if (!genetic_map_file.isEmpty()) {
         // Add genetic map file (untested)
         ch_hap_chunks = ch_hap_chunks
-            .map{it[0..-1]}
+            .map{it -> it[0..-1]}
             .join(genetic_map_file)
     }
 
@@ -34,7 +34,7 @@ workflow BAM_IMPUTE_QUILT {
         .map {
             metaI, bam, bai, bampath, bamnames, metaPC, hap, legend, chr, start, end, ngen, buffer, gmap ->
             [
-                metaI + [panel: metaPC.id, chr: metaPC.chr, chunk: chr + ":" + start + "-" + end],
+                metaI + [panel_id: metaPC.panel_id, chr: metaPC.chr, chunk: chr + ":" + start + "-" + end],
                 bam, bai, bampath, bamnames, hap, legend, [], [], [], chr, start, end, ngen, buffer, gmap
             ]
         }
@@ -56,6 +56,6 @@ workflow BAM_IMPUTE_QUILT {
         .map { metaIPC, vcf, tbi -> [metaIPC + [tools: "quilt"], vcf, tbi] }
 
     emit:
-    vcf_tbi     = ch_vcf_tbi               // channel:  [ [id, panel], vcf, tbi ]
+    vcf_tbi     = ch_vcf_tbi               // channel:  [ [id, panel_id, tools], vcf, tbi ]
     versions    = ch_versions              // channel:  [ versions.yml ]
 }

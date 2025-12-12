@@ -1,36 +1,4 @@
 {
-    "Check test_stitch": {
-        "content": [
-            [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
-                "imputation/csv/impute.csv",
-                "imputation/stats/NA12878.stitch.bcftools_stats.txt",
-                "imputation/stats/NA19401.stitch.bcftools_stats.txt",
-                "imputation/stats/NA20359.stitch.bcftools_stats.txt",
-                "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
-                "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA12878.stitch.vcf.gz",
-                "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA19401.stitch.vcf.gz",
-                "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
-                "imputation/stitch/samples/NA20359.stitch.vcf.gz",
-                "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
-            [
-                "NA12878",
-                "NA19401",
-                "NA20359"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-11-13T16:30:45.683607262"
-    },
     "Check test_minimac4": {
         "content": [
             [
@@ -141,6 +109,8 @@
                 "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
                 "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
                 "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                "prep_panel/posfile/1000GP.chr21.posfile.txt.gz",
+                "prep_panel/posfile/1000GP.chr22.posfile.txt.gz",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
@@ -202,7 +172,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T16:34:20.959322131"
+        "timestamp": "2025-11-28T16:06:55.85573809"
     },
     "Check test_validate": {
         "content": [
@@ -409,6 +379,8 @@
                 "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
                 "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
                 "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                "prep_panel/posfile/1000GP.chr21.posfile.txt.gz",
+                "prep_panel/posfile/1000GP.chr22.posfile.txt.gz",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
@@ -419,7 +391,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T16:35:38.84113414"
+        "timestamp": "2025-11-28T15:26:35.849338999"
     },
     "Check test_glimpse2": {
         "content": [
@@ -473,6 +445,8 @@
                 "prep_panel/panel/658Dog_chr21_phased.vcf.gz.csi",
                 "prep_panel/panel/658Dog_chr22_phased.vcf.gz",
                 "prep_panel/panel/658Dog_chr22_phased.vcf.gz.csi",
+                "prep_panel/posfile/658Dog.chr21.posfile.txt.gz",
+                "prep_panel/posfile/658Dog.chr22.posfile.txt.gz",
                 "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
                 "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
                 "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
@@ -504,6 +478,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-13T16:35:04.269037693"
+        "timestamp": "2025-11-28T15:23:56.009389409"
     }
 }

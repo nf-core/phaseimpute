@@ -10,7 +10,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     take:
         ch_vcf_emul   // VCF file with imputed genotypes [ [id, panel, tool], vcf, csi]
         ch_vcf_truth  // VCF file with truth genotypes   [ [id, panel], vcf, csi]
-        ch_vcf_freq   // VCF file with panel frequencies [ [panel, chr], vcf, csi]
+        ch_vcf_freq   // VCF file with panel frequencies [ [panel_id, chr], vcf, csi]
         ch_region     // Regions to process              [ [chr, region], region]
 
     main:

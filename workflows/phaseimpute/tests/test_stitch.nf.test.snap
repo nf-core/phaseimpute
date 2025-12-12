@@ -1,0 +1,344 @@
+{
+    "Check test_stitch - without chunks": {
+        "content": [
+            [
+                25,
+                {
+                    "BAMCHREXTRACT": {
+                        "samtools": 1.2
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BGZIP_POSFILE_STITCH": {
+                        "tabix": 1.21
+                    },
+                    "GAWK_POSFILE_STITCH": {
+                        "gawk": "5.3.0"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "STITCH": {
+                        "r-base": "4.4.2",
+                        "r-stitch": "1.7.3"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all.batch0.id.txt",
+                    "imputation/batch/all.batch0.idonly.txt",
+                    "imputation/batch/all.batch0.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                    "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                    "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                    "imputation/stitch",
+                    "imputation/stitch/concat",
+                    "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
+                    "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples",
+                    "imputation/stitch/samples/NA12878.stitch.vcf.gz",
+                    "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA19401.stitch.vcf.gz",
+                    "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA20359.stitch.vcf.gz",
+                    "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "all.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
+                    "all.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
+                    "all.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
+                    "NA12878.stitch.bcftools_stats.txt:md5,994f53d38322b1b2f0a305f5cef594b9",
+                    "NA19401.stitch.bcftools_stats.txt:md5,fbf6ca898c25414895ad5d9a6abc084f",
+                    "NA20359.stitch.bcftools_stats.txt:md5,93266d3d797ce3ee9cf2a4806bbbcf61",
+                    "bcftools-stats-subtypes.txt:md5,20f016802c19197bd01da87b5bebf585",
+                    "bcftools_stats_indel-lengths.txt:md5,45ceadfb316d18af27006953d095dcb0",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,616f14f3cb0c747a410e5e40baaccc32",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,bcee2771f02b86f049ff0313c9844e11",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,b71efe9ffe199c3666f5678d2f55e145",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,25fd76377c20cecbb6b507a20ae1c5dc",
+                    "multiqc_bcftools_stats.txt:md5,6e548bb916778cf83c63b68cdc1daebb",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,39264ce935dad82f00b5e01f294af1f1"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "all.batch0.stitch.vcf.gz",
+                        "5289493ecc73af7ed0c1b999021fce15"
+                    ],
+                    [
+                        "NA12878.stitch.vcf.gz",
+                        "3a06d166ebeeb24ed291fdc2f3a42a66"
+                    ],
+                    [
+                        "NA19401.stitch.vcf.gz",
+                        "9916b80615dad2939b6f97d882f60b83"
+                    ],
+                    [
+                        "NA20359.stitch.vcf.gz",
+                        "cf07a0cc1d678c906d5c9bbe19ff9a03"
+                    ]
+                ]
+            ],
+            {
+                "all.batch0.stitch": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401",
+                        "NA20359"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-11T14:48:44.546165765"
+    },
+    "Check test_stitch - with chunks": {
+        "content": [
+            [
+                29,
+                {
+                    "BAMCHREXTRACT": {
+                        "samtools": 1.2
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_1": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_2": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BGZIP_POSFILE_STITCH": {
+                        "tabix": 1.21
+                    },
+                    "GAWK_POSFILE_STITCH": {
+                        "gawk": "5.3.0"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "STITCH": {
+                        "r-base": "4.4.2",
+                        "r-stitch": "1.7.3"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all.batch0.id.txt",
+                    "imputation/batch/all.batch0.idonly.txt",
+                    "imputation/batch/all.batch0.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.stitch.bcftools_stats.txt",
+                    "imputation/stats/NA19401.stitch.bcftools_stats.txt",
+                    "imputation/stats/NA20359.stitch.bcftools_stats.txt",
+                    "imputation/stitch",
+                    "imputation/stitch/concat",
+                    "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
+                    "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples",
+                    "imputation/stitch/samples/NA12878.stitch.vcf.gz",
+                    "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA19401.stitch.vcf.gz",
+                    "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA20359.stitch.vcf.gz",
+                    "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "all.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
+                    "all.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
+                    "all.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
+                    "NA12878.stitch.bcftools_stats.txt:md5,994f53d38322b1b2f0a305f5cef594b9",
+                    "NA19401.stitch.bcftools_stats.txt:md5,fbf6ca898c25414895ad5d9a6abc084f",
+                    "NA20359.stitch.bcftools_stats.txt:md5,93266d3d797ce3ee9cf2a4806bbbcf61",
+                    "bcftools-stats-subtypes.txt:md5,20f016802c19197bd01da87b5bebf585",
+                    "bcftools_stats_indel-lengths.txt:md5,45ceadfb316d18af27006953d095dcb0",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,616f14f3cb0c747a410e5e40baaccc32",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,bcee2771f02b86f049ff0313c9844e11",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,b71efe9ffe199c3666f5678d2f55e145",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,25fd76377c20cecbb6b507a20ae1c5dc",
+                    "multiqc_bcftools_stats.txt:md5,6e548bb916778cf83c63b68cdc1daebb",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,39264ce935dad82f00b5e01f294af1f1"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "all.batch0.stitch.vcf.gz",
+                        "5289493ecc73af7ed0c1b999021fce15"
+                    ],
+                    [
+                        "NA12878.stitch.vcf.gz",
+                        "3a06d166ebeeb24ed291fdc2f3a42a66"
+                    ],
+                    [
+                        "NA19401.stitch.vcf.gz",
+                        "9916b80615dad2939b6f97d882f60b83"
+                    ],
+                    [
+                        "NA20359.stitch.vcf.gz",
+                        "cf07a0cc1d678c906d5c9bbe19ff9a03"
+                    ]
+                ]
+            ],
+            {
+                "all.batch0.stitch": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401",
+                        "NA20359"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-11T14:47:42.71447113"
+    }
+}

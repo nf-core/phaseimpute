@@ -19,13 +19,14 @@
                     "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|json)$",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
+                    "description": "Path to comma or tab-separated file, yaml or json file containing information about the samples in the experiment.",
+                    "help_text": "The file should contain at least 3 columns, and a header row: 'sample,file,index'. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "input_region": {
                     "type": "string",
-                    "description": "Region of the genome to use (optional: if no file given, the whole genome will be used). The file should be a comma-separated file with 3 columns, and a header row.",
+                    "description": "Path to comma or tab-separated file, yaml or json file containing region of the genome to use (optional: if no file given, the whole genome will be used).",
+                    "help_text": "The file should contain 3 columns, and a header row: 'chr,start,end'.",
                     "schema": "assets/schema_input_region.json",
                     "format": "file-path",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|json)$"
@@ -108,7 +109,8 @@
             "properties": {
                 "panel": {
                     "type": "string",
-                    "description": "Path to the reference panel or csv file with the list of panels",
+                    "description": "Path to comma or tab-separated file, yaml or json file containing reference panel information.",
+                    "help_text": "The file should contain 4 columns, and a header row: 'panel,chr,file,index'. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-reference-panel).",
                     "fa_icon": "far fa-file-code",
                     "format": "file-path",
                     "schema": "assets/schema_input_panel.json",
@@ -151,7 +153,8 @@
                 },
                 "chunks": {
                     "type": "string",
-                    "description": "Path to comma-separated file containing tab-separated files with the genomic chunks to be used for imputation.",
+                    "description": "Path to comma or tab-separated file, yaml or json file containing genomic chunks to be used for imputation.",
+                    "help_text": "The file should contain 3 columns, and a header row: 'panel,chr,file'.",
                     "format": "file-path",
                     "mimetype": "text/csv",
                     "schema": "/assets/schema_chunks.json",
@@ -159,7 +162,8 @@
                 },
                 "posfile": {
                     "type": "string",
-                    "description": "Path to comma-separated file containing tab-separated files describing the variable positions to be used for imputation. Refer to the documentation for the `--posfile` argument of STITCH for more information.",
+                    "description": "Path to comma or tab-separated file, yaml or json file containing reference panel information converted files for imputation.",
+                    "help_text": "The file should contain at least 2 columns, and a header row: 'panel,chr'. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-posfile).",
                     "format": "file-path",
                     "schema": "assets/schema_posfile.json",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|json)$",
@@ -186,8 +190,8 @@
                     "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|json)$",
-                    "description": "Path to comma-separated file containing information about the samples truth files in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phaseimpute/usage#samplesheet-input).",
+                    "description": "Path to comma or tab-separated file, yaml or json file containing samples truth files informations.",
+                    "help_text": "The file should contain 3 columns, and a header row: 'sample,file,index'.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "bins": {

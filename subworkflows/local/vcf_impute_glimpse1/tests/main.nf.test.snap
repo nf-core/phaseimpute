@@ -13,7 +13,7 @@
                 [
                     {
                         "id": "NA12878",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "22",
                         "tools": "glimpse1"
                     },
@@ -63,10 +63,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:23:52.452434359"
+        "timestamp": "2025-11-27T16:17:47.727771717"
     },
     "Impute with glimpse1 two vcf": {
         "content": [
@@ -88,7 +88,7 @@
                 [
                     {
                         "id": "NA12878",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "22",
                         "tools": "glimpse1"
                     },
@@ -98,7 +98,7 @@
                 [
                     {
                         "id": "NA19401",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "22",
                         "tools": "glimpse1"
                     },
@@ -182,9 +182,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-07-08T15:23:43.920521467"
+        "timestamp": "2025-11-27T16:17:34.512531416"
     }
 }

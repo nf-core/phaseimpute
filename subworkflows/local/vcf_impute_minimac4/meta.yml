@@ -39,7 +39,7 @@ input:
           type: map
           description: |
             Metadata map that will be combined with the input data map
-            Need to have the "chr" as chromosome name and "id" as panel name
+            Need to have the "chr" as chromosome name and "panel_id" as panel name
         - vcf:
           type: file
           description: Reference panel VCF files by chromosomes

@@ -25,13 +25,13 @@ nextflow_workflow {
                 """
                 input[0] = Channel.fromList([
                     [
-                        [id: "VCF_chr22"],
+                        [id: "VCF_chr_to_nochr"],
                         file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz',checkIfExist:true),
                         file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/vcf/dbsnp_146.hg38.vcf.gz.tbi',checkIfExist:true),
                         ["22"]
                     ],
                     [
-                        [id: "BAM_chr22"],
+                        [id: "BAM_chr_to_nochr"],
                         file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
                         file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                         ["22"]
@@ -72,7 +72,7 @@ nextflow_workflow {
                     """
                     input[0] = Channel.fromList([
                         [
-                            [id: "BAM_22"],
+                            [id: "BAM_nochr_to_chr"],
                             file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExist:true),
                             file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai', checkIfExist:true),
                             "nochr"
@@ -89,7 +89,7 @@ nextflow_workflow {
                     .mix(
                         Channel.fromList([
                             [
-                                [id: "VCF_AllNoChr"],
+                                [id: "VCF_nochr_to_chr"],
                                 file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz',checkIfExist:true),
                                 file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/NA24385_sv.vcf.gz.tbi',checkIfExist:true),
                             ],

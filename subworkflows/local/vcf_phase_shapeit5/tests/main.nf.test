@@ -30,13 +30,13 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     [
-                        [id: "1000GP", chr: "chr22"],
+                        [panel_id: "1000GP", chr: "chr22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
                         []
                     ],
                     [
-                        [id: "1000GP", chr: "chr21"],
+                        [panel_id: "1000GP", chr: "chr21"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
                         []
@@ -89,13 +89,13 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     [
-                        [id: "1000GP", chr: "chr22"],
+                        [panel_id: "1000GP", chr: "chr22"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
                         []
                     ],
                     [
-                        [id: "1000GP", chr: "chr21"],
+                        [panel_id: "1000GP", chr: "chr21"],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
                         []

@@ -11,7 +11,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Panel name must be provided as a string and cannot contain spaces",
-                "meta": ["id"]
+                "meta": ["panel_id"]
             },
             "chr": {
                 "type": "string",
@@ -38,6 +38,11 @@
                 "type": "string",
                 "pattern": "^\\S+\\.(legend)(\\.gz)?$",
                 "errorMessage": "Legend file can be provided, cannot contain spaces and must have extension '.legend' with '.gz' extension"
+            },
+            "posfile": {
+                "type": "string",
+                "pattern": "^\\S+\\.(posfile).*(\\.gz)?$",
+                "errorMessage": "Tab delimited file with chromosome, position, and reference alternative allele separated by a comma (CHROM\tPOS\tREF,ALT). Cannot contain spaces and must have extension 'posfile' and optionally compressed with tabix"
             }
         },
         "required": ["panel", "chr"],

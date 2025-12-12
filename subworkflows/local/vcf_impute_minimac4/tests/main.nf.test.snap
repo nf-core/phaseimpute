@@ -10,7 +10,7 @@
                 [
                     {
                         "id": "NA12878",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22",
                         "tools": "minimac4"
                     },
@@ -20,7 +20,7 @@
                 [
                     {
                         "id": "NA19401",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22",
                         "tools": "minimac4"
                     },
@@ -38,10 +38,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:15.295537018"
+        "timestamp": "2025-11-27T16:18:37.173928309"
     },
     "Impute with minimac4 one vcf": {
         "content": [
@@ -54,7 +54,7 @@
                 [
                     {
                         "id": "NA12878",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22",
                         "tools": "minimac4"
                     },
@@ -70,10 +70,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:35:46.826956402"
+        "timestamp": "2025-11-27T16:18:13.984029491"
     },
     "Impute with minimac4 one vcf with sites": {
         "content": [
@@ -86,7 +86,7 @@
                 [
                     {
                         "id": "NA12878",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22",
                         "tools": "minimac4"
                     },
@@ -102,10 +102,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:28.874465664"
+        "timestamp": "2025-11-27T16:18:48.705306415"
     },
     "Impute with minimac4 one vcf with map": {
         "content": [
@@ -118,7 +118,7 @@
                 [
                     {
                         "id": "NA12878",
-                        "panel": "1000GP",
+                        "panel_id": "1000GP",
                         "chr": "chr22",
                         "tools": "minimac4"
                     },
@@ -134,9 +134,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-11T12:36:00.295884864"
+        "timestamp": "2025-11-27T16:18:25.397125636"
     }
 }

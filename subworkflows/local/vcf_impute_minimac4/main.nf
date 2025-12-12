@@ -8,16 +8,11 @@ workflow VCF_IMPUTE_MINIMAC4 {
     ch_input     // channel: [ [id, chr], vcf, tbi ]
     ch_panel     // channel: [ [id, chr], vcf, tbi ]
     ch_map       // channel: [ [chr], map]
-    ch_posfile   // channel: [ [chr], sites_vcf, sites_index, hap, legend ]
+    ch_posfile   // channel: [ [chr], sites_vcf, sites_index ]
 
     main:
 
     ch_versions = channel.empty()
-
-    ch_posfile_minimac4 = ch_posfile
-        .map { meta, sites_vcf, sites_index, _hap, _legend ->
-            [meta, sites_vcf, sites_index]
-        }
 
     // Compress reference panel to MSAV format
     MINIMAC4_COMPRESSREF(ch_panel)
@@ -27,7 +22,7 @@ workflow VCF_IMPUTE_MINIMAC4 {
     ch_minimac4_input = ch_input
         .map { meta, vcf, tbi -> [meta.chr, meta, vcf, tbi] }
         .combine(
-            MINIMAC4_COMPRESSREF.out.msav.map { meta, msav -> [meta.chr, meta.id, msav] },
+            MINIMAC4_COMPRESSREF.out.msav.map { metaPC, msav -> [metaPC.chr, metaPC, msav] },
             by: 0
         )
         .combine(
@@ -35,13 +30,13 @@ workflow VCF_IMPUTE_MINIMAC4 {
             by: 0
         )
         .combine(
-            ch_posfile_minimac4.map { meta, sites_vcf, sites_index ->
+            ch_posfile.map { meta, sites_vcf, sites_index ->
                 [meta.chr, sites_vcf, sites_index]
             },
             by: 0
         )
-        .map { _chr, target_meta, target_vcf, target_tbi, panel_id, ref_msav, map, sites_vcf, sites_index ->
-            [target_meta + [panel: panel_id], target_vcf, target_tbi, ref_msav, sites_vcf, sites_index, map]
+        .map { _chr, target_meta, target_vcf, target_tbi, metaPC, ref_msav, map, sites_vcf, sites_index ->
+            [target_meta + [panel_id: metaPC.panel_id], target_vcf, target_tbi, ref_msav, sites_vcf, sites_index, map]
         }
     // Perform imputation
     MINIMAC4_IMPUTE(ch_minimac4_input)
@@ -63,5 +58,5 @@ workflow VCF_IMPUTE_MINIMAC4 {
 
     emit:
     vcf_index  = ch_vcf_index // channel: [ [id, chr, tools], vcf, index ]
-    versions = ch_versions        // channel: [ versions.yml ]
+    versions = ch_versions    // channel: [ versions.yml ]
 }

@@ -23,6 +23,7 @@
                 "errorMessage": "Region end name must be provided, cannot contain spaces and must be numeric"
             }
         },
-        "required": ["chr", "start", "end"]
+        "required": ["chr", "start", "end"],
+        "uniqueEntries": ["chr"]
     }
 }

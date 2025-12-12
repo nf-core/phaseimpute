@@ -99,8 +99,6 @@ output:
           type: map
           description: |
             Metadata map combined with the ch_panel data map.
-            It contains the "chr" name of the ch_panel map and
-            "panel" as the "id" of ch_posfile.
             {"tools" : "glimpse2"} is added.
         - vcf:
           type: file

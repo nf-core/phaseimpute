@@ -421,6 +421,127 @@ nextflow_function {
         }
     }
 
+    test ("Test validatePosfileTools good file") {
+        function "validatePosfileTools"
+        tag "validatePosfileTools"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "test"], [], [], [], [],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile", checkIfExists: true)
+                ])
+                input[1] = "stitch"
+                input[2] = "impute"
+                input[3] = "bam"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success }
+            )
+        }
+    }
+
+    test ("Test validatePosfileTools good compressed file") {
+        function "validatePosfileTools"
+        tag "validatePosfileTools"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "test"], [], [], [], [],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile.gz", checkIfExists: true)
+                ])
+                input[1] = "stitch"
+                input[2] = "impute"
+                input[3] = "bam"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success }
+            )
+        }
+    }
+
+    test ("Test validatePosfileTools validate with file missing posfile") {
+        function "validatePosfileTools"
+        tag "validatePosfileTools"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "test"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz.csi", checkIfExists: true),
+                    [], [],
+                    []
+                ])
+                input[1] = "glimpse2"
+                input[2] = "validate"
+                input[3] = "bam"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert function.stdout.join('\n').contains(
+                    "You have not provided a posfile and you've requested to use the validation step with bam files."
+                ) }
+            )
+        }
+    }
+
+    test ("Test validatePosfileTools no posfile") {
+        function "validatePosfileTools"
+        tag "validatePosfileTools"
+        when {
+            function {
+                """
+                input[0] = channel.of( [[id: "test"], [], [], [], [], []] )
+                input[1] = "glimpse2"
+                input[2] = "impute"
+                input[3] = "bam"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success }
+            )
+        }
+    }
+
+    test ("Test validatePosfileTools wrong file") {
+        function "validatePosfileTools"
+        tag "validatePosfileTools"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "test"], [], [], [], [],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile.stitch", checkIfExists: true)
+                ])
+                input[1] = "stitch"
+                input[2] = "impute"
+                input[3] = "bam"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert function.stdout.join('\n').contains(
+                    'ERROR ~ Expected 3 columns in 1000GP.chr21.posfile.stitch, found 4 in line: chr21\t16570070\tC\tG.'
+                ) }
+            )
+        }
+    }
+
     test ("Test getRegionFromFai with all") {
         function "getRegionFromFai"
         tag "getRegionFromFai"
@@ -513,6 +634,106 @@ nextflow_function {
                 { assert snapshot(
                     check_stdout(function.stdout)
                 ).match() }
+            )
+        }
+    }
+
+    test ("Test toolBibliographyText - simulate only") {
+        function "toolBibliographyText"
+        tag "toolBibliographyText"
+        when {
+            params {
+                outdir = "results"
+                steps = "simulate"
+                tools = null
+            }
+            function {
+                """
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match() }
+            )
+        }
+    }
+    test ("Test toolBibliographyText - all tools and steps") {
+        function "toolBibliographyText"
+        tag "toolBibliographyText"
+        when {
+            params {
+                outdir = "results"
+                steps = "all"
+                tools = "glimpse1,glimpse2,stitch,quilt,beagle5,minimac4"
+            }
+            function {
+                """
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match() }
+            )
+        }
+    }
+    test ("Test toolCitationText - panelprep only") {
+        function "toolCitationText"
+        tag "toolCitationText"
+        when {
+            params {
+                outdir = "results"
+                steps = "panelprep"
+                tools = null
+            }
+            function {
+                """
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "vcflib", "SHAPEIT5", "Tabix", "SAMtools"].every { !function.result.contains(it) } },
+                { assert ["BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"].every { function.result.contains(it) } },
+                { assert snapshot(function.result).match() }
+            )
+        }
+    }
+    test ("Test toolCitationText - all tools and steps") {
+        function "toolCitationText"
+        tag "toolCitationText"
+        when {
+            params {
+                outdir = "results"
+                steps = "all"
+                tools = "glimpse1,glimpse2,stitch,quilt,beagle5,minimac4"
+                normalize = true
+                phase = true
+                remove_samples = "sample1,sample2"
+                compute_freq = true
+            }
+            function {
+                """
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert [
+                    "Beagle5", "Minimac4", "STITCH", "QUILT",
+                    "vcflib", "SHAPEIT5", "Tabix", "SAMtools",
+                    "BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"
+                ].every { function.result.contains(it) } },
+                { assert snapshot(function.result).match() }
             )
         }
     }

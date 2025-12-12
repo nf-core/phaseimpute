@@ -7,11 +7,11 @@ include { BCFTOOLS_INDEX as VCF_BCFTOOLS_INDEX_2 } from '../../../modules/nf-cor
 workflow VCF_PHASE_SHAPEIT5 {
 
     take:
-    ch_vcf        // channel (mandatory) : [ [id, chr], vcf, index, pedigree ]
+    ch_vcf        // channel (mandatory) : [ [panel_id, chr], vcf, index, pedigree ]
     ch_region     // channel (mandatory) : [ [chr, region], region ]
     ch_ref        // channel (optional)  : [ [id, chr], vcf, index ]
     ch_scaffold   // channel (optional)  : [ [id, chr], vcf, index ]
-    ch_map        // channel (optional) : [ [chr], map]
+    ch_map        // channel (optional)  : [ [chr], map]
     chunk_model   // channel (mandatory) : [ model ]
 
     main:
@@ -21,10 +21,10 @@ workflow VCF_PHASE_SHAPEIT5 {
     // Chunk with Glimpse2
     ch_input_glimpse2 = ch_vcf
         .map{
-            metaIC, vcf, csi, _pedigree -> [metaIC.subMap("chr"), metaIC, vcf, csi]
+            metaPC, vcf, csi, _pedigree -> [metaPC.subMap("chr"), metaPC, vcf, csi]
         }
         .combine(ch_region.map{ metaCR, region -> [metaCR.subMap("chr"), region]}, by:0)
-        .join(ch_map)
+        .combine(ch_map.map{ metaCR, map -> [metaCR.subMap("chr"), map]}, by: 0)
         .map{
             _metaC, metaIC, vcf, csi, region, gmap -> [metaIC, vcf, csi, region, gmap]
         }
@@ -46,7 +46,7 @@ workflow VCF_PHASE_SHAPEIT5 {
         .map{
             metaIC, vcf, csi, pedigree, regionbuf, regioncnk -> [metaIC.subMap("chr"), metaIC, vcf, csi, pedigree, regionbuf, regioncnk]
         }
-        .combine(ch_map, by:0)
+        .combine(ch_map.map{ metaCR, map -> [metaCR.subMap("chr"), map]}, by:0)
         .map { _metaC, metaIC, vcf, index, pedigree, regionbuf, regioncnk, gmap ->
             [metaIC + [chunk: regioncnk], vcf, index, pedigree, regionbuf, gmap]
         }
@@ -62,7 +62,7 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     ch_ligate_input = SHAPEIT5_PHASECOMMON.out.phased_variant
         .join(VCF_BCFTOOLS_INDEX_1.out.csi, failOnMismatch:true, failOnDuplicate:true)
-        .map{ meta, vcf, csi -> [meta.subMap("id", "chr"), [vcf, meta.chunk], csi]}
+        .map{ meta, vcf, csi -> [meta.subMap("panel_id", "chr"), [vcf, meta.chunk], csi]}
         .groupTuple()
         .map{ meta, vcf, csi ->
                 [ meta,
