@@ -1,0 +1,77 @@
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+
+    config "./nextflow.config"
+
+    test("Check test_glimpse1 - with chunks") {
+        tag "test_glimpse1"
+        config "../../../conf/test.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["all.batch0.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_glimpse1 - with chunks - no map") {
+        tag "test_glimpse1"
+        config "../../../conf/test.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                map = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["all.batch0.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_glimpse1 - without chunks") {
+        tag "test_glimpse1"
+        config "../../../conf/test.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                chunks = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["all.batch0.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+}
