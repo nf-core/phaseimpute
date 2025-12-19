@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#241](https://github.com/nf-core/phaseimpute/pull/241) - Add chromosomes concatenation to `BAM_GL_BCFTOOLS`
+
 ### `Changed`
 
 - [#237](https://github.com/nf-core/phaseimpute/pull/237) - Bump version to 1.2.0dev and update `CHANGELOG.md`.
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#226](https://github.com/nf-core/phaseimpute/pull/226) - Remove `BEDTOOLS` and update automated methods description.
 - [#239](https://github.com/nf-core/phaseimpute/pull/239) - Move from local to nf-core sbwf for `STITCH` imputation. Set `--chunks` as optional argument. Update `usage.md`.
 - [#240](https://github.com/nf-core/phaseimpute/pull/240) - Move from local to nf-core sbwf for `GLIMPSE2` imputation. Update `usage.md`.
+- [#241](https://github.com/nf-core/phaseimpute/pull/241) - Move from local to nf-core sbwf for `GLIMPSE1` imputation. Set output channels to `vcf_index`. Update `usage.md`.
 
 ### `Fixed`
 
