@@ -1,6 +1,7 @@
-include { BCFTOOLS_MPILEUP          } from '../../../modules/nf-core/bcftools/mpileup'
-include { BCFTOOLS_MERGE            } from '../../../modules/nf-core/bcftools/merge'
-include { BCFTOOLS_ANNOTATE         } from '../../../modules/nf-core/bcftools/annotate'
+include { BCFTOOLS_MPILEUP                 } from '../../../modules/nf-core/bcftools/mpileup'
+include { BCFTOOLS_MERGE                   } from '../../../modules/nf-core/bcftools/merge'
+include { BCFTOOLS_ANNOTATE                } from '../../../modules/nf-core/bcftools/annotate'
+include { VCF_CONCATENATE_BCFTOOLS         } from '../../../subworkflows/local/vcf_concatenate_bcftools'
 
 workflow BAM_GL_BCFTOOLS {
 
@@ -44,19 +45,27 @@ workflow BAM_GL_BCFTOOLS {
             more: it[3] > 1
         }
 
-    // Merge VCFs
+    // Merge VCFs all individuals
     BCFTOOLS_MERGE(
         ch_all_vcf.more.map{it -> [it[0], it[1], it[2], []] },
         ch_fasta
     )
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions.first())
 
+    // Merge all chromosomes
+    VCF_CONCATENATE_BCFTOOLS(
+        BCFTOOLS_MERGE.out.vcf
+            .join(BCFTOOLS_MERGE.out.tbi.mix(
+                BCFTOOLS_MERGE.out.csi
+            ))
+    )
+    ch_versions = ch_versions.mix(VCF_CONCATENATE_BCFTOOLS.out.versions.first())
+
     // Mix all vcfs
     ch_to_annotate = ch_all_vcf.one
         .map{it -> [it[0]["metas"][0], it[1][0], it[2][0]] }
         .mix(
-            BCFTOOLS_MERGE.out.vcf
-                .join(BCFTOOLS_MERGE.out.tbi)
+            VCF_CONCATENATE_BCFTOOLS.out.vcf_index
         )
 
     // Annotate the variants
@@ -67,11 +76,13 @@ workflow BAM_GL_BCFTOOLS {
 
     // Output
     ch_output = BCFTOOLS_ANNOTATE.out.vcf
-        .join(BCFTOOLS_ANNOTATE.out.tbi)
-        .map{ metaIPC, vcf, tbi -> [metaIPC + [ variantcaller:'bcftools' ], vcf, tbi] }
+        .join(BCFTOOLS_ANNOTATE.out.tbi.mix(
+            BCFTOOLS_ANNOTATE.out.csi
+        ))
+        .map{ metaIPC, vcf, index -> [metaIPC + [ variantcaller:'bcftools' ], vcf, index] }
 
     emit:
-    vcf_tbi       = ch_output        // channel: [ [id, panel, chr], vcf, tbi ]
+    vcf_index     = ch_output        // channel: [ [id, panel], vcf, index ]
     versions      = ch_versions      // channel: [ versions.yml ]
     multiqc_files = ch_multiqc_files
 }
