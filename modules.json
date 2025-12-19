@@ -24,7 +24,12 @@
                     "bcftools/index": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["bam_impute_stitch", "bam_vcf_impute_glimpse2", "modules"]
+                        "installed_by": [
+                            "bam_impute_stitch",
+                            "bam_vcf_impute_glimpse2",
+                            "modules",
+                            "vcf_impute_glimpse"
+                        ]
                     },
                     "bcftools/merge": {
                         "branch": "master",
@@ -77,17 +82,17 @@
                     "glimpse/chunk": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_impute_glimpse"]
                     },
                     "glimpse/ligate": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_impute_glimpse"]
                     },
                     "glimpse/phase": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_impute_glimpse"]
                     },
                     "glimpse2/chunk": {
                         "branch": "master",
@@ -238,6 +243,11 @@
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "4b406a74dc0449c0401ed87d5bfff4252fd277fd",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "vcf_impute_glimpse": {
+                        "branch": "master",
+                        "git_sha": "94a767478097e92dca1386ea623d9dae9edc025a",
                         "installed_by": ["subworkflows"]
                     }
                 }
