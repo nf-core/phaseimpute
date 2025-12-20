@@ -65,8 +65,8 @@
                         "chr": "22",
                         "variantcaller": "bcftools"
                     },
-                    "NA12878.annotate.vcf.gz",
-                    "NA12878.annotate.vcf.gz.tbi"
+                    "NA12878_22.annotate.vcf.gz",
+                    "NA12878_22.annotate.vcf.gz.tbi"
                 ]
             ],
             [

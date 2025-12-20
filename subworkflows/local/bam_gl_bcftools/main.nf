@@ -52,24 +52,22 @@ workflow BAM_GL_BCFTOOLS {
     )
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions.first())
 
-    // Merge all chromosomes
-    VCF_CONCATENATE_BCFTOOLS(
-        BCFTOOLS_MERGE.out.vcf
-            .join(BCFTOOLS_MERGE.out.tbi.mix(
-                BCFTOOLS_MERGE.out.csi
-            ))
-    )
-    ch_versions = ch_versions.mix(VCF_CONCATENATE_BCFTOOLS.out.versions.first())
-
     // Mix all vcfs
-    ch_to_annotate = ch_all_vcf.one
+    ch_to_concat = ch_all_vcf.one
         .map{it -> [it[0]["metas"][0], it[1][0], it[2][0]] }
         .mix(
-            VCF_CONCATENATE_BCFTOOLS.out.vcf_index
+            BCFTOOLS_MERGE.out.vcf
+                .join(BCFTOOLS_MERGE.out.tbi.mix(
+                    BCFTOOLS_MERGE.out.csi
+                ))
         )
 
+    // Merge all chromosomes
+    VCF_CONCATENATE_BCFTOOLS(ch_to_concat)
+    ch_versions = ch_versions.mix(VCF_CONCATENATE_BCFTOOLS.out.versions.first())
+
     // Annotate the variants
-    BCFTOOLS_ANNOTATE(ch_to_annotate
+    BCFTOOLS_ANNOTATE(VCF_CONCATENATE_BCFTOOLS.out.vcf_index
         .combine(channel.of([[], [], [], []]))
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
