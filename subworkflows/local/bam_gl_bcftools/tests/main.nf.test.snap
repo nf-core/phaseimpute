@@ -62,11 +62,11 @@
                     {
                         "id": "NA12878",
                         "panel_id": "1000GP",
-                        "chr": "22",
+                        "chr": "all",
                         "variantcaller": "bcftools"
                     },
-                    "NA12878_22.annotate.vcf.gz",
-                    "NA12878_22.annotate.vcf.gz.tbi"
+                    "NA12878_all.annotate.vcf.gz",
+                    "NA12878_all.annotate.vcf.gz.tbi"
                 ]
             ],
             [
@@ -89,6 +89,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-28T14:16:51.439729354"
+        "timestamp": "2025-12-20T17:50:42.161993968"
     }
 }
