@@ -18,7 +18,7 @@ nextflow_workflow {
     tag "bcftools/mpileup"
     tag "bcftools/annotate"
 
-    test("Compute genotype likelihood with merging") {
+    test("Compute genotype likelihood with merging and two chromosomes") {
         when {
             workflow {
                 """
@@ -34,10 +34,15 @@ nextflow_workflow {
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bam.bai", checkIfExist:true),
                     ],
                 ])
-                input[1] = Channel.of([
-                        [panel_id: "1000GP", chr: "22"],
-                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.posfile", checkIfExist:true)
-                    ]).collect()
+                input[1] = Channel.of(
+                [
+                    [panel_id: "1000GP", chr: "22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.posfile", checkIfExist:true)
+                ],
+                [
+                    [panel_id: "1000GP", chr: "21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile", checkIfExist:true)
+                ])
                 input[2] = Channel.of([
                     [id: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),

@@ -1,5 +1,5 @@
 {
-    "Compute genotype likelihood with merging": {
+    "Compute genotype likelihood with merging and two chromosomes": {
         "content": [
             [
                 "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
@@ -10,7 +10,28 @@
                 [
                     {
                         "panel_id": "1000GP",
-                        "chr": "22",
+                        "id": "all",
+                        "metas": [
+                            {
+                                "id": "NA12878",
+                                "panel_id": "1000GP",
+                                "chr": "21"
+                            },
+                            {
+                                "id": "NA19401",
+                                "panel_id": "1000GP",
+                                "chr": "21"
+                            }
+                        ],
+                        "chr": "all",
+                        "variantcaller": "bcftools"
+                    },
+                    "all.annotate.vcf.gz",
+                    "all.annotate.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "panel_id": "1000GP",
                         "id": "all",
                         "metas": [
                             {
@@ -24,6 +45,7 @@
                                 "chr": "22"
                             }
                         ],
+                        "chr": "all",
                         "variantcaller": "bcftools"
                     },
                     "all.annotate.vcf.gz",
@@ -31,6 +53,7 @@
                 ]
             ],
             [
+                "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=836, phased=false, phasedAutodetect=false]",
                 "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
             ],
             [
@@ -55,7 +78,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-28T14:16:35.632065573"
+        "timestamp": "2025-12-20T12:55:53.917745981"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
