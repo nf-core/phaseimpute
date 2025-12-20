@@ -11,10 +11,10 @@
                 "BCFTOOLS_CONCAT": {
                     "bcftools": 1.21
                 },
-                "BCFTOOLS_INDEX_PHASE": {
+                "BCFTOOLS_INDEX_LIGATE": {
                     "bcftools": 1.21
                 },
-                "BCFTOOLS_INDEX_LIGATE": {
+                "BCFTOOLS_INDEX_PHASE": {
                     "bcftools": 1.21
                 },
                 "BCFTOOLS_MERGE": {

@@ -4,57 +4,23 @@
             [
                 "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
                 "versions.yml:md5,5c1d0190110ff1887f49323dec613345",
-                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202"
+                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
+                "versions.yml:md5,85e298b4e9dd35ea49f5696b117f759b"
             ],
             [
                 [
                     {
-                        "panel_id": "1000GP",
                         "id": "all",
-                        "metas": [
-                            {
-                                "id": "NA12878",
-                                "panel_id": "1000GP",
-                                "chr": "21"
-                            },
-                            {
-                                "id": "NA19401",
-                                "panel_id": "1000GP",
-                                "chr": "21"
-                            }
-                        ],
+                        "panel_id": "1000GP",
                         "chr": "all",
                         "variantcaller": "bcftools"
                     },
-                    "all.annotate.vcf.gz",
-                    "all.annotate.vcf.gz.tbi"
-                ],
-                [
-                    {
-                        "panel_id": "1000GP",
-                        "id": "all",
-                        "metas": [
-                            {
-                                "id": "NA12878",
-                                "panel_id": "1000GP",
-                                "chr": "22"
-                            },
-                            {
-                                "id": "NA19401",
-                                "panel_id": "1000GP",
-                                "chr": "22"
-                            }
-                        ],
-                        "chr": "all",
-                        "variantcaller": "bcftools"
-                    },
-                    "all.annotate.vcf.gz",
-                    "all.annotate.vcf.gz.tbi"
+                    "all_all.annotate.vcf.gz",
+                    "all_all.annotate.vcf.gz.tbi"
                 ]
             ],
             [
-                "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=836, phased=false, phasedAutodetect=false]",
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=false, phasedAutodetect=false]"
             ],
             [
                 {
@@ -71,6 +37,11 @@
                     "BAM_GL_BCFTOOLS:BCFTOOLS_MPILEUP": {
                         "bcftools": 1.21
                     }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:VCF_CONCATENATE_BCFTOOLS:BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    }
                 }
             ]
         ],
@@ -78,7 +49,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-12-20T12:55:53.917745981"
+        "timestamp": "2025-12-20T17:05:10.755124761"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
