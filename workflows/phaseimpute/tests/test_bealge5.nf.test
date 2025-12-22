@@ -1,0 +1,77 @@
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+
+    config "./nextflow.config"
+
+    test("Check test_beagle5 - with chunks") {
+        tag "test_beagle5"
+        config "../../../conf/test_beagle5.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.beagle5": UTILS.vcfDetails("$outputDir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_beagle5 - with chunks - no map") {
+        tag "test_beagle5"
+        config "../../../conf/test_beagle5.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                map = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.beagle5": UTILS.vcfDetails("$outputDir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_beagle5 - without chunks") {
+        tag "test_beagle5"
+        config "../../../conf/test_beagle5.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                chunks = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.beagle5": UTILS.vcfDetails("$outputDir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+}

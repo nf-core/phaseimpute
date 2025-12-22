@@ -63,7 +63,7 @@ include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // BEAGLE5 subworkflows
-include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/local/vcf_impute_beagle5'
+include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/nf-core/vcf_impute_beagle5'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // MINIMAC4 subworkflows
@@ -447,23 +447,23 @@ workflow PHASEIMPUTE {
         }
 
         if (params.tools.split(',').contains("beagle5")) {
-            // Create input channel combining VCF with regions
-            ch_input_beagle5 = ch_input_type.vcf
-                .combine(ch_region)
-                .map { meta_vcf, vcf, index, meta_region, _region ->
-                    [meta_vcf + meta_region, vcf, index]
-                }
+            log.info("Impute with BEAGLE5")
+            ch_chunks_beagle5 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
+                .map{ meta, _regionin, regionout -> [meta, regionout]}
 
             // Impute with BEAGLE5
             VCF_IMPUTE_BEAGLE5(
-                ch_input_beagle5,
+                ch_input_type.vcf,
                 ch_panel_phased,
+                ch_chunks_beagle5,
                 ch_map
             )
             ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_index)
+            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_index.map{
+                meta, vcf, index -> [meta + [tools:"beagle5"], vcf, index]
+            })
             ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
 
             // Add results to input validate

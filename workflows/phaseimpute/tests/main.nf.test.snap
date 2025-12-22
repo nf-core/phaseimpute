@@ -310,37 +310,6 @@
         },
         "timestamp": "2025-11-13T16:30:13.091032307"
     },
-    "Check test_beagle5": {
-        "content": [
-            [
-                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
-                "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
-                "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
-                "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
-                "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
-                "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
-                "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
-                "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
-                "imputation/csv/impute.csv",
-                "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
-                "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
-                "imputation/stats/NA20359.beagle5.bcftools_stats.txt"
-            ],
-            "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
-            [
-                "NA12878"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-11-13T16:31:24.717148502"
-    },
     "Check test_sim": {
         "content": [
             [

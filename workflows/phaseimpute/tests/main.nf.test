@@ -33,34 +33,6 @@ nextflow_pipeline {
 
     }
 
-    test("Check test_beagle5") {
-        tag "test_beagle5"
-        config "../../../conf/test_beagle5.config"
-
-        when {
-            params {
-                publish_dir_mode = "copy"
-                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
-                outdir = "$outputDir"
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    path("${outputDir}/imputation/")
-                        .list()
-                        .collect { getRecursiveFileNames(it, outputDir) }
-                        .flatten(),
-                    path("$outputDir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz").vcf.header.getGenotypeSamples().sort()
-                ).match()
-                }
-            )
-        }
-    }
-
     test("Check test_minimac4") {
         tag "test_minimac4"
         config "../../../conf/test_minimac4.config"

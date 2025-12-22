@@ -1,0 +1,503 @@
+{
+    "Check test_beagle5 - without chunks": {
+        "content": [
+            [
+                46,
+                {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BEAGLE5_BEAGLE": {
+                        "beagle": "5.5rev27Feb25.75f"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": 1.2
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/beagle5",
+                    "imputation/beagle5/concat",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
+                    "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
+                    "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "NA12878.beagle5.bcftools_stats.txt:md5,6fa8e266447c0ff1c22d6f8ae36bf9bb",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,053686e1dbe0a25cad0efed5cf2ad04a",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,9ffd9717a055f8f6fe1c0092da3ebf30",
+                    "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
+                    "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,8f6b599e789a39582417cc90a8c1e945",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,22207fd2a85d947d0228bd6b53b0a331",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,163ede7c23d91d4157063b36c7c996d3",
+                    "multiqc_bcftools_stats.txt:md5,7032ae82e0932186d00c3ffa132d962f",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,401a17402c90373934c85d4b1a08b02c"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "NA12878.beagle5.vcf.gz",
+                        "1c3989fa496bf014671ce1d91bc00f02"
+                    ],
+                    [
+                        "NA19401.beagle5.vcf.gz",
+                        "402493e9365b09071880fb6091235214"
+                    ],
+                    [
+                        "NA20359.beagle5.vcf.gz",
+                        "e7fdcbc30ec4a497ca71e3b4ff9cefd5"
+                    ],
+                    [
+                        "NA12878.beagle5.vcf.gz",
+                        "1c3989fa496bf014671ce1d91bc00f02"
+                    ],
+                    [
+                        "NA19401.beagle5.vcf.gz",
+                        "402493e9365b09071880fb6091235214"
+                    ],
+                    [
+                        "NA20359.beagle5.vcf.gz",
+                        "e7fdcbc30ec4a497ca71e3b4ff9cefd5"
+                    ]
+                ]
+            ],
+            {
+                "NA12878.beagle5": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-22T14:11:58.397968033"
+    },
+    "Check test_beagle5 - with chunks - no map": {
+        "content": [
+            [
+                46,
+                {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BEAGLE5_BEAGLE": {
+                        "beagle": "5.5rev27Feb25.75f"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": 1.2
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/beagle5",
+                    "imputation/beagle5/concat",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
+                    "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
+                    "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "NA12878.beagle5.bcftools_stats.txt:md5,6fa8e266447c0ff1c22d6f8ae36bf9bb",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,053686e1dbe0a25cad0efed5cf2ad04a",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,9ffd9717a055f8f6fe1c0092da3ebf30",
+                    "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
+                    "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,8f6b599e789a39582417cc90a8c1e945",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,22207fd2a85d947d0228bd6b53b0a331",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,163ede7c23d91d4157063b36c7c996d3",
+                    "multiqc_bcftools_stats.txt:md5,7032ae82e0932186d00c3ffa132d962f",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,401a17402c90373934c85d4b1a08b02c"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "NA12878.beagle5.vcf.gz",
+                        "76d5f8432e9a4ff6d65026c8ae00a088"
+                    ],
+                    [
+                        "NA19401.beagle5.vcf.gz",
+                        "9dea936d94582ffde15f53d3dee82d68"
+                    ],
+                    [
+                        "NA20359.beagle5.vcf.gz",
+                        "6f7b0e4b5d3004a19563a44e10dec779"
+                    ],
+                    [
+                        "NA12878.beagle5.vcf.gz",
+                        "76d5f8432e9a4ff6d65026c8ae00a088"
+                    ],
+                    [
+                        "NA19401.beagle5.vcf.gz",
+                        "9dea936d94582ffde15f53d3dee82d68"
+                    ],
+                    [
+                        "NA20359.beagle5.vcf.gz",
+                        "6f7b0e4b5d3004a19563a44e10dec779"
+                    ]
+                ]
+            ],
+            {
+                "NA12878.beagle5": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-22T14:10:49.494820211"
+    },
+    "Check test_beagle5 - with chunks": {
+        "content": [
+            [
+                46,
+                {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BEAGLE5_BEAGLE": {
+                        "beagle": "5.5rev27Feb25.75f"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": 1.2
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/beagle5",
+                    "imputation/beagle5/concat",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
+                    "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
+                    "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "NA12878.beagle5.bcftools_stats.txt:md5,6fa8e266447c0ff1c22d6f8ae36bf9bb",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,053686e1dbe0a25cad0efed5cf2ad04a",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,9ffd9717a055f8f6fe1c0092da3ebf30",
+                    "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
+                    "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,8f6b599e789a39582417cc90a8c1e945",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,22207fd2a85d947d0228bd6b53b0a331",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,163ede7c23d91d4157063b36c7c996d3",
+                    "multiqc_bcftools_stats.txt:md5,7032ae82e0932186d00c3ffa132d962f",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,401a17402c90373934c85d4b1a08b02c"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "NA12878.beagle5.vcf.gz",
+                        "1c3989fa496bf014671ce1d91bc00f02"
+                    ],
+                    [
+                        "NA19401.beagle5.vcf.gz",
+                        "402493e9365b09071880fb6091235214"
+                    ],
+                    [
+                        "NA20359.beagle5.vcf.gz",
+                        "e7fdcbc30ec4a497ca71e3b4ff9cefd5"
+                    ],
+                    [
+                        "NA12878.beagle5.vcf.gz",
+                        "1c3989fa496bf014671ce1d91bc00f02"
+                    ],
+                    [
+                        "NA19401.beagle5.vcf.gz",
+                        "402493e9365b09071880fb6091235214"
+                    ],
+                    [
+                        "NA20359.beagle5.vcf.gz",
+                        "e7fdcbc30ec4a497ca71e3b4ff9cefd5"
+                    ]
+                ]
+            ],
+            {
+                "NA12878.beagle5": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-22T14:09:40.496448692"
+    }
+}
