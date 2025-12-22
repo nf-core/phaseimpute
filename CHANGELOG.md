@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#226](https://github.com/nf-core/phaseimpute/pull/226) - Remove `BEDTOOLS` and update automated methods description.
 - [#239](https://github.com/nf-core/phaseimpute/pull/239) - Move from local to nf-core sbwf for `STITCH` imputation. Set `--chunks` as optional argument. Update `usage.md`.
 - [#240](https://github.com/nf-core/phaseimpute/pull/240) - Move from local to nf-core sbwf for `GLIMPSE2` imputation. Update `usage.md`.
+- [#243](https://github.com/nf-core/phaseimpute/pull/243) - Move from local to nf-core sbwf for `BEAGLE5` imputation. Update `usage.md`.
 
 ### `Fixed`
 
