@@ -24,7 +24,12 @@
                     "bcftools/index": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["bam_impute_stitch", "bam_vcf_impute_glimpse2", "modules"]
+                        "installed_by": [
+                            "bam_impute_stitch",
+                            "bam_vcf_impute_glimpse2",
+                            "modules",
+                            "vcf_impute_beagle5"
+                        ]
                     },
                     "bcftools/merge": {
                         "branch": "master",
@@ -62,12 +67,12 @@
                     "bcftools/view": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_impute_beagle5"]
                     },
                     "beagle5/beagle": {
                         "branch": "master",
-                        "git_sha": "359cfb69d521fcb8b56313e9a6ca9d66036aa921",
-                        "installed_by": ["modules"]
+                        "git_sha": "94a767478097e92dca1386ea623d9dae9edc025a",
+                        "installed_by": ["modules", "vcf_impute_beagle5"]
                     },
                     "gawk": {
                         "branch": "master",
@@ -102,7 +107,12 @@
                     "glimpse2/ligate": {
                         "branch": "master",
                         "git_sha": "94a767478097e92dca1386ea623d9dae9edc025a",
-                        "installed_by": ["bam_impute_stitch", "bam_vcf_impute_glimpse2", "modules"]
+                        "installed_by": [
+                            "bam_impute_stitch",
+                            "bam_vcf_impute_glimpse2",
+                            "modules",
+                            "vcf_impute_beagle5"
+                        ]
                     },
                     "glimpse2/phase": {
                         "branch": "master",
@@ -238,6 +248,11 @@
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "4b406a74dc0449c0401ed87d5bfff4252fd277fd",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "vcf_impute_beagle5": {
+                        "branch": "master",
+                        "git_sha": "e8db6baba21376a4cf0dfc5ba32224eebf51266c",
                         "installed_by": ["subworkflows"]
                     }
                 }

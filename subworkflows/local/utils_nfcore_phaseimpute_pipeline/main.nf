@@ -554,8 +554,8 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
             }
 
             if (extension ==~ "(bam|cram)?") {
-                if (tools.contains("beagle5")) {
-                    error "Beagle5 software cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
+                if (tools.contains("beagle5") || tools.contains("minimac4")) {
+                    error "Beagle5 and minimac4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
                 }
             }
 
