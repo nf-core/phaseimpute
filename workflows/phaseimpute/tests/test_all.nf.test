@@ -24,10 +24,10 @@ nextflow_pipeline {
                 { assert snapshot(
                     UTILS.getPipelineResults(outputDir, workflow),
                     [
-                        "all.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz"),
-                        "all.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz"),
-                        "all.quilt": UTILS.vcfDetails("$outputDir/imputation/quilt/concat/all.batch0.quilt.vcf.gz"),
-                        "all.stitch": UTILS.vcfDetails("$outputDir/imputation/stitch/concat/all.batch0.stitch.vcf.gz")
+                        "all_samples.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz"),
+                        "all_samples.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz"),
+                        "all_samples.quilt": UTILS.vcfDetails("$outputDir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                        "all_samples.stitch": UTILS.vcfDetails("$outputDir/imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz")
                     ]
                 ).match()}
             )

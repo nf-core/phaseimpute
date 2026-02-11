@@ -1,37 +1,26 @@
 {
-    "Compute genotype likelihood with merging": {
+    "Compute genotype likelihood with merging and two chromosomes": {
         "content": [
             [
                 "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
                 "versions.yml:md5,5c1d0190110ff1887f49323dec613345",
-                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202"
+                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
+                "versions.yml:md5,85e298b4e9dd35ea49f5696b117f759b"
             ],
             [
                 [
                     {
+                        "id": "all_samples",
                         "panel_id": "1000GP",
-                        "chr": "22",
-                        "id": "all",
-                        "metas": [
-                            {
-                                "id": "NA12878",
-                                "panel_id": "1000GP",
-                                "chr": "22"
-                            },
-                            {
-                                "id": "NA19401",
-                                "panel_id": "1000GP",
-                                "chr": "22"
-                            }
-                        ],
+                        "chr": "all_chr",
                         "variantcaller": "bcftools"
                     },
-                    "all.annotate.vcf.gz",
-                    "all.annotate.vcf.gz.tbi"
+                    "all_samples_all_chr.annotate.vcf.gz",
+                    "all_samples_all_chr.annotate.vcf.gz.tbi"
                 ]
             ],
             [
-                "VcfFile [chromosomes=[chr22], sampleCount=2, variantCount=903, phased=false, phasedAutodetect=false]"
+                "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=false, phasedAutodetect=false]"
             ],
             [
                 {
@@ -48,14 +37,19 @@
                     "BAM_GL_BCFTOOLS:BCFTOOLS_MPILEUP": {
                         "bcftools": 1.21
                     }
+                },
+                {
+                    "BAM_GL_BCFTOOLS:VCF_CONCATENATE_BCFTOOLS:BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    }
                 }
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2025-11-28T14:16:35.632065573"
+        "timestamp": "2026-02-05T22:23:21.518307093"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
@@ -68,11 +62,11 @@
                     {
                         "id": "NA12878",
                         "panel_id": "1000GP",
-                        "chr": "22",
+                        "chr": "all_chr",
                         "variantcaller": "bcftools"
                     },
-                    "NA12878.annotate.vcf.gz",
-                    "NA12878.annotate.vcf.gz.tbi"
+                    "NA12878_all_chr.annotate.vcf.gz",
+                    "NA12878_all_chr.annotate.vcf.gz.tbi"
                 ]
             ],
             [
@@ -93,8 +87,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2025-11-28T14:16:51.439729354"
+        "timestamp": "2026-02-05T22:23:39.360277326"
     }
 }

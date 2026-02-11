@@ -2,7 +2,7 @@
     "Check test_all": {
         "content": [
             [
-                241,
+                240,
                 {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
@@ -163,15 +163,15 @@
                 [
                     "imputation",
                     "imputation/batch",
-                    "imputation/batch/all.batch0.id.txt",
-                    "imputation/batch/all.batch0.idonly.txt",
-                    "imputation/batch/all.batch0.noid.txt",
+                    "imputation/batch/all_samples.batch0.id.txt",
+                    "imputation/batch/all_samples.batch0.idonly.txt",
+                    "imputation/batch/all_samples.batch0.noid.txt",
                     "imputation/csv",
                     "imputation/csv/impute.csv",
                     "imputation/glimpse1",
                     "imputation/glimpse1/concat",
-                    "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
@@ -181,8 +181,8 @@
                     "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi",
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
-                    "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -192,8 +192,8 @@
                     "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
                     "imputation/quilt",
                     "imputation/quilt/concat",
-                    "imputation/quilt/concat/all.batch0.quilt.vcf.gz",
-                    "imputation/quilt/concat/all.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
@@ -216,8 +216,8 @@
                     "imputation/stats/NA20359.stitch.bcftools_stats.txt",
                     "imputation/stitch",
                     "imputation/stitch/concat",
-                    "imputation/stitch/concat/all.batch0.stitch.vcf.gz",
-                    "imputation/stitch/concat/all.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz",
+                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.tbi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
@@ -418,8 +418,8 @@
                     "simulation/samples/NA20359.depth_1x.bam.csi",
                     "validation",
                     "validation/concat",
-                    "validation/concat/all.batch0.truth.vcf.gz",
-                    "validation/concat/all.batch0.truth.vcf.gz.tbi",
+                    "validation/concat/all_samples.batch0.truth.vcf.gz",
+                    "validation/concat/all_samples.batch0.truth.vcf.gz.tbi",
                     "validation/samples",
                     "validation/samples/NA12878.truth.vcf.gz",
                     "validation/samples/NA12878.truth.vcf.gz.tbi",
@@ -446,9 +446,9 @@
                     "validation/stats/NA20359_P1000GP_Tstitch_SNP.txt"
                 ],
                 [
-                    "all.batch0.id.txt:md5,a4c01a39309f9522d5b01108e3b75c64",
-                    "all.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
-                    "all.batch0.noid.txt:md5,276f71c6daa405e34b4b88783aeef913",
+                    "all_samples.batch0.id.txt:md5,a4c01a39309f9522d5b01108e3b75c64",
+                    "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
+                    "all_samples.batch0.noid.txt:md5,276f71c6daa405e34b4b88783aeef913",
                     "NA12878.glimpse1.bcftools_stats.txt:md5,99540b424213d0f1d19b124b58f2aef3",
                     "NA12878.glimpse2.bcftools_stats.txt:md5,5ba6b1b27ac5854a2ecf55fc0f8a22f9",
                     "NA12878.quilt.bcftools_stats.txt:md5,3e76a1f94b1f329a394a666a280053d7",
@@ -468,18 +468,18 @@
                     "bcftools_stats_vqc_Count_SNP.txt:md5,8aaae043d1c93bd0f695c7ba502d6903",
                     "bcftools_stats_vqc_Count_Transitions.txt:md5,a979732b816a777b55b8c2e7333cf0dd",
                     "bcftools_stats_vqc_Count_Transversions.txt:md5,7ebab237b189c2da1e1be30a7e82278c",
-                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_.txt:md5,b648bc043dc65ff6aa7c23d6b448b3f8",
-                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_.txt:md5,b648bc043dc65ff6aa7c23d6b448b3f8",
+                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_.txt:md5,f6e6e03b5cc8a0ac7d6e9676d251ecf9",
+                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_.txt:md5,f6e6e03b5cc8a0ac7d6e9676d251ecf9",
                     "glimpse-err-grp-plot_Best_genotype_r-squared_indels_.txt:md5,d06bfb4f7ac819694a09f2408b4e6320",
-                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_.txt:md5,b0b5ab16a03f9c5386675f85d54cc17c",
-                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_.txt:md5,b0b5ab16a03f9c5386675f85d54cc17c",
+                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_.txt:md5,32eb09236a20c484752ee7d099f4e60d",
+                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_.txt:md5,32eb09236a20c484752ee7d099f4e60d",
                     "glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_.txt:md5,d06bfb4f7ac819694a09f2408b4e6320",
-                    "glimpse-err-spl-table.txt:md5,d26c24e186598959a9e39c6dcab1314b",
+                    "glimpse-err-spl-table.txt:md5,9164ef2d044e5b6634accc546ce5c9b5",
                     "multiqc_bcftools_stats.txt:md5,b9e21a0efd2ef621799745e32fe9c461",
                     "multiqc_citations.txt:md5,ee6bc9f24685a1dc6fe9c1d756535e77",
-                    "multiqc_general_stats.txt:md5,c316f8a20a0d0bc11f56597ead19c251",
-                    "multiqc_glimpse_err_grp.txt:md5,d39513bcec1b42f9fd9b99377f81d1bc",
-                    "multiqc_glimpse_err_spl.txt:md5,1a39a3ee76fb5d99f52ea0b81e90f85f",
+                    "multiqc_general_stats.txt:md5,4c03d937a6616216b48f2b3a016acb29",
+                    "multiqc_glimpse_err_grp.txt:md5,fa6b8fb4c97b200c8b5bcf181bce2eb4",
+                    "multiqc_glimpse_err_spl.txt:md5,b71564ec542235d0e30aab10844bdd6d",
                     "multiqc_samtools_coverage.txt:md5,6895b2524f6a136b53c9c9e957d262d8",
                     "samtools-coverage-table.txt:md5,120b0c67b1514ba15cb2c3a52d840497",
                     "samtools-coverage_BQ.txt:md5,5c29b2eb9b1d828cc92a67a4ff8943a4",
@@ -501,19 +501,19 @@
                     "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
                     "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
                     "1000GP.panel.bcftools_stats.txt:md5,e0d0b672e2cb7531b5e452de05c988be",
-                    "AllSamples.txt:md5,760495a9d31a5c93faa0c330faeac83d",
+                    "AllSamples.txt:md5,c06729b0d6224488e7e95e80b2336a43",
                     "NA12878.truth.bcftools_stats.txt:md5,bf3771cd532fe7e0519d037f18272057",
-                    "NA12878_P1000GP_Tglimpse1_SNP.txt:md5,a8f9ede70857395e525442fd8408af67",
+                    "NA12878_P1000GP_Tglimpse1_SNP.txt:md5,8a87ac9487f062faf731c8b8168796af",
                     "NA12878_P1000GP_Tglimpse2_SNP.txt:md5,175c1e75595f8d2794b13ff14079b537",
                     "NA12878_P1000GP_Tquilt_SNP.txt:md5,b15483a7860942ca48c60165d264e3b4",
                     "NA12878_P1000GP_Tstitch_SNP.txt:md5,f34c239b4f10654fa8db1a8998abc3fe",
                     "NA19401.truth.bcftools_stats.txt:md5,633ad472ef97d29cae255b45a500dc20",
-                    "NA19401_P1000GP_Tglimpse1_SNP.txt:md5,0b7890eac5d1988b351941895f2785c6",
+                    "NA19401_P1000GP_Tglimpse1_SNP.txt:md5,49b75fb5014169ca2bc8d319ee152009",
                     "NA19401_P1000GP_Tglimpse2_SNP.txt:md5,0c3df00f2f3100a2f43d1cdda0fae25f",
                     "NA19401_P1000GP_Tquilt_SNP.txt:md5,b2457a395c68491e87868b1190c37453",
                     "NA19401_P1000GP_Tstitch_SNP.txt:md5,a471c4da4f5290f97a9d397fe7caba30",
                     "NA20359.truth.bcftools_stats.txt:md5,76f012e31d566bc73c6bd794e9f82944",
-                    "NA20359_P1000GP_Tglimpse1_SNP.txt:md5,a521a2d9d659e6918fe150b468dbceba",
+                    "NA20359_P1000GP_Tglimpse1_SNP.txt:md5,0b00515bae35d17c1d396d934caabcd3",
                     "NA20359_P1000GP_Tglimpse2_SNP.txt:md5,8c1d9b763c18d31308d6b67e071e8bcd",
                     "NA20359_P1000GP_Tquilt_SNP.txt:md5,e3dee1e6b8b36c2b3feb7d0bf4d9515c",
                     "NA20359_P1000GP_Tstitch_SNP.txt:md5,89a0a1c7a32680630710e09bb3c9b487"
@@ -534,23 +534,23 @@
                 ],
                 [
                     [
-                        "all.batch0.glimpse1.vcf.gz",
-                        "539ed1166cd1ee038a91936e1a7739a6"
+                        "all_samples.batch0.glimpse1.vcf.gz",
+                        "6cc9724aae0280eb1fc190f1f0aad026"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "2d91791cff039506e6d31ea4ccf6a0b2"
+                        "5e5540b40c0379206770ad7438b789eb"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "d28cf5f5fb9b61433319135031718956"
+                        "5822712e37fabce4e1f1229c0823d68d"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "2fd7a3a292d230a9110f470e8cac6fc3"
+                        "99f8a96be4a3c915335ace9dee0104f9"
                     ],
                     [
-                        "all.batch0.glimpse2.vcf.gz",
+                        "all_samples.batch0.glimpse2.vcf.gz",
                         "f332635fe2ae8cfaa8c52e198f410b1c"
                     ],
                     [
@@ -566,7 +566,7 @@
                         "a5725630da1a08b0b648e4d346ddd3a"
                     ],
                     [
-                        "all.batch0.quilt.vcf.gz",
+                        "all_samples.batch0.quilt.vcf.gz",
                         "8f79b9f1cf338ed7ebf3582f291ce0d4"
                     ],
                     [
@@ -582,7 +582,7 @@
                         "7c1d6d68ec7bed56a393e5871d802c05"
                     ],
                     [
-                        "all.batch0.stitch.vcf.gz",
+                        "all_samples.batch0.stitch.vcf.gz",
                         "7af8c4233811287a978498d7c8813d66"
                     ],
                     [
@@ -614,7 +614,7 @@
                         "321a19489c56a5d670ee49b26d9052b9"
                     ],
                     [
-                        "all.batch0.truth.vcf.gz",
+                        "all_samples.batch0.truth.vcf.gz",
                         "83f2bfc948a3d2a449b0239e73843c56"
                     ],
                     [
@@ -685,7 +685,7 @@
                 ]
             ],
             {
-                "all.glimpse1": {
+                "all_samples.glimpse1": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
                     "samples": [
                         "NA12878",
@@ -693,7 +693,7 @@
                         "NA20359"
                     ]
                 },
-                "all.glimpse2": {
+                "all_samples.glimpse2": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
                     "samples": [
                         "NA12878",
@@ -701,7 +701,7 @@
                         "NA20359"
                     ]
                 },
-                "all.quilt": {
+                "all_samples.quilt": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
                     "samples": [
                         "NA12878",
@@ -709,7 +709,7 @@
                         "NA20359"
                     ]
                 },
-                "all.stitch": {
+                "all_samples.stitch": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
                     "samples": [
                         "NA12878",
@@ -723,6 +723,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-02-11T11:07:53.336152812"
+        "timestamp": "2026-02-11T17:29:57.261259835"
     }
 }

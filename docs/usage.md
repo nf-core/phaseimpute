@@ -445,7 +445,7 @@ Optionnaly you can provide the following flags:
 
 |            | `--steps impute`(m) | `--input`(m) | `--genome` or `--fasta`(m) | `--panel`(m) | `--posfile`(m) | `--map`(o) | `--chunks`(o) |
 | ---------- | ------------------- | ------------ | -------------------------- | ------------ | -------------- | ---------- | ------------- |
-| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³           | ❌⁶        | ✅            |
+| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³           | ✅         | ✅            |
 | `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
 | `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴           | ❌⁶        | ✅            |
 | `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³           | ✅         | ✅            |
@@ -616,6 +616,13 @@ panel,chr,posfile
 ```
 
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
+
+You can optionally provide chunks to parallelize the imputation process using `--chunks`.
+If not provided the full region per chromosome will be used.
+See [Chunks section](#samplesheet-chunks) for more information.
+
+Genetic map can also be provided for better accuracy.
+See [Map section](#samplesheet-map) for more information.
 
 ### GLIMPSE2
 

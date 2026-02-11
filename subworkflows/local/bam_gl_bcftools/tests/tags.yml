@@ -1,2 +1,0 @@
-subworkflows/bam_gl_bcftools:
-  - subworkflows/local/bam_gl_bcftools/**

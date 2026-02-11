@@ -23,7 +23,7 @@ nextflow_pipeline {
                 { assert workflow.success },
                 { assert snapshot(
                     UTILS.getPipelineResults(outputDir, workflow),
-                    ["all.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz")]
+                    ["all_samples.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz")]
                 ).match()}
             )
         }
@@ -46,7 +46,7 @@ nextflow_pipeline {
                 { assert workflow.success },
                 { assert snapshot(
                     UTILS.getPipelineResults(outputDir, workflow),
-                    ["all.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz")]
+                    ["all_samples.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz")]
                 ).match()}
             )
         }
@@ -69,7 +69,7 @@ nextflow_pipeline {
                 { assert workflow.success },
                 { assert snapshot(
                     UTILS.getPipelineResults(outputDir, workflow),
-                    ["all.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all.batch0.glimpse2.vcf.gz")]
+                    ["all_samples.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz")]
                 ).match()}
             )
         }

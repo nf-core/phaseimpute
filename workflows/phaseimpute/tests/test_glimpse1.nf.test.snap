@@ -1,19 +1,22 @@
 {
-    "Check test_glimpse2 - with chunks - no map": {
+    "Check test_glimpse1 - with chunks - no map": {
         "content": [
             [
-                27,
+                36,
                 {
                     "BAMCHREXTRACT": {
                         "samtools": 1.2
                     },
+                    "BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.21
                     },
-                    "BCFTOOLS_INDEX_LIGATE": {
+                    "BCFTOOLS_MERGE": {
                         "bcftools": 1.21
                     },
-                    "BCFTOOLS_INDEX_PHASE": {
+                    "BCFTOOLS_MPILEUP": {
                         "bcftools": 1.21
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
@@ -25,14 +28,11 @@
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.0"
                     },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
+                    "GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
                     },
-                    "GLIMPSE2_PHASE": {
-                        "glimpse2": "2.0.0"
-                    },
-                    "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                    "GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -46,25 +46,26 @@
                     "imputation/batch/all_samples.batch0.noid.txt",
                     "imputation/csv",
                     "imputation/csv/impute.csv",
-                    "imputation/glimpse2",
-                    "imputation/glimpse2/concat",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse1",
+                    "imputation/glimpse1/concat",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples",
+                    "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi",
                     "imputation/stats",
-                    "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                    "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                    "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
                     "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
@@ -84,6 +85,7 @@
                     "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
@@ -93,6 +95,7 @@
                     "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
@@ -102,6 +105,7 @@
                     "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
@@ -114,38 +118,39 @@
                     "all_samples.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
                     "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
                     "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
-                    "NA12878.glimpse2.bcftools_stats.txt:md5,5ba6b1b27ac5854a2ecf55fc0f8a22f9",
-                    "NA19401.glimpse2.bcftools_stats.txt:md5,c08797787df151d7879976cbfe278349",
-                    "NA20359.glimpse2.bcftools_stats.txt:md5,9914feff5725ed303909b7e09a9fc9e4",
-                    "bcftools-stats-subtypes.txt:md5,9c74a2688bd333bd9c9919476514258e",
-                    "bcftools_stats_indel-lengths.txt:md5,c6e6807cefcb18f541f0f6e1c803324a",
-                    "bcftools_stats_vqc_Count_Indels.txt:md5,201aeaab7e476ca176793007dfcb9985",
-                    "bcftools_stats_vqc_Count_SNP.txt:md5,8f445c0315899ebfc9dbfa13b4269693",
-                    "bcftools_stats_vqc_Count_Transitions.txt:md5,43c2c4305e4244ed0d37bef2b64938d9",
-                    "bcftools_stats_vqc_Count_Transversions.txt:md5,ef7a61191ad2176631e63fc5ac3a9b74",
-                    "multiqc_bcftools_stats.txt:md5,97cf6e8503e68980e44b8db0b94fddb8",
+                    "NA12878.glimpse1.bcftools_stats.txt:md5,99540b424213d0f1d19b124b58f2aef3",
+                    "NA19401.glimpse1.bcftools_stats.txt:md5,7721a67c0a9e8577ce4989d0636351d5",
+                    "NA20359.glimpse1.bcftools_stats.txt:md5,234914fa488b4e770f0d17ac7c116374",
+                    "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
+                    "bcftools_stats_indel-lengths.txt:md5,ee1c3af6586e9f8de2f20f759a7741eb",
+                    "bcftools_stats_variant_depths.txt:md5,4c05005171167a0ca6824cbff8f7ddb4",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,cc9d6666f1233a5543e602f93e93ef01",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,f0ad99e6a9386b8cc85e54a9d67422b3",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,155087f472a78d07c4b2ef5a8c67089b",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,58b840d85196adbff10a38f210e8cd00",
+                    "multiqc_bcftools_stats.txt:md5,333922abbf5f7e66290d034db15b370a",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,0d145e8148487878ea5f870211ba841f"
+                    "multiqc_general_stats.txt:md5,835d8d185aa5146f9c88e1cc27706094"
                 ],
                 [
                     
                 ],
                 [
                     [
-                        "all_samples.batch0.glimpse2.vcf.gz",
-                        "2c4ff9c4583dda15c5cee64a533312e5"
+                        "all_samples.batch0.glimpse1.vcf.gz",
+                        "382c43720e1187f9e2324e0ac87ea3be"
                     ],
                     [
-                        "NA12878.glimpse2.vcf.gz",
-                        "d1177aeb8d3dcd03ec2c4e5f47405067"
+                        "NA12878.glimpse1.vcf.gz",
+                        "223a9b6ea48ff9c11215bf9c00c8dbcb"
                     ],
                     [
-                        "NA19401.glimpse2.vcf.gz",
-                        "6c9f1d2288e4c0b0cca7dd36f5a45d54"
+                        "NA19401.glimpse1.vcf.gz",
+                        "34dbf34cde4412b1327a72fb8eb14e6f"
                     ],
                     [
-                        "NA20359.glimpse2.vcf.gz",
-                        "a170c839de5c48d171475b885fa00439"
+                        "NA20359.glimpse1.vcf.gz",
+                        "bd4fde5baf064d7a88c513d6ba3cb62a"
                     ]
                 ],
                 [
@@ -153,16 +158,16 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.tbi",
-                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.tbi",
-                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.tbi"
+                            "NA12878,glimpse1,NA12878.glimpse1.vcf.gz,NA12878.glimpse1.vcf.gz.tbi",
+                            "NA19401,glimpse1,NA19401.glimpse1.vcf.gz,NA19401.glimpse1.vcf.gz.tbi",
+                            "NA20359,glimpse1,NA20359.glimpse1.vcf.gz,NA20359.glimpse1.vcf.gz.tbi"
                         ]
                     }
                 ]
             ],
             {
-                "all_samples.batch0.glimpse2": {
-                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+                "all_samples.batch0.glimpse1": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
                     "samples": [
                         "NA12878",
                         "NA19401",
@@ -175,23 +180,26 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-02-11T11:44:22.491316878"
+        "timestamp": "2026-02-11T17:24:28.817471181"
     },
-    "Check test_glimpse2 - with chunks": {
+    "Check test_glimpse1 - with chunks": {
         "content": [
             [
-                27,
+                36,
                 {
                     "BAMCHREXTRACT": {
                         "samtools": 1.2
                     },
+                    "BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.21
                     },
-                    "BCFTOOLS_INDEX_LIGATE": {
+                    "BCFTOOLS_MERGE": {
                         "bcftools": 1.21
                     },
-                    "BCFTOOLS_INDEX_PHASE": {
+                    "BCFTOOLS_MPILEUP": {
                         "bcftools": 1.21
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
@@ -203,14 +211,11 @@
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.0"
                     },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
+                    "GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
                     },
-                    "GLIMPSE2_PHASE": {
-                        "glimpse2": "2.0.0"
-                    },
-                    "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                    "GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -224,25 +229,26 @@
                     "imputation/batch/all_samples.batch0.noid.txt",
                     "imputation/csv",
                     "imputation/csv/impute.csv",
-                    "imputation/glimpse2",
-                    "imputation/glimpse2/concat",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse1",
+                    "imputation/glimpse1/concat",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples",
+                    "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi",
                     "imputation/stats",
-                    "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                    "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                    "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
                     "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
@@ -262,6 +268,7 @@
                     "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
@@ -271,6 +278,7 @@
                     "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
@@ -280,6 +288,7 @@
                     "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
@@ -292,38 +301,39 @@
                     "all_samples.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
                     "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
                     "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
-                    "NA12878.glimpse2.bcftools_stats.txt:md5,5ba6b1b27ac5854a2ecf55fc0f8a22f9",
-                    "NA19401.glimpse2.bcftools_stats.txt:md5,c08797787df151d7879976cbfe278349",
-                    "NA20359.glimpse2.bcftools_stats.txt:md5,9914feff5725ed303909b7e09a9fc9e4",
-                    "bcftools-stats-subtypes.txt:md5,9c74a2688bd333bd9c9919476514258e",
-                    "bcftools_stats_indel-lengths.txt:md5,c6e6807cefcb18f541f0f6e1c803324a",
-                    "bcftools_stats_vqc_Count_Indels.txt:md5,201aeaab7e476ca176793007dfcb9985",
-                    "bcftools_stats_vqc_Count_SNP.txt:md5,8f445c0315899ebfc9dbfa13b4269693",
-                    "bcftools_stats_vqc_Count_Transitions.txt:md5,43c2c4305e4244ed0d37bef2b64938d9",
-                    "bcftools_stats_vqc_Count_Transversions.txt:md5,ef7a61191ad2176631e63fc5ac3a9b74",
-                    "multiqc_bcftools_stats.txt:md5,97cf6e8503e68980e44b8db0b94fddb8",
+                    "NA12878.glimpse1.bcftools_stats.txt:md5,99540b424213d0f1d19b124b58f2aef3",
+                    "NA19401.glimpse1.bcftools_stats.txt:md5,7721a67c0a9e8577ce4989d0636351d5",
+                    "NA20359.glimpse1.bcftools_stats.txt:md5,234914fa488b4e770f0d17ac7c116374",
+                    "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
+                    "bcftools_stats_indel-lengths.txt:md5,ee1c3af6586e9f8de2f20f759a7741eb",
+                    "bcftools_stats_variant_depths.txt:md5,4c05005171167a0ca6824cbff8f7ddb4",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,cc9d6666f1233a5543e602f93e93ef01",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,f0ad99e6a9386b8cc85e54a9d67422b3",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,155087f472a78d07c4b2ef5a8c67089b",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,58b840d85196adbff10a38f210e8cd00",
+                    "multiqc_bcftools_stats.txt:md5,333922abbf5f7e66290d034db15b370a",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,0d145e8148487878ea5f870211ba841f"
+                    "multiqc_general_stats.txt:md5,835d8d185aa5146f9c88e1cc27706094"
                 ],
                 [
                     
                 ],
                 [
                     [
-                        "all_samples.batch0.glimpse2.vcf.gz",
-                        "258136e6a05acb6d361bba02bbe1f12"
+                        "all_samples.batch0.glimpse1.vcf.gz",
+                        "382c43720e1187f9e2324e0ac87ea3be"
                     ],
                     [
-                        "NA12878.glimpse2.vcf.gz",
-                        "ec0d1259b383b77c76f65229a814bcfc"
+                        "NA12878.glimpse1.vcf.gz",
+                        "223a9b6ea48ff9c11215bf9c00c8dbcb"
                     ],
                     [
-                        "NA19401.glimpse2.vcf.gz",
-                        "79e3fbd14f8541e65e1eb0f7d9edfbe7"
+                        "NA19401.glimpse1.vcf.gz",
+                        "34dbf34cde4412b1327a72fb8eb14e6f"
                     ],
                     [
-                        "NA20359.glimpse2.vcf.gz",
-                        "8350f3864ba8e8d22ed267e9758a8bcc"
+                        "NA20359.glimpse1.vcf.gz",
+                        "bd4fde5baf064d7a88c513d6ba3cb62a"
                     ]
                 ],
                 [
@@ -331,16 +341,16 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.tbi",
-                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.tbi",
-                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.tbi"
+                            "NA12878,glimpse1,NA12878.glimpse1.vcf.gz,NA12878.glimpse1.vcf.gz.tbi",
+                            "NA19401,glimpse1,NA19401.glimpse1.vcf.gz,NA19401.glimpse1.vcf.gz.tbi",
+                            "NA20359,glimpse1,NA20359.glimpse1.vcf.gz,NA20359.glimpse1.vcf.gz.tbi"
                         ]
                     }
                 ]
             ],
             {
-                "all_samples.batch0.glimpse2": {
-                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+                "all_samples.batch0.glimpse1": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
                     "samples": [
                         "NA12878",
                         "NA19401",
@@ -353,23 +363,26 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-02-11T11:43:21.064246048"
+        "timestamp": "2026-02-11T17:23:15.197311008"
     },
-    "Check test_glimpse2 - without chunks": {
+    "Check test_glimpse1 - without chunks": {
         "content": [
             [
-                23,
+                32,
                 {
                     "BAMCHREXTRACT": {
                         "samtools": 1.2
                     },
+                    "BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.21
                     },
-                    "BCFTOOLS_INDEX_LIGATE": {
+                    "BCFTOOLS_MERGE": {
                         "bcftools": 1.21
                     },
-                    "BCFTOOLS_INDEX_PHASE": {
+                    "BCFTOOLS_MPILEUP": {
                         "bcftools": 1.21
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
@@ -381,14 +394,11 @@
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.0"
                     },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
+                    "GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
                     },
-                    "GLIMPSE2_PHASE": {
-                        "glimpse2": "2.0.0"
-                    },
-                    "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                    "GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -402,25 +412,26 @@
                     "imputation/batch/all_samples.batch0.noid.txt",
                     "imputation/csv",
                     "imputation/csv/impute.csv",
-                    "imputation/glimpse2",
-                    "imputation/glimpse2/concat",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse1",
+                    "imputation/glimpse1/concat",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples",
+                    "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/NA20359.glimpse1.vcf.gz.tbi",
                     "imputation/stats",
-                    "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
-                    "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
-                    "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
                     "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
@@ -440,6 +451,7 @@
                     "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
@@ -449,6 +461,7 @@
                     "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
@@ -458,6 +471,7 @@
                     "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
@@ -470,38 +484,39 @@
                     "all_samples.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
                     "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
                     "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
-                    "NA12878.glimpse2.bcftools_stats.txt:md5,5ba6b1b27ac5854a2ecf55fc0f8a22f9",
-                    "NA19401.glimpse2.bcftools_stats.txt:md5,c08797787df151d7879976cbfe278349",
-                    "NA20359.glimpse2.bcftools_stats.txt:md5,9914feff5725ed303909b7e09a9fc9e4",
-                    "bcftools-stats-subtypes.txt:md5,9c74a2688bd333bd9c9919476514258e",
-                    "bcftools_stats_indel-lengths.txt:md5,c6e6807cefcb18f541f0f6e1c803324a",
-                    "bcftools_stats_vqc_Count_Indels.txt:md5,201aeaab7e476ca176793007dfcb9985",
-                    "bcftools_stats_vqc_Count_SNP.txt:md5,8f445c0315899ebfc9dbfa13b4269693",
-                    "bcftools_stats_vqc_Count_Transitions.txt:md5,43c2c4305e4244ed0d37bef2b64938d9",
-                    "bcftools_stats_vqc_Count_Transversions.txt:md5,ef7a61191ad2176631e63fc5ac3a9b74",
-                    "multiqc_bcftools_stats.txt:md5,97cf6e8503e68980e44b8db0b94fddb8",
+                    "NA12878.glimpse1.bcftools_stats.txt:md5,99540b424213d0f1d19b124b58f2aef3",
+                    "NA19401.glimpse1.bcftools_stats.txt:md5,7721a67c0a9e8577ce4989d0636351d5",
+                    "NA20359.glimpse1.bcftools_stats.txt:md5,234914fa488b4e770f0d17ac7c116374",
+                    "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
+                    "bcftools_stats_indel-lengths.txt:md5,ee1c3af6586e9f8de2f20f759a7741eb",
+                    "bcftools_stats_variant_depths.txt:md5,4c05005171167a0ca6824cbff8f7ddb4",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,cc9d6666f1233a5543e602f93e93ef01",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,f0ad99e6a9386b8cc85e54a9d67422b3",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,155087f472a78d07c4b2ef5a8c67089b",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,58b840d85196adbff10a38f210e8cd00",
+                    "multiqc_bcftools_stats.txt:md5,333922abbf5f7e66290d034db15b370a",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,0d145e8148487878ea5f870211ba841f"
+                    "multiqc_general_stats.txt:md5,835d8d185aa5146f9c88e1cc27706094"
                 ],
                 [
                     
                 ],
                 [
                     [
-                        "all_samples.batch0.glimpse2.vcf.gz",
-                        "2efdb0ead7f85f77c3939b3f5906e1f8"
+                        "all_samples.batch0.glimpse1.vcf.gz",
+                        "b158fadbefda5620a47f0c8350b8d01e"
                     ],
                     [
-                        "NA12878.glimpse2.vcf.gz",
-                        "2f71e170af4f8e37cd7265709b84427"
+                        "NA12878.glimpse1.vcf.gz",
+                        "5d5b32855a2fc1e3c24c628987f4db68"
                     ],
                     [
-                        "NA19401.glimpse2.vcf.gz",
-                        "a6cbf6e3d9895aefeb6cb4d0f067eda9"
+                        "NA19401.glimpse1.vcf.gz",
+                        "b170995fb1666cc55e2517b3b4ff39b3"
                     ],
                     [
-                        "NA20359.glimpse2.vcf.gz",
-                        "65ad782ead9d57c82d50bc79225f87d1"
+                        "NA20359.glimpse1.vcf.gz",
+                        "e60d1d5b7d19b031cbe475408feeefe2"
                     ]
                 ],
                 [
@@ -509,16 +524,16 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.tbi",
-                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.tbi",
-                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.tbi"
+                            "NA12878,glimpse1,NA12878.glimpse1.vcf.gz,NA12878.glimpse1.vcf.gz.tbi",
+                            "NA19401,glimpse1,NA19401.glimpse1.vcf.gz,NA19401.glimpse1.vcf.gz.tbi",
+                            "NA20359,glimpse1,NA20359.glimpse1.vcf.gz,NA20359.glimpse1.vcf.gz.tbi"
                         ]
                     }
                 ]
             ],
             {
-                "all_samples.batch0.glimpse2": {
-                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+                "all_samples.batch0.glimpse1": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=false]",
                     "samples": [
                         "NA12878",
                         "NA19401",
@@ -531,6 +546,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-02-11T11:45:20.938219248"
+        "timestamp": "2026-02-11T17:25:37.548250871"
     }
 }

@@ -33,8 +33,8 @@ nextflow_pipeline {
                         .flatten()
                         .collect { removeTimestamp(it) },
                     // All files with stable contents
-                    path("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples().sort(),
+                    path("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
+                    path("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples().sort(),
                 ).match() }
             )
         }

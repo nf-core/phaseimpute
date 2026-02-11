@@ -11,12 +11,6 @@
                 "BCFTOOLS_CONCAT": {
                     "bcftools": 1.22
                 },
-                "BCFTOOLS_INDEX_1": {
-                    "bcftools": 1.21
-                },
-                "BCFTOOLS_INDEX_2": {
-                    "bcftools": 1.21
-                },
                 "BCFTOOLS_MERGE": {
                     "bcftools": 1.21
                 },
@@ -46,12 +40,12 @@
                 }
             },
             [
-                "imputation/batch/all.batch0.id.txt",
-                "imputation/batch/all.batch0.idonly.txt",
-                "imputation/batch/all.batch0.noid.txt",
+                "imputation/batch/all_samples.batch0.id.txt",
+                "imputation/batch/all_samples.batch0.idonly.txt",
+                "imputation/batch/all_samples.batch0.noid.txt",
                 "imputation/csv/impute.csv",
-                "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz",
-                "imputation/glimpse1/concat/all.batch0.glimpse1.vcf.gz.tbi",
+                "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
+                "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                 "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.tbi",
                 "imputation/glimpse1/samples/NA19401.glimpse1.vcf.gz",
