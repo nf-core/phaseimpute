@@ -45,7 +45,7 @@ include { VCF_SPLIT_BCFTOOLS as SPLIT_IMPUTED        } from '../../subworkflows/
 // GLIMPSE1 subworkflows
 include { BAM_GL_BCFTOOLS as GL_GLIMPSE1             } from '../../subworkflows/local/bam_gl_bcftools'
 include { VCF_IMPUTE_GLIMPSE1                        } from '../../subworkflows/local/vcf_impute_glimpse1'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE1     } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // GLIMPSE2 subworkflows
 include { BAM_VCF_IMPUTE_GLIMPSE2                    } from '../../subworkflows/nf-core/bam_vcf_impute_glimpse2'
@@ -109,6 +109,11 @@ workflow PHASEIMPUTE {
     main:
 
     ch_multiqc_files = channel.empty()
+
+    def region_count = ch_region
+        .map{ _meta, region -> region}
+        .collect()
+        .map { regions -> regions.size() }
 
     //
     // Simulate data if asked
@@ -342,10 +347,13 @@ workflow PHASEIMPUTE {
             // Concatenate by chromosomes
             CONCAT_GLIMPSE1(
                 VCF_IMPUTE_GLIMPSE1.out.vcf_tbi
+                    .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
             )
 
             // Add results to input validate
-            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
+            ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_index)
 
         }
 
@@ -545,11 +553,6 @@ workflow PHASEIMPUTE {
             "impute.csv", "imputation/csv"
         )
     }
-
-    def region_count = ch_region
-        .map{ _meta, region -> region}
-        .collect()
-        .map { regions -> regions.size() }
 
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
