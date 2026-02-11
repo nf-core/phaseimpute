@@ -2,13 +2,13 @@
     "Check test_validate": {
         "content": [
             [
-                38,
+                39,
                 {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": 1.21
@@ -39,6 +39,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": 1.21
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": 1.2
@@ -223,6 +226,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-02-11T11:42:01.264936606"
+        "timestamp": "2026-02-11T17:17:12.932370891"
     }
 }

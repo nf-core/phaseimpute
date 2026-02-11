@@ -21,7 +21,6 @@ workflow VCF_CONCATENATE_BCFTOOLS {
 
     // Ligate and concatenate chunks
     BCFTOOLS_CONCAT(ch_vcf_tbi_grouped.more.map{ it -> [it[0], it[1], it[2]] })
-    ch_versions = ch_versions.mix(BCFTOOLS_CONCAT.out.versions.first())
 
     // Join VCFs and TBIs
     ch_vcf_tbi_concat = BCFTOOLS_CONCAT.out.vcf

@@ -13,8 +13,8 @@
                     },
                     "bcftools/concat": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
+                        "installed_by": ["modules", "vcf_gather_bcftools"]
                     },
                     "bcftools/convert": {
                         "branch": "master",
@@ -58,6 +58,11 @@
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
+                    },
+                    "bcftools/sort": {
+                        "branch": "master",
+                        "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
+                        "installed_by": ["vcf_gather_bcftools"]
                     },
                     "bcftools/stats": {
                         "branch": "master",
@@ -212,8 +217,8 @@
                     },
                     "tabix/tabix": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"]
+                        "git_sha": "524a7d5ef99a0cbfb4feec8bf7062eb6a531931a",
+                        "installed_by": ["modules", "vcf_gather_bcftools"]
                     },
                     "vcflib/vcffixup": {
                         "branch": "master",
@@ -252,6 +257,11 @@
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "4b406a74dc0449c0401ed87d5bfff4252fd277fd",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "vcf_gather_bcftools": {
+                        "branch": "master",
+                        "git_sha": "2956d489fac13be1b7c8d54effd766a1965cd3de",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_impute_beagle5": {

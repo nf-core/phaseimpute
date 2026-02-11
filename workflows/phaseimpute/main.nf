@@ -32,7 +32,7 @@ include { GAWK as FILTER_CHR_DWN                     } from '../../modules/nf-co
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_PANEL        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { chunkPrepareChannel                        } from './function.nf'
 
@@ -79,7 +79,7 @@ include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_TRUTH     } from '../../modules/nf-co
 include { GAWK as GAWK_TRUTH                         } from '../../modules/nf-core/gawk'
 include { VCF_SPLIT_BCFTOOLS as SPLIT_TRUTH          } from '../../subworkflows/local/vcf_split_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TRUTH     } from '../../modules/nf-core/bcftools/stats'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_TRUTH   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_TRUTH        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 include { VCF_CONCORDANCE_GLIMPSE2                   } from '../../subworkflows/local/vcf_concordance_glimpse2'
 
 
@@ -340,8 +340,9 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(VCF_IMPUTE_GLIMPSE1.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE1.out.vcf_tbi)
-            ch_versions = ch_versions.mix(CONCAT_GLIMPSE1.out.versions)
+            CONCAT_GLIMPSE1(
+                VCF_IMPUTE_GLIMPSE1.out.vcf_tbi
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_tbi)
@@ -370,10 +371,11 @@ workflow PHASEIMPUTE {
             )
             ch_versions = ch_versions.mix(BAM_VCF_IMPUTE_GLIMPSE2.out.versions)
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE2(BAM_VCF_IMPUTE_GLIMPSE2.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"glimpse2"], vcf, index]
-            })
-            ch_versions = ch_versions.mix(CONCAT_GLIMPSE2.out.versions)
+            CONCAT_GLIMPSE2(
+                BAM_VCF_IMPUTE_GLIMPSE2.out.vcf_index.map{
+                    meta, vcf, index -> [meta + [tools:"glimpse2"], vcf, index]
+                }
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_tbi)
@@ -413,10 +415,11 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(BAM_IMPUTE_STITCH.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"stitch"], vcf, index]
-            })
-            ch_versions = ch_versions.mix(CONCAT_STITCH.out.versions)
+            CONCAT_STITCH(
+                BAM_IMPUTE_STITCH.out.vcf_index.map{
+                    meta, vcf, index -> [meta + [tools:"stitch"], vcf, index]
+                }
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_tbi)
@@ -447,8 +450,9 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_tbi)
-            ch_versions = ch_versions.mix(CONCAT_QUILT.out.versions)
+            CONCAT_QUILT(
+                BAM_IMPUTE_QUILT.out.vcf_tbi
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_tbi)
@@ -469,10 +473,11 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(VCF_IMPUTE_BEAGLE5.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"beagle5"], vcf, index]
-            })
-            ch_versions = ch_versions.mix(CONCAT_BEAGLE5.out.versions)
+            CONCAT_BEAGLE5(
+                VCF_IMPUTE_BEAGLE5.out.vcf_index.map{
+                    meta, vcf, index -> [meta + [tools:"beagle5"], vcf, index]
+                }
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_tbi)
@@ -502,8 +507,9 @@ workflow PHASEIMPUTE {
             ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_index)
-            ch_versions = ch_versions.mix(CONCAT_MINIMAC4.out.versions)
+            CONCAT_MINIMAC4(
+                VCF_IMPUTE_MINIMAC4.out.vcf_index
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_tbi)
@@ -540,15 +546,25 @@ workflow PHASEIMPUTE {
         )
     }
 
+    def region_count = ch_region
+        .map{ _meta, region -> region}
+        .collect()
+        .map { regions -> regions.size() }
+
     if (params.steps.split(',').contains("validate") || params.steps.split(',').contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
-        CONCAT_PANEL(ch_posfile.map{
-            meta, site, site_index, _hap, _legend, _posfile -> [
-                meta, site, site_index
-            ]
-        })
-        ch_versions    = ch_versions.mix(CONCAT_PANEL.out.versions)
-        ch_panel_sites = CONCAT_PANEL.out.vcf_tbi
+        CONCAT_PANEL(
+            ch_posfile
+                .map{
+                    meta, site, site_index, _hap, _legend, _posfile -> [
+                        meta, site, site_index
+                    ]
+                }
+                .combine(region_count),
+            ["panel_id"],
+            false
+        )
+        ch_panel_sites = CONCAT_PANEL.out.vcf_index
 
         // Compute stats on panel
         BCFTOOLS_STATS_PANEL(
@@ -586,19 +602,23 @@ workflow PHASEIMPUTE {
         )
         ch_versions = ch_versions.mix(GL_TRUTH.out.versions)
 
+        // Concatenate truth vcf by chromosomes
+        CONCAT_TRUTH(
+            GL_TRUTH.out.vcf_tbi
+                .combine(region_count),
+            ["id"],
+            false
+        )
+
         // Mix the original vcf and the computed vcf
         ch_truth_vcf = ch_truth.vcf
             .map { meta, file, index, _ext -> [meta, file, index] }
-            .mix(GL_TRUTH.out.vcf_tbi)
-
-        // Concatenate truth vcf by chromosomes
-        CONCAT_TRUTH(ch_truth_vcf)
-        ch_versions = ch_versions.mix(CONCAT_TRUTH.out.versions)
+            .mix(CONCAT_TRUTH.out.vcf_index)
 
         // Prepare renaming file
-        BCFTOOLS_QUERY_TRUTH(CONCAT_TRUTH.out.vcf_tbi, [], [], [])
+        BCFTOOLS_QUERY_TRUTH(ch_truth_vcf, [], [], [])
         GAWK_TRUTH(BCFTOOLS_QUERY_TRUTH.out.output, [], false)
-        ch_split_truth = CONCAT_TRUTH.out.vcf_tbi.join(GAWK_TRUTH.out.output)
+        ch_split_truth = ch_truth_vcf.join(GAWK_TRUTH.out.output)
 
         // Split truth vcf by samples
         SPLIT_TRUTH(ch_split_truth)

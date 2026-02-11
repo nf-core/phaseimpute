@@ -1,17 +1,16 @@
-name: bcftools_concat
-description: Concatenate VCF files
+name: bcftools_sort
+description: Sorts VCF files
 keywords:
-  - variant calling
-  - concat
-  - bcftools
+  - sorting
   - VCF
+  - variant calling
 tools:
-  - concat:
-      description: |
-        Concatenate VCF files.
+  - sort:
+      description: Sort VCF files by coordinates.
       homepage: http://samtools.github.io/bcftools/bcftools.html
       documentation: http://www.htslib.org/doc/bcftools.html
-      doi: 10.1093/bioinformatics/btp352
+      tool_dev_url: https://github.com/samtools/bcftools
+      doi: "10.1093/bioinformatics/btp352"
       licence: ["MIT"]
       identifier: biotools:bcftools
 input:
@@ -20,16 +19,11 @@ input:
         description: |
           Groovy Map containing sample information
           e.g. [ id:'test', single_end:false ]
-    - vcfs:
-        type: list
-        description: |
-          List containing 2 or more vcf files
-          e.g. [ 'file1.vcf', 'file2.vcf' ]
-    - tbi:
-        type: list
-        description: |
-          List containing 2 or more index files (optional)
-          e.g. [ 'file1.tbi', 'file2.tbi' ]
+    - vcf:
+        type: file
+        description: The VCF/BCF file to be sorted
+        pattern: "*.{vcf.gz,vcf,bcf}"
+        ontologies: []
 output:
   vcf:
     - - meta:
@@ -37,36 +31,33 @@ output:
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test', single_end:false ]
-      - ${prefix}.${extension}:
-          type: map
-          description: |
-            Groovy Map containing sample information
-            e.g. [ id:'test', single_end:false ]
-          pattern: "*.{vcf,vcf.gz,bcf,bcf.gz}"
+      - "*.{vcf,vcf.gz,bcf,bcf.gz}":
+          type: file
+          description: Sorted VCF file
+          pattern: "*.{vcf.gz}"
+          ontologies: []
   tbi:
     - - meta:
           type: map
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test', single_end:false ]
-      - ${prefix}.${extension}.tbi:
-          type: map
-          description: |
-            Groovy Map containing sample information
-            e.g. [ id:'test', single_end:false ]
+      - "*.tbi":
+          type: file
+          description: Alternative VCF file index
           pattern: "*.tbi"
+          ontologies: []
   csi:
     - - meta:
           type: map
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test', single_end:false ]
-      - ${prefix}.${extension}.csi:
-          type: map
-          description: |
-            Groovy Map containing sample information
-            e.g. [ id:'test', single_end:false ]
+      - "*.csi":
+          type: file
+          description: Default VCF file index
           pattern: "*.csi"
+          ontologies: []
   versions_bcftools:
     - - ${task.process}:
           type: string
@@ -89,8 +80,6 @@ topics:
           type: string
           description: The command used to generate the version of the tool
 authors:
-  - "@abhi18av"
-  - "@nvnieuwk"
+  - "@Gwennid"
 maintainers:
-  - "@abhi18av"
-  - "@nvnieuwk"
+  - "@Gwennid"

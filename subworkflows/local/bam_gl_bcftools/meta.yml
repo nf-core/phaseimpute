@@ -11,8 +11,6 @@ keywords:
   - genotype likelihoods
   - bcftools
 components:
-  - gawk
-  - tabix/bgzip
   - bcftools/mpileup
   - bcftools/merge
   - bcftools/annotate

@@ -1,4 +1,4 @@
-process BCFTOOLS_CONCAT {
+process BCFTOOLS_SORT {
     tag "${meta.id}"
     label 'process_medium'
 
@@ -8,23 +8,21 @@ process BCFTOOLS_CONCAT {
         : 'community.wave.seqera.io/library/bcftools_htslib:0a3fa2654b52006f'}"
 
     input:
-    tuple val(meta), path(vcfs), path(tbi)
+    tuple val(meta), path(vcf)
 
     output:
-    tuple val(meta), path("${prefix}.${extension}"), emit: vcf
-    tuple val(meta), path("${prefix}.${extension}.tbi"), emit: tbi, optional: true
-    tuple val(meta), path("${prefix}.${extension}.csi"), emit: csi, optional: true
+    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta), path("*.tbi"), emit: tbi, optional: true
+    tuple val(meta), path("*.csi"), emit: csi, optional: true
     tuple val("${task.process}"), val('bcftools'), eval("bcftools --version | sed '1!d; s/^.*bcftools //'"), topic: versions, emit: versions_bcftools
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    def tbi_names = tbi.findAll { file -> !(file instanceof List) }.collect { file -> file.name }
-    def create_input_index = vcfs.collect { vcf -> tbi_names.contains(vcf.name + ".tbi") || tbi_names.contains(vcf.name + ".csi") ? "" : "tabix ${vcf}" }.join("\n    ")
-    extension = args.contains("--output-type b") || args.contains("-Ob")
+    def args = task.ext.args ?: '--output-type z'
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    def extension = args.contains("--output-type b") || args.contains("-Ob")
         ? "bcf.gz"
         : args.contains("--output-type u") || args.contains("-Ou")
             ? "bcf"
@@ -33,21 +31,22 @@ process BCFTOOLS_CONCAT {
                 : args.contains("--output-type v") || args.contains("-Ov")
                     ? "vcf"
                     : "vcf"
-    def input = vcfs.sort { vcf -> vcf.toString() }.join(" ")
+    def max_memory = task.memory ? "--max-mem ${task.memory.toUnit('MB') * 0.9}M" : ""
     """
-    ${create_input_index}
-
-    bcftools concat \\
+    bcftools \\
+        sort \\
         --output ${prefix}.${extension} \\
+        --temp-dir . \\
+        ${max_memory} \\
         ${args} \\
-        --threads ${task.cpus} \\
-        ${input}
+        ${vcf}
     """
 
     stub:
-    def args = task.ext.args ?: ''
-    prefix = task.ext.prefix ?: "${meta.id}"
-    extension = args.contains("--output-type b") || args.contains("-Ob")
+    def args = task.ext.args ?: '--output-type z'
+    def prefix = task.ext.prefix ?: "${meta.id}"
+
+    def extension = args.contains("--output-type b") || args.contains("-Ob")
         ? "bcf.gz"
         : args.contains("--output-type u") || args.contains("-Ou")
             ? "bcf"
@@ -56,7 +55,7 @@ process BCFTOOLS_CONCAT {
                 : args.contains("--output-type v") || args.contains("-Ov")
                     ? "vcf"
                     : "vcf"
-    def index_extension = args.contains("--write-index=tbi") || args.contains("-W=tbi")
+    def index = args.contains("--write-index=tbi") || args.contains("-W=tbi")
         ? "tbi"
         : args.contains("--write-index=csi") || args.contains("-W=csi")
             ? "csi"
@@ -64,7 +63,7 @@ process BCFTOOLS_CONCAT {
                 ? "csi"
                 : ""
     def create_cmd = extension.endsWith(".gz") ? "echo '' | gzip >" : "touch"
-    def create_index = extension.endsWith(".gz") && index_extension.matches("csi|tbi") ? "touch ${prefix}.${extension}.${index_extension}" : ""
+    def create_index = extension.endsWith(".gz") && index.matches("csi|tbi") ? "touch ${prefix}.${extension}.${index}" : ""
 
     """
     ${create_cmd} ${prefix}.${extension}

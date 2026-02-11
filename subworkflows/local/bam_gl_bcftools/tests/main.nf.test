@@ -11,11 +11,9 @@ nextflow_workflow {
     tag "subworkflows/bam_gl_bcftools"
     tag "bam_gl_bcftools"
 
-    tag "gawk"
-    tag "tabix"
-    tag "tabix/bgzip"
     tag "bcftools"
     tag "bcftools/mpileup"
+    tag "bcftools/merge"
     tag "bcftools/annotate"
 
     test("Compute genotype likelihood with merging") {
