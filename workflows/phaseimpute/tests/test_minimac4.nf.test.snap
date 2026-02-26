@@ -1,0 +1,527 @@
+{
+    "Check test_minimac4 - with chunks - no map": {
+        "content": [
+            [
+                60,
+                {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.0"
+                    },
+                    "MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    },
+                    "MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": 1.2
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/minimac4",
+                    "imputation/minimac4/concat",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "NA12878.minimac4.bcftools_stats.txt:md5,512207546154b2d025f7548d8af5ed44",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,94a21347545f8c638203682c207f38b8",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,2d76824534c1c590cab1fcd0d122fda6",
+                    "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
+                    "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,bf659e11656437747a844e99f39cd260",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,0635497019a37c09b81c350fa2fe7652",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,a75080bef1c6e1a25e3b16e6b4d8bb64",
+                    "multiqc_bcftools_stats.txt:md5,2b89da0634949d8e9e372502c4f9c4bb",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "NA12878.minimac4.vcf.gz",
+                        "a77fbc2b17c5785ebfa59474e710035c"
+                    ],
+                    [
+                        "NA19401.minimac4.vcf.gz",
+                        "bddf83ff84ed78b1a38d7a7c17171784"
+                    ],
+                    [
+                        "NA20359.minimac4.vcf.gz",
+                        "fe1e4594889ac1a353fb93ab8268ac6b"
+                    ],
+                    [
+                        "NA12878.minimac4.vcf.gz",
+                        "a77fbc2b17c5785ebfa59474e710035c"
+                    ],
+                    [
+                        "NA19401.minimac4.vcf.gz",
+                        "bddf83ff84ed78b1a38d7a7c17171784"
+                    ],
+                    [
+                        "NA20359.minimac4.vcf.gz",
+                        "fe1e4594889ac1a353fb93ab8268ac6b"
+                    ]
+                ],
+                [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            ],
+            {
+                "NA12878.minimac4": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-12T16:57:42.865095507"
+    },
+    "Check test_minimac4 - with chunks": {
+        "content": [
+            [
+                60,
+                {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.0"
+                    },
+                    "MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    },
+                    "MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": 1.2
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/minimac4",
+                    "imputation/minimac4/concat",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "NA12878.minimac4.bcftools_stats.txt:md5,512207546154b2d025f7548d8af5ed44",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,94a21347545f8c638203682c207f38b8",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,2d76824534c1c590cab1fcd0d122fda6",
+                    "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
+                    "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,bf659e11656437747a844e99f39cd260",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,0635497019a37c09b81c350fa2fe7652",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,a75080bef1c6e1a25e3b16e6b4d8bb64",
+                    "multiqc_bcftools_stats.txt:md5,2b89da0634949d8e9e372502c4f9c4bb",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "NA12878.minimac4.vcf.gz",
+                        "a77fbc2b17c5785ebfa59474e710035c"
+                    ],
+                    [
+                        "NA19401.minimac4.vcf.gz",
+                        "bddf83ff84ed78b1a38d7a7c17171784"
+                    ],
+                    [
+                        "NA20359.minimac4.vcf.gz",
+                        "6ad4d1a1650167306170429c6e05d53a"
+                    ],
+                    [
+                        "NA12878.minimac4.vcf.gz",
+                        "a77fbc2b17c5785ebfa59474e710035c"
+                    ],
+                    [
+                        "NA19401.minimac4.vcf.gz",
+                        "bddf83ff84ed78b1a38d7a7c17171784"
+                    ],
+                    [
+                        "NA20359.minimac4.vcf.gz",
+                        "6ad4d1a1650167306170429c6e05d53a"
+                    ]
+                ],
+                [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            ],
+            {
+                "NA12878.minimac4": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-12T16:56:20.53461515"
+    },
+    "Check test_minimac4 - without chunks": {
+        "content": [
+            [
+                60,
+                {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.0"
+                    },
+                    "MINIMAC4_COMPRESSREF": {
+                        "minimac4": "4.1.6"
+                    },
+                    "MINIMAC4_IMPUTE": {
+                        "minimac4": "4.1.6"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": 1.2
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/minimac4",
+                    "imputation/minimac4/concat",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                [
+                    "NA12878.minimac4.bcftools_stats.txt:md5,512207546154b2d025f7548d8af5ed44",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,94a21347545f8c638203682c207f38b8",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,2d76824534c1c590cab1fcd0d122fda6",
+                    "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
+                    "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,bf659e11656437747a844e99f39cd260",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,0635497019a37c09b81c350fa2fe7652",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,a75080bef1c6e1a25e3b16e6b4d8bb64",
+                    "multiqc_bcftools_stats.txt:md5,2b89da0634949d8e9e372502c4f9c4bb",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "NA12878.minimac4.vcf.gz",
+                        "a77fbc2b17c5785ebfa59474e710035c"
+                    ],
+                    [
+                        "NA19401.minimac4.vcf.gz",
+                        "bddf83ff84ed78b1a38d7a7c17171784"
+                    ],
+                    [
+                        "NA20359.minimac4.vcf.gz",
+                        "6ad4d1a1650167306170429c6e05d53a"
+                    ],
+                    [
+                        "NA12878.minimac4.vcf.gz",
+                        "a77fbc2b17c5785ebfa59474e710035c"
+                    ],
+                    [
+                        "NA19401.minimac4.vcf.gz",
+                        "bddf83ff84ed78b1a38d7a7c17171784"
+                    ],
+                    [
+                        "NA20359.minimac4.vcf.gz",
+                        "6ad4d1a1650167306170429c6e05d53a"
+                    ]
+                ],
+                [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            ],
+            {
+                "NA12878.minimac4": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878"
+                    ]
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-12T16:59:17.866815903"
+    }
+}

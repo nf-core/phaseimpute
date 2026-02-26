@@ -4,11 +4,11 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "pipeline/phaseimpute"
+    tag "test_glimpse2"
 
     config "./nextflow.config"
 
     test("Check test_glimpse2 - with chunks") {
-        tag "test_glimpse2"
         config "../../../conf/test_glimpse2.config"
         when {
             params {
@@ -30,7 +30,6 @@ nextflow_pipeline {
     }
 
     test("Check test_glimpse2 - with chunks - no map") {
-        tag "test_glimpse2"
         config "../../../conf/test_glimpse2.config"
         when {
             params {
@@ -53,7 +52,6 @@ nextflow_pipeline {
     }
 
     test("Check test_glimpse2 - without chunks") {
-        tag "test_glimpse2"
         config "../../../conf/test_glimpse2.config"
         when {
             params {

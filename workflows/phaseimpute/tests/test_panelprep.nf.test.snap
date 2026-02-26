@@ -1,8 +1,8 @@
 {
-    "Check test_panelprep": {
+    "Check test_panelprep - no chunks": {
         "content": [
             [
-                38,
+                36,
                 {
                     "BCFTOOLS_CONVERT": {
                         "bcftools": 1.21
@@ -39,12 +39,6 @@
                     },
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
-                    },
-                    "VCF_BCFTOOLS_INDEX_1": {
-                        "bcftools": 1.21
-                    },
-                    "VCF_BCFTOOLS_INDEX_2": {
-                        "bcftools": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -117,11 +111,11 @@
                 [
                     [
                         "1000GP_chr21_phased.vcf.gz",
-                        "717edbcf352f88374ef5cc752ec65bb"
+                        "797b0fd345ce761987d4b3bddac4236a"
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "481928a52994a1c1dcdc147199f053c7"
+                        "b489f8697dda10f5e2eafaa7053bd494"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
@@ -160,10 +154,145 @@
                 ]
             ]
         ],
+        "timestamp": "2026-02-19T22:23:01.740011576",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-05T13:32:27.529176466"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Check test_panelprep - with chunks": {
+        "content": [
+            [
+                32,
+                {
+                    "BCFTOOLS_CONVERT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_NORM": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_VIEW": {
+                        "bcftools": 1.21
+                    },
+                    "GAWK": {
+                        "gawk": "5.3.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "SHAPEIT5_LIGATE": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "SHAPEIT5_PHASECOMMON": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "TABIX_BGZIP": {
+                        "tabix": 1.21
+                    },
+                    "VCFLIB_VCFFIXUP": {
+                        "vcflib": "1.0.14"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prep_panel",
+                    "prep_panel/csv",
+                    "prep_panel/csv/panel.csv",
+                    "prep_panel/csv/posfile.csv",
+                    "prep_panel/haplegend",
+                    "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr21.samples",
+                    "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr22.samples",
+                    "prep_panel/panel",
+                    "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                    "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                    "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                    "prep_panel/posfile",
+                    "prep_panel/posfile/1000GP.chr21.posfile.txt.gz",
+                    "prep_panel/posfile/1000GP.chr22.posfile.txt.gz",
+                    "prep_panel/sites",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                ],
+                [
+                    "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                    "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
+                    "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
+                    "1000GP_chr21.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
+                    "1000GP_chr22.hap.gz:md5,9500b831dcfee86a98577dde9e2cce73",
+                    "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
+                    "1000GP_chr22.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
+                    "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "1000GP_chr21_phased.vcf.gz",
+                        "797b0fd345ce761987d4b3bddac4236a"
+                    ],
+                    [
+                        "1000GP_chr22_phased.vcf.gz",
+                        "b489f8697dda10f5e2eafaa7053bd494"
+                    ],
+                    [
+                        "1000GP_chr21_glimpse1_sites.vcf.gz",
+                        "6a6015e06338ef14f58749dd067f4a78"
+                    ],
+                    [
+                        "1000GP_chr22_glimpse1_sites.vcf.gz",
+                        "321a19489c56a5d670ee49b26d9052b9"
+                    ]
+                ],
+                [
+                    {
+                        "fileName": "panel.csv",
+                        "rows": [
+                            "panel,chr,vcf,index",
+                            "1000GP,chr21,1000GP_chr21_phased.vcf.gz,1000GP_chr21_phased.vcf.gz.csi",
+                            "1000GP,chr22,1000GP_chr22_phased.vcf.gz,1000GP_chr22_phased.vcf.gz.csi"
+                        ]
+                    },
+                    {
+                        "fileName": "posfile.csv",
+                        "rows": [
+                            "panel,chr,vcf,index,hap,legend,posfile",
+                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.tbi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
+                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.tbi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
+                        ]
+                    }
+                ]
+            ]
+        ],
+        "timestamp": "2026-02-19T22:43:21.957598735",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

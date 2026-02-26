@@ -31,9 +31,12 @@ include { GAWK as FILTER_CHR_DWN                     } from '../../modules/nf-co
 // Panelprep subworkflows
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
-include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/local/vcf_phase_shapeit5'
+
+include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/nf-core/vcf_phase_shapeit5'
 include { VCF_GATHER_BCFTOOLS as CONCAT_PANEL        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
+
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
+include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { chunkPrepareChannel                        } from './function.nf'
 
 // Imputation
@@ -52,8 +55,9 @@ include { BAM_VCF_IMPUTE_GLIMPSE2                    } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // QUILT subworkflows
-include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
-include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/local/bam_impute_quilt'
+include { GAWK as GAWK_POSFILE_QUILT                 } from '../../modules/nf-core/gawk'
+include { TABIX_BGZIP as BGZIP_POSFILE_QUILT         } from '../../modules/nf-core/tabix/bgzip'
+include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // STITCH subworkflows
@@ -67,7 +71,7 @@ include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // MINIMAC4 subworkflows
-include { VCF_IMPUTE_MINIMAC4                        } from '../../subworkflows/local/vcf_impute_minimac4'
+include { VCF_IMPUTE_MINIMAC4                        } from '../../subworkflows/nf-core/vcf_impute_minimac4'
 include { VCF_CONCATENATE_BCFTOOLS as CONCAT_MINIMAC4} from '../../subworkflows/local/vcf_concatenate_bcftools'
 
 // Imputation stats
@@ -209,27 +213,44 @@ workflow PHASEIMPUTE {
             ch_posfile  = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
         }
 
-        // Phase panel with Shapeit5
-        if (params.phase == true) {
-            VCF_PHASE_SHAPEIT5(
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(channel.of([[]])),
-                ch_region,
-                [[],[],[]],
-                [[],[],[]],
+        // Use glimpse 1 for chunks if not provided
+        if (!params.chunks){
+            // Create chunks from reference VCF
+            VCF_CHUNK_GLIMPSE(
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi,
                 ch_map,
                 chunk_model
             )
-            ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_tbi
-            ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
+            ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
+            ch_chunks  = VCF_CHUNK_GLIMPSE.out.chunks
+
+            // Chunks
+            exportCsv(
+                ch_chunks
+                .map{ meta, file ->
+                    [meta, [2:"prep_panel/chunks/glimpse1"], file]
+                },
+                ["panel_id", "chr"], "panel,chr,file",
+                "chunks_glimpse1.csv", "prep_panel/csv"
+            )
         }
 
-        // Create chunks from reference VCF
-        VCF_CHUNK_GLIMPSE(ch_panel_phased, ch_map, chunk_model)
-        ch_versions = ch_versions.mix(VCF_CHUNK_GLIMPSE.out.versions)
+        // Phase panel with Shapeit5
+        if (params.phase == true) {
+            // Use chunks from parameters and use region with buffer region
+            ch_chunks_phase = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
-        // Use glimpse 1 for chunks
-        if (!params.chunks){
-            ch_chunks  = VCF_CHUNK_GLIMPSE.out.chunks
+            VCF_PHASE_SHAPEIT5(
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(channel.of([[], []])), // No pedigree, no region
+                ch_chunks_phase.map{ meta, _regionin, regionout -> [meta, regionout]},
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, _vcf, _index -> [meta, [], []]}, // No ref
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, vcf, index -> [meta, [], []]}, // No scaffold
+                ch_map,
+                false,
+                chunk_model
+            )
+            ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_index
+            ch_versions = ch_versions.mix(VCF_PHASE_SHAPEIT5.out.versions)
         }
 
         // Create CSVs from panelprep step
@@ -251,14 +272,6 @@ workflow PHASEIMPUTE {
             },
             ["panel_id", "chr"], "panel,chr,vcf,index,hap,legend,posfile",
             "posfile.csv", "prep_panel/csv"
-        )
-        // Chunks
-        exportCsv(
-            VCF_CHUNK_GLIMPSE.out.chunks.map{ meta, file ->
-                [meta, [2:"prep_panel/chunks/glimpse1"], file]
-            },
-            ["panel_id", "chr"], "panel,chr,file",
-            "chunks_glimpse1.csv", "prep_panel/csv"
         )
     }
 
@@ -453,6 +466,25 @@ workflow PHASEIMPUTE {
             // Use provided chunks if --chunks or whole chromosome
             ch_chunks_quilt = chunkPrepareChannel(ch_chunks, ch_region, "quilt")
 
+            // Transform posfile to tabulated format
+            GAWK_POSFILE_QUILT(
+                ch_posfile.map{
+                    meta, _site, _site_index, _hap, _legend, posfile -> [
+                        meta, posfile
+                    ]
+                }, [], false
+            )
+
+            BGZIP_POSFILE_QUILT(GAWK_POSFILE_QUILT.out.output)
+            ch_versions = ch_versions.mix(BGZIP_POSFILE_QUILT.out.versions.first())
+
+            ch_posfile_quilt = ch_posfile
+                .map{
+                    meta, _site, _site_index, hap, legend, _posfile -> [
+                        meta, hap, legend
+                    ]
+                }.join(BGZIP_POSFILE_QUILT.out.output)
+
             // Impute BAMs with QUILT
             BAM_IMPUTE_QUILT(
                 ch_input_bams_withlist.map{
@@ -460,19 +492,19 @@ workflow PHASEIMPUTE {
                         meta, file, index, bampath_noid, bamnames
                     ]
                 },
-                ch_posfile.map{
-                    meta, _site, _site_index, hap, legend, _posfile -> [
-                        meta, hap, legend
-                    ]
-                },
+                ch_posfile_quilt,
                 ch_chunks_quilt,
-                ch_fasta
+                ch_map,
+                ch_fasta,
+                params.ngen,
+                params.buffer
             )
-            ch_versions = ch_versions.mix(BAM_IMPUTE_QUILT.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_QUILT(
-                BAM_IMPUTE_QUILT.out.vcf_tbi
+            CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_index
+                .map{
+                    meta, vcf, index -> [meta + [tools:"quilt"], vcf, index]
+                }
             )
 
             // Add results to input validate
@@ -507,6 +539,9 @@ workflow PHASEIMPUTE {
         if (params.tools.split(',').contains("minimac4")) {
             log.info("Impute with MINIMAC4")
 
+            ch_chunks_minimac4 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
+                .map{ meta, _regionin, regionout -> [meta, regionout]}
+
             // Create input channel combining VCF with regions
             ch_input_minimac4 = ch_input_type.vcf
                 .combine(ch_region)
@@ -518,19 +553,19 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_MINIMAC4(
                 ch_input_minimac4,
                 ch_panel_phased,
-                ch_map,
                 ch_posfile.map{
                     meta, site, site_index, _hap, _legend, _posfile -> [
                         meta, site, site_index
                     ]
-                }
+                },
+                ch_chunks_minimac4,
+                ch_map
             )
-            ch_versions = ch_versions.mix(VCF_IMPUTE_MINIMAC4.out.versions)
 
             // Concatenate by chromosomes
-            CONCAT_MINIMAC4(
-                VCF_IMPUTE_MINIMAC4.out.vcf_index
-            )
+            CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_index.map{
+                meta, vcf, index -> [meta + [tools:"minimac4"], vcf, index]
+            })
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_index)

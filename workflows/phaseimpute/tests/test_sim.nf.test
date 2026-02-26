@@ -4,11 +4,11 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "pipeline/phaseimpute"
+    tag "test_sim"
 
     config "./nextflow.config"
 
     test("Check test_sim") {
-        tag "test_sim"
         config "../../../conf/test_sim.config"
         when {
             params {

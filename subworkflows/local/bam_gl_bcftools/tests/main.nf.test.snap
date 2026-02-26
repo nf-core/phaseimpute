@@ -45,11 +45,11 @@
                 }
             ]
         ],
+        "timestamp": "2026-02-05T22:23:21.518307093",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-05T22:23:21.518307093"
+        }
     },
     "Compute genotype likelihood with only one input": {
         "content": [
@@ -60,13 +60,13 @@
             [
                 [
                     {
-                        "id": "NA12878",
+                        "id": "all_samples",
                         "panel_id": "1000GP",
                         "chr": "all_chr",
                         "variantcaller": "bcftools"
                     },
-                    "NA12878_all_chr.annotate.vcf.gz",
-                    "NA12878_all_chr.annotate.vcf.gz.tbi"
+                    "all_samples_all_chr.annotate.vcf.gz",
+                    "all_samples_all_chr.annotate.vcf.gz.tbi"
                 ]
             ],
             [
@@ -85,10 +85,10 @@
                 }
             ]
         ],
+        "timestamp": "2026-02-20T15:11:28.45343309",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-05T22:23:39.360277326"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

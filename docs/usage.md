@@ -447,15 +447,15 @@ Optionnaly you can provide the following flags:
 | ---------- | ------------------- | ------------ | -------------------------- | ------------ | -------------- | ---------- | ------------- |
 | `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³           | ✅         | ✅            |
 | `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
-| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴           | ❌⁶        | ✅            |
+| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴           | ✅         | ✅            |
 | `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³           | ✅         | ✅            |
-| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ❌⁶        | ✅            |
-| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁵           | ❌⁶        | ❌⁶           |
+| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
+| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁵           | ✅         | ✅            |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
 > ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, posfile]
-> ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend]
+> ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend, posfile]
 > ⁵ `MINIMAC4`: Optionally, a VCF with its index can be provided for more control over the imputed positions. Should be a CSV with columns [panel id, chr, vcf, index]
 > ⁶ Not yet supported
 
@@ -505,11 +505,11 @@ nextflow run nf-core/phaseimpute \
     -profile docker
 ```
 
-The CSV file provided in `--posfile` has been described before and is produced by `--steps panelprep`. The `.hap` and `.legend` files in this CSV file are mandatory to use QUILT.
+The CSV file provided in `--posfile` has been described before and is produced by `--steps panelprep`. The `.hap` and `.legend` files in this CSV file are mandatory to use QUILT. The `.posfile` file is used to subset the variants to input `--posfile` parameter in `QUILT.R`.
 
 ```console title="posfile.csv"
-panel,chr,hap,legend
-1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz
+panel,chr,hap,legend,posfile
+1000GP,chr22,1000GP.s.norel_chr22.hap.gz,1000GP.s.norel_chr22.legend.gz,1000GP.s.norel_chr22.posfile
 ```
 
 The csv provided in `--chunks` has been described before in this document and is necessary to run this tool.
@@ -535,6 +535,9 @@ nextflow run nf-core/phaseimpute \
     --genome GRCh37 \
     -profile docker
 ```
+
+Genetic map can also be provided for better accuracy.
+See [Map section](#samplesheet-map) for more information.
 
 ### STITCH
 
@@ -701,6 +704,13 @@ panel,chr,vcf,index
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
 
 MINIMAC4 works only with variant calling format files (VCF or BCF) as input.
+
+You can optionally provide chunks to parallelize the imputation process using `--chunks`.
+If not provided the full region per chromosome will be used.
+See [Chunks section](#samplesheet-chunks) for more information.
+
+Genetic map can also be provided for better accuracy.
+See [Map section](#samplesheet-map) for more information.
 
 ## Start with validation `--steps validate`
 

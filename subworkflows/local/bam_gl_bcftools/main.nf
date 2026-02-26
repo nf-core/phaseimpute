@@ -54,7 +54,7 @@ workflow BAM_GL_BCFTOOLS {
 
     // Mix all vcfs
     ch_to_concat = ch_all_vcf.one
-        .map{it -> [it[0]["metas"][0], it[1][0], it[2][0]] }
+        .map{it -> [it[0], it[1][0], it[2][0]] }
         .mix(
             BCFTOOLS_MERGE.out.vcf
                 .join(BCFTOOLS_MERGE.out.tbi.mix(

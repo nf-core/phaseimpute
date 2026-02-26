@@ -1,0 +1,76 @@
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "main.nf"
+
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_quilt"
+
+    config "./nextflow.config"
+
+    test("Check test_quilt - with chunks") {
+        config "../../../conf/test_quilt.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["all_samples.batch0.quilt": UTILS.vcfDetails("$outputDir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_quilt - with chunks - no map") {
+        config "../../../conf/test_quilt.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                map = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["all_samples.batch0.quilt": UTILS.vcfDetails("$outputDir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_quilt - without chunks") {
+        config "../../../conf/test_quilt.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                chunks = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["all_samples.batch0.quilt": UTILS.vcfDetails("$outputDir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+}

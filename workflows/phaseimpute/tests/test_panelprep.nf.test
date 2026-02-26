@@ -4,17 +4,38 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "pipeline/phaseimpute"
+    tag "test_panelprep"
 
     config "./nextflow.config"
 
-    test("Check test_panelprep") {
-        tag "test_panelprep"
+    test("Check test_panelprep - no chunks") {
         config "../../../conf/test_panelprep.config"
         when {
             params {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow)
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_panelprep - with chunks") {
+        config "../../../conf/test_panelprep.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                chunks = "${projectDir}/tests/csv/chunks.csv"
             }
         }
 

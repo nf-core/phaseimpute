@@ -1,0 +1,340 @@
+{
+    "Check test_dog": {
+        "content": [
+            [
+                86,
+                {
+                    "BAMCHREXTRACT": {
+                        "samtools": 1.2
+                    },
+                    "BCFTOOLS_ANNOTATE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_CONVERT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_MPILEUP": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_VIEW": {
+                        "bcftools": 1.21
+                    },
+                    "BGZIP_POSFILE_QUILT": {
+                        "tabix": 1.21
+                    },
+                    "GAWK": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_POSFILE_QUILT": {
+                        "gawk": "5.3.0"
+                    },
+                    "GLIMPSE2_CHUNK": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GLIMPSE_CHUNK": {
+                        "glimpse": "1.1.1"
+                    },
+                    "GLIMPSE_LIGATE": {
+                        "glimpse": "1.1.1"
+                    },
+                    "GLIMPSE_PHASE": {
+                        "glimpse": "1.1.1"
+                    },
+                    "QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    },
+                    "SHAPEIT5_LIGATE": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "SHAPEIT5_PHASECOMMON": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "TABIX_BGZIP": {
+                        "tabix": 1.21
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all_samples.batch0.id.txt",
+                    "imputation/batch/all_samples.batch0.idonly.txt",
+                    "imputation/batch/all_samples.batch0.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/glimpse1",
+                    "imputation/glimpse1/concat",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/samples",
+                    "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz",
+                    "imputation/glimpse1/samples/dog_1735.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse2",
+                    "imputation/glimpse2/concat",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples",
+                    "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz",
+                    "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz.tbi",
+                    "imputation/quilt",
+                    "imputation/quilt/concat",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/samples",
+                    "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
+                    "imputation/quilt/samples/dog_1735.quilt.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
+                    "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/dog_1735.quilt.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prep_panel",
+                    "prep_panel/chunks",
+                    "prep_panel/chunks/glimpse1",
+                    "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
+                    "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
+                    "prep_panel/chunks/glimpse2",
+                    "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
+                    "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
+                    "prep_panel/csv",
+                    "prep_panel/csv/chunks_glimpse1.csv",
+                    "prep_panel/csv/panel.csv",
+                    "prep_panel/csv/posfile.csv",
+                    "prep_panel/haplegend",
+                    "prep_panel/haplegend/658Dog_chr21.hap.gz",
+                    "prep_panel/haplegend/658Dog_chr21.legend.gz",
+                    "prep_panel/haplegend/658Dog_chr21.samples",
+                    "prep_panel/haplegend/658Dog_chr22.hap.gz",
+                    "prep_panel/haplegend/658Dog_chr22.legend.gz",
+                    "prep_panel/haplegend/658Dog_chr22.samples",
+                    "prep_panel/panel",
+                    "prep_panel/panel/658Dog_chr21_phased.vcf.gz",
+                    "prep_panel/panel/658Dog_chr21_phased.vcf.gz.csi",
+                    "prep_panel/panel/658Dog_chr22_phased.vcf.gz",
+                    "prep_panel/panel/658Dog_chr22_phased.vcf.gz.csi",
+                    "prep_panel/posfile",
+                    "prep_panel/posfile/658Dog.chr21.posfile.txt.gz",
+                    "prep_panel/posfile/658Dog.chr22.posfile.txt.gz",
+                    "prep_panel/sites",
+                    "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
+                    "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
+                ],
+                [
+                    "all_samples.batch0.id.txt:md5,2181a5165013a23885b1b8c986765963",
+                    "all_samples.batch0.idonly.txt:md5,b8903a12c45a3a7d10a69ee27f502c87",
+                    "all_samples.batch0.noid.txt:md5,3efb890bd71c27e79d736153c6870953",
+                    "dog_1735.glimpse1.bcftools_stats.txt:md5,73c664e61ea7a8fee4880d7219bedc27",
+                    "dog_1735.glimpse2.bcftools_stats.txt:md5,1265ba28e72199ec3d0079bf65e30ded",
+                    "dog_1735.quilt.bcftools_stats.txt:md5,fc32717325fb393083e7fbf83f9f7ad0",
+                    "bcftools-stats-subtypes.txt:md5,9397a3e17ce0d48f612401c6b5af1c07",
+                    "bcftools_stats_indel-lengths.txt:md5,d8317eb4309527c63e41fdd735edb4f3",
+                    "bcftools_stats_variant_depths.txt:md5,146d5444723388afdcda0f0798a37f0a",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,48326ce826b15a278e2e3da4abf72a19",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,05b608b899c9f78ee46477d0c5f574ad",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,af53b13b2f71f291b0b16e4231809922",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,ed106bd9566607b06ba86d68dc49fe60",
+                    "multiqc_bcftools_stats.txt:md5,2a99054b4bada18f46b0510058478ed1",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,308b31e233de70b3e1e7b9c093e58093",
+                    "658Dog_chr21_chunks_glimpse1.txt:md5,fc93d5f473c8bff30c1244c968be6b8c",
+                    "658Dog_chr22_chunks_glimpse1.txt:md5,846073f9a512a680f7e7155cc4ac1f70",
+                    "658Dog_chr21_chunks_glimpse2.txt:md5,76a5a9b772ce2f8e6f5bef47743a24aa",
+                    "658Dog_chr22_chunks_glimpse2.txt:md5,087f226af57448b5777a0fac6806a776",
+                    "658Dog_chr21.hap.gz:md5,0730a032b058730d6abdbf836bb57ba7",
+                    "658Dog_chr21.legend.gz:md5,3eaa371bdf51f74f9749fd35e9e834a6",
+                    "658Dog_chr21.samples:md5,92a2aa1d024ca2001cfec04671082eff",
+                    "658Dog_chr22.hap.gz:md5,1539a726422481a065279a12f92b0bb7",
+                    "658Dog_chr22.legend.gz:md5,1a68b3ed200e391d869cf0eb036f5d13",
+                    "658Dog_chr22.samples:md5,92a2aa1d024ca2001cfec04671082eff",
+                    "658Dog.chr21.posfile.txt.gz:md5,3c619e8c80d87e36096a77d048fb9077",
+                    "658Dog.chr22.posfile.txt.gz:md5,845632cc4a33f76ab05225cb23930d85"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "all_samples.batch0.glimpse1.vcf.gz",
+                        "7740e8162ec6e258f2fed47b4105f4b8"
+                    ],
+                    [
+                        "dog_1735.glimpse1.vcf.gz",
+                        "7740e8162ec6e258f2fed47b4105f4b8"
+                    ],
+                    [
+                        "all_samples.batch0.glimpse2.vcf.gz",
+                        "f9ca0078b6cc8441d6bac343f8f10eef"
+                    ],
+                    [
+                        "dog_1735.glimpse2.vcf.gz",
+                        "f9ca0078b6cc8441d6bac343f8f10eef"
+                    ],
+                    [
+                        "all_samples.batch0.quilt.vcf.gz",
+                        "60adf9dacef131f3e810fb1ab963baa5"
+                    ],
+                    [
+                        "dog_1735.quilt.vcf.gz",
+                        "60adf9dacef131f3e810fb1ab963baa5"
+                    ],
+                    [
+                        "658Dog_chr21_phased.vcf.gz",
+                        "c5f49189fb225bf23c9f7d04f3ccca2b"
+                    ],
+                    [
+                        "658Dog_chr22_phased.vcf.gz",
+                        "88141b79a8d26241a15e319a513c1279"
+                    ],
+                    [
+                        "658Dog_chr21_glimpse1_sites.vcf.gz",
+                        "7dc63300f31df6ecfce688400a8e1b97"
+                    ],
+                    [
+                        "658Dog_chr22_glimpse1_sites.vcf.gz",
+                        "1a884f2ef710ee27a3fa647388c27d45"
+                    ]
+                ],
+                [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "dog_1735,glimpse1,dog_1735.glimpse1.vcf.gz,dog_1735.glimpse1.vcf.gz.tbi",
+                            "dog_1735,glimpse2,dog_1735.glimpse2.vcf.gz,dog_1735.glimpse2.vcf.gz.tbi",
+                            "dog_1735,quilt,dog_1735.quilt.vcf.gz,dog_1735.quilt.vcf.gz.tbi"
+                        ]
+                    },
+                    {
+                        "fileName": "chunks_glimpse1.csv",
+                        "rows": [
+                            "panel,chr,file",
+                            "658Dog,chr21,658Dog_chr21_chunks_glimpse1.txt",
+                            "658Dog,chr22,658Dog_chr22_chunks_glimpse1.txt"
+                        ]
+                    },
+                    {
+                        "fileName": "panel.csv",
+                        "rows": [
+                            "panel,chr,vcf,index",
+                            "658Dog,chr21,658Dog_chr21_phased.vcf.gz,658Dog_chr21_phased.vcf.gz.csi",
+                            "658Dog,chr22,658Dog_chr22_phased.vcf.gz,658Dog_chr22_phased.vcf.gz.csi"
+                        ]
+                    },
+                    {
+                        "fileName": "posfile.csv",
+                        "rows": [
+                            "panel,chr,vcf,index,hap,legend,posfile",
+                            "658Dog,chr21,658Dog_chr21_glimpse1_sites.vcf.gz,658Dog_chr21_glimpse1_sites.vcf.gz.tbi,658Dog_chr21.hap.gz,658Dog_chr21.legend.gz,658Dog.chr21.posfile.txt.gz",
+                            "658Dog,chr22,658Dog_chr22_glimpse1_sites.vcf.gz,658Dog_chr22_glimpse1_sites.vcf.gz.tbi,658Dog_chr22.hap.gz,658Dog_chr22.legend.gz,658Dog.chr22.posfile.txt.gz"
+                        ]
+                    }
+                ]
+            ],
+            {
+                "all_samples.glimpse1": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=2245, phased=false]",
+                    "samples": [
+                        "dog_1735"
+                    ]
+                },
+                "all_samples.glimpse2": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=2245, phased=true]",
+                    "samples": [
+                        "dog_1735"
+                    ]
+                },
+                "all_samples.quilt": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=2245, phased=true]",
+                    "samples": [
+                        "dog_1735"
+                    ]
+                }
+            }
+        ],
+        "timestamp": "2026-02-20T14:30:08.449795797",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

@@ -1,0 +1,382 @@
+{
+    "Check test_batch": {
+        "content": [
+            [
+                123,
+                {
+                    "ADDCOLUMNS": {
+                        "gawk": "5.3.0"
+                    },
+                    "BAMCHREXTRACT": {
+                        "samtools": 1.2
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_PANEL": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": 1.21
+                    },
+                    "BCFTOOLS_STATS_TRUTH": {
+                        "bcftools": 1.21
+                    },
+                    "BGZIP_POSFILE_QUILT": {
+                        "tabix": 1.21
+                    },
+                    "GAWK": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_ERROR_SPL": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_POSFILE_QUILT": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_RSQUARE_SPL": {
+                        "gawk": "5.3.0"
+                    },
+                    "GAWK_TRUTH": {
+                        "gawk": "5.3.0"
+                    },
+                    "GLIMPSE2_CONCORDANCE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GLIMPSE2_PHASE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GUNZIP": {
+                        "gunzip": 1.13
+                    },
+                    "QUILT_QUILT": {
+                        "r-base": "4.3.1",
+                        "r-quilt": "1.0.5"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.21
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all_samples.batch0.id.txt",
+                    "imputation/batch/all_samples.batch0.idonly.txt",
+                    "imputation/batch/all_samples.batch0.noid.txt",
+                    "imputation/batch/all_samples.batch1.id.txt",
+                    "imputation/batch/all_samples.batch1.idonly.txt",
+                    "imputation/batch/all_samples.batch1.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/glimpse2",
+                    "imputation/glimpse2/concat",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch1.glimpse2.vcf.gz",
+                    "imputation/glimpse2/concat/all_samples.batch1.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples",
+                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
+                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
+                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
+                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                    "imputation/quilt",
+                    "imputation/quilt/concat",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch1.quilt.vcf.gz",
+                    "imputation/quilt/concat/all_samples.batch1.quilt.vcf.gz.tbi",
+                    "imputation/quilt/samples",
+                    "imputation/quilt/samples/NA12878.quilt.vcf.gz",
+                    "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
+                    "imputation/quilt/samples/NA19401.quilt.vcf.gz",
+                    "imputation/quilt/samples/NA19401.quilt.vcf.gz.tbi",
+                    "imputation/quilt/samples/NA20359.quilt.vcf.gz",
+                    "imputation/quilt/samples/NA20359.quilt.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/NA12878.quilt.bcftools_stats.txt",
+                    "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/NA19401.quilt.bcftools_stats.txt",
+                    "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
+                    "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r-squared_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-spl-table.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_glimpse_err_grp.txt",
+                    "multiqc/multiqc_data/multiqc_glimpse_err_spl.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-spl-table.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-spl-table.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-spl-table.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prep_panel",
+                    "prep_panel/stats",
+                    "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
+                    "validation",
+                    "validation/samples",
+                    "validation/samples/NA12878.truth.vcf.gz",
+                    "validation/samples/NA12878.truth.vcf.gz.tbi",
+                    "validation/samples/NA19401.truth.vcf.gz",
+                    "validation/samples/NA19401.truth.vcf.gz.tbi",
+                    "validation/samples/NA20359.truth.vcf.gz",
+                    "validation/samples/NA20359.truth.vcf.gz.tbi",
+                    "validation/stats",
+                    "validation/stats/AllSamples.txt",
+                    "validation/stats/NA12878.truth.bcftools_stats.txt",
+                    "validation/stats/NA12878_P1000GP_Tglimpse2_SNP.txt",
+                    "validation/stats/NA12878_P1000GP_Tquilt_SNP.txt",
+                    "validation/stats/NA19401.truth.bcftools_stats.txt",
+                    "validation/stats/NA19401_P1000GP_Tglimpse2_SNP.txt",
+                    "validation/stats/NA19401_P1000GP_Tquilt_SNP.txt",
+                    "validation/stats/NA20359.truth.bcftools_stats.txt",
+                    "validation/stats/NA20359_P1000GP_Tglimpse2_SNP.txt",
+                    "validation/stats/NA20359_P1000GP_Tquilt_SNP.txt"
+                ],
+                [
+                    "all_samples.batch0.id.txt:md5,3c45ad855aa40de6e979b7c4bb697a83",
+                    "all_samples.batch0.idonly.txt:md5,a9a5ab03ba2329ce141c76bb5bb25cda",
+                    "all_samples.batch0.noid.txt:md5,603fcb6ef7c13985ecc2094ce1c6a29c",
+                    "all_samples.batch1.id.txt:md5,41d3f29a40566b10760e53b4112b9cb9",
+                    "all_samples.batch1.idonly.txt:md5,5732a4ed24904236f034a6e13be24cff",
+                    "all_samples.batch1.noid.txt:md5,cc74a26d0a0449bdb003ce20644996b7",
+                    "NA12878.glimpse2.bcftools_stats.txt:md5,5ba6b1b27ac5854a2ecf55fc0f8a22f9",
+                    "NA12878.quilt.bcftools_stats.txt:md5,3e76a1f94b1f329a394a666a280053d7",
+                    "NA19401.glimpse2.bcftools_stats.txt:md5,c08797787df151d7879976cbfe278349",
+                    "NA19401.quilt.bcftools_stats.txt:md5,61270a3361f5bef26923a8d0efaf5190",
+                    "NA20359.glimpse2.bcftools_stats.txt:md5,9914feff5725ed303909b7e09a9fc9e4",
+                    "NA20359.quilt.bcftools_stats.txt:md5,28871f0ce4a6e8a707817ade3848a2b2",
+                    "bcftools-stats-subtypes.txt:md5,325c6b7429ecf340b8bda9c8d2a6d79f",
+                    "bcftools_stats_indel-lengths.txt:md5,f858f78b2375ce895506467ed372a46d",
+                    "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,61e826a298e81fb2b8a07f0db9b46588",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,9aebbfe9f1e337c8144646f991bac4b6",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,d49918cd56511639fa10c1b2de699693",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,6ce8468ceab328c1faf28d6e20ef1916",
+                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_.txt:md5,085dc7229324feb71088771d2116c08e",
+                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_.txt:md5,085dc7229324feb71088771d2116c08e",
+                    "glimpse-err-grp-plot_Best_genotype_r-squared_indels_.txt:md5,8d552a3e60d892abf0ce7c598ccb3bca",
+                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_.txt:md5,0b69dcb9b5f2ae451ba396299bb7f5e9",
+                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_.txt:md5,0b69dcb9b5f2ae451ba396299bb7f5e9",
+                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_.txt:md5,8d552a3e60d892abf0ce7c598ccb3bca",
+                    "glimpse-err-spl-table.txt:md5,a51d4671f64b37ed492567437e946d26",
+                    "multiqc_bcftools_stats.txt:md5,803be8584de86b021a9bcdfa31aabf73",
+                    "multiqc_citations.txt:md5,6464790b239b7add7d50aca356ebdb14",
+                    "multiqc_general_stats.txt:md5,55ffda22b30bf13174fc8c81047d6ed7",
+                    "multiqc_glimpse_err_grp.txt:md5,7303ceb7e80ab2b188f2dd355b6a1498",
+                    "multiqc_glimpse_err_spl.txt:md5,b59190a0f0295ec4da4a6527980c874d",
+                    "1000GP.panel.bcftools_stats.txt:md5,e0d0b672e2cb7531b5e452de05c988be",
+                    "AllSamples.txt:md5,5bbc52fa94514bc7fca3cc345a7db6c0",
+                    "NA12878.truth.bcftools_stats.txt:md5,17fedf85670e3e67dc38ea4ed65721af",
+                    "NA12878_P1000GP_Tglimpse2_SNP.txt:md5,8b1e30077b2d79f678ba18a54614cd95",
+                    "NA12878_P1000GP_Tquilt_SNP.txt:md5,e0001f03ebd16bff3ce24fe82ae54656",
+                    "NA19401.truth.bcftools_stats.txt:md5,7e034bced77e4e726d97a8bc3a2ce6c5",
+                    "NA19401_P1000GP_Tglimpse2_SNP.txt:md5,bb657ce7e1378e6e30e2e01e7af347f2",
+                    "NA19401_P1000GP_Tquilt_SNP.txt:md5,07f89127662623c61ea126b9d8c9abb6",
+                    "NA20359.truth.bcftools_stats.txt:md5,348dce308e0fdaab25b86435bb1dd56d",
+                    "NA20359_P1000GP_Tglimpse2_SNP.txt:md5,da7ce6c0f54c442fda1ff612cf5c5d09",
+                    "NA20359_P1000GP_Tquilt_SNP.txt:md5,7d0ef6423bf4ea9346765db912779dcc"
+                ],
+                [
+                    
+                ],
+                [
+                    [
+                        "all_samples.batch0.glimpse2.vcf.gz",
+                        "c6a8b917e04ed1a4457e06beeb0e399f"
+                    ],
+                    [
+                        "all_samples.batch1.glimpse2.vcf.gz",
+                        "75e6fdd454f4409279118c7e0ee21c48"
+                    ],
+                    [
+                        "NA12878.glimpse2.vcf.gz",
+                        "d5ad7322d0fc8cb8ae61e1e729bef4ba"
+                    ],
+                    [
+                        "NA19401.glimpse2.vcf.gz",
+                        "c087a0326342c7fed6e93800961847ab"
+                    ],
+                    [
+                        "NA20359.glimpse2.vcf.gz",
+                        "75e6fdd454f4409279118c7e0ee21c48"
+                    ],
+                    [
+                        "all_samples.batch0.quilt.vcf.gz",
+                        "e73890f188f7692f657cd812e1f4c382"
+                    ],
+                    [
+                        "all_samples.batch1.quilt.vcf.gz",
+                        "85e47e69e76401fce1c3ee86e2b5be75"
+                    ],
+                    [
+                        "NA12878.quilt.vcf.gz",
+                        "ab386c78b9493e32898445a3dd7faa99"
+                    ],
+                    [
+                        "NA19401.quilt.vcf.gz",
+                        "1dd8ed667037b4ba0c9c9acf99b38454"
+                    ],
+                    [
+                        "NA20359.quilt.vcf.gz",
+                        "85e47e69e76401fce1c3ee86e2b5be75"
+                    ],
+                    [
+                        "NA12878.truth.vcf.gz",
+                        "1c6e1633095b15b785a9a447b189b3dd"
+                    ],
+                    [
+                        "NA19401.truth.vcf.gz",
+                        "2eb9050ab10a91dca199333df0a9e8"
+                    ],
+                    [
+                        "NA20359.truth.vcf.gz",
+                        "3834cc13ce04bb53696883b7f6de7b42"
+                    ]
+                ],
+                [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.tbi",
+                            "NA12878,quilt,NA12878.quilt.vcf.gz,NA12878.quilt.vcf.gz.tbi",
+                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.tbi",
+                            "NA19401,quilt,NA19401.quilt.vcf.gz,NA19401.quilt.vcf.gz.tbi",
+                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.tbi",
+                            "NA20359,quilt,NA20359.quilt.vcf.gz,NA20359.quilt.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            ],
+            {
+                "all_samples.glimpse2": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA20359"
+                    ]
+                },
+                "all_samples.quilt": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA20359"
+                    ]
+                }
+            }
+        ],
+        "timestamp": "2026-02-20T14:37:06.761099509",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
