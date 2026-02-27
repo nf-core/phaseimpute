@@ -271,7 +271,9 @@
                     },
                     "vcf_gather_bcftools": {
                         "branch": "master",
-                        "git_sha": "2956d489fac13be1b7c8d54effd766a1965cd3de",
+                        "git_sha": "95518d261ec0561b3dffb332944bebc5ef85efcf",
+                        "installed_by": ["subworkflows"]
+                    },
                     "vcf_impute_beagle5": {
                         "branch": "master",
                         "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
