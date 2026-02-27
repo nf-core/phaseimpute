@@ -4,15 +4,45 @@
             [
                 "versions.yml:md5,3b0fee3aa670345abd0d2f9058050d65",
                 "versions.yml:md5,5c1d0190110ff1887f49323dec613345",
-                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202",
-                "versions.yml:md5,85e298b4e9dd35ea49f5696b117f759b"
+                "versions.yml:md5,627428fc0c462d764ef59f3f58cb4202"
             ],
             [
                 [
                     {
                         "id": "all_samples",
                         "panel_id": "1000GP",
-                        "chr": "all_chr",
+                        "metas": [
+                            {
+                                "chr": "21",
+                                "metas": [
+                                    {
+                                        "id": "NA12878",
+                                        "panel_id": "1000GP",
+                                        "chr": "21"
+                                    },
+                                    {
+                                        "id": "NA19401",
+                                        "panel_id": "1000GP",
+                                        "chr": "21"
+                                    }
+                                ]
+                            },
+                            {
+                                "chr": "22",
+                                "metas": [
+                                    {
+                                        "id": "NA12878",
+                                        "panel_id": "1000GP",
+                                        "chr": "22"
+                                    },
+                                    {
+                                        "id": "NA19401",
+                                        "panel_id": "1000GP",
+                                        "chr": "22"
+                                    }
+                                ]
+                            }
+                        ],
                         "variantcaller": "bcftools"
                     },
                     "all_samples_all_chr.annotate.vcf.gz",
@@ -37,19 +67,14 @@
                     "BAM_GL_BCFTOOLS:BCFTOOLS_MPILEUP": {
                         "bcftools": 1.21
                     }
-                },
-                {
-                    "BAM_GL_BCFTOOLS:VCF_CONCATENATE_BCFTOOLS:BCFTOOLS_CONCAT": {
-                        "bcftools": 1.21
-                    }
                 }
             ]
         ],
-        "timestamp": "2026-02-05T22:23:21.518307093",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
-        }
+        },
+        "timestamp": "2026-02-27T10:51:35.372462747"
     },
     "Compute genotype likelihood with only one input": {
         "content": [
@@ -62,7 +87,18 @@
                     {
                         "id": "all_samples",
                         "panel_id": "1000GP",
-                        "chr": "all_chr",
+                        "metas": [
+                            {
+                                "chr": "22",
+                                "metas": [
+                                    {
+                                        "id": "NA12878",
+                                        "panel_id": "1000GP",
+                                        "chr": "22"
+                                    }
+                                ]
+                            }
+                        ],
                         "variantcaller": "bcftools"
                     },
                     "all_samples_all_chr.annotate.vcf.gz",
@@ -85,10 +121,10 @@
                 }
             ]
         ],
-        "timestamp": "2026-02-20T15:11:28.45343309",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-27T11:00:35.412124162"
     }
 }

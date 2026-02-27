@@ -1,7 +1,7 @@
 include { BCFTOOLS_MPILEUP                 } from '../../../modules/nf-core/bcftools/mpileup'
 include { BCFTOOLS_MERGE                   } from '../../../modules/nf-core/bcftools/merge'
 include { BCFTOOLS_ANNOTATE                } from '../../../modules/nf-core/bcftools/annotate'
-include { VCF_CONCATENATE_BCFTOOLS         } from '../../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS              } from '../../../subworkflows/nf-core/vcf_gather_bcftools'
 
 workflow BAM_GL_BCFTOOLS {
 
@@ -14,6 +14,11 @@ workflow BAM_GL_BCFTOOLS {
 
     ch_versions      = channel.empty()
     ch_multiqc_files = channel.empty()
+
+    def posfile_count = ch_posfile
+        .map{ _meta, posfile -> posfile}
+        .collect()
+        .map { posfile -> posfile.size() }
 
     ch_mpileup = ch_bam
         .combine(ch_posfile)
@@ -30,7 +35,7 @@ workflow BAM_GL_BCFTOOLS {
     ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_MPILEUP.out.stats.map{ it -> it[1] })
 
     // Branch depending on number of files
-    ch_all_vcf = BCFTOOLS_MPILEUP.out.vcf
+    ch_all_samples_vcf = BCFTOOLS_MPILEUP.out.vcf
         .join(BCFTOOLS_MPILEUP.out.tbi)
         .map{ metaIPC, vcf, tbi -> [metaIPC.subMap("panel_id", "chr", "batch"), [metaIPC, vcf, tbi]] }
         .groupTuple(sort: { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }) // Sort by id
@@ -40,21 +45,21 @@ workflow BAM_GL_BCFTOOLS {
             filestups.collect{it -> it[2]},
             filestups.collect{it -> it[1]}.size()
         ] } // Compute number of records
-        .branch{it ->
-            one: it[3] == 1
-            more: it[3] > 1
+        .branch{ _meta, _vcf, _index, size ->
+            one: size == 1
+            more: size > 1
         }
 
     // Merge VCFs all individuals
     BCFTOOLS_MERGE(
-        ch_all_vcf.more.map{it -> [it[0], it[1], it[2], []] },
+        ch_all_samples_vcf.more.map{ meta, vcf, index, _size -> [ meta, vcf, index, [] ] },
         ch_fasta
     )
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions.first())
 
     // Mix all vcfs
-    ch_to_concat = ch_all_vcf.one
-        .map{it -> [it[0], it[1][0], it[2][0]] }
+    ch_to_concat = ch_all_samples_vcf.one
+        .map{ meta, vcf_list, index_list, _size -> [ meta, vcf_list[0], index_list[0] ] }
         .mix(
             BCFTOOLS_MERGE.out.vcf
                 .join(BCFTOOLS_MERGE.out.tbi.mix(
@@ -63,11 +68,14 @@ workflow BAM_GL_BCFTOOLS {
         )
 
     // Merge all chromosomes
-    VCF_CONCATENATE_BCFTOOLS(ch_to_concat)
-    ch_versions = ch_versions.mix(VCF_CONCATENATE_BCFTOOLS.out.versions.first())
+    VCF_GATHER_BCFTOOLS(
+        ch_to_concat.combine(posfile_count),
+        ["id", "panel_id"],
+        false
+    )
 
     // Annotate the variants
-    BCFTOOLS_ANNOTATE(VCF_CONCATENATE_BCFTOOLS.out.vcf_index
+    BCFTOOLS_ANNOTATE(VCF_GATHER_BCFTOOLS.out.vcf_index
         .combine(channel.of([[], [], [], []]))
     )
     ch_versions = ch_versions.mix(BCFTOOLS_ANNOTATE.out.versions.first())
