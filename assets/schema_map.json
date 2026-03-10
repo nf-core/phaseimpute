@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/assets/schema_map.json",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/main/assets/schema_map.json",
     "title": "nf-core/phaseimpute pipeline - params.map schema",
     "description": "Schema for the file provided with params.map",
     "type": "array",
