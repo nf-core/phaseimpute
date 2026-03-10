@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#257](https://github.com/nf-core/phaseimpute/pull/257) - Move from local to nf-core sbwf for `SHAPEIT5` imputation. Compute chunks only if not provided. Compute chunks before phasing and use it for phasing sbwf.
 - [#258](https://github.com/nf-core/phaseimpute/pull/258) - Update all nf-core modules and subworkflows.
 - [#259](https://github.com/nf-core/phaseimpute/pull/259) - Move from local to nf-core sbwf for variant calling from BAM input files.
+- [#261](https://github.com/nf-core/phaseimpute/pull/261) - Change from `master` to `main` branch.
 
 ### `Fixed`
 
