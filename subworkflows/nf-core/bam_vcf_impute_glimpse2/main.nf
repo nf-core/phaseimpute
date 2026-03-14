@@ -143,8 +143,4 @@ workflow BAM_VCF_IMPUTE_GLIMPSE2 {
     emit:
     chunks    = ch_chunks // channel: [ val(meta), regionin, regionout ]
     vcf_index = ch_vcf_index // channel: [ val(meta), vcf, csi ]
-<<<<<<< HEAD
-    versions  = ch_versions // channel: [ versions.yml ]
-=======
->>>>>>> origin/dev
 }

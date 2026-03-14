@@ -16,11 +16,6 @@ workflow BAM_IMPUTE_STITCH {
 
     main:
 
-<<<<<<< HEAD
-    ch_versions = channel.empty()
-
-=======
->>>>>>> origin/dev
     // Make final channel with parameters
     ch_parameters = ch_posfile
         .combine(ch_map, by: 0)
