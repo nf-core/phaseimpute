@@ -9,15 +9,12 @@
                     },
                     "BCFTOOLS_INDEX": {
                         "bcftools": 1.22
-<<<<<<< HEAD
-=======
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": 1.22
                     },
                     "BCFTOOLS_INDEX_PHASE": {
                         "bcftools": 1.22
->>>>>>> origin/dev
                     },
                     "BCFTOOLS_NORM": {
                         "bcftools": 1.22
@@ -52,15 +49,6 @@
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
                     },
-<<<<<<< HEAD
-                    "VCF_BCFTOOLS_INDEX_1": {
-                        "bcftools": 1.22
-                    },
-                    "VCF_BCFTOOLS_INDEX_2": {
-                        "bcftools": 1.22
-                    },
-=======
->>>>>>> origin/dev
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
@@ -225,12 +213,6 @@
         ],
         "timestamp": "2026-03-05T15:52:00.959850113",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T02:06:02.361736753"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
@@ -426,6 +408,5 @@
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     }
 }

@@ -286,16 +286,9 @@
         ],
         "timestamp": "2026-03-05T14:29:59.089267721",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T15:05:15.533898274"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     },
     "Check test_glimpse1 - with chunks": {
         "content": [
@@ -584,16 +577,9 @@
         ],
         "timestamp": "2026-03-04T21:46:56.991107375",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T15:02:48.18046299"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     },
     "Check test_glimpse1 - without chunks": {
         "content": [
@@ -880,15 +866,8 @@
         ],
         "timestamp": "2026-03-05T14:30:56.959872791",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T15:07:34.683848662"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     }
 }

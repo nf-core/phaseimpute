@@ -54,10 +54,6 @@ workflow BAM_IMPUTE_STITCH {
         }
 
     STITCH(ch_bam_params, ch_fasta, seed)
-<<<<<<< HEAD
-    ch_versions = ch_versions.mix(STITCH.out.versions.first())
-=======
->>>>>>> origin/dev
 
     // Index imputed annotated VCF
     BCFTOOLS_INDEX_PHASE(STITCH.out.vcf)
@@ -76,10 +72,6 @@ workflow BAM_IMPUTE_STITCH {
         .groupTuple()
 
     GLIMPSE2_LIGATE(ligate_input)
-<<<<<<< HEAD
-    ch_versions = ch_versions.mix(GLIMPSE2_LIGATE.out.versions.first())
-=======
->>>>>>> origin/dev
 
     BCFTOOLS_INDEX_LIGATE(GLIMPSE2_LIGATE.out.merged_variants)
 
@@ -92,8 +84,4 @@ workflow BAM_IMPUTE_STITCH {
 
     emit:
     vcf_index = ch_vcf_index // channel:   [ [id, chr], vcf, tbi ]
-<<<<<<< HEAD
-    versions  = ch_versions // channel:   [ versions.yml ]
-=======
->>>>>>> origin/dev
 }

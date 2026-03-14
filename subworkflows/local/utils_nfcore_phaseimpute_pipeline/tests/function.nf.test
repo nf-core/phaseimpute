@@ -348,7 +348,7 @@ nextflow_function {
             assertAll (
                 { assert function.failed },
                 { assert snapshot(
-                function.stdout.findAll {it.contains("cannot run with VCF or BCF files")}
+                    check_stdout(function.stdout)
                 ).match() }
             )
         }
@@ -371,7 +371,7 @@ nextflow_function {
             assertAll (
                 { assert function.failed },
                 { assert snapshot(
-                    function.stdout.findAll {it.contains("only one file can be provided")}
+                    check_stdout(function.stdout)
                 ).match() }
             )
         }
@@ -394,7 +394,7 @@ nextflow_function {
             assertAll (
                 { assert function.failed },
                 { assert snapshot(
-                    function.stdout.findAll {it.contains("Stitch or Glimpse1 software is selected and the number of input files")}
+                    check_stdout(function.stdout)
                 ).match() }
             )
         }
@@ -416,9 +416,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(
-                    function.stdout.findAll {it.contains("Glimpse2 or Quilt software is selected")}
-                    ).match() }
+                { assert snapshot(check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -742,6 +740,6 @@ nextflow_function {
 }
 
 def check_stdout(function_stdout) {
-    function_stdout.drop(2)
+    function_stdout[2..-1]
         .findAll { !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) }
 }

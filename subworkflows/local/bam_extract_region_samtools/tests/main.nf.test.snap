@@ -2,73 +2,33 @@
     "Get subregion of bam file 10000bp": {
         "content": [
             [
-<<<<<<< HEAD
-                "versions.yml:md5,eea16f726c73c83f859d8e2c3f7e6d26"
-            ],
-            [
-=======
->>>>>>> origin/dev
                 
             ],
             [
                 2498,
                 2510
-<<<<<<< HEAD
-            ],
-            [
-                {
-                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_INDEX": {
-                        "samtools": 1.21
-                    }
-                }
-=======
->>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-<<<<<<< HEAD
-        "timestamp": "2026-02-12T00:14:28.65344239"
-=======
         "timestamp": "2026-03-02T21:48:00.176261455"
->>>>>>> origin/dev
     },
     "Get subregion of bam file 1000bp": {
         "content": [
             [
-<<<<<<< HEAD
-                "versions.yml:md5,eea16f726c73c83f859d8e2c3f7e6d26"
-            ],
-            [
-=======
->>>>>>> origin/dev
                 
             ],
             [
                 368,
                 327
-<<<<<<< HEAD
-            ],
-            [
-                {
-                    "BAM_EXTRACT_REGION_SAMTOOLS:SAMTOOLS_INDEX": {
-                        "samtools": 1.21
-                    }
-                }
-=======
->>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-<<<<<<< HEAD
-        "timestamp": "2026-02-12T00:15:14.676467948"
-=======
         "timestamp": "2026-03-02T21:48:19.01368307"
->>>>>>> origin/dev
     }
 }

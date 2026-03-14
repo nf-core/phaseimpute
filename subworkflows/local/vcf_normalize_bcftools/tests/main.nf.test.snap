@@ -2,13 +2,6 @@
     "Normalize vcf with computing frequencies after removing samples": {
         "content": [
             [
-<<<<<<< HEAD
-                "versions.yml:md5,e0f34f5e0f0ad85a215da15912c06d78",
-                "versions.yml:md5,e49001985e5cda966c98d9bd4b2aabba"
-            ],
-            [
-=======
->>>>>>> origin/dev
                 [
                     {
                         "id": "1000GP",
@@ -31,21 +24,6 @@
                     "VcfFile [chromosomes=[chr22], sampleCount=3190, variantCount=903, phased=true, phasedAutodetect=true]",
                     3190
                 ]
-<<<<<<< HEAD
-            ],
-            [
-                {
-                    "VCF_NORMALIZE_BCFTOOLS:BCFTOOLS_VIEW": {
-                        "bcftools": 1.21
-                    }
-                },
-                {
-                    "VCF_NORMALIZE_BCFTOOLS:VCFLIB_VCFFIXUP": {
-                        "vcflib": "1.0.14"
-                    }
-                }
-=======
->>>>>>> origin/dev
             ]
         ],
         "timestamp": "2026-03-03T09:15:18.429164508",
@@ -57,12 +35,6 @@
     "Normalize vcf without computing frequencies nor removing samples": {
         "content": [
             [
-<<<<<<< HEAD
-                "versions.yml:md5,e0f34f5e0f0ad85a215da15912c06d78"
-            ],
-            [
-=======
->>>>>>> origin/dev
                 [
                     {
                         "id": "1000GP",
@@ -85,16 +57,6 @@
                     "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]",
                     3196
                 ]
-<<<<<<< HEAD
-            ],
-            [
-                {
-                    "VCF_NORMALIZE_BCFTOOLS:BCFTOOLS_VIEW": {
-                        "bcftools": 1.21
-                    }
-                }
-=======
->>>>>>> origin/dev
             ]
         ],
         "timestamp": "2026-03-03T09:14:55.305746317",

@@ -13,7 +13,7 @@ nextflow_workflow {
     tag "vcf_concatenate_bcftools"
 
     tag "bcftools"
-    tag "bcftools/concat"
+    tag "bcftools/concatenate"
 
 
     test("Concatenate vcf") {

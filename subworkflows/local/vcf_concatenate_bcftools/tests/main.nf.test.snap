@@ -2,12 +2,6 @@
     "Concatenate vcf": {
         "content": [
             [
-<<<<<<< HEAD
-                
-            ],
-            [
-=======
->>>>>>> origin/dev
                 [
                     {
                         "id": "1000GP",
@@ -19,12 +13,6 @@
             ],
             [
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=3196, variantCount=1739, phased=true, phasedAutodetect=true]"
-<<<<<<< HEAD
-            ],
-            [
-                
-=======
->>>>>>> origin/dev
             ]
         ],
         "timestamp": "2026-03-03T11:21:18.820980035",

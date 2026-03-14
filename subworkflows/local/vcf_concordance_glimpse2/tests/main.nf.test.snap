@@ -11,13 +11,6 @@
                     ]
                 ],
                 "1": [
-<<<<<<< HEAD
-                    "versions.yml:md5,cb85a5c4bc22951d41b21bc660e89637",
-                    "versions.yml:md5,d2ec7fb40bc455b1804d39f920044f1c"
-                ],
-                "2": [
-=======
->>>>>>> origin/dev
                     [
                         "NA12878.error.cal.txt.gz:md5,33c10b18d109bc6fd53fc2594e18a844"
                     ],
@@ -88,41 +81,13 @@
                         },
                         "AllSamples.txt:md5,10e837d99ad7a390747962c0eed9babd"
                     ]
-<<<<<<< HEAD
-                ],
-                "versions": [
-                    "versions.yml:md5,cb85a5c4bc22951d41b21bc660e89637",
-                    "versions.yml:md5,d2ec7fb40bc455b1804d39f920044f1c"
-                ]
-            },
-            [
-                {
-                    "VCF_CONCORDANCE_GLIMPSE2:GLIMPSE2_CONCORDANCE": {
-                        "glimpse2": "2.0.0"
-                    }
-                },
-                {
-                    "VCF_CONCORDANCE_GLIMPSE2:ADDCOLUMNS": {
-                        "gawk": "5.3.0"
-                    }
-                }
-            ]
-=======
                 ]
             }
->>>>>>> origin/dev
         ],
         "timestamp": "2026-03-03T11:25:47.131150387",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T00:17:50.511105825"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     }
 }

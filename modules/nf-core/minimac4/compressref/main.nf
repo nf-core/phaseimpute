@@ -26,14 +26,6 @@ process MINIMAC4_COMPRESSREF {
         ${args} \\
         --threads ${task.cpus} \\
         -o ${prefix}.msav
-<<<<<<< HEAD
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        minimac4: \$(minimac4 --version |& sed '1!d ; s/minimac v//')
-    END_VERSIONS
-=======
->>>>>>> origin/dev
     """
 
     stub:

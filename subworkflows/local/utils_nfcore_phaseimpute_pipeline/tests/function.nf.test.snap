@@ -79,27 +79,21 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-<<<<<<< HEAD
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T15:28:50.708452237"
-=======
             "nextflow": "25.10.4"
         },
         "timestamp": "2026-03-02T21:55:12.272972242"
->>>>>>> origin/dev
     },
     "Test validateInputBatchTools success batch": {
         "content": [
             [
-                
+                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches."
             ]
         ],
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2026-02-12T15:21:36.814544553"
+        "timestamp": "2025-06-18T15:44:57.400190926"
     },
     "Test getFileExtension non empty list": {
         "content": [
@@ -120,20 +114,15 @@
     "Test validateInputBatchTools error batch": {
         "content": [
             [
+                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches.",
                 "Stitch or Glimpse1 software is selected and the number of input files (151) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-<<<<<<< HEAD
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T15:29:55.448284075"
-=======
             "nextflow": "25.10.4"
         },
         "timestamp": "2026-03-02T21:55:26.941007713"
->>>>>>> origin/dev
     },
     "Test getRegionFromFai with specified region without fasta": {
         "content": [
@@ -165,15 +154,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-<<<<<<< HEAD
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T15:29:21.776071328"
-=======
             "nextflow": "25.10.4"
         },
         "timestamp": "2026-03-02T21:55:19.791976369"
->>>>>>> origin/dev
     },
     "Test checkMetaChr warning": {
         "content": [

@@ -56,44 +56,6 @@
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
                 },
-<<<<<<< HEAD
-                "BCFTOOLS_ANNOTATE": {
-                    "bcftools": 1.21
-                },
-                "BCFTOOLS_CONCAT": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_INDEX_LIGATE": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_INDEX_PHASE": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_MERGE": {
-                    "bcftools": 1.21
-                },
-                "BCFTOOLS_MPILEUP": {
-                    "bcftools": 1.21
-                },
-                "BCFTOOLS_PLUGINSPLIT": {
-                    "bcftools": 1.21
-                },
-                "BCFTOOLS_STATS_TOOLS": {
-                    "bcftools": 1.21
-                },
-                "GAWK_IMPUTED": {
-                    "gawk": "5.3.0"
-                },
-                "GLIMPSE_LIGATE": {
-                    "glimpse": "1.1.1"
-                },
-                "GLIMPSE_PHASE": {
-                    "glimpse": "1.1.1"
-                },
-                "Workflow": {
-                    "nf-core/phaseimpute": "v1.2.0dev"
-                }
-=======
                 "stable name": [
                     "imputation",
                     "imputation/batch",
@@ -310,7 +272,6 @@
                         ]
                     }
                 ]
->>>>>>> origin/dev
             },
             {
                 "all_samples.glimpse1": {
@@ -325,15 +286,8 @@
         ],
         "timestamp": "2026-03-04T21:00:06.1767872",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T00:32:43.218685714"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     }
 }

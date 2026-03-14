@@ -165,15 +165,6 @@
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
                     },
-<<<<<<< HEAD
-                    "VCF_BCFTOOLS_INDEX_1": {
-                        "bcftools": 1.22
-                    },
-                    "VCF_BCFTOOLS_INDEX_2": {
-                        "bcftools": 1.22
-                    },
-=======
->>>>>>> origin/dev
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
@@ -990,15 +981,8 @@
         ],
         "timestamp": "2026-03-09T11:27:26.506815245",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-02-12T01:05:26.603297636"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     }
 }

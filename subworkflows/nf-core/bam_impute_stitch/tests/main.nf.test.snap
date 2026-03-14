@@ -15,69 +15,17 @@
                     ],
                     "66e98feeab1ad12088f1b84a60e6819a"
                 ]
-<<<<<<< HEAD
-            ],
-            [
-                "versions.yml:md5,8b0020b997bad45e9e3cf0d9b868a3b2",
-                "versions.yml:md5,c32cdf9d543fe0fe8f0cfeade5ceade2"
-            ],
-            [
-                {
-                    "BAM_IMPUTE_STITCH:STITCH": {
-                        "r-base": "4.4.2",
-                        "r-stitch": "1.7.3"
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
-=======
->>>>>>> origin/dev
             ]
         ],
         "timestamp": "2026-03-03T09:28:07.39346314",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.2"
-        },
-        "timestamp": "2026-01-20T12:38:36.431704104"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     },
     "homo_sapiens - empty channels - stub": {
         "content": [
             {
-<<<<<<< HEAD
-                "0": [
-                    [
-                        {
-                            "id": "allid",
-                            "chr": "chr21"
-                        },
-                        "allid_chr21.ligate.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "allid_chr21.ligate.vcf.gz.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "allid",
-                            "chr": "chr22"
-                        },
-                        "allid_chr22.ligate.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "allid_chr22.ligate.vcf.gz.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,8b0020b997bad45e9e3cf0d9b868a3b2",
-                    "versions.yml:md5,c32cdf9d543fe0fe8f0cfeade5ceade2"
-                ],
-=======
->>>>>>> origin/dev
                 "vcf_index": [
                     [
                         {
@@ -95,43 +43,14 @@
                         "allid_chr22.ligate.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                         "allid_chr22.ligate.vcf.gz.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
-<<<<<<< HEAD
-                ],
-                "versions": [
-                    "versions.yml:md5,8b0020b997bad45e9e3cf0d9b868a3b2",
-                    "versions.yml:md5,c32cdf9d543fe0fe8f0cfeade5ceade2"
-                ]
-            },
-            [
-                {
-                    "BAM_IMPUTE_STITCH:STITCH": {
-                        "r-base": "4.4.2",
-                        "r-stitch": "1.7.3"
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
-            ]
-=======
                 ]
             }
->>>>>>> origin/dev
         ],
         "timestamp": "2026-03-03T09:28:44.379146291",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.2"
-        },
-        "timestamp": "2026-01-20T12:39:01.503600654"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     },
     "Impute with stitch two individual bam, renaming, posfile, chunks, map, no fasta": {
         "content": [
@@ -156,35 +75,12 @@
                     ],
                     "88ee8bbae9712d3f791f3df2c3eb0ab3"
                 ]
-<<<<<<< HEAD
-            ],
-            [
-                {
-                    "BAM_IMPUTE_STITCH:STITCH": {
-                        "r-base": "4.4.2",
-                        "r-stitch": "1.7.3"
-                    }
-                },
-                {
-                    "BAM_IMPUTE_STITCH:GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
-=======
->>>>>>> origin/dev
             ]
         ],
         "timestamp": "2026-03-03T09:28:32.060465639",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.2"
-        },
-        "timestamp": "2026-01-20T12:38:50.644956655"
-=======
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
->>>>>>> origin/dev
     }
 }
