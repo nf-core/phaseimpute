@@ -12,7 +12,7 @@ process LISTTOFILE {
 
     output:
     tuple val(meta), path('*.id.txt'), path('*.noid.txt'), path('*.idonly.txt'), emit: txt
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('gawk'), eval("awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//'"), topic: versions, emit: versions_gawk
 
     when:
     task.ext.when == null || task.ext.when
@@ -45,10 +45,5 @@ process LISTTOFILE {
         split(ids, f, ", ");
         for (j in f) print f[j]
     }' > ${prefix}.idonly.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        gawk: \$(awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//')
-    END_VERSIONS
     """
 }

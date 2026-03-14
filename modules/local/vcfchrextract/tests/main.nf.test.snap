@@ -23,9 +23,21 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,506baa01c685b373e14186feabc4c812",
-                    "versions.yml:md5,506baa01c685b373e14186feabc4c812",
-                    "versions.yml:md5,506baa01c685b373e14186feabc4c812"
+                    [
+                        "VCFCHREXTRACT",
+                        "bcftools",
+                        "1.22"
+                    ],
+                    [
+                        "VCFCHREXTRACT",
+                        "bcftools",
+                        "1.22"
+                    ],
+                    [
+                        "VCFCHREXTRACT",
+                        "bcftools",
+                        "1.22"
+                    ]
                 ],
                 "chr": [
                     [
@@ -47,21 +59,24 @@
                         "test_bcf.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,506baa01c685b373e14186feabc4c812",
-                    "versions.yml:md5,506baa01c685b373e14186feabc4c812",
-                    "versions.yml:md5,506baa01c685b373e14186feabc4c812"
+                "versions_bcftools": [
+                    [
+                        "VCFCHREXTRACT",
+                        "bcftools",
+                        "1.22"
+                    ],
+                    [
+                        "VCFCHREXTRACT",
+                        "bcftools",
+                        "1.22"
+                    ],
+                    [
+                        "VCFCHREXTRACT",
+                        "bcftools",
+                        "1.22"
+                    ]
                 ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
-        },
-        "timestamp": "2025-06-19T09:32:59.033971526"
-    },
-    "chr": {
-        "content": [
+            },
             [
                 [
                     "chr21"
@@ -75,9 +90,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2024-07-17T14:55:53.822382037"
+        "timestamp": "2026-03-02T21:40:06.642776154"
     }
 }

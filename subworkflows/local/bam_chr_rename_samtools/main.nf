@@ -7,8 +7,6 @@ workflow BAM_CHR_RENAME_SAMTOOLS {
 
     main:
 
-    ch_versions = channel.empty()
-
     // Rename the chromosome with or without prefix
     SAMTOOLS_REHEADER(
         ch_bam.map{
@@ -24,15 +22,12 @@ workflow BAM_CHR_RENAME_SAMTOOLS {
             [meta, bam, index, cmd]
         }, // channel: [ [id], bam, index, cmd]
     )
-    ch_versions = ch_versions.mix(SAMTOOLS_REHEADER.out.versions.first())
 
     SAMTOOLS_INDEX(SAMTOOLS_REHEADER.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
 
     ch_bam_renamed = SAMTOOLS_REHEADER.out.bam
         .combine(SAMTOOLS_INDEX.out.bai, by:0)
 
     emit:
     bam_renamed    = ch_bam_renamed        // [ [id], bam, csi ]
-    versions       = ch_versions           // channel: [ versions.yml ]
 }

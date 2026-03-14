@@ -13,6 +13,7 @@ nextflow_pipeline {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
+                publish_all = true
             }
         }
 
@@ -20,35 +21,13 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
-                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"),
-                    // All stable path name, with a relative path
-                    path("${outputDir}/imputation/")
-                        .list()
-                        .collect { getRecursiveFileNames(it, outputDir) }
-                        .flatten(),
-                    path("${outputDir}/pipeline_info/")
-                        .list()
-                        .collect { getRecursiveFileNames(it, outputDir) }
-                        .flatten()
-                        .collect { removeTimestamp(it) },
-                    // All files with stable contents
-                    path("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz").vcf.summary.replaceAll(", phasedAutodetect=(false|true)", ""),
-                    path("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz").vcf.header.getGenotypeSamples().sort(),
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    [
+                        "all_samples.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz")
+                    ]
                 ).match() }
             )
         }
 
     }
-}
-
-def getRecursiveFileNames(fileOrDir, outputDir) {
-    if(file(fileOrDir.toString()).isDirectory()) {
-        return fileOrDir.list().collect { getRecursiveFileNames(it, outputDir) }
-    }
-    return fileOrDir.toString().replace("${outputDir}/", "")
-}
-
-def removeTimestamp(filename) {
-    filename.replaceAll(/_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}/, "")
 }

@@ -15,7 +15,6 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     main:
 
-    ch_versions      = channel.empty()
     ch_multiqc_files = channel.empty()
 
     ch_concordance = ch_vcf_emul
@@ -36,7 +35,6 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         ch_concordance,
         [[], [], params.bins, [], [], params.min_val_gl, params.min_val_dp]
     )
-    ch_versions = ch_versions.mix(GLIMPSE2_CONCORDANCE.out.versions.first())
 
     GAWK_ERROR_SPL(
         GLIMPSE2_CONCORDANCE.out.errors_spl,
@@ -60,7 +58,6 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
     GUNZIP(GLIMPSE2_CONCORDANCE.out.errors_grp)
 
     ADDCOLUMNS(GUNZIP.out.gunzip)
-    ch_versions = ch_versions.mix(ADDCOLUMNS.out.versions.first())
 
     GAWK(
         ADDCOLUMNS.out.txt
@@ -85,6 +82,5 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     emit:
     stats           = GAWK.out.output             // [ [all], txt ]
-    versions        = ch_versions                 // channel: [ versions.yml ]
     multiqc_files   = ch_multiqc_files
 }

@@ -13,5 +13,5 @@ pipeline_info/*.{html,json,txt,yml}
 imputation/*/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
 prep_panel/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
 validation/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
-simulation/*/*.{bam}{.csi,}
+simulation/*/*.{bam}{.csi,.bai,}
 */csv/*.csv

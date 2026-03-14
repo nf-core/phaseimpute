@@ -34,6 +34,7 @@
                     ],
                     "b9ccc0359ccca0714fca43367538de47"
                 ]
+<<<<<<< HEAD
             ],
             [
                 {
@@ -56,13 +57,21 @@
                         "glimpse2": "2.0.0"
                     }
                 }
+=======
+>>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
+<<<<<<< HEAD
             "nextflow": "25.10.2"
         },
         "timestamp": "2026-01-20T12:41:10.950006434"
+=======
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T10:10:30.916186609"
+>>>>>>> origin/dev
     },
     "homo_sapiens - bam no list and no sample, panel vcf region, no chunks, no map, no fasta, chunk sequential + splitreference": {
         "content": [
@@ -99,6 +108,7 @@
                     ],
                     "661a9923af273601dbf0e7a3a666ebd0"
                 ]
+<<<<<<< HEAD
             ],
             [
                 {
@@ -121,17 +131,26 @@
                         "glimpse2": "2.0.0"
                     }
                 }
+=======
+>>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
+<<<<<<< HEAD
             "nextflow": "25.10.2"
         },
         "timestamp": "2026-01-20T12:41:49.670265273"
+=======
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T10:11:17.930222928"
+>>>>>>> origin/dev
     },
     "homo_sapiens - empty channels, chunk sequential + splitreference - stub": {
         "content": [
             {
+<<<<<<< HEAD
                 "0": [
                     [
                         {
@@ -176,6 +195,8 @@
                     "versions.yml:md5,c6ff81aa44fb2fdcc08db6062731d0d9",
                     "versions.yml:md5,ed6ebcf6ca30c2cdc39ec1dd535a2695"
                 ],
+=======
+>>>>>>> origin/dev
                 "chunks": [
                     [
                         {
@@ -213,6 +234,7 @@
                         "allid_22.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                         "allid_22.vcf.gz.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
+<<<<<<< HEAD
                 ],
                 "versions": [
                     "versions.yml:md5,302281bbff76712870c031340d3819ff",
@@ -249,6 +271,16 @@
             "nextflow": "25.10.2"
         },
         "timestamp": "2026-01-20T12:42:15.406136746"
+=======
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T10:11:56.126233708"
+>>>>>>> origin/dev
     },
     "homo_sapiens - vcf no list with sample, panel vcf region, chunks, map, no fasta, no chunking + no splitreference": {
         "content": [
@@ -285,6 +317,7 @@
                     ],
                     "a0d696cbdb219c168b6d54fc28c5f7dd"
                 ]
+<<<<<<< HEAD
             ],
             [
                 {
@@ -297,13 +330,21 @@
                         "glimpse2": "2.0.0"
                     }
                 }
+=======
+>>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
+<<<<<<< HEAD
             "nextflow": "25.10.2"
         },
         "timestamp": "2026-01-20T12:41:36.523695804"
+=======
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T10:11:00.840325908"
+>>>>>>> origin/dev
     },
     "homo_sapiens - vcf no list with sample, panel vcf region, chunks, map, no fasta, no chunking + splitreference": {
         "content": [
@@ -340,6 +381,7 @@
                     ],
                     "a0d696cbdb219c168b6d54fc28c5f7dd"
                 ]
+<<<<<<< HEAD
             ],
             [
                 {
@@ -357,13 +399,21 @@
                         "glimpse2": "2.0.0"
                     }
                 }
+=======
+>>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
+<<<<<<< HEAD
             "nextflow": "25.10.2"
         },
         "timestamp": "2026-01-20T14:53:52.534645002"
+=======
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T10:10:46.674407683"
+>>>>>>> origin/dev
     },
     "homo_sapiens - bam list and sample, panel vcf region, chunks, map, no fasta, no chunking + splitreference": {
         "content": [
@@ -430,6 +480,7 @@
                         "Sample2"
                     ]
                 ]
+<<<<<<< HEAD
             ],
             [
                 {
@@ -447,12 +498,20 @@
                         "glimpse2": "2.0.0"
                     }
                 }
+=======
+>>>>>>> origin/dev
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
+<<<<<<< HEAD
             "nextflow": "25.10.2"
         },
         "timestamp": "2026-01-20T14:54:31.679259412"
+=======
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T10:11:40.633686791"
+>>>>>>> origin/dev
     }
 }

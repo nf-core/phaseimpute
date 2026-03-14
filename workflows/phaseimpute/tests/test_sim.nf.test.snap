@@ -1,11 +1,11 @@
 {
     "Check test_sim": {
         "content": [
-            [
-                35,
-                {
+            {
+                "workflow size": 35,
+                "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": 1.2
+                        "samtools": "1.22.1"
                     },
                     "FILTER_CHR_DWN": {
                         "gawk": "5.3.0"
@@ -17,19 +17,19 @@
                         "gawk": "5.3.0"
                     },
                     "SAMTOOLS_COVERAGE_DWN": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "SAMTOOLS_COVERAGE_INP": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "SAMTOOLS_DEPTH": {
                         "samtools": "1.22.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "SAMTOOLS_INDEX": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "SAMTOOLS_MERGE": {
                         "samtools": "1.22.1"
@@ -41,7 +41,7 @@
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
                 },
-                [
+                "stable name": [
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/llms-full.txt",
@@ -109,6 +109,26 @@
                     "simulation",
                     "simulation/csv",
                     "simulation/csv/simulate.csv",
+                    "simulation/downsample",
+                    "simulation/downsample/NA12878_Call.depth.mean.tsv",
+                    "simulation/downsample/NA12878_Call.depth.tsv",
+                    "simulation/downsample/NA19401_Call.depth.mean.tsv",
+                    "simulation/downsample/NA19401_Call.depth.tsv",
+                    "simulation/downsample/NA20359_Call.depth.mean.tsv",
+                    "simulation/downsample/NA20359_Call.depth.tsv",
+                    "simulation/region_extracted",
+                    "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA12878_region_merged.bam",
+                    "simulation/region_extracted/NA12878_region_merged.bam.bai",
+                    "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA19401_region_merged.bam",
+                    "simulation/region_extracted/NA19401_region_merged.bam.bai",
+                    "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA20359_region_merged.bam",
+                    "simulation/region_extracted/NA20359_region_merged.bam.bai",
                     "simulation/samples",
                     "simulation/samples/NA12878.depth_1x.bam",
                     "simulation/samples/NA12878.depth_1x.bam.csi",
@@ -117,7 +137,7 @@
                     "simulation/samples/NA20359.depth_1x.bam",
                     "simulation/samples/NA20359.depth_1x.bam.csi"
                 ],
-                [
+                "stable path": [
                     "multiqc_citations.txt:md5,ee1baba4adea57b43a9ae59ce7e1dd7f",
                     "multiqc_general_stats.txt:md5,1e64ff0511d612e5be9c79b1f9118bcf",
                     "multiqc_samtools_coverage.txt:md5,f9ccbacabb9dd66667a3b53c6da46339",
@@ -127,9 +147,39 @@
                     "samtools-coverage_Coverage.txt:md5,e2d1202f2b50e37af12a4d0ca3ed6aa0",
                     "samtools-coverage_MQ.txt:md5,678629db8f597832c92e40e34a030a5b",
                     "samtools-coverage_Mean_depth.txt:md5,ca2ee0346807443e9008fb84a2d7697e",
-                    "samtools-coverage_Reads.txt:md5,428b91fe12113a3fafa1c7a91bd353e9"
+                    "samtools-coverage_Reads.txt:md5,428b91fe12113a3fafa1c7a91bd353e9",
+                    "NA12878_Call.depth.mean.tsv:md5,251df319e51ac6c84f093b459bc35afe",
+                    "NA12878_Call.depth.tsv:md5,df5db4fe094e31bb199b356e331ad796",
+                    "NA19401_Call.depth.mean.tsv:md5,fa817417af538770e493c619fbd4c92d",
+                    "NA19401_Call.depth.tsv:md5,9a0e70c0fe445f6e5739d9ce92da9fca",
+                    "NA20359_Call.depth.mean.tsv:md5,772189a184011391113106e866ebafc7",
+                    "NA20359_Call.depth.tsv:md5,5a5e2f970d47dd05a6f62e470e3cc773"
                 ],
-                [
+                "BAM files": [
+                    [
+                        "NA12878_Rchr22_16570000-16610000_view.bam",
+                        "c404c1616c736a2a6a1cdd5bced715f"
+                    ],
+                    [
+                        "NA12878_region_merged.bam",
+                        "c404c1616c736a2a6a1cdd5bced715f"
+                    ],
+                    [
+                        "NA19401_Rchr22_16570000-16610000_view.bam",
+                        "6d27d50a7f4f48c2a50090668c4530ce"
+                    ],
+                    [
+                        "NA19401_region_merged.bam",
+                        "6d27d50a7f4f48c2a50090668c4530ce"
+                    ],
+                    [
+                        "NA20359_Rchr22_16570000-16610000_view.bam",
+                        "830119db01a05efce0254b40d5bebb33"
+                    ],
+                    [
+                        "NA20359_region_merged.bam",
+                        "830119db01a05efce0254b40d5bebb33"
+                    ],
                     [
                         "NA12878.depth_1x.bam",
                         "272e610bed32eeaa815658ca49f7ad35"
@@ -143,10 +193,10 @@
                         "60213ec054efd437f1652031d1c4b139"
                     ]
                 ],
-                [
+                "VCF files": [
                     
                 ],
-                [
+                "CSV files": [
                     {
                         "fileName": "simulate.csv",
                         "rows": [
@@ -157,12 +207,19 @@
                         ]
                     }
                 ]
-            ]
+            }
         ],
+        "timestamp": "2026-03-09T11:43:44.129165187",
         "meta": {
+<<<<<<< HEAD
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
         "timestamp": "2026-02-12T02:10:00.701198718"
+=======
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+>>>>>>> origin/dev
     }
 }

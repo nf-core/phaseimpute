@@ -1,9 +1,9 @@
 {
     "Check test_beagle5 - without chunks": {
         "content": [
-            [
-                46,
-                {
+            {
+                "workflow size": 46,
+                "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
                     },
@@ -14,13 +14,16 @@
                         "bcftools": 1.22
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
+                    },
+                    "BCFTOOLS_QUERY_IMPUTED": {
+                        "bcftools": 1.22
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
                     },
                     "BEAGLE5_BEAGLE": {
-                        "beagle": "5.5rev27Feb25.75f"
+                        "beagle": 5.5
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.0"
@@ -29,16 +32,16 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.2
+                        "bcftools": 1.22
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
                 },
-                [
+                "stable name": [
                     "imputation",
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
@@ -110,10 +113,10 @@
                     "pipeline_info",
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
-                [
-                    "NA12878.beagle5.bcftools_stats.txt:md5,6fa8e266447c0ff1c22d6f8ae36bf9bb",
-                    "NA19401.beagle5.bcftools_stats.txt:md5,053686e1dbe0a25cad0efed5cf2ad04a",
-                    "NA20359.beagle5.bcftools_stats.txt:md5,9ffd9717a055f8f6fe1c0092da3ebf30",
+                "stable path": [
+                    "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -124,10 +127,10 @@
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                     "multiqc_general_stats.txt:md5,401a17402c90373934c85d4b1a08b02c"
                 ],
-                [
+                "BAM files": [
                     
                 ],
-                [
+                "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
                         "1c3989fa496bf014671ce1d91bc00f02"
@@ -153,7 +156,7 @@
                         "e7fdcbc30ec4a497ca71e3b4ff9cefd5"
                     ]
                 ],
-                [
+                "CSV files": [
                     {
                         "fileName": "impute.csv",
                         "rows": [
@@ -164,7 +167,7 @@
                         ]
                     }
                 ]
-            ],
+            },
             {
                 "NA12878.beagle5": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
@@ -174,17 +177,24 @@
                 }
             }
         ],
+        "timestamp": "2026-03-03T12:05:57.80508776",
         "meta": {
+<<<<<<< HEAD
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
         "timestamp": "2026-02-12T01:32:29.287109561"
+=======
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+>>>>>>> origin/dev
     },
     "Check test_beagle5 - with chunks - no map": {
         "content": [
-            [
-                46,
-                {
+            {
+                "workflow size": 46,
+                "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
                     },
@@ -195,13 +205,16 @@
                         "bcftools": 1.22
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
+                    },
+                    "BCFTOOLS_QUERY_IMPUTED": {
+                        "bcftools": 1.22
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
                     },
                     "BEAGLE5_BEAGLE": {
-                        "beagle": "5.5rev27Feb25.75f"
+                        "beagle": 5.5
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.0"
@@ -210,16 +223,16 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.2
+                        "bcftools": 1.22
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
                 },
-                [
+                "stable name": [
                     "imputation",
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
@@ -291,10 +304,10 @@
                     "pipeline_info",
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
-                [
-                    "NA12878.beagle5.bcftools_stats.txt:md5,6fa8e266447c0ff1c22d6f8ae36bf9bb",
-                    "NA19401.beagle5.bcftools_stats.txt:md5,053686e1dbe0a25cad0efed5cf2ad04a",
-                    "NA20359.beagle5.bcftools_stats.txt:md5,9ffd9717a055f8f6fe1c0092da3ebf30",
+                "stable path": [
+                    "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -305,10 +318,10 @@
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                     "multiqc_general_stats.txt:md5,401a17402c90373934c85d4b1a08b02c"
                 ],
-                [
+                "BAM files": [
                     
                 ],
-                [
+                "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
                         "76d5f8432e9a4ff6d65026c8ae00a088"
@@ -334,7 +347,7 @@
                         "6f7b0e4b5d3004a19563a44e10dec779"
                     ]
                 ],
-                [
+                "CSV files": [
                     {
                         "fileName": "impute.csv",
                         "rows": [
@@ -345,7 +358,7 @@
                         ]
                     }
                 ]
-            ],
+            },
             {
                 "NA12878.beagle5": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
@@ -355,17 +368,24 @@
                 }
             }
         ],
+        "timestamp": "2026-03-03T12:04:58.71241456",
         "meta": {
+<<<<<<< HEAD
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
         "timestamp": "2026-02-12T01:29:19.666962903"
+=======
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+>>>>>>> origin/dev
     },
     "Check test_beagle5 - with chunks": {
         "content": [
-            [
-                46,
-                {
+            {
+                "workflow size": 46,
+                "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
                     },
@@ -376,13 +396,16 @@
                         "bcftools": 1.22
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
+                    },
+                    "BCFTOOLS_QUERY_IMPUTED": {
+                        "bcftools": 1.22
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
                     },
                     "BEAGLE5_BEAGLE": {
-                        "beagle": "5.5rev27Feb25.75f"
+                        "beagle": 5.5
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.0"
@@ -391,16 +414,16 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.2
+                        "bcftools": 1.22
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
                 },
-                [
+                "stable name": [
                     "imputation",
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
@@ -472,10 +495,10 @@
                     "pipeline_info",
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
-                [
-                    "NA12878.beagle5.bcftools_stats.txt:md5,6fa8e266447c0ff1c22d6f8ae36bf9bb",
-                    "NA19401.beagle5.bcftools_stats.txt:md5,053686e1dbe0a25cad0efed5cf2ad04a",
-                    "NA20359.beagle5.bcftools_stats.txt:md5,9ffd9717a055f8f6fe1c0092da3ebf30",
+                "stable path": [
+                    "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -486,10 +509,10 @@
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                     "multiqc_general_stats.txt:md5,401a17402c90373934c85d4b1a08b02c"
                 ],
-                [
+                "BAM files": [
                     
                 ],
-                [
+                "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
                         "1c3989fa496bf014671ce1d91bc00f02"
@@ -515,7 +538,7 @@
                         "e7fdcbc30ec4a497ca71e3b4ff9cefd5"
                     ]
                 ],
-                [
+                "CSV files": [
                     {
                         "fileName": "impute.csv",
                         "rows": [
@@ -526,7 +549,7 @@
                         ]
                     }
                 ]
-            ],
+            },
             {
                 "NA12878.beagle5": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
@@ -536,10 +559,17 @@
                 }
             }
         ],
+        "timestamp": "2026-03-03T12:03:42.886876277",
         "meta": {
+<<<<<<< HEAD
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
         "timestamp": "2026-02-12T01:26:16.717021941"
+=======
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+>>>>>>> origin/dev
     }
 }

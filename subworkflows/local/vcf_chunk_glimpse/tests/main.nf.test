@@ -59,8 +59,7 @@ nextflow_workflow {
                     workflow.out,
                     workflow.out.chunks.collect{
                         path(it[1]).readLines()
-                    },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    }
                 ).match()
                 }
             )
@@ -103,8 +102,7 @@ nextflow_workflow {
                     workflow.out,
                     workflow.out.chunks.collect{
                         path(it[1]).readLines()
-                    },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    }
                 ).match()
                 }
             )
@@ -147,8 +145,7 @@ nextflow_workflow {
                     workflow.out,
                     workflow.out.chunks.collect{
                         path(it[1]).readLines()
-                    },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    }
                 ).match()
                 }
             )

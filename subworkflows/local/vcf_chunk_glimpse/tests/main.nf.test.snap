@@ -124,10 +124,6 @@
                         "chr22:16592223-16609999"
                     ]
                 ],
-                "4": [
-                    "versions.yml:md5,1ae67fb38ed979f02f47d5ecb8a85f0d",
-                    "versions.yml:md5,7d277747b107043dd31d3aef18045eef"
-                ],
                 "chunks": [
                     [
                         {
@@ -249,10 +245,6 @@
                         "16587172",
                         "16609999"
                     ]
-                ],
-                "versions": [
-                    "versions.yml:md5,1ae67fb38ed979f02f47d5ecb8a85f0d",
-                    "versions.yml:md5,7d277747b107043dd31d3aef18045eef"
                 ]
             },
             [
@@ -264,25 +256,13 @@
                     "0\tchr22\tchr22:16570065-16597215\tchr22:16570065-16592216\t22152\t452",
                     "1\tchr22\tchr22:16587172-16609999\tchr22:16592229-16609999\t17771\t451"
                 ]
-            ],
-            [
-                {
-                    "VCF_CHUNK_GLIMPSE:GLIMPSE_CHUNK": {
-                        "glimpse": "1.1.1"
-                    }
-                },
-                {
-                    "VCF_CHUNK_GLIMPSE:GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
             ]
         ],
+        "timestamp": "2026-03-03T11:23:28.044105102",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-07-08T15:23:10.194776062"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "Chunks with Map": {
         "content": [
@@ -409,10 +389,6 @@
                         "chr22:16592223-16609999"
                     ]
                 ],
-                "4": [
-                    "versions.yml:md5,1ae67fb38ed979f02f47d5ecb8a85f0d",
-                    "versions.yml:md5,7d277747b107043dd31d3aef18045eef"
-                ],
                 "chunks": [
                     [
                         {
@@ -534,10 +510,6 @@
                         "16587172",
                         "16609999"
                     ]
-                ],
-                "versions": [
-                    "versions.yml:md5,1ae67fb38ed979f02f47d5ecb8a85f0d",
-                    "versions.yml:md5,7d277747b107043dd31d3aef18045eef"
                 ]
             },
             [
@@ -549,25 +521,13 @@
                     "0\tchr22\tchr22:16570065-16597215\tchr22:16570065-16592216\t22152\t452",
                     "1\tchr22\tchr22:16587172-16609999\tchr22:16592229-16609999\t17771\t451"
                 ]
-            ],
-            [
-                {
-                    "VCF_CHUNK_GLIMPSE:GLIMPSE_CHUNK": {
-                        "glimpse": "1.1.1"
-                    }
-                },
-                {
-                    "VCF_CHUNK_GLIMPSE:GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
             ]
         ],
+        "timestamp": "2026-03-03T11:23:15.791547471",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-11-13T16:49:09.779298645"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "Chunks with sequential model": {
         "content": [
@@ -694,10 +654,6 @@
                         "chr22:16590521-1248956422"
                     ]
                 ],
-                "4": [
-                    "versions.yml:md5,1ae67fb38ed979f02f47d5ecb8a85f0d",
-                    "versions.yml:md5,7d277747b107043dd31d3aef18045eef"
-                ],
                 "chunks": [
                     [
                         {
@@ -819,10 +775,6 @@
                         "16587172",
                         "16609999"
                     ]
-                ],
-                "versions": [
-                    "versions.yml:md5,1ae67fb38ed979f02f47d5ecb8a85f0d",
-                    "versions.yml:md5,7d277747b107043dd31d3aef18045eef"
                 ]
             },
             [
@@ -834,24 +786,12 @@
                     "0\tchr22\tchr22:16570065-16597215\tchr22:16570065-16592216\t22152\t452",
                     "1\tchr22\tchr22:16587172-16609999\tchr22:16592229-16609999\t17771\t451"
                 ]
-            ],
-            [
-                {
-                    "VCF_CHUNK_GLIMPSE:GLIMPSE_CHUNK": {
-                        "glimpse": "1.1.1"
-                    }
-                },
-                {
-                    "VCF_CHUNK_GLIMPSE:GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
-                    }
-                }
             ]
         ],
+        "timestamp": "2026-03-03T11:23:40.295298786",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-07-08T15:23:17.503580779"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

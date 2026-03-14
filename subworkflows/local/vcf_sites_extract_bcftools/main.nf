@@ -10,7 +10,6 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
 
     main:
 
-    ch_versions = channel.empty()
     ch_fasta = ch_fasta.map { meta, fasta, _fai -> [meta, fasta] }
 
     // Convert VCF to Hap and Legend files
@@ -18,14 +17,12 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
 
     // Extract sites positions
     BCFTOOLS_VIEW(ch_vcf, [], [], [])
-    ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
     // Transform posfile to TSV with ','
     GAWK(BCFTOOLS_CONVERT.out.legend, [], false)
 
     // Compress TSV
     TABIX_BGZIP(GAWK.out.output)
-    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions.first())
 
     // Join extracted sites and index
     ch_posfile = BCFTOOLS_VIEW.out.vcf
@@ -36,5 +33,4 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
 
     emit:
     posfile       = ch_posfile          // channel: [ [id, chr], vcf, csi, hap, legend, posfile ]
-    versions      = ch_versions         // channel: [ versions.yml ]
 }

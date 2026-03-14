@@ -40,8 +40,6 @@ workflow PIPELINE_INITIALISATION {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
     //
@@ -71,7 +69,7 @@ workflow PIPELINE_INITIALISATION {
     https://doi.org/10.1038/s41587-020-0439-x
 
 * Software dependencies
-    https://github.com/nf-core/phaseimpute/blob/master/CITATIONS.md
+    https://github.com/nf-core/phaseimpute/blob/main/CITATIONS.md
 """
     command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
 
@@ -107,27 +105,35 @@ workflow PIPELINE_INITIALISATION {
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
     if (params.genome) {
         genome = params.genome
-        ch_fasta  = channel.of([[genome:genome], getGenomeAttribute('fasta')])
-        fai       = getGenomeAttribute('fai')
+        ch_fasta  = channel.of([
+            [genome:genome],
+            getGenomeAttribute('fasta'), []
+        ])
+        fai = getGenomeAttribute('fai')
         if (fai == null) {
-            SAMTOOLS_FAIDX(ch_fasta, channel.of([[], []]), false)
-            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
-            fai         = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
+            SAMTOOLS_FAIDX(ch_fasta, false)
+            fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
         } else {
             fai = channel.of(file(fai, checkIfExists:true))
         }
     } else if (params.fasta) {
         genome = file(params.fasta, checkIfExists:true).getBaseName()
-        ch_fasta  = channel.of([[genome:genome], file(params.fasta, checkIfExists:true)])
+        ch_fasta = channel.of([
+            [genome:genome],
+            file(params.fasta, checkIfExists:true),
+            []
+        ])
         if (params.fasta_fai) {
             fai = channel.of(file(params.fasta_fai, checkIfExists:true))
         } else {
-            SAMTOOLS_FAIDX(ch_fasta, channel.of([[], []]), false)
-            ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
-            fai         = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
+            SAMTOOLS_FAIDX(ch_fasta, false)
+            fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
         }
     }
-    ch_ref_gen = ch_fasta.combine(fai).collect()
+    ch_ref_gen = ch_fasta
+        .map{ meta, fasta, _fai -> [meta, fasta] }
+        .combine(fai)
+        .collect()
 
     //
     // Create channel from input file provided through params.input
@@ -415,7 +421,6 @@ workflow PIPELINE_INITIALISATION {
     posfile              = ch_posfile       // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
     chunks               = ch_chunks        // [ [panel_id, chr], txt ]
     chunk_model          = chunk_model
-    versions             = ch_versions
 }
 
 /*

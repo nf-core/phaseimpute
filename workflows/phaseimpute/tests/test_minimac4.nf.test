@@ -1,0 +1,78 @@
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_minimac4"
+
+    config "./nextflow.config"
+
+    test("Check test_minimac4 - with chunks") {
+        config "../../../conf/test_minimac4.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                publish_all = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.minimac4": UTILS.vcfDetails("$outputDir/imputation/minimac4/concat/NA12878.minimac4.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_minimac4 - with chunks - no map") {
+        config "../../../conf/test_minimac4.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                map = null
+                publish_all = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.minimac4": UTILS.vcfDetails("$outputDir/imputation/minimac4/concat/NA12878.minimac4.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_minimac4 - without chunks") {
+        config "../../../conf/test_minimac4.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                chunks = null
+                publish_all = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.minimac4": UTILS.vcfDetails("$outputDir/imputation/minimac4/concat/NA12878.minimac4.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
+}

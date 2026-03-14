@@ -10,19 +10,13 @@
             [
                 "BAM_chr_to_nochr.bam.bai",
                 "VCF_chr_to_nochr_chrrename.vcf.gz.tbi"
-            ],
-            [
-                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6",
-                "versions.yml:md5,dd93461a37f97a9676d2fbcc57ff8bd5",
-                "versions.yml:md5,e4a4a1f2ac045690726cd095221f69cb",
-                "versions.yml:md5,efbcec5e73882cc92aac076a8c7d9561"
             ]
         ],
+        "timestamp": "2026-03-03T11:29:20.037737084",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-01T10:25:48.532844847"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "Rename: VCF no chr + fasta chr": {
         "content": [
@@ -35,18 +29,12 @@
             [
                 "BAM_nochr_to_chr.bam.bai",
                 "VCF_nochr_to_chr_chrrename.vcf.gz.tbi"
-            ],
-            [
-                "versions.yml:md5,db9d56c857a695f01c1f9bc9440637f6",
-                "versions.yml:md5,dd93461a37f97a9676d2fbcc57ff8bd5",
-                "versions.yml:md5,e4a4a1f2ac045690726cd095221f69cb",
-                "versions.yml:md5,efbcec5e73882cc92aac076a8c7d9561"
             ]
         ],
+        "timestamp": "2026-03-03T11:29:34.039145168",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-01T10:25:58.51804983"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

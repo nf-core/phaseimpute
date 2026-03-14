@@ -13,7 +13,11 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,fc0600587bc9c88c7264254aed870b18"
+                    [
+                        "LISTTOFILE",
+                        "gawk",
+                        "5.3.0"
+                    ]
                 ],
                 "txt": [
                     [
@@ -25,54 +29,31 @@
                         "all.idonly.txt:md5,d09f55e3d6d2265b7507cc6027071d0a"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,fc0600587bc9c88c7264254aed870b18"
+                "versions_gawk": [
+                    [
+                        "LISTTOFILE",
+                        "gawk",
+                        "5.3.0"
+                    ]
                 ]
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
-        },
-        "timestamp": "2025-06-19T09:32:39.641424025"
-    },
-    "Content_onlyid": {
-        "content": [
+            },
+            [
+                "file1.txt A",
+                "file2.txt B"
+            ],
+            [
+                "file1.txt",
+                "file2.txt"
+            ],
             [
                 "A",
                 "B"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2025-02-20T16:29:22.16659392"
-    },
-    "Content_withid": {
-        "content": [
-            [
-                "file1.txt A",
-                "file2.txt B"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-10-16T15:51:19.289182489"
-    },
-    "Content_noid": {
-        "content": [
-            [
-                "file1.txt",
-                "file2.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-10-16T16:15:18.915373799"
+        "timestamp": "2026-03-02T21:39:56.963129211"
     }
 }

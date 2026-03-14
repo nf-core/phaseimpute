@@ -55,8 +55,7 @@ nextflow_workflow {
                     workflow.out,
                     workflow.out.vcf_renamed.collect{
                         path(it[1]).vcf.getVariantsAsStrings(2)
-                    },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    }
                 ).match() }
             )
         }
@@ -93,8 +92,7 @@ nextflow_workflow {
                     workflow.out,
                     workflow.out.vcf_renamed.collect{
                         path(it[1]).vcf.getVariantsAsStrings(2)
-                    },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    }
                 ).match() }
             )
         }

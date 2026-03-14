@@ -23,9 +23,21 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,5ce5884455976614349c76218d550cc6",
-                    "versions.yml:md5,5ce5884455976614349c76218d550cc6",
-                    "versions.yml:md5,5ce5884455976614349c76218d550cc6"
+                    [
+                        "BAMCHREXTRACT",
+                        "samtools",
+                        "1.22.1"
+                    ],
+                    [
+                        "BAMCHREXTRACT",
+                        "samtools",
+                        "1.22.1"
+                    ],
+                    [
+                        "BAMCHREXTRACT",
+                        "samtools",
+                        "1.22.1"
+                    ]
                 ],
                 "chr": [
                     [
@@ -47,26 +59,24 @@
                         "test_single_end_bam.txt:md5,3a9ea6d336e113a74d7fdca5e7b623fc"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,5ce5884455976614349c76218d550cc6",
-                    "versions.yml:md5,5ce5884455976614349c76218d550cc6",
-                    "versions.yml:md5,5ce5884455976614349c76218d550cc6"
+                "versions_samtools": [
+                    [
+                        "BAMCHREXTRACT",
+                        "samtools",
+                        "1.22.1"
+                    ],
+                    [
+                        "BAMCHREXTRACT",
+                        "samtools",
+                        "1.22.1"
+                    ],
+                    [
+                        "BAMCHREXTRACT",
+                        "samtools",
+                        "1.22.1"
+                    ]
                 ]
             },
-            {
-                "BAMCHREXTRACT": {
-                    "samtools": 1.2
-                }
-            }
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-01T09:18:54.308815892"
-    },
-    "chr": {
-        "content": [
             [
                 [
                     "chr22"
@@ -80,9 +90,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2024-07-17T14:57:44.989492548"
+        "timestamp": "2026-03-02T21:39:50.143710575"
     }
 }

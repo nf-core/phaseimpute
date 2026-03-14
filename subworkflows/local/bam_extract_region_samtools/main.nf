@@ -8,9 +8,8 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     ch_bam    // channel: [ [id], bam, bai ]
     ch_region // channel: [ [chr, region], val(chr:start-end) ]
     ch_fasta  // channel: [ [genome], fasta, fai ]
-    main:
 
-    ch_versions = channel.empty()
+    main:
 
     // Add fasta and region to bam channel
     ch_input_region = ch_bam
@@ -38,16 +37,14 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
                 [metaICR.subMap(meta_keys) + [chr: "all"], bam, index]
             }
             .groupTuple(sort: true),
-        ch_fasta
+        ch_fasta.map{meta, fasta, fai -> [meta, fasta, fai, []]}
     )
 
     SAMTOOLS_INDEX(SAMTOOLS_MERGE.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
 
     ch_bam_region_all = SAMTOOLS_MERGE.out.bam
         .join(SAMTOOLS_INDEX.out.bai)
 
     emit:
         bam_region = ch_bam_region_all // channel: [ [id, chr], bam, index ]
-        versions   = ch_versions       // channel: [ versions.yml ]
 }

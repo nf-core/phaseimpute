@@ -1,9 +1,9 @@
 {
     "Check test_validate": {
         "content": [
-            [
-                38,
-                {
+            {
+                "workflow size": 38,
+                "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
                     },
@@ -11,13 +11,16 @@
                         "bcftools": 1.22
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
+                    },
+                    "BCFTOOLS_QUERY_TRUTH": {
+                        "bcftools": 1.22
                     },
                     "BCFTOOLS_STATS_PANEL": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
                     },
                     "BCFTOOLS_STATS_TRUTH": {
-                        "bcftools": 1.21
+                        "bcftools": 1.22
                     },
                     "GAWK": {
                         "gawk": "5.3.0"
@@ -38,16 +41,16 @@
                         "gunzip": 1.13
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.21
+                        "samtools": "1.22.1"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.2
+                        "bcftools": 1.22
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
                     }
                 },
-                [
+                "stable name": [
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -149,6 +152,9 @@
                     "pipeline_info",
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "prep_panel",
+                    "prep_panel/concat",
+                    "prep_panel/concat/1000GP.panel.vcf.gz",
+                    "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
                     "prep_panel/stats",
                     "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
                     "validation",
@@ -168,7 +174,7 @@
                     "validation/stats/NA20359.truth.bcftools_stats.txt",
                     "validation/stats/NA20359_SNP.txt"
                 ],
-                [
+                "stable path": [
                     "bcftools-stats-subtypes.txt:md5,3e44e7e7b563c851f28837f25baf90b9",
                     "bcftools_stats_indel-lengths.txt:md5,86e12861d56c7563080cf9927e703eb6",
                     "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
@@ -188,19 +194,23 @@
                     "multiqc_general_stats.txt:md5,07f5ebe79055238bfcdd6fe2dae5e213",
                     "multiqc_glimpse_err_grp.txt:md5,91738f447116e750a356c3d74b47ff42",
                     "multiqc_glimpse_err_spl.txt:md5,dcef407887aa18cc564883fa46a7da19",
-                    "1000GP.panel.bcftools_stats.txt:md5,e0d0b672e2cb7531b5e452de05c988be",
+                    "1000GP.panel.bcftools_stats.txt:md5,ca5eb47541961f3b757c83b77a307a5f",
                     "AllSamples.txt:md5,8e84c088b83ca17b6d72443f25fff35a",
-                    "NA12878.truth.bcftools_stats.txt:md5,17fedf85670e3e67dc38ea4ed65721af",
+                    "NA12878.truth.bcftools_stats.txt:md5,edf521ce34766a8f9063fd88297bb869",
                     "NA12878_SNP.txt:md5,88996cab2016d66d2275a4a863515286",
-                    "NA19401.truth.bcftools_stats.txt:md5,7e034bced77e4e726d97a8bc3a2ce6c5",
+                    "NA19401.truth.bcftools_stats.txt:md5,57e1ae30a08fd25cfca3bce9dcf68b95",
                     "NA19401_SNP.txt:md5,518ba241a4f9ac3aeee06754e64063ee",
-                    "NA20359.truth.bcftools_stats.txt:md5,348dce308e0fdaab25b86435bb1dd56d",
+                    "NA20359.truth.bcftools_stats.txt:md5,d38bf9d569b4ebaaf0ec263791a29b39",
                     "NA20359_SNP.txt:md5,6a701caafb156d43f62c4dcea58ffcc4"
                 ],
-                [
+                "BAM files": [
                     
                 ],
-                [
+                "VCF files": [
+                    [
+                        "1000GP.panel.vcf.gz",
+                        "29427a4627341255077971f1876ba1d5"
+                    ],
                     [
                         "NA12878.truth.vcf.gz",
                         "1c6e1633095b15b785a9a447b189b3dd"
@@ -214,15 +224,22 @@
                         "3834cc13ce04bb53696883b7f6de7b42"
                     ]
                 ],
-                [
+                "CSV files": [
                     
                 ]
-            ]
+            }
         ],
+        "timestamp": "2026-03-05T22:23:51.453017774",
         "meta": {
+<<<<<<< HEAD
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
         "timestamp": "2026-02-12T01:36:00.230194667"
+=======
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+>>>>>>> origin/dev
     }
 }

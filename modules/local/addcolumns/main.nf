@@ -12,7 +12,7 @@ process ADDCOLUMNS {
 
     output:
     tuple val(meta), path('*.txt'), emit: txt
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('gawk'), eval("awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//'"), topic: versions, emit: versions_gawk
 
     when:
     task.ext.when == null || task.ext.when
@@ -32,11 +32,5 @@ process ADDCOLUMNS {
     awk 'NR==1{\$(NF+1)="Tools"} NR>1{\$(NF+1)="${meta.tools}"}1' | \\
     awk 'NR==1{\$(NF+1)="Panel"} NR>1{\$(NF+1)="${meta.panel}"}1' > \\
     ${prefix}.txt
-
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        gawk: \$(awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//')
-    END_VERSIONS
     """
 }

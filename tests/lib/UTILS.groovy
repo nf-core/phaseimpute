@@ -13,25 +13,25 @@ class UTILS {
         def csv_files   = getAllFilesFromDir(outdir, include: ['**/*.csv'])
         return [
             // Number of successful tasks
-            workflow.trace.succeeded().size(),
+            "workflow size": workflow.trace.succeeded().size(),
             // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
-            removeNextflowVersion("$outdir/pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"),
+            "versions" : removeNextflowVersion("$outdir/pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"),
             // All stable path name, with a relative path
-            stable_name,
+            "stable name": stable_name,
             // All files with stable contents
-            stable_path,
+            "stable path": stable_path,
             // All bam files
-            bam_files.collect { file -> [
+            "BAM files": bam_files.collect { file -> [
                 file.getName(),
                 bam(file.toString()).readsMD5
             ] },
             // All vcf files
-            vcf_files.collect { file -> [
+            "VCF files": vcf_files.collect { file -> [
                 file.getName(),
                 path(file.toString()).vcf.variantsMD5
             ] },
             // All csv files
-            csv_files.collect { file ->
+            "CSV files": csv_files.collect { file ->
                 def normalizedContent = path(file.toString()).text.replaceAll(/[^,\n]*\/([^,\n]+)/, '$1')
                 [
                     fileName: file.getName(),

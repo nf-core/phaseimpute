@@ -44,7 +44,6 @@ workflow NFCORE_PHASEIMPUTE {
     ch_posfile     // channel: samplesheet read in from --posfile
     ch_chunks      // channel: samplesheet read in from --chunks
     chunk_model    // parameter: chunk model
-    ch_versions    // channel: versions of software used
     rename_chr     // parameter: rename chromosome prefix
     max_chr_names  // parameter: max number of chr to show in message
 
@@ -66,7 +65,6 @@ workflow NFCORE_PHASEIMPUTE {
 
     CHRCHECK_INPUT(ch_input.combine(lst_chr), rename_chr, max_chr_names)
     ch_input = CHRCHECK_INPUT.out.output
-    ch_versions = ch_versions.mix(CHRCHECK_INPUT.out.versions)
 
     CHRCHECK_TRUTH(ch_input_truth.combine(lst_chr), rename_chr, max_chr_names)
     ch_input_truth = CHRCHECK_TRUTH.out.output
@@ -100,8 +98,7 @@ workflow NFCORE_PHASEIMPUTE {
         ch_map,
         ch_posfile,
         ch_chunks,
-        chunk_model,
-        ch_versions
+        chunk_model
     )
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -145,7 +142,6 @@ workflow {
         PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.chunks,
         PIPELINE_INITIALISATION.out.chunk_model,
-        PIPELINE_INITIALISATION.out.versions,
         params.rename_chr,
         params.max_chr_names
     )

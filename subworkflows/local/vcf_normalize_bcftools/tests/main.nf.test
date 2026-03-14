@@ -56,7 +56,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
@@ -64,8 +63,7 @@ nextflow_workflow {
                         path(it[1]).vcf.variantsMD5,
                         path(it[1]).vcf.summary,
                         path(it[1]).vcf.header.getGenotypeSamples().size()
-                    ] },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    ] }
                 ).match() },
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.variantCount == path(it[1]).vcf.noSnps
@@ -110,7 +108,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
@@ -118,8 +115,7 @@ nextflow_workflow {
                         path(it[1]).vcf.variantsMD5,
                         path(it[1]).vcf.summary,
                         path(it[1]).vcf.header.getGenotypeSamples().size()
-                    ] },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    ] }
                 ).match() }
             )
         }

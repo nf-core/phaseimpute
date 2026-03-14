@@ -57,8 +57,7 @@ nextflow_workflow {
                     workflow.out.output.collect{
                         file(it[1]).getName()
                         file(it[2]).getName()
-                    },
-                    workflow.out.versions
+                    }
                 ).match()
                 }
             )
@@ -117,8 +116,7 @@ nextflow_workflow {
                     workflow.out.output.collect{
                         file(it[1]).getName()
                         file(it[2]).getName()
-                    },
-                    workflow.out.versions
+                    }
                     ).match()
                 }
             )

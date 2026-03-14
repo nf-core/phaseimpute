@@ -26,10 +26,12 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert snapshot(process.out).match() },
-                { assert snapshot(path(process.out.txt[0][1]).readLines()).match("Content_withid") },
-                { assert snapshot(path(process.out.txt[0][2]).readLines()).match("Content_noid") },
-                { assert snapshot(path(process.out.txt[0][3]).readLines()).match("Content_onlyid") }
+                { assert snapshot(
+                    process.out,
+                    path(process.out.txt[0][1]).readLines(),
+                    path(process.out.txt[0][2]).readLines(),
+                    path(process.out.txt[0][3]).readLines()
+                ).match() }
             )
         }
     }

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#249](https://github.com/nf-core/phaseimpute/pull/249) - Add new `publish_all` hidden parameter to help during debugging. Add csv content checking in nf-test.
 - [#248](https://github.com/nf-core/phaseimpute/pull/248) - Add chromosomes concatenation to `BAM_GL_BCFTOOLS`
+- [#259](https://github.com/nf-core/phaseimpute/pull/259) - Add `publish_all` arguments to all workflow level nf-test.
 
 ### `Changed`
 
@@ -23,6 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#249](https://github.com/nf-core/phaseimpute/pull/249) - Move `test_all`, `test_sim`, `test_panelprep`, `test_validate` to independant nf-test with md5sum assertion.
 - [#248](https://github.com/nf-core/phaseimpute/pull/248) - Move from local to nf-core sbwf for `GLIMPSE1` imputation. Set output channels to `vcf_index`. Update `usage.md`.
 - [#252](https://github.com/nf-core/phaseimpute/pull/252) - Move downsampling subworkflow to use nf-core, add `--subsample-seed ${params.seed}` to `SAMTOOLS_VIEW`.
+- [#254](https://github.com/nf-core/phaseimpute/pull/254) - Move from local to nf-core sbwf for `QUILT` imputation, add posfile and map usage to it. Update `usage.md`.
+- [#255](https://github.com/nf-core/phaseimpute/pull/255) - Move from local to nf-core sbwf for `MINIMAC4` imputation. Update `usage.md`.
+- [#257](https://github.com/nf-core/phaseimpute/pull/257) - Move from local to nf-core sbwf for `SHAPEIT5` imputation. Compute chunks only if not provided. Compute chunks before phasing and use it for phasing sbwf.
+- [#258](https://github.com/nf-core/phaseimpute/pull/258) - Update all nf-core modules and subworkflows.
+- [#259](https://github.com/nf-core/phaseimpute/pull/259) - Move from local to nf-core sbwf for variant calling from BAM input files.
+- [#262](https://github.com/nf-core/phaseimpute/pull/262) - Change from `master` to `main` branch.
 
 ### `Fixed`
 

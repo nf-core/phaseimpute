@@ -50,7 +50,7 @@ nextflow_workflow {
                     "NA19401\t-\tNA19401",
                     "NA20359\tNA20359_2\tNA20359_3"
                 ).collectFile(name: "samples.txt", newLine: true)
-                input[0] = BCFTOOLS_MERGE.out.vcf.join(BCFTOOLS_MERGE.out.tbi).combine(renaming_file)
+                input[0] = BCFTOOLS_MERGE.out.vcf.join(BCFTOOLS_MERGE.out.index).combine(renaming_file)
                 """
             }
         }
@@ -59,7 +59,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
@@ -67,8 +66,7 @@ nextflow_workflow {
                     ] },
                     workflow.out.vcf_tbi.collect{
                         path(it[1]).vcf.summary
-                    },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    }
                 ).match() },
                 { workflow.out.vcf_tbi.collect{
                     assert path(it[1]).vcf.sampleCount == 1
@@ -95,13 +93,11 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.versions,
                     workflow.out.vcf_tbi.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
                         path(it[2]).getFileName().toString()
-                    ] },
-                    workflow.out.versions.collect{ path(it).yaml }
+                    ] }
                 ).match() }
             )
         }

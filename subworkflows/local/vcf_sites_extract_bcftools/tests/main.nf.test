@@ -57,8 +57,7 @@ nextflow_workflow {
                     workflow.out.posfile.collect{[
                         path(it[3]).linesGzip[5],
                         path(it[4]).linesGzip[5]
-                    ]},
-                    workflow.out.versions.collect{ path(it).yaml }
+                    ]}
                 ).match() }
             )
         }

@@ -4,8 +4,7 @@
             [
                 [
                     {
-                        "id": "input",
-                        "single_end": false
+                        "id": "input"
                     },
                     "input.msav"
                 ]
@@ -23,6 +22,7 @@
     "homo sapiens - vcf - stub": {
         "content": [
             {
+<<<<<<< HEAD
                 "0": [
                     [
                         {
@@ -46,13 +46,53 @@
                 ],
                 "versions": [
                     "versions.yml:md5,d2bd4b5110793e54d95b1e352db5dbee"
+=======
+                "versions_minimac4": [
+                    [
+                        "MINIMAC4_COMPRESSREF",
+                        "minimac4",
+                        "4.1.6"
+                    ]
+>>>>>>> origin/dev
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.3",
+<<<<<<< HEAD
             "nextflow": "25.10.0"
         },
         "timestamp": "2025-11-26T18:44:19.338166768"
+=======
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T11:40:38.374076132"
+    },
+    "homo sapiens - vcf - stub": {
+        "content": [
+            {
+                "msav": [
+                    [
+                        {
+                            "id": "input"
+                        },
+                        "input.msav:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_minimac4": [
+                    [
+                        "MINIMAC4_COMPRESSREF",
+                        "minimac4",
+                        "4.1.6"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-06T11:40:45.72446878"
+>>>>>>> origin/dev
     }
 }

@@ -15,7 +15,11 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,0e46c9bc28ce15a69035bd519c723384"
+                    [
+                        "ADDCOLUMNS",
+                        "gawk",
+                        "5.3.0"
+                    ]
                 ],
                 "txt": [
                     [
@@ -29,8 +33,12 @@
                         "MyId.txt:md5,da3aa04353303c5566d1bea2dbc8f883"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,0e46c9bc28ce15a69035bd519c723384"
+                "versions_gawk": [
+                    [
+                        "ADDCOLUMNS",
+                        "gawk",
+                        "5.3.0"
+                    ]
                 ]
             },
             [
@@ -40,10 +48,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2025-06-19T09:31:18.01429329"
+        "timestamp": "2026-03-02T21:39:34.747965952"
     },
     "Add columns to txt file with missing fields": {
         "content": [
@@ -58,7 +66,11 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,0e46c9bc28ce15a69035bd519c723384"
+                    [
+                        "ADDCOLUMNS",
+                        "gawk",
+                        "5.3.0"
+                    ]
                 ],
                 "txt": [
                     [
@@ -69,8 +81,12 @@
                         "MyId.txt:md5,87ae2dd6e6451eee25c04e23f7219fa5"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,0e46c9bc28ce15a69035bd519c723384"
+                "versions_gawk": [
+                    [
+                        "ADDCOLUMNS",
+                        "gawk",
+                        "5.3.0"
+                    ]
                 ]
             },
             [
@@ -80,9 +96,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2025-06-19T09:31:24.91189381"
+        "timestamp": "2026-03-02T21:39:41.901294414"
     }
 }
