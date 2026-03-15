@@ -69,7 +69,7 @@ workflow PIPELINE_INITIALISATION {
     https://doi.org/10.1038/s41587-020-0439-x
 
 * Software dependencies
-    https://github.com/nf-core/phaseimpute/blob/master/CITATIONS.md
+    https://github.com/nf-core/phaseimpute/blob/main/CITATIONS.md
 """
     command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
 
@@ -270,7 +270,7 @@ workflow PIPELINE_INITIALISATION {
             .map{ metaPC, _vcf, _index -> [metaPC, [], [], [], [], []]}
     }
 
-    if (!params.steps.split(',').contains("panelprep") & !params.steps.split(',').contains("all")) {
+    if (!params.steps.split(',').contains("panelprep") && !params.steps.split(',').contains("all")) {
         validatePosfileTools(
             ch_posfile,
             params.tools ? params.tools.split(','): [],
@@ -312,7 +312,9 @@ workflow PIPELINE_INITIALISATION {
     panel_id
         .collect()
         .map{ panel_ids ->
-            assert panel_ids.size() == 1 : "Multiple panel IDs detected: ${panel_ids}. Please provide only one across panel, chunks and posfile."
+            if (panel_ids.size() != 1) {
+                error "Multiple panel IDs detected: ${panel_ids}. Please provide only one across panel, chunks and posfile."
+            }
         }
 
     // For each channel if not provided change panel_id to available ones
@@ -483,37 +485,53 @@ workflow PIPELINE_COMPLETION {
 def validateInputParameters() {
     genomeExistsError()
     // Check that only genome or fasta is provided
-    assert (params.genome == null || params.fasta == null) : "Either --genome or --fasta must be provided"
-    assert !(params.genome == null && params.fasta == null) : "Only one of --genome or --fasta must be provided"
+    if (!(params.genome == null || params.fasta == null)) {
+        error "Either --genome or --fasta must be provided"
+    }
+    if (params.genome == null && params.fasta == null) {
+        error "Only one of --genome or --fasta must be provided"
+    }
 
     // Check that a steps is provided
-    assert params.steps : "A step must be provided"
+    if (!params.steps) {
+        error "A step must be provided"
+    }
 
     // Check that at least one tool is provided
     if (params.steps.split(',').contains("impute")) {
-        assert params.tools : "No tools provided"
+        if (!params.tools) {
+            error "No tools provided"
+        }
     }
 
     // Check that input is provided for all steps, except panelprep
     if (params.steps.split(',').contains("all") || params.steps.split(',').contains("impute") || params.steps.split(',').contains("simulate") || params.steps.split(',').contains("validate")) {
-        assert params.input : "No input provided"
+        if (!params.input) {
+            error "No input provided"
+        }
     }
 
     // Check that posfile and panel are provided when running impute only
     if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { step -> step in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2, beagle5, minimac4
         if (!params.tools.split(',').find { tool -> tool in ["glimpse2", "beagle5", "minimac4"] }) {
-            assert params.posfile : "No --posfile provided for --steps impute"
+            if (!params.posfile) {
+                error "No --posfile provided for --steps impute"
+            }
         }
         // Required by glimpse1 and glimpse2 only
         if (params.tools.split(',').find { tool -> tool in ["glimpse1", "glimpse2"] }) {
-            assert params.panel : "No --panel provided for imputation with GLIMPSE1 or GLIMPSE2"
+            if (!params.panel) {
+                error "No --panel provided for imputation with GLIMPSE1 or GLIMPSE2"
+            }
         }
     }
 
     // Check that input_truth is provided when running validate
     if (params.steps.split(',').find { step -> step in ["validate"] } && !params.steps.split(',').find { step -> step in ["simulate"] }) {
-        assert params.input_truth : "No --input_truth was provided for --steps validate"
+        if (!params.input_truth) {
+            error "No --input_truth was provided for --steps validate"
+        }
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
@@ -537,7 +555,9 @@ def validateInputParameters() {
     }
 
     // Check that the chunk model is provided
-    assert params.chunk_model : "No chunk model provided"
+    if (!params.chunk_model) {
+        error "No chunk model provided"
+    }
 
     return null
 }

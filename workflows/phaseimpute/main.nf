@@ -122,7 +122,7 @@ workflow PHASEIMPUTE {
     if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
         // Test if the input are all bam files
         getFilesSameExt(ch_input_sim)
-            .map{ ext -> if (ext != "bam" & ext != "cram") {
+            .map{ ext -> if (ext != "bam" && ext != "cram") {
                 error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${ext}"
             } }
 
@@ -284,16 +284,17 @@ workflow PHASEIMPUTE {
 
         // Check if input files are only BAM/CRAM or VCF/BCF
         ch_input_type.other
-            .map{ error "Input files must be either BAM/CRAM or VCF/BCF" }
+            .subscribe { error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         // Group BAMs by batch size
-        def nb_batch = -1
         ch_input_bams = ch_input_type.bam
             .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
-            .map { list -> list.collate(params.batch_size)
-                .collect{ it -> nb_batch += 1; [
-                    [id: "all_samples", batch: nb_batch], it]
-                }
+            .map { list ->
+                list.collate(params.batch_size)
+                    .withIndex()
+                    .collect { batch, idx -> [
+                        [id: "all_samples", batch: idx], batch
+                    ] }
             }
             .map { list -> [
                 list.collect{ it -> it[0] },

@@ -30,8 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#258](https://github.com/nf-core/phaseimpute/pull/258) - Update all nf-core modules and subworkflows.
 - [#259](https://github.com/nf-core/phaseimpute/pull/259) - Move from local to nf-core sbwf for variant calling from BAM input files.
 - [#260](https://github.com/nf-core/phaseimpute/pull/260) - Move from local to nf-core sbwf for `VCF` concatenation.
+- [#262](https://github.com/nf-core/phaseimpute/pull/262) - Change from `master` to `main` branch.
 
 ### `Fixed`
+
+- [#266](https://github.com/nf-core/phaseimpute/pull/266) - Fix incorrect boolean conditions (`&` to `&&`) and replace error-channel handling with `.subscribe { error ... }` rather than `assert`.
 
 ### `Dependencies`
 

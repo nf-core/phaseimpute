@@ -1,4 +1,8 @@
-nf_core_version: 3.5.1
+lint:
+  nf_test_content: false
+  files_unchanged:
+    - .github/PULL_REQUEST_TEMPLATE.md
+nf_core_version: 3.5.2
 repository_type: pipeline
 template:
   author: Louis Le Nezet, Anabella Trigila
@@ -9,5 +13,3 @@ template:
   org: nf-core
   outdir: .
   version: 1.2.0dev
-lint:
-  nf_test_content: false
