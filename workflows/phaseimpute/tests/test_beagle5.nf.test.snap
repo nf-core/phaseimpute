@@ -2,7 +2,7 @@
     "Check test_beagle5 - without chunks": {
         "content": [
             {
-                "workflow size": 49,
+                "workflow size": 53,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -30,6 +30,12 @@
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
+                    },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
+                        "gawk": "5.3.0"
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
@@ -67,6 +73,16 @@
                     "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -120,6 +136,14 @@
                     "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
                     "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
                     "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -180,7 +204,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:56:56.687091152",
+        "timestamp": "2026-03-16T16:28:36.385201533",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -376,7 +400,7 @@
     "Check test_beagle5 - with chunks": {
         "content": [
             {
-                "workflow size": 49,
+                "workflow size": 53,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -404,6 +428,12 @@
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
+                    },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
+                        "gawk": "5.3.0"
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
@@ -441,6 +471,16 @@
                     "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -494,6 +534,14 @@
                     "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
                     "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
                     "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -554,7 +602,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:54:52.34385461",
+        "timestamp": "2026-03-16T16:26:26.972468817",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

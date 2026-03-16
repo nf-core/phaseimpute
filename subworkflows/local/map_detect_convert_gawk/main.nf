@@ -19,7 +19,12 @@ workflow MAP_DETECT_CONVERT_GAWK {
                 return [meta, map_file]
         }
 
-    MAPAUTODETECT(ch_map_branched.valid, sep, header, colnames)
+    // Convert null values to channels
+    ch_sep = sep != null ? channel.value(sep) : channel.value(null)
+    ch_header = header != null ? channel.value(header) : channel.value(null)
+    ch_colnames = colnames != null ? channel.value(colnames) : channel.value(null)
+
+    MAPAUTODETECT(ch_map_branched.valid, ch_sep, ch_header, ch_colnames)
 
     MAPCONVERT(ch_map_branched.valid.join(MAPAUTODETECT.out.detected))
 
