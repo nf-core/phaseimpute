@@ -1,0 +1,84 @@
+name: mapautodetect
+description: Auto detect a map caracteristics
+keywords:
+  - map
+  - gawk
+tools:
+  - "gawk":
+      description: "GNU awk"
+      homepage: "https://www.gnu.org/software/gawk/"
+      documentation: "https://www.gnu.org/software/gawk/manual/"
+      tool_dev_url: "https://www.gnu.org/prep/ftp.html"
+      licence:
+        - "GPL v3"
+      identifier: ""
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test', single_end:false ]
+    - map_file:
+        type: file
+        description: Genomic map file to process
+  - sep:
+      type: string
+      description: Separator used in the input map file
+  - header:
+      type: boolean
+      description: Whether the input map file contains a header line
+  - colnames:
+      type: string
+      description: |
+        Comma-separated list of column names in the input map file
+        Recognized names are: chr, pos, cM, rate and id
+output:
+  detected:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "DETECTED_SEP":
+          type: file
+          description: |
+            Separator used in the input map file
+          pattern: ",|;|\t| "
+      - "DETECTED_HEADER":
+          type: string
+          description: |
+            Whether the input map file contains a header line
+          pattern: "true|false"
+      - "DETECTED_COLS":
+          type: string
+          description: |
+            Comma-separated ordered list of column names in the input map file
+            This auto detection is only possible if a header is provided or if not:
+              - if 4 columns present then the plink format will be used : "chr,id,cm,pos"
+              - if 3 columns present then the minimac format will be used: "chr,pos,cm"
+          pattern: "chr|pos|cm|rate|id"
+  versions_gawk:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - gawk:
+          type: string
+          description: The name of the tool
+      - awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//':
+          type: eval
+          description: The expression to obtain the version of the tool
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - gawk:
+          type: string
+          description: The name of the tool
+      - awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//':
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

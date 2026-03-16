@@ -1,0 +1,205 @@
+{
+    "Auto detect map with pos rate cm, with header (stitch format)": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        " ",
+                        "true",
+                        "pos,rate,cm"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:18:04.11410251",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Auto detect map.gz with pos\\tchr\\tcm, with header (glimpse format)": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "\t",
+                        "true",
+                        "pos,chr,cm"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:17:21.557384546",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Auto detect map with pos cm, no header -- no error as value given": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        " ",
+                        "false",
+                        "pos,cm"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:17:42.756528232",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Auto detect map with rate,pos,cm, with header (stitch format)": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        ",",
+                        "true",
+                        "rate,pos,cm"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:18:14.671764105",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Auto detect map with chr id cm pos, no header (plink format) distant": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr22"
+                        },
+                        " ",
+                        "false",
+                        "chr,id,cm,pos"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:18:25.637604747",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Test stub": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        ",",
+                        "true",
+                        "pos,chr,id"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:18:36.335149674",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Auto detect map with chr id cm pos, no header (plink format)": {
+        "content": [
+            {
+                "detected": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        " ",
+                        "false",
+                        "chr,id,cm,pos"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "MAPAUTODETECT",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T16:17:53.375316988",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

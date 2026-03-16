@@ -1,0 +1,185 @@
+nextflow_process {
+
+    name "Test Process MAPAUTODETECT"
+    script "../main.nf"
+    process "MAPAUTODETECT"
+
+    tag "modules"
+    tag "modules_local"
+    tag "mapautodetect"
+    tag "gawk"
+
+    test("Auto detect map.gz with pos\\tchr\\tcm, with header (glimpse format)") {
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/pos_chr_cm_tab_header.map.gz")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+
+    test("Auto detect map with pos cm, no header -- error") {
+
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/pos_cm_space_noheader.map")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.failed },
+                { assert process.errorReport.contains("Error: Cannot auto-detect column names for 2 columns without header") }
+            )
+        }
+    }
+
+    test("Auto detect map with pos cm, no header -- no error as value given") {
+
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/pos_cm_space_noheader.map")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = " "
+                input[2] = "false"
+                input[3] = "pos,cm"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+
+    test("Auto detect map with chr id cm pos, no header (plink format)") {
+
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/chr_id_cm_pos_space_noheader.map")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+
+    test("Auto detect map with pos rate cm, with header (stitch format)") {
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header.map")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+
+    test("Auto detect map with rate,pos,cm, with header (stitch format)") {
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/rate_pos_cm_comma_header.map")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+
+    test("Auto detect map with chr id cm pos, no header (plink format) distant") {
+        when {
+            process {
+                """
+                input[0] = channel.of([
+                    [id: "test", chr: "chr22"],
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)
+                ])
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+
+    test("Test stub") {
+        options "-stub"
+        when {
+            process {
+                """
+                def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header_error.map")
+                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
+                input[1] = ' '
+                input[2] = 'true'
+                input[3] = 'pos,rate,cm'
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(sanitizeOutput(process.out)).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,112 @@
+name: mapconvert
+description: Convert a map to different file formats
+keywords:
+  - map
+  - gawk
+tools:
+  - "gawk":
+      description: "GNU awk"
+      homepage: "https://www.gnu.org/software/gawk/"
+      documentation: "https://www.gnu.org/software/gawk/manual/"
+      tool_dev_url: "https://www.gnu.org/prep/ftp.html"
+      licence:
+        - "GPL v3"
+      identifier: ""
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test', single_end:false ]
+    - map_file:
+        type: file
+        description: Genomic map file to process
+    - sep:
+        type: string
+        description: Separator used in the input map file
+    - header:
+        type: boolean
+        description: Whether the input map file contains a header line
+    - colnames:
+        type: string
+        description: |
+          Comma-separated list of column names in the input map file
+          Recognized names are: chr, pos, cM, rate and id
+output:
+  glimpse_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.glimpse.map":
+          type: file
+          description: |
+            File containing the map in Glimpse format:
+            tab-delimited file with header and columns:
+            pos, chr, cM
+          pattern: "*.glimpse.map"
+  plink_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.plink.map":
+          type: file
+          description: |
+            File containing the map in PLINK format:
+            space-delimited file without header and columns:
+            chr, id, cM, pos
+          pattern: "*.plink.map"
+  stitch_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.stitch.map":
+          type: file
+          description: |
+            File containing the map in STITCH format:
+            space-delimited file with header and columns:
+            pos, rate, cM
+          pattern: "*.stitch.map"
+  minimac_map:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.minimac.map":
+          type: file
+          description: |
+            File containing the map in Minimac format:
+            tab-delimited file with header and columns:
+            chr, pos, cM
+          pattern: "*.minimac.map"
+  versions_gawk:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - gawk:
+          type: string
+          description: The name of the tool
+      - awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//':
+          type: eval
+          description: The expression to obtain the version of the tool
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - gawk:
+          type: string
+          description: The name of the tool
+      - awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//':
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"
