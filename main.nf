@@ -56,6 +56,7 @@ workflow NFCORE_PHASEIMPUTE {
     ch_input_impute         = channel.empty()
     ch_input_simulate       = channel.empty()
     ch_input_validate       = channel.empty()
+    def steps               = params.steps.split(',') as List
 
     //  Check input files for contigs names consistency
     lst_chr = ch_regions.map {meta, _region -> meta.chr }
@@ -75,11 +76,11 @@ workflow NFCORE_PHASEIMPUTE {
     )
     ch_panel = CHRCHECK_PANEL.out.output
 
-    if (params.steps.split(',').contains("simulate") || params.steps.split(',').contains("all")) {
+    if (steps.contains("simulate") || steps.contains("all")) {
         ch_input_simulate = ch_input
-    } else if (params.steps.split(',').contains("impute")) {
+    } else if (steps.contains("impute")) {
         ch_input_impute   = ch_input
-    } else if (params.steps.split(',').contains("validate")) {
+    } else if (steps.contains("validate")) {
         ch_input_validate = ch_input
     }
 

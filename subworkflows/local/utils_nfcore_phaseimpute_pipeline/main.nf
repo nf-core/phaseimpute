@@ -98,6 +98,9 @@ workflow PIPELINE_INITIALISATION {
     //
     validateInputParameters()
 
+    def steps = params.steps.split(',') as List
+    def tools = params.tools ? params.tools.split(',') as List : []
+
     //
     // Create fasta channel
     //
@@ -157,7 +160,7 @@ workflow PIPELINE_INITIALISATION {
         ch_input,
         params.batch_size,
         getFilesSameExt(ch_input),
-        params.tools ? params.tools.split(',') : []
+        tools
     )
 
     //
@@ -189,7 +192,7 @@ workflow PIPELINE_INITIALISATION {
         // #TODO Add support for string input
         ch_regions  = getRegionFromFai("all", ch_ref_gen)
     }  else  if (params.input_region.endsWith(".csv")) {
-        println "Region file provided as input is a samplesheet"
+        log.info "Region file provided as input is a samplesheet"
         ch_regions = channel.from(samplesheetToList(
             params.input_region, "${projectDir}/assets/schema_input_region.json"
         ))
@@ -207,7 +210,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.panel) {
         if (params.panel.endsWith("csv")) {
-            println "Panel file provided as input is a samplesheet"
+            log.info "Panel file provided as input is a samplesheet"
             ch_panel = channel.fromList(samplesheetToList(
                 params.panel, "${projectDir}/assets/schema_input_panel.json"
             )).map {
@@ -228,7 +231,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (params.map) {
         if (params.map.endsWith(".csv")) {
-            println "Map file provided as input is a samplesheet"
+            log.info "Map file provided as input is a samplesheet"
             ch_map = channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
@@ -270,11 +273,11 @@ workflow PIPELINE_INITIALISATION {
             .map{ metaPC, _vcf, _index -> [metaPC, [], [], [], [], []]}
     }
 
-    if (!params.steps.split(',').contains("panelprep") && !params.steps.split(',').contains("all")) {
+    if (!steps.contains("panelprep") & !steps.contains("all")) {
         validatePosfileTools(
             ch_posfile,
-            params.tools ? params.tools.split(','): [],
-            params.steps.split(','),
+            tools,
+            steps,
             input_truth_ext
         )
     }
@@ -497,30 +500,37 @@ def validateInputParameters() {
         error "A step must be provided"
     }
 
+    // Check that genotype simulation is only used with simulate/all steps
+    if (params.genotype && !params.steps.split(',').find { step -> step in ["simulate", "all"] }) {
+        error("`--genotype` is only supported with `--steps simulate` or `--steps all`. Genotype simulation is not yet implemented.")
+    }
+
     // Check that at least one tool is provided
-    if (params.steps.split(',').contains("impute")) {
+    def steps = params.steps.split(',') as List
+    def tools = params.tools ? params.tools.split(',') as List : []
+    if (steps.contains("impute")) {
         if (!params.tools) {
             error "No tools provided"
         }
     }
 
     // Check that input is provided for all steps, except panelprep
-    if (params.steps.split(',').contains("all") || params.steps.split(',').contains("impute") || params.steps.split(',').contains("simulate") || params.steps.split(',').contains("validate")) {
+    if (steps.contains("all") || steps.contains("impute") || steps.contains("simulate") || steps.contains("validate")) {
         if (!params.input) {
             error "No input provided"
         }
     }
 
     // Check that posfile and panel are provided when running impute only
-    if (params.steps.split(',').contains("impute") && !params.steps.split(',').find { step -> step in ["all", "panelprep"] }) {
+    if (steps.contains("impute") && !steps.find { step -> step in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2, beagle5, minimac4
-        if (!params.tools.split(',').find { tool -> tool in ["glimpse2", "beagle5", "minimac4"] }) {
+        if (!tools.find { tool -> tool in ["glimpse2", "beagle5", "minimac4"] }) {
             if (!params.posfile) {
                 error "No --posfile provided for --steps impute"
             }
         }
         // Required by glimpse1 and glimpse2 only
-        if (params.tools.split(',').find { tool -> tool in ["glimpse1", "glimpse2"] }) {
+        if (tools.find { tool -> tool in ["glimpse1", "glimpse2"] }) {
             if (!params.panel) {
                 error "No --panel provided for imputation with GLIMPSE1 or GLIMPSE2"
             }
@@ -528,27 +538,27 @@ def validateInputParameters() {
     }
 
     // Check that input_truth is provided when running validate
-    if (params.steps.split(',').find { step -> step in ["validate"] } && !params.steps.split(',').find { step -> step in ["simulate"] }) {
+    if (steps.find { step -> step in ["validate"] } && !steps.find { step -> step in ["simulate"] }) {
         if (!params.input_truth) {
             error "No --input_truth was provided for --steps validate"
         }
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
-    if (params.panel && params.chunks && params.steps.split(',').find { step -> step in ["all", "panelprep"]} ) {
+    if (params.panel && params.chunks && steps.find { step -> step in ["all", "panelprep"]} ) {
         log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps impute` mode.")
     }
-    if (params.panel && params.posfile && params.steps.split(',').find { step -> step in ["all", "panelprep"]} ) {
+    if (params.panel && params.posfile && steps.find { step -> step in ["all", "panelprep"]} ) {
         log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
     }
 
     // Emit an info message when using external panel and impute only
-    if (params.panel && params.steps.split(',').find { step -> step in ["impute"] } && !params.steps.split(',').find { step -> step in ["all", "panelprep"] } ) {
+    if (params.panel && steps.find { step -> step in ["impute"] } && !steps.find { step -> step in ["all", "panelprep"] } ) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
 
     // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
-    if (params.steps.split(',').find { step -> step in ["all", "panelprep"] } && params.remove_samples) {
+    if (steps.find { step -> step in ["all", "panelprep"] } && params.remove_samples) {
         if (!params.normalize) {
             error("To use `--remove_samples` you need to include `--normalize`.")
         }
@@ -842,8 +852,8 @@ def toolCitationText() {
         GLIMPSE2: "GLIMPSE2 (Rubinacci et al. 2023)",
     ]
 
-    def tools_used = params.tools ? params.tools.split(',') : []
-    def steps_used = params.steps ? params.steps.split(',') : []
+    def tools_used = params.tools ? params.tools.split(',') as List : []
+    def steps_used = params.steps ? params.steps.split(',') as List : []
     if (steps_used.contains("all")) {
         steps_used = ["simulate", "panelprep", "impute", "validate"]
     }
@@ -917,11 +927,11 @@ def toolBibliographyText() {
         GLIMPSE2: '<li>Rubinacci, S., Hofmeister, R.J., Sousa da Mota, B., Delaneau, O., 2023. Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nat Genet 55, 1088-1090. doi: <a href="https://doi.org/10.1038/s41588-023-01438-3">10.1038/s41588-023-01438-3</a></li>',
     ]
 
-    def steps_used = params.steps != null ? params.steps.split(',') : []
+    def steps_used = params.steps != null ? params.steps.split(',') as List : []
     if (steps_used.contains("all")) {
         steps_used = ["simulate", "panelprep", "impute", "validate"]
     }
-    def tools_used = params.tools != null && steps_used.contains("impute") ? params.tools.split(',') : []
+    def tools_used = params.tools != null && steps_used.contains("impute") ? params.tools.split(',') as List : []
 
     def reference_text = [
         tools_used.contains("beagle5")  ? tool_biblio.BEAGLE5  : "",
