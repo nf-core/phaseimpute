@@ -1,0 +1,277 @@
+{
+    "Auto detect map with pos cm, no header -- no error": {
+        "content": [
+            {
+                "map_glimpse": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                    ]
+                ],
+                "map_minimac": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                    ]
+                ],
+                "map_plink": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                    ]
+                ],
+                "map_stitch": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "test.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                    ]
+                ]
+            },
+            [
+                "position COMBINED_rate.cM.Mb. Genetic_Map.cM.",
+                "55550 0.000000000000000 0.000000000000",
+                "632942 0.000000000000000 0.000000000000",
+                "633147 2.685807669000000 0.000000000000",
+                "785910 2.822271302699884 0.410292036939",
+                "788439 2.981310558097651 0.417429561064",
+                "788511 2.980615125400127 0.417644215424",
+                "792862 3.078096949800130 0.430612871835",
+                "794568 0.000000000000000 0.435864105231"
+            ]
+        ],
+        "timestamp": "2026-03-16T15:23:10.220359984",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "All files auto detect and convert": {
+        "content": [
+            {
+                "map_glimpse": [
+                    [
+                        {
+                            "id": "GRCh38_chr22.plink.map",
+                            "chr": "chr22"
+                        },
+                        "GRCh38_chr22.plink.map.chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2"
+                    ],
+                    [
+                        {
+                            "id": "chr_id_cm_pos_space_noheader.map",
+                            "chr": "chr1"
+                        },
+                        "chr_id_cm_pos_space_noheader.map.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                    ],
+                    [
+                        {
+                            "id": "pos_chr_cm_tab_header.map.gz",
+                            "chr": "chr1"
+                        },
+                        "pos_chr_cm_tab_header.map.gz.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                    ],
+                    [
+                        {
+                            "id": "pos_rate_cm_space_header.map",
+                            "chr": "chr1"
+                        },
+                        "pos_rate_cm_space_header.map.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                    ],
+                    [
+                        {
+                            "id": "rate_pos_cm_comma_header.map",
+                            "chr": "chr1"
+                        },
+                        "rate_pos_cm_comma_header.map.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                    ]
+                ],
+                "map_minimac": [
+                    [
+                        {
+                            "id": "GRCh38_chr22.plink.map",
+                            "chr": "chr22"
+                        },
+                        "GRCh38_chr22.plink.map.chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4"
+                    ],
+                    [
+                        {
+                            "id": "chr_id_cm_pos_space_noheader.map",
+                            "chr": "chr1"
+                        },
+                        "chr_id_cm_pos_space_noheader.map.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                    ],
+                    [
+                        {
+                            "id": "pos_chr_cm_tab_header.map.gz",
+                            "chr": "chr1"
+                        },
+                        "pos_chr_cm_tab_header.map.gz.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                    ],
+                    [
+                        {
+                            "id": "pos_rate_cm_space_header.map",
+                            "chr": "chr1"
+                        },
+                        "pos_rate_cm_space_header.map.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                    ],
+                    [
+                        {
+                            "id": "rate_pos_cm_comma_header.map",
+                            "chr": "chr1"
+                        },
+                        "rate_pos_cm_comma_header.map.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                    ]
+                ],
+                "map_plink": [
+                    [
+                        {
+                            "id": "GRCh38_chr22.plink.map",
+                            "chr": "chr22"
+                        },
+                        "GRCh38_chr22.plink.map.chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6"
+                    ],
+                    [
+                        {
+                            "id": "chr_id_cm_pos_space_noheader.map",
+                            "chr": "chr1"
+                        },
+                        "chr_id_cm_pos_space_noheader.map.chr1.plink.map:md5,9710023dbdfbeb7faa7f00e6f0cee973"
+                    ],
+                    [
+                        {
+                            "id": "pos_chr_cm_tab_header.map.gz",
+                            "chr": "chr1"
+                        },
+                        "pos_chr_cm_tab_header.map.gz.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                    ],
+                    [
+                        {
+                            "id": "pos_rate_cm_space_header.map",
+                            "chr": "chr1"
+                        },
+                        "pos_rate_cm_space_header.map.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                    ],
+                    [
+                        {
+                            "id": "rate_pos_cm_comma_header.map",
+                            "chr": "chr1"
+                        },
+                        "rate_pos_cm_comma_header.map.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                    ]
+                ],
+                "map_stitch": [
+                    [
+                        {
+                            "id": "GRCh38_chr22.plink.map",
+                            "chr": "chr22"
+                        },
+                        "GRCh38_chr22.plink.map.chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652"
+                    ],
+                    [
+                        {
+                            "id": "chr_id_cm_pos_space_noheader.map",
+                            "chr": "chr1"
+                        },
+                        "chr_id_cm_pos_space_noheader.map.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                    ],
+                    [
+                        {
+                            "id": "pos_chr_cm_tab_header.map.gz",
+                            "chr": "chr1"
+                        },
+                        "pos_chr_cm_tab_header.map.gz.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                    ],
+                    [
+                        {
+                            "id": "pos_rate_cm_space_header.map",
+                            "chr": "chr1"
+                        },
+                        "pos_rate_cm_space_header.map.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                    ],
+                    [
+                        {
+                            "id": "rate_pos_cm_comma_header.map",
+                            "chr": "chr1"
+                        },
+                        "rate_pos_cm_comma_header.map.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                    ]
+                ]
+            },
+            [
+                "position COMBINED_rate.cM.Mb. Genetic_Map.cM.",
+                "55550 0.000000000000000 0.000000000000",
+                "632942 0.000000000000000 0.000000000000",
+                "633147 2.685807669000000 0.000000000000",
+                "785910 2.822271302699884 0.410292036939",
+                "788439 2.981310558097651 0.417429561064",
+                "788511 2.980615125400127 0.417644215424",
+                "792862 3.078096949800130 0.430612871835",
+                "794568 0.000000000000000 0.435864105231"
+            ]
+        ],
+        "timestamp": "2026-03-16T15:38:48.419888037",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Test stub": {
+        "content": [
+            {
+                "map_glimpse": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                    ]
+                ],
+                "map_minimac": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                    ]
+                ],
+                "map_plink": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                    ]
+                ],
+                "map_stitch": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "chr1"
+                        },
+                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T15:16:13.610517161",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
