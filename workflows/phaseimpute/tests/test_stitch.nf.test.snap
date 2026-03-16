@@ -2,7 +2,7 @@
     "Check test_stitch - without chunks": {
         "content": [
             {
-                "workflow size": 25,
+                "workflow size": 26,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -46,6 +46,9 @@
                     "STITCH": {
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -184,7 +187,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-03T11:58:05.354695283",
+        "timestamp": "2026-03-09T14:29:29.956542713",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -193,7 +196,7 @@
     "Check test_stitch - with chunks": {
         "content": [
             {
-                "workflow size": 29,
+                "workflow size": 30,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -237,6 +240,9 @@
                     "STITCH": {
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -375,7 +381,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-03T11:56:19.076096262",
+        "timestamp": "2026-03-09T14:27:37.931794905",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -384,7 +390,7 @@
     "Check test_stitch - with chunks - no map": {
         "content": [
             {
-                "workflow size": 29,
+                "workflow size": 30,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -428,6 +434,9 @@
                     "STITCH": {
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -566,7 +575,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-03T11:57:12.812984238",
+        "timestamp": "2026-03-09T14:28:34.341374721",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

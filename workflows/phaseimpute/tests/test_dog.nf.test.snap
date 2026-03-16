@@ -2,7 +2,7 @@
     "Check test_dog": {
         "content": [
             {
-                "workflow size": 87,
+                "workflow size": 90,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -442,7 +442,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T11:47:08.633486635",
+        "timestamp": "2026-03-09T14:10:43.166482182",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
