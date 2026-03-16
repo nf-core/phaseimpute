@@ -129,6 +129,57 @@ chr21	16609476	A,G
 chr21	16609525	T,A
 ```
 
+## Samplesheet genetic map
+
+To improve imputation quality, you can optionally provide a genetic map. This allows all imputation and phasing softwares used in `nf-core/phaseimpute` to better estimate recombination rates across each chromosome. These genetic maps can be obtained from public resources such as the [HapMap Project](https://ftp.ncbi.nlm.nih.gov/hapmap/recombination/latest/rates/), some imputation softwares like [`BEAGLE5`](https://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/) or directly from scientific publications (e.g. for dogs: [Auton et al. 2013](https://github.com/auton1/dog_recomb)).
+Use the `--map` parameter to specify the location of the genetic map file. The file must be a comma-separated table with at least two columns and a header row, as shown below:
+
+```bash
+--map '[path to samplesheet file]'
+```
+
+### Structure
+
+A typical genetic map samplesheet contains one row per chromosome.
+For example, a file specifying maps for two chromosomes might look like this:
+
+```console title="map.csv"
+chr,map
+chr21,GRCh38_chr21.glimpse.map
+chr22,GRCh38_chr22.glimpse.map
+```
+
+Genetic map files are available in various formats, so an autoconversion module has been implemented. A valid map file for `nf-core/phaseimpute` must:
+
+- be a text file (compressed or uncompressed),
+- contain at least the following two columns:
+  - `pos`: physical position (base pairs)
+  - `cm`: genetic position (centiMorgans)
+- additional optional columns include:
+  - `chr`: chromosome name
+  - `id`: variant identifier
+
+The following parameters are automatically detected, but can also be set (e.g. when you only provide `pos` and `cm` with no header):
+
+- `--map_sep`: Field separator used in the map file (e.g. "\t", " ", ",")
+- `--map_header`: Whether the file contains a header row (`true` or `false`)
+- `--map_col_names`: Ordered list of column names in the file
+
+For the example below, the map file uses tab separators, contains a header, and provides the columns in the following order: `chr`, `id`, `cm`, `pos`. Therefore, the appropriate parameters would be:
+
+`--map_sep "\t" --map_header true --map_col_names "chr,id,cm,pos"`
+
+```csv title="chr21.map"
+chr1	id1	0.00000	55550
+chr1	id2	0.00000	632942
+chr1	id3	0.00000	633147
+chr1	id4	0.41029	785910
+chr1	id5	0.41742	788439
+chr1	id6	0.41764	788511
+chr1	id7	0.43061	792862
+chr1	id8	0.43586	794568
+```
+
 ## Samplesheet region
 
 You can provide a samplesheet with information about the chromosomal region you want to process.
