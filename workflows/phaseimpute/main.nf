@@ -112,10 +112,8 @@ workflow PHASEIMPUTE {
     def steps = params.steps.split(',') as List
     def tools = params.tools ? params.tools.split(',') as List : []
 
-    def region_count = ch_region
-        .map{ _meta, region -> region}
-        .collect()
-        .map { regions -> regions.size() }
+    def region_count = ch_region.map{ _meta, region -> region }
+        .count()
 
     //
     // Simulate data if asked
