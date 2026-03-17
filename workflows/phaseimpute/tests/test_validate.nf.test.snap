@@ -2,7 +2,7 @@
     "Check test_validate": {
         "content": [
             {
-                "workflow size": 39,
+                "workflow size": 43,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
@@ -40,6 +40,12 @@
                     "GUNZIP": {
                         "gunzip": 1.13
                     },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
+                        "gawk": "5.3.0"
+                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
                     },
@@ -54,6 +60,15 @@
                     }
                 },
                 "stable name": [
+                    "mapconvert",
+                    "mapconvert/chr21.glimpse.map",
+                    "mapconvert/chr21.minimac.map",
+                    "mapconvert/chr21.plink.map",
+                    "mapconvert/chr21.stitch.map",
+                    "mapconvert/chr22.glimpse.map",
+                    "mapconvert/chr22.minimac.map",
+                    "mapconvert/chr22.plink.map",
+                    "mapconvert/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -178,6 +193,14 @@
                     "validation/stats/NA20359_SNP.txt"
                 ],
                 "stable path": [
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,3e44e7e7b563c851f28837f25baf90b9",
                     "bcftools_stats_indel-lengths.txt:md5,86e12861d56c7563080cf9927e703eb6",
                     "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
@@ -232,7 +255,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-09T14:30:29.414541916",
+        "timestamp": "2026-03-17T11:36:47.733532507",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
