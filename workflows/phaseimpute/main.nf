@@ -108,6 +108,7 @@ workflow PHASEIMPUTE {
     multiqc_config
     multiqc_logo
     multiqc_methods_description
+    outdir
 
     main:
 
@@ -726,7 +727,7 @@ workflow PHASEIMPUTE {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    def ch_collated_versions = softwareVersionsToYAML(topic_versions.versions_file)
         .mix(topic_versions_string)
         .collectFile(
             storeDir: "${outdir}/pipeline_info",
@@ -752,7 +753,7 @@ workflow PHASEIMPUTE {
     MULTIQC(
         ch_multiqc_files.flatten().collect().map { files ->
             [
-                [id: '{{ short_name }}'],
+                [id: 'phaseimpute'],
                 files,
                 multiqc_config
                     ? file(multiqc_config, checkIfExists: true)

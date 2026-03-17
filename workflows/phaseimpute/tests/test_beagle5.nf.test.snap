@@ -32,7 +32,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -219,7 +219,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -406,7 +406,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21

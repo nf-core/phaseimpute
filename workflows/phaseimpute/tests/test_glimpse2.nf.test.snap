@@ -5,7 +5,7 @@
                 "workflow size": 28,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -38,7 +38,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -195,7 +195,7 @@
                 "workflow size": 28,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -228,7 +228,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -385,7 +385,7 @@
                 "workflow size": 24,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -418,7 +418,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21

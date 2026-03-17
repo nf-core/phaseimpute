@@ -5,7 +5,7 @@
                 "workflow size": 90,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
