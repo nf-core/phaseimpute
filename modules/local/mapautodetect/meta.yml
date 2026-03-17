@@ -21,17 +21,17 @@ input:
     - map_file:
         type: file
         description: Genomic map file to process
-  - sep:
-      type: string
-      description: Separator used in the input map file
-  - header:
-      type: boolean
-      description: Whether the input map file contains a header line
-  - colnames:
-      type: string
-      description: |
-        Comma-separated list of column names in the input map file
-        Recognized names are: chr, pos, cM, rate and id
+    - sep:
+        type: string
+        description: Separator used in the input map file
+    - header:
+        type: boolean
+        description: Whether the input map file contains a header line
+    - colnames:
+        type: string
+        description: |
+          Comma-separated list of column names in the input map file
+          Recognized names are: chr, pos, cM, rate and id
 output:
   detected:
     - - meta:

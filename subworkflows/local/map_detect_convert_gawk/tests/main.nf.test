@@ -4,8 +4,11 @@ nextflow_workflow {
     script "../main.nf"
     workflow "MAP_DETECT_CONVERT_GAWK"
 
-    tag "modules"
-    tag "modules_local"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/map_detect_convert_gawk"
+    tag "map_detect_convert_gawk"
+
     tag "mapautodetect"
     tag "mapconvert"
     tag "gawk"
@@ -28,11 +31,8 @@ nextflow_workflow {
                     file("${moduleDir}/tests/resources/rate_pos_cm_comma_header.map", checkIfExists: true)
                 ],[
                     [id: "GRCh38_chr22.plink.map", chr: "chr22"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)
-                ])
-                input[1] = []
-                input[2] = []
-                input[3] = []
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true),
+                ]).combine(channel.of([[], [], []]))
                 """
             }
         }
@@ -54,10 +54,9 @@ nextflow_workflow {
             workflow {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_cm_space_noheader.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = []
-                input[3] = "pos,cm"
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], [], "pos,cm"]))
                 """
             }
         }
@@ -79,10 +78,9 @@ nextflow_workflow {
             workflow {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header_error.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = 'false'
-                input[3] = []
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], "false", []]))
                 """
             }
         }

@@ -232,13 +232,21 @@ workflow PIPELINE_INITIALISATION {
     if (params.map) {
         if (params.map.endsWith(".csv")) {
             log.info "Map file provided as input is a samplesheet"
+
+            params.map_sep      ?: log.info("`map_sep` parameter was not provided and will therefore be automatically detected")
+            params.map_header   ?: log.info("`map_header` parameter was not provided and will therefore be automatically detected")
+            params.map_colnames ?: log.info("`map_colnames` parameter was not provided and will therefore be automatically detected")
+
             ch_map = channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
+                .combine(channel.of([
+                    params.map_sep, params.map_header, params.map_colnames
+                ]))
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
     } else {
         ch_map = ch_regions
-            .map{ metaCR, _regions -> [metaCR.subMap("chr"), []] }
+            .map{ metaCR, _regions -> [metaCR.subMap("chr"), [], params.map_sep, params.map_header, params.map_colnames] }
     }
 
     //
@@ -405,8 +413,8 @@ workflow PIPELINE_INITIALISATION {
         .combine(ch_panel.map{ metaPC, _vcf, _index -> [
             metaPC.subMap("chr"), metaPC
         ]}, by: 0)
-        .map{ _metaC, map, metaPC -> [
-            metaPC, map
+        .map{ _metaC, map, sep, header, colnames, metaPC -> [
+            metaPC, map, sep, header, colnames
         ]}
 
     // Check that all input files have the correct index
@@ -422,7 +430,7 @@ workflow PIPELINE_INITIALISATION {
     panel                = ch_panel         // [ [panel_id, chr], vcf, index ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
-    gmap                 = ch_map           // [ [map], map ]
+    gmap                 = ch_map           // [ [chr], map, sep, header, colnames ]
     posfile              = ch_posfile       // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
     chunks               = ch_chunks        // [ [panel_id, chr], txt ]
     chunk_model          = chunk_model

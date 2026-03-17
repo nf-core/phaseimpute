@@ -8,10 +8,7 @@ process MAPAUTODETECT {
         'biocontainers/gawk:5.3.0' }"
 
     input:
-    tuple val(meta), path(map_file)
-    val(sep)
-    val(header)
-    val(colnames)
+    tuple val(meta), path(map_file), val(sep), val(header), val(colnames)
 
     output:
     tuple val(meta), env(DETECTED_SEP), env(DETECTED_HEADER), env(DETECTED_COLS), emit: detected

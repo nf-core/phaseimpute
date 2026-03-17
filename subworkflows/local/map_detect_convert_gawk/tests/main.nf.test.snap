@@ -8,7 +8,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "test.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "test.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "map_minimac": [
@@ -17,7 +17,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "test.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "test.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "map_plink": [
@@ -26,7 +26,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "test.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "test.plink.map:md5,1844130805531f1bb451587695a34297"
                     ]
                 ],
                 "map_stitch": [
@@ -35,7 +35,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "test.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "test.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ]
             },
@@ -51,7 +51,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T15:23:10.220359984",
+        "timestamp": "2026-03-17T11:32:58.120633372",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -66,35 +66,35 @@
                             "id": "GRCh38_chr22.plink.map",
                             "chr": "chr22"
                         },
-                        "GRCh38_chr22.plink.map.chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2"
+                        "GRCh38_chr22.plink.map.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2"
                     ],
                     [
                         {
                             "id": "chr_id_cm_pos_space_noheader.map",
                             "chr": "chr1"
                         },
-                        "chr_id_cm_pos_space_noheader.map.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "chr_id_cm_pos_space_noheader.map.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ],
                     [
                         {
                             "id": "pos_chr_cm_tab_header.map.gz",
                             "chr": "chr1"
                         },
-                        "pos_chr_cm_tab_header.map.gz.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "pos_chr_cm_tab_header.map.gz.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ],
                     [
                         {
                             "id": "pos_rate_cm_space_header.map",
                             "chr": "chr1"
                         },
-                        "pos_rate_cm_space_header.map.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "pos_rate_cm_space_header.map.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ],
                     [
                         {
                             "id": "rate_pos_cm_comma_header.map",
                             "chr": "chr1"
                         },
-                        "rate_pos_cm_comma_header.map.chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "rate_pos_cm_comma_header.map.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "map_minimac": [
@@ -103,35 +103,35 @@
                             "id": "GRCh38_chr22.plink.map",
                             "chr": "chr22"
                         },
-                        "GRCh38_chr22.plink.map.chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4"
+                        "GRCh38_chr22.plink.map.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4"
                     ],
                     [
                         {
                             "id": "chr_id_cm_pos_space_noheader.map",
                             "chr": "chr1"
                         },
-                        "chr_id_cm_pos_space_noheader.map.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "chr_id_cm_pos_space_noheader.map.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ],
                     [
                         {
                             "id": "pos_chr_cm_tab_header.map.gz",
                             "chr": "chr1"
                         },
-                        "pos_chr_cm_tab_header.map.gz.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "pos_chr_cm_tab_header.map.gz.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ],
                     [
                         {
                             "id": "pos_rate_cm_space_header.map",
                             "chr": "chr1"
                         },
-                        "pos_rate_cm_space_header.map.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "pos_rate_cm_space_header.map.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ],
                     [
                         {
                             "id": "rate_pos_cm_comma_header.map",
                             "chr": "chr1"
                         },
-                        "rate_pos_cm_comma_header.map.chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "rate_pos_cm_comma_header.map.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "map_plink": [
@@ -140,35 +140,35 @@
                             "id": "GRCh38_chr22.plink.map",
                             "chr": "chr22"
                         },
-                        "GRCh38_chr22.plink.map.chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6"
+                        "GRCh38_chr22.plink.map.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6"
                     ],
                     [
                         {
                             "id": "chr_id_cm_pos_space_noheader.map",
                             "chr": "chr1"
                         },
-                        "chr_id_cm_pos_space_noheader.map.chr1.plink.map:md5,9710023dbdfbeb7faa7f00e6f0cee973"
+                        "chr_id_cm_pos_space_noheader.map.plink.map:md5,9710023dbdfbeb7faa7f00e6f0cee973"
                     ],
                     [
                         {
                             "id": "pos_chr_cm_tab_header.map.gz",
                             "chr": "chr1"
                         },
-                        "pos_chr_cm_tab_header.map.gz.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "pos_chr_cm_tab_header.map.gz.plink.map:md5,1844130805531f1bb451587695a34297"
                     ],
                     [
                         {
                             "id": "pos_rate_cm_space_header.map",
                             "chr": "chr1"
                         },
-                        "pos_rate_cm_space_header.map.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "pos_rate_cm_space_header.map.plink.map:md5,1844130805531f1bb451587695a34297"
                     ],
                     [
                         {
                             "id": "rate_pos_cm_comma_header.map",
                             "chr": "chr1"
                         },
-                        "rate_pos_cm_comma_header.map.chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "rate_pos_cm_comma_header.map.plink.map:md5,1844130805531f1bb451587695a34297"
                     ]
                 ],
                 "map_stitch": [
@@ -177,35 +177,35 @@
                             "id": "GRCh38_chr22.plink.map",
                             "chr": "chr22"
                         },
-                        "GRCh38_chr22.plink.map.chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652"
+                        "GRCh38_chr22.plink.map.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652"
                     ],
                     [
                         {
                             "id": "chr_id_cm_pos_space_noheader.map",
                             "chr": "chr1"
                         },
-                        "chr_id_cm_pos_space_noheader.map.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "chr_id_cm_pos_space_noheader.map.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ],
                     [
                         {
                             "id": "pos_chr_cm_tab_header.map.gz",
                             "chr": "chr1"
                         },
-                        "pos_chr_cm_tab_header.map.gz.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "pos_chr_cm_tab_header.map.gz.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ],
                     [
                         {
                             "id": "pos_rate_cm_space_header.map",
                             "chr": "chr1"
                         },
-                        "pos_rate_cm_space_header.map.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "pos_rate_cm_space_header.map.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ],
                     [
                         {
                             "id": "rate_pos_cm_comma_header.map",
                             "chr": "chr1"
                         },
-                        "rate_pos_cm_comma_header.map.chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "rate_pos_cm_comma_header.map.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ]
             },
@@ -221,7 +221,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T15:38:48.419888037",
+        "timestamp": "2026-03-17T11:32:42.203792767",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

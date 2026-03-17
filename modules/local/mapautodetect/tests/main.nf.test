@@ -14,10 +14,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_chr_cm_tab_header.map.gz")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = []
-                input[3] = []
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], [], []]))
                 """
             }
         }
@@ -36,10 +35,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_cm_space_noheader.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = []
-                input[3] = []
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], [], []]))
                 """
             }
         }
@@ -58,10 +56,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_cm_space_noheader.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = " "
-                input[2] = "false"
-                input[3] = "pos,cm"
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([" ", "false", "pos,cm"]))
                 """
             }
         }
@@ -80,10 +77,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/chr_id_cm_pos_space_noheader.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = []
-                input[3] = []
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], [], []]))
                 """
             }
         }
@@ -101,10 +97,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = []
-                input[3] = []
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], [], []]))
                 """
             }
         }
@@ -122,10 +117,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/rate_pos_cm_comma_header.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = []
-                input[2] = []
-                input[3] = []
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([[], [], []]))
                 """
             }
         }
@@ -144,11 +138,9 @@ nextflow_process {
                 """
                 input[0] = channel.of([
                     [id: "test", chr: "chr22"],
-                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true)
+                    file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.plink.map", checkIfExist:true),
+                    [], [], []
                 ])
-                input[1] = []
-                input[2] = []
-                input[3] = []
                 """
             }
         }
@@ -167,10 +159,9 @@ nextflow_process {
             process {
                 """
                 def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header_error.map")
-                input[0] = channel.of([[id: "test", chr: "chr1"]]).combine(file)
-                input[1] = ' '
-                input[2] = 'true'
-                input[3] = 'pos,rate,cm'
+                input[0] = channel.of([[id: "test", chr: "chr1"]])
+                    .combine(file)
+                    .combine(channel.of([" ", "true", 'pos,rate,cm']))
                 """
             }
         }

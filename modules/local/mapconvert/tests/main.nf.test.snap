@@ -8,7 +8,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "test.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "minimac_map": [
@@ -17,7 +17,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "test.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "plink_map": [
@@ -26,7 +26,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "test.plink.map:md5,1844130805531f1bb451587695a34297"
                     ]
                 ],
                 "stitch_map": [
@@ -35,7 +35,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "test.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ],
                 "versions_gawk": [
@@ -58,7 +58,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T11:12:54.460863055",
+        "timestamp": "2026-03-17T11:30:08.555321378",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -73,7 +73,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "test.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "minimac_map": [
@@ -82,7 +82,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "test.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "plink_map": [
@@ -91,7 +91,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "test.plink.map:md5,1844130805531f1bb451587695a34297"
                     ]
                 ],
                 "stitch_map": [
@@ -100,7 +100,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "test.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ],
                 "versions_gawk": [
@@ -123,7 +123,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T11:13:26.633784409",
+        "timestamp": "2026-03-17T11:30:51.628810575",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -138,7 +138,7 @@
                             "id": "test",
                             "chr": "chr22"
                         },
-                        "chr22.glimpse.map:md5,6fe7041231a711589a00c2d2cf040199"
+                        "test.glimpse.map:md5,6fe7041231a711589a00c2d2cf040199"
                     ]
                 ],
                 "minimac_map": [
@@ -147,7 +147,7 @@
                             "id": "test",
                             "chr": "chr22"
                         },
-                        "chr22.minimac.map:md5,db492aedadede748038069373c7b3632"
+                        "test.minimac.map:md5,db492aedadede748038069373c7b3632"
                     ]
                 ],
                 "plink_map": [
@@ -156,7 +156,7 @@
                             "id": "test",
                             "chr": "chr22"
                         },
-                        "chr22.plink.map:md5,73abb480197fbdbfde6cd9b36fee3caf"
+                        "test.plink.map:md5,73abb480197fbdbfde6cd9b36fee3caf"
                     ]
                 ],
                 "stitch_map": [
@@ -165,7 +165,7 @@
                             "id": "test",
                             "chr": "chr22"
                         },
-                        "chr22.stitch.map:md5,1a9b9b25b7d44562be400dbb0c8cd022"
+                        "test.stitch.map:md5,1a9b9b25b7d44562be400dbb0c8cd022"
                     ]
                 ],
                 "versions_gawk": [
@@ -45321,7 +45321,7 @@
                 "74 0.000000000000000 35503455.000000000000"
             ]
         ],
-        "timestamp": "2026-03-16T11:13:38.803786296",
+        "timestamp": "2026-03-17T11:31:07.982403891",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -45336,7 +45336,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "test.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "minimac_map": [
@@ -45345,7 +45345,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "test.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "plink_map": [
@@ -45354,7 +45354,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "test.plink.map:md5,1844130805531f1bb451587695a34297"
                     ]
                 ],
                 "stitch_map": [
@@ -45363,7 +45363,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "test.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ],
                 "versions_gawk": [
@@ -45386,7 +45386,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T11:13:05.23114852",
+        "timestamp": "2026-03-17T11:30:21.989323624",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -45401,7 +45401,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "test.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "minimac_map": [
@@ -45410,7 +45410,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "test.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "plink_map": [
@@ -45419,7 +45419,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.plink.map:md5,9710023dbdfbeb7faa7f00e6f0cee973"
+                        "test.plink.map:md5,9710023dbdfbeb7faa7f00e6f0cee973"
                     ]
                 ],
                 "stitch_map": [
@@ -45428,7 +45428,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "test.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ],
                 "versions_gawk": [
@@ -45451,7 +45451,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T11:13:15.965036929",
+        "timestamp": "2026-03-17T11:30:35.44594073",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -45466,7 +45466,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
+                        "test.glimpse.map:md5,d6dd0bbf3019675788c92ccccf586f98"
                     ]
                 ],
                 "minimac_map": [
@@ -45475,7 +45475,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
+                        "test.minimac.map:md5,bbfa5fd6f8d436e1cc6468b75dba9745"
                     ]
                 ],
                 "plink_map": [
@@ -45484,7 +45484,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.plink.map:md5,1844130805531f1bb451587695a34297"
+                        "test.plink.map:md5,1844130805531f1bb451587695a34297"
                     ]
                 ],
                 "stitch_map": [
@@ -45493,7 +45493,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
+                        "test.stitch.map:md5,b2ba2515f9d78ca9e9cd2b5fc679f137"
                     ]
                 ],
                 "versions_gawk": [
@@ -45516,7 +45516,7 @@
                 "794568 0.000000000000000 0.435864105231"
             ]
         ],
-        "timestamp": "2026-03-16T11:12:00.735260746",
+        "timestamp": "2026-03-17T11:29:54.949299706",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -45531,7 +45531,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.glimpse.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.glimpse.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "minimac_map": [
@@ -45540,7 +45540,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.minimac.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.minimac.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "plink_map": [
@@ -45549,7 +45549,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.plink.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.plink.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "stitch_map": [
@@ -45558,7 +45558,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "chr1.stitch.map:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.stitch.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions_gawk": [
@@ -45570,7 +45570,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-16T11:14:31.375567736",
+        "timestamp": "2026-03-17T11:32:01.968338859",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
