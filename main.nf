@@ -99,7 +99,10 @@ workflow NFCORE_PHASEIMPUTE {
         ch_map,
         ch_posfile,
         ch_chunks,
-        chunk_model
+        chunk_model,
+        params.multiqc_config,
+        params.multiqc_logo,
+        params.multiqc_methods_description,
     )
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
