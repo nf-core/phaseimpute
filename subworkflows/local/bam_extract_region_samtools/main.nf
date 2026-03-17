@@ -43,7 +43,7 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     SAMTOOLS_INDEX(SAMTOOLS_MERGE.out.bam)
 
     ch_bam_region_all = SAMTOOLS_MERGE.out.bam
-        .join(SAMTOOLS_INDEX.out.bai)
+        .join(SAMTOOLS_INDEX.out.index)
 
     emit:
         bam_region = ch_bam_region_all // channel: [ [id, chr], bam, index ]
