@@ -204,7 +204,7 @@
                     },
                     "stitch": {
                         "branch": "master",
-                        "git_sha": "e1cb31f0ced0d0810d1cb099aaa690b05beb1f3a",
+                        "git_sha": "380cb90926b8c28558cb11479da5ff45bc4f1c5d",
                         "installed_by": ["bam_impute_stitch", "modules"]
                     },
                     "tabix/bgzip": {
