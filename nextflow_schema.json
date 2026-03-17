@@ -274,7 +274,6 @@
                 "map_header": {
                     "type": "boolean",
                     "description": "Does the genetic map file contain a header line?",
-                    "default": null,
                     "fa_icon": "fas fa-heading",
                     "hidden": true
                 },
