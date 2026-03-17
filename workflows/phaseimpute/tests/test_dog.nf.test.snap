@@ -2,7 +2,7 @@
     "Check test_dog - no map": {
         "content": [
             {
-                "workflow size": 94,
+                "workflow size": 90,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -71,12 +71,6 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
-                    },
-                    "MAPAUTODETECT": {
-                        "gawk": "5.3.0"
-                    },
-                    "MAPCONVERT": {
                         "gawk": "5.3.0"
                     },
                     "QUILT_QUILT": {
@@ -169,16 +163,6 @@
                     "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
                     "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
                     "imputation/stats/dog_1735.quilt.bcftools_stats.txt",
-                    "initialisation",
-                    "initialisation/map_convertion",
-                    "initialisation/map_convertion/chr21.glimpse.map",
-                    "initialisation/map_convertion/chr21.minimac.map",
-                    "initialisation/map_convertion/chr21.plink.map",
-                    "initialisation/map_convertion/chr21.stitch.map",
-                    "initialisation/map_convertion/chr22.glimpse.map",
-                    "initialisation/map_convertion/chr22.minimac.map",
-                    "initialisation/map_convertion/chr22.plink.map",
-                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -283,14 +267,6 @@
                     "dog_1735.glimpse1.bcftools_stats.txt:md5,d8e81c6461489ab484959a2db84f249c",
                     "dog_1735.glimpse2.bcftools_stats.txt:md5,3dcefcccb3a8e51608356c02cb9190b0",
                     "dog_1735.quilt.bcftools_stats.txt:md5,4aa056976d4b87fbc7f458d4ce5c39b3",
-                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
-                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
-                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
-                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
-                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
-                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
-                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
-                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,9397a3e17ce0d48f612401c6b5af1c07",
                     "bcftools_stats_indel-lengths.txt:md5,d8317eb4309527c63e41fdd735edb4f3",
                     "bcftools_stats_variant_depths.txt:md5,146d5444723388afdcda0f0798a37f0a",
@@ -303,8 +279,8 @@
                     "multiqc_general_stats.txt:md5,308b31e233de70b3e1e7b9c093e58093",
                     "658Dog_chr21_chunks_glimpse1.txt:md5,fc93d5f473c8bff30c1244c968be6b8c",
                     "658Dog_chr22_chunks_glimpse1.txt:md5,846073f9a512a680f7e7155cc4ac1f70",
-                    "658Dog_chr21_chunks_glimpse2.txt:md5,b08390348d0b28f121370346b1eafb5a",
-                    "658Dog_chr22_chunks_glimpse2.txt:md5,8de3d18807f30a015efd9c378fd194f5",
+                    "658Dog_chr21_chunks_glimpse2.txt:md5,76a5a9b772ce2f8e6f5bef47743a24aa",
+                    "658Dog_chr22_chunks_glimpse2.txt:md5,087f226af57448b5777a0fac6806a776",
                     "658Dog_chr21.hap.gz:md5,0730a032b058730d6abdbf836bb57ba7",
                     "658Dog_chr21.legend.gz:md5,3eaa371bdf51f74f9749fd35e9e834a6",
                     "658Dog_chr21.samples:md5,92a2aa1d024ca2001cfec04671082eff",
@@ -322,19 +298,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "878af4fa4f68b1aed553da0791063768"
+                        "7740e8162ec6e258f2fed47b4105f4b8"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "fc6e2024ab83f2521add4899430ddac4"
+                        "9bafd64a823bb04417744f87cf0ffa11"
                     ],
                     [
                         "all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "631256baa553e04ff3808877b2727453"
+                        "fb829b73a78ea6e6b10c25a058275503"
                     ],
                     [
                         "dog_1735.glimpse1.vcf.gz",
-                        "878af4fa4f68b1aed553da0791063768"
+                        "7740e8162ec6e258f2fed47b4105f4b8"
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
@@ -354,51 +330,51 @@
                     ],
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "e3f1e0d2c3a9a3f7e09e1541f9d2d6b"
+                        "f9ca0078b6cc8441d6bac343f8f10eef"
                     ],
                     [
                         "dog_1735.glimpse2.vcf.gz",
-                        "e3f1e0d2c3a9a3f7e09e1541f9d2d6b"
+                        "f9ca0078b6cc8441d6bac343f8f10eef"
                     ],
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "8a293a9b732aa6a7185781fcc5acb1f9"
+                        "60adf9dacef131f3e810fb1ab963baa5"
                     ],
                     [
                         "dog_1735.quilt.vcf.gz",
-                        "8a293a9b732aa6a7185781fcc5acb1f9"
+                        "60adf9dacef131f3e810fb1ab963baa5"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
-                        "51bac8c57dbe144e117a158a06a68d3d"
+                        "c0f5fe09967c320cd7b578128930f45a"
                     ],
                     [
                         "all_samples.batch0.chr21_16570015-16592351.quilt.vcf.gz",
-                        "ca9d1bbc3d033d26174e2ad0ed2f799c"
+                        "1fd87aa6aa9d72df92e3ff67f9dd3a62"
                     ],
                     [
                         "all_samples.batch0.chr21_16582340-16609954.quilt.vcf.gz",
-                        "4adb259a2fba70a77b41c22a281dea9c"
+                        "24d965a224d23d523ab7df14d0ecc1ec"
                     ],
                     [
                         "all_samples.batch0.chr22.quilt.ligate.vcf.gz",
-                        "d8cd0443ed0ea98ee41cf8a872519182"
+                        "bcc78a9f0e7dbc01f7136d652cafab2b"
                     ],
                     [
                         "all_samples.batch0.chr22_16570495-16595102.quilt.vcf.gz",
-                        "83ef9c7e400cbb4e03d8e1f63435b08d"
+                        "4aa542692c2960495968c961f8e785c8"
                     ],
                     [
                         "all_samples.batch0.chr22_16584983-16609997.quilt.vcf.gz",
-                        "7ba507b60bf0facdbd268c11ca0f29f1"
+                        "55384bb6709e771abef187d23e4749ba"
                     ],
                     [
                         "658Dog_chr21_phased.vcf.gz",
-                        "b2eb27d5fdb0fe26f758557c389427d6"
+                        "c5f49189fb225bf23c9f7d04f3ccca2b"
                     ],
                     [
                         "658Dog_chr22_phased.vcf.gz",
-                        "9ad9f60b2188552d9cd5ed03e1b1489"
+                        "88141b79a8d26241a15e319a513c1279"
                     ],
                     [
                         "658Dog_chr21_glimpse1_sites.vcf.gz",
@@ -466,7 +442,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-17T13:01:06.206791177",
+        "timestamp": "2026-03-17T14:15:23.180116409",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
