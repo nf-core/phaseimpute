@@ -1,7 +1,8 @@
 name: mapautodetect
-description: Auto detect a map caracteristics
+description: Auto detect a genetic map format caracteristics
 keywords:
   - map
+  - format
   - gawk
 tools:
   - "gawk":
@@ -17,7 +18,7 @@ input:
         type: map
         description: |
           Groovy Map containing sample information
-          e.g. [ id:'test', single_end:false ]
+          e.g. [ id:'test' ]
     - map_file:
         type: file
         description: Genomic map file to process
@@ -31,14 +32,14 @@ input:
         type: string
         description: |
           Comma-separated list of column names in the input map file
-          Recognized names are: chr, pos, cM, rate and id
+          Recognized names are: chr, pos, cm, rate and id
 output:
   detected:
     - - meta:
           type: map
           description: |
             Groovy Map containing sample information
-            e.g. [ id:'test', single_end:false ]
+            e.g. [ id:'test' ]
       - "DETECTED_SEP":
           type: file
           description: |
