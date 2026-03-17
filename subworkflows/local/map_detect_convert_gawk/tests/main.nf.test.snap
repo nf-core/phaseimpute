@@ -236,7 +236,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                        "test.glimpse.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "map_minimac": [
@@ -245,7 +245,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                        "test.minimac.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "map_plink": [
@@ -254,7 +254,7 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                        "test.plink.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "map_stitch": [
@@ -263,12 +263,12 @@
                             "id": "test",
                             "chr": "chr1"
                         },
-                        "/WORKING_DIRECTORY/llenezet/phaseimpute/subworkflows/local/map_detect_convert_gawk/tests/resources/pos_rate_cm_space_header_error.map"
+                        "test.stitch.map:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-16T15:16:13.610517161",
+        "timestamp": "2026-03-17T12:16:45.722624385",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

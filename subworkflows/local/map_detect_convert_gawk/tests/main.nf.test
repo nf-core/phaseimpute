@@ -77,7 +77,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header_error.map")
+                def file = channel.fromPath("${moduleDir}/tests/resources/pos_rate_cm_space_header.map")
                 input[0] = channel.of([[id: "test", chr: "chr1"]])
                     .combine(file)
                     .combine(channel.of([[], "false", []]))
