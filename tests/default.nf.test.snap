@@ -5,7 +5,7 @@
                 "workflow size": 38,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.23.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -284,10 +284,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:53:22.585505761",
+        "timestamp": "2026-03-17T17:05:09.427835712",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }

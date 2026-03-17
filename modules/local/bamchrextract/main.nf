@@ -22,7 +22,7 @@ process BAMCHREXTRACT {
     """
     samtools \\
         head \\
-        $input \| \\
+        $input | \\
         grep '^@SQ' | cut -d\$'\t' -f2 | sed -e 's/^SN://g' \\
         > ${prefix}.txt
     """
