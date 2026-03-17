@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#269](https://github.com/nf-core/phaseimpute/pull/269) - Fix `igenomes` issue when using custom genomes.
 - [#281](https://github.com/nf-core/phaseimpute/pull/281) - Remove unused `CONCAT_TRUTH` and move unsupported `--genotype` to parameter validation utils.
 - [#266](https://github.com/nf-core/phaseimpute/pull/266) - Fix incorrect boolean conditions (`&` to `&&`) and replace error-channel handling with `.subscribe { error ... }` rather than `assert`.
 
