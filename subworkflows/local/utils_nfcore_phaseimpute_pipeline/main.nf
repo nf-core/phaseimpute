@@ -233,9 +233,15 @@ workflow PIPELINE_INITIALISATION {
         if (params.map.endsWith(".csv")) {
             log.info "Map file provided as input is a samplesheet"
 
-            params.map_sep      ?: log.info("`map_sep` parameter was not provided and will therefore be automatically detected")
-            params.map_header   ?: log.info("`map_header` parameter was not provided and will therefore be automatically detected")
-            params.map_colnames ?: log.info("`map_colnames` parameter was not provided and will therefore be automatically detected")
+            if (!params.map_sep) {
+                log.info "`map_sep` parameter was not provided and will therefore be automatically detected"
+            }
+            if (!params.map_header) {
+                log.info "`map_header` parameter was not provided and will therefore be automatically detected"
+            }
+            if (!params.map_colnames) {
+                log.info "`map_colnames` parameter was not provided and will therefore be automatically detected"
+            }
 
             ch_map = channel.fromList(samplesheetToList(params.map, "${projectDir}/assets/schema_map.json"))
                 .combine(channel.of([

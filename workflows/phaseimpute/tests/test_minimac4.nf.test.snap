@@ -189,7 +189,7 @@
             "nextflow": "25.10.4"
         }
     },
-    "Check test_minimac4 - with chunks": {
+    "Check test_minimac4 - with chunks - with map": {
         "content": [
             {
                 "workflow size": 67,
@@ -403,7 +403,7 @@
             "nextflow": "25.10.4"
         }
     },
-    "Check test_minimac4 - without chunks": {
+    "Check test_minimac4 - no chunks - with map": {
         "content": [
             {
                 "workflow size": 67,

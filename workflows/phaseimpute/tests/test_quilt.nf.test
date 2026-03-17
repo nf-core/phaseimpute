@@ -9,7 +9,7 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_quilt - with chunks") {
+    test("Check test_quilt - with chunks - with map") {
         config "../../../conf/test_quilt.config"
         when {
             params {
@@ -54,7 +54,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_quilt - without chunks") {
+    test("Check test_quilt - no chunks - with map") {
         config "../../../conf/test_quilt.config"
         when {
             params {

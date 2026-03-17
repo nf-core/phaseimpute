@@ -290,10 +290,10 @@
             "nextflow": "25.10.4"
         }
     },
-    "Check test_glimpse1 - with chunks": {
+    "Check test_glimpse1 - with chunks - with map": {
         "content": [
             {
-                "workflow size": 38,
+                "workflow size": 42,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -335,6 +335,12 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
                         "gawk": "5.3.0"
                     },
                     "TABIX_TABIX": {
@@ -406,6 +412,16 @@
                     "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -472,6 +488,14 @@
                     "NA12878.glimpse1.bcftools_stats.txt:md5,d712e30d7f2450ca22c905421f006494",
                     "NA19401.glimpse1.bcftools_stats.txt:md5,86efb7502150bfcdd60a77c35e78de64",
                     "NA20359.glimpse1.bcftools_stats.txt:md5,62b33ff85651520eab02ac21dd4995ec",
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
                     "bcftools_stats_indel-lengths.txt:md5,ee1c3af6586e9f8de2f20f759a7741eb",
                     "bcftools_stats_variant_depths.txt:md5,4c05005171167a0ca6824cbff8f7ddb4",
@@ -575,16 +599,16 @@
                 }
             }
         ],
-        "timestamp": "2026-03-17T11:18:07.109019733",
+        "timestamp": "2026-03-17T12:34:52.276335927",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
     },
-    "Check test_glimpse1 - without chunks": {
+    "Check test_glimpse1 - no chunks - with map": {
         "content": [
             {
-                "workflow size": 34,
+                "workflow size": 38,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -626,6 +650,12 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
                         "gawk": "5.3.0"
                     },
                     "TABIX_TABIX": {
@@ -695,6 +725,16 @@
                     "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -753,7 +793,7 @@
                     "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
                     "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
                     "NA12878_chr21.bcftools_stats.txt:md5,b3c191449997ee25d185dd72ef19a388",
-                    "NA12878_chr22.bcftools_stats.txt:md5,2acad3c5394652caca75e30c3dbb5c8a",
+                    "NA12878_chr22.bcftools_stats.txt:md5,1b426dfabedd52f3328a7c5a6a137eb8",
                     "NA19401_chr21.bcftools_stats.txt:md5,7c61050c739598419b0fd0f14bed5d52",
                     "NA19401_chr22.bcftools_stats.txt:md5,9d3e897e1c797884020044909919b9cd",
                     "NA20359_chr21.bcftools_stats.txt:md5,0e6e8f12e2f983a56812286e638cd0af",
@@ -761,16 +801,24 @@
                     "NA12878.glimpse1.bcftools_stats.txt:md5,d712e30d7f2450ca22c905421f006494",
                     "NA19401.glimpse1.bcftools_stats.txt:md5,86efb7502150bfcdd60a77c35e78de64",
                     "NA20359.glimpse1.bcftools_stats.txt:md5,62b33ff85651520eab02ac21dd4995ec",
-                    "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
+                    "bcftools-stats-subtypes.txt:md5,eb5171900c16244aeb91dead72399a3b",
                     "bcftools_stats_indel-lengths.txt:md5,ee1c3af6586e9f8de2f20f759a7741eb",
-                    "bcftools_stats_variant_depths.txt:md5,4c05005171167a0ca6824cbff8f7ddb4",
-                    "bcftools_stats_vqc_Count_Indels.txt:md5,cc9d6666f1233a5543e602f93e93ef01",
-                    "bcftools_stats_vqc_Count_SNP.txt:md5,f0ad99e6a9386b8cc85e54a9d67422b3",
-                    "bcftools_stats_vqc_Count_Transitions.txt:md5,155087f472a78d07c4b2ef5a8c67089b",
-                    "bcftools_stats_vqc_Count_Transversions.txt:md5,58b840d85196adbff10a38f210e8cd00",
-                    "multiqc_bcftools_stats.txt:md5,333922abbf5f7e66290d034db15b370a",
+                    "bcftools_stats_variant_depths.txt:md5,ac8988d67494df1b4841d82105f7404a",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,50ab71b565849e2c6a6bc59e0411a371",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,88fa6ae9903b3397fd0ac554d4abcdef",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,4c747d93bfad2a816753fce5224254c3",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,fc8894e0dc590ecd293e09073ece9f77",
+                    "multiqc_bcftools_stats.txt:md5,3aa7a67cf194a2c26a3eaedfa4efe659",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,835d8d185aa5146f9c88e1cc27706094"
+                    "multiqc_general_stats.txt:md5,ca4f2321cb574b53befc0178a5c42223"
                 ],
                 "BAM files": [
                     
@@ -778,7 +826,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "b158fadbefda5620a47f0c8350b8d01e"
+                        "d3c731ed41ac1dd3e18a001b97dff3b2"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -786,19 +834,19 @@
                     ],
                     [
                         "all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "713b689c40f9e69b1ae530a339946201"
+                        "3317c376c5c9d6ed04484d129cae2d14"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "5d5b32855a2fc1e3c24c628987f4db68"
+                        "1f4abf46be67f4f0b68dc435b009eedd"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "b170995fb1666cc55e2517b3b4ff39b3"
+                        "12259984d8bbaf189b146ae04d25974a"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "e60d1d5b7d19b031cbe475408feeefe2"
+                        "70888cc6763bc62f67401a3087661278"
                     ],
                     [
                         "NA12878_chr21.vcf.gz",
@@ -806,7 +854,7 @@
                     ],
                     [
                         "NA12878_chr22.vcf.gz",
-                        "2de6a606cb5ae4284b979fc00934302f"
+                        "d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         "NA19401_chr21.vcf.gz",
@@ -826,11 +874,11 @@
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
-                        "b9a7c83f719a9c3a3d8a39cf5f302a9d"
+                        "9ba54097c8a694c906b5acc954b62d8d"
                     ],
                     [
                         "all_samples.concat.vcf.gz",
-                        "e6f43808fd6787f348d7614bbda9b333"
+                        "ff66ca9b9dfc6baafe3438e405b92cd0"
                     ],
                     [
                         "all_samples_chr21.merge.vcf.gz",
@@ -838,7 +886,7 @@
                     ],
                     [
                         "all_samples_chr22.merge.vcf.gz",
-                        "170d05c06240dceb6f079c70b1e234e3"
+                        "48048a2261c06becb025b6d039b1952f"
                     ]
                 ],
                 "CSV files": [
@@ -864,7 +912,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-17T11:20:10.27680263",
+        "timestamp": "2026-03-17T13:03:55.681981759",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

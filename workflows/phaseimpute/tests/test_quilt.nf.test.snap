@@ -1,8 +1,8 @@
 {
-    "Check test_quilt - without chunks": {
+    "Check test_quilt - no chunks - with map": {
         "content": [
             {
-                "workflow size": 24,
+                "workflow size": 28,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -35,6 +35,12 @@
                         "glimpse2": "2.0.0"
                     },
                     "LISTTOFILE": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
                         "gawk": "5.3.0"
                     },
                     "QUILT_QUILT": {
@@ -84,6 +90,16 @@
                     "imputation/stats/NA12878.quilt.bcftools_stats.txt",
                     "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                     "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -140,6 +156,14 @@
                     "NA12878.quilt.bcftools_stats.txt:md5,06be906390f87548cff77877dff5c981",
                     "NA19401.quilt.bcftools_stats.txt:md5,eaf59f02e81aeaafdc1953e92687d5d0",
                     "NA20359.quilt.bcftools_stats.txt:md5,24972d94b67f8d0bcfe88fa052c1f279",
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,21bcf26940e91c117b1b35f5dff864d6",
                     "bcftools_stats_indel-lengths.txt:md5,6e3bc8ca93512c2cf61d7f8d267d31ea",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,b824aec68c806e9a55a30dc28e3df6ef",
@@ -156,35 +180,35 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "4f838ebfc7e3ba5260e1c405d68b8eec"
+                        "dab55acf3ca28834889f976d21fb29fa"
                     ],
                     [
                         "NA12878.quilt.vcf.gz",
-                        "22eb8b50b86a272fa4510a1e14f59a4e"
+                        "34f406565b805dd3d81f13893b6ef8fb"
                     ],
                     [
                         "NA19401.quilt.vcf.gz",
-                        "8a77addf1342bb21a257f9d1c17221de"
+                        "af14fbfcab1d03fb03da9a3f7c963de6"
                     ],
                     [
                         "NA20359.quilt.vcf.gz",
-                        "6f58cf2fc59933dd6aae3eaf9fb22a34"
+                        "1462be5d5cf9272b2a8b77f3bfe8f4e3"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
-                        "d027f810a35f9bcb0ac558ed5f7efd5f"
+                        "485b184272c64a4c72116d9ebc14a0d1"
                     ],
                     [
                         "all_samples.batch0.chr21_16570000-16610000.quilt.vcf.gz",
-                        "f91cb19418c401c035c2d1b6f3902279"
+                        "a08ffb5bde0b5b825c90239b5620234"
                     ],
                     [
                         "all_samples.batch0.chr22.quilt.ligate.vcf.gz",
-                        "b3000c991044b295c1b4bc49c3e90418"
+                        "165101330651664c0603737d4673ea95"
                     ],
                     [
                         "all_samples.batch0.chr22_16570000-16610000.quilt.vcf.gz",
-                        "8d4ba49c8d06574bea3877626a4878d8"
+                        "914a50a54067b86bc32a53b53b14d0aa"
                     ]
                 ],
                 "CSV files": [
@@ -210,16 +234,16 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:25:43.866816887",
+        "timestamp": "2026-03-17T13:16:21.730952047",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
     },
-    "Check test_quilt - with chunks": {
+    "Check test_quilt - with chunks - with map": {
         "content": [
             {
-                "workflow size": 26,
+                "workflow size": 30,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -252,6 +276,12 @@
                         "glimpse2": "2.0.0"
                     },
                     "LISTTOFILE": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPAUTODETECT": {
+                        "gawk": "5.3.0"
+                    },
+                    "MAPCONVERT": {
                         "gawk": "5.3.0"
                     },
                     "QUILT_QUILT": {
@@ -305,6 +335,16 @@
                     "imputation/stats/NA12878.quilt.bcftools_stats.txt",
                     "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                     "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -361,6 +401,14 @@
                     "NA12878.quilt.bcftools_stats.txt:md5,06be906390f87548cff77877dff5c981",
                     "NA19401.quilt.bcftools_stats.txt:md5,eaf59f02e81aeaafdc1953e92687d5d0",
                     "NA20359.quilt.bcftools_stats.txt:md5,24972d94b67f8d0bcfe88fa052c1f279",
+                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
+                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
+                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
+                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
+                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
+                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
+                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
+                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
                     "bcftools-stats-subtypes.txt:md5,21bcf26940e91c117b1b35f5dff864d6",
                     "bcftools_stats_indel-lengths.txt:md5,6e3bc8ca93512c2cf61d7f8d267d31ea",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,b824aec68c806e9a55a30dc28e3df6ef",
@@ -377,43 +425,43 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "1a0d4125290fd1783048211b5657cf27"
+                        "506753b1bc509605b270ab1853ba23c6"
                     ],
                     [
                         "NA12878.quilt.vcf.gz",
-                        "281e8b36038664ff1ee3c4cc6f188aa7"
+                        "5a356214d6ad60414eae934c9cde0907"
                     ],
                     [
                         "NA19401.quilt.vcf.gz",
-                        "621bdd8382c62dd5302d482124035c47"
+                        "d08fd1ddb1e269541f6f37c8e45dd939"
                     ],
                     [
                         "NA20359.quilt.vcf.gz",
-                        "b9a0759000a772e621bc0395a4c3df57"
+                        "96547b444157fc0a8cf4e663f8c8ac8c"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
-                        "3242934ea328493b86aa221096d3a07d"
+                        "f8b59d1c1459fef09c4f8f41f2c8ece2"
                     ],
                     [
                         "all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz",
-                        "75185b257b3b2935112af967c2891b36"
+                        "b4e168bd9c0b9aef300c238e9697acd"
                     ],
                     [
                         "all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz",
-                        "b8b9622343f731c887b237825270e70e"
+                        "52d59e7cfff483bd72f6a8f8cc9c135"
                     ],
                     [
                         "all_samples.batch0.chr22.quilt.ligate.vcf.gz",
-                        "cebbdefcd564787e030850e92cbe27de"
+                        "9d5b7addac610dc4db561cf540071d6c"
                     ],
                     [
                         "all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz",
-                        "26ac04b92290c3d48eaa222f9528d388"
+                        "ab3f063f2bbfc0403cd8b4e92924dd7c"
                     ],
                     [
                         "all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
-                        "764af415880744e152419a9017d17054"
+                        "a54a8d32f54df397fe4ec23437cd6c93"
                     ]
                 ],
                 "CSV files": [
@@ -439,7 +487,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:23:03.618700142",
+        "timestamp": "2026-03-17T13:13:23.505429465",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

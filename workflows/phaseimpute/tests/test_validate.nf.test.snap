@@ -60,15 +60,16 @@
                     }
                 },
                 "stable name": [
-                    "mapconvert",
-                    "mapconvert/chr21.glimpse.map",
-                    "mapconvert/chr21.minimac.map",
-                    "mapconvert/chr21.plink.map",
-                    "mapconvert/chr21.stitch.map",
-                    "mapconvert/chr22.glimpse.map",
-                    "mapconvert/chr22.minimac.map",
-                    "mapconvert/chr22.plink.map",
-                    "mapconvert/chr22.stitch.map",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/chr21.glimpse.map",
+                    "initialisation/map_convertion/chr21.minimac.map",
+                    "initialisation/map_convertion/chr21.plink.map",
+                    "initialisation/map_convertion/chr21.stitch.map",
+                    "initialisation/map_convertion/chr22.glimpse.map",
+                    "initialisation/map_convertion/chr22.minimac.map",
+                    "initialisation/map_convertion/chr22.plink.map",
+                    "initialisation/map_convertion/chr22.stitch.map",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -255,7 +256,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-17T11:36:47.733532507",
+        "timestamp": "2026-03-17T13:21:32.620990388",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

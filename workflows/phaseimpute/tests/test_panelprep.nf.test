@@ -8,7 +8,7 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_panelprep - no chunks") {
+    test("Check test_panelprep - no chunks - with map") {
         config "../../../conf/test_panelprep.config"
         when {
             params {
@@ -29,7 +29,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_panelprep - with chunks") {
+    test("Check test_panelprep - with chunks - with map") {
         config "../../../conf/test_panelprep.config"
         when {
             params {

@@ -1,5 +1,5 @@
 {
-    "Check test_beagle5 - without chunks": {
+    "Check test_beagle5 - no chunks - with map": {
         "content": [
             {
                 "workflow size": 53,
@@ -397,7 +397,7 @@
             "nextflow": "25.10.4"
         }
     },
-    "Check test_beagle5 - with chunks": {
+    "Check test_beagle5 - with chunks - with map": {
         "content": [
             {
                 "workflow size": 53,
