@@ -104,7 +104,7 @@ workflow PHASEIMPUTE {
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
-    ch_map                  // channel: genetic map   [ [chr], map]
+    ch_map                  // channel: genetic map   [ [chr], map, sep, header, colnames]
     ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
     chunk_model             // parameter: chunk model
@@ -118,12 +118,7 @@ workflow PHASEIMPUTE {
     def region_count = ch_region.map{ _meta, region -> region }
         .count()
 
-    MAP_DETECT_CONVERT_GAWK(
-        ch_map,
-        params.map_sep,
-        params.map_header,
-        params.map_col_names
-    )
+    MAP_DETECT_CONVERT_GAWK(ch_map)
 
     ch_map_glimpse = MAP_DETECT_CONVERT_GAWK.out.map_glimpse
     ch_map_stitch  = MAP_DETECT_CONVERT_GAWK.out.map_stitch

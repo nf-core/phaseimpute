@@ -40,7 +40,7 @@ workflow NFCORE_PHASEIMPUTE {
     ch_panel       // channel: reference panel variants file
     ch_regions     // channel: regions to use [[chr, region], region]
     ch_depth       // channel: depth of coverage file [[depth], depth]
-    ch_map         // channel: map file for imputation
+    ch_map         // channel: map file for imputation with reading parameters
     ch_posfile     // channel: samplesheet read in from --posfile
     ch_chunks      // channel: samplesheet read in from --chunks
     chunk_model    // parameter: chunk model

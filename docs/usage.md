@@ -163,11 +163,11 @@ The following parameters are automatically detected, but can also be set (e.g. w
 
 - `--map_sep`: Field separator used in the map file (e.g. "\t", " ", ",")
 - `--map_header`: Whether the file contains a header row (`true` or `false`)
-- `--map_col_names`: Ordered list of column names in the file
+- `--map_colnames`: Ordered list of column names in the file
 
 For the example below, the map file uses tab separators, contains a header, and provides the columns in the following order: `chr`, `id`, `cm`, `pos`. Therefore, the appropriate parameters would be:
 
-`--map_sep "\t" --map_header true --map_col_names "chr,id,cm,pos"`
+`--map_sep "\t" --map_header true --map_colnames "chr,id,cm,pos"`
 
 ```csv title="chr21.map"
 chr1	id1	0.00000	55550

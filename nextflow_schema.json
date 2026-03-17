@@ -278,7 +278,7 @@
                     "fa_icon": "fas fa-heading",
                     "hidden": true
                 },
-                "map_col_names": {
+                "map_colnames": {
                     "type": "string",
                     "description": "Column names for the genetic map file.",
                     "default": null,
