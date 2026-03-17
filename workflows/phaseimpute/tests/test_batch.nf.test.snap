@@ -5,10 +5,10 @@
                 "workflow size": 128,
                 "versions": {
                     "ADDCOLUMNS": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -44,22 +44,22 @@
                         "tabix": 1.21
                     },
                     "GAWK": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_ERROR_SPL": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_QUILT": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_RSQUARE_SPL": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_TRUTH": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_CONCORDANCE": {
                         "glimpse2": "2.0.0"
@@ -74,14 +74,14 @@
                         "gunzip": 1.13
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "QUILT_QUILT": {
                         "r-base": "4.3.1",
                         "r-quilt": "1.0.5"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21

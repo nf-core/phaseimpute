@@ -5,10 +5,10 @@
                 "workflow size": 249,
                 "versions": {
                     "ADDCOLUMNS": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -65,31 +65,31 @@
                         "tabix": 1.21
                     },
                     "FILTER_CHR_DWN": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "FILTER_CHR_INP": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_ERROR_SPL": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_QUILT": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_STITCH": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_RSQUARE_SPL": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_TRUTH": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_CHUNK": {
                         "glimpse2": "2.0.0"
@@ -116,32 +116,32 @@
                         "gunzip": 1.13
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "QUILT_QUILT": {
                         "r-base": "4.3.1",
                         "r-quilt": "1.0.5"
                     },
                     "SAMTOOLS_COVERAGE_DWN": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_COVERAGE_INP": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_DEPTH": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_INDEX": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_MERGE": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_VIEW": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"

@@ -5,37 +5,37 @@
                 "workflow size": 35,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "FILTER_CHR_DWN": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "FILTER_CHR_INP": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "SAMTOOLS_COVERAGE_DWN": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_COVERAGE_INP": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_DEPTH": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_INDEX": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_MERGE": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_VIEW": {
-                        "samtools": "1.22.1"
+                        "samtools": "1.23.1"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
