@@ -23,8 +23,7 @@ process VCFCHREXTRACT {
     bcftools \\
         query \\
         -f '%CHROM\\n' \\
-        $input \\
-        \| uniq \\
+        $input | uniq \\
         > ${prefix}.txt
     """
 
