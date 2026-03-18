@@ -97,7 +97,7 @@ workflow PHASEIMPUTE {
     ch_input_sim            // channel: input file    [ [id], file, index ]
     ch_input_validate       // channel: input file    [ [id], file, index ]
     ch_input_truth          // channel: truth file    [ [id], file, index ]
-    ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
+    ch_fasta                // channel: fasta file    [ [genome], fasta, fai, gzi ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
@@ -149,7 +149,10 @@ workflow PHASEIMPUTE {
             .collect()
 
         // Compute coverage of input files
-        SAMTOOLS_COVERAGE_INP(ch_input_sim, ch_fasta)
+        SAMTOOLS_COVERAGE_INP(
+            ch_input_sim,
+            ch_fasta.map{ meta, fasta, fai, _gzi -> [ meta, fasta, fai ]}
+        )
 
         FILTER_CHR_INP(
             SAMTOOLS_COVERAGE_INP.out.coverage,
@@ -160,7 +163,10 @@ workflow PHASEIMPUTE {
 
         if (params.depth) {
             // Downsample input to desired depth
-            BAM_SUBSAMPLEDEPTH_SAMTOOLS(ch_input_sim, ch_depth, ch_fasta)
+            BAM_SUBSAMPLEDEPTH_SAMTOOLS(
+                ch_input_sim, ch_depth,
+                ch_fasta.map{ meta, fasta, fai, _gzi -> [ meta, fasta, fai ]}
+            )
             ch_input_impute = BAM_SUBSAMPLEDEPTH_SAMTOOLS.out.bam_subsampled
                 .map{ meta, bam, index ->
                     def keysToKeep = meta.keySet() - ['subsample_fraction']
@@ -169,7 +175,10 @@ workflow PHASEIMPUTE {
                 }
 
             // Compute coverage of input files
-            SAMTOOLS_COVERAGE_DWN(ch_input_impute, ch_fasta)
+            SAMTOOLS_COVERAGE_DWN(
+                ch_input_impute,
+                ch_fasta.map{ meta, fasta, fai, _gzi -> [ meta, fasta, fai ]}
+            )
 
             FILTER_CHR_DWN(
                 SAMTOOLS_COVERAGE_DWN.out.coverage,
@@ -394,7 +403,7 @@ workflow PHASEIMPUTE {
                 },
                 ch_chunks_glimpse2,
                 ch_map,
-                ch_fasta,
+                ch_fasta.map{ meta, fasta, fai, _gzi -> [ meta, fasta, fai ]},
                 false, "", false
             )
 
@@ -438,7 +447,7 @@ workflow PHASEIMPUTE {
                 BGZIP_POSFILE_STITCH.out.output,
                 ch_chunks_stitch,
                 ch_map,
-                ch_fasta,
+                ch_fasta.map{ meta, fasta, fai, _gzi -> [ meta, fasta, fai ]},
                 params.k_val,
                 params.ngen,
                 params.seed
@@ -494,7 +503,7 @@ workflow PHASEIMPUTE {
                 ch_posfile_quilt,
                 ch_chunks_quilt,
                 ch_map,
-                ch_fasta,
+                ch_fasta.map{ meta, fasta, fai, _gzi -> [ meta, fasta, fai ]},
                 params.ngen,
                 params.buffer
             )
@@ -599,7 +608,7 @@ workflow PHASEIMPUTE {
             [[],[]],
             [[],[]],
             [[],[]],
-            ch_fasta.map{ meta, fasta, _index -> [ meta, fasta ] }
+            ch_fasta.map{ meta, fasta, _fai, _gzi -> [ meta, fasta ] }
         )
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TOOLS.out.stats.map{ _meta, file -> [ file ] })
 
@@ -635,7 +644,7 @@ workflow PHASEIMPUTE {
             [[],[]],
             [[],[]],
             [[],[]],
-            ch_fasta.map{ meta, fasta, _index -> [meta, fasta] }
+            ch_fasta.map{ meta, fasta, _fai, _gzi -> [meta, fasta] }
         )
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_PANEL.out.stats.map{ _meta, file -> [ file ] })
 
@@ -688,7 +697,7 @@ workflow PHASEIMPUTE {
             [[],[]],
             [[],[]],
             [[],[]],
-            ch_fasta.map{ meta, fasta, _index -> [meta, fasta] }
+            ch_fasta.map{ meta, fasta, _fai, _gzi -> [meta, fasta] }
         )
         ch_multiqc_files = ch_multiqc_files.mix(BCFTOOLS_STATS_TRUTH.out.stats.map{ _meta, file -> [ file ] })
 
