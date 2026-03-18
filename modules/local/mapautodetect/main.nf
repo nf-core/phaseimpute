@@ -11,7 +11,7 @@ process MAPAUTODETECT {
     tuple val(meta), path(map_file), val(sep), val(header), val(colnames)
 
     output:
-    tuple val(meta), env(DETECTED_SEP), env(DETECTED_HEADER), env(DETECTED_COLS), emit: detected
+    tuple val(meta), env("DETECTED_SEP"), env("DETECTED_HEADER"), env("DETECTED_COLS"), emit: detected
     tuple val("${task.process}"), val('gawk'), eval("awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//'"), topic: versions, emit: versions_gawk
 
     when:
