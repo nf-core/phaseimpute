@@ -23,17 +23,15 @@ workflow BAM_CHR_RENAME_SAMTOOLS {
         }, // channel: [ [id], bam, index]
     )
 
-    SAMTOOLS_INDEX(
-        SAMTOOLS_REHEADER.out.bam
-            .map{ meta, bam ->
-                def cleanMeta = meta.findAll { key, value -> key != "samtools_reheader_cmd" }
-                [cleanMeta, bam]
-            }
-    )
+    SAMTOOLS_INDEX(SAMTOOLS_REHEADER.out.bam)
 
     ch_bam_renamed = SAMTOOLS_REHEADER.out.bam
-        .combine(SAMTOOLS_INDEX.out.index, by:0)
+        .join(SAMTOOLS_INDEX.out.index)
+        .map{ meta, bam, index ->
+                def cleanMeta = meta.findAll { key, value -> key != "samtools_reheader_cmd" }
+                [cleanMeta, bam, index]
+            }
 
     emit:
-    bam_renamed    = ch_bam_renamed        // [ [id], bam, csi ]
+    bam_renamed    = ch_bam_renamed        // [ [id], bam, index ]
 }
