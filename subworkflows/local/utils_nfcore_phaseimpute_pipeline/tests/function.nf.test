@@ -596,7 +596,8 @@ nextflow_function {
                 input[1] = channel.of([
                     [genome:"GRCh37"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
-                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    []
                 ])
                 """
             }
@@ -622,7 +623,8 @@ nextflow_function {
                 input[1] = channel.of([
                     [genome:"GRCh37"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
-                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
                 ])
                 """
             }
@@ -645,7 +647,7 @@ nextflow_function {
             function {
                 """
                 input[0] = "chr22:0-4000"
-                input[1] = channel.of([[], [], []])
+                input[1] = channel.of([[], [], [], []])
                 """
             }
         }
@@ -667,7 +669,7 @@ nextflow_function {
             function {
                 """
                 input[0] = "chr22:0-4000:4648"
-                input[1] = channel.of([[],[],[]])
+                input[1] = channel.of([[],[],[],[]])
                 """
             }
         }
