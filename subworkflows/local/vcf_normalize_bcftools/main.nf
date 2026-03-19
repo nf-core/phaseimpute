@@ -6,11 +6,11 @@ include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index'
 workflow VCF_NORMALIZE_BCFTOOLS {
     take:
     ch_vcf_tbi      // channel: [ [id, chr], vcf, index ]
-    ch_fasta        // channel: [ [genome], fasta, fai, gzi ]
+    ch_fasta        // channel: [ [genome], fasta, [fai, gzi] ]
 
     main:
 
-    ch_fasta = ch_fasta.map { meta, fasta, _fai, _gzi -> [meta, fasta] }
+    ch_fasta = ch_fasta.map { meta, fasta, _fai -> [meta, fasta] }
 
     // Join duplicated biallelic sites into multiallelic records
     if (params.normalize) {

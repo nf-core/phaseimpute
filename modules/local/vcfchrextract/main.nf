@@ -24,7 +24,7 @@ process VCFCHREXTRACT {
         query \\
         -f '%CHROM\\n' \\
         $input \\
-        \| uniq \\
+        | uniq \\
         > ${prefix}.txt
     """
 

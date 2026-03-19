@@ -6,11 +6,11 @@ include { TABIX_BGZIP                   } from '../../../modules/nf-core/tabix/b
 workflow VCF_SITES_EXTRACT_BCFTOOLS {
     take:
     ch_vcf          // channel: [ [id, chr], vcf, index ]
-    ch_fasta        // channel: [ [genome], fasta, fai, gzi ]
+    ch_fasta        // channel: [ [genome], fasta, [fai, gzi] ]
 
     main:
 
-    ch_fasta = ch_fasta.map { meta, fasta, _fai, _gzi -> [meta, fasta] }
+    ch_fasta = ch_fasta.map { meta, fasta, _index -> [meta, fasta] }
 
     // Convert VCF to Hap and Legend files
     BCFTOOLS_CONVERT(ch_vcf, ch_fasta, [])

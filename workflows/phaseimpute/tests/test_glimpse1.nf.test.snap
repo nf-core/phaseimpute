@@ -2,7 +2,7 @@
     "Check test_glimpse1 - with chunks - no map": {
         "content": [
             {
-                "workflow size": 38,
+                "workflow size": 39,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -45,6 +45,9 @@
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.22.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -284,16 +287,16 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:12:37.388669575",
+        "timestamp": "2026-03-19T15:59:56.321911934",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
     "Check test_glimpse1 - with chunks": {
         "content": [
             {
-                "workflow size": 38,
+                "workflow size": 39,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -336,6 +339,9 @@
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.22.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -575,16 +581,16 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:11:41.899802502",
+        "timestamp": "2026-03-19T15:59:04.956020119",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
     "Check test_glimpse1 - without chunks": {
         "content": [
             {
-                "workflow size": 34,
+                "workflow size": 35,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -627,6 +633,9 @@
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.0"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.22.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -864,10 +873,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:13:32.770433364",
+        "timestamp": "2026-03-19T16:00:48.526261521",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }

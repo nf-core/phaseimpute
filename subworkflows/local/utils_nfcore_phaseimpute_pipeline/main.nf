@@ -106,45 +106,50 @@ workflow PIPELINE_INITIALISATION {
     //
 
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
+    def fasta_file = ""
+    def fai_path = ""
+    def gzi_path = ""
+
     if (params.genome) {
-        def genome = params.genome
-        def fasta_file = file(getGenomeAttribute('fasta'), checkIfExists:true)
-        def is_compressed = fasta_file.toString().endsWith('.gz') || fasta_file.toString().endsWith('.bgz')
-        def fai_path = getGenomeAttribute('fai')
-        def gzi_path = getGenomeAttribute('gzi')
+        genome = params.genome
+        fasta_file = file(getGenomeAttribute('fasta'), checkIfExists:true)
+        fai_path = getGenomeAttribute('fai')
+        gzi_path = getGenomeAttribute('gzi')
     } else if (params.fasta) {
-        def genome = file(params.fasta, checkIfExists:true).getBaseName()
-        def fasta_file = file(params.fasta, checkIfExists:true)
-        def is_compressed = fasta_file.toString().endsWith('.gz') || fasta_file.toString().endsWith('.bgz')
-        def fai_path = params.fasta_fai
-        def gzi_path = params.fasta_gzi
+        genome = file(params.fasta, checkIfExists:true).getBaseName()
+        fasta_file = file(params.fasta, checkIfExists:true)
+        fai_path = params.fasta_fai
+        gzi_path = params.fasta_gzi
     } else {
         error "Please provide either params.genome or params.fasta"
     }
 
+    def is_compressed = fasta_file.toString().endsWith('.gz') || fasta_file.toString().endsWith('.bgz')
     ch_fasta  = channel.of([ [genome: genome], fasta_file, [] ])
 
     if (fai_path) {
-        fai = channel.of(file(fai_path, checkIfExists:true))
+        ch_fai = channel.of(file(fai_path, checkIfExists:true))
     } else {
         SAMTOOLS_FAIDX(ch_fasta, false)
-        fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
+        ch_fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
     }
     if (is_compressed) {
         if (gzi_path) {
-            gzi = channel.of(file(gzi_path, checkIfExists:true))
+            ch_gzi = channel.of(file(gzi_path, checkIfExists:true))
+        } else if (!fai_path) {
+            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
         } else {
-            TABIX_BGZIP(ch_fasta)
-            gzi = TABIX_BGZIP.out.gzi.map{ _meta, gzi -> gzi }
+            SAMTOOLS_FAIDX(ch_fasta, false)
+            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
         }
     } else {
-        gzi = channel.of([])
+        ch_gzi = channel.of([])
     }
 
     ch_ref_gen = ch_fasta
         .map{ meta, fasta, _fai -> [meta, fasta] }
-        .combine(fai)
-        .combine(gzi)
+        .combine(ch_fai)
+        .combine(ch_gzi)
         .collect()
 
     //
@@ -421,13 +426,18 @@ workflow PIPELINE_INITIALISATION {
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
+    // Make available both index
+    ch_ref_gen = ch_ref_gen.map{ meta, fasta, fai, gzi -> [
+        meta, fasta, [fai, gzi]
+    ]}
+
     // Chunk model
     chunk_model = params.chunk_model
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
     input_truth          = ch_input_truth   // [ [meta], file, index ]
-    fasta                = ch_ref_gen       // [ [genome], fasta, fai, gzi ]
+    fasta                = ch_ref_gen       // [ [genome], fasta, [fai, gzi] ]
     panel                = ch_panel         // [ [panel_id, chr], vcf, index ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
@@ -739,11 +749,13 @@ def getFileExtension(file) {
         file_name = file.toString()
     } else if (file instanceof List) {
         return file.collect { it -> getFileExtension(it) }
+    } else if (file == null) {
+        return ""
     } else {
         error "Type not supported: ${file.getClass()}"
     }
-    // Remove .gz if present and get the last part after splitting by "."
-    return file_name.replace(".gz", "").split("\\.").last()
+    // Remove .gz if present at the end and get the last part after splitting by "."
+    return file_name.replaceAll(/\.gz$/, "").tokenize('.').last()
 }
 
 //
@@ -788,15 +800,10 @@ def checkFileIndex(ch_input) {
             error "${meta}: Index file for .fa and .fasta must have the extension .fai"
         }
 
-        if (gzi) {
-            def gzi_ext = getFileExtension(gzi)
-            if (file_ext in ["fa", "fasta"] && gzi_ext != "gzi") {
-                error "${meta}: GZI index file for compressed .fa/.fasta must have the extension .gzi"
-            }
-
-            def file_name = file.toString()
-            if (!(file_name.endsWith('.gz') || file_name.endsWith('.bgz'))) {
-                error "${meta}: GZI file provided but FASTA doesn't appear to be bgzipped: ${file}"
+        def file_name = file.toString()
+        if (file_ext in ["fa", "fasta"] && (file_name.endsWith('.gz') || file_name.endsWith('.bgz'))) {
+            if (getFileExtension(gzi) != "gzi") {
+                error "${meta}: Index file for .(fa,fasta).(gz,bgz) must have the extension .gzi"
             }
         }
     }
