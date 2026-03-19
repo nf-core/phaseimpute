@@ -45,7 +45,8 @@
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
-                        "r-quilt": "1.7.3"
+                        "r-quilt": "1.7.3",
+                        "rsync": "3.4.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -239,7 +240,8 @@
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
-                        "r-quilt": "1.7.3"
+                        "r-quilt": "1.7.3",
+                        "rsync": "3.4.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -433,7 +435,8 @@
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
-                        "r-quilt": "1.7.3"
+                        "r-quilt": "1.7.3",
+                        "rsync": "3.4.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
