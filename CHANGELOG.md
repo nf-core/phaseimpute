@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#259](https://github.com/nf-core/phaseimpute/pull/259) - Move from local to nf-core sbwf for variant calling from BAM input files.
 - [#260](https://github.com/nf-core/phaseimpute/pull/260) - Move from local to nf-core sbwf for `VCF` concatenation.
 - [#262](https://github.com/nf-core/phaseimpute/pull/262) - Change from `master` to `main` branch.
+- [#273](https://github.com/nf-core/phaseimpute/pull/273) - Update nf-core modules, fix syntax. Remove `SAMTOOLS_REHEADER` patch and pass command through meta map. Update nf-test in Github Action to 0.9.4.
 
 ### `Fixed`
 
@@ -43,6 +44,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Dependency | Old version | New version    |
 | ---------- | ----------- | -------------- |
 | `bedtools` | 2.31.1      | No longer used |
+| `samtools` | 1.22.1      | 1.23           |
+| `gawk`     | 5.3.0       | 5.3.1          |
+| `multiqc`  | 1.32        | 1.33           |
 
 ### New contributors
 
