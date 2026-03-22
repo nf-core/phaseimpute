@@ -2,7 +2,7 @@
     "Check test_quilt - without chunks": {
         "content": [
             {
-                "workflow size": 23,
+                "workflow size": 24,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -43,6 +43,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -207,6 +210,7 @@
                 }
             }
         ],
+        "timestamp": "2026-03-09T14:25:43.866816887",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
@@ -216,7 +220,7 @@
     "Check test_quilt - with chunks": {
         "content": [
             {
-                "workflow size": 25,
+                "workflow size": 26,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -257,6 +261,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -433,6 +440,7 @@
                 }
             }
         ],
+        "timestamp": "2026-03-09T14:23:03.618700142",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
@@ -442,7 +450,7 @@
     "Check test_quilt - with chunks - no map": {
         "content": [
             {
-                "workflow size": 25,
+                "workflow size": 26,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -483,6 +491,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -659,6 +670,7 @@
                 }
             }
         ],
+        "timestamp": "2026-03-09T14:24:23.611677831",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"

@@ -2,7 +2,7 @@
     "Check test_glimpse1 - with chunks - no map": {
         "content": [
             {
-                "workflow size": 37,
+                "workflow size": 38,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -284,7 +284,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-05T14:29:59.089267721",
+        "timestamp": "2026-03-09T14:12:37.388669575",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -293,7 +293,7 @@
     "Check test_glimpse1 - with chunks": {
         "content": [
             {
-                "workflow size": 37,
+                "workflow size": 38,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -575,7 +575,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-04T21:46:56.991107375",
+        "timestamp": "2026-03-09T14:11:41.899802502",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -584,7 +584,7 @@
     "Check test_glimpse1 - without chunks": {
         "content": [
             {
-                "workflow size": 33,
+                "workflow size": 34,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -864,7 +864,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-05T14:30:56.959872791",
+        "timestamp": "2026-03-09T14:13:32.770433364",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

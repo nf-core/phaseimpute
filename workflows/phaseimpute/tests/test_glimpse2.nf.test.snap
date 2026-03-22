@@ -2,7 +2,7 @@
     "Check test_glimpse2 - with chunks - no map": {
         "content": [
             {
-                "workflow size": 27,
+                "workflow size": 28,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -39,6 +39,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": 1.22
@@ -180,7 +183,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-03T11:45:40.803495138",
+        "timestamp": "2026-03-09T14:15:22.580730439",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -189,7 +192,7 @@
     "Check test_glimpse2 - with chunks": {
         "content": [
             {
-                "workflow size": 27,
+                "workflow size": 28,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -226,6 +229,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": 1.22
@@ -367,7 +373,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-03T11:44:49.030549552",
+        "timestamp": "2026-03-09T14:14:27.336891447",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -376,7 +382,7 @@
     "Check test_glimpse2 - without chunks": {
         "content": [
             {
-                "workflow size": 23,
+                "workflow size": 24,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.22.1"
@@ -413,6 +419,9 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": 1.21
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": 1.22
@@ -554,7 +563,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-03T11:46:30.0322496",
+        "timestamp": "2026-03-09T14:16:12.902043309",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

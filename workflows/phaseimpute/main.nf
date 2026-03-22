@@ -32,7 +32,7 @@ include { GAWK as FILTER_CHR_DWN                     } from '../../modules/nf-co
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
 include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/nf-core/vcf_phase_shapeit5'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_PANEL   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_PANEL        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { chunkPrepareChannel                        } from './function.nf'
@@ -46,11 +46,11 @@ include { VCF_SPLIT_BCFTOOLS as SPLIT_IMPUTED        } from '../../subworkflows/
 // GLIMPSE1 subworkflows
 include { BAM_VARIANT_CALLING_MPILEUP_BCFTOOLS as GL_GLIMPSE1 } from '../../subworkflows/nf-core/bam_variant_calling_mpileup_bcftools'
 include { VCF_IMPUTE_GLIMPSE                                  } from '../../subworkflows/nf-core/vcf_impute_glimpse'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE1         } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE1              } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // GLIMPSE2 subworkflows
 include { BAM_VCF_IMPUTE_GLIMPSE2                    } from '../../subworkflows/nf-core/bam_vcf_impute_glimpse2'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_GLIMPSE2} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE2     } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // Shared posfile transform for QUILT/STITCH
 include { GAWK as GAWK_POSFILE_IMPUTE                } from '../../modules/nf-core/gawk'
@@ -58,19 +58,19 @@ include { TABIX_BGZIP as BGZIP_POSFILE_IMPUTE        } from '../../modules/nf-co
 
 // QUILT subworkflows
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_QUILT   } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_QUILT        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/nf-core/bam_impute_stitch'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_STITCH  } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_STITCH       } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // BEAGLE5 subworkflows
 include { VCF_IMPUTE_BEAGLE5                         } from '../../subworkflows/nf-core/vcf_impute_beagle5'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_BEAGLE5 } from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_BEAGLE5      } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // MINIMAC4 subworkflows
 include { VCF_IMPUTE_MINIMAC4                        } from '../../subworkflows/nf-core/vcf_impute_minimac4'
-include { VCF_CONCATENATE_BCFTOOLS as CONCAT_MINIMAC4} from '../../subworkflows/local/vcf_concatenate_bcftools'
+include { VCF_GATHER_BCFTOOLS as CONCAT_MINIMAC4     } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // Imputation stats
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_TOOLS     } from '../../modules/nf-core/bcftools/stats'
@@ -111,6 +111,9 @@ workflow PHASEIMPUTE {
     ch_multiqc_files = channel.empty()
     def steps = params.steps.split(',') as List
     def tools = params.tools ? params.tools.split(',') as List : []
+
+    def region_count = ch_region.map{ _meta, region -> region }
+        .count()
 
     //
     // Simulate data if asked
@@ -372,9 +375,15 @@ workflow PHASEIMPUTE {
             )
 
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE1(VCF_IMPUTE_GLIMPSE.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"glimpse1"], vcf, index]
-            })
+            CONCAT_GLIMPSE1(
+                VCF_IMPUTE_GLIMPSE.out.vcf_index
+                    .map{
+                        meta, vcf, index -> [meta + [tools:"glimpse1"], vcf, index]
+                    }
+                    .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE1.out.vcf_index)
@@ -403,9 +412,15 @@ workflow PHASEIMPUTE {
             )
 
             // Concatenate by chromosomes
-            CONCAT_GLIMPSE2(BAM_VCF_IMPUTE_GLIMPSE2.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"glimpse2"], vcf, index]
-            })
+            CONCAT_GLIMPSE2(
+                BAM_VCF_IMPUTE_GLIMPSE2.out.vcf_index
+                .map{
+                    meta, vcf, index -> [meta + [tools:"glimpse2"], vcf, index]
+                }
+                .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_GLIMPSE2.out.vcf_index)
@@ -433,9 +448,15 @@ workflow PHASEIMPUTE {
             )
 
             // Concatenate by chromosomes
-            CONCAT_STITCH(BAM_IMPUTE_STITCH.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"stitch"], vcf, index]
-            })
+            CONCAT_STITCH(
+                BAM_IMPUTE_STITCH.out.vcf_index
+                .map{
+                    meta, vcf, index -> [meta + [tools:"stitch"], vcf, index]
+                }
+                .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_STITCH.out.vcf_index)
@@ -471,10 +492,14 @@ workflow PHASEIMPUTE {
             )
 
             // Concatenate by chromosomes
-            CONCAT_QUILT(BAM_IMPUTE_QUILT.out.vcf_index
+            CONCAT_QUILT(
+                BAM_IMPUTE_QUILT.out.vcf_index
                 .map{
                     meta, vcf, index -> [meta + [tools:"quilt"], vcf, index]
                 }
+                .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
             )
 
             // Add results to input validate
@@ -495,9 +520,15 @@ workflow PHASEIMPUTE {
             )
 
             // Concatenate by chromosomes
-            CONCAT_BEAGLE5(VCF_IMPUTE_BEAGLE5.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"beagle5"], vcf, index]
-            })
+            CONCAT_BEAGLE5(
+                VCF_IMPUTE_BEAGLE5.out.vcf_index
+                .map{
+                    meta, vcf, index -> [meta + [tools:"beagle5"], vcf, index]
+                }
+                .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_BEAGLE5.out.vcf_index)
@@ -530,9 +561,15 @@ workflow PHASEIMPUTE {
             )
 
             // Concatenate by chromosomes
-            CONCAT_MINIMAC4(VCF_IMPUTE_MINIMAC4.out.vcf_index.map{
-                meta, vcf, index -> [meta + [tools:"minimac4"], vcf, index]
-            })
+            CONCAT_MINIMAC4(
+                VCF_IMPUTE_MINIMAC4.out.vcf_index
+                .map{
+                    meta, vcf, index -> [meta + [tools:"minimac4"], vcf, index]
+                }
+                .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
+            )
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_index)
@@ -570,11 +607,17 @@ workflow PHASEIMPUTE {
 
     if (steps.contains("validate") || steps.contains("all")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
-        CONCAT_PANEL(ch_posfile.map{
-            meta, site, site_index, _hap, _legend, _posfile -> [
-                meta, site, site_index
-            ]
-        })
+        CONCAT_PANEL(
+            ch_posfile
+                .map{
+                    meta, site, site_index, _hap, _legend, _posfile -> [
+                        meta, site, site_index
+                    ]
+                }
+                .combine(region_count),
+            ["panel_id"],
+            false
+        )
         ch_panel_sites = CONCAT_PANEL.out.vcf_index
 
         // Compute stats on panel
