@@ -38,7 +38,7 @@ include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/
 include { chunkPrepareChannel                        } from './function.nf'
 
 // Genetic map conversion module
-include { MAP_DETECT_CONVERT_GAWK                    } from '../../subworkflows/local/map_detect_convert_gawk'
+include { CUSTOM_GENETICMAPCONVERT                   } from '../../modules/nf-core/custom/geneticmapconvert'
 
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
@@ -104,7 +104,7 @@ workflow PHASEIMPUTE {
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
-    ch_map                  // channel: genetic map   [ [chr], map, sep, header, colnames]
+    ch_map                  // channel: genetic map   [ [chr], map]
     ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
     chunk_model             // parameter: chunk model
@@ -118,12 +118,18 @@ workflow PHASEIMPUTE {
     def region_count = ch_region.map{ _meta, region -> region }
         .count()
 
-    MAP_DETECT_CONVERT_GAWK(ch_map)
+    ch_map_branched = ch_map
+        .branch { meta, map_file ->
+            non_empty: map_file
+            empty: true
+        }
 
-    ch_map_glimpse = MAP_DETECT_CONVERT_GAWK.out.map_glimpse
-    ch_map_stitch  = MAP_DETECT_CONVERT_GAWK.out.map_stitch
-    ch_map_plink   = MAP_DETECT_CONVERT_GAWK.out.map_plink
-    ch_map_minimac = MAP_DETECT_CONVERT_GAWK.out.map_minimac
+    CUSTOM_GENETICMAPCONVERT(ch_map_branched.non_empty)
+
+    ch_map_glimpse = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.glimpse_map)
+    ch_map_stitch  = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.stitch_map)
+    ch_map_plink   = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.plink_map)
+    ch_map_minimac = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.minimac_map)
 
     //
     // Simulate data if asked

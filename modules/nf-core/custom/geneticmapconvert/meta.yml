@@ -1,17 +1,18 @@
-name: mapconvert
-description: Convert a genetic map to different file formats
+name: "custom_geneticmapconvert"
+description: |
+  This R script allows to automatically detect the different genetic map format and
+  convert the input file in all the other format type.
 keywords:
   - map
-  - format
-  - gawk
+  - convertion
+  - R
 tools:
-  - "gawk":
-      description: "GNU awk"
-      homepage: "https://www.gnu.org/software/gawk/"
-      documentation: "https://www.gnu.org/software/gawk/manual/"
-      tool_dev_url: "https://www.gnu.org/prep/ftp.html"
+  - custom:
+      description: Custom script to convert any genetic map format
+      homepage: https://github.com/nf-core/tools
+      documentation: https://github.com/nf-core/tools
       licence:
-        - "GPL v3"
+        - "MIT"
       identifier: ""
 input:
   - - meta:
@@ -22,17 +23,7 @@ input:
     - map_file:
         type: file
         description: Genomic map file to process
-    - sep:
-        type: string
-        description: Separator used in the input map file
-    - header:
-        type: boolean
-        description: Whether the input map file contains a header line
-    - colnames:
-        type: string
-        description: |
-          Comma-separated list of column names in the input map file
-          Recognized names are: chr, pos, cM, rate and id
+        ontologies: []
 output:
   glimpse_map:
     - - meta:
@@ -40,7 +31,7 @@ output:
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test' ]
-      - "*.glimpse.map":
+      - ${prefix}.glimpse.map:
           type: file
           description: |
             File containing the map in Glimpse format:
@@ -53,7 +44,7 @@ output:
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test' ]
-      - "*.plink.map":
+      - ${prefix}.plink.map:
           type: file
           description: |
             File containing the map in PLINK format:
@@ -66,7 +57,7 @@ output:
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test' ]
-      - "*.stitch.map":
+      - ${prefix}.stitch.map:
           type: file
           description: |
             File containing the map in STITCH format:
@@ -79,35 +70,26 @@ output:
           description: |
             Groovy Map containing sample information
             e.g. [ id:'test' ]
-      - "*.minimac.map":
+      - ${prefix}.minimac.map:
           type: file
           description: |
             File containing the map in Minimac format:
             tab-delimited file with header and columns:
             chr, pos, cM
           pattern: "*.minimac.map"
-  versions_gawk:
-    - - ${task.process}:
-          type: string
-          description: The name of the process
-      - gawk:
-          type: string
-          description: The name of the tool
-      - awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//':
-          type: eval
-          description: The expression to obtain the version of the tool
+  versions_geneticmapconvert:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: http://edamontology.org/format_3750
 topics:
   versions:
-    - - ${task.process}:
-          type: string
-          description: The name of the process
-      - gawk:
-          type: string
-          description: The name of the tool
-      - awk -Wversion | sed '1!d; s/.*Awk //; s/,.*//':
-          type: eval
-          description: The expression to obtain the version of the tool
+    - versions.yml:
+        type: string
+        description: The name of the process
 authors:
-  - "@louislenezet"
+  - "@LouisLeNezet"
 maintainers:
-  - "@louislenezet"
+  - "@LouisLeNezet"

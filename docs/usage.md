@@ -159,27 +159,6 @@ Genetic map files are available in various formats, so an autoconversion module 
   - `chr`: chromosome name
   - `id`: variant identifier
 
-The following parameters are automatically detected, but can also be set (e.g. when you only provide `pos` and `cm` with no header):
-
-- `--map_sep`: Field separator used in the map file (e.g. "\t", " ", ",")
-- `--map_header`: Whether the file contains a header row (`true` or `false`)
-- `--map_colnames`: Ordered list of column names in the file
-
-For the example below, the map file uses tab separators, contains a header, and provides the columns in the following order: `chr`, `id`, `cm`, `pos`. Therefore, the appropriate parameters would be:
-
-`--map_sep "\t" --map_header true --map_colnames "chr,id,cm,pos"`
-
-```csv title="chr21.map"
-chr1	id1	0.00000	55550
-chr1	id2	0.00000	632942
-chr1	id3	0.00000	633147
-chr1	id4	0.41029	785910
-chr1	id5	0.41742	788439
-chr1	id6	0.41764	788511
-chr1	id7	0.43061	792862
-chr1	id8	0.43586	794568
-```
-
 ## Samplesheet region
 
 You can provide a samplesheet with information about the chromosomal region you want to process.

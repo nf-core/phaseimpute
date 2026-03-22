@@ -37,6 +37,7 @@ nextflow_pipeline {
     }
 
     test("Check test_all - with map") {
+        tag "test_map"
         config "../../../conf/test_all.config"
         when {
             params {

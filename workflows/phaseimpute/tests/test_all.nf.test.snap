@@ -988,7 +988,7 @@
     "Check test_all - with map": {
         "content": [
             {
-                "workflow size": 253,
+                "workflow size": 251,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
@@ -1050,6 +1050,11 @@
                     "BGZIP_POSFILE_STITCH": {
                         "tabix": 1.21
                     },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-stringr": "1.6.0"
+                    },
                     "FILTER_CHR_DWN": {
                         "gawk": "5.3.0"
                     },
@@ -1102,12 +1107,6 @@
                         "gunzip": 1.13
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
-                    },
-                    "MAPAUTODETECT": {
-                        "gawk": "5.3.0"
-                    },
-                    "MAPCONVERT": {
                         "gawk": "5.3.0"
                     },
                     "QUILT_QUILT": {
@@ -1278,14 +1277,11 @@
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
                     "initialisation",
                     "initialisation/map_convertion",
-                    "initialisation/map_convertion/chr21.glimpse.map",
-                    "initialisation/map_convertion/chr21.minimac.map",
-                    "initialisation/map_convertion/chr21.plink.map",
-                    "initialisation/map_convertion/chr21.stitch.map",
-                    "initialisation/map_convertion/chr22.glimpse.map",
-                    "initialisation/map_convertion/chr22.minimac.map",
-                    "initialisation/map_convertion/chr22.plink.map",
-                    "initialisation/map_convertion/chr22.stitch.map",
+                    "initialisation/map_convertion/1000GP.glimpse.map",
+                    "initialisation/map_convertion/1000GP.minimac.map",
+                    "initialisation/map_convertion/1000GP.plink.map",
+                    "initialisation/map_convertion/1000GP.stitch.map",
+                    "initialisation/map_convertion/versions.yml",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -1579,14 +1575,11 @@
                     "NA20359.glimpse2.bcftools_stats.txt:md5,fa7efcf9b006db08bd66e61f54d04f4a",
                     "NA20359.quilt.bcftools_stats.txt:md5,24972d94b67f8d0bcfe88fa052c1f279",
                     "NA20359.stitch.bcftools_stats.txt:md5,752a126486b629de8a34f826ade67086",
-                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
-                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
-                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
-                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
-                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
-                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
-                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
-                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
+                    "1000GP.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP.stitch.map:md5,6329ca68d7544df0cbbffd2e0e2afa2d",
+                    "versions.yml:md5,a674fd7c7a878cf85714b550f37cd020",
                     "bcftools-stats-subtypes.txt:md5,30837458e3113f0dd225e3255f3f60ec",
                     "bcftools_stats_indel-lengths.txt:md5,b21a8620a2c35b139b63670f6d73566a",
                     "bcftools_stats_variant_depths.txt:md5,d70e08029731e6a1b5357e4c40fa62a4",
@@ -1616,7 +1609,7 @@
                     "samtools-coverage_Reads.txt:md5,51a2dde7594b38da2732ccd86056b820",
                     "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
-                    "1000GP_chr21_chunks_glimpse2.txt:md5,9f516b111710d22969aab9ad46850fdf",
+                    "1000GP_chr21_chunks_glimpse2.txt:md5,5d68b3816a4cf607be3728237d2cfa2e",
                     "1000GP_chr22_chunks_glimpse2.txt:md5,3bfef0fe24564dd3f759ee390345970a",
                     "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
@@ -1989,10 +1982,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-16T15:53:51.204712137",
+        "timestamp": "2026-03-22T19:39:40.838249418",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }
