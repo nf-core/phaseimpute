@@ -172,13 +172,16 @@ process_map_file <- function(
     stop("Error: mismatch between chr given and the chr present in file")
   }
 
+  # Order position to ensure all successive rows have increasing position
   map_df <- map_df[order(map_df[["pos"]]), ]
-
-  # Ensure all successive rows have increasing position
   stopifnot(all(diff(map_df[["pos"]]) > 0))
 
-  # Normalize cM
+  # Normalize cM (needed by stitch)
   map_df[["cm"]] <- map_df[["cm"]] - map_df[["cm"]][1]
+
+  if (map_df[["cm"]][1] != 0) {
+    stop("cm[0] needs to be 0 for STITCH software")
+  }
 
   # Compute forward rate for previous row (interval prev -> current)
   delta_bp <- c(diff(map_df[["pos"]]))
