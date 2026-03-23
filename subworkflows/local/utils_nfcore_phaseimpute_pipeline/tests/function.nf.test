@@ -5,7 +5,7 @@ def check_stdout(function_stdout) {
             !it.matches(/.*Downloading plugin.*/) &&
             !it.matches(/WARN: Unrecognized config option.*/) &&
             !it.matches(/WARN: Failed to render CO2e footprint report.*/) &&
-            !it.matches(/WARN: Failed to render execution (report|timeline)/)
+            !it.matches(/WARN: Failed to render execution (report|timeline).*/)
         }
 }
 
