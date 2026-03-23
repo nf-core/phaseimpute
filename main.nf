@@ -66,6 +66,7 @@ workflow NFCORE_PHASEIMPUTE {
     panel
     depth
     normalize
+    remove_samples
     compute_freq
     phase
     batch_size
@@ -142,6 +143,7 @@ workflow NFCORE_PHASEIMPUTE {
         panel,
         depth,
         normalize,
+        remove_samples,
         compute_freq,
         phase,
         batch_size,
@@ -170,6 +172,9 @@ workflow NFCORE_PHASEIMPUTE {
 workflow {
 
     main:
+    def steps = params.steps.split(',') as List
+    def tools = params.tools ? params.tools.split(',') as List : []
+
     PREPARE_GENOME(
         params.genome ?: file(params.fasta, checkIfExists:true).getBaseName(),
         params.fasta,
@@ -190,15 +195,28 @@ workflow {
         params.help,
         params.help_full,
         params.show_hidden,
-        PREPARE_GENOME.out.ch_fasta_fai_gzi
+        PREPARE_GENOME.out.ch_fasta_fai_gzi,
+        params.input,
+        params.input_truth,
+        params.input_region,
+        params.panel,
+        params.posfile,
+        params.chunks,
+        params.map,
+        steps,
+        tools,
+        params.batch_size,
+        params.max_chr_names,
+        params.depth,
+        params.genotype,
+        params.remove_samples,
+        params.normalize,
+        params.chunk_model
     )
 
     //
     // WORKFLOW: Run main workflow
     //
-    def steps = params.steps.split(',') as List
-    def tools = params.tools ? params.tools.split(',') as List : []
-
     NFCORE_PHASEIMPUTE (
         steps,
         tools,
@@ -211,7 +229,7 @@ workflow {
         PIPELINE_INITIALISATION.out.gmap,
         PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.chunks,
-        PIPELINE_INITIALISATION.out.chunk_model,
+        params.chunk_model,
         params.rename_chr,
         params.max_chr_names,
         params.input_region,
@@ -221,6 +239,7 @@ workflow {
         params.panel,
         params.depth,
         params.normalize,
+        params.remove_samples,
         params.compute_freq,
         params.phase,
         params.batch_size,
