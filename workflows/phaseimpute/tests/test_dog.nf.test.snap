@@ -2,7 +2,7 @@
     "Check test_dog": {
         "content": [
             {
-                "workflow size": 90,
+                "workflow size": 91,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": 1.23
@@ -76,6 +76,9 @@
                     "QUILT_QUILT": {
                         "r-base": "4.3.1",
                         "r-quilt": "1.0.5"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.23
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -442,10 +445,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:10:43.166482182",
+        "timestamp": "2026-03-19T15:58:12.247018289",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }

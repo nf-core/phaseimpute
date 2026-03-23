@@ -51,7 +51,7 @@ input:
         - fai:
           type: file
           description: FASTA index file of the reference genome
-          pattern: "*.fai"
+          pattern: "*.(fai|gzi)"
 output:
   - bam_region:
       description: Channel with BAM files with extracted regions

@@ -6,7 +6,7 @@ include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index'
 workflow VCF_NORMALIZE_BCFTOOLS {
     take:
     ch_vcf_tbi      // channel: [ [id, chr], vcf, index ]
-    ch_fasta        // channel: [ [genome], fasta, fai ]
+    ch_fasta        // channel: [ [genome], fasta, [fai, gzi] ]
 
     main:
 

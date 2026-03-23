@@ -2,7 +2,7 @@
     "-profile test": {
         "content": [
             {
-                "workflow size": 38,
+                "workflow size": 39,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": 1.23
@@ -45,6 +45,9 @@
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
