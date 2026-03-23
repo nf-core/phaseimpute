@@ -6,10 +6,10 @@ include { SAMTOOLS_FAIDX } from '../../../modules/nf-core/samtools/faidx'
 
 workflow PREPARE_GENOME {
     take:
-    genome // genome name
-    fasta_path // params[path]: params.fasta
-    fasta_fai_path // params[path]: params.fasta_fai
-    fasta_gzi_path // params[path]: params.fasta_gzi
+    genome         // genome name
+    fasta_path     // path to fasta
+    fasta_fai_path // path to fasta_fai
+    fasta_gzi_path // path to fasta_gzi
 
     main:
 
