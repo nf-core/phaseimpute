@@ -2,7 +2,7 @@
     "Check test_validate": {
         "content": [
             {
-                "workflow size": 43,
+                "workflow size": 41,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
@@ -22,6 +22,11 @@
                     "BCFTOOLS_STATS_TRUTH": {
                         "bcftools": 1.22
                     },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-stringr": "1.6.0"
+                    },
                     "GAWK": {
                         "gawk": "5.3.0"
                     },
@@ -40,12 +45,6 @@
                     "GUNZIP": {
                         "gunzip": 1.13
                     },
-                    "MAPAUTODETECT": {
-                        "gawk": "5.3.0"
-                    },
-                    "MAPCONVERT": {
-                        "gawk": "5.3.0"
-                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.22.1"
                     },
@@ -62,14 +61,15 @@
                 "stable name": [
                     "initialisation",
                     "initialisation/map_convertion",
-                    "initialisation/map_convertion/chr21.glimpse.map",
-                    "initialisation/map_convertion/chr21.minimac.map",
-                    "initialisation/map_convertion/chr21.plink.map",
-                    "initialisation/map_convertion/chr21.stitch.map",
-                    "initialisation/map_convertion/chr22.glimpse.map",
-                    "initialisation/map_convertion/chr22.minimac.map",
-                    "initialisation/map_convertion/chr22.plink.map",
-                    "initialisation/map_convertion/chr22.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/map_convertion/versions.yml",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -194,14 +194,15 @@
                     "validation/stats/NA20359_SNP.txt"
                 ],
                 "stable path": [
-                    "chr21.glimpse.map:md5,cdce7f8d847c49908083e3edd5b1a5ac",
-                    "chr21.minimac.map:md5,88bd712a256c44ce568eafbbc9b86996",
-                    "chr21.plink.map:md5,af7c3ad9a5936a396a70c4b04c8e801e",
-                    "chr21.stitch.map:md5,c5135205e304e8a86f9e23e6507447af",
-                    "chr22.glimpse.map:md5,d0d10f6f390a3a708254c00b92f7cbb2",
-                    "chr22.minimac.map:md5,84656d62f8aa3d00782e5d1c871693f4",
-                    "chr22.plink.map:md5,d3f3d72574d66529bed87f0ed068d2e6",
-                    "chr22.stitch.map:md5,d8c3acb2de2b82ca5532a34c3633f652",
+                    "1000GP_chr21.glimpse.map:md5,e0106cfa96d41c7ccf2e414adf78ddd9",
+                    "1000GP_chr21.minimac.map:md5,48c59c99a759484572da0bb82008680d",
+                    "1000GP_chr21.plink.map:md5,62b2af1b90139350cbdd6decc661f0d0",
+                    "1000GP_chr21.stitch.map:md5,2c608eedfc6dd2fc039901e86f898be3",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,6329ca68d7544df0cbbffd2e0e2afa2d",
+                    "versions.yml:md5,a674fd7c7a878cf85714b550f37cd020",
                     "bcftools-stats-subtypes.txt:md5,3e44e7e7b563c851f28837f25baf90b9",
                     "bcftools_stats_indel-lengths.txt:md5,86e12861d56c7563080cf9927e703eb6",
                     "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
@@ -256,10 +257,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-17T13:21:32.620990388",
+        "timestamp": "2026-03-23T08:08:21.376295307",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }
