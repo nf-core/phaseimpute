@@ -2,7 +2,7 @@
     "Check test_all": {
         "content": [
             {
-                "workflow size": 249,
+                "workflow size": 245,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.0"
@@ -973,11 +973,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:03:45.807260338",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-15T02:05:40.036243157"
+        "timestamp": "2026-03-23T00:28:27.750787133"
     }
 }
