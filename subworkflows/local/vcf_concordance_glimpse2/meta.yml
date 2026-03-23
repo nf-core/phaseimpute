@@ -66,6 +66,24 @@ input:
           type: string
           description: Region to extract from the BAM file
           pattern: "[chr]+[0-9]+:[0-9]+-[0-9]+"
+  - bins:
+      type: string
+      description: |
+        Allele frequency bins used for rsquared computations.
+        By default they should as MAF bins [0-0.5], while
+        they should take the full range [0-1] if --use-ref-alt is used.
+      pattern: "0 0.01 0.05 ... 0.5"
+  - min_val_gl:
+      type: float
+      description: |
+        Minimum genotype likelihood probability P(G|R) in validation data.
+        Set to zero to have no filter of if using -gt-validation
+  - min_val_dp:
+      type: integer
+      description: |
+        Minimum coverage in validation data.
+        If FORMAT/DP is missing and -min_val_dp > 0, the program exits with an error.
+        Set to zero to have no filter of if using -gt-validation
 output:
   - stats:
       description: Channel with concatenated concordance metrics

@@ -710,7 +710,10 @@ workflow PHASEIMPUTE {
             ch_input_validate,
             SPLIT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
-            ch_region
+            ch_region,
+            params.bins,
+            params.min_val_gl,
+            params.min_val_dp
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
     }
