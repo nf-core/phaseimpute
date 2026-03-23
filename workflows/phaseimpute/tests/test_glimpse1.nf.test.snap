@@ -5,7 +5,7 @@
                 "workflow size": 36,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -40,7 +40,7 @@
                         "r-stringr": "1.6.0"
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE_LIGATE": {
                         "glimpse": "1.1.1"
@@ -49,7 +49,7 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -319,7 +319,7 @@
                 "workflow size": 38,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -349,7 +349,7 @@
                         "bcftools": 1.22
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE_LIGATE": {
                         "glimpse": "1.1.1"
@@ -358,7 +358,7 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -610,7 +610,7 @@
                 "workflow size": 40,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -645,7 +645,7 @@
                         "r-stringr": "1.6.0"
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE_LIGATE": {
                         "glimpse": "1.1.1"
@@ -654,7 +654,7 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21

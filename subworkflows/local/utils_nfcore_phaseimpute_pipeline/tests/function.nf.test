@@ -1,3 +1,10 @@
+def check_stdout(function_stdout) {
+    function_stdout[2..-1]
+        .findAll { !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) }
+        .findAll { !it.matches(/WARN: Unrecognized config option.*/) }
+        .findAll { !it.matches(/WARN: Failed to render CO2e footprint report.*/) }
+}
+
 nextflow_function {
     /*
     The following tests are for the functions in the main.nf script
@@ -323,9 +330,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() },
+                { assert snapshot(this.check_stdout(function.stdout)).match() },
                 { assert function.stdout.contains("WARN: Chr : [chrY] is missing from test") }
             )
         }
@@ -347,9 +352,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -370,9 +373,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -393,9 +394,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -416,7 +415,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(check_stdout(function.stdout)).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -631,9 +630,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -737,9 +734,4 @@ nextflow_function {
             )
         }
     }
-}
-
-def check_stdout(function_stdout) {
-    function_stdout[2..-1]
-        .findAll { !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) }
 }

@@ -26,17 +26,17 @@
                     [
                         "BAMCHREXTRACT",
                         "samtools",
-                        "1.22.1"
+                        "1.23"
                     ],
                     [
                         "BAMCHREXTRACT",
                         "samtools",
-                        "1.22.1"
+                        "1.23"
                     ],
                     [
                         "BAMCHREXTRACT",
                         "samtools",
-                        "1.22.1"
+                        "1.23"
                     ]
                 ],
                 "chr": [
@@ -63,17 +63,17 @@
                     [
                         "BAMCHREXTRACT",
                         "samtools",
-                        "1.22.1"
+                        "1.23"
                     ],
                     [
                         "BAMCHREXTRACT",
                         "samtools",
-                        "1.22.1"
+                        "1.23"
                     ],
                     [
                         "BAMCHREXTRACT",
                         "samtools",
-                        "1.22.1"
+                        "1.23"
                     ]
                 ]
             },
