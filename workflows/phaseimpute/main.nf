@@ -93,6 +93,8 @@ include { VCF_CONCORDANCE_GLIMPSE2                         } from '../../subwork
 workflow PHASEIMPUTE {
 
     take:
+    steps                   // List of steps to perform
+    tools                   // List of tools to use
     ch_input_impute         // channel: input file    [ [id], file, index ]
     ch_input_sim            // channel: input file    [ [id], file, index ]
     ch_input_validate       // channel: input file    [ [id], file, index ]
@@ -105,6 +107,23 @@ workflow PHASEIMPUTE {
     ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
     chunk_model             // parameter: chunk model
+    input_region_sheet      // Input region provided
+    input_truth_sheet       // Input truth provided
+    posfile_sheet           // Posfile provided
+    chunks_sheet            // Chunks provided
+    panel_sheet             // Panel provided
+    depth                   // Genomic depth to downsample to
+    normalize
+    compute_freq
+    phase
+    batch_size
+    k_val
+    ngen
+    buffer
+    bins
+    min_val_gl
+    min_val_dp
+    seed
     multiqc_config
     multiqc_logo
     multiqc_methods_description
@@ -113,8 +132,6 @@ workflow PHASEIMPUTE {
     main:
 
     ch_multiqc_files = channel.empty()
-    def steps = params.steps.split(',') as List
-    def tools = params.tools ? params.tools.split(',') as List : []
 
     def region_count = ch_region.map{ _meta, region -> region }
         .count()
@@ -129,7 +146,7 @@ workflow PHASEIMPUTE {
                 error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${ext}"
             } }
 
-        if (params.input_region) {
+        if (input_region_sheet) {
             // Split the bam into the regions specified
             BAM_EXTRACT_REGION_SAMTOOLS(ch_input_sim, ch_region, ch_fasta)
             ch_input_sim = BAM_EXTRACT_REGION_SAMTOOLS.out.bam_region
@@ -137,7 +154,7 @@ workflow PHASEIMPUTE {
 
         // Use input for simulation as truth for validation step
         // if no truth is provided
-        if (!params.input_truth) {
+        if (!input_truth_sheet) {
             ch_input_truth = ch_input_sim
         }
 
@@ -145,7 +162,7 @@ workflow PHASEIMPUTE {
         filter_chr_program = ch_region
             .collect{ meta, _region -> meta.chr }
             .map { chr ->
-                "BEGIN { FS=\"\t\";\nsplit(\"" + chr.join(" ") + '", chr, " ");\n' +
+                "BEGIN { FS=\"\t\";\normalize, compute_freqnsplit(\"" + chr.join(" ") + '", chr, " ");\n' +
                 'for (i in chr) {\nchr_map[chr[i]] = 1;\n}\n}\n' +
                 'NR == 1 || (\$1 in chr_map){\nprint \$0;\n}'
             }
@@ -165,7 +182,7 @@ workflow PHASEIMPUTE {
         )
         ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_INP.out.output.map{ _meta, file -> file })
 
-        if (params.depth) {
+        if (depth) {
             // Downsample input to desired depth
             BAM_SUBSAMPLEDEPTH_SAMTOOLS(
                 ch_input_sim, ch_depth,
@@ -209,7 +226,7 @@ workflow PHASEIMPUTE {
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(
             ch_panel, ch_fasta,
-            params.normalize, params.compute_freq
+            normalize, compute_freq
         )
         ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
 
@@ -217,12 +234,12 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(ch_panel_phased, ch_fasta)
 
         // Generate all necessary channels
-        if (!params.posfile){
+        if (!posfile_sheet){
             ch_posfile  = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
         }
 
         // Use glimpse 1 for chunks if not provided
-        if (!params.chunks){
+        if (!chunks_sheet){
             // Create chunks from reference VCF
             VCF_CHUNK_GLIMPSE(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi,
@@ -243,7 +260,7 @@ workflow PHASEIMPUTE {
         }
 
         // Phase panel with Shapeit5
-        if (params.phase == true) {
+        if (phase) {
             // Use chunks from parameters and use region with buffer region
             ch_chunks_phase = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
@@ -301,7 +318,7 @@ workflow PHASEIMPUTE {
         ch_input_bams = ch_input_type.bam
             .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
             .map { list ->
-                list.collate(params.batch_size)
+                list.collate(batch_size)
                     .withIndex()
                     .collect { batch, idx -> [
                         [id: "all_samples", batch: idx], batch
@@ -328,7 +345,7 @@ workflow PHASEIMPUTE {
             .join(LISTTOFILE.out.txt)
 
         // Use panel from parameters if provided
-        if (params.panel && !steps.find { step -> step in ["all", "panelprep"] }) {
+        if (panel_sheet && !steps.find { step -> step in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
         }
 
@@ -455,9 +472,9 @@ workflow PHASEIMPUTE {
                 ch_chunks_stitch,
                 ch_map,
                 ch_fasta,
-                params.k_val,
-                params.ngen,
-                params.seed
+                k_val,
+                ngen,
+                seed
             )
 
             // Concatenate by chromosomes
@@ -511,8 +528,8 @@ workflow PHASEIMPUTE {
                 ch_chunks_quilt,
                 ch_map,
                 ch_fasta,
-                params.ngen,
-                params.buffer
+                ngen,
+                buffer
             )
 
             // Concatenate by chromosomes
@@ -714,9 +731,9 @@ workflow PHASEIMPUTE {
             SPLIT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
             ch_region,
-            params.bins,
-            params.min_val_gl,
-            params.min_val_dp
+            bins,
+            min_val_gl,
+            min_val_dp
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
     }

@@ -34,6 +34,8 @@ include { getGenomeAttribute         } from './subworkflows/local/utils_nfcore_p
 workflow NFCORE_PHASEIMPUTE {
 
     take:
+    steps
+    tools
     ch_input       // channel: samplesheet read in from --input
     ch_input_truth // channel: samplesheet read in from --input-truth
     ch_fasta       // channel: reference genome FASTA file with index
@@ -46,6 +48,27 @@ workflow NFCORE_PHASEIMPUTE {
     chunk_model    // parameter: chunk model
     rename_chr     // parameter: rename chromosome prefix
     max_chr_names  // parameter: max number of chr to show in message
+    input_region
+    input_truth
+    posfile
+    chunks
+    panel
+    depth
+    normalize
+    compute_freq
+    phase
+    batch_size
+    k_val
+    ngen
+    buffer
+    bins
+    min_val_gl
+    min_val_dp
+    seed
+    multiqc_config
+    multiqc_logo
+    multiqc_methods_description
+    outdir
 
     main:
 
@@ -56,7 +79,6 @@ workflow NFCORE_PHASEIMPUTE {
     ch_input_impute         = channel.empty()
     ch_input_simulate       = channel.empty()
     ch_input_validate       = channel.empty()
-    def steps               = params.steps.split(',') as List
 
     //  Check input files for contigs names consistency
     lst_chr = ch_regions.map {meta, _region -> meta.chr }
@@ -88,6 +110,8 @@ workflow NFCORE_PHASEIMPUTE {
     // WORKFLOW: Run pipeline
     //
     PHASEIMPUTE (
+        steps,
+        tools,
         ch_input_impute,
         ch_input_simulate,
         ch_input_validate,
@@ -100,10 +124,27 @@ workflow NFCORE_PHASEIMPUTE {
         ch_posfile,
         ch_chunks,
         chunk_model,
-        params.multiqc_config,
-        params.multiqc_logo,
-        params.multiqc_methods_description,
-        params.outdir
+        input_region,
+        input_truth,
+        posfile,
+        chunks,
+        panel,
+        depth,
+        normalize,
+        compute_freq,
+        phase,
+        batch_size,
+        k_val,
+        ngen,
+        buffer,
+        bins,
+        min_val_gl,
+        min_val_dp,
+        seed,
+        multiqc_config,
+        multiqc_logo,
+        multiqc_methods_description,
+        outdir
     )
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -136,7 +177,12 @@ workflow {
     //
     // WORKFLOW: Run main workflow
     //
+    def steps = params.steps.split(',') as List
+    def tools = params.tools ? params.tools.split(',') as List : []
+
     NFCORE_PHASEIMPUTE (
+        steps,
+        tools,
         PIPELINE_INITIALISATION.out.input,
         PIPELINE_INITIALISATION.out.input_truth,
         PIPELINE_INITIALISATION.out.fasta,
@@ -148,7 +194,28 @@ workflow {
         PIPELINE_INITIALISATION.out.chunks,
         PIPELINE_INITIALISATION.out.chunk_model,
         params.rename_chr,
-        params.max_chr_names
+        params.max_chr_names,
+        params.input_region,
+        params.input_truth,
+        params.posfile,
+        params.chunks,
+        params.panel,
+        params.depth,
+        params.normalize,
+        params.compute_freq,
+        params.phase,
+        params.batch_size,
+        params.k_val,
+        params.ngen,
+        params.buffer,
+        params.bins,
+        params.min_val_gl,
+        params.min_val_dp,
+        params.seed,
+        params.multiqc_config,
+        params.multiqc_logo,
+        params.multiqc_methods_description,
+        params.outdir
     )
     //
     // SUBWORKFLOW: Run completion tasks
