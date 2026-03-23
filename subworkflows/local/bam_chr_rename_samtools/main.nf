@@ -19,15 +19,19 @@ workflow BAM_CHR_RENAME_SAMTOOLS {
             } else {
                 error "Invalid chr_prefix: ${prefix}"
             }
-            [meta, bam, index, cmd]
-        }, // channel: [ [id], bam, index, cmd]
+            [meta + ["samtools_reheader_cmd": cmd], bam, index]
+        }, // channel: [ [id], bam, index]
     )
 
     SAMTOOLS_INDEX(SAMTOOLS_REHEADER.out.bam)
 
     ch_bam_renamed = SAMTOOLS_REHEADER.out.bam
-        .combine(SAMTOOLS_INDEX.out.bai, by:0)
+        .join(SAMTOOLS_INDEX.out.index)
+        .map{ meta, bam, index ->
+                def cleanMeta = meta.findAll { key, _value -> key != "samtools_reheader_cmd" }
+                [cleanMeta, bam, index]
+            }
 
     emit:
-    bam_renamed    = ch_bam_renamed        // [ [id], bam, csi ]
+    bam_renamed    = ch_bam_renamed        // [ [id], bam, index ]
 }
