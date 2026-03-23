@@ -37,7 +37,7 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
                 [metaICR.subMap(meta_keys) + [chr: "all"], bam, index]
             }
             .groupTuple(sort: true),
-        ch_fasta.map{meta, fasta -> [meta, fasta, []}
+        ch_fasta.map{meta, fasta, fai -> [meta, fasta, fai, []}
     )
 
     SAMTOOLS_INDEX(SAMTOOLS_MERGE.out.bam)
