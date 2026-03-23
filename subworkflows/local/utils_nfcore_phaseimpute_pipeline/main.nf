@@ -717,7 +717,7 @@ def getRegionFromFai(input_region, ch_fasta) {
     def ch_regions = channel.empty()
     // Gather regions to use and create the meta map
     if (input_region ==~ '^(chr)?[0-9XYM]+$' || input_region == "all") {
-        ch_regions = ch_fasta.map{ meta, fasta, fai, gzi -> fai}
+        ch_regions = ch_fasta.map{ _meta, _fasta, fai, _gzi -> fai}
             .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
             .map{it -> [chr:it.chr, region:"0-"+it.size]}
         if (input_region != "all") {
