@@ -25,8 +25,6 @@ nextflow_workflow {
             params {
                 max_cpus   = 2
                 max_memory = '2.GB'
-                normalize = true
-                compute_freq = false
                 remove_samples = null
             }
             workflow {
@@ -48,6 +46,8 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
                 ]).collect()
+                input[2] = true
+                input[3] = false
                 """
             }
         }
@@ -77,8 +77,6 @@ nextflow_workflow {
             params {
                 max_cpus   = 2
                 max_memory = '2.GB'
-                normalize = true
-                compute_freq = true
                 remove_samples = "HG00109,HG00110,HG00111,HG00112,HG00113,HG00114"
             }
             workflow {
@@ -100,6 +98,8 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true),
                     file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true),
                 ]).collect()
+                input[2] = true
+                input[3] = true
                 """
             }
         }

@@ -207,7 +207,10 @@ workflow PHASEIMPUTE {
     //
     if (steps.contains("panelprep") || steps.contains("all")) {
         // Normalize indels in panel
-        VCF_NORMALIZE_BCFTOOLS(ch_panel, ch_fasta)
+        VCF_NORMALIZE_BCFTOOLS(
+            ch_panel, ch_fasta,
+            params.normalize, params.compute_freq
+        )
         ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
 
         // Extract sites from normalized vcf
