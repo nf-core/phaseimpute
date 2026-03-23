@@ -8,14 +8,14 @@
                 "VcfFile [chromosomes=[22], sampleCount=0, variantCount=2174, phased=true, phasedAutodetect=true]"
             ],
             [
-                "BAM_chr_to_nochr.bam.bai",
+                "BAM_chr_to_nochr_rename.bam.bai",
                 "VCF_chr_to_nochr_chrrename.vcf.gz.tbi"
             ]
         ],
-        "timestamp": "2026-03-03T11:29:20.037737084",
+        "timestamp": "2026-03-18T12:00:28.595127654",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
     "Rename: VCF no chr + fasta chr": {
@@ -27,14 +27,14 @@
                 "VcfFile [chromosomes=[chr22], sampleCount=1, variantCount=4, phased=false, phasedAutodetect=false]"
             ],
             [
-                "BAM_nochr_to_chr.bam.bai",
+                "BAM_nochr_to_chr_rename.bam.bai",
                 "VCF_nochr_to_chr_chrrename.vcf.gz.tbi"
             ]
         ],
-        "timestamp": "2026-03-03T11:29:34.039145168",
+        "timestamp": "2026-03-18T12:00:42.368791393",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }

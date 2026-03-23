@@ -23,7 +23,7 @@
                         "bcftools": 1.22
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -35,7 +35,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -213,7 +213,7 @@
                         "bcftools": 1.22
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -225,7 +225,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -403,7 +403,7 @@
                         "bcftools": 1.22
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -415,7 +415,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
