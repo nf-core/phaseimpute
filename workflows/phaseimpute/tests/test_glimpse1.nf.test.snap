@@ -296,7 +296,7 @@
     "Check test_glimpse1 - with chunks - with map": {
         "content": [
             {
-                "workflow size": 39,
+                "workflow size": 41,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": 1.23
@@ -606,7 +606,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T15:59:04.956020119",
+        "timestamp": "2026-03-23T12:12:11.587829358",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"
@@ -615,7 +615,7 @@
     "Check test_glimpse1 - no chunks - with map": {
         "content": [
             {
-                "workflow size": 35,
+                "workflow size": 37,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": 1.23
@@ -923,7 +923,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T16:00:48.526261521",
+        "timestamp": "2026-03-23T12:13:53.975085884",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"
