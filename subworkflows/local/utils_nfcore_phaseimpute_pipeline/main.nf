@@ -106,36 +106,50 @@ workflow PIPELINE_INITIALISATION {
     //
 
     genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
+    def fasta_file = ""
+    def fai_path = ""
+    def gzi_path = ""
+
     if (params.genome) {
         genome = params.genome
-        ch_fasta  = channel.of([
-            [genome:genome],
-            getGenomeAttribute('fasta'), []
-        ])
-        fai = getGenomeAttribute('fai')
-        if (fai == null) {
-            SAMTOOLS_FAIDX(ch_fasta, false)
-            fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
-        } else {
-            fai = channel.of(file(fai, checkIfExists:true))
-        }
+        fasta_file = file(getGenomeAttribute('fasta'), checkIfExists:true)
+        fai_path = getGenomeAttribute('fai')
+        gzi_path = getGenomeAttribute('gzi')
     } else if (params.fasta) {
         genome = file(params.fasta, checkIfExists:true).getBaseName()
-        ch_fasta = channel.of([
-            [genome:genome],
-            file(params.fasta, checkIfExists:true),
-            []
-        ])
-        if (params.fasta_fai) {
-            fai = channel.of(file(params.fasta_fai, checkIfExists:true))
+        fasta_file = file(params.fasta, checkIfExists:true)
+        fai_path = params.fasta_fai
+        gzi_path = params.fasta_gzi
+    } else {
+        error "Please provide either params.genome or params.fasta"
+    }
+
+    def is_compressed = fasta_file.toString().endsWith('.gz') || fasta_file.toString().endsWith('.bgz')
+    ch_fasta  = channel.of([ [genome: genome], fasta_file, [] ])
+
+    if (fai_path) {
+        ch_fai = channel.of(file(fai_path, checkIfExists:true))
+    } else {
+        SAMTOOLS_FAIDX(ch_fasta, false)
+        ch_fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
+    }
+    if (is_compressed) {
+        if (gzi_path) {
+            ch_gzi = channel.of(file(gzi_path, checkIfExists:true))
+        } else if (!fai_path) {
+            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
         } else {
             SAMTOOLS_FAIDX(ch_fasta, false)
-            fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
+            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
         }
+    } else {
+        ch_gzi = channel.of([])
     }
+
     ch_ref_gen = ch_fasta
         .map{ meta, fasta, _fai -> [meta, fasta] }
-        .combine(fai)
+        .combine(ch_fai)
+        .combine(ch_gzi)
         .collect()
 
     //
@@ -349,7 +363,7 @@ workflow PIPELINE_INITIALISATION {
     // Check contigs name in different meta map
     //
     // Collect all chromosomes names in all different inputs
-    chr_ref = ch_ref_gen.map { _meta, _fasta, fai_file -> [fai_file.readLines()*.split('\t').collect{cols -> cols[0]}] }
+    chr_ref = ch_ref_gen.map { _meta, _fasta, fai_file, _gzi_file -> [fai_file.readLines()*.split('\t').collect{cols -> cols[0]}] }
     chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
@@ -412,13 +426,18 @@ workflow PIPELINE_INITIALISATION {
     // Check that all input files have the correct index
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
+    // Make available both index
+    ch_ref_gen = ch_ref_gen.map{ meta, fasta, fai, gzi -> [
+        meta, fasta, [fai, gzi]
+    ]}
+
     // Chunk model
     chunk_model = params.chunk_model
 
     emit:
     input                = ch_input         // [ [meta], file, index ]
     input_truth          = ch_input_truth   // [ [meta], file, index ]
-    fasta                = ch_ref_gen       // [ [genome], fasta, fai ]
+    fasta                = ch_ref_gen       // [ [genome], fasta, [fai, gzi] ]
     panel                = ch_panel         // [ [panel_id, chr], vcf, index ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
@@ -698,7 +717,7 @@ def getRegionFromFai(input_region, ch_fasta) {
     def ch_regions = channel.empty()
     // Gather regions to use and create the meta map
     if (input_region ==~ '^(chr)?[0-9XYM]+$' || input_region == "all") {
-        ch_regions = ch_fasta.map{it -> it[2]}
+        ch_regions = ch_fasta.map{ _meta, _fasta, fai, _gzi -> fai}
             .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
             .map{it -> [chr:it.chr, region:"0-"+it.size]}
         if (input_region != "all") {
@@ -730,11 +749,13 @@ def getFileExtension(file) {
         file_name = file.toString()
     } else if (file instanceof List) {
         return file.collect { it -> getFileExtension(it) }
+    } else if (file == null) {
+        return ""
     } else {
         error "Type not supported: ${file.getClass()}"
     }
-    // Remove .gz if present and get the last part after splitting by "."
-    return file_name.replace(".gz", "").split("\\.").last()
+    // Remove .gz if present at the end and get the last part after splitting by "."
+    return file_name.replaceAll(/\.gz$/, "").tokenize('.').last()
 }
 
 //
@@ -757,7 +778,12 @@ def getFilesSameExt(ch_input) {
 //
 def checkFileIndex(ch_input) {
     ch_input.map {
-        meta, file, index ->
+        tuple ->
+        def meta = tuple[0]
+        def file = tuple[1]
+        def index = tuple[2]
+        def gzi = tuple.size() > 3 ? tuple[3] : null
+
         def file_ext = getFileExtension(file)
         def index_ext = getFileExtension(index)
         if (file_ext in ["vcf", "bcf"] &&  !(index_ext in ["tbi", "csi"]) ) {
@@ -772,6 +798,13 @@ def checkFileIndex(ch_input) {
         }
         if (file_ext in ["fa", "fasta"] && index_ext != "fai") {
             error "${meta}: Index file for .fa and .fasta must have the extension .fai"
+        }
+
+        def file_name = file.toString()
+        if (file_ext in ["fa", "fasta"] && (file_name.endsWith('.gz') || file_name.endsWith('.bgz'))) {
+            if (getFileExtension(gzi) != "gzi") {
+                error "${meta}: Index file for .(fa,fasta).(gz,bgz) must have the extension .gzi"
+            }
         }
     }
     return null

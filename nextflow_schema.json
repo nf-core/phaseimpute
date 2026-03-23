@@ -239,7 +239,7 @@
                     "format": "file-path",
                     "exists": true,
                     "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.b?gz)?$",
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
@@ -249,8 +249,18 @@
                     "format": "file-path",
                     "exists": true,
                     "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?\\.fai$",
-                    "description": "Path to FASTA index genome file.",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.b?gz)?\\.fai$",
+                    "description": "Path to FASTA index genome file in `.fai` format.",
+                    "help_text": "This parameter is *optional* even if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "fasta_gzi": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.b?gz)?\\.gzi$",
+                    "description": "Path to FASTA index genome file in `.gzi` format.",
                     "help_text": "This parameter is *optional* even if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
                 },

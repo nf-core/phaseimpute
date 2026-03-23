@@ -100,7 +100,7 @@ workflow PHASEIMPUTE {
     ch_input_sim            // channel: input file    [ [id], file, index ]
     ch_input_validate       // channel: input file    [ [id], file, index ]
     ch_input_truth          // channel: truth file    [ [id], file, index ]
-    ch_fasta                // channel: fasta file    [ [genome], fasta, fai ]
+    ch_fasta                // channel: fasta file    [ [genome], fasta, [fai, gzi] ]
     ch_panel                // channel: panel file    [ [id, chr], vcf, index ]
     ch_region               // channel: region to use [ [chr, region], region]
     ch_depth                // channel: depth select  [ [depth], depth ]
@@ -169,7 +169,10 @@ workflow PHASEIMPUTE {
             .collect()
 
         // Compute coverage of input files
-        SAMTOOLS_COVERAGE_INP(ch_input_sim, ch_fasta)
+        SAMTOOLS_COVERAGE_INP(
+            ch_input_sim,
+            ch_fasta
+        )
 
         FILTER_CHR_INP(
             SAMTOOLS_COVERAGE_INP.out.coverage,
@@ -180,7 +183,10 @@ workflow PHASEIMPUTE {
 
         if (params.depth) {
             // Downsample input to desired depth
-            BAM_SUBSAMPLEDEPTH_SAMTOOLS(ch_input_sim, ch_depth, ch_fasta)
+            BAM_SUBSAMPLEDEPTH_SAMTOOLS(
+                ch_input_sim, ch_depth,
+                ch_fasta
+            )
             ch_input_impute = BAM_SUBSAMPLEDEPTH_SAMTOOLS.out.bam_subsampled
                 .map{ meta, bam, index ->
                     def keysToKeep = meta.keySet() - ['subsample_fraction']
@@ -189,7 +195,10 @@ workflow PHASEIMPUTE {
                 }
 
             // Compute coverage of input files
-            SAMTOOLS_COVERAGE_DWN(ch_input_impute, ch_fasta)
+            SAMTOOLS_COVERAGE_DWN(
+                ch_input_impute,
+                ch_fasta
+            )
 
             FILTER_CHR_DWN(
                 SAMTOOLS_COVERAGE_DWN.out.coverage,

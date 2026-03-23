@@ -7,7 +7,7 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     take:
     ch_bam    // channel: [ [id], bam, bai ]
     ch_region // channel: [ [chr, region], val(chr:start-end) ]
-    ch_fasta  // channel: [ [genome], fasta, fai ]
+    ch_fasta  // channel: [ [genome], fasta, [fai,gzi] ]
 
     main:
 
