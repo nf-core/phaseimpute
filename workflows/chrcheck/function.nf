@@ -1,29 +1,4 @@
 //
-// Check if the contig names in the input files match the reference contig names.
-//
-def checkChr(ch_chr, ch_input){
-    def chr_checked = ch_chr
-        .combine(ch_input, by:0)
-        .map{meta, chr, file, index, lst ->
-            [
-                meta, file, index,
-                chr.readLines()*.split(' ').collect{line -> line[0]},
-                lst
-            ]
-        }
-        .branch{ meta, file, index, chr, lst ->
-            def lst_diff = diffChr(chr, lst, file)
-            def diff = lst_diff[0]
-            def prefix = lst_diff[1]
-            no_rename: diff.size() == 0
-                return [meta, file, index]
-            to_rename: true
-                return [meta, file, index, diff, prefix]
-        }
-    return chr_checked
-}
-
-//
 // Check if the contig names can be solved by adding/removing the `chr` prefix.
 //
 def diffChr(chr_target, chr_ref, file) {
@@ -48,4 +23,29 @@ def diffChr(chr_target, chr_ref, file) {
         diff = to_rename
     }
     return [diff, prefix]
+}
+
+//
+// Check if the contig names in the input files match the reference contig names.
+//
+def checkChr(ch_chr, ch_input) {
+    def chr_checked = ch_chr
+        .combine(ch_input, by: 0)
+        .map { meta, chr, file, index, lst ->
+            [
+                meta, file, index,
+                chr.readLines()*.split(' ').collect { line -> line[0] },
+                lst
+            ]
+        }
+        .branch { meta, file, index, chr, lst ->
+            def lst_diff = diffChr(chr, lst, file)
+            def diff = lst_diff[0]
+            def prefix = lst_diff[1]
+            no_rename: diff.size() == 0
+                return [meta, file, index]
+            to_rename: true
+                return [meta, file, index, diff, prefix]
+        }
+    return chr_checked
 }

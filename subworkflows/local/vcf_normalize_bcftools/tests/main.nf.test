@@ -23,8 +23,6 @@ nextflow_workflow {
     test("Normalize vcf without computing frequencies nor removing samples") {
         when {
             params {
-                max_cpus   = 2
-                max_memory = '2.GB'
                 normalize = true
                 compute_freq = false
                 remove_samples = null
@@ -75,8 +73,6 @@ nextflow_workflow {
     test("Normalize vcf with computing frequencies after removing samples") {
         when {
             params {
-                max_cpus   = 2
-                max_memory = '2.GB'
                 normalize = true
                 compute_freq = true
                 remove_samples = "HG00109,HG00110,HG00111,HG00112,HG00113,HG00114"

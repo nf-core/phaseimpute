@@ -1,7 +1,7 @@
 nextflow_function {
 
     name "Test function chrcheck"
-    script "../main.nf"
+    script "../function.nf"
     function "diffChr"
     tag "function"
     tag "diffChr"
@@ -67,7 +67,7 @@ nextflow_function {
         then {
             assert function.failed
             assert snapshot(
-                function.stdout[2..-1]
+                function.stdout
                     .findAll {
                         !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) &&
                         !it.matches(/.*Downloading plugin.*/)
