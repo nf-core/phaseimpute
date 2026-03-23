@@ -20,7 +20,18 @@ include { CHRCHECK as CHRCHECK_TRUTH } from './workflows/chrcheck'
 include { CHRCHECK as CHRCHECK_PANEL } from './workflows/chrcheck'
 include { PIPELINE_INITIALISATION    } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
-include { getGenomeAttribute         } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { PREPARE_GENOME             } from './subworkflows/local/prepare_genome'
+include { getGenomeAttribute         } from 'plugin/nf-core-utils'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    GENOME PARAMETER VALUES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+params.fasta             = getGenomeAttribute('fasta')
+params.fasta_fai         = getGenomeAttribute('fasta_fai')
+params.fasta_gzi         = getGenomeAttribute('fasta_gzi')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -159,6 +170,13 @@ workflow NFCORE_PHASEIMPUTE {
 workflow {
 
     main:
+    PREPARE_GENOME(
+        params.genome ?: file(params.fasta, checkIfExists:true).getBaseName(),
+        params.fasta,
+        params.fasta_fai,
+        params.fasta_gzi
+    )
+
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -171,7 +189,8 @@ workflow {
         params.input,
         params.help,
         params.help_full,
-        params.show_hidden
+        params.show_hidden,
+        PREPARE_GENOME.out.ch_fasta_fai_gzi
     )
 
     //

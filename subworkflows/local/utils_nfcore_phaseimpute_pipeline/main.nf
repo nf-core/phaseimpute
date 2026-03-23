@@ -37,6 +37,7 @@ workflow PIPELINE_INITIALISATION {
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
+    ch_ref_gen
 
     main:
 
@@ -100,57 +101,6 @@ workflow PIPELINE_INITIALISATION {
 
     def steps = params.steps.split(',') as List
     def tools = params.tools ? params.tools.split(',') as List : []
-
-    //
-    // Create fasta channel
-    //
-
-    genome = params.genome ? params.genome : file(params.fasta, checkIfExists:true).getBaseName()
-    def fasta_file = ""
-    def fai_path = ""
-    def gzi_path = ""
-
-    if (params.genome) {
-        genome = params.genome
-        fasta_file = file(getGenomeAttribute('fasta'), checkIfExists:true)
-        fai_path = getGenomeAttribute('fai')
-        gzi_path = getGenomeAttribute('gzi')
-    } else if (params.fasta) {
-        genome = file(params.fasta, checkIfExists:true).getBaseName()
-        fasta_file = file(params.fasta, checkIfExists:true)
-        fai_path = params.fasta_fai
-        gzi_path = params.fasta_gzi
-    } else {
-        error "Please provide either params.genome or params.fasta"
-    }
-
-    def is_compressed = fasta_file.toString().endsWith('.gz') || fasta_file.toString().endsWith('.bgz')
-    ch_fasta  = channel.of([ [genome: genome], fasta_file, [] ])
-
-    if (fai_path) {
-        ch_fai = channel.of(file(fai_path, checkIfExists:true))
-    } else {
-        SAMTOOLS_FAIDX(ch_fasta, false)
-        ch_fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
-    }
-    if (is_compressed) {
-        if (gzi_path) {
-            ch_gzi = channel.of(file(gzi_path, checkIfExists:true))
-        } else if (!fai_path) {
-            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
-        } else {
-            SAMTOOLS_FAIDX(ch_fasta, false)
-            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
-        }
-    } else {
-        ch_gzi = channel.of([])
-    }
-
-    ch_ref_gen = ch_fasta
-        .map{ meta, fasta, _fai -> [meta, fasta] }
-        .combine(ch_fai)
-        .combine(ch_gzi)
-        .collect()
 
     //
     // Create channel from input file provided through params.input
@@ -427,7 +377,7 @@ workflow PIPELINE_INITIALISATION {
     checkFileIndex(ch_input.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
     // Make available both index
-    ch_ref_gen = ch_ref_gen.map{ meta, fasta, fai, gzi -> [
+    ch_fasta_index = ch_ref_gen.map{ meta, fasta, fai, gzi -> [
         meta, fasta, [fai, gzi]
     ]}
 
@@ -437,7 +387,7 @@ workflow PIPELINE_INITIALISATION {
     emit:
     input                = ch_input         // [ [meta], file, index ]
     input_truth          = ch_input_truth   // [ [meta], file, index ]
-    fasta                = ch_ref_gen       // [ [genome], fasta, [fai, gzi] ]
+    fasta                = ch_fasta_index   // [ [genome], fasta, [fai, gzi] ]
     panel                = ch_panel         // [ [panel_id, chr], vcf, index ]
     depth                = ch_depth         // [ [depth], depth ]
     regions              = ch_regions       // [ [chr, region], region ]
@@ -505,15 +455,6 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
-    genomeExistsError()
-    // Check that only genome or fasta is provided
-    if (!(params.genome == null || params.fasta == null)) {
-        error "Either --genome or --fasta must be provided"
-    }
-    if (params.genome == null && params.fasta == null) {
-        error "Only one of --genome or --fasta must be provided"
-    }
-
     // Check that a steps is provided
     if (!params.steps) {
         error "A step must be provided"
@@ -838,32 +779,6 @@ def validateInputSamplesheet(input) {
     // No check for the moment
 
     return [meta, bam, bai]
-}
-
-//
-// Get attribute from genome config file e.g. fasta
-//
-def getGenomeAttribute(attribute) {
-    if (params.genomes && params.genome && params.genomes.containsKey(params.genome)) {
-        if (params.genomes[ params.genome ].containsKey(attribute)) {
-            return params.genomes[ params.genome ][ attribute ]
-        }
-    }
-    return null
-}
-
-//
-// Exit pipeline if incorrect --genome key provided
-//
-def genomeExistsError() {
-    if (params.genomes && params.genome && !params.genomes.containsKey(params.genome)) {
-        def error_string = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-            "  Genome '${params.genome}' not found in any config files provided to the pipeline.\n" +
-            "  Currently, the available genome keys are:\n" +
-            "  ${params.genomes.keySet().join(", ")}\n" +
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        error(error_string)
-    }
 }
 
 //

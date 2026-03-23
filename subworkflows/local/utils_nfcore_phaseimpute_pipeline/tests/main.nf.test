@@ -11,8 +11,6 @@ nextflow_workflow {
         when {
             params {
                 pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
-                fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map_glimpse.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -31,6 +29,12 @@ nextflow_workflow {
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
+                input[9] = [
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]
                 """
             }
         }
@@ -46,8 +50,6 @@ nextflow_workflow {
         when {
             params {
                 pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
-                fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map_glimpse.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -67,6 +69,12 @@ nextflow_workflow {
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
+                input[9] = [
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]
                 """
             }
         }
@@ -83,8 +91,6 @@ nextflow_workflow {
         when {
             params {
                 pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
-                fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 chunks = "../../../tests/csv/chunks.csv"
                 panel = "../../../tests/csv/panel.csv"
@@ -102,6 +108,12 @@ nextflow_workflow {
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
+                input[9] = [
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]
                 """
             }
         }
@@ -118,8 +130,6 @@ nextflow_workflow {
         when {
             params {
                 pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                fasta = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz"
-                fasta_fai = params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai"
                 steps = "panelprep"
                 map = "../../../tests/csv/map_glimpse.csv"
                 chunks = "../../../tests/csv/chunks.csv"
@@ -138,6 +148,12 @@ nextflow_workflow {
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
+                input[9] = [
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]
                 """
             }
         }
