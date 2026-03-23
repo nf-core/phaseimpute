@@ -1,3 +1,14 @@
+def check_stdout(function_stdout) {
+    function_stdout[2..-1]
+        .findAll {
+            !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) &&
+            !it.matches(/.*Downloading plugin.*/) &&
+            !it.matches(/WARN: Unrecognized config option.*/) &&
+            !it.matches(/WARN: Failed to render CO2e footprint report.*/) &&
+            !it.matches(/WARN: Failed to render execution (report|timeline).*/)
+        }
+}
+
 nextflow_function {
 
     name "Test function chrcheck"
@@ -70,15 +81,7 @@ nextflow_function {
         }
         then {
             assert function.failed
-            assert snapshot(
-                function.stdout
-                    .findAll {
-                        !it.matches(/^N E X T F L O W  ~  version.*/) &&
-                        !it.matches(/^Launching.*/) &&
-                        !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) &&
-                        !it.matches(/.*Downloading plugin.*/)
-                    }
-            ).match()
+            assert snapshot(this.check_stdout(function.stdout)).match()
         }
     }
 
