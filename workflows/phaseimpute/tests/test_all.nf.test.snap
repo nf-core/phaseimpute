@@ -992,10 +992,10 @@
                 "workflow size": 251,
                 "versions": {
                     "ADDCOLUMNS": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -1057,31 +1057,31 @@
                         "r-stringr": "1.6.0"
                     },
                     "FILTER_CHR_DWN": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "FILTER_CHR_INP": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_ERROR_SPL": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_QUILT": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_STITCH": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_RSQUARE_SPL": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_TRUTH": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_CHUNK": {
                         "glimpse2": "2.0.0"
@@ -1108,32 +1108,32 @@
                         "gunzip": 1.13
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "QUILT_QUILT": {
                         "r-base": "4.3.1",
                         "r-quilt": "1.0.5"
                     },
                     "SAMTOOLS_COVERAGE_DWN": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SAMTOOLS_COVERAGE_INP": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SAMTOOLS_DEPTH": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SAMTOOLS_INDEX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SAMTOOLS_MERGE": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SAMTOOLS_VIEW": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -1143,7 +1143,8 @@
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
-                        "r-quilt": "1.7.3"
+                        "r-quilt": "1.7.3",
+                        "rsync": "3.4.1"
                     },
                     "TABIX_BGZIP": {
                         "tabix": 1.21
@@ -1296,12 +1297,12 @@
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
                     "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
-                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_.txt",
-                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_.txt",
-                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r-squared_indels_.txt",
-                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_.txt",
-                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_.txt",
-                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_.txt",
+                    "multiqc/multiqc_data/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_.txt",
                     "multiqc/multiqc_data/glimpse-err-spl-table.txt",
                     "multiqc/multiqc_data/llms-full.txt",
                     "multiqc/multiqc_data/multiqc.log",
@@ -1333,18 +1334,18 @@
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
                     "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-cnt.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-log.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-cnt.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-log.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-cnt.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-log.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-cnt.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-log.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-cnt.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-log.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-cnt.pdf",
-                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_-log.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_-log.pdf",
                     "multiqc/multiqc_plots/pdf/glimpse-err-spl-table.pdf",
                     "multiqc/multiqc_plots/pdf/samtools-coverage-table.pdf",
                     "multiqc/multiqc_plots/pdf/samtools-coverage_BQ-cnt.pdf",
@@ -1369,18 +1370,18 @@
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
                     "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-cnt.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-log.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-cnt.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-log.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-cnt.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-log.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-cnt.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-log.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-cnt.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-log.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-cnt.png",
-                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_-log.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_-cnt.png",
+                    "multiqc/multiqc_plots/png/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_-log.png",
                     "multiqc/multiqc_plots/png/glimpse-err-spl-table.png",
                     "multiqc/multiqc_plots/png/samtools-coverage-table.png",
                     "multiqc/multiqc_plots/png/samtools-coverage_BQ-cnt.png",
@@ -1405,18 +1406,18 @@
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-cnt.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_-log.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-cnt.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_-log.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-cnt.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r-squared_indels_-log.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-cnt.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_-log.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-cnt.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_-log.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-cnt.svg",
-                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_-log.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_-cnt.svg",
+                    "multiqc/multiqc_plots/svg/glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_-log.svg",
                     "multiqc/multiqc_plots/svg/glimpse-err-spl-table.svg",
                     "multiqc/multiqc_plots/svg/samtools-coverage-table.svg",
                     "multiqc/multiqc_plots/svg/samtools-coverage_BQ-cnt.svg",
@@ -1596,13 +1597,13 @@
                     "bcftools_stats_vqc_Count_SNP.txt:md5,8aaae043d1c93bd0f695c7ba502d6903",
                     "bcftools_stats_vqc_Count_Transitions.txt:md5,a979732b816a777b55b8c2e7333cf0dd",
                     "bcftools_stats_vqc_Count_Transversions.txt:md5,7ebab237b189c2da1e1be30a7e82278c",
-                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_.txt:md5,d524f965af8f2db6c3f6bc07590595bf",
-                    "glimpse-err-grp-plot_Best_genotype_r-squared_SNPs_indels_.txt:md5,d524f965af8f2db6c3f6bc07590595bf",
-                    "glimpse-err-grp-plot_Best_genotype_r-squared_indels_.txt:md5,d06bfb4f7ac819694a09f2408b4e6320",
-                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_.txt:md5,392153d8a0c3e466d7401b0e5bc873d7",
-                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_SNPs_indels_.txt:md5,392153d8a0c3e466d7401b0e5bc873d7",
-                    "glimpse-err-grp-plot_Imputed_dosage_r-squared_indels_.txt:md5,d06bfb4f7ac819694a09f2408b4e6320",
-                    "glimpse-err-spl-table.txt:md5,f2175cdb8bbc5cfa222614c88817878f",
+                    "glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_.txt:md5,d524f965af8f2db6c3f6bc07590595bf",
+                    "glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_SNPs_indels_.txt:md5,d524f965af8f2db6c3f6bc07590595bf",
+                    "glimpse-err-grp-plot_Best_genotype_r_sup_2_sup_indels_.txt:md5,d06bfb4f7ac819694a09f2408b4e6320",
+                    "glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_.txt:md5,392153d8a0c3e466d7401b0e5bc873d7",
+                    "glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_SNPs_indels_.txt:md5,392153d8a0c3e466d7401b0e5bc873d7",
+                    "glimpse-err-grp-plot_Imputed_dosage_r_sup_2_sup_indels_.txt:md5,d06bfb4f7ac819694a09f2408b4e6320",
+                    "glimpse-err-spl-table.txt:md5,0d3990e0651c7762531a97d01343a456",
                     "multiqc_bcftools_stats.txt:md5,b9e21a0efd2ef621799745e32fe9c461",
                     "multiqc_citations.txt:md5,ee6bc9f24685a1dc6fe9c1d756535e77",
                     "multiqc_general_stats.txt:md5,5b5862a3f028b684352fb7e06f5b8a37",
@@ -1991,7 +1992,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-23T07:43:55.836914717",
+        "timestamp": "2026-03-23T14:08:33.263166384",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"
