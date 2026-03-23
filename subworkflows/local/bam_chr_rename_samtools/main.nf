@@ -28,7 +28,7 @@ workflow BAM_CHR_RENAME_SAMTOOLS {
     ch_bam_renamed = SAMTOOLS_REHEADER.out.bam
         .join(SAMTOOLS_INDEX.out.index)
         .map{ meta, bam, index ->
-                def cleanMeta = meta.findAll { key, value -> key != "samtools_reheader_cmd" }
+                def cleanMeta = meta.findAll { key, _value -> key != "samtools_reheader_cmd" }
                 [cleanMeta, bam, index]
             }
 
