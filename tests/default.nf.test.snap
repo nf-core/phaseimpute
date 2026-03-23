@@ -47,7 +47,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21

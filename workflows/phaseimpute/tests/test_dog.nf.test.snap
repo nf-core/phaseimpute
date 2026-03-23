@@ -78,7 +78,7 @@
                         "r-quilt": "1.0.5"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
