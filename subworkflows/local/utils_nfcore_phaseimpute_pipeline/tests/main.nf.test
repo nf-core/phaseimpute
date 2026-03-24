@@ -9,32 +9,39 @@ nextflow_workflow {
 
     test("Should run with no error") {
         when {
-            params {
-                pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                steps = "panelprep"
-                map = "../../../tests/csv/map_glimpse.csv"
-                chunks = "../../../tests/csv/chunks.csv"
-                posfile = "../../../tests/csv/posfile.csv"
-                panel = "../../../tests/csv/panel.csv"
-                chunk_model = "recursive"
-            }
             workflow {
                 """
-                input[0] = false
-                input[1] = false
-                input[2] = false
-                input[3] = []
-                input[4] = "results"
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
                 input[5] = [] // input
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
-                input[9] = [
+                input[9] = channel.of([
                     [genome: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
-                ]
+                ]) // ch_ref_gen
+                input[10] = null // input_target
+                input[11] = null // input_truth
+                input[12] = null // input_region
+                input[13] = "../../../tests/csv/panel.csv" // input_panel
+                input[14] = "../../../tests/csv/posfile.csv" // input_posfile
+                input[15] = "../../../tests/csv/chunks.csv" // input_chunks
+                input[16] = "../../../tests/csv/map_glimpse.csv" // input_map
+                input[17] = ["panelprep"] // steps
+                input[18] = [] // tools
+                input[19] = null // batch_size
+                input[20] = 5 // max_chr_names
+                input[21] = null // depth
+                input[22] = null // genotype
+                input[23] = null // remove_samples
+                input[24] = null // normalize
+                input[25] = "recursive" // chunk_model
                 """
             }
         }
@@ -48,33 +55,39 @@ nextflow_workflow {
 
     test("Should give a warning all file given") {
         when {
-            params {
-                pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                steps = "panelprep"
-                map = "../../../tests/csv/map_glimpse.csv"
-                chunks = "../../../tests/csv/chunks.csv"
-                posfile = "../../../tests/csv/posfile.csv"
-                panel = "../../../tests/csv/panel.csv"
-                input_region = "$moduleTestDir/region.csv"
-                chunk_model = "sequential"
-            }
             workflow {
                 """
-                input[0] = false
-                input[1] = false
-                input[2] = false
-                input[3] = []
-                input[4] = "results"
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
                 input[5] = [] // input
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
-                input[9] = [
+                input[9] = channel.of([
                     [genome: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
-                ]
+                ]) // ch_ref_gen
+                input[10] = null // input_target
+                input[11] = null // input_truth
+                input[12] = "$moduleTestDir/region.csv" // input_region
+                input[13] = "../../../tests/csv/panel.csv" // input_panel
+                input[14] = "../../../tests/csv/posfile.csv" // input_posfile
+                input[15] = "../../../tests/csv/chunks.csv" // input_chunks
+                input[16] = "../../../tests/csv/map_glimpse.csv" // input_map
+                input[17] = ["panelprep"] // steps
+                input[18] = [] // tools
+                input[19] = null // batch_size
+                input[20] = 5 // max_chr_names
+                input[21] = null // depth
+                input[22] = null // genotype
+                input[23] = null // remove_samples
+                input[24] = null // normalize
+                input[25] = "sequential" // chunk_model
                 """
             }
         }
@@ -89,31 +102,39 @@ nextflow_workflow {
 
     test("Should give a warning with missing files") {
         when {
-            params {
-                pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                steps = "panelprep"
-                chunks = "../../../tests/csv/chunks.csv"
-                panel = "../../../tests/csv/panel.csv"
-                input_region = "$moduleTestDir/region.csv"
-                chunk_model = "recursive"
-            }
             workflow {
                 """
-                input[0] = false
-                input[1] = false
-                input[2] = false
-                input[3] = []
-                input[4] = "results"
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
                 input[5] = [] // input
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
-                input[9] = [
+                input[9] = channel.of([
                     [genome: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
-                ]
+                ]) // ch_ref_gen
+                input[10] = null // input_target
+                input[11] = null // input_truth
+                input[12] = "$moduleTestDir/region.csv" // input_region
+                input[13] = "../../../tests/csv/panel.csv" // input_panel
+                input[14] = null // input_posfile
+                input[15] = "../../../tests/csv/chunks.csv" // input_chunks
+                input[16] = null // input_map
+                input[17] = ["panelprep"] // steps
+                input[18] = [] // tools
+                input[19] = null // batch_size
+                input[20] = 5 // max_chr_names
+                input[21] = null // depth
+                input[22] = null // genotype
+                input[23] = null // remove_samples
+                input[24] = null // normalize
+                input[25] = "recursive" // chunk_model
                 """
             }
         }
@@ -128,32 +149,39 @@ nextflow_workflow {
 
     test("Should give an error due to multiple panel_id") {
         when {
-            params {
-                pipelines_testdata_base_path = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/"
-                steps = "panelprep"
-                map = "../../../tests/csv/map_glimpse.csv"
-                chunks = "../../../tests/csv/chunks.csv"
-                posfile = "../../../tests/csv/posfile.csv"
-                panel = "../../../tests/csv/panel_multiple.csv"
-                chunk_model = "recursive"
-            }
             workflow {
                 """
-                input[0] = false
-                input[1] = false
-                input[2] = false
-                input[3] = []
-                input[4] = "results"
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
                 input[5] = [] // input
                 input[6] = [] // help
                 input[7] = [] // help_full
                 input[8] = [] // show_hidden
-                input[9] = [
+                input[9] = channel.of([
                     [genome: "GRCh38"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
-                ]
+                ]) // ch_ref_gen
+                input[10] = null // input_target
+                input[11] = null // input_truth
+                input[12] = null // input_region
+                input[13] = "../../../tests/csv/panel_multiple.csv" // input_panel
+                input[14] = "../../../tests/csv/posfile.csv" // input_posfile
+                input[15] = "../../../tests/csv/chunks.csv" // input_chunks
+                input[16] = "../../../tests/csv/map_glimpse.csv" // input_map
+                input[17] = ["panelprep"] // steps
+                input[18] = [] // tools
+                input[19] = null // batch_size
+                input[20] = 5 // max_chr_names
+                input[21] = null // depth
+                input[22] = null // genotype
+                input[23] = null // remove_samples
+                input[24] = null // normalize
+                input[25] = "recursive" // chunk_model
                 """
             }
         }
