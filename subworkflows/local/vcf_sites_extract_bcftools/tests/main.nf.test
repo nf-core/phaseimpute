@@ -19,10 +19,6 @@ nextflow_workflow {
 
     test("Extract sites") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = channel.of(

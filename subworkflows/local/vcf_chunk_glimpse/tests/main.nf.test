@@ -19,10 +19,6 @@ nextflow_workflow {
 
     test("Chunks with Map") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = channel.of(
@@ -68,10 +64,6 @@ nextflow_workflow {
 
     test("Chunks without Map") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = channel.of(
@@ -111,10 +103,6 @@ nextflow_workflow {
 
     test("Chunks with sequential model") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
                 input[0] = channel.of(

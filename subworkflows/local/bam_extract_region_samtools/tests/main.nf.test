@@ -18,13 +18,9 @@ nextflow_workflow {
 
     test("Get subregion of bam file 10000bp") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
-                input[0] = input[0] = channel.fromList([
+                input[0] = channel.fromList([
                     [
                         [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
@@ -67,13 +63,9 @@ nextflow_workflow {
 
     test("Get subregion of bam file 1000bp") {
         when {
-            params {
-                max_cpus   = 2
-                max_memory = '2.GB'
-            }
             workflow {
                 """
-                input[0] = input[0] = channel.fromList([
+                input[0] = channel.fromList([
                     [
                         [id: "NA12878"],
                         file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bam", checkIfExist:true),
