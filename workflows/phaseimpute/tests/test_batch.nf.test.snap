@@ -269,6 +269,9 @@
                     "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
                     "prep_panel/stats",
                     "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
+                    "prepare_genome",
+                    "prepare_genome/GRCh38.s.fa.gz.fai",
+                    "prepare_genome/GRCh38.s.fa.gz.gzi",
                     "validation",
                     "validation/samples",
                     "validation/samples/NA12878.truth.vcf.gz",
@@ -322,6 +325,8 @@
                     "multiqc_glimpse_err_grp.txt:md5,7303ceb7e80ab2b188f2dd355b6a1498",
                     "multiqc_glimpse_err_spl.txt:md5,b59190a0f0295ec4da4a6527980c874d",
                     "1000GP.panel.bcftools_stats.txt:md5,ca5eb47541961f3b757c83b77a307a5f",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "AllSamples.txt:md5,5bbc52fa94514bc7fca3cc345a7db6c0",
                     "NA12878.truth.bcftools_stats.txt:md5,edf521ce34766a8f9063fd88297bb869",
                     "NA12878_P1000GP_Tglimpse2_SNP.txt:md5,8b1e30077b2d79f678ba18a54614cd95",
@@ -472,7 +477,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T14:24:40.567883261",
+        "timestamp": "2026-03-24T17:28:36.430231796",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"

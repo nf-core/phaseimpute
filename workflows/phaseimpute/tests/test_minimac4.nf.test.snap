@@ -117,7 +117,10 @@
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
                     "multiqc/multiqc_report.html",
                     "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prepare_genome",
+                    "prepare_genome/GRCh38.s.fa.gz.fai",
+                    "prepare_genome/GRCh38.s.fa.gz.gzi"
                 ],
                 "stable path": [
                     "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
@@ -131,7 +134,9 @@
                     "bcftools_stats_vqc_Count_Transversions.txt:md5,a75080bef1c6e1a25e3b16e6b4d8bb64",
                     "multiqc_bcftools_stats.txt:md5,2b89da0634949d8e9e372502c4f9c4bb",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e"
+                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
                 ],
                 "BAM files": [
                     
@@ -183,10 +188,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:18:36.498465986",
+        "timestamp": "2026-03-24T17:42:05.500592595",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
     "Check test_minimac4 - with chunks": {
@@ -307,7 +312,10 @@
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
                     "multiqc/multiqc_report.html",
                     "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prepare_genome",
+                    "prepare_genome/GRCh38.s.fa.gz.fai",
+                    "prepare_genome/GRCh38.s.fa.gz.gzi"
                 ],
                 "stable path": [
                     "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
@@ -321,7 +329,9 @@
                     "bcftools_stats_vqc_Count_Transversions.txt:md5,a75080bef1c6e1a25e3b16e6b4d8bb64",
                     "multiqc_bcftools_stats.txt:md5,2b89da0634949d8e9e372502c4f9c4bb",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e"
+                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
                 ],
                 "BAM files": [
                     
@@ -373,10 +383,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:17:28.762408679",
+        "timestamp": "2026-03-24T17:40:58.210154816",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
     "Check test_minimac4 - without chunks": {
@@ -497,7 +507,10 @@
                     "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
                     "multiqc/multiqc_report.html",
                     "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prepare_genome",
+                    "prepare_genome/GRCh38.s.fa.gz.fai",
+                    "prepare_genome/GRCh38.s.fa.gz.gzi"
                 ],
                 "stable path": [
                     "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
@@ -511,7 +524,9 @@
                     "bcftools_stats_vqc_Count_Transversions.txt:md5,a75080bef1c6e1a25e3b16e6b4d8bb64",
                     "multiqc_bcftools_stats.txt:md5,2b89da0634949d8e9e372502c4f9c4bb",
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e"
+                    "multiqc_general_stats.txt:md5,f53037dd7609411abf73a163cf58b16e",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
                 ],
                 "BAM files": [
                     
@@ -563,10 +578,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:19:53.947680857",
+        "timestamp": "2026-03-24T17:43:06.246318727",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }

@@ -259,7 +259,10 @@
                     "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
                     "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
                     "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
+                    "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi",
+                    "prepare_genome",
+                    "prepare_genome/canFam3.s.fa.gz.fai",
+                    "prepare_genome/canFam3.s.fa.gz.gzi"
                 ],
                 "stable path": [
                     "all_samples.batch0.id.txt:md5,2181a5165013a23885b1b8c986765963",
@@ -293,7 +296,9 @@
                     "658Dog.chr21.posfile.txt.gz:md5,3c619e8c80d87e36096a77d048fb9077",
                     "658Dog.chr22.posfile.txt.gz:md5,845632cc4a33f76ab05225cb23930d85",
                     "658Dog.chr21.posfile.txt:md5,3c619e8c80d87e36096a77d048fb9077",
-                    "658Dog.chr22.posfile.txt:md5,845632cc4a33f76ab05225cb23930d85"
+                    "658Dog.chr22.posfile.txt:md5,845632cc4a33f76ab05225cb23930d85",
+                    "canFam3.s.fa.gz.fai:md5,631682a5849e271d84f3bf628418a6d7",
+                    "canFam3.s.fa.gz.gzi:md5,b0a77162749742f3372b26e0b4f81565"
                 ],
                 "BAM files": [
                     
@@ -445,7 +450,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T15:58:12.247018289",
+        "timestamp": "2026-03-24T17:32:48.16324115",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"

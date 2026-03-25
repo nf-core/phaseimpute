@@ -220,7 +220,7 @@ workflow {
     NFCORE_PHASEIMPUTE (
         steps,
         tools,
-        PIPELINE_INITIALISATION.out.input,
+        PIPELINE_INITIALISATION.out.input_target,
         PIPELINE_INITIALISATION.out.input_truth,
         PIPELINE_INITIALISATION.out.fasta,
         PIPELINE_INITIALISATION.out.panel,

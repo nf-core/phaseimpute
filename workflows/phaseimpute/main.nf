@@ -163,7 +163,7 @@ workflow PHASEIMPUTE {
         filter_chr_program = ch_region
             .collect{ meta, _region -> meta.chr }
             .map { chr ->
-                "BEGIN { FS=\"\t\";\normalize, compute_freqnsplit(\"" + chr.join(" ") + '", chr, " ");\n' +
+                "BEGIN { FS=\"\t\";\nsplit(\"" + chr.join(" ") + '", chr, " ");\n' +
                 'for (i in chr) {\nchr_map[chr[i]] = 1;\n}\n}\n' +
                 'NR == 1 || (\$1 in chr_map){\nprint \$0;\n}'
             }

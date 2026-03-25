@@ -106,6 +106,9 @@
                     "multiqc/multiqc_report.html",
                     "pipeline_info",
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prepare_genome",
+                    "prepare_genome/GRCh38.s.fa.gz.fai",
+                    "prepare_genome/GRCh38.s.fa.gz.gzi",
                     "simulation",
                     "simulation/csv",
                     "simulation/csv/simulate.csv",
@@ -148,6 +151,8 @@
                     "samtools-coverage_MQ.txt:md5,678629db8f597832c92e40e34a030a5b",
                     "samtools-coverage_Mean_depth.txt:md5,ca2ee0346807443e9008fb84a2d7697e",
                     "samtools-coverage_Reads.txt:md5,428b91fe12113a3fafa1c7a91bd353e9",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "NA12878_Call.depth.mean.tsv:md5,251df319e51ac6c84f093b459bc35afe",
                     "NA12878_Call.depth.tsv:md5,df5db4fe094e31bb199b356e331ad796",
                     "NA19401_Call.depth.mean.tsv:md5,fa817417af538770e493c619fbd4c92d",
@@ -209,10 +214,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-09T11:43:44.129165187",
+        "timestamp": "2026-03-24T17:49:25.775875985",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }
