@@ -37,16 +37,13 @@ workflow PIPELINE_INITIALISATION {
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
     ch_ref_gen        // channel: Channel of reference genome file [meta, fasta, fai, gzi]
-    sheets_given      //   array: Named list of input sheets given
-    steps
-    tools
-    batch_size
-    max_chr_names
-    depth
-    genotype
-    remove_samples
-    normalize
-    chunk_model
+    sheets_given      //     map: Input sheets given
+    steps             //   array: Steps to perform
+    tools             //   array: Tools to be used
+    max_chr_names     // integer: Maximum number of chromosome to log in warnings and errors
+    params_simulate   //     map: Parameters use for simulation step [depth: float, genotype: path]
+    params_panelprep  //     map: Parameters use for panelprep step  [normalize: boolean, remove_samples: string, compute_freq: boolean, phase: boolean, chunk_model: string ]
+    params_impute     //     map: Parameters use for imputation step [batch_size: integer, k_val: integer, n_gen: integer, buffer: integer]
 
     main:
 
@@ -118,6 +115,15 @@ workflow PIPELINE_INITIALISATION {
     def sheet_chunks  = sheets_given["input_chunks"]
     def sheet_map     = sheets_given["input_map"]
     def sheet_region  = sheets_given["input_region"]
+
+    def depth = params_simulate["depth"]
+    def genotype = params_simulate["genotype"]
+
+    def normalize = params_panelprep["normalize"]
+    def remove_samples = params_panelprep["remove_samples"]
+    def chunk_model = params_panelprep["chunk_model"]
+
+    def batch_size = params_impute["batch_size"]
 
     //
     // Custom validation for pipeline parameters
@@ -410,15 +416,15 @@ workflow PIPELINE_INITIALISATION {
     ]}
 
     emit:
-    input_target         = ch_input_target  // [ [meta], file, index ]
-    input_truth          = ch_input_truth   // [ [meta], file, index ]
-    fasta                = ch_fasta_index   // [ [genome], fasta, [fai, gzi] ]
-    panel                = ch_panel         // [ [panel_id, chr], vcf, index ]
-    depth                = ch_depth         // [ [depth], depth ]
-    regions              = ch_regions       // [ [chr, region], region ]
-    gmap                 = ch_map           // [ [map], map ]
-    posfile              = ch_posfile       // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
-    chunks               = ch_chunks        // [ [panel_id, chr], txt ]
+    ch_input_target  // [ [meta], file, index ]
+    ch_input_truth   // [ [meta], file, index ]
+    ch_fasta_index   // [ [genome], fasta, [fai, gzi] ]
+    ch_panel         // [ [panel_id, chr], vcf, index ]
+    ch_depth         // [ [depth], depth ]
+    ch_regions       // [ [chr, region], region ]
+    ch_map           // [ [map], map ]
+    ch_posfile       // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
+    ch_chunks        // [ [panel_id, chr], txt ]
 }
 
 /*

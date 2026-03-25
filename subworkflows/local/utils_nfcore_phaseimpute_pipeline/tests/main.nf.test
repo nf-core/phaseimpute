@@ -36,13 +36,24 @@ nextflow_workflow {
                 ]
                 input[10] = ["panelprep"] // steps
                 input[11] = [] // tools
-                input[12] = null // batch_size
-                input[13] = 5 // max_chr_names
-                input[14] = null // depth
-                input[15] = null // genotype
-                input[16] = null // remove_samples
-                input[17] = null // normalize
-                input[18] = "recursive" // chunk_model
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
                 """
             }
         }
@@ -83,13 +94,24 @@ nextflow_workflow {
                 ]
                 input[10] = ["panelprep"] // steps
                 input[11] = [] // tools
-                input[12] = null // batch_size
-                input[13] = 5 // max_chr_names
-                input[14] = null // depth
-                input[15] = null // genotype
-                input[16] = null // remove_samples
-                input[17] = null // normalize
-                input[18] = "sequential" // chunk_model
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "sequential"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
                 """
             }
         }
@@ -131,13 +153,24 @@ nextflow_workflow {
                 ]
                 input[10] = ["panelprep"] // steps
                 input[11] = [] // tools
-                input[12] = null // batch_size
-                input[13] = 5 // max_chr_names
-                input[14] = null // depth
-                input[15] = null // genotype
-                input[16] = null // remove_samples
-                input[17] = null // normalize
-                input[18] = "recursive" // chunk_model
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
                 """
             }
         }
@@ -179,13 +212,24 @@ nextflow_workflow {
                 ]
                 input[10] = ["panelprep"] // steps
                 input[11] = [] // tools
-                input[12] = null // batch_size
-                input[13] = 5 // max_chr_names
-                input[14] = null // depth
-                input[15] = null // genotype
-                input[16] = null // remove_samples
-                input[17] = null // normalize
-                input[18] = "recursive" // chunk_model
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
                 """
             }
         }

@@ -45,38 +45,27 @@ params.fasta_gzi         = getGenomeAttribute('fasta_gzi')
 workflow NFCORE_PHASEIMPUTE {
 
     take:
-    steps
-    tools
-    ch_input       // channel: samplesheet read in from --input
-    ch_input_truth // channel: samplesheet read in from --input-truth
-    ch_fasta       // channel: reference genome FASTA file with index
-    ch_panel       // channel: reference panel variants file
-    ch_regions     // channel: regions to use [[chr, region], region]
-    ch_depth       // channel: depth of coverage file [[depth], depth]
-    ch_map         // channel: map file for imputation
-    ch_posfile     // channel: samplesheet read in from --posfile
-    ch_chunks      // channel: samplesheet read in from --chunks
-    sheets_given   // Named array of input sheets given
-    chunk_model    // parameter: chunk model
-    rename_chr     // parameter: rename chromosome prefix
-    max_chr_names  // parameter: max number of chr to show in message
-    depth
-    normalize
-    remove_samples
-    compute_freq
-    phase
-    batch_size
-    k_val
-    ngen
-    buffer
-    bins
-    min_val_gl
-    min_val_dp
-    seed
-    multiqc_config
-    multiqc_logo
-    multiqc_methods_description
-    outdir
+    steps            // array: List of steps to perform
+    tools            // array: List of tools to use
+    ch_input         // channel: samplesheet read in from --input
+    ch_input_truth   // channel: samplesheet read in from --input-truth
+    ch_fasta         // channel: reference genome FASTA file with index
+    ch_panel         // channel: reference panel variants file
+    ch_regions       // channel: regions to use [[chr, region], region]
+    ch_depth         // channel: depth of coverage file [[depth], depth]
+    ch_map           // channel: map file for imputation
+    ch_posfile       // channel: samplesheet read in from --posfile
+    ch_chunks        // channel: samplesheet read in from --chunks
+    sheets_given     // map: input sheets given
+    rename_chr       // parameter: rename chromosome prefix
+    max_chr_names    // parameter: max number of chr to show in message
+    params_simulate  // map: parameters use for simulation step [depth: float, genotype: path]
+    params_panelprep // map: parameters use for panelprep step  [normalize: boolean, remove_samples: string, compute_freq: boolean, phase: boolean, chunk_model: string ]
+    params_impute    // map: parameters use for imputation step [batch_size: integer, k_val: integer, n_gen: integer, buffer: integer]
+    params_validate  // map: parameters use for validation step [bins: string, min_val_gl: float, min_val_dp: integer]
+    params_multiqc   // map: parameters use for multiqc report  [config: path, logo: path, methods_description: string]
+    seed             // integer
+    outdir           // path
 
     main:
 
@@ -132,23 +121,12 @@ workflow NFCORE_PHASEIMPUTE {
         ch_posfile,
         ch_chunks,
         sheets_given,
-        chunk_model,
-        depth,
-        normalize,
-        remove_samples,
-        compute_freq,
-        phase,
-        batch_size,
-        k_val,
-        ngen,
-        buffer,
-        bins,
-        min_val_gl,
-        min_val_dp,
+        params_simulate,
+        params_panelprep,
+        params_impute,
+        params_validate,
+        params_multiqc,
         seed,
-        multiqc_config,
-        multiqc_logo,
-        multiqc_methods_description,
         outdir
     )
 
@@ -176,13 +154,45 @@ workflow {
     )
 
     def sheets_given = [
-        "input_target" : params.input,
-        "input_truth"  : params.input_truth,
-        "input_region" : params.input_region,
-        "input_panel"  : params.panel,
-        "input_posfile": params.posfile,
-        "input_chunks" : params.chunks,
-        "input_map"    : params.map,
+        input_target : params.input,
+        input_truth  : params.input_truth,
+        input_region : params.input_region,
+        input_panel  : params.panel,
+        input_posfile: params.posfile,
+        input_chunks : params.chunks,
+        input_map    : params.map,
+    ]
+
+    def params_simulate = [
+        depth   : params.depth,
+        genotype: params.genotype
+    ]
+
+    def params_panelprep = [
+        normalize     : params.normalize,
+        remove_samples: params.remove_samples,
+        compute_freq  : params.compute_freq,
+        phase         : params.phase,
+        chunk_model   : params.chunk_model
+    ]
+
+    def params_impute = [
+        batch_size: params.batch_size,
+        k_val     : params.k_val,
+        n_gen     :params.n_gen,
+        buffer    :params.buffer,
+    ]
+
+    def params_validate = [
+        bins      : params.bins,
+        min_val_gl: params.min_val_gl,
+        min_val_dp: params.min_val_gl
+    ]
+
+    def params_multiqc = [
+        config             : params.multiqc_config,
+        logo               : params.multiqc_logo,
+        methods_description: params.multiqc_methods_description
     ]
 
     //
@@ -201,13 +211,10 @@ workflow {
         sheets_given,
         steps,
         tools,
-        params.batch_size,
         params.max_chr_names,
-        params.depth,
-        params.genotype,
-        params.remove_samples,
-        params.normalize,
-        params.chunk_model
+        params_simulate,
+        params_panelprep,
+        params_impute
     )
 
     //
@@ -216,36 +223,25 @@ workflow {
     NFCORE_PHASEIMPUTE (
         steps,
         tools,
-        PIPELINE_INITIALISATION.out.input_target,
-        PIPELINE_INITIALISATION.out.input_truth,
-        PIPELINE_INITIALISATION.out.fasta,
-        PIPELINE_INITIALISATION.out.panel,
-        PIPELINE_INITIALISATION.out.regions,
-        PIPELINE_INITIALISATION.out.depth,
-        PIPELINE_INITIALISATION.out.gmap,
-        PIPELINE_INITIALISATION.out.posfile,
-        PIPELINE_INITIALISATION.out.chunks,
+        PIPELINE_INITIALISATION.out.ch_input_target,
+        PIPELINE_INITIALISATION.out.ch_input_truth,
+        PIPELINE_INITIALISATION.out.ch_fasta_index,
+        PIPELINE_INITIALISATION.out.ch_panel,
+        PIPELINE_INITIALISATION.out.ch_regions,
+        PIPELINE_INITIALISATION.out.ch_depth,
+        PIPELINE_INITIALISATION.out.ch_map,
+        PIPELINE_INITIALISATION.out.ch_posfile,
+        PIPELINE_INITIALISATION.out.ch_chunks,
         sheets_given,
-        params.chunk_model,
         params.rename_chr,
         params.max_chr_names,
-        params.depth,
-        params.normalize,
-        params.remove_samples,
-        params.compute_freq,
-        params.phase,
-        params.batch_size,
-        params.k_val,
-        params.ngen,
-        params.buffer,
-        params.bins,
-        params.min_val_gl,
-        params.min_val_dp,
+        params_simulate,
+        params_panelprep,
+        params_impute,
+        params_validate,
+        params_multiqc,
         params.seed,
-        params.multiqc_config,
-        params.multiqc_logo,
-        params.multiqc_methods_description,
-        params.outdir
+        params.outdir,
     )
     //
     // SUBWORKFLOW: Run completion tasks

@@ -93,8 +93,8 @@ include { VCF_CONCORDANCE_GLIMPSE2                         } from '../../subwork
 workflow PHASEIMPUTE {
 
     take:
-    steps                   // List of steps to perform
-    tools                   // List of tools to use
+    steps                   // array: List of steps to perform
+    tools                   // array: List of tools to use
     ch_input_impute         // channel: input file    [ [id], file, index ]
     ch_input_sim            // channel: input file    [ [id], file, index ]
     ch_input_validate       // channel: input file    [ [id], file, index ]
@@ -106,25 +106,14 @@ workflow PHASEIMPUTE {
     ch_map                  // channel: genetic map   [ [chr], map]
     ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
-    sheets_given            // Named array of input sheets given ["input": path(sheet), "input_truth": path(sheet), ...]
-    chunk_model             // parameter: chunk model ["sequential", "recursive"]
-    depth                   // parameter: genomic depth to downsample to
-    normalize               // parameter: boolean
-    remove_samples          // parameter: string list of samples to remove from panel
-    compute_freq            // parameter: boolean
-    phase                   // parameter: boolean
-    batch_size              // parameter: integer
-    k_val                   // parameter: integer
-    ngen                    // parameter: integer
-    buffer                  // parameter: integer
-    bins                    // parameter: string of MAF bins list
-    min_val_gl
-    min_val_dp
-    seed
-    multiqc_config
-    multiqc_logo
-    multiqc_methods_description
-    outdir
+    sheets_given            // map: input sheets given [input: path(sheet), input_truth: path(sheet), ...]
+    params_simulate         // map: parameters use for simulation step [depth: float, genotype: path]
+    params_panelprep        // map: parameters use for panelprep step  [normalize: boolean, remove_samples: string, compute_freq: boolean, phase: boolean, chunk_model: string ]
+    params_impute           // map: parameters use for imputation step [batch_size: integer, k_val: integer, n_gen: integer, buffer: integer]
+    params_validate         // map: parameters use for validation step [bins: string, min_val_gl: float, min_val_dp: integer]
+    params_multiqc          // map: parameters use for multiqc report  [config: path, logo: path, methods_description: string]
+    seed                    // integer
+    outdir                  // path
 
     main:
 
@@ -179,7 +168,7 @@ workflow PHASEIMPUTE {
         )
         ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_INP.out.output.map{ _meta, file -> file })
 
-        if (depth) {
+        if (params_simulate["depth"]) {
             // Downsample input to desired depth
             BAM_SUBSAMPLEDEPTH_SAMTOOLS(
                 ch_input_sim, ch_depth,
@@ -223,7 +212,8 @@ workflow PHASEIMPUTE {
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(
             ch_panel, ch_fasta,
-            normalize, compute_freq
+            params_panelprep["normalize"],
+            params_panelprep["compute_freq"]
         )
         ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
 
@@ -241,7 +231,7 @@ workflow PHASEIMPUTE {
             VCF_CHUNK_GLIMPSE(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi,
                 ch_map,
-                chunk_model
+                params_panelprep["chunk_model"]
             )
             ch_chunks  = VCF_CHUNK_GLIMPSE.out.chunks
 
@@ -257,7 +247,7 @@ workflow PHASEIMPUTE {
         }
 
         // Phase panel with Shapeit5
-        if (phase) {
+        if (params_panelprep["phase"]) {
             // Use chunks from parameters and use region with buffer region
             ch_chunks_phase = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
@@ -268,7 +258,7 @@ workflow PHASEIMPUTE {
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, _vcf, _index -> [meta, [], []]}, // No scaffold
                 ch_map,
                 false,
-                chunk_model
+                params_panelprep["chunk_model"]
             )
             ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_index
         }
@@ -315,7 +305,7 @@ workflow PHASEIMPUTE {
         ch_input_bams = ch_input_type.bam
             .toSortedList { it1, it2 -> it1[0]["id"] <=> it2[0]["id"] }
             .map { list ->
-                list.collate(batch_size)
+                list.collate(params_impute["batch_size"])
                     .withIndex()
                     .collect { batch, idx -> [
                         [id: "all_samples", batch: idx], batch
@@ -469,8 +459,8 @@ workflow PHASEIMPUTE {
                 ch_chunks_stitch,
                 ch_map,
                 ch_fasta,
-                k_val,
-                ngen,
+                params_impute["k_val"],
+                params_impute["n_gen"],
                 seed
             )
 
@@ -525,8 +515,8 @@ workflow PHASEIMPUTE {
                 ch_chunks_quilt,
                 ch_map,
                 ch_fasta,
-                ngen,
-                buffer
+                params_impute["n_gen"],
+                params_impute["buffer"]
             )
 
             // Concatenate by chromosomes
@@ -728,9 +718,9 @@ workflow PHASEIMPUTE {
             SPLIT_TRUTH.out.vcf_tbi,
             ch_panel_sites,
             ch_region,
-            bins,
-            min_val_gl,
-            min_val_dp
+            params_validate["bins"],
+            params_validate["min_val_gl"],
+            params_validate["min_val_dp"]
         )
         ch_multiqc_files = ch_multiqc_files.mix(VCF_CONCORDANCE_GLIMPSE2.out.multiqc_files)
     }
@@ -773,12 +763,16 @@ workflow PHASEIMPUTE {
     def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
     def ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    def ch_multiqc_custom_methods_description = multiqc_methods_description
-        ? file(multiqc_methods_description, checkIfExists: true)
+    def ch_multiqc_custom_methods_description = params_multiqc["methods_description"]
+        ? file(params_multiqc["methods_description"], checkIfExists: true)
         : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
     def ch_methods_description = channel.value(methodsDescriptionText(
         ch_multiqc_custom_methods_description,
-        steps, tools, normalize, remove_samples, compute_freq, phase
+        steps, tools,
+        params_panelprep["normalize"],
+        params_panelprep["remove_samples"],
+        params_panelprep["compute_freq"],
+        params_panelprep["phase"]
     ))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: true))
 
@@ -787,10 +781,10 @@ workflow PHASEIMPUTE {
             [
                 [id: 'phaseimpute'],
                 files,
-                multiqc_config
-                    ? file(multiqc_config, checkIfExists: true)
+                params_multiqc["config"]
+                    ? file(params_multiqc["config"], checkIfExists: true)
                     : file("${projectDir}/assets/multiqc_config.yml", checkIfExists: true),
-                multiqc_logo ? file(multiqc_logo, checkIfExists: true) : [],
+                params_multiqc["logo"] ? file(params_multiqc["logo"], checkIfExists: true) : [],
                 [],
                 [],
             ]
