@@ -33,18 +33,11 @@ workflow PIPELINE_INITIALISATION {
     _monochrome_logs  // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
-    _input            //  string: Path to input samplesheet
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
-    ch_ref_gen
-    input_target
-    input_truth
-    input_region
-    input_panel
-    input_posfile
-    input_chunks
-    input_map
+    ch_ref_gen        // channel: Channel of reference genome file [meta, fasta, fai, gzi]
+    sheets_given      //   array: Named list of input sheets given
     steps
     tools
     batch_size
@@ -110,12 +103,28 @@ workflow PIPELINE_INITIALISATION {
         nextflow_cli_args
     )
 
+    if (tools) {
+        log.info("\033[1;37mExtra informations\033[0m")
+        log.info("\033[0;34m  Tools selected to be run  :\033[0;32m " + tools.join(",") + "\033[0m")
+        log.info("-\033[2m----------------------------------------------------\033[0m-")
+    }
+
+    // Initialize variable
+
+    def sheet_target  = sheets_given["input_target"]
+    def sheet_truth   = sheets_given["input_truth"]
+    def sheet_panel   = sheets_given["input_panel"]
+    def sheet_posfile = sheets_given["input_posfile"]
+    def sheet_chunks  = sheets_given["input_chunks"]
+    def sheet_map     = sheets_given["input_map"]
+    def sheet_region  = sheets_given["input_region"]
+
     //
     // Custom validation for pipeline parameters
     //
     validateInputParameters(
-        input_target, input_truth, input_panel,
-        input_posfile, input_chunks,
+        sheet_target, sheet_truth, sheet_panel,
+        sheet_posfile, sheet_chunks,
         genotype, remove_samples, normalize,
         chunk_model,
         steps, tools
@@ -124,9 +133,9 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from input file provided through input
     //
-    if (input_target) {
+    if (sheet_target) {
         ch_input_target = channel
-            .fromList(samplesheetToList(input_target, "${projectDir}/assets/schema_input.json"))
+            .fromList(samplesheetToList(sheet_target, "${projectDir}/assets/schema_input.json"))
             .map { samplesheet ->
                 validateInputSamplesheet(samplesheet)
             }
@@ -149,10 +158,10 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from input file provided through input_truth
     //
-    if (input_truth) {
-        if (input_truth.endsWith("csv")) {
+    if (sheet_truth) {
+        if (sheet_truth.endsWith("csv")) {
             ch_input_truth = channel
-                .fromList(samplesheetToList(input_truth, "${projectDir}/assets/schema_input.json"))
+                .fromList(samplesheetToList(sheet_truth, "${projectDir}/assets/schema_input.json"))
                 .map {
                     meta, file, index ->
                         [ meta + [id:meta.id.toString()], file, index ]
@@ -171,13 +180,13 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel from region input
     //
-    if (input_region == null){
+    if (sheet_region == null){
         // #TODO Add support for string input
         ch_regions  = getRegionFromFai("all", ch_ref_gen)
-    }  else  if (input_region.endsWith(".csv")) {
+    }  else  if (sheet_region.endsWith(".csv")) {
         log.info "Region file provided as input is a samplesheet"
         ch_regions = channel.from(samplesheetToList(
-            input_region, "${projectDir}/assets/schema_input_region.json"
+            sheet_region, "${projectDir}/assets/schema_input_region.json"
         ))
         .map{ chr, start, end ->
             assert end >= start : "End position must be greater than or equal to start position"
@@ -191,11 +200,11 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create channel for panel
     //
-    if (input_panel) {
-        if (input_panel.endsWith("csv")) {
+    if (sheet_panel) {
+        if (sheet_panel.endsWith("csv")) {
             log.info "Panel file provided as input is a samplesheet"
             ch_panel = channel.fromList(samplesheetToList(
-                input_panel, "${projectDir}/assets/schema_input_panel.json"
+                sheet_panel, "${projectDir}/assets/schema_input_panel.json"
             )).map {
                 meta, file, index ->
                     [ meta + [panel_id:meta.panel_id.toString()], file, index ]
@@ -212,10 +221,10 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create map channel
     //
-    if (input_map) {
-        if (input_map.endsWith(".csv")) {
+    if (sheet_map) {
+        if (sheet_map.endsWith(".csv")) {
             log.info "Map file provided as input is a samplesheet"
-            ch_map = channel.fromList(samplesheetToList(input_map, "${projectDir}/assets/schema_map.json"))
+            ch_map = channel.fromList(samplesheetToList(sheet_map, "${projectDir}/assets/schema_map.json"))
         } else {
             error "Map file provided is of another format than CSV (not yet supported). Please separate your reference genome by chromosome and use the samplesheet format."
         }
@@ -245,9 +254,9 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create posfile channel
     //
-    if (input_posfile) {
+    if (sheet_posfile) {
         ch_posfile = channel // ["meta", "vcf", "index", "hap", "legend", "posfile"]
-            .fromList(samplesheetToList(input_posfile, "${projectDir}/assets/schema_posfile.json"))
+            .fromList(samplesheetToList(sheet_posfile, "${projectDir}/assets/schema_posfile.json"))
             .map { meta, vcf, index, hap, legend, posfile ->
                 [ meta + [panel_id:meta.panel_id.toString()], vcf, index, hap, legend, posfile ]
             }
@@ -268,9 +277,9 @@ workflow PIPELINE_INITIALISATION {
     //
     // Create chunks channel
     //
-    if (input_chunks) {
+    if (sheet_chunks) {
         ch_chunks = channel
-            .fromList(samplesheetToList(input_chunks, "${projectDir}/assets/schema_chunks.json"))
+            .fromList(samplesheetToList(sheet_chunks, "${projectDir}/assets/schema_chunks.json"))
             .map { meta, chunks ->
                 [ meta + [panel_id:meta.panel_id.toString()], chunks ]
             }
@@ -304,7 +313,7 @@ workflow PIPELINE_INITIALISATION {
         }
 
     // For each channel if not provided change panel_id to available ones
-    if (!input_panel) {
+    if (!sheet_panel) {
         ch_panel = ch_panel
             .combine(panel_id)
             .map{ metaPC, vcf, index, panel_id_name -> [
@@ -312,7 +321,7 @@ workflow PIPELINE_INITIALISATION {
             ]}
     }
 
-    if (!input_chunks) {
+    if (!sheet_chunks) {
         ch_chunks = ch_chunks
             .combine(panel_id)
             .map{ metaPC, chunks, panel_id_name -> [
@@ -320,7 +329,7 @@ workflow PIPELINE_INITIALISATION {
             ]}
     }
 
-    if (!input_posfile) {
+    if (!sheet_posfile) {
         ch_posfile = ch_posfile
             .combine(panel_id)
             .map{ metaPC, vcf, index, hap, legend, posfile, panel_id_name -> [
@@ -470,8 +479,8 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters(
-    input_target, input_truth, input_panel,
-    input_posfile, input_chunks,
+    sheet_target, sheet_truth, sheet_panel,
+    sheet_posfile, sheet_chunks,
     genotype, remove_samples, normalize,
     chunk_model,
     steps, tools
@@ -495,7 +504,7 @@ def validateInputParameters(
 
     // Check that input is provided for all steps, except panelprep
     if (steps.contains("all") || steps.contains("impute") || steps.contains("simulate") || steps.contains("validate")) {
-        if (!input_target) {
+        if (!sheet_target) {
             error "No input provided"
         }
     }
@@ -504,13 +513,13 @@ def validateInputParameters(
     if (steps.contains("impute") && !steps.find { step -> step in ["all", "panelprep"] }) {
         // Required by all tools except glimpse2, beagle5, minimac4
         if (!tools.find { tool -> tool in ["glimpse2", "beagle5", "minimac4"] }) {
-            if (!input_posfile) {
+            if (!sheet_posfile) {
                 error "No --posfile provided for --steps impute"
             }
         }
         // Required by glimpse1 and glimpse2 only
         if (tools.find { tool -> tool in ["glimpse1", "glimpse2"] }) {
-            if (!input_panel) {
+            if (!sheet_panel) {
                 error "No --panel provided for imputation with GLIMPSE1 or GLIMPSE2"
             }
         }
@@ -518,21 +527,21 @@ def validateInputParameters(
 
     // Check that input_truth is provided when running validate
     if (steps.find { step -> step in ["validate"] } && !steps.find { step -> step in ["simulate"] }) {
-        if (!input_truth) {
+        if (!sheet_truth) {
             error "No --input_truth was provided for --steps validate"
         }
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
-    if (input_panel && input_chunks && steps.find { step -> step in ["all", "panelprep"]} ) {
+    if (sheet_panel && sheet_chunks && steps.find { step -> step in ["all", "panelprep"]} ) {
         log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps impute` mode.")
     }
-    if (input_panel && input_posfile && steps.find { step -> step in ["all", "panelprep"]} ) {
+    if (sheet_panel && sheet_posfile && steps.find { step -> step in ["all", "panelprep"]} ) {
         log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
     }
 
     // Emit an info message when using external panel and impute only
-    if (input_panel && steps.find { step -> step in ["impute"] } && !steps.find { step -> step in ["all", "panelprep"] } ) {
+    if (sheet_panel && steps.find { step -> step in ["impute"] } && !steps.find { step -> step in ["all", "panelprep"] } ) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
 
@@ -673,24 +682,24 @@ def checkMetaChr(chr_a, chr_b, name, max_chr_names){
 //
 // Get region from fasta fai file
 //
-def getRegionFromFai(input_region, ch_fasta) {
+def getRegionFromFai(region_selected, ch_fasta) {
     def ch_regions = channel.empty()
     // Gather regions to use and create the meta map
-    if (input_region ==~ '^(chr)?[0-9XYM]+$' || input_region == "all") {
+    if (region_selected ==~ '^(chr)?[0-9XYM]+$' || region_selected == "all") {
         ch_regions = ch_fasta.map{ _meta, _fasta, fai, _gzi -> fai}
             .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
             .map{it -> [chr:it.chr, region:"0-"+it.size]}
-        if (input_region != "all") {
-            ch_regions = ch_regions.filter{ it -> it.chr == input_region}
+        if (region_selected != "all") {
+            ch_regions = ch_regions.filter{ it -> it.chr == region_selected}
         }
         ch_regions = ch_regions
             .map{ it -> [[chr: it.chr, region: it.chr + ":" + it.region], it.chr + ":" + it.region]}
     } else {
-        if (input_region ==~ '^chr[0-9XYM]+:[0-9]+-[0-9]+$') {
-            ch_regions = channel.from([input_region])
+        if (region_selected ==~ '^chr[0-9XYM]+:[0-9]+-[0-9]+$') {
+            ch_regions = channel.from([region_selected])
                 .map{ it -> [[chr: it.split(":")[0], "region": it], it]}
         } else {
-            error "Invalid input_region: ${input_region}"
+            error "Invalid region_selected: ${region_selected}"
         }
     }
     return ch_regions

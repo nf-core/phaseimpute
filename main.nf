@@ -56,14 +56,10 @@ workflow NFCORE_PHASEIMPUTE {
     ch_map         // channel: map file for imputation
     ch_posfile     // channel: samplesheet read in from --posfile
     ch_chunks      // channel: samplesheet read in from --chunks
+    sheets_given   // Named array of input sheets given
     chunk_model    // parameter: chunk model
     rename_chr     // parameter: rename chromosome prefix
     max_chr_names  // parameter: max number of chr to show in message
-    input_region
-    input_truth
-    posfile
-    chunks
-    panel
     depth
     normalize
     remove_samples
@@ -135,12 +131,8 @@ workflow NFCORE_PHASEIMPUTE {
         ch_map,
         ch_posfile,
         ch_chunks,
+        sheets_given,
         chunk_model,
-        input_region,
-        input_truth,
-        posfile,
-        chunks,
-        panel,
         depth,
         normalize,
         remove_samples,
@@ -159,6 +151,7 @@ workflow NFCORE_PHASEIMPUTE {
         multiqc_methods_description,
         outdir
     )
+
     emit:
     multiqc_report = PHASEIMPUTE.out.multiqc_report // channel: /path/to/multiqc_report.html
 }
@@ -182,6 +175,16 @@ workflow {
         params.fasta_gzi
     )
 
+    def sheets_given = [
+        "input_target" : params.input,
+        "input_truth"  : params.input_truth,
+        "input_region" : params.input_region,
+        "input_panel"  : params.panel,
+        "input_posfile": params.posfile,
+        "input_chunks" : params.chunks,
+        "input_map"    : params.map,
+    ]
+
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -191,18 +194,11 @@ workflow {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input,
         params.help,
         params.help_full,
         params.show_hidden,
         PREPARE_GENOME.out.ch_fasta_fai_gzi,
-        params.input,
-        params.input_truth,
-        params.input_region,
-        params.panel,
-        params.posfile,
-        params.chunks,
-        params.map,
+        sheets_given,
         steps,
         tools,
         params.batch_size,
@@ -229,14 +225,10 @@ workflow {
         PIPELINE_INITIALISATION.out.gmap,
         PIPELINE_INITIALISATION.out.posfile,
         PIPELINE_INITIALISATION.out.chunks,
+        sheets_given,
         params.chunk_model,
         params.rename_chr,
         params.max_chr_names,
-        params.input_region,
-        params.input_truth,
-        params.posfile,
-        params.chunks,
-        params.panel,
         params.depth,
         params.normalize,
         params.remove_samples,

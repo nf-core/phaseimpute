@@ -106,22 +106,18 @@ workflow PHASEIMPUTE {
     ch_map                  // channel: genetic map   [ [chr], map]
     ch_posfile              // channel: posfile       [ [id, chr], vcf, index, hap, legend, posfile]
     ch_chunks               // channel: chunks        [ [chr], txt]
-    chunk_model             // parameter: chunk model
-    input_region_sheet      // Input region provided
-    input_truth_sheet       // Input truth provided
-    posfile_sheet           // Posfile provided
-    chunks_sheet            // Chunks provided
-    panel_sheet             // Panel provided
-    depth                   // Genomic depth to downsample to
-    normalize
-    remove_samples
-    compute_freq
-    phase
-    batch_size
-    k_val
-    ngen
-    buffer
-    bins
+    sheets_given            // Named array of input sheets given ["input": path(sheet), "input_truth": path(sheet), ...]
+    chunk_model             // parameter: chunk model ["sequential", "recursive"]
+    depth                   // parameter: genomic depth to downsample to
+    normalize               // parameter: boolean
+    remove_samples          // parameter: string list of samples to remove from panel
+    compute_freq            // parameter: boolean
+    phase                   // parameter: boolean
+    batch_size              // parameter: integer
+    k_val                   // parameter: integer
+    ngen                    // parameter: integer
+    buffer                  // parameter: integer
+    bins                    // parameter: string of MAF bins list
     min_val_gl
     min_val_dp
     seed
@@ -147,7 +143,7 @@ workflow PHASEIMPUTE {
                 error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${ext}"
             } }
 
-        if (input_region_sheet) {
+        if (sheets_given["input_region"]) {
             // Split the bam into the regions specified
             BAM_EXTRACT_REGION_SAMTOOLS(ch_input_sim, ch_region, ch_fasta)
             ch_input_sim = BAM_EXTRACT_REGION_SAMTOOLS.out.bam_region
@@ -155,7 +151,7 @@ workflow PHASEIMPUTE {
 
         // Use input for simulation as truth for validation step
         // if no truth is provided
-        if (!input_truth_sheet) {
+        if (!sheets_given["input_truth"]) {
             ch_input_truth = ch_input_sim
         }
 
@@ -235,12 +231,12 @@ workflow PHASEIMPUTE {
         VCF_SITES_EXTRACT_BCFTOOLS(ch_panel_phased, ch_fasta)
 
         // Generate all necessary channels
-        if (!posfile_sheet){
+        if (!sheets_given["input_posfile"]){
             ch_posfile  = VCF_SITES_EXTRACT_BCFTOOLS.out.posfile
         }
 
         // Use glimpse 1 for chunks if not provided
-        if (!chunks_sheet){
+        if (!sheets_given["input_chunks"]){
             // Create chunks from reference VCF
             VCF_CHUNK_GLIMPSE(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi,
@@ -346,7 +342,7 @@ workflow PHASEIMPUTE {
             .join(LISTTOFILE.out.txt)
 
         // Use panel from parameters if provided
-        if (panel_sheet && !steps.find { step -> step in ["all", "panelprep"] }) {
+        if (sheets_given["input_panel"] && !steps.find { step -> step in ["all", "panelprep"] }) {
             ch_panel_phased = ch_panel
         }
 
