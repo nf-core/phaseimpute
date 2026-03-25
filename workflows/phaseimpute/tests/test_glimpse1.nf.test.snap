@@ -293,7 +293,7 @@
             "nextflow": "26.02.0"
         }
     },
-    "Check test_glimpse1 - with chunks - with map": {
+    "Check test_glimpse1 - with chunks": {
         "content": [
             {
                 "workflow size": 39,
