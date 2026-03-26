@@ -732,7 +732,7 @@ workflow PHASEIMPUTE {
         softwareVersions: channel.topic("versions"),
         nextflowVersion: workflow.nextflow.version,
     ).collectFile(
-        storeDir: "${params.outdir}/pipeline_info",
+        storeDir: "${outdir}/pipeline_info",
         name: 'nf_core_' + 'phaseimpute_software_' + 'mqc_' + 'versions.yml',
         sort: true,
         newLine: true,
