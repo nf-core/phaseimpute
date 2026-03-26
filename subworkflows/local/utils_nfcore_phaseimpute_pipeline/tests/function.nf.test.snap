@@ -12,7 +12,7 @@
     "Test getRegionFromFai with an error": {
         "content": [
             [
-                "Invalid input_region: chr22:0-4000:4648"
+                "Invalid region_selected: chr22:0-4000:4648"
             ]
         ],
         "timestamp": "2025-06-19T09:39:16.168659666",
