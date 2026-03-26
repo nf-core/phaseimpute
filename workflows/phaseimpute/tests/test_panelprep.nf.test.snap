@@ -5,22 +5,22 @@
                 "workflow size": 36,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_NORM": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_VIEW": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
@@ -32,7 +32,7 @@
                         "glimpse": "1.1.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -41,10 +41,10 @@
                         "shapeit5": "5.1.1"
                     },
                     "TABIX_BGZIP": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
@@ -228,28 +228,28 @@
                 "workflow size": 32,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_NORM": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_VIEW": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -258,10 +258,10 @@
                         "shapeit5": "5.1.1"
                     },
                     "TABIX_BGZIP": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
