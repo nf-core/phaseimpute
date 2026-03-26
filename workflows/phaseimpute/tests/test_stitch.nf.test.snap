@@ -32,7 +32,7 @@
                         "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_IMPUTE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -188,12 +188,11 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:29:29.956542713",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-15T01:07:45.207910304"
+        "timestamp": "2026-03-26T20:11:16.919378838"
     },
     "Check test_stitch - with chunks": {
         "content": [
@@ -228,7 +227,7 @@
                         "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_IMPUTE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -384,12 +383,11 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:27:37.931794905",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-15T01:02:29.240334521"
+        "timestamp": "2026-03-26T20:06:17.897085892"
     },
     "Check test_stitch - with chunks - no map": {
         "content": [
@@ -424,7 +422,7 @@
                         "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_IMPUTE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -580,11 +578,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:28:34.341374721",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-15T01:05:20.614340563"
+        "timestamp": "2026-03-26T20:08:59.488949454"
     }
 }
