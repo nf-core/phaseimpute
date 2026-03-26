@@ -75,33 +75,6 @@ def getWorkflowVersion() {
 }
 
 //
-// Get software versions for pipeline
-//
-def processVersionsFromYAML(yaml_file) {
-    def yaml = new org.yaml.snakeyaml.Yaml()
-    def versions = yaml.load(yaml_file).collectEntries { k, v -> [k.tokenize(':')[-1], v] }
-    return yaml.dumpAsMap(versions).trim()
-}
-
-//
-// Get workflow version for pipeline
-//
-def workflowVersionToYAML() {
-    return """
-    Workflow:
-        ${workflow.manifest.name}: ${getWorkflowVersion()}
-        Nextflow: ${workflow.nextflow.version}
-    """.stripIndent().trim()
-}
-
-//
-// Get channel of software versions used in pipeline in YAML format
-//
-def softwareVersionsToYAML(ch_versions) {
-    return ch_versions.unique().map { version -> processVersionsFromYAML(version) }.unique().mix(channel.of(workflowVersionToYAML()))
-}
-
-//
 // Get workflow summary for MultiQC
 //
 def paramsSummaryMultiqc(summary_params) {

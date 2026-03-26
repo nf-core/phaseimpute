@@ -146,13 +146,6 @@ workflow {
     def steps = params.steps.split(',') as List
     def tools = params.tools ? params.tools.split(',') as List : []
 
-    PREPARE_GENOME(
-        params.genome ?: file(params.fasta, checkIfExists:true).getBaseName(),
-        params.fasta,
-        params.fasta_fai,
-        params.fasta_gzi
-    )
-
     def sheets_given = [
         input_target : params.input,
         input_truth  : params.input_truth,
@@ -194,6 +187,13 @@ workflow {
         logo               : params.multiqc_logo,
         methods_description: params.multiqc_methods_description
     ]
+
+    PREPARE_GENOME(
+        params.genome ?: file(params.fasta, checkIfExists:true).getBaseName(),
+        params.fasta,
+        params.fasta_fai,
+        params.fasta_gzi
+    )
 
     //
     // SUBWORKFLOW: Run initialisation tasks
