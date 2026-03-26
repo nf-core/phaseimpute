@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#259](https://github.com/nf-core/phaseimpute/pull/259) - Move from local to nf-core sbwf for variant calling from BAM input files.
 - [#260](https://github.com/nf-core/phaseimpute/pull/260) - Move from local to nf-core sbwf for `VCF` concatenation.
 - [#262](https://github.com/nf-core/phaseimpute/pull/262) - Change from `master` to `main` branch.
+- [#268](https://github.com/nf-core/phaseimpute/pull/268) - Refactor duplicated QUILT/STITCH posfile preprocessing into a single step.
 - [#273](https://github.com/nf-core/phaseimpute/pull/273) - Update nf-core modules, fix syntax. Remove `SAMTOOLS_REHEADER` patch and pass command through meta map. Update nf-test in Github Action to 0.9.4.
 
 ### `Fixed`
