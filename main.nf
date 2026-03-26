@@ -186,7 +186,7 @@ workflow {
     def params_validate = [
         bins      : params.bins,
         min_val_gl: params.min_val_gl,
-        min_val_dp: params.min_val_gl
+        min_val_dp: params.min_val_dp
     ]
 
     def params_multiqc = [
