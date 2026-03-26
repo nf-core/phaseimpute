@@ -43,7 +43,7 @@ input:
         - fai:
           type: file
           description: FASTA index file of the reference genome
-          pattern: "*.fai"
+          pattern: "*.(fai|gzi)"
 output:
   - vcf_tbi:
       description: Channel with normalized VCF files

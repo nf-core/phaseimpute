@@ -7,7 +7,7 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     take:
     ch_bam    // channel: [ [id], bam, bai ]
     ch_region // channel: [ [chr, region], val(chr:start-end) ]
-    ch_fasta  // channel: [ [genome], fasta, fai ]
+    ch_fasta  // channel: [ [genome], fasta, [fai,gzi] ]
 
     main:
 
@@ -43,7 +43,7 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     SAMTOOLS_INDEX(SAMTOOLS_MERGE.out.bam)
 
     ch_bam_region_all = SAMTOOLS_MERGE.out.bam
-        .join(SAMTOOLS_INDEX.out.bai)
+        .join(SAMTOOLS_INDEX.out.index)
 
     emit:
         bam_region = ch_bam_region_all // channel: [ [id, chr], bam, index ]

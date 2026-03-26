@@ -3,7 +3,6 @@ include { BAMCHREXTRACT           } from '../../modules/local/bamchrextract'
 include { BAM_CHR_RENAME_SAMTOOLS } from '../../subworkflows/local/bam_chr_rename_samtools'
 include { VCF_CHR_RENAME_BCFTOOLS } from '../../subworkflows/local/vcf_chr_rename_bcftools'
 include { checkChr                } from './function.nf'
-include { diffChr                 } from './function.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,12 +33,12 @@ workflow CHRCHECK {
         ch_vcf_split = channel.empty()
         // Extract the contig names from the VCF files
         VCFCHREXTRACT(ch_input.vcf.map{ meta, file, _index, _chr -> [meta, file] })
-        ch_vcf_split = checkChr(VCFCHREXTRACT.out.chr, ch_input.vcf)
+        ch_vcf_split = checkChr(VCFCHREXTRACT.out.chr, ch_input.vcf, max_chr_names)
 
         ch_bam_split = channel.empty()
         // Extract the contig names from the BAM files
         BAMCHREXTRACT(ch_input.bam.map{ meta, file, _index, _chr -> [meta, file] })
-        ch_bam_split = checkChr(BAMCHREXTRACT.out.chr, ch_input.bam)
+        ch_bam_split = checkChr(BAMCHREXTRACT.out.chr, ch_input.bam, max_chr_names)
 
         if (rename_chr) {
             ch_bam_renamed = channel.empty()

@@ -38,7 +38,7 @@ input:
         - fai:
           type: file
           description: FASTA index file of the reference genome
-          pattern: "*.fai"
+          pattern: "*.(fai|gzi)"
 output:
   - posfile:
       description: Channel with all the converted files

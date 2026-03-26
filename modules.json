@@ -81,7 +81,7 @@
                     },
                     "gawk": {
                         "branch": "master",
-                        "git_sha": "76b1f53edcf72798d8515c82f4728ad44b3dd902",
+                        "git_sha": "c0da8f3a26835d663873001382a708f75766fec6",
                         "installed_by": ["bam_subsampledepth_samtools", "modules"]
                     },
                     "glimpse/chunk": {
@@ -148,7 +148,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "af27af1be706e6a2bb8fe454175b0cdf77f47b49",
+                        "git_sha": "2c73cc8fa92cf48de3da0b643fdf357a8a290b36",
                         "installed_by": ["modules"]
                     },
                     "quilt/quilt": {
@@ -158,38 +158,37 @@
                     },
                     "samtools/coverage": {
                         "branch": "master",
-                        "git_sha": "440edf75d8782913115a7b72a88392a227f72cc1",
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
                         "installed_by": ["modules"]
                     },
                     "samtools/depth": {
                         "branch": "master",
-                        "git_sha": "128c609f2812f748ec8d9566fc2953b72099fdcf",
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
                         "installed_by": ["bam_subsampledepth_samtools", "modules"]
                     },
                     "samtools/faidx": {
                         "branch": "master",
-                        "git_sha": "b2e78932ef01165fd85829513eaca29eff8e640a",
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
                         "installed_by": ["modules"]
                     },
                     "samtools/index": {
                         "branch": "master",
-                        "git_sha": "1d2fbdcbca677bbe8da0f9d0d2bb7c02f2cab1c9",
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
                         "installed_by": ["modules"]
                     },
                     "samtools/merge": {
                         "branch": "master",
-                        "git_sha": "440edf75d8782913115a7b72a88392a227f72cc1",
+                        "git_sha": "44b7dad0181c7a0495f6d128d8cbf55feb277a84",
                         "installed_by": ["modules"]
                     },
                     "samtools/reheader": {
                         "branch": "master",
-                        "git_sha": "440edf75d8782913115a7b72a88392a227f72cc1",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/samtools/reheader/samtools-reheader.diff"
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
+                        "installed_by": ["modules"]
                     },
                     "samtools/view": {
                         "branch": "master",
-                        "git_sha": "b2e78932ef01165fd85829513eaca29eff8e640a",
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
                         "installed_by": ["bam_subsampledepth_samtools", "modules"]
                     },
                     "shapeit5/ligate": {
@@ -204,7 +203,7 @@
                     },
                     "stitch": {
                         "branch": "master",
-                        "git_sha": "e1cb31f0ced0d0810d1cb099aaa690b05beb1f3a",
+                        "git_sha": "380cb90926b8c28558cb11479da5ff45bc4f1c5d",
                         "installed_by": ["bam_impute_stitch", "modules"]
                     },
                     "tabix/bgzip": {
@@ -238,7 +237,7 @@
                     },
                     "bam_subsampledepth_samtools": {
                         "branch": "master",
-                        "git_sha": "b2e78932ef01165fd85829513eaca29eff8e640a",
+                        "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_variant_calling_mpileup_bcftools": {

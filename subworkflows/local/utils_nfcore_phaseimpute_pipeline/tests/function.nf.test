@@ -1,3 +1,14 @@
+def check_stdout(function_stdout) {
+    function_stdout[2..-1]
+        .findAll {
+            !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) &&
+            !it.matches(/.*Downloading plugin.*/) &&
+            !it.matches(/WARN: Unrecognized config option.*/) &&
+            !it.matches(/WARN: Failed to render CO2e footprint report.*/) &&
+            !it.matches(/WARN: Failed to render execution (report|timeline).*/)
+        }
+}
+
 nextflow_function {
     /*
     The following tests are for the functions in the main.nf script
@@ -86,7 +97,8 @@ nextflow_function {
                     [[id: "input7"], file("input7.bam"), file("input5.bai")],
                     [[], [], []],
                     [[id: "input9"], file("input9.fa"), file("input9.fai")],
-                    [[], [], []]
+                    [[], [], []],
+                    [[id: "input10"], file("input10.fa.bgz"), file("input10.fa.bgz.fai"), file("input10.fa.bgz.gzi")],
                 ])
                 """
             }
@@ -108,13 +120,14 @@ nextflow_function {
                     [[id: "input2"], file("input2.vcf"), file("input2.tbi")],
                     [[id: "input3"], file("input3.bcf"), file("input3.csi")],
                     [[id: "input4"], file("input4.bcf"), file("input4.tbi")],
-                    [[id: "input5"], file("input5.vcf.gz"), file("input5.csi")],
-                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input5"], file("input5.vcf.gz"), file("input5.vcf.gz.csi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.vcf.gz.tbi")],
                     [[id: "input7"], file("input7.bam"), file("input7.bai")],
-                    [[id: "input7"], file("input8.bam"), file("input8.csi")],
-                    [[id: "input8"], file("input9.cram"), file("input9.crai")],
-                    [[id: "input9"], file("input10.fa"), file("input10.fai")],
-                    [[id: "input10"], file("input11.fa"), file("input111.fai")]
+                    [[id: "input8"], file("input8.bam"), file("input8.csi")],
+                    [[id: "input9"], file("input9.cram"), file("input9.crai")],
+                    [[id: "input10"], file("input10.fa"), file("input10.fai")],
+                    [[id: "input11"], file("input11.fa"), file("input11.fai")],
+                    [[id: "input12"], file("input12.fa.bgz"), file("input12.fa.bgz.fai"), file("input12.fa.bgz.gzi")]
                 ])
                 """
             }
@@ -252,7 +265,7 @@ nextflow_function {
                 """
                 input[0] = channel.fromList([
                     [[id: "input7"], file("input7.fasta"), file("input6.fia")],
-                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.vcf.gz.tbi")],
                     [[id: "input8"], file("input8.bam"), file("input8.bai")]
                 ])
                 """
@@ -261,6 +274,48 @@ nextflow_function {
         then {
             assert function.failed
             assert function.stdout.contains("[id:input7]: Index file for .fa and .fasta must have the extension .fai")
+        }
+    }
+
+    test("Test checkFileIndex fa.gz fai - no gzi") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        tag "test2"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.fa.gz"), file("input7.fa.gz.fai")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.vcf.gz.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bam.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for .(fa,fasta).(gz,bgz) must have the extension .gzi")
+        }
+    }
+
+    test("Test checkFileIndex fa.gz fai - gzi wrong ext") {
+        function "checkFileIndex"
+        tag "checkFileIndex"
+        tag "test2"
+        when {
+            function {
+                """
+                input[0] = channel.fromList([
+                    [[id: "input7"], file("input7.fa.gz"), file("input7.fa.gz.fai"), file("input7.fa.gz.giz")],
+                    [[id: "input6"], file("input6.vcf.gz"), file("input6.tbi")],
+                    [[id: "input8"], file("input8.bam"), file("input8.bai")]
+                ])
+                """
+            }
+        }
+        then {
+            assert function.failed
+            assert function.stdout.contains("[id:input7]: Index file for .(fa,fasta).(gz,bgz) must have the extension .gzi")
         }
     }
 
@@ -323,9 +378,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() },
+                { assert snapshot(this.check_stdout(function.stdout)).match() },
                 { assert function.stdout.contains("WARN: Chr : [chrY] is missing from test") }
             )
         }
@@ -347,9 +400,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -370,9 +421,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -393,9 +442,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -416,7 +463,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(check_stdout(function.stdout)).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -552,7 +599,8 @@ nextflow_function {
                 input[1] = channel.of([
                     [genome:"GRCh37"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
-                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    []
                 ])
                 """
             }
@@ -578,7 +626,8 @@ nextflow_function {
                 input[1] = channel.of([
                     [genome:"GRCh37"],
                     file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
-                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
                 ])
                 """
             }
@@ -601,7 +650,7 @@ nextflow_function {
             function {
                 """
                 input[0] = "chr22:0-4000"
-                input[1] = channel.of([[], [], []])
+                input[1] = channel.of([[], [], [], []])
                 """
             }
         }
@@ -623,7 +672,7 @@ nextflow_function {
             function {
                 """
                 input[0] = "chr22:0-4000:4648"
-                input[1] = channel.of([[],[],[]])
+                input[1] = channel.of([[],[],[],[]])
                 """
             }
         }
@@ -631,9 +680,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.failed },
-                { assert snapshot(
-                    check_stdout(function.stdout)
-                ).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -737,9 +784,4 @@ nextflow_function {
             )
         }
     }
-}
-
-def check_stdout(function_stdout) {
-    function_stdout[2..-1]
-        .findAll { !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) }
 }

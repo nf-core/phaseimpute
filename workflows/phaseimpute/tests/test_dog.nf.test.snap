@@ -2,10 +2,10 @@
     "Check test_dog": {
         "content": [
             {
-                "workflow size": 90,
+                "workflow size": 91,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": "1.22.1"
+                        "samtools": 1.23
                     },
                     "BCFTOOLS_ANNOTATE": {
                         "bcftools": 1.22
@@ -44,10 +44,10 @@
                         "tabix": 1.21
                     },
                     "GAWK": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_IMPUTED": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.0"
@@ -71,11 +71,14 @@
                         "glimpse": "1.1.1"
                     },
                     "LISTTOFILE": {
-                        "gawk": "5.3.0"
+                        "gawk": "5.3.1"
                     },
                     "QUILT_QUILT": {
                         "r-base": "4.3.1",
                         "r-quilt": "1.0.5"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": 1.23
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -442,7 +445,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:10:43.166482182",
+        "timestamp": "2026-03-19T15:58:12.247018289",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
