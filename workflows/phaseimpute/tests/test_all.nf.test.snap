@@ -113,7 +113,7 @@
                         "glimpse": "1.1.1"
                     },
                     "GUNZIP": {
-                        "gunzip": 1.13
+                        "gunzip": "1.13"
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"

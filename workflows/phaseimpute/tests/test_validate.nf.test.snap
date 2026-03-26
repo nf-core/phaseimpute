@@ -38,7 +38,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "GUNZIP": {
-                        "gunzip": 1.13
+                        "gunzip": "1.13"
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23"

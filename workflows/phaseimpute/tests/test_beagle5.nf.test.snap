@@ -23,7 +23,7 @@
                         "bcftools": "1.22"
                     },
                     "BEAGLE5_BEAGLE": {
-                        "beagle": 5.5
+                        "beagle": "5.5"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -215,7 +215,7 @@
                         "bcftools": "1.22"
                     },
                     "BEAGLE5_BEAGLE": {
-                        "beagle": 5.5
+                        "beagle": "5.5"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -407,7 +407,7 @@
                         "bcftools": "1.22"
                     },
                     "BEAGLE5_BEAGLE": {
-                        "beagle": 5.5
+                        "beagle": "5.5"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
