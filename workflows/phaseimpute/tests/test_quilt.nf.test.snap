@@ -22,13 +22,13 @@
                     "BCFTOOLS_STATS_TOOLS": {
                         "bcftools": "1.22"
                     },
-                    "BGZIP_POSFILE_QUILT": {
+                    "BGZIP_POSFILE_IMPUTE": {
                         "tabix": "1.21"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
                     },
-                    "GAWK_POSFILE_QUILT": {
+                    "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
@@ -215,11 +215,11 @@
                 }
             }
         ],
-        "timestamp": "2026-03-24T17:48:37.893101334",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-26T19:49:24.860396812"
     },
     "Check test_quilt - with chunks": {
         "content": [
@@ -244,13 +244,13 @@
                     "BCFTOOLS_STATS_TOOLS": {
                         "bcftools": "1.22"
                     },
-                    "BGZIP_POSFILE_QUILT": {
+                    "BGZIP_POSFILE_IMPUTE": {
                         "tabix": "1.21"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
                     },
-                    "GAWK_POSFILE_QUILT": {
+                    "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
@@ -449,11 +449,11 @@
                 }
             }
         ],
-        "timestamp": "2026-03-24T17:46:07.7304167",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-26T19:41:03.386937466"
     },
     "Check test_quilt - with chunks - no map": {
         "content": [
@@ -478,13 +478,13 @@
                     "BCFTOOLS_STATS_TOOLS": {
                         "bcftools": "1.22"
                     },
-                    "BGZIP_POSFILE_QUILT": {
+                    "BGZIP_POSFILE_IMPUTE": {
                         "tabix": "1.21"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
                     },
-                    "GAWK_POSFILE_QUILT": {
+                    "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
@@ -683,10 +683,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-24T17:47:23.067913733",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-26T19:45:47.839065953"
     }
 }
