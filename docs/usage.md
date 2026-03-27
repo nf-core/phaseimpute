@@ -159,10 +159,10 @@ You only need to provide map file that verify the following:
 - one file by chromosome
 - contain at least the following two columns (with `_` being a non alphanumeric character):
   - `pos`: physical position (base pairs), can be named: pos, position or bp
-  - `cm`: genetic position (centiMorgans), can be named: id, snp, marker or rsid
+  - `cm`: genetic position (centiMorgans), can be named: cm or genetic_map_cm
 - additional optional columns include:
   - `chr`: chromosome name, can be named: \_chr, chrom or chromosome
-  - `id`: variant identifier, can be named: cm or genetic_map_cm
+  - `id`: variant identifier, can be named: id, snp, marker or rsid
 - if no header provided:
   - if three columns should be, strictly in this order: **chr, pos, cm** (minimac format)
   - if four columns should be, strictly in this order: **chr, id, cm, pos** (plink format)
