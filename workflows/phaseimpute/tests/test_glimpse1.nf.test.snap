@@ -587,7 +587,7 @@
             "nextflow": "25.10.0"
         }
     },
-    "Check test_glimpse1 - no chunks - with map": {
+    "Check test_glimpse1 - no chunks - no map": {
         "content": [
             {
                 "workflow size": 35,
@@ -873,10 +873,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-25T16:35:06.854189684",
+        "timestamp": "2026-03-27T15:26:31.193498681",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.0"
+            "nextflow": "26.02.0"
         }
     }
 }
