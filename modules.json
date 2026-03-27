@@ -81,7 +81,7 @@
                     },
                     "custom/geneticmapconvert": {
                         "branch": "master",
-                        "git_sha": "5e9b6aedc74a528744861723ff3ea89959605666",
+                        "git_sha": "d879be4b3adc1bce389b002bd66f6954630f57d2",
                         "installed_by": ["modules"]
                     },
                     "gawk": {

@@ -215,7 +215,7 @@
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
                         "r-data.table": "1.17.8",
-                        "r-stringr": "1.6.0"
+                        "r-janitor": "2.2.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -329,15 +329,15 @@
                     "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
                     "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
                     "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
-                    "1000GP_chr21.glimpse.map:md5,e0106cfa96d41c7ccf2e414adf78ddd9",
-                    "1000GP_chr21.minimac.map:md5,48c59c99a759484572da0bb82008680d",
-                    "1000GP_chr21.plink.map:md5,62b2af1b90139350cbdd6decc661f0d0",
-                    "1000GP_chr21.stitch.map:md5,2c608eedfc6dd2fc039901e86f898be3",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
                     "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
                     "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
-                    "1000GP_chr22.stitch.map:md5,6329ca68d7544df0cbbffd2e0e2afa2d",
-                    "versions.yml:md5,a674fd7c7a878cf85714b550f37cd020",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -398,7 +398,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-23T07:55:56.316128039",
+        "timestamp": "2026-03-27T14:26:05.970266528",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"
@@ -430,7 +430,7 @@
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
                         "r-data.table": "1.17.8",
-                        "r-stringr": "1.6.0"
+                        "r-janitor": "2.2.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -544,15 +544,15 @@
                     "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
                     "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
                     "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
-                    "1000GP_chr21.glimpse.map:md5,e0106cfa96d41c7ccf2e414adf78ddd9",
-                    "1000GP_chr21.minimac.map:md5,48c59c99a759484572da0bb82008680d",
-                    "1000GP_chr21.plink.map:md5,62b2af1b90139350cbdd6decc661f0d0",
-                    "1000GP_chr21.stitch.map:md5,2c608eedfc6dd2fc039901e86f898be3",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
                     "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
                     "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
-                    "1000GP_chr22.stitch.map:md5,6329ca68d7544df0cbbffd2e0e2afa2d",
-                    "versions.yml:md5,a674fd7c7a878cf85714b550f37cd020",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -613,7 +613,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-23T07:57:56.460176569",
+        "timestamp": "2026-03-27T14:28:10.693019134",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"

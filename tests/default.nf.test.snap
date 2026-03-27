@@ -2,7 +2,7 @@
     "-profile test": {
         "content": [
             {
-                "workflow size": 41,
+                "workflow size": 39,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": 1.23
@@ -33,11 +33,6 @@
                     },
                     "BCFTOOLS_STATS_TOOLS": {
                         "bcftools": 1.22
-                    },
-                    "CUSTOM_GENETICMAPCONVERT": {
-                        "r-base": "4.5.3",
-                        "r-data.table": "1.17.8",
-                        "r-stringr": "1.6.0"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -123,17 +118,6 @@
                     "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
-                    "initialisation",
-                    "initialisation/map_convertion",
-                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
-                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
-                    "initialisation/map_convertion/1000GP_chr21.plink.map",
-                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
-                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
-                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
-                    "initialisation/map_convertion/1000GP_chr22.plink.map",
-                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
-                    "initialisation/map_convertion/versions.yml",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -200,15 +184,6 @@
                     "NA12878.glimpse1.bcftools_stats.txt:md5,d712e30d7f2450ca22c905421f006494",
                     "NA19401.glimpse1.bcftools_stats.txt:md5,86efb7502150bfcdd60a77c35e78de64",
                     "NA20359.glimpse1.bcftools_stats.txt:md5,62b33ff85651520eab02ac21dd4995ec",
-                    "1000GP_chr21.glimpse.map:md5,e0106cfa96d41c7ccf2e414adf78ddd9",
-                    "1000GP_chr21.minimac.map:md5,48c59c99a759484572da0bb82008680d",
-                    "1000GP_chr21.plink.map:md5,62b2af1b90139350cbdd6decc661f0d0",
-                    "1000GP_chr21.stitch.map:md5,2c608eedfc6dd2fc039901e86f898be3",
-                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
-                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
-                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
-                    "1000GP_chr22.stitch.map:md5,6329ca68d7544df0cbbffd2e0e2afa2d",
-                    "versions.yml:md5,a674fd7c7a878cf85714b550f37cd020",
                     "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
                     "bcftools_stats_indel-lengths.txt:md5,ee1c3af6586e9f8de2f20f759a7741eb",
                     "bcftools_stats_variant_depths.txt:md5,4c05005171167a0ca6824cbff8f7ddb4",
@@ -312,7 +287,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-23T12:00:56.54182501",
+        "timestamp": "2026-03-27T14:31:35.555338815",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"
