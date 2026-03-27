@@ -55,15 +55,15 @@ include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE1              } from '../../subw
 include { BAM_VCF_IMPUTE_GLIMPSE2                    } from '../../subworkflows/nf-core/bam_vcf_impute_glimpse2'
 include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE2     } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
+// Shared posfile transform for QUILT/STITCH
+include { GAWK as GAWK_POSFILE_IMPUTE                } from '../../modules/nf-core/gawk'
+include { TABIX_BGZIP as BGZIP_POSFILE_IMPUTE        } from '../../modules/nf-core/tabix/bgzip'
+
 // QUILT subworkflows
-include { GAWK as GAWK_POSFILE_QUILT                 } from '../../modules/nf-core/gawk'
-include { TABIX_BGZIP as BGZIP_POSFILE_QUILT         } from '../../modules/nf-core/tabix/bgzip'
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
 include { VCF_GATHER_BCFTOOLS as CONCAT_QUILT        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // STITCH subworkflows
-include { GAWK as GAWK_POSFILE_STITCH                } from '../../modules/nf-core/gawk'
-include { TABIX_BGZIP as BGZIP_POSFILE_STITCH        } from '../../modules/nf-core/tabix/bgzip'
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/nf-core/bam_impute_stitch'
 include { VCF_GATHER_BCFTOOLS as CONCAT_STITCH       } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
@@ -298,6 +298,19 @@ workflow PHASEIMPUTE {
     // Impute target files
     //
     if (steps.contains("impute") || steps.contains("all")) {
+
+        if (params.tools.split(',').any{ it in ["stitch", "quilt"] }) {
+            // Transform posfile to tabulated format shared by QUILT and STITCH
+            GAWK_POSFILE_IMPUTE(
+                ch_posfile.map{
+                    meta, _site, _site_index, _hap, _legend, posfile -> [
+                        meta, posfile
+                    ]
+                }, [], false
+            )
+
+            BGZIP_POSFILE_IMPUTE(GAWK_POSFILE_IMPUTE.out.output)
+        }
         // Split input files into BAMs and VCFs
         ch_input_type = ch_input_impute
             .branch { _meta, file, _index ->
@@ -447,16 +460,6 @@ workflow PHASEIMPUTE {
 
             ch_chunks_stitch = chunkPrepareChannel(ch_chunks, ch_region, "quilt")
 
-            // Transform posfile to tabulated format
-            GAWK_POSFILE_STITCH(
-                ch_posfile.map{
-                    meta, _site, _site_index, _hap, _legend, posfile -> [
-                        meta, posfile
-                    ]
-                }, [], false)
-
-            BGZIP_POSFILE_STITCH(GAWK_POSFILE_STITCH.out.output)
-
             // Impute with STITCH
             BAM_IMPUTE_STITCH (
                 ch_input_bams_withlist.map{
@@ -464,7 +467,7 @@ workflow PHASEIMPUTE {
                         meta, file, index, bampath_noid, bamnames
                     ]
                 },
-                BGZIP_POSFILE_STITCH.out.output,
+                BGZIP_POSFILE_IMPUTE.out.output,
                 ch_chunks_stitch,
                 ch_map_stitch,
                 ch_fasta,
@@ -495,23 +498,12 @@ workflow PHASEIMPUTE {
             // Use provided chunks if --chunks or whole chromosome
             ch_chunks_quilt = chunkPrepareChannel(ch_chunks, ch_region, "quilt")
 
-            // Transform posfile to tabulated format
-            GAWK_POSFILE_QUILT(
-                ch_posfile.map{
-                    meta, _site, _site_index, _hap, _legend, posfile -> [
-                        meta, posfile
-                    ]
-                }, [], false
-            )
-
-            BGZIP_POSFILE_QUILT(GAWK_POSFILE_QUILT.out.output)
-
             ch_posfile_quilt = ch_posfile
                 .map{
                     meta, _site, _site_index, hap, legend, _posfile -> [
                         meta, hap, legend
                     ]
-                }.join(BGZIP_POSFILE_QUILT.out.output)
+                }.join(BGZIP_POSFILE_IMPUTE.out.output)
 
             // Impute BAMs with QUILT
             BAM_IMPUTE_QUILT(

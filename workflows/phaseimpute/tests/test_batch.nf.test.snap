@@ -40,7 +40,7 @@
                     "BCFTOOLS_STATS_TRUTH": {
                         "bcftools": 1.22
                     },
-                    "BGZIP_POSFILE_QUILT": {
+                    "BGZIP_POSFILE_IMPUTE": {
                         "tabix": 1.21
                     },
                     "GAWK": {
@@ -52,7 +52,7 @@
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
                     },
-                    "GAWK_POSFILE_QUILT": {
+                    "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.1"
                     },
                     "GAWK_RSQUARE_SPL": {
@@ -472,10 +472,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T14:24:40.567883261",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-26T19:31:52.744498018"
     }
 }
