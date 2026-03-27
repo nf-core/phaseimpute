@@ -164,7 +164,7 @@ You only need to provide map file that verify the following:
   - `chr`: chromosome name, can be named: \_chr, chrom or chromosome
   - `id`: variant identifier, can be named: cm or genetic_map_cm
 - if no header provided:
-  - if three columns should be chr, pos, cm (minimac format)
+  - if three columns should be, strictly in this order: **chr, pos, cm** (minimac format)
   - if four columns should be chr, id, cm, pos (plink format)
 
 Some example files used for our unittests can be found in [nf-core/test-datasets](https://github.com/nf-core/test-datasets/tree/modules/data/genomics/homo_sapiens/genome/genetic_map).
