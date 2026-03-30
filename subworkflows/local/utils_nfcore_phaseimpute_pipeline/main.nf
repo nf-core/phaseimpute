@@ -422,7 +422,7 @@ workflow PIPELINE_INITIALISATION {
     ch_panel         // [ [panel_id, chr], vcf, index ]
     ch_depth         // [ [depth], depth ]
     ch_regions       // [ [chr, region], region ]
-    ch_map           // [ [map], map ]
+    ch_map           // [ [chr], map ]
     ch_posfile       // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
     ch_chunks        // [ [panel_id, chr], txt ]
 }

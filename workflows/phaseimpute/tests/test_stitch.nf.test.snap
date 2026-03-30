@@ -1,5 +1,5 @@
 {
-    "Check test_stitch - without chunks": {
+    "Check test_stitch - no chunks - no map": {
         "content": [
             {
                 "workflow size": 26,

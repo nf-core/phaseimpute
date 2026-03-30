@@ -1,5 +1,5 @@
 {
-    "Check test_panelprep - no chunks": {
+    "Check test_panelprep - no chunks - no map": {
         "content": [
             {
                 "workflow size": 36,
@@ -222,7 +222,7 @@
             "nextflow": "26.02.0"
         }
     },
-    "Check test_panelprep - with chunks": {
+    "Check test_panelprep - with chunks - no map": {
         "content": [
             {
                 "workflow size": 32,

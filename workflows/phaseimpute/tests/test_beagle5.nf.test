@@ -8,7 +8,7 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_beagle5 - with chunks") {
+    test("Check test_beagle5 - with chunks - with map") {
         config "../../../conf/test_beagle5.config"
         when {
             params {
@@ -53,7 +53,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_beagle5 - without chunks") {
+    test("Check test_beagle5 - no chunks - with map") {
         config "../../../conf/test_beagle5.config"
         when {
             params {

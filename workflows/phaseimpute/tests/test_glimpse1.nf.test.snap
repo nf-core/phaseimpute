@@ -594,10 +594,10 @@
         "timestamp": "2026-03-24T17:35:55.626009934",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "25.10.0"
         }
     },
-    "Check test_glimpse1 - without chunks": {
+    "Check test_glimpse1 - no chunks - no map": {
         "content": [
             {
                 "workflow size": 35,

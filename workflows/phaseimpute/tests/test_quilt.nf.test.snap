@@ -1,5 +1,5 @@
 {
-    "Check test_quilt - without chunks": {
+    "Check test_quilt - no chunks - no map": {
         "content": [
             {
                 "workflow size": 24,
@@ -215,11 +215,11 @@
                 }
             }
         ],
+        "timestamp": "2026-03-25T16:47:08.651849459",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T19:49:24.860396812"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.0"
+        }
     },
     "Check test_quilt - with chunks": {
         "content": [
@@ -449,11 +449,11 @@
                 }
             }
         ],
+        "timestamp": "2026-03-25T17:23:19.364184311",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T19:41:03.386937466"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.0"
+        }
     },
     "Check test_quilt - with chunks - no map": {
         "content": [
