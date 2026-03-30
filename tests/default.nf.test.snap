@@ -2,7 +2,7 @@
     "-profile test": {
         "content": [
             {
-                "workflow size": 39,
+                "workflow size": 41,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
@@ -33,6 +33,11 @@
                     },
                     "BCFTOOLS_STATS_TOOLS": {
                         "bcftools": "1.22"
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -119,6 +124,16 @@
                     "imputation/stats/NA19401.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA20359.glimpse1.bcftools_stats.txt",
                     "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/map_convertion/versions.yml",
                     "initialisation/prepare_genome",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
@@ -188,6 +203,15 @@
                     "NA12878.glimpse1.bcftools_stats.txt:md5,d712e30d7f2450ca22c905421f006494",
                     "NA19401.glimpse1.bcftools_stats.txt:md5,86efb7502150bfcdd60a77c35e78de64",
                     "NA20359.glimpse1.bcftools_stats.txt:md5,62b33ff85651520eab02ac21dd4995ec",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,bda6ac9e13fd82da1c4725287937332d",
@@ -293,7 +317,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T11:59:18.474633374",
+        "timestamp": "2026-03-30T22:37:34.20438651",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.03.1"

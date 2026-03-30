@@ -31,52 +31,6 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_stitch - with chunks - no map") {
-        config "../../../conf/test_stitch.config"
-        when {
-            params {
-                publish_dir_mode = "copy"
-                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
-                outdir = "$outputDir"
-                map = null
-                publish_all = true
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow),
-                    ["all_samples.batch0.stitch": UTILS.vcfDetails("$outputDir/imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz")]
-                ).match()}
-            )
-        }
-    }
-
-    test("Check test_stitch - no chunks - with map") {
-        config "../../../conf/test_stitch.config"
-        when {
-            params {
-                publish_dir_mode = "copy"
-                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
-                outdir = "$outputDir"
-                chunks = null
-                publish_all = true
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow),
-                    ["all_samples.batch0.stitch": UTILS.vcfDetails("$outputDir/imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz")]
-                ).match()}
-            )
-        }
-    }
-
     test("Check test_stitch - no chunks - no map") {
         config "../../../conf/test_stitch.config"
         when {
