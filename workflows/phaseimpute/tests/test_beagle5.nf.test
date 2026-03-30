@@ -75,4 +75,28 @@ nextflow_pipeline {
             )
         }
     }
+
+    test("Check test_beagle5 - no chunks - no map") {
+        config "../../../conf/test_beagle5.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                chunks = null
+                map = null
+                publish_all = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    ["NA12878.beagle5": UTILS.vcfDetails("$outputDir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz")]
+                ).match()}
+            )
+        }
+    }
 }
