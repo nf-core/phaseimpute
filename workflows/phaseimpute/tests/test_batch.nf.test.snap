@@ -163,6 +163,10 @@
                     "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                     "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
                     "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -269,9 +273,6 @@
                     "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
                     "prep_panel/stats",
                     "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
-                    "prepare_genome",
-                    "prepare_genome/GRCh38.s.fa.gz.fai",
-                    "prepare_genome/GRCh38.s.fa.gz.gzi",
                     "validation",
                     "validation/samples",
                     "validation/samples/NA12878.truth.vcf.gz",
@@ -305,6 +306,8 @@
                     "NA19401.quilt.bcftools_stats.txt:md5,eaf59f02e81aeaafdc1953e92687d5d0",
                     "NA20359.glimpse2.bcftools_stats.txt:md5,fa7efcf9b006db08bd66e61f54d04f4a",
                     "NA20359.quilt.bcftools_stats.txt:md5,24972d94b67f8d0bcfe88fa052c1f279",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,325c6b7429ecf340b8bda9c8d2a6d79f",
                     "bcftools_stats_indel-lengths.txt:md5,f858f78b2375ce895506467ed372a46d",
                     "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
@@ -325,8 +328,6 @@
                     "multiqc_glimpse_err_grp.txt:md5,7303ceb7e80ab2b188f2dd355b6a1498",
                     "multiqc_glimpse_err_spl.txt:md5,b59190a0f0295ec4da4a6527980c874d",
                     "1000GP.panel.bcftools_stats.txt:md5,ca5eb47541961f3b757c83b77a307a5f",
-                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
-                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "AllSamples.txt:md5,5bbc52fa94514bc7fca3cc345a7db6c0",
                     "NA12878.truth.bcftools_stats.txt:md5,edf521ce34766a8f9063fd88297bb869",
                     "NA12878_P1000GP_Tglimpse2_SNP.txt:md5,8b1e30077b2d79f678ba18a54614cd95",
@@ -477,10 +478,10 @@
                 }
             }
         ],
+        "timestamp": "2026-03-30T12:05:20.063520882",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T19:31:52.744498018"
+            "nf-test": "0.9.4",
+            "nextflow": "26.03.1"
+        }
     }
 }

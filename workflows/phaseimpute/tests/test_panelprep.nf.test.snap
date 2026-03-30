@@ -54,6 +54,10 @@
                     }
                 },
                 "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/llms-full.txt",
@@ -119,12 +123,11 @@
                     "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                     "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi",
-                    "prepare_genome",
-                    "prepare_genome/GRCh38.s.fa.gz.fai",
-                    "prepare_genome/GRCh38.s.fa.gz.gzi"
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
                 ],
                 "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                     "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
@@ -139,9 +142,7 @@
                     "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
                     "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
                     "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
-                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541",
-                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
-                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
+                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541"
                 ],
                 "BAM files": [
                     
@@ -216,10 +217,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-24T17:43:56.319516737",
+        "timestamp": "2026-03-30T12:18:35.887791604",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "26.03.1"
         }
     },
     "Check test_panelprep - with chunks - no map": {
@@ -271,6 +272,10 @@
                     }
                 },
                 "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/llms-full.txt",
@@ -328,12 +333,11 @@
                     "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                     "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi",
-                    "prepare_genome",
-                    "prepare_genome/GRCh38.s.fa.gz.fai",
-                    "prepare_genome/GRCh38.s.fa.gz.gzi"
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
                 ],
                 "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                     "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
@@ -344,9 +348,7 @@
                     "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
                     "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
                     "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
-                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541",
-                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
-                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
+                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541"
                 ],
                 "BAM files": [
                     
@@ -413,10 +415,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-24T17:44:43.968560596",
+        "timestamp": "2026-03-30T12:19:20.49488331",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "26.03.1"
         }
     }
 }

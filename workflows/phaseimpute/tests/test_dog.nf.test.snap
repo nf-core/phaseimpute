@@ -166,6 +166,10 @@
                     "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
                     "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
                     "imputation/stats/dog_1735.quilt.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/canFam3.s.fa.gz.fai",
+                    "initialisation/prepare_genome/canFam3.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -259,10 +263,7 @@
                     "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz",
                     "prep_panel/sites/658Dog_chr21_glimpse1_sites.vcf.gz.tbi",
                     "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi",
-                    "prepare_genome",
-                    "prepare_genome/canFam3.s.fa.gz.fai",
-                    "prepare_genome/canFam3.s.fa.gz.gzi"
+                    "prep_panel/sites/658Dog_chr22_glimpse1_sites.vcf.gz.tbi"
                 ],
                 "stable path": [
                     "all_samples.batch0.id.txt:md5,2181a5165013a23885b1b8c986765963",
@@ -273,6 +274,8 @@
                     "dog_1735.glimpse1.bcftools_stats.txt:md5,d8e81c6461489ab484959a2db84f249c",
                     "dog_1735.glimpse2.bcftools_stats.txt:md5,3dcefcccb3a8e51608356c02cb9190b0",
                     "dog_1735.quilt.bcftools_stats.txt:md5,4aa056976d4b87fbc7f458d4ce5c39b3",
+                    "canFam3.s.fa.gz.fai:md5,631682a5849e271d84f3bf628418a6d7",
+                    "canFam3.s.fa.gz.gzi:md5,b0a77162749742f3372b26e0b4f81565",
                     "bcftools-stats-subtypes.txt:md5,9397a3e17ce0d48f612401c6b5af1c07",
                     "bcftools_stats_indel-lengths.txt:md5,d8317eb4309527c63e41fdd735edb4f3",
                     "bcftools_stats_variant_depths.txt:md5,146d5444723388afdcda0f0798a37f0a",
@@ -296,9 +299,7 @@
                     "658Dog.chr21.posfile.txt.gz:md5,3c619e8c80d87e36096a77d048fb9077",
                     "658Dog.chr22.posfile.txt.gz:md5,845632cc4a33f76ab05225cb23930d85",
                     "658Dog.chr21.posfile.txt:md5,3c619e8c80d87e36096a77d048fb9077",
-                    "658Dog.chr22.posfile.txt:md5,845632cc4a33f76ab05225cb23930d85",
-                    "canFam3.s.fa.gz.fai:md5,631682a5849e271d84f3bf628418a6d7",
-                    "canFam3.s.fa.gz.gzi:md5,b0a77162749742f3372b26e0b4f81565"
+                    "658Dog.chr22.posfile.txt:md5,845632cc4a33f76ab05225cb23930d85"
                 ],
                 "BAM files": [
                     
@@ -450,10 +451,10 @@
                 }
             }
         ],
+        "timestamp": "2026-03-30T12:09:53.930296148",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T19:36:19.50061025"
+            "nf-test": "0.9.4",
+            "nextflow": "26.03.1"
+        }
     }
 }

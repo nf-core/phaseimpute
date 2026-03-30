@@ -279,6 +279,10 @@
                     "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -485,9 +489,6 @@
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi",
                     "prep_panel/stats",
                     "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
-                    "prepare_genome",
-                    "prepare_genome/GRCh38.s.fa.gz.fai",
-                    "prepare_genome/GRCh38.s.fa.gz.gzi",
                     "simulation",
                     "simulation/csv",
                     "simulation/csv/simulate.csv",
@@ -575,6 +576,8 @@
                     "NA20359.glimpse2.bcftools_stats.txt:md5,fa7efcf9b006db08bd66e61f54d04f4a",
                     "NA20359.quilt.bcftools_stats.txt:md5,24972d94b67f8d0bcfe88fa052c1f279",
                     "NA20359.stitch.bcftools_stats.txt:md5,752a126486b629de8a34f826ade67086",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,30837458e3113f0dd225e3255f3f60ec",
                     "bcftools_stats_indel-lengths.txt:md5,b21a8620a2c35b139b63670f6d73566a",
                     "bcftools_stats_variant_depths.txt:md5,d70e08029731e6a1b5357e4c40fa62a4",
@@ -617,8 +620,6 @@
                     "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
                     "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541",
                     "1000GP.panel.bcftools_stats.txt:md5,ca5eb47541961f3b757c83b77a307a5f",
-                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
-                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "NA12878_Call.depth.mean.tsv:md5,713a1f4811ad68444bffa85d1fcdbe0d",
                     "NA12878_Call.depth.tsv:md5,ad4748275377d3241aff21cddd97d1e7",
                     "NA19401_Call.depth.mean.tsv:md5,aab44099c9906b1619cad70830bedf7e",
@@ -979,10 +980,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-25T16:25:51.408803814",
+        "timestamp": "2026-03-30T12:03:42.170337923",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.0"
+            "nextflow": "26.03.1"
         }
     }
 }
