@@ -5,28 +5,28 @@
                 "workflow size": 26,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -41,7 +41,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
@@ -49,7 +49,7 @@
                         "rsync": "3.4.1"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -78,6 +78,10 @@
                     "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -134,6 +138,8 @@
                     "NA12878.stitch.bcftools_stats.txt:md5,6991969d019398e8704ea4cb269a315b",
                     "NA19401.stitch.bcftools_stats.txt:md5,2370cce588665aa328b941a0bd1a847e",
                     "NA20359.stitch.bcftools_stats.txt:md5,752a126486b629de8a34f826ade67086",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,20f016802c19197bd01da87b5bebf585",
                     "bcftools_stats_indel-lengths.txt:md5,45ceadfb316d18af27006953d095dcb0",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,616f14f3cb0c747a410e5e40baaccc32",
@@ -188,10 +194,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-25T16:50:59.730510579",
+        "timestamp": "2026-03-30T12:26:19.950558009",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.0"
+            "nextflow": "26.03.1"
         }
     },
     "Check test_stitch - with chunks": {
@@ -200,28 +206,28 @@
                 "workflow size": 30,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -236,7 +242,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
@@ -244,7 +250,7 @@
                         "rsync": "3.4.1"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -273,6 +279,10 @@
                     "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -329,6 +339,8 @@
                     "NA12878.stitch.bcftools_stats.txt:md5,6991969d019398e8704ea4cb269a315b",
                     "NA19401.stitch.bcftools_stats.txt:md5,2370cce588665aa328b941a0bd1a847e",
                     "NA20359.stitch.bcftools_stats.txt:md5,752a126486b629de8a34f826ade67086",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,20f016802c19197bd01da87b5bebf585",
                     "bcftools_stats_indel-lengths.txt:md5,45ceadfb316d18af27006953d095dcb0",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,616f14f3cb0c747a410e5e40baaccc32",
@@ -383,10 +395,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-25T17:06:58.915161093",
+        "timestamp": "2026-03-30T12:24:43.944027083",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.0"
+            "nextflow": "26.03.1"
         }
     },
     "Check test_stitch - with chunks - no map": {
@@ -395,28 +407,28 @@
                 "workflow size": 30,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -431,7 +443,7 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "STITCH": {
                         "r-base": "4.4.2",
@@ -439,7 +451,7 @@
                         "rsync": "3.4.1"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -468,6 +480,10 @@
                     "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -524,6 +540,8 @@
                     "NA12878.stitch.bcftools_stats.txt:md5,6991969d019398e8704ea4cb269a315b",
                     "NA19401.stitch.bcftools_stats.txt:md5,2370cce588665aa328b941a0bd1a847e",
                     "NA20359.stitch.bcftools_stats.txt:md5,752a126486b629de8a34f826ade67086",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,20f016802c19197bd01da87b5bebf585",
                     "bcftools_stats_indel-lengths.txt:md5,45ceadfb316d18af27006953d095dcb0",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,616f14f3cb0c747a410e5e40baaccc32",
@@ -578,10 +596,10 @@
                 }
             }
         ],
+        "timestamp": "2026-03-30T12:25:32.249405503",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T20:08:59.488949454"
+            "nf-test": "0.9.4",
+            "nextflow": "26.03.1"
+        }
     }
 }

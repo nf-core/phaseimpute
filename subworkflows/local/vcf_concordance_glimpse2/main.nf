@@ -12,6 +12,9 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
         ch_vcf_truth  // VCF file with truth genotypes   [ [id, panel], vcf, csi]
         ch_vcf_freq   // VCF file with panel frequencies [ [panel_id, chr], vcf, csi]
         ch_region     // Regions to process              [ [chr, region], region]
+        bins          // Minor Allele frequence bins     [ bins ]
+        min_val_gl    // Min genotype likelihood proba   [ float ]
+        min_val_dp    // Min coverage                    [ int ]
 
     main:
 
@@ -33,7 +36,7 @@ workflow VCF_CONCORDANCE_GLIMPSE2 {
 
     GLIMPSE2_CONCORDANCE (
         ch_concordance,
-        [[], [], params.bins, [], [], params.min_val_gl, params.min_val_dp]
+        [[], [], bins, [], [], min_val_gl, min_val_dp]
     )
 
     GAWK_ERROR_SPL(

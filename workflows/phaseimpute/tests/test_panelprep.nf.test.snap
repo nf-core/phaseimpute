@@ -5,22 +5,22 @@
                 "workflow size": 36,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_NORM": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_VIEW": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
@@ -32,7 +32,7 @@
                         "glimpse": "1.1.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -41,10 +41,10 @@
                         "shapeit5": "5.1.1"
                     },
                     "TABIX_BGZIP": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
@@ -54,6 +54,10 @@
                     }
                 },
                 "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/llms-full.txt",
@@ -122,6 +126,8 @@
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
                 ],
                 "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                     "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
@@ -211,10 +217,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-23T11:40:54.400823876",
+        "timestamp": "2026-03-30T12:18:35.887791604",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "26.03.1"
         }
     },
     "Check test_panelprep - with chunks - no map": {
@@ -223,28 +229,28 @@
                 "workflow size": 32,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_NORM": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_VIEW": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -253,10 +259,10 @@
                         "shapeit5": "5.1.1"
                     },
                     "TABIX_BGZIP": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "VCFLIB_VCFFIXUP": {
                         "vcflib": "1.0.14"
@@ -266,6 +272,10 @@
                     }
                 },
                 "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/llms-full.txt",
@@ -326,6 +336,8 @@
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
                 ],
                 "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                     "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
@@ -403,10 +415,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-25T16:43:17.630543875",
+        "timestamp": "2026-03-30T12:19:20.49488331",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.0"
+            "nextflow": "26.03.1"
         }
     }
 }

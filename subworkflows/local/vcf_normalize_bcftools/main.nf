@@ -7,13 +7,15 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     take:
     ch_vcf_tbi      // channel: [ [id, chr], vcf, index ]
     ch_fasta        // channel: [ [genome], fasta, [fai, gzi] ]
+    normalize       // boolean
+    compute_freq    // boolean
 
     main:
 
     ch_fasta = ch_fasta.map { meta, fasta, _fai -> [meta, fasta] }
 
     // Join duplicated biallelic sites into multiallelic records
-    if (params.normalize) {
+    if (normalize) {
         BCFTOOLS_NORM(ch_vcf_tbi, ch_fasta)
 
         // Join multiallelic VCF and TBI
@@ -29,7 +31,7 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     }
 
     // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
-    if (params.compute_freq == true) {
+    if (compute_freq) {
         VCFLIB_VCFFIXUP(ch_vcf_tbi)
 
         // Index fixed panel

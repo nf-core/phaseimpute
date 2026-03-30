@@ -8,19 +8,19 @@
                         "gawk": "5.3.1"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_TRUTH": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_PANEL": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TRUTH": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
@@ -43,16 +43,16 @@
                         "glimpse2": "2.0.0"
                     },
                     "GUNZIP": {
-                        "gunzip": 1.13
+                        "gunzip": "1.13"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -70,6 +70,9 @@
                     "initialisation/map_convertion/1000GP_chr22.plink.map",
                     "initialisation/map_convertion/1000GP_chr22.stitch.map",
                     "initialisation/map_convertion/versions.yml",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -203,6 +206,8 @@
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
                     "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
                     "versions.yml:md5,6d9f679747546761ee89b6411223830d",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,3e44e7e7b563c851f28837f25baf90b9",
                     "bcftools_stats_indel-lengths.txt:md5,86e12861d56c7563080cf9927e703eb6",
                     "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
@@ -257,10 +262,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-27T14:29:49.164362071",
+        "timestamp": "2026-03-30T12:27:20.192868283",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "26.03.1"
         }
     }
 }

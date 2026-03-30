@@ -5,22 +5,22 @@
                 "workflow size": 63,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -35,13 +35,13 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -70,6 +70,10 @@
                     "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
                     "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
                     "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -123,6 +127,8 @@
                     "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
                     "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
                     "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -183,10 +189,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:18:36.498465986",
+        "timestamp": "2026-03-30T12:16:45.243235508",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.03.1"
         }
     },
     "Check test_minimac4 - with chunks - with map": {
@@ -195,22 +201,22 @@
                 "workflow size": 65,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
@@ -230,13 +236,13 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -276,6 +282,9 @@
                     "initialisation/map_convertion/1000GP_chr22.plink.map",
                     "initialisation/map_convertion/1000GP_chr22.stitch.map",
                     "initialisation/map_convertion/versions.yml",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -338,6 +347,8 @@
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
                     "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
                     "versions.yml:md5,6d9f679747546761ee89b6411223830d",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -398,10 +409,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-27T14:26:05.970266528",
+        "timestamp": "2026-03-30T12:15:47.992331524",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "26.03.1"
         }
     },
     "Check test_minimac4 - no chunks - with map": {
@@ -410,22 +421,22 @@
                 "workflow size": 65,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
@@ -445,13 +456,13 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -491,6 +502,9 @@
                     "initialisation/map_convertion/1000GP_chr22.plink.map",
                     "initialisation/map_convertion/1000GP_chr22.stitch.map",
                     "initialisation/map_convertion/versions.yml",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -553,6 +567,8 @@
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
                     "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
                     "versions.yml:md5,6d9f679747546761ee89b6411223830d",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -613,10 +629,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-27T14:28:10.693019134",
+        "timestamp": "2026-03-30T12:17:45.694005427",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "26.03.1"
         }
     }
 }
