@@ -908,7 +908,7 @@ A pipeline might not always support every possible argument or option of a parti
 │   │   ├── imputation_quilt.config # Configuration for the impute step with QUILT
 │   │   ├── imputation_stitch.config # Configuration for the impute step with STITCH
 │   │   ├── initialisation.config # Configuration for the initialisation subworkflow
-│   │   ├── panel_prep.config # Configuration for the panelprep step
+│   │   ├── panelprep.config # Configuration for the panelprep step
 │   │   ├── simulation.config # Configuration for the simulation step
 │   │   └── validation.config # Configuration for the validation step
 │   ├── base.config # Base configuration for the pipeline
