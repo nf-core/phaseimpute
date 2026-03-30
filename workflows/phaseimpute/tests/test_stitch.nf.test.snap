@@ -1,5 +1,5 @@
 {
-    "Check test_stitch - without chunks": {
+    "Check test_stitch - no chunks - no map": {
         "content": [
             {
                 "workflow size": 26,
@@ -188,11 +188,11 @@
                 }
             }
         ],
+        "timestamp": "2026-03-25T16:50:59.730510579",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T20:11:16.919378838"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.0"
+        }
     },
     "Check test_stitch - with chunks": {
         "content": [
@@ -383,11 +383,11 @@
                 }
             }
         ],
+        "timestamp": "2026-03-25T17:06:58.915161093",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T20:06:17.897085892"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.0"
+        }
     },
     "Check test_stitch - with chunks - no map": {
         "content": [

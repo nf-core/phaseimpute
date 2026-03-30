@@ -1,8 +1,8 @@
 {
-    "Check test_beagle5 - without chunks": {
+    "Check test_beagle5 - no chunks - with map": {
         "content": [
             {
-                "workflow size": 49,
+                "workflow size": 51,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -24,6 +24,11 @@
                     },
                     "BEAGLE5_BEAGLE": {
                         "beagle": 5.5
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -67,6 +72,17 @@
                     "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/map_convertion/versions.yml",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -120,6 +136,15 @@
                     "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
                     "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
                     "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -180,10 +205,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:56:56.687091152",
+        "timestamp": "2026-03-27T14:20:24.764361433",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
     "Check test_beagle5 - with chunks - no map": {
@@ -373,10 +398,10 @@
             "nextflow": "25.10.4"
         }
     },
-    "Check test_beagle5 - with chunks": {
+    "Check test_beagle5 - with chunks - with map": {
         "content": [
             {
-                "workflow size": 49,
+                "workflow size": 51,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": 1.22
@@ -398,6 +423,11 @@
                     },
                     "BEAGLE5_BEAGLE": {
                         "beagle": 5.5
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -441,6 +471,17 @@
                     "imputation/stats/NA12878.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA19401.beagle5.bcftools_stats.txt",
                     "imputation/stats/NA20359.beagle5.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/map_convertion/versions.yml",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -494,6 +535,15 @@
                     "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
                     "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
                     "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -554,10 +604,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:54:52.34385461",
+        "timestamp": "2026-03-27T14:18:14.061626863",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     }
 }

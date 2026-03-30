@@ -581,13 +581,13 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T15:59:04.956020119",
+        "timestamp": "2026-03-25T16:33:14.384608828",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nextflow": "25.10.0"
         }
     },
-    "Check test_glimpse1 - without chunks": {
+    "Check test_glimpse1 - no chunks - no map": {
         "content": [
             {
                 "workflow size": 35,
@@ -873,7 +873,7 @@
                 }
             }
         ],
-        "timestamp": "2026-03-19T16:00:48.526261521",
+        "timestamp": "2026-03-27T15:26:31.193498681",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"

@@ -37,6 +37,9 @@ include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-co
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { chunkPrepareChannel                        } from './function.nf'
 
+// Genetic map conversion module
+include { CUSTOM_GENETICMAPCONVERT                   } from '../../modules/nf-core/custom/geneticmapconvert'
+
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
@@ -118,6 +121,19 @@ workflow PHASEIMPUTE {
 
     def region_count = ch_region.map{ _meta, region -> region }
         .count()
+
+    ch_map_branched = ch_map
+        .branch { meta, map_file ->
+            non_empty: map_file
+            empty: true
+        }
+
+    CUSTOM_GENETICMAPCONVERT(ch_map_branched.non_empty)
+
+    ch_map_glimpse = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.glimpse_map)
+    ch_map_stitch  = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.stitch_map)
+    ch_map_plink   = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.plink_map)
+    ch_map_minimac = ch_map_branched.empty.mix(CUSTOM_GENETICMAPCONVERT.out.minimac_map)
 
     //
     // Simulate data if asked
@@ -223,7 +239,7 @@ workflow PHASEIMPUTE {
             // Create chunks from reference VCF
             VCF_CHUNK_GLIMPSE(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi,
-                ch_map,
+                ch_map_glimpse,
                 chunk_model
             )
             ch_chunks  = VCF_CHUNK_GLIMPSE.out.chunks
@@ -249,7 +265,7 @@ workflow PHASEIMPUTE {
                 ch_chunks_phase.map{ meta, _regionin, regionout -> [meta, regionout]},
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, _vcf, _index -> [meta, [], []]}, // No ref
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, _vcf, _index -> [meta, [], []]}, // No scaffold
-                ch_map,
+                ch_map_glimpse,
                 false,
                 chunk_model
             )
@@ -383,7 +399,7 @@ workflow PHASEIMPUTE {
                     [meta, file, index, []] // Region ignored as chunks are provided
                 },
                 ch_chunks_glimpse1,
-                ch_map,
+                ch_map_glimpse,
                 false // Do not compute chunks
             )
 
@@ -419,7 +435,7 @@ workflow PHASEIMPUTE {
                     [meta, file, index, []] // Region ignored as chunks are provided
                 },
                 ch_chunks_glimpse2,
-                ch_map,
+                ch_map_glimpse,
                 ch_fasta,
                 false, "", false
             )
@@ -453,7 +469,7 @@ workflow PHASEIMPUTE {
                 },
                 BGZIP_POSFILE_IMPUTE.out.output,
                 ch_chunks_stitch,
-                ch_map,
+                ch_map_stitch,
                 ch_fasta,
                 params.k_val,
                 params.ngen,
@@ -498,7 +514,7 @@ workflow PHASEIMPUTE {
                 },
                 ch_posfile_quilt,
                 ch_chunks_quilt,
-                ch_map,
+                ch_map_stitch,
                 ch_fasta,
                 params.ngen,
                 params.buffer
@@ -529,7 +545,7 @@ workflow PHASEIMPUTE {
                 ch_input_type.vcf,
                 ch_panel_phased,
                 ch_chunks_beagle5,
-                ch_map
+                ch_map_plink
             )
 
             // Concatenate by chromosomes
@@ -570,7 +586,7 @@ workflow PHASEIMPUTE {
                     ]
                 },
                 ch_chunks_minimac4,
-                ch_map
+                ch_map_minimac
             )
 
             // Concatenate by chromosomes

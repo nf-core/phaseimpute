@@ -1,5 +1,5 @@
 {
-    "Check test_panelprep - no chunks": {
+    "Check test_panelprep - no chunks - no map": {
         "content": [
             {
                 "workflow size": 36,
@@ -211,13 +211,13 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-05T15:52:00.959850113",
+        "timestamp": "2026-03-23T11:40:54.400823876",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "26.02.0"
         }
     },
-    "Check test_panelprep - with chunks": {
+    "Check test_panelprep - with chunks - no map": {
         "content": [
             {
                 "workflow size": 32,
@@ -403,10 +403,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-05T15:52:50.979777222",
+        "timestamp": "2026-03-25T16:43:17.630543875",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nextflow": "25.10.0"
         }
     }
 }

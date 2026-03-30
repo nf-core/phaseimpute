@@ -129,6 +129,46 @@ chr21	16609476	A,G
 chr21	16609525	T,A
 ```
 
+## Samplesheet genetic map
+
+To improve imputation quality, you can optionally provide a genetic map. This allows all imputation and phasing softwares used in `nf-core/phaseimpute` to better estimate recombination rates across each chromosome. These genetic maps can be obtained from public resources such as the [HapMap Project](https://ftp.ncbi.nlm.nih.gov/hapmap/recombination/latest/rates/), some imputation softwares like [`BEAGLE5`](https://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/) or directly from scientific publications (e.g. for dogs: [Auton et al. 2013](https://github.com/auton1/dog_recomb)).
+Use the `--map` parameter to specify the location of the genetic map file. The file must be a comma-separated table with at least two columns and a header row, as shown below:
+
+```bash
+--map '[path to samplesheet file]'
+```
+
+### Structure
+
+A typical genetic map samplesheet contains one row per chromosome.
+For example, a file specifying maps for two chromosomes might look like this:
+
+```console title="map.csv"
+chr,map
+chr21,GRCh38_chr21.glimpse.map
+chr22,GRCh38_chr22.glimpse.map
+```
+
+Genetic map files are available in various formats, so an autoconversion module has been implemented in the pipeline.
+This autoconversion script will create the same map in 4 different format to be used by all the different imputation
+and phasing software.
+You only need to provide map file that verify the following:
+
+- be a text file (compressed or uncompressed)
+- separated by comma, semicolon, space or tabulation
+- one file by chromosome
+- contain at least the following two columns (with `_` being a non alphanumeric character):
+  - `pos`: physical position (base pairs), can be named: pos, position or bp
+  - `cm`: genetic position (centiMorgans), can be named: cm or genetic_map_cm
+- additional optional columns include:
+  - `chr`: chromosome name, can be named: \_chr, chrom or chromosome
+  - `id`: variant identifier, can be named: id, snp, marker or rsid
+- if no header provided:
+  - if three columns should be, strictly in this order: **chr, pos, cm** (minimac format)
+  - if four columns should be, strictly in this order: **chr, id, cm, pos** (plink format)
+
+Some example files used for our unittests can be found in [nf-core/test-datasets](https://github.com/nf-core/test-datasets/tree/modules/data/genomics/homo_sapiens/genome/genetic_map).
+
 ## Samplesheet region
 
 You can provide a samplesheet with information about the chromosomal region you want to process.
