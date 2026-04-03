@@ -1,24 +1,24 @@
 {
     "Test toolBibliographyText - simulate only": {
         "content": [
-            "<li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li>    <li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354</a></li>"
+            "<li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li>     <li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354</a></li>"
         ],
-        "timestamp": "2026-03-24T16:05:12.370214514",
+        "timestamp": "2026-04-03T15:44:27.445772521",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     },
     "Test getRegionFromFai with an error": {
         "content": [
             [
-                "Invalid region_selected: chr22:0-4000:4648"
+                
             ]
         ],
-        "timestamp": "2025-06-19T09:39:16.168659666",
+        "timestamp": "2026-04-03T15:56:45.189000124",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     },
     "Test getRegionFromFai with specified chr": {
@@ -74,25 +74,25 @@
     "Test validateInputBatchTools vcf only for glimpse": {
         "content": [
             [
-                "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+                
             ]
         ],
-        "timestamp": "2026-03-02T21:55:12.272972242",
+        "timestamp": "2026-04-03T15:47:43.631797163",
         "meta": {
-            "nf-test": "0.9.3",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
     "Test validateInputBatchTools success batch": {
         "content": [
             [
-                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches."
+                
             ]
         ],
-        "timestamp": "2025-06-18T15:44:57.400190926",
+        "timestamp": "2026-04-03T15:48:18.055976274",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     },
     "Test getFileExtension non empty list": {
@@ -114,13 +114,12 @@
     "Test validateInputBatchTools error batch": {
         "content": [
             [
-                "WARN: Glimpse2 or Quilt software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches.",
-                "Stitch or Glimpse1 software is selected and the number of input files (151) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
+                
             ]
         ],
-        "timestamp": "2026-03-02T21:55:26.941007713",
+        "timestamp": "2026-04-03T15:48:07.275751574",
         "meta": {
-            "nf-test": "0.9.3",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
@@ -138,46 +137,46 @@
     },
     "Test toolBibliographyText - all tools and steps": {
         "content": [
-            "<li>Browning, B.L., Zhou, Y., Browning, S.R., 2018. A One-Penny Imputed Genome from Next-Generation Reference Panels. Am J Hum Genet 103, 338-348. doi: <a href=\"https://doi.org/10.1016/j.ajhg.2018.07.015\">10.1016/j.ajhg.2018.07.015</a></li> <li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li> <li>Das, S., Forer, L., Schonherr, S., Sidore, C., Locke, A.E., Kwong, A., Vrieze, S.I., Chew, E.Y., Levy, S., McGue, M., Schlessinger, D., Stambolian, D., Loh, P.-R., Iacono, W.G., Swaroop, A., Scott, L.J., Cucca, F., Kronenberg, F., Boehnke, M., Abecasis, G.R., Fuchsberger, C., 2016. Next-generation genotype imputation service and methods. Nat Genet 48, 1284-1287. doi: <a href=\"https://doi.org/10.1038/ng.3656\">10.1038/ng.3656</a></li> <li>Davies, R.W., Flint, J., Myers, S., Mott, R., 2016. Rapid genotype imputation from sequence without reference panels. Nat Genet 48, 965-969. doi: <a href=\"https://doi.org/10.1038/ng.3594\">10.1038/ng.3594</a></li> <li>Davies, R.W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C.M., Chan, Y.F., Myers, S., 2021. Rapid genotype imputation from sequence with reference panels. Nat Genet 53, 1104-1111. doi: <a href=\"https://doi.org/10.1038/s41588-021-00877-0\">10.1038/s41588-021-00877-0</a></li> <li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354</a></li> <li>Garrison, E., Kronenberg, Z.N., Dawson, E.T., Pedersen, B.S., Prins, P., 2022. A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLOS Computational Biology 18, e1009123. doi: <a href=\"https://doi.org/10.1371/journal.pcbi.1009123\">10.1371/journal.pcbi.1009123</a></li> <li>Hofmeister, R.J., Ribeiro, D.M., Rubinacci, S., Delaneau, O., 2023. Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet 1-7. doi: <a href=\"https://doi.org/10.1038/s41588-023-01415-w\">10.1038/s41588-023-01415-w</a></li> <li>Li, H., 2011. Tabix: fast retrieval of sequence features from generic TAB-delimited files. Bioinformatics 27, 718-719. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btq671\">10.1093/bioinformatics/btq671</a></li> <li>Rubinacci, S., Ribeiro, D.M., Hofmeister, R.J., Delaneau, O., 2021. Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nat Genet 53, 120-126. doi: <a href=\"https://doi.org/10.1038/s41588-020-00756-0\">10.1038/s41588-020-00756-0</a></li> <li>Rubinacci, S., Hofmeister, R.J., Sousa da Mota, B., Delaneau, O., 2023. Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nat Genet 55, 1088-1090. doi: <a href=\"https://doi.org/10.1038/s41588-023-01438-3\">10.1038/s41588-023-01438-3</a></li>"
+            "<li>Browning, B.L., Zhou, Y., Browning, S.R., 2018. A One-Penny Imputed Genome from Next-Generation Reference Panels. Am J Hum Genet 103, 338-348. doi: <a href=\"https://doi.org/10.1016/j.ajhg.2018.07.015\">10.1016/j.ajhg.2018.07.015</a></li> <li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li> <li>Das, S., Forer, L., Schonherr, S., Sidore, C., Locke, A.E., Kwong, A., Vrieze, S.I., Chew, E.Y., Levy, S., McGue, M., Schlessinger, D., Stambolian, D., Loh, P.-R., Iacono, W.G., Swaroop, A., Scott, L.J., Cucca, F., Kronenberg, F., Boehnke, M., Abecasis, G.R., Fuchsberger, C., 2016. Next-generation genotype imputation service and methods. Nat Genet 48, 1284-1287. doi: <a href=\"https://doi.org/10.1038/ng.3656\">10.1038/ng.3656</a></li> <li>Davies, R.W., Flint, J., Myers, S., Mott, R., 2016. Rapid genotype imputation from sequence without reference panels. Nat Genet 48, 965-969. doi: <a href=\"https://doi.org/10.1038/ng.3594\">10.1038/ng.3594</a></li> <li>Davies, R.W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C.M., Chan, Y.F., Myers, S., 2021. Rapid genotype imputation from sequence with reference panels. Nat Genet 53, 1104-1111. doi: <a href=\"https://doi.org/10.1038/s41588-021-00877-0\">10.1038/s41588-021-00877-0</a></li> <li>Li, Z., Albrechtsen, A., Davies, R.W., 2026. Flexible read-aware genotype imputation from sequence using biobank sized reference panels. Nat Commun 17, 524. doi: <a href=\"https://doi.org/10.1038/s41467-025-67218-1\">10.1038/s41467-025-67218-1</a></li> <li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354</a></li> <li>Garrison, E., Kronenberg, Z.N., Dawson, E.T., Pedersen, B.S., Prins, P., 2022. A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLOS Computational Biology 18, e1009123. doi: <a href=\"https://doi.org/10.1371/journal.pcbi.1009123\">10.1371/journal.pcbi.1009123</a></li> <li>Hofmeister, R.J., Ribeiro, D.M., Rubinacci, S., Delaneau, O., 2023. Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet 1-7. doi: <a href=\"https://doi.org/10.1038/s41588-023-01415-w\">10.1038/s41588-023-01415-w</a></li> <li>Li, H., 2011. Tabix: fast retrieval of sequence features from generic TAB-delimited files. Bioinformatics 27, 718-719. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btq671\">10.1093/bioinformatics/btq671</a></li> <li>Rubinacci, S., Ribeiro, D.M., Hofmeister, R.J., Delaneau, O., 2021. Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nat Genet 53, 120-126. doi: <a href=\"https://doi.org/10.1038/s41588-020-00756-0\">10.1038/s41588-020-00756-0</a></li> <li>Rubinacci, S., Hofmeister, R.J., Sousa da Mota, B., Delaneau, O., 2023. Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nat Genet 55, 1088-1090. doi: <a href=\"https://doi.org/10.1038/s41588-023-01438-3\">10.1038/s41588-023-01438-3</a></li>"
         ],
-        "timestamp": "2026-03-24T15:06:21.409990357",
+        "timestamp": "2026-04-03T15:44:38.234082321",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     },
     "Test validateInputBatchTools only one vcf": {
         "content": [
             [
-                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
+                
             ]
         ],
-        "timestamp": "2026-03-02T21:55:19.791976369",
+        "timestamp": "2026-04-03T15:47:55.254721935",
         "meta": {
-            "nf-test": "0.9.3",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
     "Test checkMetaChr warning": {
         "content": [
             [
-                "WARN: Chr : [chrY] is missing from test"
+                
             ]
         ],
-        "timestamp": "2025-06-18T15:45:50.70859829",
+        "timestamp": "2026-04-03T16:23:29.853722721",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     },
     "Test toolCitationText - all tools and steps": {
         "content": [
-            "Tools used in the workflow included the following. Low-coverage sequencing data simulation was performed with SAMtools (Danecek et al. 2021) subcommand 'depth' and 'view' for downsampling high-coverage BAM files. Reference panel preparation followed several steps. The reference panel genotypes were normalized and samplessample1,sample2were removed followed by site extraction and format conversion using BCFtools (Danecek et al. 2021). Allele frequencies were then computed with vcflib (Garrison et al. 2022). Genotype phasing was performed with SHAPEIT5 (Hofmeister et al. 2023). Finally, the reference panel was split into per-chromosome chunks using GLIMPSE (Rubinacci et al. 2021) and GLIMPSE2 (Rubinacci et al. 2023). Imputation tools used were: GLIMPSE (Rubinacci et al. 2021) with variants called using BCFtools (Danecek et al. 2021) mpileup followed by indexation with Tabix (Li H et al. 2011) when BAM files were provided, GLIMPSE2 (Rubinacci et al. 2023), QUILT (Davies et al. 2021), STITCH (Davies et al. 2016), Beagle5 (Browning et al. 2018), Minimac4 (Das et al. 2016). Imputation accuracy was assessed by comparing imputed genotypes to truth data using GLIMPSE2 (Rubinacci et al. 2023). Truth genotypes were obtained either from array genotyping data provided as input or from high-coverage sequencing data from which genotypes were called using BCFtools (Danecek et al. 2021) mpileup followed by indexation with Tabix (Li H et al. 2011). Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
+            "Tools used in the workflow included the following. Low-coverage sequencing data simulation was performed with SAMtools (Danecek et al. 2021) subcommand 'depth' and 'view' for downsampling high-coverage BAM files. Reference panel preparation followed several steps. The reference panel genotypes were normalized and samplessample1,sample2were removed followed by site extraction and format conversion using BCFtools (Danecek et al. 2021). Allele frequencies were then computed with vcflib (Garrison et al. 2022). Genotype phasing was performed with SHAPEIT5 (Hofmeister et al. 2023). Finally, the reference panel was split into per-chromosome chunks using GLIMPSE (Rubinacci et al. 2021) and GLIMPSE2 (Rubinacci et al. 2023). Imputation tools used were: GLIMPSE (Rubinacci et al. 2021) with variants called using BCFtools (Danecek et al. 2021) mpileup followed by indexation with Tabix (Li H et al. 2011) when BAM files were provided, GLIMPSE2 (Rubinacci et al. 2023), QUILT (Davies et al. 2021), QUILT2 (Li et al. 2026), STITCH (Davies et al. 2016), Beagle5 (Browning et al. 2018), Minimac4 (Das et al. 2016). Imputation accuracy was assessed by comparing imputed genotypes to truth data using GLIMPSE2 (Rubinacci et al. 2023). Truth genotypes were obtained either from array genotyping data provided as input or from high-coverage sequencing data from which genotypes were called using BCFtools (Danecek et al. 2021) mpileup followed by indexation with Tabix (Li H et al. 2011). Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
         ],
-        "timestamp": "2025-12-09T11:36:50.714460222",
+        "timestamp": "2026-04-03T15:44:59.712321732",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     }
 }

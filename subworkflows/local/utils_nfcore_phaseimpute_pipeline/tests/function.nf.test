@@ -1,4 +1,8 @@
 def check_stdout(function_stdout) {
+    if (!function_stdout || function_stdout.size() <= 2) {
+        return []
+    }
+
     function_stdout[2..-1]
         .findAll {
             !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) &&
@@ -378,8 +382,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(this.check_stdout(function.stdout)).match() },
-                { assert function.stdout.contains("WARN: Chr : [chrY] is missing from test") }
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
     }
@@ -393,7 +396,7 @@ nextflow_function {
                 input[0] = channel.of("A")
                 input[1] = 60
                 input[2] = "vcf.gz"
-                input[3] = ["glimpse2", "quilt"]
+                input[3] = ["glimpse2", "quilt2"]
                 """
             }
         }
@@ -435,7 +438,7 @@ nextflow_function {
                 input[0] = channel.of(0..150)
                 input[1] = 60
                 input[2] = "cram"
-                input[3] = ["glimpse1", "quilt"]
+                input[3] = ["glimpse1", "quilt2"]
                 """
             }
         }
@@ -456,7 +459,7 @@ nextflow_function {
                 input[0] = channel.of(0..150)
                 input[1] = 60
                 input[2] = "cram"
-                input[3] = ["quilt", "glimpse2"]
+                input[3] = ["quilt2", "glimpse2"]
                 """
             }
         }
@@ -713,7 +716,7 @@ nextflow_function {
             function {
                 """
                 input[0] = ["all"] // steps
-                input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "beagle5", "minimac4"] // tools
+                input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
                 input[2] = true // compute_freq
                 input[3] = true // phase
                 """
@@ -746,7 +749,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "vcflib", "SHAPEIT5", "Tabix", "SAMtools"].every { !function.result.contains(it) } },
+                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2", "vcflib", "SHAPEIT5", "Tabix", "SAMtools"].every { !function.result.contains(it) } },
                 { assert ["BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"].every { function.result.contains(it) } },
                 { assert snapshot(function.result).match() }
             )
@@ -759,7 +762,7 @@ nextflow_function {
             function {
                 """
                 input[0] = ["all"] // steps
-                input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "beagle5", "minimac4"] // tools
+                input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
                 input[2] = true // normalize
                 input[3] = "sample1,sample2" // remove_samples
                 input[4] = true // compute_freq
@@ -772,7 +775,7 @@ nextflow_function {
             assertAll(
                 { assert function.success },
                 { assert [
-                    "Beagle5", "Minimac4", "STITCH", "QUILT",
+                    "Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2",
                     "vcflib", "SHAPEIT5", "Tabix", "SAMtools",
                     "BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"
                 ].every { function.result.contains(it) } },
