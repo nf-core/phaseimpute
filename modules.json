@@ -156,6 +156,11 @@
                         "git_sha": "4e2990cc0df18823d11b192df73039c80fdebc7c",
                         "installed_by": ["bam_impute_quilt", "modules"]
                     },
+                    "quilt/quilt2": {
+                        "branch": "master",
+                        "git_sha": "local",
+                        "installed_by": ["bam_impute_quilt2", "modules"]
+                    },
                     "samtools/coverage": {
                         "branch": "master",
                         "git_sha": "4e3e10e502ec6ab6b1c4b4fecd923ff1fa287338",
@@ -228,6 +233,11 @@
                     "bam_impute_quilt": {
                         "branch": "master",
                         "git_sha": "4e2990cc0df18823d11b192df73039c80fdebc7c",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "bam_impute_quilt2": {
+                        "branch": "master",
+                        "git_sha": "local",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_impute_stitch": {

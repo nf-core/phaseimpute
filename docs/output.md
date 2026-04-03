@@ -111,7 +111,7 @@ The results from `--steps impute` will have the following directory structure:
 ```tree
 ├── batch
 ├── csv
-├── <glimpse1|glimpse2|quilt|stitch|beagle5|minimac4>
+├── <glimpse1|glimpse2|quilt|quilt2|stitch|beagle5|minimac4>
 │   ├── concat/
 │   └── samples/
 ├── stats
@@ -123,7 +123,7 @@ The results from `--steps impute` will have the following directory structure:
 - `imputation/batch/all.batchi.id.txt`: List of samples names processed in the i^th^ batch.
 - `imputation/csv/`
   - `impute.csv`: A single CSV file containing the path to a VCF file and its index, of each imputed sample with their corresponding tool.
-- `imputation/[glimpse1,glimpse2,quilt,stitch]/`
+- `imputation/[glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]/`
   - `concat/all.batch*.vcf.gz`: The concatenated VCF files of all imputed samples by batches.
   - `concat/all.batch*.vcf.gz.tbi`: The index file for the concatenated imputed VCF files of the samples.
   - `samples/*.vcf.gz`: A VCF file of each imputed sample.

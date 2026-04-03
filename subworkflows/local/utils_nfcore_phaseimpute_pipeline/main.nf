@@ -542,16 +542,16 @@ def validateInputParameters() {
 
     // Check that posfile and panel are provided when running impute only
     if (steps.contains("impute") && !steps.find { step -> step in ["all", "panelprep"] }) {
-        // Required by all tools except glimpse2, beagle5, minimac4
-        if (!tools.find { tool -> tool in ["glimpse2", "beagle5", "minimac4"] }) {
+        // Required by all tools except glimpse2, quilt2, beagle5, minimac4
+        if (!tools.find { tool -> tool in ["glimpse2", "quilt2", "beagle5", "minimac4"] }) {
             if (!params.posfile) {
                 error "No --posfile provided for --steps impute"
             }
         }
-        // Required by glimpse1 and glimpse2 only
-        if (tools.find { tool -> tool in ["glimpse1", "glimpse2"] }) {
+        // Required by panel-backed imputation tools
+        if (tools.find { tool -> tool in ["glimpse1", "glimpse2", "quilt2"] }) {
             if (!params.panel) {
-                error "No --panel provided for imputation with GLIMPSE1 or GLIMPSE2"
+                error "No --panel provided for imputation with GLIMPSE1, GLIMPSE2 or QUILT2"
             }
         }
     }
@@ -599,8 +599,8 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
         .count()
         .map{ nb_input ->
             if (extension ==~ "(vcf|bcf)(.gz)?") {
-                if (tools.contains("stitch") || tools.contains("quilt")) {
-                    error "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+                if (tools.contains("stitch") || tools.contains("quilt") || tools.contains("quilt2")) {
+                    error "Stitch, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
                 }
                 if (nb_input > 1) {
                     error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
@@ -614,8 +614,8 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
             }
 
             if (nb_input > batch_size) {
-                if (tools.contains("glimpse2") || tools.contains("quilt")) {
-                    log.warn("Glimpse2 or Quilt software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
+                if (tools.contains("glimpse2") || tools.contains("quilt") || tools.contains("quilt2")) {
+                    log.warn("Glimpse2, QUILT or QUILT2 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
                 }
                 if (tools.contains("stitch") || tools.contains("glimpse1")) {
                     error "Stitch or Glimpse1 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
