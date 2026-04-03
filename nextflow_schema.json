@@ -468,7 +468,7 @@
                     "default": 10000,
                     "description": "Buffer of region to perform imputation over. So imputation is run form regionStart-buffer to regionEnd+buffer, and reported for regionStart to regionEnd, including the bases of regionStart and regionEnd."
                 },
-                "ngen": {
+                "n_gen": {
                     "type": "integer",
                     "default": 100,
                     "description": "Number of generations since founding of the population to use for imputation."

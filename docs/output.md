@@ -8,6 +8,35 @@ The directories listed below will be created in the results directory after the 
 
 ## Pipeline overview
 
+## Pipeline initialisation
+
+This step of the pipeline ensure that all the files needed for the subsequent step are valid and in the expected format.
+
+The pipeline will produce the following outputs if `params.publish_all` is set to `true`:
+
+- [Converted genetic map](#convert-genetic-map) - If map files are provided they will be converted in all the different formats needed by the tools
+
+The directory structure for this step is:
+
+```tree
+└── map_convertion
+```
+
+### Convert genetic map
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `initialisation/map_convertion/`
+  - `*.minimac.map`: tab-delimited file with header and columns: chr, pos, cm.
+  - `*.plink.map`: Space-delimited file without header and columns: chr, id, cm, pos.
+  - `*.stitch.map`: Space-delimited file with header and columns: pos, rate, cm.
+  - `*.glimpse.map`: Tab-delimited file with header and columns: pos, chr, cm.
+
+</details>
+
+A directory containing the converted genetic map needed by the different phasing and imputation tools.
+
 ## Panel preparation outputs `--steps panelprep`
 
 This step of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--steps impute`).

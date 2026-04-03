@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#249](https://github.com/nf-core/phaseimpute/pull/249) - Add new `publish_all` hidden parameter to help during debugging. Add csv content checking in nf-test.
 - [#248](https://github.com/nf-core/phaseimpute/pull/248) - Add chromosomes concatenation to `BAM_GL_BCFTOOLS`
 - [#259](https://github.com/nf-core/phaseimpute/pull/259) - Add `publish_all` arguments to all workflow level nf-test.
+- [#272](https://github.com/nf-core/phaseimpute/pull/272) - Add genetic map detection and convertion for all phasing and imputation tools. Update usage.
 
 ### `Changed`
 
@@ -34,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#262](https://github.com/nf-core/phaseimpute/pull/262) - Change from `master` to `main` branch.
 - [#268](https://github.com/nf-core/phaseimpute/pull/268) - Refactor duplicated QUILT/STITCH posfile preprocessing into a single step.
 - [#273](https://github.com/nf-core/phaseimpute/pull/273) - Update nf-core modules, fix syntax. Remove `SAMTOOLS_REHEADER` patch and pass command through meta map. Update nf-test in Github Action to 0.9.4.
+- [#276](https://github.com/nf-core/phaseimpute/pull/276) - Migrate all `params.value` usage to entry workflow. Use groovy map to store parameters for each step. Use nextflow 25.10 for `getGenomeAttribute()`.
 
 ### `Fixed`
 

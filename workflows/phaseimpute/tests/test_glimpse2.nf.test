@@ -8,7 +8,7 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_glimpse2 - with chunks") {
+    test("Check test_glimpse2 - with chunks - with map") {
         config "../../../conf/test_glimpse2.config"
         when {
             params {
@@ -30,30 +30,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_glimpse2 - with chunks - no map") {
-        config "../../../conf/test_glimpse2.config"
-        when {
-            params {
-                publish_dir_mode = "copy"
-                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
-                outdir = "$outputDir"
-                map = null
-                publish_all = true
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow),
-                    ["all_samples.batch0.glimpse2": UTILS.vcfDetails("$outputDir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz")]
-                ).match()}
-            )
-        }
-    }
-
-    test("Check test_glimpse2 - without chunks") {
+    test("Check test_glimpse2 - no chunks - no map") {
         config "../../../conf/test_glimpse2.config"
         when {
             params {
@@ -61,6 +38,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
                 chunks = null
+                map = null
                 publish_all = true
             }
         }
