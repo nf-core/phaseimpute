@@ -9,11 +9,11 @@ def diffChr(chr_target, chr_ref, file, max_chr_names) {
         def new_chr = []
         def to_rename = []
         if (prefix == "chr") {
-            chr_target.each{ chr -> new_chr += "chr${chr}" }
-            diff.each{ chr -> to_rename += chr.replace('chr', '') }
+            new_chr = chr_target.collect { chr -> "chr${chr}" }
+            to_rename = diff.collect { chr -> chr.replace('chr', '') }
         } else {
-            chr_target.each{ chr -> new_chr += chr.replace('chr', '') }
-            diff.each{ chr -> to_rename += "chr${chr}" }
+            new_chr = chr_target.collect { chr -> chr.replace('chr', '') }
+            to_rename = diff.collect { chr -> "chr${chr}" }
         }
         def new_diff = diff - new_chr
         if (new_diff.size() != 0) {

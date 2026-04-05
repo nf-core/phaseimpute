@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#266](https://github.com/nf-core/phaseimpute/pull/266) - Fix incorrect boolean conditions (`&` to `&&`) and replace error-channel handling with `.subscribe { error ... }` rather than `assert`.
 - [#274](https://github.com/nf-core/phaseimpute/pull/274) - Fix issue with compressed reference genome by adding `.gzi` file for `BCFTOOLS_MPILEUP`
 - [#275](https://github.com/nf-core/phaseimpute/pull/275) - Fix nf-test errors with latest-everything.
+- [#281](https://github.com/nf-core/phaseimpute/pull/281) - Fix `diffchr()` function.
 
 ### `Dependencies`
 
