@@ -1,7 +1,4 @@
 def check_stdout(function_stdout) {
-    if (!function_stdout || function_stdout.size() <= 2) {
-        return function_stdout ?: []
-    }
 
     function_stdout[2..-1]
         .findAll {
