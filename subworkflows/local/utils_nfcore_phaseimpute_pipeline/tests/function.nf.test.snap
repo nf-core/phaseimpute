@@ -12,10 +12,10 @@
     "Test getRegionFromFai with an error": {
         "content": [
             [
-                
+                "Invalid region_selected: chr22:0-4000:4648"
             ]
         ],
-        "timestamp": "2026-04-03T15:56:45.189000124",
+        "timestamp": "2026-04-05T16:00:18.621286177",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -74,10 +74,10 @@
     "Test validateInputBatchTools vcf only for glimpse": {
         "content": [
             [
-                
+                "Stitch, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
             ]
         ],
-        "timestamp": "2026-04-03T15:47:43.631797163",
+        "timestamp": "2026-04-05T15:59:02.030907977",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -86,10 +86,10 @@
     "Test validateInputBatchTools success batch": {
         "content": [
             [
-                
+                "WARN: Glimpse2, QUILT or QUILT2 software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches."
             ]
         ],
-        "timestamp": "2026-04-03T15:48:18.055976274",
+        "timestamp": "2026-04-05T15:59:35.860398759",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -114,10 +114,11 @@
     "Test validateInputBatchTools error batch": {
         "content": [
             [
-                
+                "WARN: Glimpse2, QUILT or QUILT2 software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches.",
+                "Stitch or Glimpse1 software is selected and the number of input files (151) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
             ]
         ],
-        "timestamp": "2026-04-03T15:48:07.275751574",
+        "timestamp": "2026-04-05T15:59:25.152279612",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -148,10 +149,10 @@
     "Test validateInputBatchTools only one vcf": {
         "content": [
             [
-                
+                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
             ]
         ],
-        "timestamp": "2026-04-03T15:47:55.254721935",
+        "timestamp": "2026-04-05T15:59:13.565761606",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -160,10 +161,10 @@
     "Test checkMetaChr warning": {
         "content": [
             [
-                
+                "WARN: Chr : [chrY] is missing from test"
             ]
         ],
-        "timestamp": "2026-04-03T16:23:29.853722721",
+        "timestamp": "2026-04-05T15:58:50.228028127",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
