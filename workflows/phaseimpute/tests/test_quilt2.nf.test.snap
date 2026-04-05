@@ -163,43 +163,43 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.quilt2.vcf.gz",
-                        "572144fe1242552536761de3c9618aaa"
+                        "d36d11fd199683dfc52c0f1ff34a11e1"
                     ],
                     [
                         "NA12878.quilt2.vcf.gz",
-                        "4917a9de61d65e76083dc692087ccfb5"
+                        "8f68a04e0f4b088899b726d3668cb153"
                     ],
                     [
                         "NA19401.quilt2.vcf.gz",
-                        "1834a8aaaf9df3acd3afcb04bcec3e28"
+                        "1cd58749c272dfcb9968694b69598ef2"
                     ],
                     [
                         "NA20359.quilt2.vcf.gz",
-                        "a31bed1641a3d7445f7b3ead2b4d1bb2"
+                        "45563c6c8caff963299f40e22cf1e981"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
-                        "7a11aeccb26be6dc60fb64c103f87324"
+                        "d695149ed8b53cb1a983b4f68f261087"
                     ],
                     [
                         "all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz",
-                        "5244ed7616bfd602656f10aa783bc584"
+                        "87d7364a75db14177a21e4e4b0e8c699"
                     ],
                     [
                         "all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz",
-                        "840a0539baf7de8b8f854f204dad1082"
+                        "6232e6c6dc851a497a82f25d1315b09f"
                     ],
                     [
                         "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
-                        "a38c649dce49ab4a5a1f8cdc3eaa130f"
+                        "b21990d0540106d38fa72ebf8003e5f9"
                     ],
                     [
                         "all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz",
-                        "5fbf21b735d298cc1b78d6a8516e442e"
+                        "bd24854631ffb9d3df57ac77ac103f33"
                     ],
                     [
                         "all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz",
-                        "414b9dbc7d6770be64fc85332508d72e"
+                        "943b4ec2d479edb0bef12b65f0a32534"
                     ]
                 ],
                 "CSV files": [
@@ -225,7 +225,7 @@
                 }
             }
         ],
-        "timestamp": "2026-04-05T15:09:30.851391342",
+        "timestamp": "2026-04-05T18:32:29.768443421",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -395,43 +395,43 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.quilt2.vcf.gz",
-                        "572144fe1242552536761de3c9618aaa"
+                        "d36d11fd199683dfc52c0f1ff34a11e1"
                     ],
                     [
                         "NA12878.quilt2.vcf.gz",
-                        "4917a9de61d65e76083dc692087ccfb5"
+                        "8f68a04e0f4b088899b726d3668cb153"
                     ],
                     [
                         "NA19401.quilt2.vcf.gz",
-                        "1834a8aaaf9df3acd3afcb04bcec3e28"
+                        "1cd58749c272dfcb9968694b69598ef2"
                     ],
                     [
                         "NA20359.quilt2.vcf.gz",
-                        "a31bed1641a3d7445f7b3ead2b4d1bb2"
+                        "45563c6c8caff963299f40e22cf1e981"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
-                        "7a11aeccb26be6dc60fb64c103f87324"
+                        "d695149ed8b53cb1a983b4f68f261087"
                     ],
                     [
                         "all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz",
-                        "5244ed7616bfd602656f10aa783bc584"
+                        "87d7364a75db14177a21e4e4b0e8c699"
                     ],
                     [
                         "all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz",
-                        "840a0539baf7de8b8f854f204dad1082"
+                        "6232e6c6dc851a497a82f25d1315b09f"
                     ],
                     [
                         "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
-                        "a38c649dce49ab4a5a1f8cdc3eaa130f"
+                        "b21990d0540106d38fa72ebf8003e5f9"
                     ],
                     [
                         "all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz",
-                        "5fbf21b735d298cc1b78d6a8516e442e"
+                        "bd24854631ffb9d3df57ac77ac103f33"
                     ],
                     [
                         "all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz",
-                        "414b9dbc7d6770be64fc85332508d72e"
+                        "943b4ec2d479edb0bef12b65f0a32534"
                     ]
                 ],
                 "CSV files": [
@@ -457,7 +457,7 @@
                 }
             }
         ],
-        "timestamp": "2026-04-05T15:11:08.158579785",
+        "timestamp": "2026-04-05T18:34:06.561257211",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
@@ -623,35 +623,35 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.quilt2.vcf.gz",
-                        "ef12a71c74f2ce7413c3b24926d4edc5"
+                        "2fee7e17d0f94516684e69c9ad852524"
                     ],
                     [
                         "NA12878.quilt2.vcf.gz",
-                        "965d877345813f89d9a1cec42d937659"
+                        "5b24356dcf66789c9131ab0ec571dcc2"
                     ],
                     [
                         "NA19401.quilt2.vcf.gz",
-                        "75fe6afa3c2a5761047d180abeaa0782"
+                        "c3ca81440ada4d0dea1d52274b668f93"
                     ],
                     [
                         "NA20359.quilt2.vcf.gz",
-                        "865b3bc96f21fea274c7931644c65305"
+                        "f1a8b0d39b3fe5648428c7a35b87d97f"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
-                        "3aeb6b1fa1b2d6696cd3d9cc52e12ee5"
+                        "6ba188da786905b9c4857dd800ee45f5"
                     ],
                     [
                         "all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz",
-                        "d5c7da736a139418d25775dd23ac703a"
+                        "c50153f002611d6e62b8d434781cea60"
                     ],
                     [
                         "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
-                        "c92205538f31abdc1f9eafec4db5a102"
+                        "63843cb986b001f6d7a24124f8a43570"
                     ],
                     [
                         "all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz",
-                        "88608969f729c6feda2aa0fcd328e1b8"
+                        "2208d7384aec1559c946df908c8ec0a6"
                     ]
                 ],
                 "CSV files": [
@@ -677,7 +677,7 @@
                 }
             }
         ],
-        "timestamp": "2026-04-05T15:12:22.968210453",
+        "timestamp": "2026-04-05T18:35:22.861373304",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
