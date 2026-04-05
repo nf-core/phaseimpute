@@ -526,15 +526,25 @@ To summarize:
   - GLIMPSE2 should not do target-to-target imputation.
 - If you have alignment files (e.g., BAM or CRAM), all tools are available, and processing will occur in `batch_size`:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
-  - GLIMPSE2 and QUILT can process samples in separate batches.
+  - GLIMPSE2, QUILT and QUILT2 can process samples in separate batches.
 
 ## Imputation tools `--steps impute --tools [glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
-### QUILT
+### QUILT / QUILT2
 
-[QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
+[QUILT](https://github.com/rwdavies/QUILT) is an R and C++ package for read-aware genotype imputation from low-coverage sequencing using a reference panel. This pipeline contains the original QUILT method (`QUILT.R`, referred to here as `quilt`) and the newer QUILT2 method (`QUILT2.R`, exposed in this pipeline as `quilt2`).
+
+In `nf-core/phaseimpute`, both methods use alignment files from `--input`, optionally benefit from `--map`, and can use `--chunks` to split the genome into overlapping imputation regions. 
+
+Choose `quilt2` by default for new projects. The official QUILT2 documentation describes it as the recommended modern method for large reference panels and diverse sequencing inputs including short reads, long reads, linked/barcoded reads and ancient DNA. The QUILT2 paper also reports a dedicated cfDNA/NIPT mode upstream; however, the current `nf-core/phaseimpute` integration includes the diploid imputation workflow only.
+
+Choose `quilt` when you specifically want the original QUILT workflow.
+
+#### `quilt`
+
+The required inputs for `quilt` are BAM/CRAM samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
 
 ```bash
 nextflow run nf-core/phaseimpute \
