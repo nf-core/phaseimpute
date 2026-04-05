@@ -559,8 +559,8 @@ workflow PHASEIMPUTE {
                 ch_chunks_quilt2,
                 ch_map,
                 ch_fasta,
-                params.ngen,
-                params.buffer
+                params_impute["n_gen"],
+                params_impute["buffer"]
             )
 
             CONCAT_QUILT2(
