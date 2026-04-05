@@ -378,7 +378,8 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert snapshot(this.check_stdout(function.stdout)).match() },
+                { assert function.stdout.contains("WARN: Chr : [chrY] is missing from test") }
             )
         }
     }
