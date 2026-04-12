@@ -31,7 +31,8 @@
                             "vcf_impute_beagle5",
                             "vcf_impute_glimpse",
                             "vcf_impute_minimac4",
-                            "vcf_phase_shapeit5"
+                            "vcf_phase_shapeit5",
+                            "bam_impute_quilt2"
                         ]
                     },
                     "bcftools/merge": {
@@ -123,7 +124,8 @@
                             "bam_vcf_impute_glimpse2",
                             "modules",
                             "vcf_impute_beagle5",
-                            "vcf_impute_minimac4"
+                            "vcf_impute_minimac4",
+                            "bam_impute_quilt2"
                         ]
                     },
                     "glimpse2/phase": {
@@ -163,7 +165,7 @@
                     },
                     "quilt/quilt2": {
                         "branch": "master",
-                        "git_sha": "local",
+                        "git_sha": "4e94abb54fc2e2e868e943ee137a958878b8d092",
                         "installed_by": ["bam_impute_quilt2", "modules"]
                     },
                     "samtools/coverage": {
