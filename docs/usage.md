@@ -536,7 +536,7 @@ You can choose different software to perform the imputation. In the following se
 
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ package for read-aware genotype imputation from low-coverage sequencing using a reference panel. This pipeline contains the original QUILT method (`QUILT.R`, referred to here as `quilt`) and the newer QUILT2 method (`QUILT2.R`, exposed in this pipeline as `quilt2`).
 
-In `nf-core/phaseimpute`, both methods use alignment files from `--input`, optionally benefit from `--map`, and can use `--chunks` to split the genome into overlapping imputation regions. 
+In `nf-core/phaseimpute`, both methods use alignment files from `--input`, optionally benefit from `--map`, and can use `--chunks` to split the genome into overlapping imputation regions.
 
 Choose `quilt2` by default for new projects. The official QUILT2 documentation describes it as the recommended modern method for large reference panels and diverse sequencing inputs including short reads, long reads, linked/barcoded reads and ancient DNA. The QUILT2 paper also reports a dedicated cfDNA/NIPT mode upstream; however, the current `nf-core/phaseimpute` integration includes the diploid imputation workflow only.
 
