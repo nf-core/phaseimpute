@@ -5,22 +5,22 @@
                 "workflow size": 63,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -35,7 +35,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -120,9 +120,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
-                    "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
-                    "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -183,9 +183,9 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:18:36.498465986",
+        "timestamp": "2026-04-12T20:35:43.644126712",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
@@ -195,22 +195,22 @@
                 "workflow size": 63,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -225,7 +225,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -310,9 +310,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
-                    "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
-                    "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -373,9 +373,9 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:17:28.762408679",
+        "timestamp": "2026-04-12T20:22:25.545766772",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
@@ -385,22 +385,22 @@
                 "workflow size": 63,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -415,7 +415,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -500,9 +500,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
-                    "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
-                    "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
                     "bcftools_stats_indel-lengths.txt:md5,fb768eb77d336d51ee409cf5fbdcdb3b",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,32c5907548ebc4be9a4e581cab80a997",
@@ -563,9 +563,9 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:19:53.947680857",
+        "timestamp": "2026-04-12T20:37:24.576310307",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     }

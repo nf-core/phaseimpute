@@ -5,22 +5,22 @@
                 "workflow size": 49,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BEAGLE5_BEAGLE": {
                         "beagle": 5.5
@@ -32,7 +32,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -117,9 +117,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
-                    "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
-                    "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "NA12878.beagle5.bcftools_stats.txt:md5,34ecb70e1e1b2ddc293f90de1347da21",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,ba26c0dbaae0ca2c4498154d101ba2cd",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,e31c7a0f0987ed3a103c3c8662a3be1c",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -180,9 +180,9 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:56:56.687091152",
+        "timestamp": "2026-04-12T20:17:54.197354355",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
@@ -192,22 +192,22 @@
                 "workflow size": 49,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BEAGLE5_BEAGLE": {
                         "beagle": 5.5
@@ -219,7 +219,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -304,9 +304,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
-                    "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
-                    "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "NA12878.beagle5.bcftools_stats.txt:md5,34ecb70e1e1b2ddc293f90de1347da21",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,ba26c0dbaae0ca2c4498154d101ba2cd",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,e31c7a0f0987ed3a103c3c8662a3be1c",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -367,9 +367,9 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:55:52.996341339",
+        "timestamp": "2026-04-12T19:55:58.567184169",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     },
@@ -379,22 +379,22 @@
                 "workflow size": 49,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": 1.22
+                        "bcftools": "1.23.1"
                     },
                     "BEAGLE5_BEAGLE": {
                         "beagle": 5.5
@@ -406,7 +406,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": 1.23
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": 1.21
@@ -491,9 +491,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.beagle5.bcftools_stats.txt:md5,c566e085ea568923629dc3c2b32cfb22",
-                    "NA19401.beagle5.bcftools_stats.txt:md5,04aae4a7745dbd48d7302134b916b018",
-                    "NA20359.beagle5.bcftools_stats.txt:md5,469cbccc6108243b88729eacd7d8d9af",
+                    "NA12878.beagle5.bcftools_stats.txt:md5,34ecb70e1e1b2ddc293f90de1347da21",
+                    "NA19401.beagle5.bcftools_stats.txt:md5,ba26c0dbaae0ca2c4498154d101ba2cd",
+                    "NA20359.beagle5.bcftools_stats.txt:md5,e31c7a0f0987ed3a103c3c8662a3be1c",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
                     "bcftools_stats_indel-lengths.txt:md5,94d4acd5ae34c2890e554f8c19bf57a6",
                     "bcftools_stats_vqc_Count_Indels.txt:md5,df541ae8fffdb02f3a568b692185350b",
@@ -554,9 +554,9 @@
                 }
             }
         ],
-        "timestamp": "2026-03-09T14:54:52.34385461",
+        "timestamp": "2026-04-12T20:12:04.725212918",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "25.10.4"
         }
     }
