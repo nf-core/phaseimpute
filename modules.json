@@ -242,11 +242,6 @@
                         "git_sha": "4e2990cc0df18823d11b192df73039c80fdebc7c",
                         "installed_by": ["subworkflows"]
                     },
-                    "bam_impute_quilt2": {
-                        "branch": "master",
-                        "git_sha": "local",
-                        "installed_by": ["subworkflows"]
-                    },
                     "bam_impute_stitch": {
                         "branch": "master",
                         "git_sha": "e1cb31f0ced0d0810d1cb099aaa690b05beb1f3a",
