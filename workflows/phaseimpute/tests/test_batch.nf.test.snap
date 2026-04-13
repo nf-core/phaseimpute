@@ -8,7 +8,7 @@
                         "gawk": "5.3.1"
                     },
                     "BAMCHREXTRACT": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
                         "bcftools": "1.23.1"
@@ -41,7 +41,7 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
@@ -71,7 +71,7 @@
                         "glimpse2": "2.0.0"
                     },
                     "GUNZIP": {
-                        "gunzip": 1.13
+                        "gunzip": "1.13"
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
@@ -84,10 +84,10 @@
                         "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
-                        "tabix": 1.21
+                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
-                        "bcftools": 1.22
+                        "bcftools": "1.22"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -163,6 +163,10 @@
                     "imputation/stats/NA19401.quilt.bcftools_stats.txt",
                     "imputation/stats/NA20359.glimpse2.bcftools_stats.txt",
                     "imputation/stats/NA20359.quilt.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
@@ -302,6 +306,8 @@
                     "NA19401.quilt.bcftools_stats.txt:md5,17f18a5af11c51c902511588b96e0482",
                     "NA20359.glimpse2.bcftools_stats.txt:md5,f89c1f7fac1ff510ecb345f8234a4e5b",
                     "NA20359.quilt.bcftools_stats.txt:md5,0905fc06908d4482a5f06e11a04a8ffb",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,325c6b7429ecf340b8bda9c8d2a6d79f",
                     "bcftools_stats_indel-lengths.txt:md5,f858f78b2375ce895506467ed372a46d",
                     "bcftools_stats_variant_depths.txt:md5,3b866c21f480ca072ffaa5f03d55d7c6",
@@ -472,7 +478,7 @@
                 }
             }
         ],
-        "timestamp": "2026-04-12T20:09:08.006907461",
+        "timestamp": "2026-04-12T21:45:16.565870599",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
