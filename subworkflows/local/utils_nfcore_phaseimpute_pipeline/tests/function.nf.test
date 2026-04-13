@@ -323,9 +323,6 @@ nextflow_function {
         function "exportCsv"
         tag "exportCsv"
         when {
-            params {
-                outdir = "results"
-            }
             function {
                 """
                 // define inputs of the function here. Example:
@@ -333,7 +330,8 @@ nextflow_function {
                 input[1] = ["id"]
                 input[2] = "id,vcf,index"
                 input[3] = "impute.csv"
-                input[4] = "imputation/csv"
+                input[4] = "results"
+                input[5] = "imputation/csv"
                 """
             }
         }
@@ -355,6 +353,7 @@ nextflow_function {
                 input[0] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
                 input[1] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
                 input[2] = "test"
+                input[3] = 5
                 """
             }
         }
@@ -372,6 +371,7 @@ nextflow_function {
                 input[0] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX", "chrY" ]])
                 input[1] = channel.of([["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chrX" ]])
                 input[2] = "test"
+                input[3] = 5
                 """
             }
         }
@@ -689,13 +689,12 @@ nextflow_function {
         function "toolBibliographyText"
         tag "toolBibliographyText"
         when {
-            params {
-                outdir = "results"
-                steps = "simulate"
-                tools = null
-            }
             function {
                 """
+                input[0] = ["simulate"] // steps
+                input[1] = [] // tools
+                input[2] = null // compute_freq
+                input[3] = null // phase
                 """
             }
         }
@@ -711,13 +710,12 @@ nextflow_function {
         function "toolBibliographyText"
         tag "toolBibliographyText"
         when {
-            params {
-                outdir = "results"
-                steps = "all"
-                tools = "glimpse1,glimpse2,stitch,quilt,beagle5,minimac4"
-            }
             function {
                 """
+                input[0] = ["all"] // steps
+                input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "beagle5", "minimac4"] // tools
+                input[2] = true // compute_freq
+                input[3] = true // phase
                 """
             }
         }
@@ -733,13 +731,14 @@ nextflow_function {
         function "toolCitationText"
         tag "toolCitationText"
         when {
-            params {
-                outdir = "results"
-                steps = "panelprep"
-                tools = null
-            }
             function {
                 """
+                input[0] = ["panelprep"] // steps
+                input[1] = [] // tools
+                input[2] = null // normalize
+                input[3] = null // remove_samples
+                input[4] = null // compute_freq
+                input[5] = null // phase
                 """
             }
         }
@@ -757,17 +756,14 @@ nextflow_function {
         function "toolCitationText"
         tag "toolCitationText"
         when {
-            params {
-                outdir = "results"
-                steps = "all"
-                tools = "glimpse1,glimpse2,stitch,quilt,beagle5,minimac4"
-                normalize = true
-                phase = true
-                remove_samples = "sample1,sample2"
-                compute_freq = true
-            }
             function {
                 """
+                input[0] = ["all"] // steps
+                input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "beagle5", "minimac4"] // tools
+                input[2] = true // normalize
+                input[3] = "sample1,sample2" // remove_samples
+                input[4] = true // compute_freq
+                input[5] = true // phase
                 """
             }
         }

@@ -23,24 +23,24 @@ nextflow_workflow {
                 """
                 allele_freq = channel.fromList([
                     [
-                        [panel:'1000GP', chr:'21'], // meta map
+                        [panel:'1000GP', chr:'21'],
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz",checkIfExists:true),
                         file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz.csi",checkIfExists:true)
                     ]
                 ])
                 truth = channel.fromList([
-                    [[id:'NA12878'], // meta map
+                    [[id:'NA12878'],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401'], // meta map
+                    [[id:'NA19401'],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)],
                 ])
                 estimate = channel.fromList([
-                    [[id:'NA12878'], // meta map
+                    [[id:'NA12878'],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf",checkIfExists:true),
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s_imputed.bcf.csi",checkIfExists:true)],
-                    [[id:'NA19401'], // meta map
+                    [[id:'NA19401'],
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf",checkIfExists:true),
                     file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s_imputed.bcf.csi",checkIfExists:true)]
                 ])
@@ -49,6 +49,9 @@ nextflow_workflow {
                 input[1] = truth
                 input[2] = allele_freq
                 input[3] = region
+                input[4] = "0 0.01 0.05 0.1 0.2 0.5"
+                input[5] = 0.9
+                input[6] = 5
                 """
             }
         }
