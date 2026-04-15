@@ -5,7 +5,7 @@
                 "workflow size": 35,
                 "versions": {
                     "BAMCHREXTRACT": {
-                        "samtools": 1.23
+                        "samtools": "1.23"
                     },
                     "FILTER_CHR_DWN": {
                         "gawk": "5.3.1"
@@ -42,6 +42,10 @@
                     }
                 },
                 "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
                     "multiqc",
                     "multiqc/multiqc_data",
                     "multiqc/multiqc_data/llms-full.txt",
@@ -138,6 +142,8 @@
                     "simulation/samples/NA20359.depth_1x.bam.csi"
                 ],
                 "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,ee1baba4adea57b43a9ae59ce7e1dd7f",
                     "multiqc_general_stats.txt:md5,1e64ff0511d612e5be9c79b1f9118bcf",
                     "multiqc_samtools_coverage.txt:md5,f9ccbacabb9dd66667a3b53c6da46339",
@@ -209,7 +215,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-04-12T20:40:30.124410471",
+        "timestamp": "2026-04-14T12:32:03.943680779",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.4"
