@@ -557,7 +557,7 @@ workflow PHASEIMPUTE {
                 },
                 ch_panel_phased,
                 ch_chunks_quilt2,
-                ch_map,
+                ch_map_stitch,
                 ch_fasta,
                 params_impute["n_gen"],
                 params_impute["buffer"]
