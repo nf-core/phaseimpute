@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nf-core/phaseimpute/main/nextflow_schema.json",
     "title": "nf-core/phaseimpute pipeline parameters",
     "description": "Phasing and imputation pipeline",
     "type": "object",
@@ -178,13 +178,6 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
-                    "hidden": true
-                },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
                     "hidden": true
                 },
                 "multiqc_config": {
