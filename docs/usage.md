@@ -542,7 +542,7 @@ Choose `quilt2` by default for new projects. The official QUILT2 documentation d
 
 Choose `quilt` when you specifically want the original QUILT workflow.
 
-#### `quilt`
+#### `quilt` / `quilt2`
 
 The required inputs for `quilt` are BAM/CRAM samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
 
