@@ -20,13 +20,13 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_MERGE": {
                         "bcftools": "1.22"
@@ -980,10 +980,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:08:32.382829865",
+        "timestamp": "2026-05-17T14:04:03.385347374",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_all - with map": {
@@ -1007,13 +1007,13 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_MERGE": {
                         "bcftools": "1.22"
@@ -1991,10 +1991,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:06:13.41408092",
+        "timestamp": "2026-05-17T14:01:40.731382998",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }

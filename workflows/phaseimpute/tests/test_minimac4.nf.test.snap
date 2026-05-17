@@ -8,10 +8,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -213,10 +213,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:18:07.290608466",
+        "timestamp": "2026-05-17T14:14:20.802213098",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_minimac4 - no chunks - no map": {
@@ -228,10 +228,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -409,10 +409,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:19:10.383525661",
+        "timestamp": "2026-05-17T14:15:21.729409654",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }

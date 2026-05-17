@@ -14,10 +14,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_MERGE": {
                         "bcftools": "1.22"
@@ -291,10 +291,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:15:34.51932143",
+        "timestamp": "2026-05-17T14:11:31.945106119",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_glimpse1 - with chunks - with map": {
@@ -312,10 +312,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_MERGE": {
                         "bcftools": "1.22"
@@ -615,10 +615,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:14:45.704218392",
+        "timestamp": "2026-05-17T14:10:38.598193973",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }

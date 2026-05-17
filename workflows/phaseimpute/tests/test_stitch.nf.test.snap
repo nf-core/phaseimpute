@@ -11,10 +11,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -218,10 +218,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:25:22.003472554",
+        "timestamp": "2026-05-17T14:21:56.428487551",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_stitch - no chunks - no map": {
@@ -236,10 +236,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -419,10 +419,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:26:08.794836205",
+        "timestamp": "2026-05-17T14:22:43.169082186",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }
