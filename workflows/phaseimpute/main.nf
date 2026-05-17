@@ -62,7 +62,7 @@ include { TABIX_BGZIP as BGZIP_POSFILE_IMPUTE        } from '../../modules/nf-co
 // QUILT subworkflows
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
 include { VCF_GATHER_BCFTOOLS as CONCAT_QUILT        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
-include { BAM_IMPUTE_QUILT2                          } from '../../subworkflows/local/bam_impute_quilt2'
+include { BAM_IMPUTE_QUILT2                          } from '../../subworkflows/nf-core/bam_impute_quilt2'
 include { VCF_GATHER_BCFTOOLS as CONCAT_QUILT2       } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // STITCH subworkflows
