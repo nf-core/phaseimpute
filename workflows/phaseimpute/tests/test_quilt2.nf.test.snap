@@ -11,7 +11,7 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -225,10 +225,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-05T18:34:06.561257211",
+        "timestamp": "2026-05-17T13:53:43.556030062",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.0"
         }
     },
     "Check test_quilt2 - no chunks - with map": {
@@ -243,7 +243,7 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -469,10 +469,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-15T17:55:36.241000468",
+        "timestamp": "2026-05-17T13:55:00.045383039",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.0"
         }
     },
     "Check test_quilt2 - with chunks - with map": {
@@ -487,7 +487,7 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -725,10 +725,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-15T17:52:36.337568902",
+        "timestamp": "2026-05-17T13:49:55.979625287",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.0"
         }
     }
 }

@@ -358,16 +358,21 @@ workflow PIPELINE_INITIALISATION {
     chr_posfile_mis = checkMetaChr(chr_regions, extractChr(ch_posfile), "position", max_chr_names)
 
     // Compute the intersection of all chromosomes names
-    chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
+    chr_all_mis_ch = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
         .unique()
-        .toList()
-        .subscribe{ chr ->
-            if (chr.size() > 0) {
-                def chr_names = chr.size() > max_chr_names ? chr[0..max_chr_names - 1] + ['...'] : chr
-                log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used" } }
+    chr_all_mis = chr_all_mis_ch.toList()
+
+    chr_all_mis_for_combine = chr_all_mis.map { chr -> [chr] }
+
+    chr_all_mis.subscribe{ chr ->
+        if (chr.size() > 0) {
+            def chr_names = chr.size() > max_chr_names ? chr[0..max_chr_names - 1] + ['...'] : chr
+            log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used"
+        }
+    }
 
     ch_regions = ch_regions
-        .combine(chr_all_mis.toList())
+        .combine(chr_all_mis_for_combine)
         .filter { meta, _regions, chr_mis ->
             !(meta.chr in chr_mis)
         }
