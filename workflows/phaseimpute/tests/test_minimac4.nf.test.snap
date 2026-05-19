@@ -5,7 +5,7 @@
                 "workflow size": 65,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.23.1"
@@ -14,13 +14,13 @@
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
@@ -40,7 +40,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": "1.21"
@@ -138,9 +138,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
-                    "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
-                    "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
                     "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
                     "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
@@ -223,7 +223,7 @@
                 "workflow size": 63,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.23.1"
@@ -232,13 +232,13 @@
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -253,7 +253,7 @@
                         "minimac4": "4.1.6"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": "1.21"
@@ -342,9 +342,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.minimac4.bcftools_stats.txt:md5,36118c4128a03608a9aa39fab426fcfe",
-                    "NA19401.minimac4.bcftools_stats.txt:md5,dd7ded8ca642151ca96a281b7410bffb",
-                    "NA20359.minimac4.bcftools_stats.txt:md5,aadca3e840500a903413e9c14e6fedd0",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",

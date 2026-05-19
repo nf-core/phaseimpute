@@ -11,7 +11,7 @@
                         "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX": {
                         "bcftools": "1.23.1"
@@ -23,22 +23,22 @@
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_TRUTH": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_PANEL": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TRUTH": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
                         "tabix": "1.21"
@@ -81,7 +81,7 @@
                         "r-quilt": "1.0.5"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "TABIX_TABIX": {
                         "tabix": "1.21"
@@ -300,12 +300,12 @@
                     "all_samples.batch1.id.txt:md5,41d3f29a40566b10760e53b4112b9cb9",
                     "all_samples.batch1.idonly.txt:md5,5732a4ed24904236f034a6e13be24cff",
                     "all_samples.batch1.noid.txt:md5,cc74a26d0a0449bdb003ce20644996b7",
-                    "NA12878.glimpse2.bcftools_stats.txt:md5,4551f4274b0c2e04d6c8f41454dc9b88",
-                    "NA12878.quilt.bcftools_stats.txt:md5,06be906390f87548cff77877dff5c981",
-                    "NA19401.glimpse2.bcftools_stats.txt:md5,cca5d4895da3203386fa9ee061044d12",
-                    "NA19401.quilt.bcftools_stats.txt:md5,eaf59f02e81aeaafdc1953e92687d5d0",
-                    "NA20359.glimpse2.bcftools_stats.txt:md5,fa7efcf9b006db08bd66e61f54d04f4a",
-                    "NA20359.quilt.bcftools_stats.txt:md5,24972d94b67f8d0bcfe88fa052c1f279",
+                    "NA12878.glimpse2.bcftools_stats.txt:md5,1359dbf365ac603e1aca680f69cf716d",
+                    "NA12878.quilt.bcftools_stats.txt:md5,ca99e46fc6a4b76ee47396b07664f861",
+                    "NA19401.glimpse2.bcftools_stats.txt:md5,5f2daa93858e1e9697d53aaa2ac33a16",
+                    "NA19401.quilt.bcftools_stats.txt:md5,17f18a5af11c51c902511588b96e0482",
+                    "NA20359.glimpse2.bcftools_stats.txt:md5,f89c1f7fac1ff510ecb345f8234a4e5b",
+                    "NA20359.quilt.bcftools_stats.txt:md5,0905fc06908d4482a5f06e11a04a8ffb",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,325c6b7429ecf340b8bda9c8d2a6d79f",
@@ -327,15 +327,15 @@
                     "multiqc_general_stats.txt:md5,55ffda22b30bf13174fc8c81047d6ed7",
                     "multiqc_glimpse_err_grp.txt:md5,7303ceb7e80ab2b188f2dd355b6a1498",
                     "multiqc_glimpse_err_spl.txt:md5,b59190a0f0295ec4da4a6527980c874d",
-                    "1000GP.panel.bcftools_stats.txt:md5,ca5eb47541961f3b757c83b77a307a5f",
+                    "1000GP.panel.bcftools_stats.txt:md5,d01ec3426d5dda525b21da1c62a6c6fd",
                     "AllSamples.txt:md5,5bbc52fa94514bc7fca3cc345a7db6c0",
-                    "NA12878.truth.bcftools_stats.txt:md5,edf521ce34766a8f9063fd88297bb869",
+                    "NA12878.truth.bcftools_stats.txt:md5,4e8153cc6be1b8ebe1a460be78ef252f",
                     "NA12878_P1000GP_Tglimpse2_SNP.txt:md5,8b1e30077b2d79f678ba18a54614cd95",
                     "NA12878_P1000GP_Tquilt_SNP.txt:md5,e0001f03ebd16bff3ce24fe82ae54656",
-                    "NA19401.truth.bcftools_stats.txt:md5,57e1ae30a08fd25cfca3bce9dcf68b95",
+                    "NA19401.truth.bcftools_stats.txt:md5,acde3c70c921f7fa2f98f8d5463b43b7",
                     "NA19401_P1000GP_Tglimpse2_SNP.txt:md5,bb657ce7e1378e6e30e2e01e7af347f2",
                     "NA19401_P1000GP_Tquilt_SNP.txt:md5,07f89127662623c61ea126b9d8c9abb6",
-                    "NA20359.truth.bcftools_stats.txt:md5,d38bf9d569b4ebaaf0ec263791a29b39",
+                    "NA20359.truth.bcftools_stats.txt:md5,cef8ca0e4df2d9768077eaf4c88df6e6",
                     "NA20359_P1000GP_Tglimpse2_SNP.txt:md5,da7ce6c0f54c442fda1ff612cf5c5d09",
                     "NA20359_P1000GP_Tquilt_SNP.txt:md5,7d0ef6423bf4ea9346765db912779dcc"
                 ],

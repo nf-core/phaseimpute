@@ -9,6 +9,8 @@ keywords:
 components:
   - bcftools/view
   - bcftools/convert
+  - gawk
+  - tabix/bgzip
 input:
   - ch_vcf:
       type: file

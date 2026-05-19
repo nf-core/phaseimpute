@@ -8,13 +8,13 @@
                         "samtools": "1.23"
                     },
                     "BCFTOOLS_ANNOTATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX": {
                         "bcftools": "1.23.1"
@@ -26,19 +26,19 @@
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_MPILEUP": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_QUERY_IMPUTED": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_STATS_TOOLS": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_VIEW": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
                         "tabix": "1.21"
@@ -78,7 +78,7 @@
                         "r-quilt": "1.0.5"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SHAPEIT5_LIGATE": {
                         "shapeit5": "5.1.1"
@@ -269,11 +269,11 @@
                     "all_samples.batch0.id.txt:md5,2181a5165013a23885b1b8c986765963",
                     "all_samples.batch0.idonly.txt:md5,b8903a12c45a3a7d10a69ee27f502c87",
                     "all_samples.batch0.noid.txt:md5,3efb890bd71c27e79d736153c6870953",
-                    "dog_1735_chr21.bcftools_stats.txt:md5,23aeb26a018cd10f2a6ea305d17d8e5e",
-                    "dog_1735_chr22.bcftools_stats.txt:md5,180907c857f787ea824c9999567487a9",
-                    "dog_1735.glimpse1.bcftools_stats.txt:md5,d8e81c6461489ab484959a2db84f249c",
-                    "dog_1735.glimpse2.bcftools_stats.txt:md5,3dcefcccb3a8e51608356c02cb9190b0",
-                    "dog_1735.quilt.bcftools_stats.txt:md5,4aa056976d4b87fbc7f458d4ce5c39b3",
+                    "dog_1735_chr21.bcftools_stats.txt:md5,a599d34b0d39174acea89e0dc085edf0",
+                    "dog_1735_chr22.bcftools_stats.txt:md5,75a471d34226b99959c22b8ced67e6ad",
+                    "dog_1735.glimpse1.bcftools_stats.txt:md5,470737fb4c91a2d3538be073466dadbc",
+                    "dog_1735.glimpse2.bcftools_stats.txt:md5,877409263beac77f7bdd92209a27c7f3",
+                    "dog_1735.quilt.bcftools_stats.txt:md5,4c7c23540dd225babb82840e9aba2e5d",
                     "canFam3.s.fa.gz.fai:md5,631682a5849e271d84f3bf628418a6d7",
                     "canFam3.s.fa.gz.gzi:md5,b0a77162749742f3372b26e0b4f81565",
                     "bcftools-stats-subtypes.txt:md5,9397a3e17ce0d48f612401c6b5af1c07",

@@ -17,25 +17,25 @@
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_COVERAGE_DWN": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_COVERAGE_INP": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_DEPTH": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_INDEX": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_MERGE": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "SAMTOOLS_VIEW": {
-                        "samtools": "1.23"
+                        "samtools": "1.23.1"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -215,10 +215,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-30T12:23:52.713432934",
+        "timestamp": "2026-04-14T12:32:03.943680779",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
         }
     }
 }
