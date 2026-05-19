@@ -486,13 +486,13 @@ Optionnaly you can provide the following flags:
 
 |            | `--steps impute`(m) | `--input`(m) | `--genome` or `--fasta`(m) | `--panel`(m) | `--posfile`(m/o) | `--map`(o) | `--chunks`(o) |
 | ---------- | ------------------- | ------------ | -------------------------- | ------------ | ---------------- | ---------- | ------------- |
-| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³           | ✅         | ✅            |
-| `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
-| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴           | ✅         | ✅            |
-| `QUILT2`   | ✅                  | ✅ ²         | ✅                         | ✅ ⁵         | ❌             | ✅         | ✅            |
-| `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³           | ✅         | ✅            |
-| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
-| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁶           | ✅         | ✅            |
+| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³             | ✅         | ✅            |
+| `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌               | ✅         | ✅            |
+| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴             | ✅         | ✅            |
+| `QUILT2`   | ✅                  | ✅ ²         | ✅                         | ✅ ⁵         | ❌               | ✅         | ✅            |
+| `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³             | ✅         | ✅            |
+| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌               | ✅         | ✅            |
+| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁶             | ✅         | ✅            |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
