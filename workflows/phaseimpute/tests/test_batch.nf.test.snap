@@ -14,13 +14,13 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -478,10 +478,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T12:05:20.063520882",
+        "timestamp": "2026-05-17T14:05:55.670301894",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }

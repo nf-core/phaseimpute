@@ -75,7 +75,7 @@
                     "description": "Imputation tool to use.",
                     "help_text": "Multiple tools separated with commas. Used when starting from `--steps impute` or `--steps all`.",
                     "fa_icon": "fas fa-step-forward",
-                    "pattern": "^((glimpse1|glimpse2|quilt|stitch|beagle5|minimac4)?,?)*(?<!,)$"
+                    "pattern": "^((glimpse1|glimpse2|quilt|quilt2|stitch|beagle5|minimac4)?,?)*(?<!,)$"
                 },
                 "publish_all": {
                     "type": "boolean",
@@ -178,7 +178,7 @@
                 },
                 "seed": {
                     "type": "integer",
-                    "description": "Seed for random number generation in Stitch and Quilt software",
+                    "description": "Seed for random number generation in Stitch, QUILT and QUILT2 software",
                     "hidden": true,
                     "default": 1
                 }

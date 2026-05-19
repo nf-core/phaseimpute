@@ -8,10 +8,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -186,10 +186,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:12:24.630260449",
+        "timestamp": "2026-05-17T14:08:12.4413668",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_beagle5 - with chunks - with map": {
@@ -201,10 +201,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -275,7 +275,6 @@
                     "initialisation/map_convertion/1000GP_chr22.minimac.map",
                     "initialisation/map_convertion/1000GP_chr22.plink.map",
                     "initialisation/map_convertion/1000GP_chr22.stitch.map",
-                    "initialisation/map_convertion/versions.yml",
                     "initialisation/prepare_genome",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
@@ -340,7 +339,6 @@
                     "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
                     "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
-                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,82c393ee7646f820b76e6bf60e5824c4",
@@ -403,10 +401,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:11:27.945584828",
+        "timestamp": "2026-05-17T15:33:01.814250242",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }

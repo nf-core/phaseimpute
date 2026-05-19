@@ -11,10 +11,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -88,7 +88,6 @@
                     "initialisation/map_convertion/1000GP_chr22.minimac.map",
                     "initialisation/map_convertion/1000GP_chr22.plink.map",
                     "initialisation/map_convertion/1000GP_chr22.stitch.map",
-                    "initialisation/map_convertion/versions.yml",
                     "initialisation/prepare_genome",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
@@ -156,7 +155,6 @@
                     "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
                     "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
-                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,9c74a2688bd333bd9c9919476514258e",
@@ -213,10 +211,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:16:21.610584845",
+        "timestamp": "2026-05-17T15:38:21.333264051",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_glimpse2 - no chunks - no map": {
@@ -231,10 +229,10 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -409,10 +407,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:17:03.924585031",
+        "timestamp": "2026-05-17T14:13:04.077268746",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }

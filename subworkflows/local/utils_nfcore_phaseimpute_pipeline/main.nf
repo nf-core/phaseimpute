@@ -358,16 +358,21 @@ workflow PIPELINE_INITIALISATION {
     chr_posfile_mis = checkMetaChr(chr_regions, extractChr(ch_posfile), "position", max_chr_names)
 
     // Compute the intersection of all chromosomes names
-    chr_all_mis = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
+    chr_all_mis_ch = chr_ref_mis.concat(chr_chunks_mis, chr_map_mis, chr_panel_mis, chr_posfile_mis)
         .unique()
-        .toList()
-        .subscribe{ chr ->
-            if (chr.size() > 0) {
-                def chr_names = chr.size() > max_chr_names ? chr[0..max_chr_names - 1] + ['...'] : chr
-                log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used" } }
+    chr_all_mis = chr_all_mis_ch.toList()
+
+    chr_all_mis_for_combine = chr_all_mis.map { chr -> [chr] }
+
+    chr_all_mis.subscribe{ chr ->
+        if (chr.size() > 0) {
+            def chr_names = chr.size() > max_chr_names ? chr[0..max_chr_names - 1] + ['...'] : chr
+            log.warn "The following contigs are absent from at least one file : ${chr_names} and therefore won't be used"
+        }
+    }
 
     ch_regions = ch_regions
-        .combine(chr_all_mis.toList())
+        .combine(chr_all_mis_for_combine)
         .filter { meta, _regions, chr_mis ->
             !(meta.chr in chr_mis)
         }
@@ -517,16 +522,16 @@ def validateInputParameters(
 
     // Check that posfile and panel are provided when running impute only
     if (steps.contains("impute") && !steps.find { step -> step in ["all", "panelprep"] }) {
-        // Required by all tools except glimpse2, beagle5, minimac4
-        if (!tools.find { tool -> tool in ["glimpse2", "beagle5", "minimac4"] }) {
+        // Required by all tools except glimpse2, quilt2, beagle5, minimac4
+        if (!tools.find { tool -> tool in ["glimpse2", "quilt2", "beagle5", "minimac4"] }) {
             if (!sheet_posfile) {
                 error "No --posfile provided for --steps impute"
             }
         }
-        // Required by glimpse1 and glimpse2 only
-        if (tools.find { tool -> tool in ["glimpse1", "glimpse2"] }) {
+        // Required by panel-backed imputation tools
+        if (tools.find { tool -> tool in ["glimpse1", "glimpse2", "quilt2"] }) {
             if (!sheet_panel) {
-                error "No --panel provided for imputation with GLIMPSE1 or GLIMPSE2"
+                error "No --panel provided for imputation with GLIMPSE1, GLIMPSE2 or QUILT2"
             }
         }
     }
@@ -574,8 +579,8 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
         .count()
         .map{ nb_input ->
             if (extension ==~ "(vcf|bcf)(.gz)?") {
-                if (tools.contains("stitch") || tools.contains("quilt")) {
-                    error "Stitch or Quilt software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+                if (tools.contains("stitch") || tools.contains("quilt") || tools.contains("quilt2")) {
+                    error "Stitch, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
                 }
                 if (nb_input > 1) {
                     error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
@@ -589,8 +594,8 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
             }
 
             if (nb_input > batch_size) {
-                if (tools.contains("glimpse2") || tools.contains("quilt")) {
-                    log.warn("Glimpse2 or Quilt software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
+                if (tools.contains("glimpse2") || tools.contains("quilt") || tools.contains("quilt2")) {
+                    log.warn("Glimpse2, QUILT or QUILT2 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
                 }
                 if (tools.contains("stitch") || tools.contains("glimpse1")) {
                     error "Stitch or Glimpse1 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
@@ -826,6 +831,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
         MINIMAC4: "Minimac4 (Das et al. 2016)",
         STITCH  : "STITCH (Davies et al. 2016)",
         QUILT   : "QUILT (Davies et al. 2021)",
+        QUILT2  : "QUILT2 (Li et al. 2026)",
         MULTIQC : "MultiQC (Ewels et al. 2016)",
         VCFLIB  : "vcflib (Garrison et al. 2022)",
         SHAPEIT5: "SHAPEIT5 (Hofmeister et al. 2023)",
@@ -866,6 +872,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
                 " when BAM files were provided" : "",
             tools.contains("glimpse2")   ? "${tool_citation.GLIMPSE2}" : "",
             tools.contains("quilt")      ? "${tool_citation.QUILT}"    : "",
+            tools.contains("quilt2")     ? "${tool_citation.QUILT2}"   : "",
             tools.contains("stitch")     ? "${tool_citation.STITCH}"   : "",
             tools.contains("beagle5")    ? "${tool_citation.BEAGLE5}"  : "",
             tools.contains("minimac4")   ? "${tool_citation.MINIMAC4}" : ""
@@ -899,6 +906,7 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         MINIMAC4: '<li>Das, S., Forer, L., Schonherr, S., Sidore, C., Locke, A.E., Kwong, A., Vrieze, S.I., Chew, E.Y., Levy, S., McGue, M., Schlessinger, D., Stambolian, D., Loh, P.-R., Iacono, W.G., Swaroop, A., Scott, L.J., Cucca, F., Kronenberg, F., Boehnke, M., Abecasis, G.R., Fuchsberger, C., 2016. Next-generation genotype imputation service and methods. Nat Genet 48, 1284-1287. doi: <a href="https://doi.org/10.1038/ng.3656">10.1038/ng.3656</a></li>',
         STITCH  : '<li>Davies, R.W., Flint, J., Myers, S., Mott, R., 2016. Rapid genotype imputation from sequence without reference panels. Nat Genet 48, 965-969. doi: <a href="https://doi.org/10.1038/ng.3594">10.1038/ng.3594</a></li>',
         QUILT   : '<li>Davies, R.W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C.M., Chan, Y.F., Myers, S., 2021. Rapid genotype imputation from sequence with reference panels. Nat Genet 53, 1104-1111. doi: <a href="https://doi.org/10.1038/s41588-021-00877-0">10.1038/s41588-021-00877-0</a></li>',
+        QUILT2  : '<li>Li, Z., Albrechtsen, A., Davies, R.W., 2026. Flexible read-aware genotype imputation from sequence using biobank sized reference panels. Nat Commun 17, 524. doi: <a href="https://doi.org/10.1038/s41467-025-67218-1">10.1038/s41467-025-67218-1</a></li>',
         MULTIQC : '<li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href="https://doi.org/10.1093/bioinformatics/btw354">10.1093/bioinformatics/btw354</a></li>',
         VCFLIB  : '<li>Garrison, E., Kronenberg, Z.N., Dawson, E.T., Pedersen, B.S., Prins, P., 2022. A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLOS Computational Biology 18, e1009123. doi: <a href="https://doi.org/10.1371/journal.pcbi.1009123">10.1371/journal.pcbi.1009123</a></li>',
         SHAPEIT5: '<li>Hofmeister, R.J., Ribeiro, D.M., Rubinacci, S., Delaneau, O., 2023. Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet 1-7. doi: <a href="https://doi.org/10.1038/s41588-023-01415-w">10.1038/s41588-023-01415-w</a></li>',
@@ -917,6 +925,7 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         tools.contains("minimac4") ? tool_biblio.MINIMAC4 : "",
         tools.contains("stitch")   ? tool_biblio.STITCH   : "",
         tools.contains("quilt")    ? tool_biblio.QUILT    : "",
+        tools.contains("quilt2")   ? tool_biblio.QUILT2   : "",
         tool_biblio.MULTIQC,
         steps.contains("panelprep") && compute_freq              ? tool_biblio.VCFLIB   : "",
         steps.contains("panelprep") && phase                     ? tool_biblio.SHAPEIT5 : "",

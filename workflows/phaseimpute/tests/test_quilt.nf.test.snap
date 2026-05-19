@@ -11,7 +11,7 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -216,10 +216,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:23:34.774198475",
+        "timestamp": "2026-05-17T14:20:07.856977292",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Check test_quilt - with chunks - with map": {
@@ -234,7 +234,7 @@
                         "bcftools": "1.22"
                     },
                     "BCFTOOLS_INDEX": {
-                        "bcftools": "1.22"
+                        "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
                         "bcftools": "1.22"
@@ -326,7 +326,6 @@
                     "initialisation/map_convertion/1000GP_chr22.minimac.map",
                     "initialisation/map_convertion/1000GP_chr22.plink.map",
                     "initialisation/map_convertion/1000GP_chr22.stitch.map",
-                    "initialisation/map_convertion/versions.yml",
                     "initialisation/prepare_genome",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
@@ -394,7 +393,6 @@
                     "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
                     "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
                     "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
-                    "versions.yml:md5,6d9f679747546761ee89b6411223830d",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,21bcf26940e91c117b1b35f5dff864d6",
@@ -475,10 +473,10 @@
                 }
             }
         ],
-        "timestamp": "2026-03-30T21:22:22.804741382",
+        "timestamp": "2026-05-17T15:44:52.397915558",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.03.1"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     }
 }
