@@ -22,12 +22,12 @@
                     },
                     "bcftools/index": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": [
                             "bam_impute_quilt",
+                            "bam_impute_quilt2",
                             "bam_impute_stitch",
                             "bam_vcf_impute_glimpse2",
-                            "modules",
                             "vcf_impute_beagle5",
                             "vcf_impute_glimpse",
                             "vcf_impute_minimac4",
@@ -81,7 +81,7 @@
                     },
                     "custom/geneticmapconvert": {
                         "branch": "master",
-                        "git_sha": "d879be4b3adc1bce389b002bd66f6954630f57d2",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "gawk": {
@@ -116,12 +116,12 @@
                     },
                     "glimpse2/ligate": {
                         "branch": "master",
-                        "git_sha": "236d7f19efcffccdfac5e1850af2aa035e0de79c",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": [
                             "bam_impute_quilt",
+                            "bam_impute_quilt2",
                             "bam_impute_stitch",
                             "bam_vcf_impute_glimpse2",
-                            "modules",
                             "vcf_impute_beagle5",
                             "vcf_impute_minimac4"
                         ]
@@ -160,6 +160,11 @@
                         "branch": "master",
                         "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
                         "installed_by": ["bam_impute_quilt", "modules"]
+                    },
+                    "quilt/quilt2": {
+                        "branch": "master",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "installed_by": ["bam_impute_quilt2"]
                     },
                     "samtools/coverage": {
                         "branch": "master",
@@ -233,6 +238,11 @@
                     "bam_impute_quilt": {
                         "branch": "master",
                         "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "bam_impute_quilt2": {
+                        "branch": "master",
+                        "git_sha": "0c06dfb24cd33e404c2811c28d74dd9e4a1df5ce",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_impute_stitch": {

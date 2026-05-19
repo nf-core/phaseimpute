@@ -62,6 +62,8 @@ include { TABIX_BGZIP as BGZIP_POSFILE_IMPUTE        } from '../../modules/nf-co
 // QUILT subworkflows
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
 include { VCF_GATHER_BCFTOOLS as CONCAT_QUILT        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
+include { BAM_IMPUTE_QUILT2                          } from '../../subworkflows/nf-core/bam_impute_quilt2'
+include { VCF_GATHER_BCFTOOLS as CONCAT_QUILT2       } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 
 // STITCH subworkflows
 include { BAM_IMPUTE_STITCH                          } from '../../subworkflows/nf-core/bam_impute_stitch'
@@ -540,6 +542,38 @@ workflow PHASEIMPUTE {
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_QUILT.out.vcf_index)
+        }
+
+        if (tools.contains("quilt2")) {
+            log.info("Impute with QUILT2")
+
+            ch_chunks_quilt2 = chunkPrepareChannel(ch_chunks, ch_region, "quilt")
+
+            BAM_IMPUTE_QUILT2(
+                ch_input_bams_withlist.map{
+                    meta, file, index, _bampath_id, bampath_noid, bamnames -> [
+                        meta, file, index, bampath_noid, bamnames
+                    ]
+                },
+                ch_panel_phased,
+                ch_chunks_quilt2,
+                ch_map_stitch,
+                ch_fasta,
+                params_impute["n_gen"],
+                params_impute["buffer"]
+            )
+
+            CONCAT_QUILT2(
+                BAM_IMPUTE_QUILT2.out.vcf_index
+                .map{
+                    meta, vcf, index -> [meta + [tools:"quilt2"], vcf, index]
+                }
+                .combine(region_count),
+                ["id", "tools", "panel_id", "batch"],
+                false
+            )
+
+            ch_input_validate = ch_input_validate.mix(CONCAT_QUILT2.out.vcf_index)
         }
 
         if (tools.contains("beagle5")) {

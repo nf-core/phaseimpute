@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#268](https://github.com/nf-core/phaseimpute/pull/268) - Refactor duplicated QUILT/STITCH posfile preprocessing into a single step.
 - [#273](https://github.com/nf-core/phaseimpute/pull/273) - Update nf-core modules, fix syntax. Remove `SAMTOOLS_REHEADER` patch and pass command through meta map. Update nf-test in Github Action to 0.9.4.
 - [#276](https://github.com/nf-core/phaseimpute/pull/276) - Migrate all `params.value` usage to entry workflow. Use groovy map to store parameters for each step. Use nextflow 25.10 for `getGenomeAttribute()`.
+- [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
 
 ### `Fixed`
 

@@ -375,6 +375,7 @@ The different tests profiles are:
 - `test`: A profile to evaluate the imputation step with the `glimpse1` tool.
 - `test_glimpse2`: A profile to evaluate the imputation step with the `glimpse2` tool.
 - `test_quilt`: A profile to evaluate the imputation step with the `quilt` tool.
+- `test_quilt2`: A profile to evaluate the imputation step with the `quilt2` tool.
 - `test_stitch`: A profile to evaluate the imputation step with the `stitch` tool.
 - `test_beagle5`: A profile to evaluate the imputation step with the `beagle5` tool.
 - `test_minimac4`: A profile to evaluate the imputation step with the `minimac4` tool.
@@ -472,9 +473,9 @@ For starting from the imputation steps, the required flags are:
 - `--steps impute`
 - `--input input.csv`: The samplesheet containing the input sample files in `bam`, `cram` or `vcf`, `bcf` format.
 - `--genome` or `--fasta`: The reference genome of the samples.
-- `--tools [glimpse1,glimpse2,quilt,stitch,beagle5,minimac4]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
+- `--tools [glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]`: A selection of one or more of the available imputation tools. Each imputation tool has their own set of specific flags and input files. These required files are produced by `--steps panelprep` and used as input in:
 - `--posfile posfile.csv`: A samplesheet containing all the different files required by the imputation tool. This file can be generated with `--steps panelprep`.
-- `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2). These files can be obtained with `--steps panelprep`.
+- `--panel panel.csv`: A samplesheet containing the post-processed reference panel VCF (required by GLIMPSE1, GLIMPSE2 and QUILT2). These files can be obtained with `--steps panelprep`.
 
 Optionnaly you can provide the following flags:
 
@@ -483,21 +484,23 @@ Optionnaly you can provide the following flags:
 
 #### Summary table of mandatory (m) and optional (o) parameters in `--steps impute`
 
-|            | `--steps impute`(m) | `--input`(m) | `--genome` or `--fasta`(m) | `--panel`(m) | `--posfile`(m) | `--map`(o) | `--chunks`(o) |
-| ---------- | ------------------- | ------------ | -------------------------- | ------------ | -------------- | ---------- | ------------- |
-| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³           | ✅         | ✅            |
-| `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
-| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴           | ✅         | ✅            |
-| `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³           | ✅         | ✅            |
-| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌             | ✅         | ✅            |
-| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁵           | ✅         | ✅            |
+|            | `--steps impute`(m) | `--input`(m) | `--genome` or `--fasta`(m) | `--panel`(m) | `--posfile`(m/o) | `--map`(o) | `--chunks`(o) |
+| ---------- | ------------------- | ------------ | -------------------------- | ------------ | ---------------- | ---------- | ------------- |
+| `GLIMPSE1` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ³             | ✅         | ✅            |
+| `GLIMPSE2` | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌               | ✅         | ✅            |
+| `QUILT`    | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ⁴             | ✅         | ✅            |
+| `QUILT2`   | ✅                  | ✅ ²         | ✅                         | ✅ ⁵         | ❌               | ✅         | ✅            |
+| `STITCH`   | ✅                  | ✅ ²         | ✅                         | ❌           | ✅ ³             | ✅         | ✅            |
+| `BEAGLE5`  | ✅                  | ✅ ¹         | ✅                         | ✅           | ❌               | ✅         | ✅            |
+| `MINIMAC4` | ✅                  | ✅ ¹         | ✅                         | ✅           | ✅ ⁶             | ✅         | ✅            |
 
 > ¹ Alignment files as well as variant calling format (i.e. BAM, CRAM, VCF or BCF)
 > ² Alignment files only (i.e. BAM or CRAM)
 > ³ `GLIMPSE1` and `STITCH`: Should be a CSV with columns [panel id, chr, posfile]
 > ⁴ `QUILT`: Should be a CSV with columns [panel id, chr, hap, legend, posfile]
-> ⁵ `MINIMAC4`: Optionally, a VCF with its index can be provided for more control over the imputed positions. Should be a CSV with columns [panel id, chr, vcf, index]
-> ⁶ Not yet supported
+> ⁵ `QUILT2`: Uses the reference panel VCF directly. The panel CSV should contain [panel id, chr, vcf, index]
+> ⁶ `MINIMAC4`: Optionally, a VCF with its index can be provided for more control over the imputed positions. Should be a CSV with columns [panel id, chr, vcf, index]
+> ⁷ Not yet supported
 
 Here is a representation on how the input files will be processed depending on the input files type and the selected imputation tool.
 
@@ -523,15 +526,25 @@ To summarize:
   - GLIMPSE2 should not do target-to-target imputation.
 - If you have alignment files (e.g., BAM or CRAM), all tools are available, and processing will occur in `batch_size`:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
-  - GLIMPSE2 and QUILT can process samples in separate batches.
+  - GLIMPSE2, QUILT and QUILT2 can process samples in separate batches.
 
-## Imputation tools `--steps impute --tools [glimpse1,glimpse2,quilt,stitch,beagle5,minimac4]`
+## Imputation tools `--steps impute --tools [glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
-### QUILT
+### QUILT / QUILT2
 
-[QUILT](https://github.com/rwdavies/QUILT) is an R and C++ program for rapid genotype imputation from low-coverage sequence using a large reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
+[QUILT](https://github.com/rwdavies/QUILT) is an R and C++ package for read-aware genotype imputation from low-coverage sequencing using a reference panel. This pipeline contains the original QUILT method (`QUILT.R`, referred to here as `quilt`) and the newer QUILT2 method (`QUILT2.R`, exposed in this pipeline as `quilt2`).
+
+In `nf-core/phaseimpute`, both methods use alignment files from `--input`, optionally benefit from `--map`, and can use `--chunks` to split the genome into overlapping imputation regions.
+
+Choose `quilt2` by default for new projects. The official QUILT2 documentation describes it as the recommended modern method for large reference panels and diverse sequencing inputs including short reads, long reads, linked/barcoded reads and ancient DNA. The QUILT2 paper also reports a dedicated cfDNA/NIPT mode upstream; however, the current `nf-core/phaseimpute` integration includes the diploid imputation workflow only.
+
+Choose `quilt` when you specifically want the original QUILT workflow.
+
+#### `quilt` / `quilt2`
+
+The required inputs for `quilt` are BAM/CRAM samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
 
 ```bash
 nextflow run nf-core/phaseimpute \
