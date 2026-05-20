@@ -9,35 +9,14 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_quilt2 - with chunks - with map") {
+    test("Check test_quilt2 - no map - no chunks") {
         config "../../../conf/test_quilt2.config"
         when {
             params {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
-                publish_all = true
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow),
-                    ["all_samples.batch0.quilt2": UTILS.vcfDetails("$outputDir/imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz")]
-                ).match()}
-            )
-        }
-    }
-
-    test("Check test_quilt2 - with chunks - no map") {
-        config "../../../conf/test_quilt2.config"
-        when {
-            params {
-                publish_dir_mode = "copy"
-                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
-                outdir = "$outputDir"
+                chunks = null
                 map = null
                 publish_all = true
             }
@@ -54,14 +33,13 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_quilt2 - no chunks - with map") {
+    test("Check test_quilt2 - with map - with chunks") {
         config "../../../conf/test_quilt2.config"
         when {
             params {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
-                chunks = null
                 publish_all = true
             }
         }

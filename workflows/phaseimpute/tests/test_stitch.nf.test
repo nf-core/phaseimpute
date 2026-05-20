@@ -9,13 +9,15 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_stitch - with chunks - with map") {
+    test("Check test_stitch - no map - no chunks") {
         config "../../../conf/test_stitch.config"
         when {
             params {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
+                chunks = null
+                map = null
                 publish_all = true
             }
         }
@@ -31,15 +33,13 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_stitch - no chunks - no map") {
+    test("Check test_stitch - with map - with chunks") {
         config "../../../conf/test_stitch.config"
         when {
             params {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
-                chunks = null
-                map = null
                 publish_all = true
             }
         }

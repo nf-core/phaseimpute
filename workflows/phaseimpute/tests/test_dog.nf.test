@@ -8,7 +8,7 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_dog - no map") {
+    test("Check test_dog - no map - no chunks") {
         config "../../../conf/test_dog.config"
         when {
             params {
