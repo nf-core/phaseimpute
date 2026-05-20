@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.0dev
+## v1.2.0dev - [date]
 
 ### `Added`
 
@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#273](https://github.com/nf-core/phaseimpute/pull/273) - Update nf-core modules, fix syntax. Remove `SAMTOOLS_REHEADER` patch and pass command through meta map. Update nf-test in Github Action to 0.9.4.
 - [#276](https://github.com/nf-core/phaseimpute/pull/276) - Migrate all `params.value` usage to entry workflow. Use groovy map to store parameters for each step. Use nextflow 25.10 for `getGenomeAttribute()`.
 - [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
+- [#291](https://github.com/nf-core/phaseimpute/pull/291) - Update TEMPLATE to nf-core tools version 4.0.2.
 
 ### `Fixed`
 
@@ -54,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `bedtools` | 2.31.1      | No longer used |
 | `samtools` | 1.22.1      | 1.23           |
 | `gawk`     | 5.3.0       | 5.3.1          |
-| `multiqc`  | 1.32        | 1.33           |
+| `multiqc`  | 1.32        | 1.35           |
 
 ### New contributors
 
