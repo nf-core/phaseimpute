@@ -128,7 +128,7 @@ workflow PHASEIMPUTE {
         .count()
 
     ch_map_branched = ch_map
-        .branch { meta, map_file ->
+        .branch { _meta, map_file ->
             non_empty: map_file
             empty: true
         }
@@ -308,7 +308,7 @@ workflow PHASEIMPUTE {
     //
     if (steps.contains("impute") || steps.contains("all")) {
 
-        if (params.tools.split(',').any{ it in ["stitch", "quilt"] }) {
+        if (tools.any{ tool -> tool in ["stitch", "quilt"] }) {
             // Transform posfile to tabulated format shared by QUILT and STITCH
             GAWK_POSFILE_IMPUTE(
                 ch_posfile.map{
