@@ -10,3 +10,4 @@ null/
 *.code-workspace
 .nf-test*
 *.xml.bkp
+.lineage/
