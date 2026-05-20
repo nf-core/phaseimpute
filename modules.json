@@ -153,7 +153,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "79b36b51048048374b642289bfe9e591ef56fe05",
+                        "git_sha": "cd0ad387832473916b1f1c80c2ca673a7883bf94",
                         "installed_by": ["modules"]
                     },
                     "quilt/quilt": {
@@ -272,7 +272,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "f0b535b3ae20080f8db03dd5388876ad1ec29d70",
+                        "git_sha": "a3fb7351b1fdb2b1de282b765816bbea190e86a8",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {
