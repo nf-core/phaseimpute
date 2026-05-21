@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "PREPARE_GENOME"
+description: |
+  Subworkflow to prepare the reference genome for imputation.
+  This includes indexing the genome and preparing the necessary files.
+keywords:
+  - genome
+  - reference
+  - indexing
+components:
+  - samtools/faidx
+input:
+  - genome:
+      type: string
+      description: Reference genome name
+  - fasta_path:
+      type: file
+      description: Reference genome FASTA file
+      pattern: "*.{fa,fasta,fa.gz,fasta.gz}"
+  - fasta_index_path:
+      type: file
+      description: Reference genome FASTA index file
+      pattern: "*.{fai,faidx}"
+  - fasta_gzi_path:
+      type: file
+      description: Reference genome FASTA gzi index file (optional)
+      pattern: "*.gzi"
+output:
+  - ch_fasta_fai_gzi:
+      type: channel
+      description: Channel containing the reference genome FASTA file, its index and gzi index if present
+      structure:
+        - meta:
+            type: map
+            description: Metadata map that will be combined with the input data map
+        - fasta:
+            type: file
+            description: Reference genome FASTA file
+            pattern: "*.{fa,fasta,fa.gz,fasta.gz}"
+        - fai:
+            type: file
+            description: Reference genome FASTA index file
+            pattern: "*.{fai,faidx}"
+        - gzi:
+            type: file
+            description: Reference genome FASTA gzi index file (optional)
+            pattern: "*.gzi"
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"
