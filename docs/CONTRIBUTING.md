@@ -182,4 +182,33 @@ If you update images or graphics, follow the nf-core [style guidelines](https://
 
 ## Pipeline specific contribution guidelines
 
-<!-- TODO nf-core: Add any pipeline specific contribution guidelines here, such as coding styles, procedures, checklists etc. -->
+`nf-core/phaseimpute` pipeline aim to strictly follow latest nextflow and nf-core guidelines.
+As such, each local modules and subworkflow should be properly written and unittested with nf-test.
+
+Local components should only be considered when they use are specific for this pipeline.
+Otherwise, they should be part of the `nf-core/modules` repository.
+
+### Channel management and combination
+
+All channels need to be identified by a meta map. To follow which information is available, the `meta` argument
+is suffixed with a combination of the following capital letters:
+
+- I : individual id
+- P : panel id
+- R : region used
+- M : map used
+- T : tool used
+- G : reference genome used (is it needed ?)
+- S : simulation (depth or genotype array)
+
+Therefore, the following channel operation example includes a meta map containing the panel id with the region and tool used:
+
+```nextflow
+ch_panel_for_impute.map {
+    metaPRT, vcf, index -> ...
+}
+```
+
+### Release names
+
+The names of releases are composed of a color and a dog breed.
