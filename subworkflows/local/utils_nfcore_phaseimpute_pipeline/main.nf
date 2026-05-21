@@ -15,7 +15,6 @@ include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
 include { paramsSummaryMap          } from 'plugin/nf-schema'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
-include { SAMTOOLS_FAIDX            } from '../../../modules/nf-core/samtools/faidx'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -192,7 +191,7 @@ workflow PIPELINE_INITIALISATION {
     //
     if (sheet_region == null){
         // #TODO Add support for string input
-        ch_regions  = getRegionFromFai("all", ch_ref_gen)
+        ch_regions = getRegionFromFai("all", ch_ref_gen)
     }  else  if (sheet_region.endsWith(".csv")) {
         log.info "Region file provided as input is a samplesheet"
         ch_regions = channel.from(samplesheetToList(
@@ -322,36 +321,15 @@ workflow PIPELINE_INITIALISATION {
             }
         }
 
-    // For each channel if not provided change panel_id to available ones
-    if (!sheet_panel) {
-        ch_panel = ch_panel
-            .combine(panel_id)
-            .map{ metaPC, vcf, index, panel_id_name -> [
-                metaPC + ['panel_id': panel_id_name], vcf, index
-            ]}
-    }
-
-    if (!sheet_chunks) {
-        ch_chunks = ch_chunks
-            .combine(panel_id)
-            .map{ metaPC, chunks, panel_id_name -> [
-                metaPC + ['panel_id': panel_id_name], chunks
-            ]}
-    }
-
-    if (!sheet_posfile) {
-        ch_posfile = ch_posfile
-            .combine(panel_id)
-            .map{ metaPC, vcf, index, hap, legend, posfile, panel_id_name -> [
-                metaPC + ['panel_id': panel_id_name], vcf, index, hap, legend, posfile
-            ]}
-    }
-
     //
     // Check contigs name in different meta map
     //
     // Collect all chromosomes names in all different inputs
-    chr_ref = ch_ref_gen.map { _meta, _fasta, fai_file, _gzi_file -> [fai_file.readLines()*.split('\t').collect{cols -> cols[0]}] }
+    chr_ref = ch_ref_gen.map {
+        _meta, _fasta, fai_file, _gzi_file -> [
+            fai_file.readLines()*.split('\t').collect{cols -> cols[0]}
+        ]
+    }
     chr_regions = extractChr(ch_regions)
 
     // Check that the chromosomes names that will be used are all present in different inputs
@@ -419,21 +397,21 @@ workflow PIPELINE_INITIALISATION {
     // Check that all input files have the correct index
     checkFileIndex(ch_input_target.mix(ch_input_truth, ch_ref_gen, ch_panel))
 
-    // Make available both index
+    // Make available both index if present
     ch_fasta_index = ch_ref_gen.map{ meta, fasta, fai, gzi -> [
-        meta, fasta, [fai, gzi]
+        meta, fasta, gzi ? [fai, gzi] : [fai]
     ]}
 
     emit:
-    ch_input_target  // [ [meta], file, index ]
-    ch_input_truth   // [ [meta], file, index ]
-    ch_fasta_index   // [ [genome], fasta, [fai, gzi] ]
-    ch_panel         // [ [panel_id, chr], vcf, index ]
-    ch_depth         // [ [depth], depth ]
-    ch_regions       // [ [chr, region], region ]
-    ch_map           // [ [chr], map ]
-    ch_posfile       // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
-    ch_chunks        // [ [panel_id, chr], txt ]
+    ch_input_target = ch_input_target // [ [meta], file, index ]
+    ch_input_truth  = ch_input_truth  // [ [meta], file, index ]
+    ch_fasta_index  = ch_fasta_index  // [ [genome], fasta, [fai, gzi] ]
+    ch_panel        = ch_panel        // [ [panel_id, chr], vcf, index ]
+    ch_depth        = ch_depth        // [ [depth], depth ]
+    ch_regions      = ch_regions      // [ [chr, region], region ]
+    ch_map          = ch_map          // [ [chr], map ]
+    ch_posfile      = ch_posfile      // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
+    ch_chunks       = ch_chunks       // [ [panel_id, chr], txt ]
 }
 
 /*
@@ -852,7 +830,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
 
     def text_panelprep = [
         "Reference panel preparation followed several steps.",
-        normalize && remove_samples ? "The reference panel genotypes were normalized and samples" + remove_samples + "were removed" :
+        normalize && remove_samples ? "The reference panel genotypes were normalized and samples " + remove_samples + " were removed" :
             normalize ? "The reference panel genotypes were normalized" :
                 remove_samples ? "Samples " + remove_samples.split(",").join(", ") + " were removed from the reference panel genotypes" :
                     "No normalization or sample removal were performed on the reference panel genotypes.",
