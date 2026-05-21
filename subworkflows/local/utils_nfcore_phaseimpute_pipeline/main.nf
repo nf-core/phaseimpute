@@ -321,6 +321,31 @@ workflow PIPELINE_INITIALISATION {
             }
         }
 
+    // For each channel if not provided change panel_id to available ones
+    if (!sheet_panel) {
+        ch_panel = ch_panel
+            .combine(panel_id)
+            .map{ metaPC, vcf, index, panel_id_name -> [
+                metaPC + ['panel_id': panel_id_name], vcf, index
+            ]}
+    }
+
+    if (!sheet_chunks) {
+        ch_chunks = ch_chunks
+            .combine(panel_id)
+            .map{ metaPC, chunks, panel_id_name -> [
+                metaPC + ['panel_id': panel_id_name], chunks
+            ]}
+    }
+
+    if (!sheet_posfile) {
+        ch_posfile = ch_posfile
+            .combine(panel_id)
+            .map{ metaPC, vcf, index, hap, legend, posfile, panel_id_name -> [
+                metaPC + ['panel_id': panel_id_name], vcf, index, hap, legend, posfile
+            ]}
+    }
+
     //
     // Check contigs name in different meta map
     //
