@@ -830,9 +830,9 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
 
     def text_panelprep = [
         "Reference panel preparation followed several steps.",
-        normalize && remove_samples ? "The reference panel genotypes were normalized and samples " + remove_samples + " were removed" :
+        normalize && remove_samples ? "The reference panel genotypes were normalized and samples: " + remove_samples.split(",").join(", ") + " were removed" :
             normalize ? "The reference panel genotypes were normalized" :
-                remove_samples ? "Samples " + remove_samples.split(",").join(", ") + " were removed from the reference panel genotypes" :
+                remove_samples ? "Samples: " + remove_samples.split(",").join(", ") + " were removed from the reference panel genotypes" :
                     "No normalization or sample removal were performed on the reference panel genotypes.",
         normalize || remove_samples ? "followed by site extraction and format conversion using ${tool_citation.BCFTOOLS}.":
             "Site extraction and format conversion was done using ${tool_citation.BCFTOOLS}.",
