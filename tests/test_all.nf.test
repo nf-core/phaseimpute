@@ -1,0 +1,44 @@
+def projectDir = new File('.').absolutePath
+
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_all"
+
+    def test_scenario = [
+        [
+            name: "Check test_all - with map",
+            config: "../conf/test_all.config",
+            details: { outdir ->
+                [
+                    "all_samples.glimpse1": UTILS.vcfDetails("$outdir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz"),
+                    "all_samples.glimpse2": UTILS.vcfDetails("$outdir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz"),
+                    "all_samples.quilt": UTILS.vcfDetails("$outdir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                    "all_samples.stitch": UTILS.vcfDetails("$outdir/imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz"),
+                ]
+            },
+        ],
+        [
+            name: "Check test_all - no map",
+            config: "../conf/test_all.config",
+            params: [
+                map: null,
+            ],
+            details: { outdir ->
+                [
+                    "all_samples.glimpse1": UTILS.vcfDetails("$outdir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz"),
+                    "all_samples.glimpse2": UTILS.vcfDetails("$outdir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz"),
+                    "all_samples.quilt": UTILS.vcfDetails("$outdir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                    "all_samples.stitch": UTILS.vcfDetails("$outdir/imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz"),
+                ]
+            },
+        ]
+    ]
+
+    test_scenario.each { scenario ->
+        test(scenario.name, UTILS.getPhaseimputeTest(scenario))
+    }
+}

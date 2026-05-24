@@ -1,0 +1,28 @@
+def projectDir = new File('.').absolutePath
+
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_dog"
+
+    def test_scenario = [
+        [
+            name: "Check test_dog - no map",
+            config: "../conf/test_dog.config",
+            details: { outdir ->
+                [
+                    "all_samples.glimpse1": UTILS.vcfDetails("$outdir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz"),
+                    "all_samples.glimpse2": UTILS.vcfDetails("$outdir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz"),
+                    "all_samples.quilt": UTILS.vcfDetails("$outdir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                ]
+            },
+        ]
+    ]
+
+    test_scenario.each { scenario ->
+        test(scenario.name, UTILS.getPhaseimputeTest(scenario))
+    }
+}
