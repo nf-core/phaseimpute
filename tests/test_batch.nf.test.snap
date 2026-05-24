@@ -464,13 +464,27 @@
                 ]
             },
             {
-                "all_samples.glimpse2": {
+                "all_samples.batch0.glimpse2": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401"
+                    ]
+                },
+                "all_samples.batch1.glimpse2": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
                     "samples": [
                         "NA20359"
                     ]
                 },
-                "all_samples.quilt": {
+                "all_samples.batch0.quilt": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=2, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401"
+                    ]
+                },
+                "all_samples.batch1.quilt": {
                     "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true]",
                     "samples": [
                         "NA20359"
@@ -478,7 +492,7 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T14:05:55.670301894",
+        "timestamp": "2026-05-24T16:25:40.025066728",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
