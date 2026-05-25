@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#276](https://github.com/nf-core/phaseimpute/pull/276) - Migrate all `params.value` usage to entry workflow. Use groovy map to store parameters for each step. Use nextflow 25.10 for `getGenomeAttribute()`.
 - [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
 - [#291](https://github.com/nf-core/phaseimpute/pull/291) - Update TEMPLATE to nf-core tools version 4.0.2.
+- [#292](https://github.com/nf-core/phaseimpute/pull/292) - Reorganise and rename pipeline level tests.
 
 ### `Fixed`
 

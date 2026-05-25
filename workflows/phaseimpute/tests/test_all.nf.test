@@ -8,7 +8,7 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_all - with map") {
+    test("Check test_all - no map - no chunks") {
         config "../../../conf/test_all.config"
         when {
             params {
@@ -16,6 +16,7 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
                 publish_all = true
+                map = null
             }
         }
 
@@ -35,7 +36,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Check test_all - no map") {
+    test("Check test_all - with map - no chunks") {
         config "../../../conf/test_all.config"
         when {
             params {
@@ -43,7 +44,6 @@ nextflow_pipeline {
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
                 publish_all = true
-                map = null
             }
         }
 

@@ -1,5 +1,5 @@
 {
-    "Check test_dog - no map": {
+    "Check test_dog - no map - no chunks": {
         "content": [
             {
                 "workflow size": 91,
