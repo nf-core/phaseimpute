@@ -305,26 +305,32 @@ workflow PIPELINE_INITIALISATION {
     posfile_panelid = ch_posfile.map{ metaPC, _vcf, _index, _hap, _legend, _posfile -> [metaPC.panel_id]}.unique()
 
     // Get all unique panel id except None
-    panel_id = panel_panelid
+    panel_id_list = panel_panelid
         .mix(chunks_panelid, posfile_panelid)
         .flatten()
         .filter { it -> it != "None" }
         .unique()
+        .toList()
 
     // Check uniqueness of panel_id
     // TODO add support for multiple panel
-    panel_id
-        .collect()
+    panel_id_list
         .map{ panel_ids ->
-            if (panel_ids.size() != 1) {
+            if (panel_ids.size() > 1) {
                 error "Multiple panel IDs detected: ${panel_ids}. Please provide only one across panel, chunks and posfile."
             }
+            if (panel_ids.size() == 0) {
+                log.warn "No panel IDs detected. Channel panel, chunks and posfile will be initialise with null values and `panel_id`: None."
+            }
         }
+
+    panel_id_list = panel_id_list
+        .map{ ids -> ids.size() > 0 ? ids[0] : "None" }
 
     // For each channel if not provided change panel_id to available ones
     if (!sheet_panel) {
         ch_panel = ch_panel
-            .combine(panel_id)
+            .combine(panel_id_list)
             .map{ metaPC, vcf, index, panel_id_name -> [
                 metaPC + ['panel_id': panel_id_name], vcf, index
             ]}
@@ -332,7 +338,7 @@ workflow PIPELINE_INITIALISATION {
 
     if (!sheet_chunks) {
         ch_chunks = ch_chunks
-            .combine(panel_id)
+            .combine(panel_id_list)
             .map{ metaPC, chunks, panel_id_name -> [
                 metaPC + ['panel_id': panel_id_name], chunks
             ]}
@@ -340,7 +346,7 @@ workflow PIPELINE_INITIALISATION {
 
     if (!sheet_posfile) {
         ch_posfile = ch_posfile
-            .combine(panel_id)
+            .combine(panel_id_list)
             .map{ metaPC, vcf, index, hap, legend, posfile, panel_id_name -> [
                 metaPC + ['panel_id': panel_id_name], vcf, index, hap, legend, posfile
             ]}

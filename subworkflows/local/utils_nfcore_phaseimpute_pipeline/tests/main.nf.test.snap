@@ -1,0 +1,380 @@
+{
+    "Should give panel_id: None": {
+        "content": [
+            {
+                "ch_chunks": [
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr21"
+                        },
+                        [
+                            
+                        ]
+                    ],
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr22"
+                        },
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_depth": [
+                    [
+                        {
+                            "depth": 1
+                        },
+                        1
+                    ]
+                ],
+                "ch_fasta_index": [
+                    [
+                        {
+                            "genome": "GRCh38"
+                        },
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        [
+                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
+                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
+                        ]
+                    ]
+                ],
+                "ch_input_target": [
+                    [
+                        {
+                            "id": "NA12878",
+                            "tools": [
+                                
+                            ],
+                            "batch": 0
+                        },
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.bam",
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.bam.bai"
+                    ],
+                    [
+                        {
+                            "id": "NA19401",
+                            "tools": [
+                                
+                            ],
+                            "batch": 0
+                        },
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.bam",
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.bam.bai"
+                    ],
+                    [
+                        {
+                            "id": "NA20359",
+                            "tools": [
+                                
+                            ],
+                            "batch": 0
+                        },
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA20359/NA20359.s.bam",
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA20359/NA20359.s.bam.bai"
+                    ]
+                ],
+                "ch_input_truth": [
+                    [
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_map": [
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr21"
+                        },
+                        [
+                            
+                        ]
+                    ],
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr22"
+                        },
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_panel": [
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr21"
+                        },
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ],
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr22"
+                        },
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_posfile": [
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr21"
+                        },
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ],
+                    [
+                        {
+                            "panel_id": "None",
+                            "chr": "chr22"
+                        },
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_regions": [
+                    [
+                        {
+                            "chr": "chr21",
+                            "region": "chr21:0-46709983"
+                        },
+                        "chr21:0-46709983"
+                    ],
+                    [
+                        {
+                            "chr": "chr22",
+                            "region": "chr22:0-50818468"
+                        },
+                        "chr22:0-50818468"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-26T15:10:42.05045451",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Should give a warning with missing files": {
+        "content": [
+            {
+                "ch_chunks": [
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "https://github.com/nf-core/test-datasets/raw/phaseimpute/hum_data/panel/chr21/1000GP.chr21_chunks.txt"
+                    ],
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "https://github.com/nf-core/test-datasets/raw/phaseimpute/hum_data/panel/chr22/1000GP.chr22_chunks.txt"
+                    ]
+                ],
+                "ch_depth": [
+                    [
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_fasta_index": [
+                    [
+                        {
+                            "genome": "GRCh38"
+                        },
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        [
+                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
+                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
+                        ]
+                    ]
+                ],
+                "ch_input_target": [
+                    [
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_input_truth": [
+                    [
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_map": [
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        [
+                            
+                        ]
+                    ],
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_panel": [
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz",
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi"
+                    ],
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz",
+                        "https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi"
+                    ]
+                ],
+                "ch_posfile": [
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr21"
+                        },
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ],
+                    [
+                        {
+                            "panel_id": "1000GP",
+                            "chr": "chr22"
+                        },
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ],
+                        [
+                            
+                        ]
+                    ]
+                ],
+                "ch_regions": [
+                    [
+                        {
+                            "chr": "chr21",
+                            "region": "chr21:16570000-16610000"
+                        },
+                        "chr21:16570000-16610000"
+                    ],
+                    [
+                        {
+                            "chr": "chr22",
+                            "region": "chr22:16570000-16610000"
+                        },
+                        "chr22:16570000-16610000"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-26T15:00:37.724098357",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    }
+}
