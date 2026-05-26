@@ -181,7 +181,7 @@
     "Check test_sim - with regions": {
         "content": [
             {
-                "workflow size": 35,
+                "workflow size": 38,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
@@ -300,14 +300,20 @@
                     "simulation/downsample/NA20359_Call.depth.mean.tsv",
                     "simulation/downsample/NA20359_Call.depth.tsv",
                     "simulation/region_extracted",
+                    "simulation/region_extracted/NA12878_Rchr21_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA12878_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA12878_region_merged.bam",
                     "simulation/region_extracted/NA12878_region_merged.bam.bai",
+                    "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_region_merged.bam",
                     "simulation/region_extracted/NA19401_region_merged.bam.bai",
+                    "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_region_merged.bam",
@@ -324,30 +330,38 @@
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,ee1baba4adea57b43a9ae59ce7e1dd7f",
-                    "multiqc_general_stats.txt:md5,1e64ff0511d612e5be9c79b1f9118bcf",
-                    "multiqc_samtools_coverage.txt:md5,f9ccbacabb9dd66667a3b53c6da46339",
-                    "samtools-coverage-table.txt:md5,8e75baaecf0bffbf3374030767847daf",
-                    "samtools-coverage_BQ.txt:md5,b4588f44fc39d32a501760469ed8d051",
-                    "samtools-coverage_Bases.txt:md5,16d42af3e25438d3ad2c5bf7580188ff",
-                    "samtools-coverage_Coverage.txt:md5,e2d1202f2b50e37af12a4d0ca3ed6aa0",
-                    "samtools-coverage_MQ.txt:md5,678629db8f597832c92e40e34a030a5b",
-                    "samtools-coverage_Mean_depth.txt:md5,ca2ee0346807443e9008fb84a2d7697e",
-                    "samtools-coverage_Reads.txt:md5,428b91fe12113a3fafa1c7a91bd353e9",
-                    "NA12878_Call.depth.mean.tsv:md5,251df319e51ac6c84f093b459bc35afe",
-                    "NA12878_Call.depth.tsv:md5,df5db4fe094e31bb199b356e331ad796",
-                    "NA19401_Call.depth.mean.tsv:md5,fa817417af538770e493c619fbd4c92d",
-                    "NA19401_Call.depth.tsv:md5,9a0e70c0fe445f6e5739d9ce92da9fca",
-                    "NA20359_Call.depth.mean.tsv:md5,772189a184011391113106e866ebafc7",
-                    "NA20359_Call.depth.tsv:md5,5a5e2f970d47dd05a6f62e470e3cc773"
+                    "multiqc_general_stats.txt:md5,892e86e7d6185084a4b1048191aa4edd",
+                    "multiqc_samtools_coverage.txt:md5,6895b2524f6a136b53c9c9e957d262d8",
+                    "samtools-coverage-table.txt:md5,120b0c67b1514ba15cb2c3a52d840497",
+                    "samtools-coverage_BQ.txt:md5,5c29b2eb9b1d828cc92a67a4ff8943a4",
+                    "samtools-coverage_Bases.txt:md5,68c2fe0d9735ddc9dcf853283965a33d",
+                    "samtools-coverage_Coverage.txt:md5,a7c2f78709f541ce39feb465844f5e3f",
+                    "samtools-coverage_MQ.txt:md5,0ad5368c7d8b528dd4e53952fb64ea3d",
+                    "samtools-coverage_Mean_depth.txt:md5,5f1c291701c1523cb36cc8b3ad0494f5",
+                    "samtools-coverage_Reads.txt:md5,51a2dde7594b38da2732ccd86056b820",
+                    "NA12878_Call.depth.mean.tsv:md5,713a1f4811ad68444bffa85d1fcdbe0d",
+                    "NA12878_Call.depth.tsv:md5,ad4748275377d3241aff21cddd97d1e7",
+                    "NA19401_Call.depth.mean.tsv:md5,aab44099c9906b1619cad70830bedf7e",
+                    "NA19401_Call.depth.tsv:md5,367baec0401a4574bd08d3036767e872",
+                    "NA20359_Call.depth.mean.tsv:md5,caec5b47dd4f370753b500eb3cf101c4",
+                    "NA20359_Call.depth.tsv:md5,1cc9ee6a593493a0368976cff8d16d49"
                 ],
                 "BAM files": [
+                    [
+                        "NA12878_Rchr21_16570000-16610000_view.bam",
+                        "d48cdac37c8c3f3d1833662a33adf802"
+                    ],
                     [
                         "NA12878_Rchr22_16570000-16610000_view.bam",
                         "c404c1616c736a2a6a1cdd5bced715f"
                     ],
                     [
                         "NA12878_region_merged.bam",
-                        "c404c1616c736a2a6a1cdd5bced715f"
+                        "e2bdad66faf19f8bccf4c4c51dc120b3"
+                    ],
+                    [
+                        "NA19401_Rchr21_16570000-16610000_view.bam",
+                        "a423563712d655237951854fc9276133"
                     ],
                     [
                         "NA19401_Rchr22_16570000-16610000_view.bam",
@@ -355,7 +369,11 @@
                     ],
                     [
                         "NA19401_region_merged.bam",
-                        "6d27d50a7f4f48c2a50090668c4530ce"
+                        "78fd8273f02cede375553530177ac050"
+                    ],
+                    [
+                        "NA20359_Rchr21_16570000-16610000_view.bam",
+                        "171c07e12f21a9f95d7140106b975677"
                     ],
                     [
                         "NA20359_Rchr22_16570000-16610000_view.bam",
@@ -363,19 +381,19 @@
                     ],
                     [
                         "NA20359_region_merged.bam",
-                        "830119db01a05efce0254b40d5bebb33"
+                        "19adee4b55b3744226d38ceaca5ea983"
                     ],
                     [
                         "NA12878.depth_1x.bam",
-                        "272e610bed32eeaa815658ca49f7ad35"
+                        "dc551537ba58eff2b963531cf79100be"
                     ],
                     [
                         "NA19401.depth_1x.bam",
-                        "fae9a19d3e52d7e476f7458338e8da62"
+                        "d8efbef9945eb65dc7a5a5d94b928df3"
                     ],
                     [
                         "NA20359.depth_1x.bam",
-                        "60213ec054efd437f1652031d1c4b139"
+                        "1f0cd7f2be5f0d4572f1757850766ea7"
                     ]
                 ],
                 "VCF files": [
@@ -394,10 +412,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-04-14T12:32:03.943680779",
+        "timestamp": "2026-05-26T16:01:16.502949055",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.1"
         }
     }
 }
