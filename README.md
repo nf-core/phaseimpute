@@ -106,7 +106,7 @@ We thank the following people for their extensive assistance in the development 
 
 ## Contributions and Support
 
-If you would like to contribute to this pipeline, please see the [contributing guidelines](docs/CONTRIBUTING.md). Further development tips can be found in the [development documentation](docs/development.md).
+If you would like to contribute to this pipeline, please see the [contributing guidelines](docs/CONTRIBUTING.md).
 
 For further information or help, don't hesitate to get in touch on the [Slack `#phaseimpute` channel](https://nfcore.slack.com/channels/phaseimpute) (you can join with [this invite](https://nf-co.re/join/slack)).
 

@@ -8,13 +8,35 @@ nextflow_pipeline {
 
     config "./nextflow.config"
 
-    test("Check test_sim") {
+    test("Check test_sim - with regions") {
         config "../../../conf/test_sim.config"
         when {
             params {
                 publish_dir_mode = "copy"
                 pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
+                publish_all = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    UTILS.getPipelineResults(outputDir, workflow)
+                ).match()}
+            )
+        }
+    }
+
+    test("Check test_sim - no regions") {
+        config "../../../conf/test_sim.config"
+        when {
+            params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                outdir = "$outputDir"
+                input_region = null
                 publish_all = true
             }
         }

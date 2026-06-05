@@ -4,11 +4,14 @@ keywords:
   - list
   - gawk
 tools:
-  - annotate:
-      description: |
-        Extract the file names from a list of path and register them into a file.
-        The corresponding identifier can be added to the file in a second column
-        or in a separate file.
+  - gawk:
+      description: "GNU awk"
+      homepage: "https://www.gnu.org/software/gawk/"
+      documentation: "https://www.gnu.org/software/gawk/manual/"
+      tool_dev_url: "https://www.gnu.org/prep/ftp.html"
+      licence:
+        - "GPL v3"
+      identifier: ""
 input:
   - - meta:
         type: map

@@ -280,7 +280,6 @@ nextflow_function {
     test("Test checkFileIndex fa.gz fai - no gzi") {
         function "checkFileIndex"
         tag "checkFileIndex"
-        tag "test2"
         when {
             function {
                 """
@@ -301,7 +300,6 @@ nextflow_function {
     test("Test checkFileIndex fa.gz fai - gzi wrong ext") {
         function "checkFileIndex"
         tag "checkFileIndex"
-        tag "test2"
         when {
             function {
                 """
