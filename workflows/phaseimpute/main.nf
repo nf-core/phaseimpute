@@ -57,7 +57,7 @@ include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE2     } from '../../subworkflows/
 
 // Shared posfile transform for QUILT/STITCH
 include { GAWK as GAWK_POSFILE_IMPUTE                } from '../../modules/nf-core/gawk'
-include { TABIX_BGZIP as BGZIP_POSFILE_IMPUTE        } from '../../modules/nf-core/tabix/bgzip'
+include { HTSLIB_BGZIPTABIX as BGZIP_POSFILE_IMPUTE  } from '../../modules/nf-core/htslib/bgziptabix'
 
 // QUILT subworkflows
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
@@ -318,7 +318,9 @@ workflow PHASEIMPUTE {
                 }, [], false
             )
 
-            BGZIP_POSFILE_IMPUTE(GAWK_POSFILE_IMPUTE.out.output)
+            BGZIP_POSFILE_IMPUTE(
+                GAWK_POSFILE_IMPUTE.out.output, "compress", false, "txt"
+            )
         }
         // Split input files into BAMs and VCFs
         ch_input_type = ch_input_impute

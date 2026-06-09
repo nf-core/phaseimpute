@@ -10,7 +10,7 @@ components:
   - bcftools/view
   - bcftools/convert
   - gawk
-  - tabix/bgzip
+  - htslib/bgziptabix
 input:
   - ch_vcf:
       type: file

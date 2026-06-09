@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
 - [#291](https://github.com/nf-core/phaseimpute/pull/291) - Update TEMPLATE to nf-core tools version 4.0.2.
 - [#292](https://github.com/nf-core/phaseimpute/pull/292) - Reorganise and rename pipeline level tests.
+- [#](https://github.com/nf-core/phaseimpute/pull/) - Update modules and subworkflows. Replace `TABIX_TABIX` and `TABIX_BGZIP` by `HTSLIB_BGZIPTABIX`.
 
 ### `Fixed`
 
@@ -52,12 +53,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Dependency | Old version | New version    |
-| ---------- | ----------- | -------------- |
-| `bedtools` | 2.31.1      | No longer used |
-| `samtools` | 1.22.1      | 1.23           |
-| `gawk`     | 5.3.0       | 5.3.1          |
-| `multiqc`  | 1.32        | 1.35           |
+| Dependency          | Old version | New version    |
+| ------------------- | ----------- | -------------- |
+| `bedtools`          | 2.31.1      | No longer used |
+| `samtools`          | 1.22.1      | 1.23           |
+| `gawk`              | 5.3.0       | 5.3.1          |
+| `multiqc`           | 1.32        | 1.35           |
+| `tabix` -> `htslib` | 1.11        | 1.23.1         |
 
 ### New contributors
 
