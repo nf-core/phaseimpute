@@ -26,7 +26,7 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
 
     // Join extracted sites and index
     ch_posfile = BCFTOOLS_VIEW.out.vcf
-        .join(BCFTOOLS_VIEW.out.tbi)
+        .join(BCFTOOLS_VIEW.out.index)
         .join(BCFTOOLS_CONVERT.out.hap)
         .join(BCFTOOLS_CONVERT.out.legend)
         .join(HTSLIB_BGZIPTABIX.out.output)

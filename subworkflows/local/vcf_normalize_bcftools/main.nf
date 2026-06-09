@@ -5,7 +5,7 @@ include { BCFTOOLS_INDEX  } from '../../../modules/nf-core/bcftools/index'
 
 workflow VCF_NORMALIZE_BCFTOOLS {
     take:
-    ch_vcf_tbi      // channel: [ [id, chr], vcf, index ]
+    ch_vcf_index    // channel: [ [id, chr], vcf, index ]
     ch_fasta        // channel: [ [genome], fasta, [fai, gzi] ]
     normalize       // boolean
     compute_freq    // boolean
@@ -16,31 +16,31 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
     // Join duplicated biallelic sites into multiallelic records
     if (normalize) {
-        BCFTOOLS_NORM(ch_vcf_tbi, ch_fasta)
+        BCFTOOLS_NORM(ch_vcf_index, ch_fasta)
 
         // Join multiallelic VCF and TBI
-        ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf
-            .join(BCFTOOLS_NORM.out.tbi)
+        ch_multiallelic_vcf_index = BCFTOOLS_NORM.out.vcf
+            .join(BCFTOOLS_NORM.out.index)
 
         // Remove all multiallelic records and samples specified in the `--remove_samples` command:
-        BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
+        BCFTOOLS_VIEW(ch_multiallelic_vcf_index, [], [], [])
 
-        // Join biallelic VCF and TBI
-        ch_vcf_tbi = BCFTOOLS_VIEW.out.vcf
-            .join(BCFTOOLS_VIEW.out.tbi)
+        // Join biallelic VCF and index
+        ch_vcf_index = BCFTOOLS_VIEW.out.vcf
+            .join(BCFTOOLS_VIEW.out.index)
     }
 
     // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
     if (compute_freq) {
-        VCFLIB_VCFFIXUP(ch_vcf_tbi)
+        VCFLIB_VCFFIXUP(ch_vcf_index)
 
         // Index fixed panel
         BCFTOOLS_INDEX(VCFLIB_VCFFIXUP.out.vcf)
 
-        // Join fixed vcf and tbi
-        ch_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf
-            .join(BCFTOOLS_INDEX.out.tbi)
+        // Join fixed VCF and index
+        ch_vcf_index = VCFLIB_VCFFIXUP.out.vcf
+            .join(BCFTOOLS_INDEX.out.index)
     }
     emit:
-    vcf_tbi        = ch_vcf_tbi                     // channel: [ [id, chr], vcf, tbi ]
+    vcf_index = ch_vcf_index // channel: [ [id, chr], vcf, [tbi, csi] ]
 }
