@@ -45,8 +45,8 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert workflow.errorMessage.contains("and requested depth of 1, resulting in a subsampling fraction of")}
-                { assert workflow.errorMessage.contains("As this is >= 1, no subsampling can be performed for this sample.")}
+                { assert workflow.stdout.join("\n").contains("and requested depth of 1, resulting in a subsampling fraction of")},
+                { assert workflow.stdout.join("\n").contains("As this is >= 1, no subsampling can be performed for this sample.")}
             )
         }
     }
