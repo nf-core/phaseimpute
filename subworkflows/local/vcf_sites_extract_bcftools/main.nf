@@ -32,5 +32,5 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
         .join(TABIX_BGZIP.out.output)
 
     emit:
-    posfile       = ch_posfile          // channel: [ [id, chr], vcf, csi, hap, legend, posfile ]
+    posfile = ch_posfile          // channel: [ [id, chr], vcf, csi, hap, legend, posfile ]
 }
