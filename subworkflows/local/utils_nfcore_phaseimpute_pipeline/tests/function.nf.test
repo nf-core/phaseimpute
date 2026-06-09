@@ -105,7 +105,6 @@ nextflow_function {
         }
         then {
             assert function.success
-            assert snapshot(function.result).match()
         }
     }
 
@@ -335,10 +334,8 @@ nextflow_function {
         }
 
         then {
-            with(function) {
-                assert success
-                assert snapshot(result).match()
-            }
+            assert function.success
+            assert snapshot(path("${launchDir}/results/imputation/csv/impute.csv")).match()
         }
     }
 

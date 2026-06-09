@@ -912,6 +912,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
 
 def toolBibliographyText(steps, tools, compute_freq, phase) {
     def tool_biblio = [
+        HTSLIB  : '<li>Bonfield JK., Marshall J., Danecek P., Li H., Ohan V., Whitwham A., Keane T., Davies RM., 2021. HTSlib: C library for reading/writing high-throughput sequencing data. GigaScience 10(2). doi: <a href="https://doi.org/10.1093/gigascience/giab007">10.1093/gigascience/giab007</a></li>',
         BEAGLE5 : '<li>Browning, B.L., Zhou, Y., Browning, S.R., 2018. A One-Penny Imputed Genome from Next-Generation Reference Panels. Am J Hum Genet 103, 338-348. doi: <a href="https://doi.org/10.1016/j.ajhg.2018.07.015">10.1016/j.ajhg.2018.07.015</a></li>',
         SAM_BCFTOOLS: '<li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href="https://doi.org/10.1093/gigascience/giab008">10.1093/gigascience/giab008</a></li>',
         MINIMAC4: '<li>Das, S., Forer, L., Schonherr, S., Sidore, C., Locke, A.E., Kwong, A., Vrieze, S.I., Chew, E.Y., Levy, S., McGue, M., Schlessinger, D., Stambolian, D., Loh, P.-R., Iacono, W.G., Swaroop, A., Scott, L.J., Cucca, F., Kronenberg, F., Boehnke, M., Abecasis, G.R., Fuchsberger, C., 2016. Next-generation genotype imputation service and methods. Nat Genet 48, 1284-1287. doi: <a href="https://doi.org/10.1038/ng.3656">10.1038/ng.3656</a></li>',
@@ -921,7 +922,6 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         MULTIQC : '<li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href="https://doi.org/10.1093/bioinformatics/btw354">10.1093/bioinformatics/btw354</a></li>',
         VCFLIB  : '<li>Garrison, E., Kronenberg, Z.N., Dawson, E.T., Pedersen, B.S., Prins, P., 2022. A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLOS Computational Biology 18, e1009123. doi: <a href="https://doi.org/10.1371/journal.pcbi.1009123">10.1371/journal.pcbi.1009123</a></li>',
         SHAPEIT5: '<li>Hofmeister, R.J., Ribeiro, D.M., Rubinacci, S., Delaneau, O., 2023. Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet 1-7. doi: <a href="https://doi.org/10.1038/s41588-023-01415-w">10.1038/s41588-023-01415-w</a></li>',
-        HTSLIB  : '<li>Bonfield JK., Marshall J., Danecek P., Li H., Ohan V., Whitwham A., Keane T., Davies RM., 2021. HTSlib: C library for reading/writing high-throughput sequencing data. GigaScience 10(2) doi: <a href="https://doi.org/10.1093/gigascience/giab007">10.1093/gigascience/giab007</a></li>',
         GLIMPSE1: '<li>Rubinacci, S., Ribeiro, D.M., Hofmeister, R.J., Delaneau, O., 2021. Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nat Genet 53, 120-126. doi: <a href="https://doi.org/10.1038/s41588-020-00756-0">10.1038/s41588-020-00756-0</a></li>',
         GLIMPSE2: '<li>Rubinacci, S., Hofmeister, R.J., Sousa da Mota, B., Delaneau, O., 2023. Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nat Genet 55, 1088-1090. doi: <a href="https://doi.org/10.1038/s41588-023-01438-3">10.1038/s41588-023-01438-3</a></li>',
     ]
@@ -931,6 +931,7 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
     }
 
     def reference_text = [
+        steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.HTSLIB    : "",
         tools.contains("beagle5")  ? tool_biblio.BEAGLE5  : "",
         steps.contains("panelprep") || steps.contains("validate") || steps.contains("simulate") || tools.contains("glimpse1") ? tool_biblio.SAM_BCFTOOLS : "",
         tools.contains("minimac4") ? tool_biblio.MINIMAC4 : "",
@@ -938,9 +939,8 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         tools.contains("quilt")    ? tool_biblio.QUILT    : "",
         tools.contains("quilt2")   ? tool_biblio.QUILT2   : "",
         tool_biblio.MULTIQC,
-        steps.contains("panelprep") && compute_freq              ? tool_biblio.VCFLIB   : "",
-        steps.contains("panelprep") && phase                     ? tool_biblio.SHAPEIT5 : "",
-        steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.HTSLIB    : "",
+        steps.contains("panelprep") && compute_freq ? tool_biblio.VCFLIB   : "",
+        steps.contains("panelprep") && phase        ? tool_biblio.SHAPEIT5 : "",
         tools.contains("glimpse1") ? tool_biblio.GLIMPSE1 : "",
         tools.contains("glimpse2") ? tool_biblio.GLIMPSE2 : ""
     ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
