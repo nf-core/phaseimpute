@@ -252,7 +252,7 @@
                     },
                     "bam_subsampledepth_samtools": {
                         "branch": "master",
-                        "git_sha": "2057a0a8dbd67000d08613a556570aa7184a7c89",
+                        "git_sha": "54d9a8659816764fc144e6f7fba1679f57328153",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_variant_calling_mpileup_bcftools": {

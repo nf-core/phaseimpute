@@ -31,6 +31,7 @@ nextflow_pipeline {
 
     test("Check test_sim - no regions") {
         config "../../../conf/test_sim.config"
+        tag "test2"
         when {
             params {
                 publish_dir_mode = "copy"
@@ -43,10 +44,9 @@ nextflow_pipeline {
 
         then {
             assertAll(
-                { assert workflow.success },
-                { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow)
-                ).match()}
+                { assert workflow.failed },
+                { assert workflow.errorMessage.contains("and requested depth of 1, resulting in a subsampling fraction of")}
+                { assert workflow.errorMessage.contains("As this is >= 1, no subsampling can be performed for this sample.")}
             )
         }
     }

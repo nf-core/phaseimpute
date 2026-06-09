@@ -423,6 +423,10 @@ The required flags for this mode are:
 - `--depth`: The final depth of the file [default: 1].
 - `--genome` or `--fasta`: The reference genome of the samples.
 
+If your input files encompass only a portion of chromosomes, please provide the exact regions in the [regions samplesheet](#samplesheet-region).
+If not provided, the input data coverage estimation will be underestimate and will either result in an error or in erroneous
+resulting depth.
+
 You can find an overview of the results produced by this step in the [Output](output.md).
 
 ## Start with panel preparation `--steps panelprep`
