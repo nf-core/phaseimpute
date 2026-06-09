@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
 - [#291](https://github.com/nf-core/phaseimpute/pull/291) - Update TEMPLATE to nf-core tools version 4.0.2.
 - [#292](https://github.com/nf-core/phaseimpute/pull/292) - Reorganise and rename pipeline level tests.
+- [#296](https://github.com/nf-core/phaseimpute/pull/296) - Replace `SAMTOOLS_DEPTH` by `SAMTOOLS_COVERAGE` in downsampling subworkflow reduce computational load and region specificity.
 
 ### `Fixed`
 
