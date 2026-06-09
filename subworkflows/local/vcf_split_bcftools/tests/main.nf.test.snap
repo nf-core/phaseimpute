@@ -11,10 +11,10 @@
                 ]
             ]
         ],
-        "timestamp": "2026-03-03T11:27:51.743038935",
+        "timestamp": "2026-06-09T14:39:36.207128624",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "Split multiple vcf file - with renaming": {
@@ -48,10 +48,10 @@
                 "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]"
             ]
         ],
-        "timestamp": "2026-03-03T11:27:40.431376455",
+        "timestamp": "2026-06-09T14:38:04.735187812",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }

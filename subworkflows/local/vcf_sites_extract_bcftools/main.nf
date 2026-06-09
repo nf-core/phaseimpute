@@ -22,7 +22,12 @@ workflow VCF_SITES_EXTRACT_BCFTOOLS {
     GAWK(BCFTOOLS_CONVERT.out.legend, [], false)
 
     // Compress TSV
-    HTSLIB_BGZIPTABIX(GAWK.out.output, "compress", false, "txt")
+    HTSLIB_BGZIPTABIX(
+        GAWK.out.output.map { meta, txt -> [
+            meta, txt, [], []
+        ]},
+        "compress", false, "txt"
+    )
 
     // Join extracted sites and index
     ch_posfile = BCFTOOLS_VIEW.out.vcf
