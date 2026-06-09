@@ -168,8 +168,8 @@
                     },
                     "samtools/coverage": {
                         "branch": "master",
-                        "git_sha": "156feda0cb6589cd29c04902004fa3b53bc00205",
-                        "installed_by": ["modules"]
+                        "git_sha": "54d9a8659816764fc144e6f7fba1679f57328153",
+                        "installed_by": ["bam_subsampledepth_samtools"]
                     },
                     "samtools/depth": {
                         "branch": "master",
@@ -198,8 +198,8 @@
                     },
                     "samtools/view": {
                         "branch": "master",
-                        "git_sha": "2057a0a8dbd67000d08613a556570aa7184a7c89",
-                        "installed_by": ["bam_subsampledepth_samtools", "modules"]
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "installed_by": ["bam_subsampledepth_samtools"]
                     },
                     "shapeit5/ligate": {
                         "branch": "master",
