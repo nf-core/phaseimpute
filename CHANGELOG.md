@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#275](https://github.com/nf-core/phaseimpute/pull/275) - Fix nf-test errors with latest-everything.
 - [#281](https://github.com/nf-core/phaseimpute/pull/281) - Fix `diffchr()` function.
 - [#293](https://github.com/nf-core/phaseimpute/pull/293) - Fix nf-core and nextflow linting.
+- [#298](https://github.com/nf-core/phaseimpute/pull/298) - Stabilise variants md5 hash when using vcffixup.
 
 ### `Dependencies`
 
