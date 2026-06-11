@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#275](https://github.com/nf-core/phaseimpute/pull/275) - Fix nf-test errors with latest-everything.
 - [#281](https://github.com/nf-core/phaseimpute/pull/281) - Fix `diffchr()` function.
 - [#293](https://github.com/nf-core/phaseimpute/pull/293) - Fix nf-core and nextflow linting.
+- [#297](https://github.com/nf-core/phaseimpute/pull/297) - Fix `VCF_NORMALIZE_BCFTOOLS:BCFTOOLS_VIEW` configuration for `remove_samples`.
 
 ### `Dependencies`
 
