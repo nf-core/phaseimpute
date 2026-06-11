@@ -2,9 +2,12 @@
     "Check test_panelprep - no map - no chunks": {
         "content": [
             {
-                "workflow size": 32,
+                "workflow size": 36,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX": {
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
@@ -42,6 +45,10 @@
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
+                    },
+                    "VCFLIB_VCFFIXUP": {
+                        "bcftools": "1.23.1",
+                        "vcflib": "1.0.14"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -88,6 +95,8 @@
                     "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz",
                     "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_normalized.vcf.gz",
@@ -98,6 +107,8 @@
                     "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz",
                     "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_normalized.vcf.gz",
@@ -164,11 +175,11 @@
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
-                        "10fe85184e0afaddc094cf8450551cca"
+                        "3d0567b5bceed75b88b1ab565760d096"
                     ],
                     [
                         "1000GP_chr22_glimpse1_sites.vcf.gz",
-                        "c8dade5436fccb3839877a0749f1a665"
+                        "a3302d6003d28cc83772a995a5c764c2"
                     ]
                 ],
                 "CSV files": [
@@ -207,7 +218,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T15:08:32.472371737",
+        "timestamp": "2026-06-11T15:14:35.629338747",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -216,9 +227,12 @@
     "Check test_panelprep - with map - with chunks": {
         "content": [
             {
-                "workflow size": 30,
+                "workflow size": 34,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX": {
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
@@ -255,6 +269,10 @@
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
+                    },
+                    "VCFLIB_VCFFIXUP": {
+                        "bcftools": "1.23.1",
+                        "vcflib": "1.0.14"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -302,6 +320,8 @@
                     "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz",
                     "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_normalized.vcf.gz",
@@ -312,6 +332,8 @@
                     "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz",
                     "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_normalized.vcf.gz",
@@ -382,11 +404,11 @@
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
-                        "10fe85184e0afaddc094cf8450551cca"
+                        "3d0567b5bceed75b88b1ab565760d096"
                     ],
                     [
                         "1000GP_chr22_glimpse1_sites.vcf.gz",
-                        "c8dade5436fccb3839877a0749f1a665"
+                        "a3302d6003d28cc83772a995a5c764c2"
                     ]
                 ],
                 "CSV files": [
@@ -417,7 +439,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T15:09:12.506209545",
+        "timestamp": "2026-06-11T15:15:18.599055829",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
