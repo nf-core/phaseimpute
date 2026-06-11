@@ -228,7 +228,7 @@
                     },
                     "vcflib/vcffixup": {
                         "branch": "master",
-                        "git_sha": "9268f2ac9d9c520ffcc8eeb1078b4ccc461697b1",
+                        "git_sha": "ecd5df5f44d895a81bda2b47bc5b760596bce72f",
                         "installed_by": ["modules"]
                     }
                 }
