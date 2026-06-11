@@ -133,12 +133,12 @@
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
                     "1000GP_chr21_chunks_glimpse2.txt:md5,834dea86a63b5a49d36f53c0ac7e01a2",
                     "1000GP_chr22_chunks_glimpse2.txt:md5,c363e235162ca0f7d22e5604c192e256",
-                    "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
+                    "1000GP_chr21.hap.gz:md5,d18ac86ed7080c6527aade3b6717ebb0",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
-                    "1000GP_chr21.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
-                    "1000GP_chr22.hap.gz:md5,9500b831dcfee86a98577dde9e2cce73",
+                    "1000GP_chr21.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
+                    "1000GP_chr22.hap.gz:md5,40b908abc098ef9919f80b90a79f8c6c",
                     "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
-                    "1000GP_chr22.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
+                    "1000GP_chr22.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
                     "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
                     "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
                     "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
@@ -150,7 +150,7 @@
                 "VCF files": [
                     [
                         "1000GP_chr21_fixup.vcf.gz",
-                        "1a7f840b5311e45cad2210779cc90d7e"
+                        "4800cabb15496478de6642f1726ddd4f"
                     ],
                     [
                         "1000GP_chr21_multiallelic.vcf.gz",
@@ -158,15 +158,15 @@
                     ],
                     [
                         "1000GP_chr21_normalized.vcf.gz",
-                        "1a7f840b5311e45cad2210779cc90d7e"
+                        "a8e65435a4392c209107497bf3c31d5a"
                     ],
                     [
                         "1000GP_chr21_phased.vcf.gz",
-                        "797b0fd345ce761987d4b3bddac4236a"
+                        "52bcbe4476db8398ac7c5cf3ce089a50"
                     ],
                     [
                         "1000GP_chr22_fixup.vcf.gz",
-                        "e028aaa747cdb57516927d6dbd849ead"
+                        "c316ca87d43e615c2a2f2eeda31fe534"
                     ],
                     [
                         "1000GP_chr22_multiallelic.vcf.gz",
@@ -174,19 +174,19 @@
                     ],
                     [
                         "1000GP_chr22_normalized.vcf.gz",
-                        "e028aaa747cdb57516927d6dbd849ead"
+                        "78893f1a3bce8bd1090069c7f4000a1"
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "b489f8697dda10f5e2eafaa7053bd494"
+                        "7c06a12b5eb665b2b7b163acf8828710"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
-                        "6a6015e06338ef14f58749dd067f4a78"
+                        "3d0567b5bceed75b88b1ab565760d096"
                     ],
                     [
                         "1000GP_chr22_glimpse1_sites.vcf.gz",
-                        "321a19489c56a5d670ee49b26d9052b9"
+                        "a3302d6003d28cc83772a995a5c764c2"
                     ]
                 ],
                 "CSV files": [
@@ -215,12 +215,20 @@
                         ]
                     }
                 ]
+            },
+            {
+                "phased_panel_chr21": {
+                    "summary": "VcfFile [chromosomes=[chr21], sampleCount=3192, variantCount=836, phased=true]"
+                },
+                "phased_panel_chr22": {
+                    "summary": "VcfFile [chromosomes=[chr22], sampleCount=3192, variantCount=903, phased=true]"
+                }
             }
         ],
-        "timestamp": "2026-05-17T14:17:12.552259413",
+        "timestamp": "2026-06-11T14:56:27.190053818",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.1"
         }
     },
     "Check test_panelprep - with map - with chunks": {
@@ -361,12 +369,12 @@
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                    "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
+                    "1000GP_chr21.hap.gz:md5,d18ac86ed7080c6527aade3b6717ebb0",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
-                    "1000GP_chr21.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
-                    "1000GP_chr22.hap.gz:md5,9500b831dcfee86a98577dde9e2cce73",
+                    "1000GP_chr21.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
+                    "1000GP_chr22.hap.gz:md5,40b908abc098ef9919f80b90a79f8c6c",
                     "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
-                    "1000GP_chr22.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
+                    "1000GP_chr22.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
                     "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
                     "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
                     "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
@@ -378,7 +386,7 @@
                 "VCF files": [
                     [
                         "1000GP_chr21_fixup.vcf.gz",
-                        "1a7f840b5311e45cad2210779cc90d7e"
+                        "4800cabb15496478de6642f1726ddd4f"
                     ],
                     [
                         "1000GP_chr21_multiallelic.vcf.gz",
@@ -386,15 +394,15 @@
                     ],
                     [
                         "1000GP_chr21_normalized.vcf.gz",
-                        "1a7f840b5311e45cad2210779cc90d7e"
+                        "a8e65435a4392c209107497bf3c31d5a"
                     ],
                     [
                         "1000GP_chr21_phased.vcf.gz",
-                        "c848bc7161431a962bc9d08c7b009e65"
+                        "377fc1bc7cf1602b55833a2d2e3caa97"
                     ],
                     [
                         "1000GP_chr22_fixup.vcf.gz",
-                        "e028aaa747cdb57516927d6dbd849ead"
+                        "c316ca87d43e615c2a2f2eeda31fe534"
                     ],
                     [
                         "1000GP_chr22_multiallelic.vcf.gz",
@@ -402,19 +410,19 @@
                     ],
                     [
                         "1000GP_chr22_normalized.vcf.gz",
-                        "e028aaa747cdb57516927d6dbd849ead"
+                        "78893f1a3bce8bd1090069c7f4000a1"
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "791ca241f3cd9b868a2d4492d3062f57"
+                        "546dc3c1f9b47c9a3aa568a55614881d"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
-                        "6a6015e06338ef14f58749dd067f4a78"
+                        "3d0567b5bceed75b88b1ab565760d096"
                     ],
                     [
                         "1000GP_chr22_glimpse1_sites.vcf.gz",
-                        "321a19489c56a5d670ee49b26d9052b9"
+                        "a3302d6003d28cc83772a995a5c764c2"
                     ]
                 ],
                 "CSV files": [
@@ -435,12 +443,20 @@
                         ]
                     }
                 ]
+            },
+            {
+                "phased_panel_chr21": {
+                    "summary": "VcfFile [chromosomes=[chr21], sampleCount=3192, variantCount=836, phased=true]"
+                },
+                "phased_panel_chr22": {
+                    "summary": "VcfFile [chromosomes=[chr22], sampleCount=3192, variantCount=903, phased=true]"
+                }
             }
         ],
-        "timestamp": "2026-05-17T15:42:03.129095578",
+        "timestamp": "2026-06-11T14:58:41.07343865",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.1"
         }
     }
 }
