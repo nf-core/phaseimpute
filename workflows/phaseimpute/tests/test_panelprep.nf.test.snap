@@ -160,7 +160,7 @@
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "7c06a12b5eb665b2b7b163acf8828710"
+                        "40ff314e91993a89f6ca95aa06f5ad86"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
@@ -207,7 +207,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T15:53:36.17139211",
+        "timestamp": "2026-06-11T17:45:26.193201885",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

@@ -203,12 +203,12 @@
                     },
                     "shapeit5/ligate": {
                         "branch": "master",
-                        "git_sha": "25ac0da595fac900aba3041d2bcdd7eb338192d0",
+                        "git_sha": "8556a739676498417d5b323107e8db43089cf303",
                         "installed_by": ["modules", "vcf_phase_shapeit5"]
                     },
                     "shapeit5/phasecommon": {
                         "branch": "master",
-                        "git_sha": "236d7f19efcffccdfac5e1850af2aa035e0de79c",
+                        "git_sha": "8556a739676498417d5b323107e8db43089cf303",
                         "installed_by": ["modules", "vcf_phase_shapeit5"]
                     },
                     "stitch": {
