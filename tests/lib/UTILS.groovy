@@ -40,9 +40,13 @@ class UTILS {
             }
         ]
     }
-    public static def vcfDetails(filePath) {
-        def summary = path(filePath).vcf.summary.replaceAll(", phasedAutodetect=(false|true)", "")
+    public static Map vcfDetails(String filePath, boolean samples_list = true) {
+        def summary = path(filePath).vcf.summary.replaceAll(', phasedAutodetect=(false|true)', '')
         def samples = path(filePath).vcf.header.getGenotypeSamples().sort()
-        return [summary: summary, samples: samples]
+        if (samples_list) {
+            return [summary: summary, samples: samples]
+        } else {
+            return [summary: summary]
+        }
     }
 }
