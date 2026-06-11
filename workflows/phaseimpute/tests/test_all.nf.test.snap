@@ -980,10 +980,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T14:04:03.385347374",
+        "timestamp": "2026-06-10T16:33:54.425766934",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.1"
         }
     },
     "Check test_all - with map - no chunks": {

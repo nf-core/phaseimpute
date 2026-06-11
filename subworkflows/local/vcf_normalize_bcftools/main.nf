@@ -20,14 +20,22 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
         // Join multiallelic VCF and TBI
         ch_multiallelic_vcf_tbi = BCFTOOLS_NORM.out.vcf
-            .join(BCFTOOLS_NORM.out.tbi)
+            .join(
+                BCFTOOLS_NORM.out.tbi.mix(
+                    BCFTOOLS_NORM.out.csi
+                )
+            )
 
         // Remove all multiallelic records and samples specified in the `--remove_samples` command:
         BCFTOOLS_VIEW(ch_multiallelic_vcf_tbi, [], [], [])
 
         // Join biallelic VCF and TBI
         ch_vcf_tbi = BCFTOOLS_VIEW.out.vcf
-            .join(BCFTOOLS_VIEW.out.tbi)
+            .join(
+                BCFTOOLS_VIEW.out.tbi.mix(
+                    BCFTOOLS_VIEW.out.csi
+                )
+            )
     }
 
     // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
@@ -39,7 +47,11 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
         // Join fixed vcf and tbi
         ch_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf
-            .join(BCFTOOLS_INDEX.out.tbi)
+            .join(
+                BCFTOOLS_INDEX.out.tbi.mix(
+                    BCFTOOLS_INDEX.out.csi
+                )
+            )
     }
     emit:
     vcf_tbi        = ch_vcf_tbi                     // channel: [ [id, chr], vcf, tbi ]
