@@ -2,7 +2,7 @@
     "Check test_all - no map - no chunks": {
         "content": [
             {
-                "workflow size": 245,
+                "workflow size": 243,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.1"
@@ -965,7 +965,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T15:23:35.53328575",
+        "timestamp": "2026-06-11T15:50:19.452278191",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -974,7 +974,7 @@
     "Check test_all - with map - no chunks": {
         "content": [
             {
-                "workflow size": 247,
+                "workflow size": 245,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.1"
@@ -1959,7 +1959,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T15:25:48.633078283",
+        "timestamp": "2026-06-11T15:52:34.630763476",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
