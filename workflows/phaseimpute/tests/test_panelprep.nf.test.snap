@@ -2,12 +2,9 @@
     "Check test_panelprep - no map - no chunks": {
         "content": [
             {
-                "workflow size": 36,
+                "workflow size": 34,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": "1.23.1"
-                    },
-                    "BCFTOOLS_INDEX": {
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
@@ -47,6 +44,7 @@
                         "bcftools": "1.22"
                     },
                     "VCFLIB_VCFFIXUP": {
+                        "bcftools": "1.23.1",
                         "vcflib": "1.0.14"
                     },
                     "Workflow": {
@@ -94,24 +92,24 @@
                     "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf.csi",
-                    "prep_panel/panel/1000GP_chr21_fixup.vcf.gz",
-                    "prep_panel/panel/1000GP_chr21_fixup.vcf.gz.tbi",
-                    "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz",
-                    "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_normalized.vcf.gz",
-                    "prep_panel/panel/1000GP_chr21_normalized.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr21_normalized.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
                     "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf",
                     "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf.csi",
-                    "prep_panel/panel/1000GP_chr22_fixup.vcf.gz",
-                    "prep_panel/panel/1000GP_chr22_fixup.vcf.gz.tbi",
-                    "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz",
-                    "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_normalized.vcf.gz",
-                    "prep_panel/panel/1000GP_chr22_normalized.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr22_normalized.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
                     "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
                     "prep_panel/posfile",
@@ -149,14 +147,6 @@
                 ],
                 "VCF files": [
                     [
-                        "1000GP_chr21_fixup.vcf.gz",
-                        "4800cabb15496478de6642f1726ddd4f"
-                    ],
-                    [
-                        "1000GP_chr21_multiallelic.vcf.gz",
-                        "1a7f840b5311e45cad2210779cc90d7e"
-                    ],
-                    [
                         "1000GP_chr21_normalized.vcf.gz",
                         "a8e65435a4392c209107497bf3c31d5a"
                     ],
@@ -165,20 +155,12 @@
                         "52bcbe4476db8398ac7c5cf3ce089a50"
                     ],
                     [
-                        "1000GP_chr22_fixup.vcf.gz",
-                        "c316ca87d43e615c2a2f2eeda31fe534"
-                    ],
-                    [
-                        "1000GP_chr22_multiallelic.vcf.gz",
-                        "e028aaa747cdb57516927d6dbd849ead"
-                    ],
-                    [
                         "1000GP_chr22_normalized.vcf.gz",
                         "78893f1a3bce8bd1090069c7f4000a1"
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "7c06a12b5eb665b2b7b163acf8828710"
+                        "40ff314e91993a89f6ca95aa06f5ad86"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
@@ -225,7 +207,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T14:56:27.190053818",
+        "timestamp": "2026-06-11T17:45:26.193201885",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -234,12 +216,9 @@
     "Check test_panelprep - with map - with chunks": {
         "content": [
             {
-                "workflow size": 34,
+                "workflow size": 32,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
-                        "bcftools": "1.23.1"
-                    },
-                    "BCFTOOLS_INDEX": {
                         "bcftools": "1.23.1"
                     },
                     "BCFTOOLS_INDEX_LIGATE": {
@@ -278,6 +257,7 @@
                         "bcftools": "1.22"
                     },
                     "VCFLIB_VCFFIXUP": {
+                        "bcftools": "1.23.1",
                         "vcflib": "1.0.14"
                     },
                     "Workflow": {
@@ -326,24 +306,24 @@
                     "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf",
                     "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf.csi",
-                    "prep_panel/panel/1000GP_chr21_fixup.vcf.gz",
-                    "prep_panel/panel/1000GP_chr21_fixup.vcf.gz.tbi",
-                    "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz",
-                    "prep_panel/panel/1000GP_chr21_multiallelic.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_normalized.vcf.gz",
-                    "prep_panel/panel/1000GP_chr21_normalized.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr21_normalized.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
                     "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf",
                     "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf.csi",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf",
                     "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf.csi",
-                    "prep_panel/panel/1000GP_chr22_fixup.vcf.gz",
-                    "prep_panel/panel/1000GP_chr22_fixup.vcf.gz.tbi",
-                    "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz",
-                    "prep_panel/panel/1000GP_chr22_multiallelic.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_normalized.vcf.gz",
-                    "prep_panel/panel/1000GP_chr22_normalized.vcf.gz.tbi",
+                    "prep_panel/panel/1000GP_chr22_normalized.vcf.gz.csi",
                     "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
                     "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
                     "prep_panel/posfile",
@@ -385,28 +365,12 @@
                 ],
                 "VCF files": [
                     [
-                        "1000GP_chr21_fixup.vcf.gz",
-                        "4800cabb15496478de6642f1726ddd4f"
-                    ],
-                    [
-                        "1000GP_chr21_multiallelic.vcf.gz",
-                        "1a7f840b5311e45cad2210779cc90d7e"
-                    ],
-                    [
                         "1000GP_chr21_normalized.vcf.gz",
                         "a8e65435a4392c209107497bf3c31d5a"
                     ],
                     [
                         "1000GP_chr21_phased.vcf.gz",
                         "377fc1bc7cf1602b55833a2d2e3caa97"
-                    ],
-                    [
-                        "1000GP_chr22_fixup.vcf.gz",
-                        "c316ca87d43e615c2a2f2eeda31fe534"
-                    ],
-                    [
-                        "1000GP_chr22_multiallelic.vcf.gz",
-                        "e028aaa747cdb57516927d6dbd849ead"
                     ],
                     [
                         "1000GP_chr22_normalized.vcf.gz",
@@ -453,7 +417,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T14:58:41.07343865",
+        "timestamp": "2026-06-11T15:54:18.897975608",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

@@ -8,7 +8,7 @@ class UTILS {
         // bam_files: All bam files
         def bam_files   = getAllFilesFromDir(outdir, include: ['**/*.bam'])
         // vcf_files: All vcf files
-        def vcf_files   = getAllFilesFromDir(outdir, include: ['**/*.{vcf,bcf}.gz'])
+        def vcf_files   = getAllFilesFromDir(outdir, include: ['**/*.vcf.gz'])
         // csv_files: All csv files
         def csv_files   = getAllFilesFromDir(outdir, include: ['**/*.csv'])
         return [
