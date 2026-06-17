@@ -15,7 +15,6 @@ nextflow_workflow {
     tag "bcftools"
     tag "bcftools/norm"
     tag "bcftools/view"
-    tag "bcftools/index"
     tag "vcflib"
     tag "vcflib/vcffixup"
 

@@ -13,7 +13,6 @@ components:
   - bcftools/norm
   - bcftools/view
   - vcflib/vcffixup
-  - bcftools/index
 input:
   - ch_vcf:
       type: file
