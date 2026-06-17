@@ -24,7 +24,11 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow)
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    [
+                        "phased_panel_chr21": UTILS.vcfDetails("$outputDir/prep_panel/panel/1000GP_chr21_phased.vcf.gz", false),
+                        "phased_panel_chr22": UTILS.vcfDetails("$outputDir/prep_panel/panel/1000GP_chr22_phased.vcf.gz", false),
+                    ]
                 ).match()}
             )
         }
@@ -46,7 +50,11 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    UTILS.getPipelineResults(outputDir, workflow)
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    [
+                        "phased_panel_chr21": UTILS.vcfDetails("$outputDir/prep_panel/panel/1000GP_chr21_phased.vcf.gz", false),
+                        "phased_panel_chr22": UTILS.vcfDetails("$outputDir/prep_panel/panel/1000GP_chr22_phased.vcf.gz", false),
+                    ]
                 ).match()}
             )
         }
