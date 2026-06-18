@@ -36,6 +36,7 @@ include { VCF_GATHER_BCFTOOLS as CONCAT_PANEL        } from '../../subworkflows/
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
 include { chunkPrepareChannel                        } from './function.nf'
+include { chRegionToBed                              } from './function.nf'
 
 // Genetic map conversion module
 include { CUSTOM_GENETICMAPCONVERT                   } from '../../modules/nf-core/custom/geneticmapconvert'
@@ -187,10 +188,11 @@ workflow PHASEIMPUTE {
         ch_multiqc_files = ch_multiqc_files.mix(FILTER_CHR_INP.out.output.map{ _meta, file -> file })
 
         if (params_simulate["depth"]) {
+            ch_region_bed = chRegionToBed(ch_region).collect()
             // Downsample input to desired depth
             BAM_SUBSAMPLEDEPTH_SAMTOOLS(
                 ch_input_sim, ch_depth,
-                ch_fasta
+                ch_fasta, ch_region_bed
             )
             ch_input_impute = BAM_SUBSAMPLEDEPTH_SAMTOOLS.out.bam_subsampled
                 .map{ meta, bam, index ->
