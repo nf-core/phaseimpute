@@ -202,7 +202,7 @@
             "nextflow": "26.03.2"
         }
     },
-    "Check test_stitch - with map - with chunks": {
+        "Check test_stitch - with map - with chunks": {
         "content": [
             {
                 "workflow size": 32,
@@ -281,6 +281,39 @@
                     "imputation/stitch/concat",
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz",
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/intermediary",
+                    "imputation/stitch/intermediary/RData",
+                    "imputation/stitch/intermediary/RData/EM.all.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/RData/EM.all.chr22.16570065.16597215.withBuffer.RData",
+                    "imputation/stitch/intermediary/RData/end.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/RData/endEM.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/RData/sampleNames.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/RData/start.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/RData/startEM.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr21_16570070-16595525.stitch.vcf.gz",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr21_16570070-16595525.stitch.vcf.gz.tbi",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr21_16585483-16609998.stitch.vcf.gz",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr21_16585483-16609998.stitch.vcf.gz.tbi",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr22_16570065-16597215.stitch.vcf.gz",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr22_16570065-16597215.stitch.vcf.gz.tbi",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr22_16587172-16609999.stitch.vcf.gz",
+                    "imputation/stitch/intermediary/all_samples.batch0.chr22_16587172-16609999.stitch.vcf.gz.tbi",
+                    "imputation/stitch/intermediary/all_samples_chr21.ligate.vcf.gz",
+                    "imputation/stitch/intermediary/all_samples_chr21.ligate.vcf.gz.tbi",
+                    "imputation/stitch/intermediary/all_samples_chr22.ligate.vcf.gz",
+                    "imputation/stitch/intermediary/all_samples_chr22.ligate.vcf.gz.tbi",
+                    "imputation/stitch/intermediary/input",
+                    "imputation/stitch/intermediary/input/sample.1.input.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/input/sample.2.input.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/input/sample.3.input.chr22.16570065.16597215.RData",
+                    "imputation/stitch/intermediary/plots",
+                    "imputation/stitch/intermediary/plots/alphaMat.chr22.16570065.16597215.all.s.1.png",
+                    "imputation/stitch/intermediary/plots/alphaMat.chr22.16570065.16597215.normalized.s.1.png",
+                    "imputation/stitch/intermediary/plots/hapSum.chr22.16570065.16597215.s.1.png",
+                    "imputation/stitch/intermediary/plots/hapSum_log.chr22.16570065.16597215.s.1.png",
+                    "imputation/stitch/intermediary/plots/metricsForPostImputationQC.chr22.16570065.16597215.sample.jpg",
+                    "imputation/stitch/intermediary/plots/metricsForPostImputationQCChromosomeWide.chr22.16570065.16597215.sample.jpg",
+                    "imputation/stitch/intermediary/plots/r2.chr22.16570065.16597215.goodonly.jpg",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
@@ -357,6 +390,23 @@
                     "NA12878.stitch.bcftools_stats.txt:md5,24d54d3ffba3fed39f7824abbf9a7d81",
                     "NA19401.stitch.bcftools_stats.txt:md5,360b697eac096a9b0ae2cc1059659418",
                     "NA20359.stitch.bcftools_stats.txt:md5,6d62a564c7fead78240007ac90bc8e3b",
+                    "EM.all.chr22.16570065.16597215.RData:md5,877fc3e377e67f9159c7ac27f22b4ee1",
+                    "EM.all.chr22.16570065.16597215.withBuffer.RData:md5,385fe3f7d3fe81853069aeab6841e0ff",
+                    "end.chr22.16570065.16597215.RData:md5,218a5dec68fd3edb26e6e69b0e03eb68",
+                    "endEM.chr22.16570065.16597215.RData:md5,313c6a6a770dd97dc6429e620fccf012",
+                    "sampleNames.chr22.16570065.16597215.RData:md5,9b101210250b4f003d85610572d7ba50",
+                    "start.chr22.16570065.16597215.RData:md5,579db1740580e163da8eb49ef47f0ab1",
+                    "startEM.chr22.16570065.16597215.RData:md5,faee919b7dd1dc68bf3e860d33ee8a22",
+                    "sample.1.input.chr22.16570065.16597215.RData:md5,30fd0446dda1102464b027cec41af7dc",
+                    "sample.2.input.chr22.16570065.16597215.RData:md5,dfac337b98d2f91db7f4614b9a612375",
+                    "sample.3.input.chr22.16570065.16597215.RData:md5,75fc2b869a57aab82b1b1a63d5316a5a",
+                    "alphaMat.chr22.16570065.16597215.all.s.1.png:md5,290a5dcbacadb13febe15bec9ecaec8d",
+                    "alphaMat.chr22.16570065.16597215.normalized.s.1.png:md5,04a637d77fcd9ad65a5538d34516f9bb",
+                    "hapSum.chr22.16570065.16597215.s.1.png:md5,68bb1c52958eb65052448795a84eb7c4",
+                    "hapSum_log.chr22.16570065.16597215.s.1.png:md5,b14993fef65b813b2ec42e9412af73d3",
+                    "metricsForPostImputationQC.chr22.16570065.16597215.sample.jpg:md5,e841999d850ddbcf4a9ecb219c93b237",
+                    "metricsForPostImputationQCChromosomeWide.chr22.16570065.16597215.sample.jpg:md5,8a114cb1392895f659f266c35cd61a4b",
+                    "r2.chr22.16570065.16597215.goodonly.jpg:md5,0789bb8a6913f304c9ef8637abfad881",
                     "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
                     "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
                     "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
@@ -383,19 +433,43 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "a95f947cf1827afcb572299fe6981c38"
+                        "6526f23d0d31b16b6755dedd8ab131a"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16570070-16595525.stitch.vcf.gz",
+                        "4a6a1455e50a05274b56b3d9e23a2118"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16585483-16609998.stitch.vcf.gz",
+                        "4fd2fbc9da67ae041765406d951dea95"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16570065-16597215.stitch.vcf.gz",
+                        "88730553ba4cfe95bec2ab635da209a3"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16587172-16609999.stitch.vcf.gz",
+                        "1111ecc64193034fc63c999fa63fc257"
+                    ],
+                    [
+                        "all_samples_chr21.ligate.vcf.gz",
+                        "4af6a5222b66bf6c7e3165d837db58b8"
+                    ],
+                    [
+                        "all_samples_chr22.ligate.vcf.gz",
+                        "142ff871bd0435e0b21a2a1e149f8dd2"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "80c046997caae0a5bf18dd1c7e000f19"
+                        "f4a7da17ee1f7f4dec42acc868e5e8ff"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "fc07fd7c84654e77271922a6207cea0d"
+                        "2a563c41859cf920c094825908a3edc3"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "359d324d5dd9f190a393ba2a9f4d1385"
+                        "4783c6af52b8e8f11cf36224ff11af6d"
                     ]
                 ],
                 "CSV files": [
@@ -421,10 +495,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:47:57.591787363",
+        "timestamp": "2026-06-18T10:07:02.544626565",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.3"
         }
     }
 }
