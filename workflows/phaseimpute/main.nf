@@ -190,7 +190,7 @@ workflow PHASEIMPUTE {
             // Downsample input to desired depth
             BAM_SUBSAMPLEDEPTH_SAMTOOLS(
                 ch_input_sim, ch_depth,
-                ch_fasta, []
+                ch_fasta, channel.of([[], []]) // TODO wait for #296
             )
             ch_input_impute = BAM_SUBSAMPLEDEPTH_SAMTOOLS.out.bam_subsampled
                 .map{ meta, bam, index ->

@@ -193,7 +193,7 @@
             "nextflow": "26.04.3"
         }
     },
-        "Check test_beagle5 - with map - with chunks": {
+    "Check test_beagle5 - with map - with chunks": {
         "content": [
             {
                 "workflow size": 51,
