@@ -41,7 +41,8 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": "1.21"
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
@@ -73,6 +74,10 @@
                     "GUNZIP": {
                         "gunzip": "1.13"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
@@ -82,9 +87,6 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -478,10 +480,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T14:05:55.670301894",
+        "timestamp": "2026-06-17T18:03:43.670957829",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     }
 }

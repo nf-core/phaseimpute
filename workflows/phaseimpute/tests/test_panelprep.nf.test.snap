@@ -28,6 +28,10 @@
                     "GLIMPSE_CHUNK": {
                         "glimpse": "1.1.1"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
                     },
@@ -36,9 +40,6 @@
                     },
                     "SHAPEIT5_PHASECOMMON": {
                         "shapeit5": "5.1.1"
-                    },
-                    "TABIX_BGZIP": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -207,10 +208,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T17:45:26.193201885",
+        "timestamp": "2026-06-17T18:27:48.14157869",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.03.2"
         }
     },
     "Check test_panelprep - with map - with chunks": {
@@ -241,6 +242,10 @@
                     "GAWK": {
                         "gawk": "5.3.1"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
                     },
@@ -249,9 +254,6 @@
                     },
                     "SHAPEIT5_PHASECOMMON": {
                         "shapeit5": "5.1.1"
-                    },
-                    "TABIX_BGZIP": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -417,10 +419,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-11T15:54:18.897975608",
+        "timestamp": "2026-06-17T18:29:21.395110441",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.03.2"
         }
     }
 }
