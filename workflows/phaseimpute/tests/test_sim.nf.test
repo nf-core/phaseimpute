@@ -31,7 +31,6 @@ nextflow_pipeline {
 
     test("Check test_sim - no regions") {
         config "../../../conf/test_sim.config"
-        tag "test2"
         when {
             params {
                 publish_dir_mode = "copy"
