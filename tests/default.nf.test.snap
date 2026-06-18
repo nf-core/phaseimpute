@@ -48,14 +48,15 @@
                     "GLIMPSE_PHASE": {
                         "glimpse": "1.1.1"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -315,10 +316,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T16:07:33.820698383",
+        "timestamp": "2026-06-18T09:08:05.573711008",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.3"
         }
     }
 }

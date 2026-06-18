@@ -385,22 +385,29 @@ workflow PIPELINE_INITIALISATION {
         }
     }
 
-    ch_regions = ch_regions
+    ch_regions_filtered = ch_regions
         .combine(chr_all_mis_for_combine)
         .filter { meta, _regions, chr_mis ->
             !(meta.chr in chr_mis)
         }
         .map { meta, regions, _chr_mis -> [meta, regions] }
-        .ifEmpty { error "No regions left to process" }
 
-    ch_regions
+    ch_regions_filtered
+        .count()
+        .subscribe { count ->
+            if (count == 0) {
+                error "No regions left to process after filtering. Check chromosome naming consistency across inputs."
+            }
+        }
+
+    ch_regions_filtered
         .map { _metaCR, region -> region }
         .collect()
         .subscribe { region -> log.info "The following contigs will be processed: ${region}" }
 
     // Remove other contigs from panel and posfile files
     ch_panel = ch_panel
-        .combine(ch_regions.collect{ metaCR, _region -> metaCR.chr }.toList())
+        .combine(ch_regions_filtered.collect{ metaCR, _region -> metaCR.chr }.toList())
         .filter { meta, _vcf, _index, chrs ->
             meta.chr in chrs
         }
@@ -409,7 +416,7 @@ workflow PIPELINE_INITIALISATION {
         }
 
     ch_posfile = ch_posfile
-        .combine(ch_regions.collect{ metaCR, _region -> metaCR.chr }.toList())
+        .combine(ch_regions_filtered.collect{ metaCR, _region -> metaCR.chr }.toList())
         .filter { meta, _vcf, _index, _hap, _legend, _posfile, chrs ->
             meta.chr in chrs
         }
@@ -435,15 +442,15 @@ workflow PIPELINE_INITIALISATION {
     ]}
 
     emit:
-    ch_input_target = ch_input_target // [ [meta], file, index ]
-    ch_input_truth  = ch_input_truth  // [ [meta], file, index ]
-    ch_fasta_index  = ch_fasta_index  // [ [genome], fasta, [fai, gzi] ]
-    ch_panel        = ch_panel        // [ [panel_id, chr], vcf, index ]
-    ch_depth        = ch_depth        // [ [depth], depth ]
-    ch_regions      = ch_regions      // [ [chr, region], region ]
-    ch_map          = ch_map          // [ [chr], map ]
-    ch_posfile      = ch_posfile      // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
-    ch_chunks       = ch_chunks       // [ [panel_id, chr], txt ]
+    ch_input_target = ch_input_target     // [ [meta], file, index ]
+    ch_input_truth  = ch_input_truth      // [ [meta], file, index ]
+    ch_fasta_index  = ch_fasta_index      // [ [genome], fasta, [fai, gzi] ]
+    ch_panel        = ch_panel            // [ [panel_id, chr], vcf, index ]
+    ch_depth        = ch_depth            // [ [depth], depth ]
+    ch_regions      = ch_regions_filtered // [ [chr, region], region ]
+    ch_map          = ch_map              // [ [chr], map ]
+    ch_posfile      = ch_posfile          // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
+    ch_chunks       = ch_chunks           // [ [panel_id, chr], txt ]
 }
 
 /*
@@ -689,7 +696,11 @@ def checkMetaChr(chr_a, chr_b, name, max_chr_names){
         .combine(chr_b)
         .map{
             a, b ->
-            if (b != [[]] && !(a - b).isEmpty()) {
+            if (b == [[]] || b == []) {
+                log.warn "No chromosome information found in ${name} — channel may be empty due to upstream mismatch"
+                return a  // treat ALL regions as missing
+            }
+            if (!(a - b).isEmpty()) {
                 def chr_names = (a - b).size() > max_chr_names ? (a - b)[0..max_chr_names - 1] + ['...'] : (a - b)
                 def verb = (a - b).size() == 1 ? "is" : "are"
                 log.warn "Chr : ${chr_names} ${verb} missing from ${name}"
