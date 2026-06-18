@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
 - [#291](https://github.com/nf-core/phaseimpute/pull/291) - Update TEMPLATE to nf-core tools version 4.0.2.
 - [#292](https://github.com/nf-core/phaseimpute/pull/292) - Reorganise and rename pipeline level tests.
-- [#](https://github.com/nf-core/phaseimpute/pull/) - Update modules and subworkflows. Replace `TABIX_TABIX` and `TABIX_BGZIP` by `HTSLIB_BGZIPTABIX`.
+- [#296](https://github.com/nf-core/phaseimpute/pull/296) - Update modules and subworkflows. Replace `TABIX_TABIX` and `TABIX_BGZIP` by `HTSLIB_BGZIPTABIX`.
 
 ### `Fixed`
 
@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#293](https://github.com/nf-core/phaseimpute/pull/293) - Fix nf-core and nextflow linting.
 - [#297](https://github.com/nf-core/phaseimpute/pull/297) - Fix `VCF_NORMALIZE_BCFTOOLS:BCFTOOLS_VIEW` configuration for `remove_samples` to be properly parsed.
 - [#298](https://github.com/nf-core/phaseimpute/pull/298) - Stabilise variants md5 hash when using `VCFLIB_VCFFIXUP` by using `.bcf.gz` files and `.csi` index.
+- [#296](https://github.com/nf-core/phaseimpute/pull/296) - Fix region usage in `STITCH` and avoid duplicate in `MINIMAC4` subworkflow.
 
 ### `Dependencies`
 
