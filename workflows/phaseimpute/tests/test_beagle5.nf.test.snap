@@ -31,11 +31,12 @@
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -186,13 +187,13 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T14:08:12.4413668",
+        "timestamp": "2026-06-18T09:46:17.784013151",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.3"
         }
     },
-    "Check test_beagle5 - with map - with chunks": {
+        "Check test_beagle5 - with map - with chunks": {
         "content": [
             {
                 "workflow size": 51,
@@ -229,11 +230,12 @@
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -401,10 +403,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T15:33:01.814250242",
+        "timestamp": "2026-06-18T09:48:22.390353173",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.3"
         }
     }
 }

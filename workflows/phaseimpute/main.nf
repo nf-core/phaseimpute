@@ -612,20 +612,12 @@ workflow PHASEIMPUTE {
 
         if (tools.contains("minimac4")) {
             log.info("Impute with MINIMAC4")
-
             ch_chunks_minimac4 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
                 .map{ meta, _regionin, regionout -> [meta, regionout]}
 
-            // Create input channel combining VCF with regions
-            ch_input_minimac4 = ch_input_type.vcf
-                .combine(ch_region)
-                .map { meta_vcf, vcf, index, meta_region, _region ->
-                    [meta_vcf + meta_region, vcf, index]
-                }
-
-            // Run imputation with MINIMAC4
+            // Impute with MINIMAC4
             VCF_IMPUTE_MINIMAC4(
-                ch_input_minimac4,
+                ch_input_type.vcf,
                 ch_panel_phased,
                 ch_posfile.map{
                     meta, site, site_index, _hap, _legend, _posfile -> [
