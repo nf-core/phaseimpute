@@ -81,7 +81,7 @@
                     },
                     "custom/geneticmapconvert": {
                         "branch": "master",
-                        "git_sha": "54e41f4ed3aead45054380a9befeb927612ffc91",
+                        "git_sha": "910e3bd7551af42eff7f1da242725f9137718cd7",
                         "installed_by": ["modules"]
                     },
                     "gawk": {
@@ -143,7 +143,7 @@
                     },
                     "htslib/bgziptabix": {
                         "branch": "master",
-                        "git_sha": "54e41f4ed3aead45054380a9befeb927612ffc91",
+                        "git_sha": "22edd7ce9462025093b25e3b55006f7720ff0d8e",
                         "installed_by": ["modules", "vcf_gather_bcftools"]
                     },
                     "minimac4/compressref": {
