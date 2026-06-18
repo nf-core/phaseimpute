@@ -26,7 +26,8 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": "1.21"
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -36,6 +37,10 @@
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
@@ -47,9 +52,6 @@
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3",
                         "rsync": "3.4.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -194,10 +196,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-12T21:58:56.193172494",
+        "timestamp": "2026-06-17T18:46:13.306269567",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.03.2"
         }
     },
     "Check test_stitch - with map - with chunks": {
@@ -227,7 +229,8 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": "1.21"
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
@@ -243,6 +246,10 @@
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
@@ -253,9 +260,6 @@
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3",
                         "rsync": "3.4.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -417,10 +421,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T15:52:20.555565947",
+        "timestamp": "2026-06-17T18:47:57.591787363",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     }
 }
