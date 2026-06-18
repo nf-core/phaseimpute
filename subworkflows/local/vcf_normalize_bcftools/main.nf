@@ -17,7 +17,7 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     if (normalize) {
         BCFTOOLS_NORM(ch_vcf_index, ch_fasta)
 
-        // Join multiallelic VCF and TBI
+        // Join multiallelic VCF and index
         ch_multiallelic_vcf_index = BCFTOOLS_NORM.out.vcf
             .join(BCFTOOLS_NORM.out.index)
 
@@ -33,8 +33,8 @@ workflow VCF_NORMALIZE_BCFTOOLS {
     if (compute_freq) {
         VCFLIB_VCFFIXUP(ch_vcf_index)
 
-        // Join fixed vcf and tbi
-        ch_vcf_tbi = VCFLIB_VCFFIXUP.out.vcf
+        // Join fixed vcf and index
+        ch_vcf_index = VCFLIB_VCFFIXUP.out.vcf
             .join(VCFLIB_VCFFIXUP.out.index)
     }
     emit:
