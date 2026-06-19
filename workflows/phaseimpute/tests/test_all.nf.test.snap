@@ -2,7 +2,7 @@
     "Check test_all - no map - no chunks": {
         "content": [
             {
-                "workflow size": 243,
+                "workflow size": 240,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.1"
@@ -131,9 +131,6 @@
                         "samtools": "1.23.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
-                    },
-                    "SAMTOOLS_INDEX": {
                         "samtools": "1.23.1"
                     },
                     "SAMTOOLS_MERGE": {
@@ -505,19 +502,19 @@
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA12878_region_merged.bam",
-                    "simulation/region_extracted/NA12878_region_merged.bam.bai",
+                    "simulation/region_extracted/NA12878_region_merged.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_region_merged.bam",
-                    "simulation/region_extracted/NA19401_region_merged.bam.bai",
+                    "simulation/region_extracted/NA19401_region_merged.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_region_merged.bam",
-                    "simulation/region_extracted/NA20359_region_merged.bam.bai",
+                    "simulation/region_extracted/NA20359_region_merged.bam.csi",
                     "simulation/samples",
                     "simulation/samples/NA12878.depth_1x.bam",
                     "simulation/samples/NA12878.depth_1x.bam.csi",
@@ -964,7 +961,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-18T15:55:51.852410257",
+        "timestamp": "2026-06-19T10:56:06.467878833",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -973,7 +970,7 @@
     "Check test_all - with map - no chunks": {
         "content": [
             {
-                "workflow size": 245,
+                "workflow size": 242,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.1"
@@ -1108,9 +1105,6 @@
                         "samtools": "1.23.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
-                    },
-                    "SAMTOOLS_INDEX": {
                         "samtools": "1.23.1"
                     },
                     "SAMTOOLS_MERGE": {
@@ -1491,19 +1485,19 @@
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA12878_region_merged.bam",
-                    "simulation/region_extracted/NA12878_region_merged.bam.bai",
+                    "simulation/region_extracted/NA12878_region_merged.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_region_merged.bam",
-                    "simulation/region_extracted/NA19401_region_merged.bam.bai",
+                    "simulation/region_extracted/NA19401_region_merged.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_region_merged.bam",
-                    "simulation/region_extracted/NA20359_region_merged.bam.bai",
+                    "simulation/region_extracted/NA20359_region_merged.bam.csi",
                     "simulation/samples",
                     "simulation/samples/NA12878.depth_1x.bam",
                     "simulation/samples/NA12878.depth_1x.bam.csi",
@@ -1958,7 +1952,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-18T15:59:06.004626401",
+        "timestamp": "2026-06-19T10:59:34.856587445",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
