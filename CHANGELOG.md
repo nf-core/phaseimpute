@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#300](https://github.com/nf-core/phaseimpute/pull/300) - Improve frequency-computation process time by replacing `VCFFIXUP` for `BCFTOOLS_FILLTAGS`.
 - [#267](https://github.com/nf-core/phaseimpute/pull/267) - Refactor repeated `params.steps` / `params.tools` and replace `println` calls with `log.info`.
 - [#244](https://github.com/nf-core/phaseimpute/pull/244) - Start migration to strict syntax.
 - [#237](https://github.com/nf-core/phaseimpute/pull/237) - Bump version to 1.2.0dev and update `CHANGELOG.md`.
