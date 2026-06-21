@@ -224,10 +224,7 @@
                     "stitch": {
                         "branch": "master",
                         "git_sha": "76f7c9aa9d46de35be69da3f8a3ae38a18bb7886",
-                        "installed_by": [
-                            "bam_impute_stitch",
-                            "modules"
-                        ]
+                        "installed_by": ["bam_impute_stitch", "modules"]
                     }
                 }
             },
