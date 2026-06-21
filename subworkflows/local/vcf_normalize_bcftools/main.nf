@@ -31,10 +31,10 @@ workflow VCF_NORMALIZE_BCFTOOLS {
 
     // (Optional) Recompute panel AC/AN/AF/NS INFO fields from GT
     if (compute_freq) {
-        BCFTOOLS_PLUGINFILLTAGS(ch_vcf_tbi, [], [], [])
+        BCFTOOLS_PLUGINFILLTAGS(ch_vcf_index, [], [], [])
 
         // Join fixed vcf and index
-        ch_vcf_tbi = BCFTOOLS_PLUGINFILLTAGS.out.vcf
+        ch_vcf_index = BCFTOOLS_PLUGINFILLTAGS.out.vcf
             .join(BCFTOOLS_PLUGINFILLTAGS.out.index)
     }
     emit:
