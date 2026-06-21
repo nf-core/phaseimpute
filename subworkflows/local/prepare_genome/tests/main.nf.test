@@ -1,0 +1,94 @@
+nextflow_workflow {
+
+    name "Test Subworkflow PREPARE_GENOME"
+    script "../main.nf"
+    workflow "PREPARE_GENOME"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/prepare_genome"
+    tag "prepare_genome"
+
+    tag "samtools"
+    tag "samtools/faidx"
+
+    test("Homo sapiens GRCh38 reference genome - no fai, no gzi") {
+        when {
+            workflow {
+                """
+                input[0] = "hg38"
+                input[1] = file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(sanitizeOutput(workflow.out)).match() }
+            )
+        }
+    }
+
+    test("Homo sapiens GRCh38 reference genome - with fai, no gzi") {
+        when {
+            workflow {
+                """
+                input[0] = "hg38"
+                input[1] = file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
+                input[2] = file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true)
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(sanitizeOutput(workflow.out)).match() }
+            )
+        }
+    }
+
+    test("Homo sapiens GRCh38 reference genome - with fai, with gzi") {
+        when {
+            workflow {
+                """
+                input[0] = "hg38"
+                input[1] = file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExist:true)
+                input[2] = file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExist:true)
+                input[3] = file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExist:true)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(sanitizeOutput(workflow.out)).match() }
+            )
+        }
+    }
+
+    test("Homo sapiens reference genome not compressed - no fai, no gzi") {
+        when {
+            workflow {
+                """
+                input[0] = "hg38"
+                input[1] = file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome2.fasta", checkIfExist:true)
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(sanitizeOutput(workflow.out)).match() }
+            )
+        }
+    }
+}

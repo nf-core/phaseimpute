@@ -20,23 +20,23 @@ workflow PREPARE_GENOME {
         []
     ])
 
+    def need_faidx = !fasta_fai_path || (is_compressed && !fasta_gzi_path)
+    if (need_faidx) {
+        SAMTOOLS_FAIDX(ch_fasta, false)
+    }
+
     if (fasta_fai_path) {
         ch_fai = channel.of(file(fasta_fai_path, checkIfExists:true))
     } else {
-        SAMTOOLS_FAIDX(ch_fasta, false)
         ch_fai = SAMTOOLS_FAIDX.out.fai.map{ _meta, fasta_fai -> fasta_fai }
     }
-    if (is_compressed) {
-        if (fasta_gzi_path) {
-            ch_gzi = channel.of(file(fasta_gzi_path, checkIfExists:true))
-        } else if (!fasta_fai_path) {
-            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
-        } else {
-            SAMTOOLS_FAIDX(ch_fasta, false)
-            ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
-        }
+
+    if (!is_compressed) {
+        ch_gzi = channel.of([[]])
+    } else if (fasta_gzi_path) {
+        ch_gzi = channel.of(file(fasta_gzi_path, checkIfExists:true))
     } else {
-        ch_gzi = channel.of([])
+        ch_gzi = SAMTOOLS_FAIDX.out.gzi.map{ _meta, gzi -> gzi }
     }
 
     ch_fasta_fai_gzi = ch_fasta
@@ -46,5 +46,5 @@ workflow PREPARE_GENOME {
         .collect()
 
     emit:
-    ch_fasta_fai_gzi
+    ch_fasta_fai_gzi = ch_fasta_fai_gzi
 }

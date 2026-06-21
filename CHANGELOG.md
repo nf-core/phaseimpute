@@ -39,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#276](https://github.com/nf-core/phaseimpute/pull/276) - Migrate all `params.value` usage to entry workflow. Use groovy map to store parameters for each step. Use nextflow 25.10 for `getGenomeAttribute()`.
 - [#286](https://github.com/nf-core/phaseimpute/pull/286) - Remove unecessary `saveAs` from config thanks to topic migration.
 - [#291](https://github.com/nf-core/phaseimpute/pull/291) - Update TEMPLATE to nf-core tools version 4.0.2.
+- [#292](https://github.com/nf-core/phaseimpute/pull/292) - Reorganise and rename pipeline level tests.
+- [#296](https://github.com/nf-core/phaseimpute/pull/296) - Replace `SAMTOOLS_DEPTH` by `SAMTOOLS_COVERAGE` in downsampling subworkflow to reduce computational load and allow region specificity.
 
 ### `Fixed`
 
@@ -48,6 +50,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#274](https://github.com/nf-core/phaseimpute/pull/274) - Fix issue with compressed reference genome by adding `.gzi` file for `BCFTOOLS_MPILEUP`
 - [#275](https://github.com/nf-core/phaseimpute/pull/275) - Fix nf-test errors with latest-everything.
 - [#281](https://github.com/nf-core/phaseimpute/pull/281) - Fix `diffchr()` function.
+- [#293](https://github.com/nf-core/phaseimpute/pull/293) - Fix nf-core and nextflow linting.
+- [#297](https://github.com/nf-core/phaseimpute/pull/297) - Fix `VCF_NORMALIZE_BCFTOOLS:BCFTOOLS_VIEW` configuration for `remove_samples` to be properly parsed.
+- [#298](https://github.com/nf-core/phaseimpute/pull/298) - Stabilise variants md5 hash when using `VCFLIB_VCFFIXUP` by using `.bcf.gz` files and `.csi` index.
 
 ### `Dependencies`
 

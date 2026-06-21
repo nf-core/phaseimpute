@@ -37,3 +37,18 @@ def chunkPrepareChannel(ch_chunks, ch_region, tool) {
         error "ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got ${tool}"
     }
 }
+
+def chRegionToBed(ch_regions) {
+    def ch_bed = ch_regions
+        .map{ _meta, region ->
+            def chr=region.split(":")[0]
+            def pos=region.split(":")[1]
+            def start=pos.split("-")[0]
+            def end=pos.split("-")[1]
+            "${chr}\t${start}\t${end}"
+        }
+        .collectFile(name: "regions.bed", newLine: true)
+        .map{ bed -> [[chr : "all"], bed] }
+
+    return ch_bed
+}
