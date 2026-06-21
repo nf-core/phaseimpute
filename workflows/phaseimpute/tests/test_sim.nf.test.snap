@@ -2,7 +2,7 @@
     "Check test_sim - with regions": {
         "content": [
             {
-                "workflow size": 38,
+                "workflow size": 35,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
@@ -23,9 +23,6 @@
                         "samtools": "1.23.1"
                     },
                     "SAMTOOLS_FAIDX": {
-                        "samtools": "1.23.1"
-                    },
-                    "SAMTOOLS_INDEX": {
                         "samtools": "1.23.1"
                     },
                     "SAMTOOLS_MERGE": {
@@ -123,19 +120,19 @@
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA12878_region_merged.bam",
-                    "simulation/region_extracted/NA12878_region_merged.bam.bai",
+                    "simulation/region_extracted/NA12878_region_merged.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA19401_region_merged.bam",
-                    "simulation/region_extracted/NA19401_region_merged.bam.bai",
+                    "simulation/region_extracted/NA19401_region_merged.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam",
                     "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam.csi",
                     "simulation/region_extracted/NA20359_region_merged.bam",
-                    "simulation/region_extracted/NA20359_region_merged.bam.bai",
+                    "simulation/region_extracted/NA20359_region_merged.bam.csi",
                     "simulation/samples",
                     "simulation/samples/NA12878.depth_1x.bam",
                     "simulation/samples/NA12878.depth_1x.bam.csi",
@@ -230,7 +227,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-06-09T17:43:22.82620688",
+        "timestamp": "2026-06-19T11:22:26.889136149",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

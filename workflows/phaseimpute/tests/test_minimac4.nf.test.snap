@@ -2,7 +2,7 @@
     "Check test_minimac4 - no map - no chunks": {
         "content": [
             {
-                "workflow size": 63,
+                "workflow size": 51,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": "1.23.1"
@@ -28,6 +28,10 @@
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "MINIMAC4_COMPRESSREF": {
                         "minimac4": "4.1.6"
                     },
@@ -36,9 +40,6 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -145,27 +146,27 @@
                 "VCF files": [
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "a77fbc2b17c5785ebfa59474e710035c"
+                        "c74d089d2cf38846e568392bc9937e3f"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "bddf83ff84ed78b1a38d7a7c17171784"
+                        "8ea63fb223041415af6b5ecc8744d739"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "fe1e4594889ac1a353fb93ab8268ac6b"
+                        "2118405f08364ad6e3b18536464510c1"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "a77fbc2b17c5785ebfa59474e710035c"
+                        "c74d089d2cf38846e568392bc9937e3f"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "bddf83ff84ed78b1a38d7a7c17171784"
+                        "8ea63fb223041415af6b5ecc8744d739"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "fe1e4594889ac1a353fb93ab8268ac6b"
+                        "2118405f08364ad6e3b18536464510c1"
                     ]
                 ],
                 "CSV files": [
@@ -189,16 +190,16 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T14:15:21.729409654",
+        "timestamp": "2026-06-18T10:03:06.873848665",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.3"
         }
     },
     "Check test_minimac4 - with map - with chunks": {
         "content": [
             {
-                "workflow size": 65,
+                "workflow size": 53,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
                         "bcftools": "1.23.1"
@@ -221,13 +222,18 @@
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
                         "r-data.table": "1.17.8",
-                        "r-janitor": "2.2.1"
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "MINIMAC4_COMPRESSREF": {
                         "minimac4": "4.1.6"
@@ -237,9 +243,6 @@
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -363,27 +366,27 @@
                 "VCF files": [
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "a77fbc2b17c5785ebfa59474e710035c"
+                        "c74d089d2cf38846e568392bc9937e3f"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "bddf83ff84ed78b1a38d7a7c17171784"
+                        "8ea63fb223041415af6b5ecc8744d739"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "6ad4d1a1650167306170429c6e05d53a"
+                        "59ab2f53f42ad5cefe496f5e619137b9"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "a77fbc2b17c5785ebfa59474e710035c"
+                        "c74d089d2cf38846e568392bc9937e3f"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "bddf83ff84ed78b1a38d7a7c17171784"
+                        "8ea63fb223041415af6b5ecc8744d739"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "6ad4d1a1650167306170429c6e05d53a"
+                        "59ab2f53f42ad5cefe496f5e619137b9"
                     ]
                 ],
                 "CSV files": [
@@ -407,10 +410,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T15:40:08.659438195",
+        "timestamp": "2026-06-18T10:04:42.538202374",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.3"
         }
     }
 }

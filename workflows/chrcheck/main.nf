@@ -70,5 +70,5 @@ workflow CHRCHECK {
             .mix(ch_bam_renamed)
             .mix(ch_vcf_renamed)
     emit:
-        output   = ch_output             // [ [id], file, index ]
+        output = ch_output // [ [id], file, index ]
 }

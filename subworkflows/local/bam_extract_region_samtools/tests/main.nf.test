@@ -48,11 +48,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.vcf_tbi.collect{[
-                        it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
-                    ] },
                     workflow.out.bam_region.collect{
                         bam(it[1]).getReads().size()
                     }
@@ -93,11 +88,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.vcf_tbi.collect{[
-                        it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
-                    ] },
                     workflow.out.bam_region.collect{
                         bam(it[1]).getReads().size()
                     }
