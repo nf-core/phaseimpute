@@ -1,4 +1,478 @@
 {
+    "Check test_quilt2 - with chunks - no map": {
+        "content": [
+            {
+                "workflow size": 24,
+                "versions": {
+                    "BAMCHREXTRACT": {
+                        "samtools": "1.23"
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_QUERY_IMPUTED": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": "1.23.1"
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.1"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "LISTTOFILE": {
+                        "gawk": "5.3.1"
+                    },
+                    "QUILT_QUILT2": {
+                        "r-base": "4.4.3",
+                        "r-quilt": "2.0.4"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": "1.21"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all_samples.batch0.id.txt",
+                    "imputation/batch/all_samples.batch0.idonly.txt",
+                    "imputation/batch/all_samples.batch0.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/quilt2",
+                    "imputation/quilt2/concat",
+                    "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz",
+                    "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples",
+                    "imputation/quilt2/samples/NA12878.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA12878.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples/NA19401.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA19401.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples/NA20359.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA20359.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling",
+                    "imputation/quilt2/variant_calling/RData",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21.quilt2.ligate.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22.quilt2.ligate.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.quilt2.bcftools_stats.txt",
+                    "imputation/stats/NA19401.quilt2.bcftools_stats.txt",
+                    "imputation/stats/NA20359.quilt2.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                "stable path": [
+                    "all_samples.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
+                    "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
+                    "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
+                    "NA12878.quilt2.bcftools_stats.txt:md5,764240dc8d060a232cc2f9e1d048a3fb",
+                    "NA19401.quilt2.bcftools_stats.txt:md5,319fec13929c123e74dac0db2186b468",
+                    "NA20359.quilt2.bcftools_stats.txt:md5,593343e7b2ae9b51bc7774095c6cb0da",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "bcftools-stats-subtypes.txt:md5,46f8e72c54af931bec43d50346e6c245",
+                    "bcftools_stats_indel-lengths.txt:md5,c0e642dfa9d12f319d6e8b3b01255747",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,40ed6e6e4d8468648abf244557a8c794",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,c46157c6948bd067d893e08229a809f9",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,3a23599a7d7f17e78ca6110234f29cfa",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,c4af9be888c7ad91040886434f3518ba",
+                    "multiqc_bcftools_stats.txt:md5,4976157834eaa8e3659100b755a643c5",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,cfd5293b9404c820a70d7fc5dc239cfd"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "all_samples.batch0.quilt2.vcf.gz",
+                        "d36d11fd199683dfc52c0f1ff34a11e1"
+                    ],
+                    [
+                        "NA12878.quilt2.vcf.gz",
+                        "8f68a04e0f4b088899b726d3668cb153"
+                    ],
+                    [
+                        "NA19401.quilt2.vcf.gz",
+                        "1cd58749c272dfcb9968694b69598ef2"
+                    ],
+                    [
+                        "NA20359.quilt2.vcf.gz",
+                        "45563c6c8caff963299f40e22cf1e981"
+                    ],
+                    [
+                        "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
+                        "d695149ed8b53cb1a983b4f68f261087"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz",
+                        "87d7364a75db14177a21e4e4b0e8c699"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz",
+                        "6232e6c6dc851a497a82f25d1315b09f"
+                    ],
+                    [
+                        "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
+                        "b21990d0540106d38fa72ebf8003e5f9"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz",
+                        "bd24854631ffb9d3df57ac77ac103f33"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz",
+                        "943b4ec2d479edb0bef12b65f0a32534"
+                    ]
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,quilt2,NA12878.quilt2.vcf.gz,NA12878.quilt2.vcf.gz.tbi",
+                            "NA19401,quilt2,NA19401.quilt2.vcf.gz,NA19401.quilt2.vcf.gz.tbi",
+                            "NA20359,quilt2,NA20359.quilt2.vcf.gz,NA20359.quilt2.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            },
+            {
+                "all_samples.batch0.quilt2": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401",
+                        "NA20359"
+                    ]
+                }
+            }
+        ],
+        "timestamp": "2026-06-21T16:03:12.817727905",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "Check test_quilt2 - no chunks - with map": {
+        "content": [
+            {
+                "workflow size": 24,
+                "versions": {
+                    "BAMCHREXTRACT": {
+                        "samtools": "1.23"
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_QUERY_IMPUTED": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": "1.23.1"
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1"
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.1"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "LISTTOFILE": {
+                        "gawk": "5.3.1"
+                    },
+                    "QUILT_QUILT2": {
+                        "r-base": "4.4.3",
+                        "r-quilt": "2.0.4"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": "1.21"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all_samples.batch0.id.txt",
+                    "imputation/batch/all_samples.batch0.idonly.txt",
+                    "imputation/batch/all_samples.batch0.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/quilt2",
+                    "imputation/quilt2/concat",
+                    "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz",
+                    "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples",
+                    "imputation/quilt2/samples/NA12878.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA12878.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples/NA19401.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA19401.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples/NA20359.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA20359.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling",
+                    "imputation/quilt2/variant_calling/RData",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21.quilt2.ligate.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22.quilt2.ligate.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.quilt2.bcftools_stats.txt",
+                    "imputation/stats/NA19401.quilt2.bcftools_stats.txt",
+                    "imputation/stats/NA20359.quilt2.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                "stable path": [
+                    "all_samples.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
+                    "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
+                    "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
+                    "NA12878.quilt2.bcftools_stats.txt:md5,764240dc8d060a232cc2f9e1d048a3fb",
+                    "NA19401.quilt2.bcftools_stats.txt:md5,319fec13929c123e74dac0db2186b468",
+                    "NA20359.quilt2.bcftools_stats.txt:md5,593343e7b2ae9b51bc7774095c6cb0da",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "bcftools-stats-subtypes.txt:md5,46f8e72c54af931bec43d50346e6c245",
+                    "bcftools_stats_indel-lengths.txt:md5,c0e642dfa9d12f319d6e8b3b01255747",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,40ed6e6e4d8468648abf244557a8c794",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,c46157c6948bd067d893e08229a809f9",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,3a23599a7d7f17e78ca6110234f29cfa",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,c4af9be888c7ad91040886434f3518ba",
+                    "multiqc_bcftools_stats.txt:md5,4976157834eaa8e3659100b755a643c5",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,cfd5293b9404c820a70d7fc5dc239cfd"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "all_samples.batch0.quilt2.vcf.gz",
+                        "5585090528c5cd4a028733d7594e4284"
+                    ],
+                    [
+                        "NA12878.quilt2.vcf.gz",
+                        "c491e0822babc104a38e21d2ababdbcc"
+                    ],
+                    [
+                        "NA19401.quilt2.vcf.gz",
+                        "d7ec86f857fe49917e19286c84d53fe1"
+                    ],
+                    [
+                        "NA20359.quilt2.vcf.gz",
+                        "679d3a09495d87789363c86e7c05092d"
+                    ],
+                    [
+                        "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
+                        "6ba188da786905b9c4857dd800ee45f5"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz",
+                        "c50153f002611d6e62b8d434781cea60"
+                    ],
+                    [
+                        "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
+                        "328ad6f108ee9b95dd355ce6c4069acf"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz",
+                        "857a9ea039ac3184a8ba006f695e6a9f"
+                    ]
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,quilt2,NA12878.quilt2.vcf.gz,NA12878.quilt2.vcf.gz.tbi",
+                            "NA19401,quilt2,NA19401.quilt2.vcf.gz,NA19401.quilt2.vcf.gz.tbi",
+                            "NA20359,quilt2,NA20359.quilt2.vcf.gz,NA20359.quilt2.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            },
+            {
+                "all_samples.batch0.quilt2": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401",
+                        "NA20359"
+                    ]
+                }
+            }
+        ],
+        "timestamp": "2026-06-21T16:04:40.323915126",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
     "Check test_quilt2 - no map - no chunks": {
         "content": [
             {
@@ -213,11 +687,11 @@
                 }
             }
         ],
+        "timestamp": "2026-05-20T17:59:50.817250158",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "26.04.1"
-        },
-        "timestamp": "2026-05-20T17:59:50.817250158"
+        }
     },
     "Check test_quilt2 - with map - with chunks": {
         "content": [
@@ -467,10 +941,264 @@
                 }
             }
         ],
+        "timestamp": "2026-05-19T16:08:39.594192642",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
-        },
-        "timestamp": "2026-05-19T16:08:39.594192642"
+        }
+    },
+    "Check test_quilt2 - with chunks - with map": {
+        "content": [
+            {
+                "workflow size": 26,
+                "versions": {
+                    "BAMCHREXTRACT": {
+                        "samtools": "1.23"
+                    },
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_PLUGINSPLIT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_QUERY_IMPUTED": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_STATS_TOOLS": {
+                        "bcftools": "1.23.1"
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1"
+                    },
+                    "GAWK_IMPUTED": {
+                        "gawk": "5.3.1"
+                    },
+                    "GLIMPSE2_LIGATE": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "LISTTOFILE": {
+                        "gawk": "5.3.1"
+                    },
+                    "QUILT_QUILT2": {
+                        "r-base": "4.4.3",
+                        "r-quilt": "2.0.4"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "TABIX_TABIX": {
+                        "tabix": "1.21"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "imputation",
+                    "imputation/batch",
+                    "imputation/batch/all_samples.batch0.id.txt",
+                    "imputation/batch/all_samples.batch0.idonly.txt",
+                    "imputation/batch/all_samples.batch0.noid.txt",
+                    "imputation/csv",
+                    "imputation/csv/impute.csv",
+                    "imputation/quilt2",
+                    "imputation/quilt2/concat",
+                    "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz",
+                    "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples",
+                    "imputation/quilt2/samples/NA12878.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA12878.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples/NA19401.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA19401.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/samples/NA20359.quilt2.vcf.gz",
+                    "imputation/quilt2/samples/NA20359.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling",
+                    "imputation/quilt2/variant_calling/RData",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21.quilt2.ligate.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22.quilt2.ligate.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz.tbi",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz",
+                    "imputation/quilt2/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz.tbi",
+                    "imputation/stats",
+                    "imputation/stats/NA12878.quilt2.bcftools_stats.txt",
+                    "imputation/stats/NA19401.quilt2.bcftools_stats.txt",
+                    "imputation/stats/NA20359.quilt2.bcftools_stats.txt",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                    "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                    "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                    "multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                    "multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                    "multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                "stable path": [
+                    "all_samples.batch0.id.txt:md5,19595d0c2ee3d3d4e0db213e4469dac6",
+                    "all_samples.batch0.idonly.txt:md5,b16baeecc412602ee233e14bcbe592b7",
+                    "all_samples.batch0.noid.txt:md5,2b87699e9ed5101bc2addb7596cf16c7",
+                    "NA12878.quilt2.bcftools_stats.txt:md5,764240dc8d060a232cc2f9e1d048a3fb",
+                    "NA19401.quilt2.bcftools_stats.txt:md5,319fec13929c123e74dac0db2186b468",
+                    "NA20359.quilt2.bcftools_stats.txt:md5,593343e7b2ae9b51bc7774095c6cb0da",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "bcftools-stats-subtypes.txt:md5,46f8e72c54af931bec43d50346e6c245",
+                    "bcftools_stats_indel-lengths.txt:md5,c0e642dfa9d12f319d6e8b3b01255747",
+                    "bcftools_stats_vqc_Count_Indels.txt:md5,40ed6e6e4d8468648abf244557a8c794",
+                    "bcftools_stats_vqc_Count_SNP.txt:md5,c46157c6948bd067d893e08229a809f9",
+                    "bcftools_stats_vqc_Count_Transitions.txt:md5,3a23599a7d7f17e78ca6110234f29cfa",
+                    "bcftools_stats_vqc_Count_Transversions.txt:md5,c4af9be888c7ad91040886434f3518ba",
+                    "multiqc_bcftools_stats.txt:md5,4976157834eaa8e3659100b755a643c5",
+                    "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                    "multiqc_general_stats.txt:md5,cfd5293b9404c820a70d7fc5dc239cfd"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "all_samples.batch0.quilt2.vcf.gz",
+                        "3860f5cd4b1e1ad4b23d3d8293ba3449"
+                    ],
+                    [
+                        "NA12878.quilt2.vcf.gz",
+                        "cf2c3647ccbfe47cb53ada151db67909"
+                    ],
+                    [
+                        "NA19401.quilt2.vcf.gz",
+                        "2683d8f1f4f4a3f61c6a998586fe8e40"
+                    ],
+                    [
+                        "NA20359.quilt2.vcf.gz",
+                        "4a87d78989c5e3b1af2bef98a3533858"
+                    ],
+                    [
+                        "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
+                        "5f690d06b8e4f90d2bf52b0a09ea35b2"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16570070-16595525.quilt2.vcf.gz",
+                        "9c07847ef2d0086fc15869ddc7e69af2"
+                    ],
+                    [
+                        "all_samples.batch0.chr21_16585483-16609998.quilt2.vcf.gz",
+                        "c92220361f83278880af752da26dd4df"
+                    ],
+                    [
+                        "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
+                        "5036f5a5ae65eb171c515af9dd908965"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16570065-16597215.quilt2.vcf.gz",
+                        "1dfe7b37d3a518ef8135bc6bbad23f37"
+                    ],
+                    [
+                        "all_samples.batch0.chr22_16587172-16609999.quilt2.vcf.gz",
+                        "5110503ab297ae3e8621450c09070228"
+                    ]
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "impute.csv",
+                        "rows": [
+                            "sample,tools,file,index",
+                            "NA12878,quilt2,NA12878.quilt2.vcf.gz,NA12878.quilt2.vcf.gz.tbi",
+                            "NA19401,quilt2,NA19401.quilt2.vcf.gz,NA19401.quilt2.vcf.gz.tbi",
+                            "NA20359,quilt2,NA20359.quilt2.vcf.gz,NA20359.quilt2.vcf.gz.tbi"
+                        ]
+                    }
+                ]
+            },
+            {
+                "all_samples.batch0.quilt2": {
+                    "summary": "VcfFile [chromosomes=[chr21, chr22], sampleCount=3, variantCount=1739, phased=true]",
+                    "samples": [
+                        "NA12878",
+                        "NA19401",
+                        "NA20359"
+                    ]
+                }
+            }
+        ],
+        "timestamp": "2026-06-21T16:01:38.81533421",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
     }
 }
