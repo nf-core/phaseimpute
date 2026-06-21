@@ -744,7 +744,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2", "SHAPEIT5", "Tabix", "SAMtools"].every { !function.result.contains(it) } },
+                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2", "SHAPEIT5", "HTSlib", "SAMtools"].every { !function.result.contains(it) } },
                 { assert ["BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"].every { function.result.contains(it) } },
                 { assert snapshot(function.result).match() }
             )
@@ -771,7 +771,7 @@ nextflow_function {
                 { assert function.success },
                 { assert [
                     "Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2",
-                    "SHAPEIT5", "Tabix", "SAMtools",
+                    "SHAPEIT5", "HTSlib", "SAMtools",
                     "BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"
                 ].every { function.result.contains(it) } },
                 { assert snapshot(function.result).match() }

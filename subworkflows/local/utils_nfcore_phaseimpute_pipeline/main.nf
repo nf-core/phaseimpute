@@ -935,8 +935,8 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         tools.contains("quilt")    ? tool_biblio.QUILT    : "",
         tools.contains("quilt2")   ? tool_biblio.QUILT2   : "",
         tool_biblio.MULTIQC,
+        steps.contains("panelprep") && compute_freq ? tool_biblio.SAM_BCFTOOLS   : "",
         steps.contains("panelprep") && phase                     ? tool_biblio.SHAPEIT5 : "",
-        steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.TABIX    : "",
         tools.contains("glimpse1") ? tool_biblio.GLIMPSE1 : "",
         tools.contains("glimpse2") ? tool_biblio.GLIMPSE2 : ""
     ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
