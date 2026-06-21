@@ -25,7 +25,8 @@
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
                         "r-data.table": "1.17.8",
-                        "r-janitor": "2.2.1"
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
@@ -45,11 +46,12 @@
                     "GUNZIP": {
                         "gunzip": "1.13"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -260,10 +262,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-05-17T15:53:59.562475625",
+        "timestamp": "2026-06-17T18:49:22.230080413",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     }
 }

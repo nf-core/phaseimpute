@@ -7,22 +7,22 @@
                 "nf-core": {
                     "bcftools/annotate": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["bam_variant_calling_mpileup_bcftools"]
                     },
                     "bcftools/concat": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["vcf_gather_bcftools"]
                     },
                     "bcftools/convert": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules"]
                     },
                     "bcftools/index": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": [
                             "bam_impute_quilt",
                             "bam_impute_quilt2",
@@ -36,87 +36,87 @@
                     },
                     "bcftools/merge": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["bam_variant_calling_mpileup_bcftools"]
                     },
                     "bcftools/mpileup": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["bam_variant_calling_mpileup_bcftools"]
                     },
                     "bcftools/norm": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules"]
                     },
                     "bcftools/pluginsplit": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules"]
                     },
                     "bcftools/query": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules"]
                     },
                     "bcftools/sort": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["vcf_gather_bcftools"]
                     },
                     "bcftools/stats": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules"]
                     },
                     "bcftools/view": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules", "vcf_impute_beagle5"]
                     },
                     "beagle5/beagle": {
                         "branch": "master",
-                        "git_sha": "7a299625b72446c83e71a740c9d047cb0ec19ee0",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules", "vcf_impute_beagle5"]
                     },
                     "custom/geneticmapconvert": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "910e3bd7551af42eff7f1da242725f9137718cd7",
                         "installed_by": ["modules"]
                     },
                     "gawk": {
                         "branch": "master",
-                        "git_sha": "c0da8f3a26835d663873001382a708f75766fec6",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["bam_subsampledepth_samtools", "modules"]
                     },
                     "glimpse/chunk": {
                         "branch": "master",
-                        "git_sha": "5caf015959faa438de40da4f212a9462941ebd87",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules", "vcf_impute_glimpse"]
                     },
                     "glimpse/ligate": {
                         "branch": "master",
-                        "git_sha": "236d7f19efcffccdfac5e1850af2aa035e0de79c",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules", "vcf_impute_glimpse"]
                     },
                     "glimpse/phase": {
                         "branch": "master",
-                        "git_sha": "5caf015959faa438de40da4f212a9462941ebd87",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules", "vcf_impute_glimpse"]
                     },
                     "glimpse2/chunk": {
                         "branch": "master",
-                        "git_sha": "dc48df9739f6e57d67917818fd7e66e9ad7c93d4",
+                        "git_sha": "23445414e844130ca9e9dec93cc8797e36157c05",
                         "installed_by": ["bam_vcf_impute_glimpse2", "modules", "vcf_phase_shapeit5"]
                     },
                     "glimpse2/concordance": {
                         "branch": "master",
-                        "git_sha": "dc48df9739f6e57d67917818fd7e66e9ad7c93d4",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "glimpse2/ligate": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": [
                             "bam_impute_quilt",
                             "bam_impute_quilt2",
@@ -128,37 +128,42 @@
                     },
                     "glimpse2/phase": {
                         "branch": "master",
-                        "git_sha": "2057a0a8dbd67000d08613a556570aa7184a7c89",
+                        "git_sha": "4ddd2d28518c7475bc76f0dd0e0451dd0e19df2a",
                         "installed_by": ["bam_vcf_impute_glimpse2", "modules"]
                     },
                     "glimpse2/splitreference": {
                         "branch": "master",
-                        "git_sha": "dc48df9739f6e57d67917818fd7e66e9ad7c93d4",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["bam_vcf_impute_glimpse2"]
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "96c57dfd98a0641886a67bd449fe33ee2ec0e374",
+                        "git_sha": "0902eac3012baaf4f9ab6513c8c55acc9353c96c",
                         "installed_by": ["modules"]
+                    },
+                    "htslib/bgziptabix": {
+                        "branch": "master",
+                        "git_sha": "22edd7ce9462025093b25e3b55006f7720ff0d8e",
+                        "installed_by": ["modules", "vcf_gather_bcftools"]
                     },
                     "minimac4/compressref": {
                         "branch": "master",
-                        "git_sha": "6383f1016efe478fa5350cd0e8538954bd7fbc63",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules", "vcf_impute_minimac4"]
                     },
                     "minimac4/impute": {
                         "branch": "master",
-                        "git_sha": "6383f1016efe478fa5350cd0e8538954bd7fbc63",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules", "vcf_impute_minimac4"]
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "cd0ad387832473916b1f1c80c2ca673a7883bf94",
+                        "git_sha": "98403d15b0e50edae1f3fec5eae5e24982f1fade",
                         "installed_by": ["modules"]
                     },
                     "quilt/quilt": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["bam_impute_quilt", "modules"]
                     },
                     "quilt/quilt2": {
@@ -173,33 +178,33 @@
                     },
                     "samtools/depth": {
                         "branch": "master",
-                        "git_sha": "156feda0cb6589cd29c04902004fa3b53bc00205",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["bam_subsampledepth_samtools", "modules"]
                     },
                     "samtools/faidx": {
                         "branch": "master",
-                        "git_sha": "156feda0cb6589cd29c04902004fa3b53bc00205",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "samtools/index": {
                         "branch": "master",
-                        "git_sha": "156feda0cb6589cd29c04902004fa3b53bc00205",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "samtools/merge": {
                         "branch": "master",
-                        "git_sha": "156feda0cb6589cd29c04902004fa3b53bc00205",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "samtools/reheader": {
                         "branch": "master",
-                        "git_sha": "156feda0cb6589cd29c04902004fa3b53bc00205",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "samtools/view": {
                         "branch": "master",
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
-                        "installed_by": ["bam_subsampledepth_samtools"]
+                        "installed_by": ["bam_subsampledepth_samtools", "modules"]
                     },
                     "shapeit5/ligate": {
                         "branch": "master",
@@ -213,18 +218,8 @@
                     },
                     "stitch": {
                         "branch": "master",
-                        "git_sha": "380cb90926b8c28558cb11479da5ff45bc4f1c5d",
+                        "git_sha": "76f7c9aa9d46de35be69da3f8a3ae38a18bb7886",
                         "installed_by": ["bam_impute_stitch", "modules"]
-                    },
-                    "tabix/bgzip": {
-                        "branch": "master",
-                        "git_sha": "91a902fb32d6717da38a9694eb4ad3fade53a8db",
-                        "installed_by": ["modules"]
-                    },
-                    "tabix/tabix": {
-                        "branch": "master",
-                        "git_sha": "524a7d5ef99a0cbfb4feec8bf7062eb6a531931a",
-                        "installed_by": ["vcf_gather_bcftools"]
                     },
                     "vcflib/vcffixup": {
                         "branch": "master",
@@ -237,17 +232,17 @@
                 "nf-core": {
                     "bam_impute_quilt": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_impute_quilt2": {
                         "branch": "master",
-                        "git_sha": "0c06dfb24cd33e404c2811c28d74dd9e4a1df5ce",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_impute_stitch": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_subsampledepth_samtools": {
@@ -257,17 +252,17 @@
                     },
                     "bam_variant_calling_mpileup_bcftools": {
                         "branch": "master",
-                        "git_sha": "4b21e2cd1a9ea70e22b502cb45ee147410824760",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_vcf_impute_glimpse2": {
                         "branch": "master",
-                        "git_sha": "236d7f19efcffccdfac5e1850af2aa035e0de79c",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "git_sha": "1a545fcbd762911c21a64ced3dbef99b2b51ac75",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
@@ -277,32 +272,32 @@
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "fdc08b8b1ae74f56686ce21f7ea11ad11990ce57",
+                        "git_sha": "a7b27fd25bfa8dcc07d299e88bd790585901a436",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_gather_bcftools": {
                         "branch": "master",
-                        "git_sha": "fedf60f97f2dc2251f7d2d1cf83c93b001f5b2f7",
+                        "git_sha": "54e41f4ed3aead45054380a9befeb927612ffc91",
                         "installed_by": ["bam_variant_calling_mpileup_bcftools", "subworkflows"]
                     },
                     "vcf_impute_beagle5": {
                         "branch": "master",
-                        "git_sha": "4e2990cc0df18823d11b192df73039c80fdebc7c",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_impute_glimpse": {
                         "branch": "master",
-                        "git_sha": "236d7f19efcffccdfac5e1850af2aa035e0de79c",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_impute_minimac4": {
                         "branch": "master",
-                        "git_sha": "4e2990cc0df18823d11b192df73039c80fdebc7c",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_phase_shapeit5": {
                         "branch": "master",
-                        "git_sha": "25ac0da595fac900aba3041d2bcdd7eb338192d0",
+                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
                         "installed_by": ["subworkflows"]
                     }
                 }

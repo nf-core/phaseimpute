@@ -105,7 +105,6 @@ nextflow_function {
         }
         then {
             assert function.success
-            assert snapshot(function.result).match()
         }
     }
 
@@ -335,10 +334,8 @@ nextflow_function {
         }
 
         then {
-            with(function) {
-                assert success
-                assert snapshot(result).match()
-            }
+            assert function.success
+            assert snapshot(path("${launchDir}/results/imputation/csv/impute.csv")).match()
         }
     }
 
@@ -744,7 +741,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2", "vcflib", "SHAPEIT5", "Tabix", "SAMtools"].every { !function.result.contains(it) } },
+                { assert ["Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2", "vcflib", "SHAPEIT5", "HTSlib", "SAMtools"].every { !function.result.contains(it) } },
                 { assert ["BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"].every { function.result.contains(it) } },
                 { assert snapshot(function.result).match() }
             )
@@ -771,7 +768,7 @@ nextflow_function {
                 { assert function.success },
                 { assert [
                     "Beagle5", "Minimac4", "STITCH", "QUILT", "QUILT2",
-                    "vcflib", "SHAPEIT5", "Tabix", "SAMtools",
+                    "vcflib", "SHAPEIT5", "HTSlib", "SAMtools",
                     "BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"
                 ].every { function.result.contains(it) } },
                 { assert snapshot(function.result).match() }

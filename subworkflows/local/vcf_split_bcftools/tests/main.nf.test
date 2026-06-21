@@ -59,16 +59,16 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.vcf_tbi.collect{[
+                    workflow.out.vcf_index.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
                         path(it[2]).getFileName().toString()
                     ] },
-                    workflow.out.vcf_tbi.collect{
+                    workflow.out.vcf_index.collect{
                         path(it[1]).vcf.summary
                     }
                 ).match() },
-                { workflow.out.vcf_tbi.collect{
+                { workflow.out.vcf_index.collect{
                     assert path(it[1]).vcf.sampleCount == 1
                 }}
             )
@@ -93,7 +93,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.vcf_tbi.collect{[
+                    workflow.out.vcf_index.collect{[
                         it[0],
                         path(it[1]).getFileName().toString(),
                         path(it[2]).getFileName().toString()

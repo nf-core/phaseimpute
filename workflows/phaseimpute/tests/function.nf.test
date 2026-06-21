@@ -30,9 +30,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert snapshot(
-                    function.result
-                ).match()}
+                { assert snapshot(function.result).match()}
             )
         }
     }
@@ -59,9 +57,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert snapshot(
-                    function.result
-                ).match()}
+                { assert snapshot(function.result).match()}
             )
         }
     }
@@ -85,9 +81,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert snapshot(
-                    function.result
-                ).match()}
+                { assert snapshot(function.result).match()}
             )
         }
     }
@@ -111,9 +105,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert snapshot(
-                    function.result
-                ).match()}
+                { assert snapshot(function.result).match()}
             )
         }
     }
@@ -139,8 +131,8 @@ nextflow_function {
 
         then {
             assertAll(
-                { assert workflow.failed },
-                { assert workflow.stdout.join("\n").contains("ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got glimpse2") }
+                { assert function.failed },
+                { assert function.stdout.join("\n").contains("ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got glimpse2") }
             )
         }
     }
