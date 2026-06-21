@@ -228,13 +228,6 @@
                             "bam_impute_stitch",
                             "modules"
                         ]
-                    },
-                    "tabix/tabix": {
-                        "branch": "master",
-                        "git_sha": "524a7d5ef99a0cbfb4feec8bf7062eb6a531931a",
-                        "installed_by": [
-                            "vcf_gather_bcftools"
-                        ]
                     }
                 }
             },
