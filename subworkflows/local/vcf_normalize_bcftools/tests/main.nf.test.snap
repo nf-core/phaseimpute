@@ -9,7 +9,7 @@
                     },
                     "1000GP_chr21.vcf.gz",
                     "1000GP_chr21.vcf.gz.tbi",
-                    "64eb594d9ef4ea0d779d551cff4c766",
+                    "a9f42d0f37975ec9e1f0e32556bdfad4",
                     "VcfFile [chromosomes=[chr21], sampleCount=3190, variantCount=836, phased=true, phasedAutodetect=true]",
                     3190
                 ],
@@ -20,16 +20,16 @@
                     },
                     "1000GP_chr22.vcf.gz",
                     "1000GP_chr22.vcf.gz.tbi",
-                    "a75586bb43ffc826868d043c03ebcb06",
+                    "aecca4e3b2638f5ddbf46ce70f61b673",
                     "VcfFile [chromosomes=[chr22], sampleCount=3190, variantCount=903, phased=true, phasedAutodetect=true]",
                     3190
                 ]
             ]
         ],
-        "timestamp": "2026-03-03T09:15:18.429164508",
+        "timestamp": "2026-06-21T16:47:20.151299235",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
         }
     },
     "Normalize vcf without computing frequencies nor removing samples": {

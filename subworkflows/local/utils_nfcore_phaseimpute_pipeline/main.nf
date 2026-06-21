@@ -843,7 +843,6 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
         QUILT   : "QUILT (Davies et al. 2021)",
         QUILT2  : "QUILT2 (Li et al. 2026)",
         MULTIQC : "MultiQC (Ewels et al. 2016)",
-        VCFLIB  : "vcflib (Garrison et al. 2022)",
         SHAPEIT5: "SHAPEIT5 (Hofmeister et al. 2023)",
         TABIX   : "Tabix (Li H et al. 2011)",
         GLIMPSE1: "GLIMPSE (Rubinacci et al. 2021)",
@@ -867,7 +866,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
                     "No normalization or sample removal were performed on the reference panel genotypes.",
         normalize || remove_samples ? "followed by site extraction and format conversion using ${tool_citation.BCFTOOLS}.":
             "Site extraction and format conversion was done using ${tool_citation.BCFTOOLS}.",
-        compute_freq ? "Allele frequencies were then computed with ${tool_citation.VCFLIB}." : "",
+        compute_freq ? "Allele frequencies were then computed with ${tool_citation.BCFTOOLS} +fill-tags." : "",
         phase ? "Genotype phasing was performed with ${tool_citation.SHAPEIT5}." : "",
         "Finally, the reference panel was split into per-chromosome chunks using ${tool_citation.GLIMPSE1}",
         "and ${tool_citation.GLIMPSE2}."
@@ -918,7 +917,6 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         QUILT   : '<li>Davies, R.W., Kucka, M., Su, D., Shi, S., Flanagan, M., Cunniff, C.M., Chan, Y.F., Myers, S., 2021. Rapid genotype imputation from sequence with reference panels. Nat Genet 53, 1104-1111. doi: <a href="https://doi.org/10.1038/s41588-021-00877-0">10.1038/s41588-021-00877-0</a></li>',
         QUILT2  : '<li>Li, Z., Albrechtsen, A., Davies, R.W., 2026. Flexible read-aware genotype imputation from sequence using biobank sized reference panels. Nat Commun 17, 524. doi: <a href="https://doi.org/10.1038/s41467-025-67218-1">10.1038/s41467-025-67218-1</a></li>',
         MULTIQC : '<li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href="https://doi.org/10.1093/bioinformatics/btw354">10.1093/bioinformatics/btw354</a></li>',
-        VCFLIB  : '<li>Garrison, E., Kronenberg, Z.N., Dawson, E.T., Pedersen, B.S., Prins, P., 2022. A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLOS Computational Biology 18, e1009123. doi: <a href="https://doi.org/10.1371/journal.pcbi.1009123">10.1371/journal.pcbi.1009123</a></li>',
         SHAPEIT5: '<li>Hofmeister, R.J., Ribeiro, D.M., Rubinacci, S., Delaneau, O., 2023. Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet 1-7. doi: <a href="https://doi.org/10.1038/s41588-023-01415-w">10.1038/s41588-023-01415-w</a></li>',
         TABIX   : '<li>Li, H., 2011. Tabix: fast retrieval of sequence features from generic TAB-delimited files. Bioinformatics 27, 718-719. doi: <a href="https://doi.org/10.1093/bioinformatics/btq671">10.1093/bioinformatics/btq671</a></li>',
         GLIMPSE1: '<li>Rubinacci, S., Ribeiro, D.M., Hofmeister, R.J., Delaneau, O., 2021. Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nat Genet 53, 120-126. doi: <a href="https://doi.org/10.1038/s41588-020-00756-0">10.1038/s41588-020-00756-0</a></li>',
@@ -937,7 +935,6 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         tools.contains("quilt")    ? tool_biblio.QUILT    : "",
         tools.contains("quilt2")   ? tool_biblio.QUILT2   : "",
         tool_biblio.MULTIQC,
-        steps.contains("panelprep") && compute_freq              ? tool_biblio.VCFLIB   : "",
         steps.contains("panelprep") && phase                     ? tool_biblio.SHAPEIT5 : "",
         steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.TABIX    : "",
         tools.contains("glimpse1") ? tool_biblio.GLIMPSE1 : "",
