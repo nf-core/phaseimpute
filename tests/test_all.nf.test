@@ -10,7 +10,7 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_all - with map",
+            name: "Check test_all - with map - no chunks",
             config: "../conf/test_all.config",
             details: { outdir ->
                 [
@@ -22,7 +22,7 @@ nextflow_pipeline {
             },
         ],
         [
-            name: "Check test_all - no map",
+            name: "Check test_all - no map - no chunks",
             config: "../conf/test_all.config",
             params: [
                 map: null,

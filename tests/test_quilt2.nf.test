@@ -10,7 +10,7 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_quilt2 - with chunks - with map",
+            name: "Check test_quilt2 - with map - with chunks",
             config: "../conf/test_quilt2.config",
             details: { outdir ->
                 [
@@ -19,21 +19,10 @@ nextflow_pipeline {
             },
         ],
         [
-            name: "Check test_quilt2 - with chunks - no map",
+            name: "Check test_quilt2 - no map - no chunks",
             config: "../conf/test_quilt2.config",
             params: [
                 map: null,
-            ],
-            details: { outdir ->
-                [
-                    "all_samples.batch0.quilt2": UTILS.vcfDetails("$outdir/imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz"),
-                ]
-            },
-        ],
-        [
-            name: "Check test_quilt2 - no chunks - with map",
-            config: "../conf/test_quilt2.config",
-            params: [
                 chunks: null,
             ],
             details: { outdir ->

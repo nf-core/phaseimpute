@@ -1,5 +1,5 @@
 {
-    "Check test_glimpse1 - no chunks - no map": {
+    "Check test_glimpse1 - no map - no chunks": {
         "content": [
             {
                 "workflow size": 35,
@@ -200,7 +200,9 @@
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                     "multiqc_general_stats.txt:md5,835d8d185aa5146f9c88e1cc27706094"
                 ],
-                "BAM files": [],
+                "BAM files": [
+                    
+                ],
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
@@ -290,13 +292,13 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:16:09.58600831",
+        "timestamp": "2026-06-21T18:10:25.797291966",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.0"
         }
     },
-    "Check test_glimpse1 - with chunks - with map": {
+    "Check test_glimpse1 - with map - with chunks": {
         "content": [
             {
                 "workflow size": 41,
@@ -522,7 +524,9 @@
                     "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                     "multiqc_general_stats.txt:md5,835d8d185aa5146f9c88e1cc27706094"
                 ],
-                "BAM files": [],
+                "BAM files": [
+                    
+                ],
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
@@ -612,10 +616,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:17:58.27237237",
+        "timestamp": "2026-06-21T18:09:22.50554713",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.0"
         }
     }
 }

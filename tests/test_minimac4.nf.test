@@ -10,7 +10,7 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_minimac4 - with chunks - with map",
+            name: "Check test_minimac4 - with map - with chunks",
             config: "../conf/test_minimac4.config",
             details: { outdir ->
                 [
@@ -19,7 +19,7 @@ nextflow_pipeline {
             },
         ],
         [
-            name: "Check test_minimac4 - no chunks - no map",
+            name: "Check test_minimac4 - no map - no chunks",
             config: "../conf/test_minimac4.config",
             params: [
                 chunks: null,

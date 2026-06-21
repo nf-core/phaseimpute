@@ -10,7 +10,7 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_dog - no map",
+            name: "Check test_dog - no map - no chunk",
             config: "../conf/test_dog.config",
             details: { outdir ->
                 [

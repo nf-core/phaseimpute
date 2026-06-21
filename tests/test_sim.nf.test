@@ -10,7 +10,7 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_sim",
+            name: "Check test_sim - with regions",
             config: "../conf/test_sim.config",
         ]
     ]

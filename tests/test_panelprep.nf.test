@@ -10,14 +10,14 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_panelprep - with chunks - with map",
+            name: "Check test_panelprep - with map - with chunks",
             config: "../conf/test_panelprep.config",
             params: [
                 chunks: "${projectDir}/tests/csv/chunks.csv",
             ],
         ],
         [
-            name: "Check test_panelprep - no chunks - no map",
+            name: "Check test_panelprep - no map - no chunks",
             config: "../conf/test_panelprep.config",
             params: [
                 map: null,
