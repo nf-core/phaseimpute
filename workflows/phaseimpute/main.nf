@@ -58,7 +58,7 @@ include { VCF_GATHER_BCFTOOLS as CONCAT_GLIMPSE2     } from '../../subworkflows/
 
 // Shared posfile transform for QUILT/STITCH
 include { GAWK as GAWK_POSFILE_IMPUTE                } from '../../modules/nf-core/gawk'
-include { TABIX_BGZIP as BGZIP_POSFILE_IMPUTE        } from '../../modules/nf-core/tabix/bgzip'
+include { HTSLIB_BGZIPTABIX as BGZIP_POSFILE_IMPUTE  } from '../../modules/nf-core/htslib/bgziptabix'
 
 // QUILT subworkflows
 include { BAM_IMPUTE_QUILT                           } from '../../subworkflows/nf-core/bam_impute_quilt'
@@ -235,7 +235,7 @@ workflow PHASEIMPUTE {
             params_panelprep["normalize"],
             params_panelprep["compute_freq"]
         )
-        ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi
+        ch_panel_phased = VCF_NORMALIZE_BCFTOOLS.out.vcf_index
 
         // Extract sites from normalized vcf
         VCF_SITES_EXTRACT_BCFTOOLS(ch_panel_phased, ch_fasta)
@@ -249,7 +249,7 @@ workflow PHASEIMPUTE {
         if (!sheets_given["input_chunks"]){
             // Create chunks from reference VCF
             VCF_CHUNK_GLIMPSE(
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi,
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_index,
                 ch_map_glimpse,
                 params_panelprep["chunk_model"]
             )
@@ -272,10 +272,10 @@ workflow PHASEIMPUTE {
             ch_chunks_phase = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
             VCF_PHASE_SHAPEIT5(
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.combine(channel.of([[], []])), // No pedigree, no region
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_index.combine(channel.of([[], []])), // No pedigree, no region
                 ch_chunks_phase.map{ meta, _regionin, regionout -> [meta, regionout]},
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, _vcf, _index -> [meta, [], []]}, // No ref
-                VCF_NORMALIZE_BCFTOOLS.out.vcf_tbi.map{ meta, _vcf, _index -> [meta, [], []]}, // No scaffold
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_index.map{ meta, _vcf, _index -> [meta, [], []]}, // No ref
+                VCF_NORMALIZE_BCFTOOLS.out.vcf_index.map{ meta, _vcf, _index -> [meta, [], []]}, // No scaffold
                 ch_map_glimpse,
                 false,
                 params_panelprep["chunk_model"]
@@ -320,7 +320,12 @@ workflow PHASEIMPUTE {
                 }, [], false
             )
 
-            BGZIP_POSFILE_IMPUTE(GAWK_POSFILE_IMPUTE.out.output)
+            BGZIP_POSFILE_IMPUTE(
+                GAWK_POSFILE_IMPUTE.out.output.map{ meta, txt -> [
+                    meta, txt, [], []
+                ]},
+                "compress", false, "txt"
+            )
         }
         // Split input files into BAMs and VCFs
         ch_input_type = ch_input_impute
@@ -484,6 +489,7 @@ workflow PHASEIMPUTE {
                 ch_fasta,
                 params_impute["k_val"],
                 params_impute["n_gen"],
+                params_impute["buffer"],
                 seed
             )
 
@@ -608,20 +614,12 @@ workflow PHASEIMPUTE {
 
         if (tools.contains("minimac4")) {
             log.info("Impute with MINIMAC4")
-
             ch_chunks_minimac4 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
                 .map{ meta, _regionin, regionout -> [meta, regionout]}
 
-            // Create input channel combining VCF with regions
-            ch_input_minimac4 = ch_input_type.vcf
-                .combine(ch_region)
-                .map { meta_vcf, vcf, index, meta_region, _region ->
-                    [meta_vcf + meta_region, vcf, index]
-                }
-
-            // Run imputation with MINIMAC4
+            // Impute with MINIMAC4
             VCF_IMPUTE_MINIMAC4(
-                ch_input_minimac4,
+                ch_input_type.vcf,
                 ch_panel_phased,
                 ch_posfile.map{
                     meta, site, site_index, _hap, _legend, _posfile -> [
@@ -654,7 +652,7 @@ workflow PHASEIMPUTE {
 
         // Split result by samples
         SPLIT_IMPUTED(ch_split_imputed)
-        ch_input_validate = SPLIT_IMPUTED.out.vcf_tbi
+        ch_input_validate = SPLIT_IMPUTED.out.vcf_index
 
         // Compute stats on imputed files
         BCFTOOLS_STATS_TOOLS(
@@ -747,7 +745,7 @@ workflow PHASEIMPUTE {
 
         // Compute stats on truth files
         BCFTOOLS_STATS_TRUTH(
-            SPLIT_TRUTH.out.vcf_tbi,
+            SPLIT_TRUTH.out.vcf_index,
             [[],[]],
             [[],[]],
             [[],[]],
@@ -759,7 +757,7 @@ workflow PHASEIMPUTE {
         // Compute concordance analysis
         VCF_CONCORDANCE_GLIMPSE2(
             ch_input_validate,
-            SPLIT_TRUTH.out.vcf_tbi,
+            SPLIT_TRUTH.out.vcf_index,
             ch_panel_sites,
             ch_region,
             params_validate["bins"],

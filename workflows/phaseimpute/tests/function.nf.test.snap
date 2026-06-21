@@ -5,11 +5,11 @@
                 
             }
         ],
+        "timestamp": "2025-12-09T13:57:51.32676673",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-09T13:57:51.32676673"
+        }
     },
     "Prepare chunks channel Glimpse - no chunks": {
         "content": [
@@ -17,11 +17,11 @@
                 
             }
         ],
+        "timestamp": "2025-12-09T13:57:45.339666018",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-09T13:57:45.339666018"
+        }
     },
     "Prepare chunks channel Glimpse - with chunks": {
         "content": [
@@ -29,11 +29,11 @@
                 
             }
         ],
+        "timestamp": "2025-12-09T13:57:33.893363487",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-09T13:57:33.893363487"
+        }
     },
     "Prepare chunks channel Quilt - with chunks": {
         "content": [
@@ -41,10 +41,10 @@
                 
             }
         ],
+        "timestamp": "2025-12-09T13:57:39.720885438",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-12-09T13:57:39.720885438"
+        }
     }
 }

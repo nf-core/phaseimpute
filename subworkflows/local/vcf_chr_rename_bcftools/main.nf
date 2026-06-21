@@ -46,10 +46,8 @@ workflow VCF_CHR_RENAME_BCFTOOLS {
     BCFTOOLS_ANNOTATE(ch_annotate_input)
 
     ch_vcf_renamed = BCFTOOLS_ANNOTATE.out.vcf
-        .join(BCFTOOLS_ANNOTATE.out.tbi.mix(
-            BCFTOOLS_ANNOTATE.out.csi
-        ))
+        .join(BCFTOOLS_ANNOTATE.out.index)
 
     emit:
-    vcf_renamed    = ch_vcf_renamed        // [ [id], vcf, csi ]
+    vcf_renamed = ch_vcf_renamed // [ [id], vcf, csi ]
 }

@@ -1,6 +1,5 @@
 include { SAMTOOLS_VIEW  } from '../../../modules/nf-core/samtools/view'
 include { SAMTOOLS_MERGE } from '../../../modules/nf-core/samtools/merge'
-include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index'
 
 workflow BAM_EXTRACT_REGION_SAMTOOLS {
 
@@ -21,14 +20,14 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
     // Extract region of interest
     SAMTOOLS_VIEW(
         ch_input_region,
-        [[], [], []],
+        ch_fasta,
         [[], []],
         [[], []],
         "csi"
     )
 
     ch_bam_region = SAMTOOLS_VIEW.out.bam
-        .join(SAMTOOLS_VIEW.out.csi)
+        .join(SAMTOOLS_VIEW.out.csi.mix(SAMTOOLS_VIEW.out.bai, SAMTOOLS_VIEW.out.crai))
 
     SAMTOOLS_MERGE(
         ch_bam_region
@@ -40,11 +39,8 @@ workflow BAM_EXTRACT_REGION_SAMTOOLS {
             .groupTuple(sort: true),
         ch_fasta.map{meta, fasta, fai -> [meta, fasta, fai, []]}
     )
-
-    SAMTOOLS_INDEX(SAMTOOLS_MERGE.out.bam)
-
     ch_bam_region_all = SAMTOOLS_MERGE.out.bam
-        .join(SAMTOOLS_INDEX.out.index)
+        .join(SAMTOOLS_MERGE.out.index)
 
     emit:
         bam_region = ch_bam_region_all // channel: [ [id, chr], bam, index ]

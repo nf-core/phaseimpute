@@ -3,10 +3,10 @@
         "content": [
             "<li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li>     <li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354</a></li>"
         ],
-        "timestamp": "2026-04-03T15:44:27.445772521",
+        "timestamp": "2026-06-09T13:11:02.762129501",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.3"
         }
     },
     "Test getRegionFromFai with an error": {
@@ -33,14 +33,6 @@
             "nextflow": "24.10.5"
         }
     },
-    "Test checkFileIndex no error with empty channel": {
-        "content": null,
-        "timestamp": "2024-11-06T15:32:04.356171769",
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
-        }
-    },
     "Test toolCitationText - panelprep only": {
         "content": [
             "Tools used in the workflow included the following.  Reference panel preparation followed several steps. No normalization or sample removal were performed on the reference panel genotypes. Site extraction and format conversion was done using BCFtools (Danecek et al. 2021).   Finally, the reference panel was split into per-chromosome chunks using GLIMPSE (Rubinacci et al. 2021) and GLIMPSE2 (Rubinacci et al. 2023).   Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
@@ -49,14 +41,6 @@
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.02.0"
-        }
-    },
-    "Test Function exportCsv": {
-        "content": null,
-        "timestamp": "2024-11-06T15:32:58.039856651",
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "24.10.0"
         }
     },
     "Test getRegionFromFai with all": {
@@ -69,6 +53,16 @@
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "24.10.5"
+        }
+    },
+    "Test Function exportCsv": {
+        "content": [
+            "impute.csv:md5,3c1497b6c0d21820c9f1a7cf7a9f19c9"
+        ],
+        "timestamp": "2026-06-09T14:30:10.525694312",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "Test validateInputBatchTools vcf only for glimpse": {
@@ -164,10 +158,10 @@
                 "WARN: Chr : [chrY] is missing from test"
             ]
         ],
-        "timestamp": "2026-04-05T15:58:50.228028127",
+        "timestamp": "2026-06-09T14:16:54.561370792",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.3"
         }
     },
     "Test toolCitationText - all tools and steps": {

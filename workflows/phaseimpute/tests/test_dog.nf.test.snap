@@ -41,7 +41,8 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": "1.21"
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
@@ -70,6 +71,10 @@
                     "GLIMPSE_PHASE": {
                         "glimpse": "1.1.1"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
@@ -85,12 +90,6 @@
                     },
                     "SHAPEIT5_PHASECOMMON": {
                         "shapeit5": "5.1.1"
-                    },
-                    "TABIX_BGZIP": {
-                        "tabix": "1.21"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -451,10 +450,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T14:09:37.4495481",
+        "timestamp": "2026-06-17T18:14:13.273102692",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     }
 }
