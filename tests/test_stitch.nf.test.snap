@@ -26,7 +26,8 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": "1.21"
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
@@ -42,6 +43,10 @@
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
@@ -52,9 +57,6 @@
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3",
                         "rsync": "3.4.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -216,10 +218,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T16:06:47.560435562",
+        "timestamp": "2026-06-17T18:46:13.306269567",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     },
     "Check test_stitch - with map - with chunks": {
@@ -249,12 +251,14 @@
                         "bcftools": "1.23.1"
                     },
                     "BGZIP_POSFILE_IMPUTE": {
-                        "tabix": "1.21"
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
                         "r-data.table": "1.17.8",
-                        "r-janitor": "2.2.1"
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -264,6 +268,10 @@
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
                     },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
@@ -275,9 +283,6 @@
                         "r-base": "4.4.2",
                         "r-quilt": "1.7.3",
                         "rsync": "3.4.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "Workflow": {
                         "nf-core/phaseimpute": "v1.2.0dev"
@@ -401,19 +406,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "a95f947cf1827afcb572299fe6981c38"
+                        "6526f23d0d31b16b6755dedd8ab131a"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "80c046997caae0a5bf18dd1c7e000f19"
+                        "f4a7da17ee1f7f4dec42acc868e5e8ff"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "fc07fd7c84654e77271922a6207cea0d"
+                        "2a563c41859cf920c094825908a3edc3"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "359d324d5dd9f190a393ba2a9f4d1385"
+                        "4783c6af52b8e8f11cf36224ff11af6d"
                     ]
                 ],
                 "CSV files": [
@@ -439,10 +444,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T15:52:20.555565947",
+        "timestamp": "2026-06-18T11:57:25.129638412",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.3"
         }
     },
     "Check test_stitch - no chunks - no map": {

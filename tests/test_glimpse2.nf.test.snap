@@ -252,14 +252,15 @@
                     "GLIMPSE2_PHASE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -407,10 +408,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T15:52:14.405475621",
+        "timestamp": "2026-06-17T18:19:09.201162005",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     },
     "Check test_glimpse2 - with map - with chunks": {
@@ -442,7 +443,8 @@
                     "CUSTOM_GENETICMAPCONVERT": {
                         "r-base": "4.5.3",
                         "r-data.table": "1.17.8",
-                        "r-janitor": "2.2.1"
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
@@ -453,14 +455,15 @@
                     "GLIMPSE2_PHASE": {
                         "glimpse2": "2.0.0"
                     },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
                     "LISTTOFILE": {
                         "gawk": "5.3.1"
                     },
                     "SAMTOOLS_FAIDX": {
                         "samtools": "1.23.1"
-                    },
-                    "TABIX_TABIX": {
-                        "tabix": "1.21"
                     },
                     "VCFCHREXTRACT": {
                         "bcftools": "1.22"
@@ -625,10 +628,10 @@
                 }
             }
         ],
-        "timestamp": "2026-05-17T15:38:21.333264051",
+        "timestamp": "2026-06-17T18:20:30.932227645",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.03.2"
         }
     },
     "Check test_glimpse2 - no map - no chunks": {

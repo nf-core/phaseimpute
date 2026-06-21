@@ -52,7 +52,7 @@ input:
       description: |
         Compute the allele frequency with `VCFLIB_VCFFIXUP`
 output:
-  - vcf_tbi:
+  - vcf_index:
       description: Channel with normalized VCF files
       structure:
         - meta:

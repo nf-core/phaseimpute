@@ -92,7 +92,8 @@ workflow PIPELINE_INITIALISATION {
         show_hidden,
         before_text,
         after_text,
-        command
+        command,
+        null
     )
 
 
@@ -384,22 +385,29 @@ workflow PIPELINE_INITIALISATION {
         }
     }
 
-    ch_regions = ch_regions
+    ch_regions_filtered = ch_regions
         .combine(chr_all_mis_for_combine)
         .filter { meta, _regions, chr_mis ->
             !(meta.chr in chr_mis)
         }
         .map { meta, regions, _chr_mis -> [meta, regions] }
-        .ifEmpty { error "No regions left to process" }
 
-    ch_regions
+    ch_regions_filtered
+        .count()
+        .subscribe { count ->
+            if (count == 0) {
+                error "No regions left to process after filtering. Check chromosome naming consistency across inputs."
+            }
+        }
+
+    ch_regions_filtered
         .map { _metaCR, region -> region }
         .collect()
         .subscribe { region -> log.info "The following contigs will be processed: ${region}" }
 
     // Remove other contigs from panel and posfile files
     ch_panel = ch_panel
-        .combine(ch_regions.collect{ metaCR, _region -> metaCR.chr }.toList())
+        .combine(ch_regions_filtered.collect{ metaCR, _region -> metaCR.chr }.toList())
         .filter { meta, _vcf, _index, chrs ->
             meta.chr in chrs
         }
@@ -408,7 +416,7 @@ workflow PIPELINE_INITIALISATION {
         }
 
     ch_posfile = ch_posfile
-        .combine(ch_regions.collect{ metaCR, _region -> metaCR.chr }.toList())
+        .combine(ch_regions_filtered.collect{ metaCR, _region -> metaCR.chr }.toList())
         .filter { meta, _vcf, _index, _hap, _legend, _posfile, chrs ->
             meta.chr in chrs
         }
@@ -434,15 +442,15 @@ workflow PIPELINE_INITIALISATION {
     ]}
 
     emit:
-    ch_input_target = ch_input_target // [ [meta], file, index ]
-    ch_input_truth  = ch_input_truth  // [ [meta], file, index ]
-    ch_fasta_index  = ch_fasta_index  // [ [genome], fasta, [fai, gzi] ]
-    ch_panel        = ch_panel        // [ [panel_id, chr], vcf, index ]
-    ch_depth        = ch_depth        // [ [depth], depth ]
-    ch_regions      = ch_regions      // [ [chr, region], region ]
-    ch_map          = ch_map          // [ [chr], map ]
-    ch_posfile      = ch_posfile      // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
-    ch_chunks       = ch_chunks       // [ [panel_id, chr], txt ]
+    ch_input_target = ch_input_target     // [ [meta], file, index ]
+    ch_input_truth  = ch_input_truth      // [ [meta], file, index ]
+    ch_fasta_index  = ch_fasta_index      // [ [genome], fasta, [fai, gzi] ]
+    ch_panel        = ch_panel            // [ [panel_id, chr], vcf, index ]
+    ch_depth        = ch_depth            // [ [depth], depth ]
+    ch_regions      = ch_regions_filtered // [ [chr, region], region ]
+    ch_map          = ch_map              // [ [chr], map ]
+    ch_posfile      = ch_posfile          // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
+    ch_chunks       = ch_chunks           // [ [panel_id, chr], txt ]
 }
 
 /*
@@ -688,7 +696,11 @@ def checkMetaChr(chr_a, chr_b, name, max_chr_names){
         .combine(chr_b)
         .map{
             a, b ->
-            if (b != [[]] && !(a - b).isEmpty()) {
+            if (b == [[]] || b == []) {
+                log.warn "No chromosome information found in ${name} — channel may be empty due to upstream mismatch"
+                return a  // treat ALL regions as missing
+            }
+            if (!(a - b).isEmpty()) {
                 def chr_names = (a - b).size() > max_chr_names ? (a - b)[0..max_chr_names - 1] + ['...'] : (a - b)
                 def verb = (a - b).size() == 1 ? "is" : "are"
                 log.warn "Chr : ${chr_names} ${verb} missing from ${name}"
@@ -845,7 +857,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
         MULTIQC : "MultiQC (Ewels et al. 2016)",
         VCFLIB  : "vcflib (Garrison et al. 2022)",
         SHAPEIT5: "SHAPEIT5 (Hofmeister et al. 2023)",
-        TABIX   : "Tabix (Li H et al. 2011)",
+        HTSLIB  : "HTSlib (Bonfield JK et al. 2021)",
         GLIMPSE1: "GLIMPSE (Rubinacci et al. 2021)",
         GLIMPSE2: "GLIMPSE2 (Rubinacci et al. 2023)",
     ]
@@ -878,7 +890,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
             "Imputation tools used were:" : "",
         [
             tools.contains("glimpse1")    ? "${tool_citation.GLIMPSE1}" +
-                " with variants called using ${tool_citation.BCFTOOLS} mpileup followed by indexation with ${tool_citation.TABIX}" +
+                " with variants called using ${tool_citation.BCFTOOLS} mpileup followed by indexation with ${tool_citation.HTSLIB}" +
                 " when BAM files were provided" : "",
             tools.contains("glimpse2")   ? "${tool_citation.GLIMPSE2}" : "",
             tools.contains("quilt")      ? "${tool_citation.QUILT}"    : "",
@@ -892,7 +904,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
     def text_validate = [
         "Imputation accuracy was assessed by comparing imputed genotypes to truth data using ${tool_citation.GLIMPSE2}.",
         "Truth genotypes were obtained either from array genotyping data provided as input or from high-coverage sequencing data from which",
-        "genotypes were called using ${tool_citation.BCFTOOLS} mpileup followed by indexation with ${tool_citation.TABIX}."
+        "genotypes were called using ${tool_citation.BCFTOOLS} mpileup followed by indexation with ${tool_citation.HTSLIB}."
     ].join(' ').trim()
 
     def text_multiqc = "Pipeline results statistics were summarised with ${tool_citation.MULTIQC}."
@@ -911,6 +923,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
 
 def toolBibliographyText(steps, tools, compute_freq, phase) {
     def tool_biblio = [
+        HTSLIB  : '<li>Bonfield JK., Marshall J., Danecek P., Li H., Ohan V., Whitwham A., Keane T., Davies RM., 2021. HTSlib: C library for reading/writing high-throughput sequencing data. GigaScience 10(2). doi: <a href="https://doi.org/10.1093/gigascience/giab007">10.1093/gigascience/giab007</a></li>',
         BEAGLE5 : '<li>Browning, B.L., Zhou, Y., Browning, S.R., 2018. A One-Penny Imputed Genome from Next-Generation Reference Panels. Am J Hum Genet 103, 338-348. doi: <a href="https://doi.org/10.1016/j.ajhg.2018.07.015">10.1016/j.ajhg.2018.07.015</a></li>',
         SAM_BCFTOOLS: '<li>Danecek, P., Bonfield, J.K., Liddle, J., Marshall, J., Ohan, V., Pollard, M.O., Whitwham, A., Keane, T., McCarthy, S.A., Davies, R.M., Li, H., 2021. Twelve years of SAMtools and BCFtools. GigaScience 10, giab008. doi: <a href="https://doi.org/10.1093/gigascience/giab008">10.1093/gigascience/giab008</a></li>',
         MINIMAC4: '<li>Das, S., Forer, L., Schonherr, S., Sidore, C., Locke, A.E., Kwong, A., Vrieze, S.I., Chew, E.Y., Levy, S., McGue, M., Schlessinger, D., Stambolian, D., Loh, P.-R., Iacono, W.G., Swaroop, A., Scott, L.J., Cucca, F., Kronenberg, F., Boehnke, M., Abecasis, G.R., Fuchsberger, C., 2016. Next-generation genotype imputation service and methods. Nat Genet 48, 1284-1287. doi: <a href="https://doi.org/10.1038/ng.3656">10.1038/ng.3656</a></li>',
@@ -920,7 +933,6 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         MULTIQC : '<li>Ewels, P., Magnusson, M., Lundin, S., Kaller, M., 2016. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics 32, 3047-3048. doi: <a href="https://doi.org/10.1093/bioinformatics/btw354">10.1093/bioinformatics/btw354</a></li>',
         VCFLIB  : '<li>Garrison, E., Kronenberg, Z.N., Dawson, E.T., Pedersen, B.S., Prins, P., 2022. A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLOS Computational Biology 18, e1009123. doi: <a href="https://doi.org/10.1371/journal.pcbi.1009123">10.1371/journal.pcbi.1009123</a></li>',
         SHAPEIT5: '<li>Hofmeister, R.J., Ribeiro, D.M., Rubinacci, S., Delaneau, O., 2023. Accurate rare variant phasing of whole-genome and whole-exome sequencing data in the UK Biobank. Nat Genet 1-7. doi: <a href="https://doi.org/10.1038/s41588-023-01415-w">10.1038/s41588-023-01415-w</a></li>',
-        TABIX   : '<li>Li, H., 2011. Tabix: fast retrieval of sequence features from generic TAB-delimited files. Bioinformatics 27, 718-719. doi: <a href="https://doi.org/10.1093/bioinformatics/btq671">10.1093/bioinformatics/btq671</a></li>',
         GLIMPSE1: '<li>Rubinacci, S., Ribeiro, D.M., Hofmeister, R.J., Delaneau, O., 2021. Efficient phasing and imputation of low-coverage sequencing data using large reference panels. Nat Genet 53, 120-126. doi: <a href="https://doi.org/10.1038/s41588-020-00756-0">10.1038/s41588-020-00756-0</a></li>',
         GLIMPSE2: '<li>Rubinacci, S., Hofmeister, R.J., Sousa da Mota, B., Delaneau, O., 2023. Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nat Genet 55, 1088-1090. doi: <a href="https://doi.org/10.1038/s41588-023-01438-3">10.1038/s41588-023-01438-3</a></li>',
     ]
@@ -930,6 +942,7 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
     }
 
     def reference_text = [
+        steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.HTSLIB    : "",
         tools.contains("beagle5")  ? tool_biblio.BEAGLE5  : "",
         steps.contains("panelprep") || steps.contains("validate") || steps.contains("simulate") || tools.contains("glimpse1") ? tool_biblio.SAM_BCFTOOLS : "",
         tools.contains("minimac4") ? tool_biblio.MINIMAC4 : "",
@@ -937,9 +950,8 @@ def toolBibliographyText(steps, tools, compute_freq, phase) {
         tools.contains("quilt")    ? tool_biblio.QUILT    : "",
         tools.contains("quilt2")   ? tool_biblio.QUILT2   : "",
         tool_biblio.MULTIQC,
-        steps.contains("panelprep") && compute_freq              ? tool_biblio.VCFLIB   : "",
-        steps.contains("panelprep") && phase                     ? tool_biblio.SHAPEIT5 : "",
-        steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.TABIX    : "",
+        steps.contains("panelprep") && compute_freq ? tool_biblio.VCFLIB   : "",
+        steps.contains("panelprep") && phase        ? tool_biblio.SHAPEIT5 : "",
         tools.contains("glimpse1") ? tool_biblio.GLIMPSE1 : "",
         tools.contains("glimpse2") ? tool_biblio.GLIMPSE2 : ""
     ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
