@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#294](https://github.com/nf-core/phaseimpute/pull/294) - Migrate nf-tests to `UTILS.groovy` structure.
 - [#267](https://github.com/nf-core/phaseimpute/pull/267) - Refactor repeated `params.steps` / `params.tools` and replace `println` calls with `log.info`.
 - [#244](https://github.com/nf-core/phaseimpute/pull/244) - Start migration to strict syntax.
 - [#237](https://github.com/nf-core/phaseimpute/pull/237) - Bump version to 1.2.0dev and update `CHANGELOG.md`.

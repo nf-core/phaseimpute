@@ -5,7 +5,7 @@ nextflow_function {
     */
 
     name "Test function phaseimpute"
-    script "../function.nf"
+    script "../workflows/phaseimpute/function.nf"
     tag "function"
 
     test("Prepare chunks channel Glimpse - with chunks") {
