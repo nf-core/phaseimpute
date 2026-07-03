@@ -189,17 +189,9 @@
                         ]
                     }
                 ]
-            },
-            {
-                "phased_panel_chr21": {
-                    "summary": "VcfFile [chromosomes=[chr21], sampleCount=3192, variantCount=836, phased=true]"
-                },
-                "phased_panel_chr22": {
-                    "summary": "VcfFile [chromosomes=[chr22], sampleCount=3192, variantCount=903, phased=true]"
-                }
             }
         ],
-        "timestamp": "2026-06-21T19:21:17.237678623",
+        "timestamp": "2026-06-21T18:16:13.344773591",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -392,17 +384,9 @@
                         ]
                     }
                 ]
-            },
-            {
-                "phased_panel_chr21": {
-                    "summary": "VcfFile [chromosomes=[chr21], sampleCount=3192, variantCount=836, phased=true]"
-                },
-                "phased_panel_chr22": {
-                    "summary": "VcfFile [chromosomes=[chr22], sampleCount=3192, variantCount=903, phased=true]"
-                }
             }
         ],
-        "timestamp": "2026-06-21T19:22:10.929807708",
+        "timestamp": "2026-06-21T18:15:13.97098362",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

@@ -1,5 +1,5 @@
 {
-    "Check test_dog - no map - no chunks": {
+    "Check test_dog - no map - no chunk": {
         "content": [
             {
                 "workflow size": 91,
@@ -450,10 +450,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:14:13.273102692",
+        "timestamp": "2026-06-21T18:08:14.707538039",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.0"
         }
     }
 }

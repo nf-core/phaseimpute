@@ -49,4 +49,42 @@ class UTILS {
             return [summary: summary]
         }
     }
+
+
+    public static def getPhaseimputeTest = { Map scenario ->
+        return {
+            tag "pipeline"
+            tag "pipeline/phaseimpute"
+
+            if (scenario.tag) {
+                tag scenario.tag
+            }
+
+            config scenario.config
+
+            when {
+                params {
+                    publish_dir_mode = "copy"
+                    pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                    outdir = "$outputDir"
+                    publish_all = true
+
+                    (scenario.params ?: [:]).each { key, value ->
+                        delegate."$key" = value
+                    }
+                }
+            }
+
+            then {
+                assertAll(
+                    { assert workflow.success },
+                    { assert snapshot(
+                        UTILS.getPipelineResults(outputDir, workflow),
+                        *(scenario.details ? [scenario.details(outputDir)] : [])
+                    ).match() }
+                )
+            }
+        }
+    }
+
 }

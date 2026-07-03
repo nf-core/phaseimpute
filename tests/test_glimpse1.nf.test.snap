@@ -292,10 +292,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:16:09.58600831",
+        "timestamp": "2026-06-21T18:10:25.797291966",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.0"
         }
     },
     "Check test_glimpse1 - with map - with chunks": {
@@ -616,10 +616,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:17:58.27237237",
+        "timestamp": "2026-06-21T18:09:22.50554713",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.0"
         }
     }
 }
