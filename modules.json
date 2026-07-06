@@ -49,6 +49,11 @@
                         "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
                         "installed_by": ["modules"]
                     },
+                    "bcftools/pluginfilltags": {
+                        "branch": "master",
+                        "git_sha": "315b3434ffc4bead2ddac59c75e0e2d7fcf79f0c",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/pluginsplit": {
                         "branch": "master",
                         "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
@@ -220,11 +225,6 @@
                         "branch": "master",
                         "git_sha": "76f7c9aa9d46de35be69da3f8a3ae38a18bb7886",
                         "installed_by": ["bam_impute_stitch", "modules"]
-                    },
-                    "vcflib/vcffixup": {
-                        "branch": "master",
-                        "git_sha": "ecd5df5f44d895a81bda2b47bc5b760596bce72f",
-                        "installed_by": ["modules"]
                     }
                 }
             },

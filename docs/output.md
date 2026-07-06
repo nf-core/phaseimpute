@@ -44,7 +44,7 @@ This step of the pipeline performs a QC of the reference panel data and produces
 It has the following optional modes:
 
 - `--normalize` - Normalize the reference panel with `bcftools norm` and remove multiallelic sites. It also allow to remove samples using `--remove_samples`.
-- `--compute_freq` - Compute allele frequencies with `vcffixup`.
+- `--compute_freq` - Compute allele frequencies with `bcftools +fill-tags`.
 - `--phase` - Phase the reference panel with `SHAPEIT5`.
 
 The pipeline will produce the following outputs:

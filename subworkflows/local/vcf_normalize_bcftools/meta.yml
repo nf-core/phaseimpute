@@ -3,7 +3,7 @@ name: "VCF_NORMALIZE_BCFTOOLS"
 description: Normalize VCF files (bcftools norm -m +any). Combine records spanning different lines into a single line.
   Keep only biallelic SNPs and remove multiallelic records (bcftools view -m 2 -M 2 -v snps) with params.normalize = true.
   Optionally, remove samples from the reference panel (bcftools view -s ^SAMPLENAME) and
-  compute allele frequency using vcflib/vcffixup with params.compute_freq = true.
+  compute allele frequency using bcftools/pluginfilltags with params.compute_freq = true.
 keywords:
   - bcftools
   - normalisation
@@ -12,7 +12,7 @@ keywords:
 components:
   - bcftools/norm
   - bcftools/view
-  - vcflib/vcffixup
+  - bcftools/pluginfilltags
 input:
   - ch_vcf:
       type: file
@@ -50,7 +50,7 @@ input:
       type: boolean
   - compute_freq:
       description: |
-        Compute the allele frequency with `VCFLIB_VCFFIXUP`
+        Compute the allele frequency with `BCFTOOLS_PLUGINFILLTAGS`
 output:
   - vcf_index:
       description: Channel with normalized VCF files

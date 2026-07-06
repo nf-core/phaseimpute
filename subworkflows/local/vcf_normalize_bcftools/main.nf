@@ -1,6 +1,6 @@
 include { BCFTOOLS_NORM   } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_VIEW   } from '../../../modules/nf-core/bcftools/view'
-include { VCFLIB_VCFFIXUP } from '../../../modules/nf-core/vcflib/vcffixup/main'
+include { BCFTOOLS_PLUGINFILLTAGS } from '../../../modules/nf-core/bcftools/pluginfilltags'
 
 workflow VCF_NORMALIZE_BCFTOOLS {
     take:
@@ -29,13 +29,13 @@ workflow VCF_NORMALIZE_BCFTOOLS {
             .join(BCFTOOLS_VIEW.out.index)
     }
 
-    // (Optional) Fix panel (When AC/AN INFO fields in VCF are inconsistent with GT field)
+    // (Optional) Recompute panel AC/AN/AF/NS INFO fields from GT
     if (compute_freq) {
-        VCFLIB_VCFFIXUP(ch_vcf_index)
+        BCFTOOLS_PLUGINFILLTAGS(ch_vcf_index, [], [], [])
 
         // Join fixed vcf and index
-        ch_vcf_index = VCFLIB_VCFFIXUP.out.vcf
-            .join(VCFLIB_VCFFIXUP.out.index)
+        ch_vcf_index = BCFTOOLS_PLUGINFILLTAGS.out.vcf
+            .join(BCFTOOLS_PLUGINFILLTAGS.out.index)
     }
     emit:
     vcf_index = ch_vcf_index // channel: [ [id, chr], vcf, [tbi, csi] ]
