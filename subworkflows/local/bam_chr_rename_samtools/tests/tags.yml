@@ -1,0 +1,2 @@
+subworkflows/bam_chr_rename_samtools:
+  - subworkflows/local/bam_chr_rename_samtools/**

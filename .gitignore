@@ -8,3 +8,6 @@ testing*
 *.pyc
 null/
 .lineage/
+*.code-workspace
+.nf-test*
+*.xml.bkp

@@ -1,0 +1,395 @@
+{
+    "Check test_panelprep - no map - no chunks": {
+        "content": [
+            {
+                "workflow size": 34,
+                "versions": {
+                    "BCFTOOLS_CONVERT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_NORM": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_PLUGINFILLTAGS": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_VIEW": {
+                        "bcftools": "1.23.1"
+                    },
+                    "GAWK": {
+                        "gawk": "5.3.1"
+                    },
+                    "GLIMPSE2_CHUNK": {
+                        "glimpse2": "2.0.0"
+                    },
+                    "GLIMPSE_CHUNK": {
+                        "glimpse": "1.1.1"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "SHAPEIT5_LIGATE": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "SHAPEIT5_PHASECOMMON": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prep_panel",
+                    "prep_panel/chunks",
+                    "prep_panel/chunks/glimpse1",
+                    "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                    "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                    "prep_panel/chunks/glimpse2",
+                    "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
+                    "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
+                    "prep_panel/csv",
+                    "prep_panel/csv/chunks_glimpse1.csv",
+                    "prep_panel/csv/panel.csv",
+                    "prep_panel/csv/posfile.csv",
+                    "prep_panel/haplegend",
+                    "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr21.samples",
+                    "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr22.samples",
+                    "prep_panel/panel",
+                    "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_normalized.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_normalized.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                    "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_normalized.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_normalized.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                    "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                    "prep_panel/posfile",
+                    "prep_panel/posfile/1000GP.chr21.posfile.txt.gz",
+                    "prep_panel/posfile/1000GP.chr22.posfile.txt.gz",
+                    "prep_panel/sites",
+                    "prep_panel/sites/1000GP.chr21.posfile.txt",
+                    "prep_panel/sites/1000GP.chr22.posfile.txt",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                ],
+                "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                    "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
+                    "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
+                    "1000GP_chr21_chunks_glimpse2.txt:md5,834dea86a63b5a49d36f53c0ac7e01a2",
+                    "1000GP_chr22_chunks_glimpse2.txt:md5,c363e235162ca0f7d22e5604c192e256",
+                    "1000GP_chr21.hap.gz:md5,d18ac86ed7080c6527aade3b6717ebb0",
+                    "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
+                    "1000GP_chr21.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
+                    "1000GP_chr22.hap.gz:md5,40b908abc098ef9919f80b90a79f8c6c",
+                    "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
+                    "1000GP_chr22.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
+                    "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
+                    "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "1000GP_chr21_phased.vcf.gz",
+                        "52bcbe4476db8398ac7c5cf3ce089a50"
+                    ],
+                    [
+                        "1000GP_chr22_phased.vcf.gz",
+                        "40ff314e91993a89f6ca95aa06f5ad86"
+                    ],
+                    [
+                        "1000GP_chr21_glimpse1_sites.vcf.gz",
+                        "3d0567b5bceed75b88b1ab565760d096"
+                    ],
+                    [
+                        "1000GP_chr22_glimpse1_sites.vcf.gz",
+                        "a3302d6003d28cc83772a995a5c764c2"
+                    ]
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "chunks_glimpse1.csv",
+                        "rows": [
+                            "panel,chr,file",
+                            "1000GP,chr21,1000GP_chr21_chunks_glimpse1.txt",
+                            "1000GP,chr22,1000GP_chr22_chunks_glimpse1.txt"
+                        ]
+                    },
+                    {
+                        "fileName": "panel.csv",
+                        "rows": [
+                            "panel,chr,vcf,index",
+                            "1000GP,chr21,1000GP_chr21_phased.vcf.gz,1000GP_chr21_phased.vcf.gz.csi",
+                            "1000GP,chr22,1000GP_chr22_phased.vcf.gz,1000GP_chr22_phased.vcf.gz.csi"
+                        ]
+                    },
+                    {
+                        "fileName": "posfile.csv",
+                        "rows": [
+                            "panel,chr,vcf,index,hap,legend,posfile",
+                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.tbi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
+                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.tbi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "timestamp": "2026-06-21T18:16:13.344773591",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "Check test_panelprep - with map - with chunks": {
+        "content": [
+            {
+                "workflow size": 32,
+                "versions": {
+                    "BCFTOOLS_CONVERT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_NORM": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_PLUGINFILLTAGS": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_VIEW": {
+                        "bcftools": "1.23.1"
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
+                    },
+                    "GAWK": {
+                        "gawk": "5.3.1"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "SHAPEIT5_LIGATE": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "SHAPEIT5_PHASECOMMON": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prep_panel",
+                    "prep_panel/csv",
+                    "prep_panel/csv/panel.csv",
+                    "prep_panel/csv/posfile.csv",
+                    "prep_panel/haplegend",
+                    "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr21.samples",
+                    "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr22.samples",
+                    "prep_panel/panel",
+                    "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr21_16570070-16590513_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr21_16590521-16609998_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_normalized.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_normalized.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_phased.vcf.gz",
+                    "prep_panel/panel/1000GP_chr21_phased.vcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr22_16570065-16592216_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf",
+                    "prep_panel/panel/1000GP_chr22_16592229-16609999_chunks.bcf.csi",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_fixup.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_normalized.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_normalized.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_phased.vcf.gz",
+                    "prep_panel/panel/1000GP_chr22_phased.vcf.gz.csi",
+                    "prep_panel/posfile",
+                    "prep_panel/posfile/1000GP.chr21.posfile.txt.gz",
+                    "prep_panel/posfile/1000GP.chr22.posfile.txt.gz",
+                    "prep_panel/sites",
+                    "prep_panel/sites/1000GP.chr21.posfile.txt",
+                    "prep_panel/sites/1000GP.chr22.posfile.txt",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                ],
+                "stable path": [
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                    "1000GP_chr21.hap.gz:md5,d18ac86ed7080c6527aade3b6717ebb0",
+                    "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
+                    "1000GP_chr21.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
+                    "1000GP_chr22.hap.gz:md5,40b908abc098ef9919f80b90a79f8c6c",
+                    "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
+                    "1000GP_chr22.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
+                    "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
+                    "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "1000GP_chr21_phased.vcf.gz",
+                        "377fc1bc7cf1602b55833a2d2e3caa97"
+                    ],
+                    [
+                        "1000GP_chr22_phased.vcf.gz",
+                        "546dc3c1f9b47c9a3aa568a55614881d"
+                    ],
+                    [
+                        "1000GP_chr21_glimpse1_sites.vcf.gz",
+                        "3d0567b5bceed75b88b1ab565760d096"
+                    ],
+                    [
+                        "1000GP_chr22_glimpse1_sites.vcf.gz",
+                        "a3302d6003d28cc83772a995a5c764c2"
+                    ]
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "panel.csv",
+                        "rows": [
+                            "panel,chr,vcf,index",
+                            "1000GP,chr21,1000GP_chr21_phased.vcf.gz,1000GP_chr21_phased.vcf.gz.csi",
+                            "1000GP,chr22,1000GP_chr22_phased.vcf.gz,1000GP_chr22_phased.vcf.gz.csi"
+                        ]
+                    },
+                    {
+                        "fileName": "posfile.csv",
+                        "rows": [
+                            "panel,chr,vcf,index,hap,legend,posfile",
+                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.tbi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
+                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.tbi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "timestamp": "2026-06-21T18:15:13.97098362",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

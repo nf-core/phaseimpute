@@ -1,0 +1,3 @@
+panel,chr,vcf,index
+1000GP,chr21,1000GP_21.vcf,1000GP_21.vcf.csi
+1000GP,chr22,1000GP_22.vcf,1000GP_22.vcf.csi

@@ -9,25 +9,27 @@
         "properties": {
             "sample": {
                 "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "pattern": "^[a-zA-Z0-9_-]+$",
+                "errorMessage": "Sample name must be provided and cannot contain spaces nor special character '.' .",
                 "meta": ["id"]
             },
-            "fastq_1": {
+            "tools": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^[a-zA-Z0-9_]+$",
+                "errorMessage": "Tool name cannot contain spaces nor special character '.' .",
+                "meta": ["tools"]
             },
-            "fastq_2": {
+            "file": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.(bam|cram)|((vcf|bcf)(\\.gz))?$",
+                "errorMessage": "BAM, CRAM, VCF or BCF file must be provided, cannot contain spaces and must have extension '.bam', '.cram' or '.vcf', '.bcf' with optional '.gz' extension"
+            },
+            "index": {
+                "errorMessage": "Input file index must be provided, cannot contain spaces and must have extension '.bai', 'crai', '.tbi' or '.csi'",
+                "type": "string",
+                "pattern": "^\\S+\\.(bai|crai|tbi|csi)$"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "file", "index"]
     }
 }

@@ -1,0 +1,118 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_CHUNK_GLIMPSE"
+description: Subworkflow to chunk chromosomes based on a VCF file
+keywords:
+  - VCF
+  - chromosomes
+  - chunk
+  - glimpse
+components:
+  - glimpse/chunk
+  - glimpse2/chunk
+input:
+  - ch_reference:
+      description: Channel with reference panel variants data
+      structure:
+        - meta:
+          type: map
+          description: |
+            Metadata map that will be combined with the input data map
+            Need to have the "chr" as chromosome name and "panel_id" as panel name
+        - vcf:
+          type: file
+          description: Panel VCF files by chromosomes
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: Panel VCF index files
+          pattern: "*.{tbi,csi}"
+  - ch_map:
+      description: Channel with genetic map data (optional)
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - map:
+          type: file
+          description: Map file
+          pattern: "*.map"
+  - chunk_model:
+      description: Chunk model for Glimpse2
+      type: string
+      enum:
+        - recursive
+        - sequential
+        - uniform-number-variants
+output:
+  - chunks:
+      description: Channel with chunks files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - chunks:
+          type: file
+          description: Chunks file from Glimpse1
+          pattern: "*.txt"
+  - chunks_quilt:
+      description: Channel with chunks region for quilt
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - chr:
+          type: string
+          description: Chromosome name
+          pattern: "[chr]+[0-9]+"
+        - start:
+          type: int
+          description: Start position of the chunk
+        - end:
+          type: int
+          description: End position of the chunk
+  - chunks_glimpse:
+      description: Channel with chunks regions from Glimpse
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - chr:
+          type: string
+          description: Chromosome name
+          pattern: "[chr]+[0-9]+"
+        - region1:
+          type: string
+          description: Target region used for imputation, including left and right buffers
+          pattern: "[chr][0-9]+:[0-9]+-[0-9]+"
+        - region2:
+          type: string
+          description: Target imputed region, excluding left and right buffers
+          pattern: "[chr][0-9]+:[0-9]+-[0-9]+"
+  - chunks_glimpse2:
+      description: Channel with chunks regions from Glimpse2
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - chr:
+          type: string
+          description: Chromosome name
+          pattern: "[chr]+[0-9]+"
+        - region1:
+          type: string
+          description: Target region used for imputation, including left and right buffers
+          pattern: "[chr][0-9]+:[0-9]+-[0-9]+"
+        - region2:
+          type: string
+          description: Target imputed region, excluding left and right buffers
+          pattern: "[chr][0-9]+:[0-9]+-[0-9]+"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

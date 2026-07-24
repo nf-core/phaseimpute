@@ -1,0 +1,236 @@
+{
+    "Check test_sim - with regions": {
+        "content": [
+            {
+                "workflow size": 35,
+                "versions": {
+                    "BAMCHREXTRACT": {
+                        "samtools": "1.23"
+                    },
+                    "FILTER_CHR_DWN": {
+                        "gawk": "5.3.1"
+                    },
+                    "FILTER_CHR_INP": {
+                        "gawk": "5.3.1"
+                    },
+                    "SAMTOOLS_COVERAGE": {
+                        "samtools": "1.23.1"
+                    },
+                    "SAMTOOLS_COVERAGE_DWN": {
+                        "samtools": "1.23.1"
+                    },
+                    "SAMTOOLS_COVERAGE_INP": {
+                        "samtools": "1.23.1"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "SAMTOOLS_MERGE": {
+                        "samtools": "1.23.1"
+                    },
+                    "SAMTOOLS_VIEW": {
+                        "samtools": "1.23.1"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "initialisation",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_general_stats.txt",
+                    "multiqc/multiqc_data/multiqc_samtools_coverage.txt",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_data/samtools-coverage-table.txt",
+                    "multiqc/multiqc_data/samtools-coverage_BQ.txt",
+                    "multiqc/multiqc_data/samtools-coverage_Bases.txt",
+                    "multiqc/multiqc_data/samtools-coverage_Coverage.txt",
+                    "multiqc/multiqc_data/samtools-coverage_MQ.txt",
+                    "multiqc/multiqc_data/samtools-coverage_Mean_depth.txt",
+                    "multiqc/multiqc_data/samtools-coverage_Reads.txt",
+                    "multiqc/multiqc_plots",
+                    "multiqc/multiqc_plots/pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage-table.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_BQ-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_BQ-log.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Bases-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Bases-log.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Coverage-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Coverage-log.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_MQ-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_MQ-log.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Mean_depth-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Mean_depth-log.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Reads-cnt.pdf",
+                    "multiqc/multiqc_plots/pdf/samtools-coverage_Reads-log.pdf",
+                    "multiqc/multiqc_plots/png",
+                    "multiqc/multiqc_plots/png/samtools-coverage-table.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_BQ-cnt.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_BQ-log.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Bases-cnt.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Bases-log.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Coverage-cnt.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Coverage-log.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_MQ-cnt.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_MQ-log.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Mean_depth-cnt.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Mean_depth-log.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Reads-cnt.png",
+                    "multiqc/multiqc_plots/png/samtools-coverage_Reads-log.png",
+                    "multiqc/multiqc_plots/svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage-table.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_BQ-cnt.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_BQ-log.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Bases-cnt.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Bases-log.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Coverage-cnt.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Coverage-log.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_MQ-cnt.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_MQ-log.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Mean_depth-cnt.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Mean_depth-log.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Reads-cnt.svg",
+                    "multiqc/multiqc_plots/svg/samtools-coverage_Reads-log.svg",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "simulation",
+                    "simulation/csv",
+                    "simulation/csv/simulate.csv",
+                    "simulation/downsample",
+                    "simulation/downsample/NA12878_Rchr21_16570000-16610000.depth.txt",
+                    "simulation/downsample/NA12878_Rchr22_16570000-16610000.depth.txt",
+                    "simulation/downsample/NA19401_Rchr21_16570000-16610000.depth.txt",
+                    "simulation/downsample/NA19401_Rchr22_16570000-16610000.depth.txt",
+                    "simulation/downsample/NA20359_Rchr21_16570000-16610000.depth.txt",
+                    "simulation/downsample/NA20359_Rchr22_16570000-16610000.depth.txt",
+                    "simulation/region_extracted",
+                    "simulation/region_extracted/NA12878_Rchr21_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA12878_Rchr21_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA12878_Rchr22_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA12878_region_merged.bam",
+                    "simulation/region_extracted/NA12878_region_merged.bam.csi",
+                    "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA19401_Rchr21_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA19401_Rchr22_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA19401_region_merged.bam",
+                    "simulation/region_extracted/NA19401_region_merged.bam.csi",
+                    "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA20359_Rchr21_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam",
+                    "simulation/region_extracted/NA20359_Rchr22_16570000-16610000_view.bam.csi",
+                    "simulation/region_extracted/NA20359_region_merged.bam",
+                    "simulation/region_extracted/NA20359_region_merged.bam.csi",
+                    "simulation/samples",
+                    "simulation/samples/NA12878.depth_1x.bam",
+                    "simulation/samples/NA12878.depth_1x.bam.csi",
+                    "simulation/samples/NA19401.depth_1x.bam",
+                    "simulation/samples/NA19401.depth_1x.bam.csi",
+                    "simulation/samples/NA20359.depth_1x.bam",
+                    "simulation/samples/NA20359.depth_1x.bam.csi"
+                ],
+                "stable path": [
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "multiqc_citations.txt:md5,ee1baba4adea57b43a9ae59ce7e1dd7f",
+                    "multiqc_general_stats.txt:md5,49bb4df4231c1d438a5df653b3bef9bc",
+                    "multiqc_samtools_coverage.txt:md5,929dc07030c55b3b456a6d01e3f8dfb2",
+                    "samtools-coverage-table.txt:md5,0cd29c54bf4e4bea40f1b6f54e658cf0",
+                    "samtools-coverage_BQ.txt:md5,5c29b2eb9b1d828cc92a67a4ff8943a4",
+                    "samtools-coverage_Bases.txt:md5,740f69ffa34c5036136cf47f05e904a9",
+                    "samtools-coverage_Coverage.txt:md5,ed3caf761d482dcb7b546f5098c97ca5",
+                    "samtools-coverage_MQ.txt:md5,458abf00967c6406d563115925523562",
+                    "samtools-coverage_Mean_depth.txt:md5,e922887fdfcba5e4ffea73288dd490c0",
+                    "samtools-coverage_Reads.txt:md5,b4d9f56aedae09971ff3353eea5a9451",
+                    "NA12878_Rchr21_16570000-16610000.depth.txt:md5,fb55f61edadffaa8ac43d0ab72396162",
+                    "NA12878_Rchr22_16570000-16610000.depth.txt:md5,5e5c433cc8a514a2c7e78077b072f04d",
+                    "NA19401_Rchr21_16570000-16610000.depth.txt:md5,5b5fbaf1b8a9645ab2e9d34891ae165a",
+                    "NA19401_Rchr22_16570000-16610000.depth.txt:md5,9c610e6189236594788f24523afd8cd9",
+                    "NA20359_Rchr21_16570000-16610000.depth.txt:md5,0a7e96e3f9b19ccfe23c48afd75b06de",
+                    "NA20359_Rchr22_16570000-16610000.depth.txt:md5,b889ccb75e60c8bc1b0fa783153aa845"
+                ],
+                "BAM files": [
+                    [
+                        "NA12878_Rchr21_16570000-16610000_view.bam",
+                        "d48cdac37c8c3f3d1833662a33adf802"
+                    ],
+                    [
+                        "NA12878_Rchr22_16570000-16610000_view.bam",
+                        "c404c1616c736a2a6a1cdd5bced715f"
+                    ],
+                    [
+                        "NA12878_region_merged.bam",
+                        "e2bdad66faf19f8bccf4c4c51dc120b3"
+                    ],
+                    [
+                        "NA19401_Rchr21_16570000-16610000_view.bam",
+                        "a423563712d655237951854fc9276133"
+                    ],
+                    [
+                        "NA19401_Rchr22_16570000-16610000_view.bam",
+                        "6d27d50a7f4f48c2a50090668c4530ce"
+                    ],
+                    [
+                        "NA19401_region_merged.bam",
+                        "78fd8273f02cede375553530177ac050"
+                    ],
+                    [
+                        "NA20359_Rchr21_16570000-16610000_view.bam",
+                        "171c07e12f21a9f95d7140106b975677"
+                    ],
+                    [
+                        "NA20359_Rchr22_16570000-16610000_view.bam",
+                        "830119db01a05efce0254b40d5bebb33"
+                    ],
+                    [
+                        "NA20359_region_merged.bam",
+                        "19adee4b55b3744226d38ceaca5ea983"
+                    ],
+                    [
+                        "NA12878.depth_1x.bam",
+                        "8a9564ccf33e101dcd94e1aa0483a576"
+                    ],
+                    [
+                        "NA19401.depth_1x.bam",
+                        "d04d7ea9a58989b8508f08b60c836a8b"
+                    ],
+                    [
+                        "NA20359.depth_1x.bam",
+                        "1f0cd7f2be5f0d4572f1757850766ea7"
+                    ]
+                ],
+                "VCF files": [
+                    
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "simulate.csv",
+                        "rows": [
+                            "sample,file,index",
+                            "NA12878,NA12878.depth_1x.bam,NA12878.depth_1x.bam.csi",
+                            "NA19401,NA19401.depth_1x.bam,NA19401.depth_1x.bam.csi",
+                            "NA20359,NA20359.depth_1x.bam,NA20359.depth_1x.bam.csi"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "timestamp": "2026-06-19T11:22:26.889136149",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    }
+}

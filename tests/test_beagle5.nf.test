@@ -1,0 +1,39 @@
+def projectDir = new File('.').absolutePath
+
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_beagle5"
+
+    def test_scenario = [
+        [
+            name: "Check test_beagle5 - with map - with chunks",
+            config: "../conf/test_beagle5.config",
+            details: { outdir ->
+                [
+                    "NA12878.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz"),
+                ]
+            },
+        ],
+        [
+            name: "Check test_beagle5 - no map - no chunks",
+            config: "../conf/test_beagle5.config",
+            params: [
+                chunks: null,
+                map: null,
+            ],
+            details: { outdir ->
+                [
+                    "NA12878.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz"),
+                ]
+            },
+        ]
+    ]
+
+    test_scenario.each { scenario ->
+        test(scenario.name, UTILS.getPhaseimputeTest(scenario))
+    }
+}

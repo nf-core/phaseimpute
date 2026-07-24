@@ -1,0 +1,139 @@
+nextflow_function {
+    /*
+    The following tests are for the functions in the main.nf script
+    They are tested using the --verbose argument
+    */
+
+    name "Test function phaseimpute"
+    script "../workflows/phaseimpute/function.nf"
+    tag "function"
+
+    test("Prepare chunks channel Glimpse - with chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
+                ])
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse1"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel Quilt - with chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
+                ])
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "quilt"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel Glimpse - no chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = channel.of([ [id: "1000GP", chr: "chr21"], [] ])
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse1"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel Quilt - no chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = channel.of([ [id: "1000GP", chr: "chr21"], [] ])
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "quilt"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel error tool") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks.txt", checkIfExist:true),
+                ])
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse2"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.failed },
+                { assert function.stdout.join("\n").contains("ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got glimpse2") }
+            )
+        }
+    }
+}

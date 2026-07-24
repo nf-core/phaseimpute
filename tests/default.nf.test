@@ -3,31 +3,31 @@ nextflow_pipeline {
     name "Test pipeline"
     script "../main.nf"
     tag "pipeline"
+    tag "nf-core/phaseimpute"
+    tag "test"
 
     test("-profile test") {
-
+        config "../conf/test.config"
         when {
             params {
+                publish_dir_mode = "copy"
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 outdir = "$outputDir"
+                publish_all = true
             }
         }
 
         then {
-            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
-            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            // stable_content: All files in ${params.outdir}/ with stable content
-            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
-            assert workflow.success
             assertAll(
+                { assert workflow.success },
                 { assert snapshot(
-                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
-                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"),
-                    // All stable path name, with a relative path
-                    stable_path,
-                    // All files with stable contents
-                    stable_content
+                    UTILS.getPipelineResults(outputDir, workflow),
+                    [
+                        "all_samples.glimpse1": UTILS.vcfDetails("$outputDir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz")
+                    ]
                 ).match() }
             )
         }
+
     }
 }

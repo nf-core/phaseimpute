@@ -1,0 +1,80 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_SITES_EXTRACT_BCFTOOLS"
+description: Extract only sites (no genotype data) (bcftools view -G -m 2 -M 2 -v).
+  Convert to hap/legend format.
+keywords:
+  - bcftools
+  - query
+  - view
+components:
+  - bcftools/view
+  - bcftools/convert
+  - gawk
+  - htslib/bgziptabix
+input:
+  - ch_vcf:
+      type: file
+      description: Channel VCF file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - ch_fasta:
+      description: Channel with reference genome data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: FASTA file of the reference genome
+          pattern: "*.fa[sta]+"
+        - fai:
+          type: file
+          description: FASTA index file of the reference genome
+          pattern: "*.(fai|gzi)"
+output:
+  - posfile:
+      description: Channel with all the converted files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file with only variant sites
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+        - hap:
+          type: file
+          description: HAP file
+          pattern: "*.hap[.gz]"
+        - legend:
+          type: file
+          description: LEGEND file
+          pattern: "*.legend[.gz]"
+        - posfile:
+          type: file
+          description: POSFILE file with %CHROM\t%POS\t%REF,%ALT\n format.
+          pattern: "*.posfile[.*][.gz]"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

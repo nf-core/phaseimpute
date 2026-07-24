@@ -1,0 +1,4 @@
+sample,file,index
+NA12878,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.snp.vcf.gz,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA12878/NA12878.s.snp.vcf.gz.csi
+NA19401,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.snp.vcf.gz,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA19401/NA19401.s.snp.vcf.gz.csi
+NA20359,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA20359/NA20359.s.snp.vcf.gz,https://raw.githubusercontent.com/nf-core/test-datasets/phaseimpute/hum_data/individuals/NA20359/NA20359.s.snp.vcf.gz.csi

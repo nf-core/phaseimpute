@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "BAM_CHR_RENAME_SAMTOOLS"
+description: Subworkflow to rename chromosomes in BAM files using samtools
+keywords:
+  - BAM
+  - chromosome
+  - renaming
+  - samtools
+components:
+  - samtools/reheader
+  - samtools/index
+input:
+  - ch_bam:
+      description: Channel with input data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bam:
+          type: file
+          description: Input BAM file
+          pattern: "*.bam"
+        - index:
+          type: file
+          description: Input BAM index file
+          pattern: "*.{bai,csi}"
+        - prefix:
+          type: string
+          description: Should the 'chr' prefix be added or removed?
+          enum: ["nochr", "chr"]
+output:
+  - bam_renamed:
+      description: Channel with renamed BAM files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bam:
+          type: file
+          description: BAM file
+          pattern: "*.bam"
+        - index:
+          type: file
+          description: BAM index file
+          pattern: "*.{bai,csi}"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

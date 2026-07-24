@@ -1,0 +1,28 @@
+{
+    "Get subregion of bam file 10000bp": {
+        "content": [
+            [
+                2498,
+                2510
+            ]
+        ],
+        "timestamp": "2026-06-19T10:51:10.465827047",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    },
+    "Get subregion of bam file 1000bp": {
+        "content": [
+            [
+                368,
+                327
+            ]
+        ],
+        "timestamp": "2026-06-19T10:51:23.218783805",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    }
+}

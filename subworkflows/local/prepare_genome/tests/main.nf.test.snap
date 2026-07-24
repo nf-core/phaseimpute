@@ -1,0 +1,88 @@
+{
+    "Homo sapiens GRCh38 reference genome - with fai, with gzi": {
+        "content": [
+            {
+                "ch_fasta_fai_gzi": [
+                    [
+                        {
+                            "genome": "hg38"
+                        },
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-21T16:49:07.995543799",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Homo sapiens GRCh38 reference genome - no fai, no gzi": {
+        "content": [
+            {
+                "ch_fasta_fai_gzi": [
+                    [
+                        {
+                            "genome": "hg38"
+                        },
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                        "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-21T16:48:47.950717313",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Homo sapiens GRCh38 reference genome - with fai, no gzi": {
+        "content": [
+            {
+                "ch_fasta_fai_gzi": [
+                    [
+                        {
+                            "genome": "hg38"
+                        },
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
+                        "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-21T16:49:01.266153309",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Homo sapiens reference genome not compressed - no fai, no gzi": {
+        "content": [
+            {
+                "ch_fasta_fai_gzi": [
+                    [
+                        {
+                            "genome": "hg38"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/genome/genome2.fasta",
+                        "genome2.fasta.fai:md5,5b25db0adda159ef5eb5c1afab9b2f2e",
+                        [
+                            
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-21T16:49:18.876669956",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    }
+}

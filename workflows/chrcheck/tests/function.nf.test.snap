@@ -1,0 +1,62 @@
+{
+    "ref chr & target chr but missing contig": {
+        "content": [
+            [
+                "Contig names: [chr4] absent from file: 123.vcf and cannot be solved by adding or removing the `chr` prefix."
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.4"
+        },
+        "timestamp": "2025-06-18T16:21:23.858883491"
+    },
+    "Mix file with and withouth chr": {
+        "content": [
+            [
+                [
+                    "chr2",
+                    "chr1"
+                ],
+                "nochr"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T15:31:39.923011027"
+    },
+    "ref no chr & target chr": {
+        "content": [
+            [
+                [
+                    "chr2",
+                    "chr1"
+                ],
+                "nochr"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T15:31:25.618460553"
+    },
+    "ref chr & target no chr": {
+        "content": [
+            [
+                [
+                    "2",
+                    "1"
+                ],
+                "chr"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-06T15:31:30.499438797"
+    }
+}
