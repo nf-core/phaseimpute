@@ -1,0 +1,110 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_CONCORDANCE_GLIMPSE2"
+description: |
+  Subworkflow to compute concordance metrics between two VCF files using Glimpse2.
+  Glimpse2 errors_grp concordance metrics are then aggregated into a single table
+  using gawk and addcolumns.
+keywords:
+  - VCF
+  - concordance
+  - glimpse2
+components:
+  - glimpse2/concordance
+  - gawk
+  - gunzip
+  - addcolumns
+input:
+  - ch_vcf_emul:
+      description: Channel with target VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map with 'id' field
+        - vcf:
+          type: file
+          description: VCF target file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - ch_vcf_truth:
+      description: Channel with truth VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map with 'id' field
+        - vcf:
+          type: file
+          description: VCF truth file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - ch_vcf_freq:
+      description: Channel with reference panel frequence data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: VCF file with AF/AN tag for each site
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - ch_region:
+      description: Channel with region data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map that will be combined with the input data map
+        - region:
+          type: string
+          description: Region to extract from the BAM file
+          pattern: "[chr]+[0-9]+:[0-9]+-[0-9]+"
+  - bins:
+      type: string
+      description: |
+        Allele frequency bins used for rsquared computations.
+        By default they should as MAF bins [0-0.5], while
+        they should take the full range [0-1] if --use-ref-alt is used.
+      pattern: "0 0.01 0.05 ... 0.5"
+  - min_val_gl:
+      type: float
+      description: |
+        Minimum genotype likelihood probability P(G|R) in validation data.
+        Set to zero to have no filter of if using -gt-validation
+  - min_val_dp:
+      type: integer
+      description: |
+        Minimum coverage in validation data.
+        If FORMAT/DP is missing and -min_val_dp > 0, the program exits with an error.
+        Set to zero to have no filter of if using -gt-validation
+output:
+  - stats:
+      description: Channel with concatenated concordance metrics
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - txt:
+          type: file
+          description: Concatenate data table with concordance metrics
+          pattern: "*.txt"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+  - multiqc_files:
+      description: Channel containing stat files of glimpse2 concordance
+      type: file
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

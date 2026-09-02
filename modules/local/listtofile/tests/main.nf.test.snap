@@ -1,0 +1,59 @@
+{
+    "Aggregate all files into a list": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all.id.txt:md5,6ffc4e703a69bb652dc666a8dcae1863",
+                        "all.noid.txt:md5,045a6e673d95a6e8152a1d06959db93a",
+                        "all.idonly.txt:md5,d09f55e3d6d2265b7507cc6027071d0a"
+                    ]
+                ],
+                "1": [
+                    [
+                        "LISTTOFILE",
+                        "gawk",
+                        "5.3.1"
+                    ]
+                ],
+                "txt": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all.id.txt:md5,6ffc4e703a69bb652dc666a8dcae1863",
+                        "all.noid.txt:md5,045a6e673d95a6e8152a1d06959db93a",
+                        "all.idonly.txt:md5,d09f55e3d6d2265b7507cc6027071d0a"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "LISTTOFILE",
+                        "gawk",
+                        "5.3.1"
+                    ]
+                ]
+            },
+            [
+                "file1.txt A",
+                "file2.txt B"
+            ],
+            [
+                "file1.txt",
+                "file2.txt"
+            ],
+            [
+                "A",
+                "B"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-02T21:39:56.963129211"
+    }
+}

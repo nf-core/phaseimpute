@@ -1,0 +1,78 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_NORMALIZE_BCFTOOLS"
+description: Normalize VCF files (bcftools norm -m +any). Combine records spanning different lines into a single line.
+  Keep only biallelic SNPs and remove multiallelic records (bcftools view -m 2 -M 2 -v snps) with params.normalize = true.
+  Optionally, remove samples from the reference panel (bcftools view -s ^SAMPLENAME) and
+  compute allele frequency using bcftools/pluginfilltags with params.compute_freq = true.
+keywords:
+  - bcftools
+  - normalisation
+  - frequence
+  - samples
+components:
+  - bcftools/norm
+  - bcftools/view
+  - bcftools/pluginfilltags
+input:
+  - ch_vcf:
+      type: file
+      description: Channel VCF file to be normalized
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - ch_fasta:
+      description: Channel with reference genome data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: FASTA file of the reference genome
+          pattern: "*.fa[sta]+"
+        - fai:
+          type: file
+          description: FASTA index file of the reference genome
+          pattern: "*.(fai|gzi)"
+  - normalize:
+      description: |
+        Normalize the input VCF with `BCFTOOLS_NORM` and
+        `BCFTOOLS_VIEW`
+      type: boolean
+  - compute_freq:
+      description: |
+        Compute the allele frequency with `BCFTOOLS_PLUGINFILLTAGS`
+output:
+  - vcf_index:
+      description: Channel with normalized VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF normalized file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

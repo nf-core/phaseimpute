@@ -1,0 +1,79 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "BAM_EXTRACT_REGION_SAMTOOLS"
+description: |
+  Subworkflow to extract a list of region from a BAM file using samtools.
+  Each region is first extracted from the BAM file and then merged into a
+  single BAM file.
+keywords:
+  - BAM
+  - region
+  - extract
+  - samtools
+components:
+  - samtools/view
+  - samtools/merge
+  - samtools/index
+input:
+  - ch_bam:
+      description: Channel with input data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bam:
+          type: file
+          description: Input BAM file
+          pattern: "*.bam"
+        - index:
+          type: file
+          description: Input BAM index file
+          pattern: "*.{bai,csi}"
+  - ch_region:
+      description: Channel with region data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map that will be combined with the input data map
+        - region:
+          type: string
+          description: Region to extract from the BAM file
+          pattern: "[chr]+[0-9]+:[0-9]+-[0-9]+"
+  - ch_fasta:
+      description: Channel with reference genome data
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: FASTA file of the reference genome
+          pattern: "*.fa[sta]+"
+        - fai:
+          type: file
+          description: FASTA index file of the reference genome
+          pattern: "*.(fai|gzi)"
+output:
+  - bam_region:
+      description: Channel with BAM files with extracted regions
+      structure:
+        - meta:
+          type: map
+          description: Metadata map combined with the ch_region data map
+        - bam:
+          type: file
+          description: BAM file
+          pattern: "*.bam"
+        - index:
+          type: file
+          description: BAM index file
+          pattern: "*.{bai,csi}"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

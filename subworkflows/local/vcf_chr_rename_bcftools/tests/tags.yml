@@ -1,0 +1,2 @@
+subworkflows/vcf_chr_rename_bcftools:
+  - subworkflows/local/vcf_chr_rename_bcftools/**

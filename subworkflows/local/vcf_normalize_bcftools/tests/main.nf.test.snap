@@ -1,0 +1,68 @@
+{
+    "Normalize vcf with computing frequencies after removing samples": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP_chr21.vcf.gz",
+                    "1000GP_chr21.vcf.gz.tbi",
+                    "a9f42d0f37975ec9e1f0e32556bdfad4",
+                    "VcfFile [chromosomes=[chr21], sampleCount=3190, variantCount=836, phased=true, phasedAutodetect=true]",
+                    3190
+                ],
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP_chr22.vcf.gz",
+                    "1000GP_chr22.vcf.gz.tbi",
+                    "aecca4e3b2638f5ddbf46ce70f61b673",
+                    "VcfFile [chromosomes=[chr22], sampleCount=3190, variantCount=903, phased=true, phasedAutodetect=true]",
+                    3190
+                ]
+            ]
+        ],
+        "timestamp": "2026-06-21T16:47:20.151299235",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "Normalize vcf without computing frequencies nor removing samples": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr21"
+                    },
+                    "1000GP_chr21_biallelic_snps.vcf.gz",
+                    "1000GP_chr21_biallelic_snps.vcf.gz.tbi",
+                    "1a7f840b5311e45cad2210779cc90d7e",
+                    "VcfFile [chromosomes=[chr21], sampleCount=3196, variantCount=836, phased=true, phasedAutodetect=true]",
+                    3196
+                ],
+                [
+                    {
+                        "id": "1000GP",
+                        "chr": "chr22"
+                    },
+                    "1000GP_chr22_biallelic_snps.vcf.gz",
+                    "1000GP_chr22_biallelic_snps.vcf.gz.tbi",
+                    "e028aaa747cdb57516927d6dbd849ead",
+                    "VcfFile [chromosomes=[chr22], sampleCount=3196, variantCount=903, phased=true, phasedAutodetect=true]",
+                    3196
+                ]
+            ]
+        ],
+        "timestamp": "2026-03-03T09:14:55.305746317",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

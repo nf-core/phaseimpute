@@ -1,0 +1,305 @@
+nextflow_workflow {
+
+    name "Test Workflow PIPELINE_INITIALISATION"
+    script "../main.nf"
+    workflow "PIPELINE_INITIALISATION"
+    tag 'subworkflows'
+    tag 'utils_nfcore_phaseimpute_pipeline'
+    tag 'subworkflows/utils_nfcore_phaseimpute_pipeline'
+
+    test("Should run with no error") {
+        when {
+            workflow {
+                """
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
+                input[5] = [] // help
+                input[6] = [] // help_full
+                input[7] = [] // show_hidden
+                input[8] = channel.of([
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]) // ch_ref_gen
+                input[9] =  [
+                    "input_target" : null,
+                    "input_truth"  : null,
+                    "input_region" : null,
+                    "input_panel"  : "../../../tests/csv/panel.csv",
+                    "input_posfile": "../../../tests/csv/posfile.csv",
+                    "input_chunks" : "../../../tests/csv/chunks.csv",
+                    "input_map"    : "../../../tests/csv/map_glimpse.csv",
+                ]
+                input[10] = ["panelprep"] // steps
+                input[11] = [] // tools
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success }
+            )
+        }
+    }
+
+    test("Should give a warning all file given") {
+        when {
+            workflow {
+                """
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
+                input[5] = [] // help
+                input[6] = [] // help_full
+                input[7] = [] // show_hidden
+                input[8] = channel.of([
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]) // ch_ref_gen
+                input[9] = [
+                    "input_target" : null,
+                    "input_truth"  : null,
+                    "input_region" : "$moduleTestDir/region.csv",
+                    "input_panel"  : "../../../tests/csv/panel.csv",
+                    "input_posfile": "../../../tests/csv/posfile.csv",
+                    "input_chunks" : "../../../tests/csv/chunks.csv",
+                    "input_map"    : "../../../tests/csv/map_glimpse.csv",
+                ]
+                input[10] = ["panelprep"] // steps
+                input[11] = [] // tools
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "sequential"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: The following contigs are absent from at least one file : [chr2] and therefore won't be used")}
+            )
+        }
+    }
+
+    test("Should give a warning with missing files") {
+        when {
+            workflow {
+                """
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
+                input[5] = [] // help
+                input[6] = [] // help_full
+                input[7] = [] // show_hidden
+                input[8] = channel.of([
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]) // ch_ref_gen
+                input[9] = [
+                    "input_target" : null,
+                    "input_truth"  : null,
+                    "input_region" : "$moduleTestDir/region.csv",
+                    "input_panel"  : "../../../tests/csv/panel.csv",
+                    "input_posfile": null,
+                    "input_chunks" : "../../../tests/csv/chunks.csv",
+                    "input_map"    : null,
+                ]
+                input[10] = ["panelprep"] // steps
+                input[11] = [] // tools
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: The following contigs are absent from at least one file : [chr2] and therefore won't be used")},
+                { assert snapshot(sanitizeOutput(workflow.out)).match()}
+            )
+        }
+    }
+
+    test("Should give an error due to multiple panel_id") {
+        when {
+            workflow {
+                """
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
+                input[5] = [] // help
+                input[6] = [] // help_full
+                input[7] = [] // show_hidden
+                input[8] = channel.of([
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]) // ch_ref_gen
+                input[9] = [
+                    "input_target" : null,
+                    "input_truth"  : null,
+                    "input_region" : null,
+                    "input_panel"  : "../../../tests/csv/panel_multiple.csv",
+                    "input_posfile": "../../../tests/csv/posfile.csv",
+                    "input_chunks" : "../../../tests/csv/chunks.csv",
+                    "input_map"    : "../../../tests/csv/map_glimpse.csv",
+                ]
+                input[10] = ["panelprep"] // steps
+                input[11] = [] // tools
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: null,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.errorMessage.contains("Multiple panel IDs detected: [1000GP, 1000GP_2]. Please provide only one across panel, chunks and posfile.")}
+            )
+        }
+    }
+
+    test("Should give panel_id: None") {
+        when {
+            workflow {
+                """
+                input[0] = false // version
+                input[1] = false // validate_params
+                input[2] = false // _monochrome_logs
+                input[3] = [] // nextflow_cli_args
+                input[4] = "results" // outdir
+                input[5] = [] // help
+                input[6] = [] // help_full
+                input[7] = [] // show_hidden
+                input[8] = channel.of([
+                    [genome: "GRCh38"],
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.fai", checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + "/hum_data/reference_genome/GRCh38.s.fa.gz.gzi", checkIfExists: true)
+                ]) // ch_ref_gen
+                input[9] = [
+                    "input_target" : "../../../tests/csv/sample_sim.csv",
+                    "input_truth"  : null,
+                    "input_region" : null,
+                    "input_panel"  : null,
+                    "input_posfile": null,
+                    "input_chunks" : null,
+                    "input_map"    : null,
+                ]
+                input[10] = ["simulate"] // steps
+                input[11] = [] // tools
+                input[12] = 5 // max_chr_names
+                input[13] = [ // params_simulate
+                    depth: 1,
+                    genotype: null
+                ]
+                input[14] = [ // params_panelprep
+                    normalize     : null,
+                    remove_samples: null,
+                    compute_freq  : null,
+                    phase         : null,
+                    chunk_model   : "recursive"
+                ]
+                input[15] = [ // params_impute
+                    batch_size: null,
+                    k_val     : null,
+                    n_gen     : null,
+                    buffer    : null,
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.stdout.contains("WARN: No panel IDs detected. Channel panel, chunks and posfile will be initialise with null values and `panel_id`: None.")},
+                { assert snapshot(sanitizeOutput(workflow.out)).match()}
+            )
+        }
+    }
+}

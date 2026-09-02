@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_SPLIT_BCFTOOLS"
+description: Split a multi samples VCF files into one VCF per sample using bcftools/pluginsplit
+keywords:
+  - bcftools
+  - split
+  - sample
+components:
+  - bcftools/pluginsplit
+input:
+  - ch_vcf:
+      type: file
+      description: Channel VCF file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+        - samples:
+          type: file
+          description: |
+            A tab-separated file determining which samples should be in which output file
+            column 1: The sample name(s) in the input file
+            column 2: The sample name(s) to use in the output file (use `-` to keep the original name)
+            column 3: The name of the output file
+            Either this or a groups file should be given
+          pattern: "*.{txt,tsv}"
+output:
+  - ch_vcf:
+      type: file
+      description: Channel VCF file for each sample
+      structure:
+        - meta:
+          type: map
+          description: |
+            Metadata map with the 'id' field is the sample name obtained
+            from the output file basename.
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,bcf,vcf.gz}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+  - versions:
+      description: Channel containing software versions file
+      structure:
+        - versions.yml:
+            type: file
+            description: File containing versions of the software used
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

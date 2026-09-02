@@ -1,0 +1,58 @@
+nextflow_process {
+
+    name "Test Process ADDCOLUMNS"
+    script "../main.nf"
+    process "ADDCOLUMNS"
+
+    tag "modules"
+    tag "modules_local"
+    tag "addcolumns"
+    tag "gawk"
+
+    test("Add columns to txt file") {
+
+        when {
+            process {
+                """
+                file = channel.of("# Other content\\ntest\\ntest1\\n#Genotype concordance by allele frequency bin (Variants: SNPs + indels)\\nCol1\\tCol2\\nA\\t1\\nB\\t2")
+                    .collectFile(name: 'sample.txt', newLine: true)
+                input[0] = channel.of([[id:"MyId", depth:2, gparray:"SNPArray", tools:"Glimpse", panel:"1000GP"]]).combine(file)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out,
+                    path(process.out.txt[0][1]).readLines()
+                ).match() }
+            )
+        }
+    }
+    test("Add columns to txt file with missing fields") {
+
+        when {
+            process {
+                """
+                file = channel.of("# Other content\\ntest\\ntest1\\n" +
+                    "#Genotype concordance by allele frequency bin (Variants: SNPs + indels)\\n" +
+                    "Col1\\tCol2\\nA\\t1\\nB\\t2")
+                    .collectFile(name: 'sample.txt', newLine: true)
+                input[0] = channel.of([[id:"MyId", tools:"Glimpse"]]).combine(file)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out,
+                    path(process.out.txt[0][1]).readLines()
+                ).match() }
+            )
+        }
+    }
+}

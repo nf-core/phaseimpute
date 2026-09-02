@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "PIPELINE_INITIALISATION"
+description: |
+  Local utility subworkflow for nf-core/phaseimpute that prepares input channels,
+  validates pipeline inputs, and handles completion reporting hooks.
+keywords:
+  - utils
+  - nf-core
+  - phaseimpute
+  - schema
+components:
+  - utils_nfschema_plugin
+  - utils_nfcore_pipeline
+  - utils_nextflow_pipeline
+  - completionemail
+  - completionsummary
+input:
+  - version:
+      type: boolean
+      description: Print workflow version and exit
+  - validate_params:
+      type: boolean
+      description: Validate pipeline parameters
+  - nextflow_cli_args:
+      type: list
+      description: Positional Nextflow CLI arguments
+  - outdir:
+      type: string
+      description: Output directory for pipeline artefacts
+output:
+  - input:
+      description: Prepared pipeline input channel
+  - input_truth:
+      description: Prepared truth input channel
+  - fasta:
+      description: Prepared reference channel
+  - panel:
+      description: Prepared panel channel
+  - depth:
+      description: Prepared depth channel
+  - regions:
+      description: Prepared regions channel
+  - gmap:
+      description: Prepared genetic map channel
+  - posfile:
+      description: Prepared posfile channel
+  - chunks:
+      description: Prepared chunk channel
+  - chunk_model:
+      description: Selected chunking model
+authors:
+  - "@louislenezet"
+maintainers:
+  - "@louislenezet"

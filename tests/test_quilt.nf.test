@@ -1,0 +1,39 @@
+def projectDir = new File('.').absolutePath
+
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_quilt"
+
+    def test_scenario = [
+        [
+            name: "Check test_quilt - with map - with chunks",
+            config: "../conf/test_quilt.config",
+            details: { outdir ->
+                [
+                    "all_samples.batch0.quilt": UTILS.vcfDetails("$outdir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                ]
+            },
+        ],
+        [
+            name: "Check test_quilt - no map - no chunks",
+            config: "../conf/test_quilt.config",
+            params: [
+                chunks: null,
+                map: null,
+            ],
+            details: { outdir ->
+                [
+                    "all_samples.batch0.quilt": UTILS.vcfDetails("$outdir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                ]
+            },
+        ]
+    ]
+
+    test_scenario.each { scenario ->
+        test(scenario.name, UTILS.getPhaseimputeTest(scenario))
+    }
+}
