@@ -2,7 +2,7 @@
     "Check test_all - no map - no chunks": {
         "content": [
             {
-                "workflow size": 240,
+                "workflow size": 238,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.1"
@@ -88,9 +88,6 @@
                     },
                     "GAWK_TRUTH": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
                     },
                     "GLIMPSE2_CONCORDANCE": {
                         "glimpse2": "2.0.0"
@@ -431,9 +428,6 @@
                     "prep_panel/chunks/glimpse1",
                     "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
                     "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                    "prep_panel/chunks/glimpse2",
-                    "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                    "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
                     "prep_panel/concat",
                     "prep_panel/concat/1000GP.panel.vcf.gz",
                     "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
@@ -603,8 +597,6 @@
                     "samtools-coverage_Reads.txt:md5,b4d9f56aedae09971ff3353eea5a9451",
                     "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
-                    "1000GP_chr21_chunks_glimpse2.txt:md5,834dea86a63b5a49d36f53c0ac7e01a2",
-                    "1000GP_chr22_chunks_glimpse2.txt:md5,c363e235162ca0f7d22e5604c192e256",
                     "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
                     "1000GP_chr21.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
@@ -952,16 +944,16 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T19:28:15.252414691",
+        "timestamp": "2026-09-02T15:11:35.015117606",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     },
     "Check test_all - with map - no chunks": {
         "content": [
             {
-                "workflow size": 242,
+                "workflow size": 240,
                 "versions": {
                     "ADDCOLUMNS": {
                         "gawk": "5.3.1"
@@ -1053,9 +1045,6 @@
                     },
                     "GAWK_TRUTH": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
                     },
                     "GLIMPSE2_CONCORDANCE": {
                         "glimpse2": "2.0.0"
@@ -1405,9 +1394,6 @@
                     "prep_panel/chunks/glimpse1",
                     "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
                     "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                    "prep_panel/chunks/glimpse2",
-                    "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                    "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
                     "prep_panel/concat",
                     "prep_panel/concat/1000GP.panel.vcf.gz",
                     "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
@@ -1585,8 +1571,6 @@
                     "samtools-coverage_Reads.txt:md5,b4d9f56aedae09971ff3353eea5a9451",
                     "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
-                    "1000GP_chr21_chunks_glimpse2.txt:md5,5d68b3816a4cf607be3728237d2cfa2e",
-                    "1000GP_chr22_chunks_glimpse2.txt:md5,3bfef0fe24564dd3f759ee390345970a",
                     "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
                     "1000GP_chr21.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
@@ -1934,10 +1918,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T19:31:43.527166058",
+        "timestamp": "2026-09-02T15:09:59.329236171",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     }
 }

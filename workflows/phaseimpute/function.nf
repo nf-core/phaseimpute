@@ -33,14 +33,13 @@ def chunkPrepareChannel(ch_chunks, ch_region, tool) {
         }
         return ch_chunks_in_out.mix(ch_chunks_region)
     } else if(tool == "quilt") {
-        def ch_chunks_region = ch_chunks_branched.empty.map{
-            metaPC, region ->
-            def startEnd = region.split(':')[1].split('-')
-            [ metaPC, metaPC.chr, startEnd[0], startEnd[1] ]
-        }
         return ch_chunks_in_out
             .map{meta, region_in, _region_out -> [meta, region_in] }
-            .mix(ch_chunks_region)
+            .mix(ch_chunks_branched.empty)
+            .map { meta, it ->
+                def startEnd = it.split(':')[1].split('-')
+                [ meta, meta.chr, startEnd[0], startEnd[1] ]
+            }
     } else {
         error "ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got ${tool}"
     }
