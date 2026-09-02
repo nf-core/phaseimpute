@@ -12,27 +12,35 @@ def chunkPrepareChannel(ch_chunks, ch_region, tool) {
             empty: true
                 return [metaPC, region]
         }
+
+    def ch_chunks_in_out = channel.of()
+
+    ch_chunks_in_out = ch_chunks_branched.txt.map { metaPC, txt -> [metaPC, file(txt)]}
+        .splitCsv(sep:"\t", skip:0)
+        .map{ meta, row ->
+            if (row.size() == 6 ) {
+                return [ meta, row[2], row[3] ] // header is 'ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'
+            }
+            if (row.size() == 8) {
+                return [ meta, row[3], row[2] ] // header is 'ID', 'Chr', 'RegionBuff', 'RegionCnk', 'WindowCm', 'WindowMb', 'NbTotVariants', 'NbComVariants'
+            }
+            error "Chunks csv should have either 6 columns (glimpse V1 format) or 8 columns (glimpse V2 format)"
+        }
+
     if(tool == "glimpse1"){
-        def ch_chunks_txt = ch_chunks_branched.txt.map { metaPC, txt -> [metaPC, file(txt)]}
-            .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
-            .map { meta, it -> [meta, it["RegionIn"], it["RegionOut"]]}
         def ch_chunks_region = ch_chunks_branched.empty.map{
             metaPC, region -> [ metaPC, region, region ]
         }
-        return ch_chunks_txt.mix(ch_chunks_region)
+        return ch_chunks_in_out.mix(ch_chunks_region)
     } else if(tool == "quilt") {
-        def ch_chunks_txt = ch_chunks_branched.txt.map { metaC, txt -> [metaC, file(txt)]}
-            .splitCsv(header: ['ID', 'Chr', 'RegionIn', 'RegionOut', 'Size1', 'Size2'], sep: "\t", skip: 0)
-            .map { metaC, it ->
-                def startEnd = it["RegionIn"].split(':')[1].split('-')
-                [ metaC, metaC.chr, startEnd[0], startEnd[1] ]
-            }
         def ch_chunks_region = ch_chunks_branched.empty.map{
             metaPC, region ->
             def startEnd = region.split(':')[1].split('-')
             [ metaPC, metaPC.chr, startEnd[0], startEnd[1] ]
         }
-        return ch_chunks_txt.mix(ch_chunks_region)
+        return ch_chunks_in_out
+            .map{meta, region_in, _region_out -> [meta, region_in] }
+            .mix(ch_chunks_region)
     } else {
         error "ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got ${tool}"
     }

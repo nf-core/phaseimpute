@@ -110,6 +110,62 @@ nextflow_function {
         }
     }
 
+    test("Prepare chunks channel Glimpse - input Glimpse V2 - with chunks") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                input[0] = channel.of([
+                    [id: "1000GP", chr: "chr21"],
+                    file("/home/louis/Documents/Repositories/phaseimpute/.nf-test/tests/6b395ab46d5ca39a77a0bcb35d4a8968/work/2f/385778e8f8e6754d462239b401b526/1000GP_chr22.txt", checkIfExist:true),
+                ])
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse1"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert snapshot(function.result).match()}
+            )
+        }
+    }
+
+    test("Prepare chunks channel Glimpse - input wrong format") {
+        function "chunkPrepareChannel"
+        tag "chunkPrepareChannel"
+        when {
+            function {
+                """
+                ch_chunks = channel.of([
+                    "0\tchr22\tchr22:16570065-16597215\tchr22:16570065-16592216\t22152\t452\textrafield",
+                    "1\tchr22\tchr22:16587172-16609999\tchr22:16592229-16609999\t17771\t451\textrafield"
+                ]).collectFile(name: 'chunks.txt', newLine: true)
+                input[0] = channel.of([
+                    [id: "1000GP", chr: "chr21"]
+                ]).combine(ch_chunks)
+                input[1] = channel.of([
+                    [chr: "chr21", region: "chr21:16570000-16610000"],
+                    "chr21:16570000-16610000"
+                ])
+                input[2] = "glimpse1"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.failed }
+            )
+        }
+    }
+
     test("Prepare chunks channel error tool") {
         function "chunkPrepareChannel"
         tag "chunkPrepareChannel"

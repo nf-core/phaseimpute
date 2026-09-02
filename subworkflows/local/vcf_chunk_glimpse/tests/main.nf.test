@@ -17,7 +17,7 @@ nextflow_workflow {
     tag "glimpse2"
     tag "glimpse2/chunk"
 
-    test("Chunks with Map") {
+    test("Chunks with Map - V1") {
         when {
             workflow {
                 """
@@ -44,6 +44,7 @@ nextflow_workflow {
                     ]
                 )
                 input[2] = "recursive"
+                input[3] = "V1"
                 """
             }
         }
@@ -52,7 +53,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out,
+                    workflow.out.chunks,
                     workflow.out.chunks.collect{
                         path(it[1]).readLines()
                     }
@@ -62,7 +63,53 @@ nextflow_workflow {
         }
     }
 
-    test("Chunks without Map") {
+    test("Chunks with Map - V2") {
+        when {
+            workflow {
+                """
+                input[0] = channel.of(
+                    [
+                        [panel_id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr22/1000GP.chr22.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ],
+                    [
+                        [panel_id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz", checkIfExist:true),
+                        file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.s.norel.vcf.gz.csi", checkIfExist:true),
+                    ]
+                )
+                input[1] = channel.of(
+                    [
+                        [panel_id: "1000GP", chr: "chr22"],
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr22.glimpse.map", checkIfExist:true)
+                    ],
+                    [
+                        [panel_id: "1000GP", chr: "chr21"],
+                        file(params.pipelines_testdata_base_path + "hum_data/reference_genome/GRCh38_chr21.glimpse.map", checkIfExist:true)
+                    ]
+                )
+                input[2] = "recursive"
+                input[3] = "V2"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.chunks,
+                    workflow.out.chunks.collect{
+                        path(it[1]).readLines()
+                    }
+                ).match()
+                }
+            )
+        }
+    }
+
+    test("Chunks without Map - V1") {
         when {
             workflow {
                 """
@@ -83,6 +130,7 @@ nextflow_workflow {
                     [[panel_id: "1000GP", chr: "chr21"], []]
                 )
                 input[2] = "recursive"
+                input[3] = "V1"
                 """
             }
         }
@@ -91,7 +139,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out,
+                    workflow.out.chunks,
                     workflow.out.chunks.collect{
                         path(it[1]).readLines()
                     }
@@ -101,7 +149,7 @@ nextflow_workflow {
         }
     }
 
-    test("Chunks with sequential model") {
+    test("Chunks with sequential model - V2") {
         when {
             workflow {
                 """
@@ -122,6 +170,7 @@ nextflow_workflow {
                     [[panel_id: "1000GP", chr: "chr21"], []]
                 )
                 input[2] = "sequential"
+                input[3] = "V2"
                 """
             }
         }
@@ -130,7 +179,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out,
+                    workflow.out.chunks,
                     workflow.out.chunks.collect{
                         path(it[1]).readLines()
                     }

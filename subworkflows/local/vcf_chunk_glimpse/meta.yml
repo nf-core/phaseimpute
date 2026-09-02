@@ -43,6 +43,12 @@ input:
         - recursive
         - sequential
         - uniform-number-variants
+  - chunk_version:
+      description: Glimpse version to chunk
+      type: string
+      enum:
+        - V1
+        - V2
 output:
   - chunks:
       description: Channel with chunks files

@@ -60,7 +60,7 @@ workflow NFCORE_PHASEIMPUTE {
     rename_chr       // parameter: rename chromosome prefix
     max_chr_names    // parameter: max number of chr to show in message
     params_simulate  // map: parameters use for simulation step [depth: float, genotype: path]
-    params_panelprep // map: parameters use for panelprep step  [normalize: boolean, remove_samples: string, compute_freq: boolean, phase: boolean, chunk_model: string ]
+    params_panelprep // map: parameters use for panelprep step  [normalize: boolean, remove_samples: string, compute_freq: boolean, phase: boolean, chunk_model: string, chunk_version: string ]
     params_impute    // map: parameters use for imputation step [batch_size: integer, k_val: integer, n_gen: integer, buffer: integer]
     params_validate  // map: parameters use for validation step [bins: string, min_val_gl: float, min_val_dp: integer]
     params_multiqc   // map: parameters use for multiqc report  [config: path, logo: path, methods_description: string]
@@ -166,7 +166,8 @@ workflow {
         remove_samples: params.remove_samples,
         compute_freq  : params.compute_freq,
         phase         : params.phase,
-        chunk_model   : params.chunk_model
+        chunk_model   : params.chunk_model,
+        chunk_version : params.chunk_version
     ]
 
     def params_impute = [
