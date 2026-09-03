@@ -116,10 +116,10 @@ nextflow_function {
         when {
             function {
                 """
-                chunks_txt = channel.of("0\tchr21\tchr21:16570070-16609998\tchr21:16570070-16609998\t0.0399277\t39928\t836\t422").collectFile(name:"chunks_v2.txt")
                 input[0] = channel.of([
-                    [id: "1000GP", chr: "chr21"]
-                ]).combine(chunks_txt)
+                    [id: "1000GP", chr: "chr21"],
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21_chunks_v2.txt", checkIfExist:true)
+                ])
                 input[1] = channel.of([
                     [chr: "chr21", region: "chr21:16570000-16610000"],
                     "chr21:16570000-16610000"
