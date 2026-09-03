@@ -11,6 +11,18 @@
             "nextflow": "25.10.0"
         }
     },
+    "Prepare chunks channel Glimpse - input Glimpse V2 - with chunks": {
+        "content": [
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-01T19:04:57.436505706",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    },
     "Prepare chunks channel Glimpse - no chunks": {
         "content": [
             {
