@@ -116,10 +116,10 @@ nextflow_function {
         when {
             function {
                 """
+                chunks_txt = channel.of("0\tchr21\tchr21:16570070-16609998\tchr21:16570070-16609998\t0.0399277\t39928\t836\t422").collectFile(name:"chunks_v2.txt")
                 input[0] = channel.of([
-                    [id: "1000GP", chr: "chr21"],
-                    file("/home/louis/Documents/Repositories/phaseimpute/.nf-test/tests/6b395ab46d5ca39a77a0bcb35d4a8968/work/2f/385778e8f8e6754d462239b401b526/1000GP_chr22.txt", checkIfExist:true),
-                ])
+                    [id: "1000GP", chr: "chr21"]
+                ]).combine(chunks_txt)
                 input[1] = channel.of([
                     [chr: "chr21", region: "chr21:16570000-16610000"],
                     "chr21:16570000-16610000"
