@@ -35,10 +35,10 @@
                         {
                             "genome": "GRCh38"
                         },
-                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        "/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
                         [
-                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
-                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
+                            "/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
+                            "/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
                         ]
                     ]
                 ],
@@ -198,10 +198,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-05-26T15:10:42.05045451",
+        "timestamp": "2026-09-03T10:07:12.159496631",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.6"
         }
     },
     "Should give a warning with missing files": {
@@ -238,10 +238,10 @@
                         {
                             "genome": "GRCh38"
                         },
-                        "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
+                        "/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz",
                         [
-                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
-                            "/nf-core/test-datasets/refs/heads/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
+                            "/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.fai",
+                            "/nf-core/test-datasets/phaseimpute/hum_data/reference_genome/GRCh38.s.fa.gz.gzi"
                         ]
                     ]
                 ],
@@ -371,10 +371,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-05-26T15:00:37.724098357",
+        "timestamp": "2026-09-03T10:05:34.590414062",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.6"
         }
     }
 }
