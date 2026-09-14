@@ -126,6 +126,7 @@ workflow PIPELINE_INITIALISATION {
     def normalize = params_panelprep["normalize"]
     def remove_samples = params_panelprep["remove_samples"]
     def chunk_model = params_panelprep["chunk_model"]
+    def chunk_version = params_panelprep["chunk_version"]
 
     def batch_size = params_impute["batch_size"]
 
@@ -136,7 +137,7 @@ workflow PIPELINE_INITIALISATION {
         sheet_target, sheet_truth, sheet_panel,
         sheet_posfile, sheet_chunks,
         genotype, remove_samples, normalize,
-        chunk_model,
+        chunk_model, chunk_version,
         steps, tools
     )
 
@@ -511,7 +512,7 @@ def validateInputParameters(
     sheet_target, sheet_truth, sheet_panel,
     sheet_posfile, sheet_chunks,
     genotype, remove_samples, normalize,
-    chunk_model,
+    chunk_model, chunk_version,
     steps, tools
 ) {
     // Check that a steps is provided
@@ -577,13 +578,17 @@ def validateInputParameters(
     // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
     if (steps.find { step -> step in ["all", "panelprep"] } && remove_samples) {
         if (!normalize) {
-            error("To use `--remove_samples` you need to include `--normalize`.")
+            error "To use `--remove_samples` you need to include `--normalize`."
         }
     }
 
     // Check that the chunk model is provided
     if (!chunk_model) {
         error "No chunk model provided"
+    }
+
+    if (chunk_version == "V1" && chunk_model != "sequential") {
+        error "Glimpse V1 doesn't support custom chunking model `--chunk_model $chunk_model`. Please use `--chunk_version V2` or remove `--chunk_model`."
     }
 
     return null

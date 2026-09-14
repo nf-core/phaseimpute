@@ -152,6 +152,18 @@
             "nextflow": "25.10.4"
         }
     },
+    "Test validateInputParameters error incompatible chunk version and model": {
+        "content": [
+            [
+                "Glimpse V1 doesn't support custom chunking model `--chunk_model recursive`. Please use `--chunk_version V2` or remove `--chunk_model`."
+            ]
+        ],
+        "timestamp": "2026-09-14T11:27:00.658409305",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    },
     "Test checkMetaChr warning": {
         "content": [
             [

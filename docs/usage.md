@@ -229,7 +229,10 @@ panel,chr,file
 | `chr`   | Name of the chromosome. Use the prefix 'chr' if the panel uses the prefix.                          |
 | `file`  | Full path to a txt file containing the different chunks with and without buffer for each chromosome |
 
-The `file` should be a TSV with the following structure, similar to that from [`GLIMPSE_chunk` documentation](https://odelaneau.github.io/GLIMPSE/docs/documentation/chunk/#output-files): File is tab separated with no header, one row per chunk, with the following columns:
+The `file` should be a TSV with the following structure, similar to that from [`GLIMPSE_chunk` documentation](https://odelaneau.github.io/GLIMPSE/docs/documentation/chunk/#output-files) version 1 or 2.
+File is tab separated with no header, one row per chunk, with the following columns:
+
+#### For Glimpse version 1:
 
 - Column 1: chunk id
 - Column 2: chromosome name
@@ -241,6 +244,21 @@ The `file` should be a TSV with the following structure, similar to that from [`
 ```csv title="chunks.txt"
 0	chr22	chr22:16570065-16597215	chr22:16570065-16592216	22152	452
 1	chr22	chr22:16587172-16609999	chr22:16592229-16609999	17771	451
+```
+
+#### For Glimpse version 2:
+
+- Column 1: chunk id
+- Column 2: chromosome name
+- Column 3: region with buffer
+- Column 4: region without buffer
+- Column 5: region size in centimorgan
+- Column 6: region size in base pair
+- Column 7: number of total variants
+- Column 8: number of common variants
+
+```csv title="chunks_v2.txt"
+0	chr22	chr22:16570000-16610000	chr22:16570065-16609999	0.0399345	39934	903	419
 ```
 
 ## Samplesheet map
@@ -449,12 +467,17 @@ The required flags for this mode are:
 
 - `--steps panelprep`: The steps to run.
 - `--panel reference.csv`: The samplesheet containing the reference panel files in `vcf.gz` format.
-- `--phase`: (optional) Whether the reference panel should be phased (true|false).
-- `--normalize`: (optional) Whether the reference panel needs to be normalized or not (true|false). The default value is true.
-- `--remove_samples`: (optional) A comma-separated list of samples to remove from the reference during the normalization process.
-- `--compute_freq`: (optional) Whether the frequency (AC/AN field) for each variants needs to be computed or not (true/false). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
 
-The panel will be chunked using the `GLIMPSE_CHUNKS` process. The size of the chunks can be optimized according to your needs (e.g. cluster resources, specie chromosomes size, ...) using the following config. The 4mb size (default value) is empirically determined to be a good value in humans (i.e. enough parallelization but not too much).
+The optional flags for this mode are:
+
+- `--phase`: Whether the reference panel should be phased (`true` or `false`, default is `false`).
+- `--normalize`: Whether the reference panel needs to be normalized or not (`true` or `false`, default is `true`).
+- `--remove_samples`: A comma-separated list of samples to remove from the reference during the normalization process.
+- `--compute_freq`: Whether the frequency (AC/AN field) for each variants needs to be computed or not (`true` or `false`, default is `false`). This can be the case if the frequency is absent from the reference panel or if individuals have been removed.
+- `--chunk_version`: Which version of Glimpse tool should be used to chunks the contigs (`V1` or `V2`, default is `V1`).
+- `--chunk_model`: For `--chunk_version V2` perform the chunking with the given model (`recursive` or `sequential`, default is `sequential`).
+
+The panel will be chunked using the `GLIMPSE_CHUNKS` process (version 1 or 2). The size of the chunks can be optimized according to your needs (e.g. cluster resources, specie chromosomes size, ...) using the following config. The 4mb size (default value) has been empirically determined to be a good value in humans (i.e. enough parallelization but not too much).
 
 ```config title="panel.config"
 withName: 'NFCORE_PHASEIMPUTE:PHASEIMPUTE:VCF_CHUNK_GLIMPSE:GLIMPSE_CHUNK' {
