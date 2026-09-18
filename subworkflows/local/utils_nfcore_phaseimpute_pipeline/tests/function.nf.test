@@ -379,6 +379,91 @@ nextflow_function {
         }
     }
 
+    test ("Test validateInputParameters works") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = ""
+                input[7] = false
+                input[8] = "sequential"
+                input[9] = "V1"
+                input[10] = "all"
+                input[11] = "glimpse1"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error incompatible chunk version and model") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = ""
+                input[7] = false
+                input[8] = "recursive"
+                input[9] = "V1"
+                input[10] = "all"
+                input[11] = "glimpse1"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters no error compatible chunk version and model") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = ""
+                input[7] = false
+                input[8] = "recursive"
+                input[9] = "V2"
+                input[10] = "all"
+                input[11] = "glimpse1"
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success }
+            )
+        }
+    }
+
     test ("Test validateInputBatchTools vcf only for glimpse") {
         function "validateInputBatchTools"
         tag "validateInputBatchTools"

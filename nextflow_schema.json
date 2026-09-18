@@ -144,6 +144,13 @@
                     "enum": ["recursive", "sequential"],
                     "default": "sequential",
                     "hidden": true
+                },
+                "chunk_version": {
+                    "type": "string",
+                    "description": "Glimpse version to use for chunking",
+                    "enum": ["V1", "V2"],
+                    "default": "V1",
+                    "hidden": true
                 }
             }
         },

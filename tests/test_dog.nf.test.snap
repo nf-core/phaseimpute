@@ -2,7 +2,7 @@
     "Check test_dog - no map - no chunk": {
         "content": [
             {
-                "workflow size": 91,
+                "workflow size": 89,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
@@ -52,9 +52,6 @@
                     },
                     "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
                     },
                     "GLIMPSE2_LIGATE": {
                         "glimpse2": "2.0.0"
@@ -226,9 +223,6 @@
                     "prep_panel/chunks/glimpse1",
                     "prep_panel/chunks/glimpse1/658Dog_chr21_chunks_glimpse1.txt",
                     "prep_panel/chunks/glimpse1/658Dog_chr22_chunks_glimpse1.txt",
-                    "prep_panel/chunks/glimpse2",
-                    "prep_panel/chunks/glimpse2/658Dog_chr21_chunks_glimpse2.txt",
-                    "prep_panel/chunks/glimpse2/658Dog_chr22_chunks_glimpse2.txt",
                     "prep_panel/csv",
                     "prep_panel/csv/chunks_glimpse1.csv",
                     "prep_panel/csv/panel.csv",
@@ -287,8 +281,6 @@
                     "multiqc_general_stats.txt:md5,308b31e233de70b3e1e7b9c093e58093",
                     "658Dog_chr21_chunks_glimpse1.txt:md5,fc93d5f473c8bff30c1244c968be6b8c",
                     "658Dog_chr22_chunks_glimpse1.txt:md5,846073f9a512a680f7e7155cc4ac1f70",
-                    "658Dog_chr21_chunks_glimpse2.txt:md5,76a5a9b772ce2f8e6f5bef47743a24aa",
-                    "658Dog_chr22_chunks_glimpse2.txt:md5,087f226af57448b5777a0fac6806a776",
                     "658Dog_chr21.hap.gz:md5,0730a032b058730d6abdbf836bb57ba7",
                     "658Dog_chr21.legend.gz:md5,3eaa371bdf51f74f9749fd35e9e834a6",
                     "658Dog_chr21.samples:md5,92a2aa1d024ca2001cfec04671082eff",
@@ -450,10 +442,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T18:08:14.707538039",
+        "timestamp": "2026-09-02T15:21:12.966406137",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     }
 }

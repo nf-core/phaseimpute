@@ -251,7 +251,8 @@ workflow PHASEIMPUTE {
             VCF_CHUNK_GLIMPSE(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_index,
                 ch_map_glimpse,
-                params_panelprep["chunk_model"]
+                params_panelprep["chunk_model"],
+                params_panelprep["chunk_version"]
             )
             ch_chunks  = VCF_CHUNK_GLIMPSE.out.chunks
 

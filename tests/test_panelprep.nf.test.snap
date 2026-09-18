@@ -2,7 +2,7 @@
     "Check test_panelprep - no map - no chunks": {
         "content": [
             {
-                "workflow size": 34,
+                "workflow size": 32,
                 "versions": {
                     "BCFTOOLS_CONVERT": {
                         "bcftools": "1.23.1"
@@ -24,9 +24,6 @@
                     },
                     "GAWK": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_CHUNK": {
-                        "glimpse2": "2.0.0"
                     },
                     "GLIMPSE_CHUNK": {
                         "glimpse": "1.1.1"
@@ -73,9 +70,6 @@
                     "prep_panel/chunks/glimpse1",
                     "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
                     "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
-                    "prep_panel/chunks/glimpse2",
-                    "prep_panel/chunks/glimpse2/1000GP_chr21_chunks_glimpse2.txt",
-                    "prep_panel/chunks/glimpse2/1000GP_chr22_chunks_glimpse2.txt",
                     "prep_panel/csv",
                     "prep_panel/csv/chunks_glimpse1.csv",
                     "prep_panel/csv/panel.csv",
@@ -129,8 +123,6 @@
                     "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                     "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
                     "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
-                    "1000GP_chr21_chunks_glimpse2.txt:md5,834dea86a63b5a49d36f53c0ac7e01a2",
-                    "1000GP_chr22_chunks_glimpse2.txt:md5,c363e235162ca0f7d22e5604c192e256",
                     "1000GP_chr21.hap.gz:md5,d18ac86ed7080c6527aade3b6717ebb0",
                     "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
                     "1000GP_chr21.samples:md5,ba53fdcb71cd6dbd218e0e932555086c",
@@ -191,10 +183,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-06-21T18:16:13.344773591",
+        "timestamp": "2026-09-02T15:28:40.592623143",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     },
     "Check test_panelprep - with map - with chunks": {
