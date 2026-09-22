@@ -773,8 +773,7 @@ nextflow_function {
                 """
                 input[0] = ["simulate"] // steps
                 input[1] = [] // tools
-                input[2] = null // compute_freq
-                input[3] = null // phase
+                input[2] = null // phase
                 """
             }
         }
@@ -794,8 +793,7 @@ nextflow_function {
                 """
                 input[0] = ["all"] // steps
                 input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
-                input[2] = true // compute_freq
-                input[3] = true // phase
+                input[2] = true // phase
                 """
             }
         }
