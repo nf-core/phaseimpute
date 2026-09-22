@@ -925,7 +925,7 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
     return citation_text
 }
 
-def toolBibliographyText(steps, tools, compute_freq, phase) {
+def toolBibliographyText(steps, tools, phase) {
     def tool_biblio = [
         HTSLIB  : '<li>Bonfield JK., Marshall J., Danecek P., Li H., Ohan V., Whitwham A., Keane T., Davies RM., 2021. HTSlib: C library for reading/writing high-throughput sequencing data. GigaScience 10(2). doi: <a href="https://doi.org/10.1093/gigascience/giab007">10.1093/gigascience/giab007</a></li>',
         BEAGLE5 : '<li>Browning, B.L., Zhou, Y., Browning, S.R., 2018. A One-Penny Imputed Genome from Next-Generation Reference Panels. Am J Hum Genet 103, 338-348. doi: <a href="https://doi.org/10.1016/j.ajhg.2018.07.015">10.1016/j.ajhg.2018.07.015</a></li>',
@@ -985,7 +985,7 @@ def methodsDescriptionText(mqc_methods_yaml, steps, tools, normalize, remove_sam
     meta["tool_citations"] = toolCitationText(
         steps, tools, normalize, remove_samples, compute_freq, phase
     ).replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    meta["tool_bibliography"] = toolBibliographyText(steps, tools, compute_freq, phase)
+    meta["tool_bibliography"] = toolBibliographyText(steps, tools, phase)
 
     def methods_text = mqc_methods_yaml.text
 
