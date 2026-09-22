@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#259](https://github.com/nf-core/phaseimpute/pull/259) - Add `publish_all` arguments to all workflow level nf-test.
 - [#272](https://github.com/nf-core/phaseimpute/pull/272) - Add genetic map detection and convertion for all phasing and imputation tools. Update usage.
 - [#308](https://github.com/nf-core/phaseimpute/pull/308) - Add `chunk_version` parameter to control which Glimpse version to use to chunk.
+- [#313](https://github.com/nf-core/phaseimpute/pull/313) - Add `manifest.diagram`.
 
 ### `Changed`
 
@@ -44,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#292](https://github.com/nf-core/phaseimpute/pull/292) - Reorganise and rename pipeline level tests.
 - [#296](https://github.com/nf-core/phaseimpute/pull/296) - Replace `SAMTOOLS_DEPTH` by `SAMTOOLS_COVERAGE` in downsampling subworkflow to reduce computational load and allow region specificity.
 - [#299](https://github.com/nf-core/phaseimpute/pull/299) - Update modules and subworkflows. Replace `TABIX_TABIX` and `TABIX_BGZIP` by `HTSLIB_BGZIPTABIX`.
+- [#307](https://github.com/nf-core/phaseimpute/pull/307) - Update TEMPLATE to nf-core tools version 4.1.0.
 
 ### `Fixed`
 
