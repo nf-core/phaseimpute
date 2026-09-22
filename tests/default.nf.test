@@ -35,6 +35,7 @@ nextflow_pipeline {
         config "../conf/test.config"
         when {
             params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
                 fasta = null
             }
         }
