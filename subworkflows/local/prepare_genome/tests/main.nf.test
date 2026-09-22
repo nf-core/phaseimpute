@@ -91,4 +91,24 @@ nextflow_workflow {
             )
         }
     }
+
+    test("Homo sapiens reference genome not compressed - no fasta") {
+        when {
+            workflow {
+                """
+                input[0] = "hg38"
+                input[1] = []
+                input[2] = []
+                input[3] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.stdout.any { line -> line.contains("Reference genome FASTA file not found") } }
+            )
+        }
+    }
 }
