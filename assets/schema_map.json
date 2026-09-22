@@ -9,8 +9,8 @@
         "properties": {
             "chr": {
                 "type": "string",
-                "pattern": "^(chr)?[0-9]+$",
-                "errorMessage": "Chromosome must be provided and must be a string containing only numbers, with or without the prefix 'chr'",
+                "pattern": "^\\S+$",
+                "errorMessage": "Chromosome name must be provided as a string and cannot contain spaces",
                 "meta": ["chr"]
             },
             "map": {
