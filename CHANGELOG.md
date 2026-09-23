@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#272](https://github.com/nf-core/phaseimpute/pull/272) - Add genetic map detection and convertion for all phasing and imputation tools. Update usage.
 - [#308](https://github.com/nf-core/phaseimpute/pull/308) - Add `chunk_version` parameter to control which Glimpse version to use to chunk.
 - [#313](https://github.com/nf-core/phaseimpute/pull/313) - Add `manifest.diagram` and update authors / contributors.
+- [#316](https://github.com/nf-core/phaseimpute/pull/316) - Add new test for multiple samples in one vcf.
 
 ### `Changed`
 
@@ -61,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#299](https://github.com/nf-core/phaseimpute/pull/299) - Fix region usage in `STITCH` and avoid duplicate in `MINIMAC4` subworkflow.
 - [#314](https://github.com/nf-core/phaseimpute/pull/314) - Fix chromosome name pattern in map input schema.
 - [#315](https://github.com/nf-core/phaseimpute/pull/315) - Add error message if no fasta provided.
+- [#316](https://github.com/nf-core/phaseimpute/pull/316) - Fix VCF support for `GLIMPSE2` imputation, publish samples split by default.
 
 ### `Dependencies`
 
