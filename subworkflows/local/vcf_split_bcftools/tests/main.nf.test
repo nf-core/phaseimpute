@@ -59,14 +59,13 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out.vcf_index.collect{[
-                        it[0],
-                        path(it[1]).getFileName().toString(),
-                        path(it[2]).getFileName().toString()
-                    ] },
-                    workflow.out.vcf_index.collect{
-                        path(it[1]).vcf.summary
-                    }
+                    workflow.out.vcf_index.collect{meta, vcf_file, index -> [
+                        meta,
+                        path(vcf_file).getFileName().toString(),
+                        path(vcf_file).vcf.summary,
+                        path(vcf_file).vcf.header.getGenotypeSamples(),
+                        path(index).getFileName().toString()
+                    ]}
                 ).match() },
                 { workflow.out.vcf_index.collect{
                     assert path(it[1]).vcf.sampleCount == 1
