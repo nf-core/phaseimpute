@@ -13,12 +13,17 @@ workflow PREPARE_GENOME {
 
     main:
 
+    if (fasta_path) {
+        ch_fasta  = channel.of([
+            [genome: genome],
+            file(fasta_path, checkIfExists:true),
+            []
+        ])
+    } else {
+        error "Reference genome FASTA file not found"
+    }
+
     def is_compressed = fasta_path.toString().endsWith('.gz') || fasta_path.toString().endsWith('.bgz')
-    ch_fasta  = channel.of([
-        [genome: genome],
-        file(fasta_path, checkIfExists:true),
-        []
-    ])
 
     def need_faidx = !fasta_fai_path || (is_compressed && !fasta_gzi_path)
     if (need_faidx) {

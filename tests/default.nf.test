@@ -30,4 +30,22 @@ nextflow_pipeline {
         }
 
     }
+
+    test("-profile test - no fasta") {
+        config "../conf/test.config"
+        when {
+            params {
+                pipelines_testdata_base_path = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phaseimpute/'
+                fasta = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert workflow.stdout.any { line -> line.contains("Reference genome FASTA file not found. Please provide a genome name or a path to a FASTA file.") } }
+            )
+        }
+
+    }
 }

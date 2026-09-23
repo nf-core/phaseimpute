@@ -189,6 +189,10 @@ workflow {
         methods_description: params.multiqc_methods_description
     ]
 
+    if (!params.genome && !params.fasta) {
+        error "Reference genome FASTA file not found. Please provide a genome name or a path to a FASTA file."
+    }
+
     PREPARE_GENOME(
         params.genome ?: file(params.fasta, checkIfExists:true).getBaseName(),
         params.fasta,

@@ -61,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#298](https://github.com/nf-core/phaseimpute/pull/298) - Stabilise variants md5 hash when using `VCFLIB_VCFFIXUP` by using `.bcf.gz` files and `.csi` index.
 - [#299](https://github.com/nf-core/phaseimpute/pull/299) - Fix region usage in `STITCH` and avoid duplicate in `MINIMAC4` subworkflow.
 - [#314](https://github.com/nf-core/phaseimpute/pull/314) - Fix chromosome name pattern in map input schema.
+- [#315](https://github.com/nf-core/phaseimpute/pull/315) - Add error message if no fasta provided.
 - [#316](https://github.com/nf-core/phaseimpute/pull/316) - Fix VCF support for `GLIMPSE2` imputation, publish samples split by default.
 
 ### `Dependencies`
