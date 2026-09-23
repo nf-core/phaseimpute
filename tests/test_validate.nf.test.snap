@@ -246,15 +246,15 @@
                     ],
                     [
                         "NA12878.truth.vcf.gz",
-                        "1c6e1633095b15b785a9a447b189b3dd"
+                        "85b6a686777f3e3c9ca0268f7243a45c"
                     ],
                     [
                         "NA19401.truth.vcf.gz",
-                        "2eb9050ab10a91dca199333df0a9e8"
+                        "b9b1c712df63af7fcf7acf6e5a0ac731"
                     ],
                     [
                         "NA20359.truth.vcf.gz",
-                        "3834cc13ce04bb53696883b7f6de7b42"
+                        "482fee66b3d1296551ac9ca021bededf"
                     ]
                 ],
                 "CSV files": [
@@ -262,10 +262,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-06-17T18:49:22.230080413",
+        "timestamp": "2026-09-23T15:05:38.473190811",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.6"
         }
     }
 }
