@@ -30,11 +30,11 @@ nextflow_workflow {
                 ])
                 truth = channel.fromList([
                     [[id:'NA12878'],
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.bcf.csi",checkIfExists:true)],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.vcf.gz",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA12878/NA12878.s.vcf.gz.csi",checkIfExists:true)],
                     [[id:'NA19401'],
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf",checkIfExists:true),
-                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.bcf.csi",checkIfExists:true)],
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.vcf.gz",checkIfExists:true),
+                    file(params.pipelines_testdata_base_path + "hum_data/individuals/NA19401/NA19401.s.vcf.gz.csi",checkIfExists:true)],
                 ])
                 estimate = channel.fromList([
                     [[id:'NA12878'],

@@ -166,27 +166,27 @@
                 "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "224b82f1d6d3a8053ff99fd303f12636"
+                        "27bb57412f0ddff6dddfadfcc6141ac4"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "cf6b3ce5b35f5a410e93080ed08ab569"
+                        "e619e6764644cf39569ad98aedae74bd"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "9929895add4b9d27277980f889a0fdf3"
+                        "8e115fb385d2d9b1c589dfc2593ce7d2"
                     ],
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "224b82f1d6d3a8053ff99fd303f12636"
+                        "27bb57412f0ddff6dddfadfcc6141ac4"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "cf6b3ce5b35f5a410e93080ed08ab569"
+                        "e619e6764644cf39569ad98aedae74bd"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "9929895add4b9d27277980f889a0fdf3"
+                        "8e115fb385d2d9b1c589dfc2593ce7d2"
                     ]
                 ],
                 "CSV files": [
@@ -210,10 +210,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T18:05:26.686164516",
+        "timestamp": "2026-09-23T14:02:49.393463148",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     },
     "Check test_beagle5 - no map - no chunks": {
@@ -360,27 +360,27 @@
                 "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "515cd266d3cf50065e605ed2fce06ef8"
+                        "2c8d6729c34e4eec78e7ccff3da8b90b"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "4279fa79ffef0c9dcfe8de871b272c6"
+                        "a06bd35cb765d3b610fa5e6ffeb7f8c9"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "2055a6cc9728be8443e694b3a765b4fd"
+                        "7e727ebd5cd6a656c5f7554cad83a351"
                     ],
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "515cd266d3cf50065e605ed2fce06ef8"
+                        "2c8d6729c34e4eec78e7ccff3da8b90b"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "4279fa79ffef0c9dcfe8de871b272c6"
+                        "a06bd35cb765d3b610fa5e6ffeb7f8c9"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "2055a6cc9728be8443e694b3a765b4fd"
+                        "7e727ebd5cd6a656c5f7554cad83a351"
                     ]
                 ],
                 "CSV files": [
@@ -404,10 +404,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T18:06:38.727945558",
+        "timestamp": "2026-09-23T14:03:41.059540413",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     }
 }

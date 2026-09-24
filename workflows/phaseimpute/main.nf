@@ -441,12 +441,19 @@ workflow PHASEIMPUTE {
 
             ch_chunks_glimpse2 = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
-            // Run imputation
-            BAM_VCF_IMPUTE_GLIMPSE2(
-                ch_input_bams_withlist.map{
+            // Combine vcf and processed bam
+            ch_input_glimpse2 = ch_input_bams_withlist
+                .map{
                     meta, file, index, bampath_id, _bampath_noid, _bamnames->
                     [meta, file, index, bampath_id, []]
-                },
+                }
+                .mix(ch_input_type.vcf.map{
+                    meta, vcf, index -> [meta, vcf, index, [], []]
+                })
+
+            // Run imputation
+            BAM_VCF_IMPUTE_GLIMPSE2(
+                ch_input_glimpse2,
                 ch_panel_phased.map{
                     meta, file, index ->
                     [meta, file, index, []] // Region ignored as chunks are provided

@@ -146,27 +146,27 @@
                 "VCF files": [
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "c74d089d2cf38846e568392bc9937e3f"
+                        "4a1881c85e9ac8dd7acdf93232868156"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "8ea63fb223041415af6b5ecc8744d739"
+                        "2cdb12108237fa523d842020af138b2d"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "2118405f08364ad6e3b18536464510c1"
+                        "f44ff5d3a7d3c4c6912d4d065659d336"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "c74d089d2cf38846e568392bc9937e3f"
+                        "4a1881c85e9ac8dd7acdf93232868156"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "8ea63fb223041415af6b5ecc8744d739"
+                        "2cdb12108237fa523d842020af138b2d"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "2118405f08364ad6e3b18536464510c1"
+                        "f44ff5d3a7d3c4c6912d4d065659d336"
                     ]
                 ],
                 "CSV files": [
@@ -190,10 +190,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-18T10:03:06.873848665",
+        "timestamp": "2026-09-23T14:15:43.188571654",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "Check test_minimac4 - with map - with chunks": {
@@ -366,27 +366,27 @@
                 "VCF files": [
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "c74d089d2cf38846e568392bc9937e3f"
+                        "28f874b436d12855acddd32534155eba"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "8ea63fb223041415af6b5ecc8744d739"
+                        "2cdb12108237fa523d842020af138b2d"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "59ab2f53f42ad5cefe496f5e619137b9"
+                        "97b19fb2db81e4c2de36e72279c45e53"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "c74d089d2cf38846e568392bc9937e3f"
+                        "28f874b436d12855acddd32534155eba"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "8ea63fb223041415af6b5ecc8744d739"
+                        "2cdb12108237fa523d842020af138b2d"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "59ab2f53f42ad5cefe496f5e619137b9"
+                        "97b19fb2db81e4c2de36e72279c45e53"
                     ]
                 ],
                 "CSV files": [
@@ -410,10 +410,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-18T10:04:42.538202374",
+        "timestamp": "2026-09-23T14:14:59.62400791",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     }
 }

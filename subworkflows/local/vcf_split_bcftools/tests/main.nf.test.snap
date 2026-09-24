@@ -25,6 +25,10 @@
                         "id": "NA12878"
                     },
                     "NA12878.myfile.vcf.gz",
+                    "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                    [
+                        "NA12878_test"
+                    ],
                     "NA12878.myfile.vcf.gz.tbi"
                 ],
                 [
@@ -32,6 +36,10 @@
                         "id": "NA19401"
                     },
                     "NA19401.vcf.gz",
+                    "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                    [
+                        "NA19401"
+                    ],
                     "NA19401.vcf.gz.tbi"
                 ],
                 [
@@ -39,19 +47,18 @@
                         "id": "NA20359_3"
                     },
                     "NA20359_3.vcf.gz",
+                    "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
+                    [
+                        "NA20359_2"
+                    ],
                     "NA20359_3.vcf.gz.tbi"
                 ]
-            ],
-            [
-                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
-                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]",
-                "VcfFile [chromosomes=[chr21, chr22], sampleCount=1, variantCount=1739, phased=true, phasedAutodetect=true]"
             ]
         ],
-        "timestamp": "2026-06-09T14:38:04.735187812",
+        "timestamp": "2026-09-23T15:27:11.088342121",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     }
 }
