@@ -858,4 +858,61 @@ nextflow_function {
             )
         }
     }
+
+    test ("Test parseSteps - steps all") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = ["all"]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "panelprep", "impute", "validate"] }
+            )
+        }
+    }
+
+    test ("Test parseSteps - steps all + prephase") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = ["all", "prephase"]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "panelprep", "impute", "validate", "prephase"] }
+            )
+        }
+    }
+
+    test ("Test parseSteps - steps all + prephase") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = ["simulate", "prephase", "panelprep"]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "prephase", "panelprep"] }
+            )
+        }
+    }
 }
