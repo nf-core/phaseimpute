@@ -95,9 +95,9 @@ workflow NFCORE_PHASEIMPUTE {
     )
     ch_panel = CHRCHECK_PANEL.out.output
 
-    if (steps.contains("simulate") || steps.contains("all")) {
+    if (steps.contains("simulate")) {
         ch_input_simulate = ch_input
-    } else if (steps.contains("impute")) {
+    } else if (steps.contains("impute") || steps.contains("prephase")) {
         ch_input_impute   = ch_input
     } else if (steps.contains("validate")) {
         ch_input_validate = ch_input
@@ -173,8 +173,8 @@ workflow {
     def params_impute = [
         batch_size: params.batch_size,
         k_val     : params.k_val,
-        n_gen     :params.n_gen,
-        buffer    :params.buffer,
+        n_gen     : params.n_gen,
+        buffer    : params.buffer
     ]
 
     def params_validate = [
@@ -226,7 +226,7 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
-        steps,
+        PIPELINE_INITIALISATION.out.steps,
         tools,
         PIPELINE_INITIALISATION.out.ch_input_target,
         PIPELINE_INITIALISATION.out.ch_input_truth,

@@ -68,7 +68,7 @@
                     "type": "string",
                     "description": "Step(s) to run.",
                     "fa_icon": "fas fa-step-forward",
-                    "pattern": "^((all|simulate|panelprep|impute|validate)?,?)*(?<!,)$"
+                    "pattern": "^((all|simulate|panelprep|impute|validate|prephase)?,?)*(?<!,)$"
                 },
                 "tools": {
                     "type": "string",

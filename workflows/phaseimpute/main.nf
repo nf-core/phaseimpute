@@ -31,7 +31,7 @@ include { GAWK as FILTER_CHR_DWN                     } from '../../modules/nf-co
 // Panelprep subworkflows
 include { VCF_NORMALIZE_BCFTOOLS                     } from '../../subworkflows/local/vcf_normalize_bcftools'
 include { VCF_SITES_EXTRACT_BCFTOOLS                 } from '../../subworkflows/local/vcf_sites_extract_bcftools'
-include { VCF_PHASE_SHAPEIT5                         } from '../../subworkflows/nf-core/vcf_phase_shapeit5'
+include { VCF_PHASE_SHAPEIT5 as VCF_PHASE_PANEL      } from '../../subworkflows/nf-core/vcf_phase_shapeit5'
 include { VCF_GATHER_BCFTOOLS as CONCAT_PANEL        } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 include { BCFTOOLS_STATS as BCFTOOLS_STATS_PANEL     } from '../../modules/nf-core/bcftools/stats'
 include { VCF_CHUNK_GLIMPSE                          } from '../../subworkflows/local/vcf_chunk_glimpse'
@@ -43,6 +43,8 @@ include { CUSTOM_GENETICMAPCONVERT                   } from '../../modules/nf-co
 
 // Imputation
 include { LISTTOFILE                                 } from '../../modules/local/listtofile'
+include { VCF_PHASE_SHAPEIT5 as VCF_PHASE_TARGET     } from '../../subworkflows/nf-core/vcf_phase_shapeit5'
+include { VCF_GATHER_BCFTOOLS as CONCAT_PREPHASE     } from '../../subworkflows/nf-core/vcf_gather_bcftools'
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
 include { GAWK as GAWK_IMPUTED                       } from '../../modules/nf-core/gawk'
 include { VCF_SPLIT_BCFTOOLS as SPLIT_IMPUTED        } from '../../subworkflows/local/vcf_split_bcftools'
@@ -144,7 +146,7 @@ workflow PHASEIMPUTE {
     //
     // Simulate data if asked
     //
-    if (steps.contains("simulate") || steps.contains("all")) {
+    if (steps.contains("simulate")) {
         // Test if the input are all bam files
         getFilesSameExt(ch_input_sim)
             .map{ ext -> if (ext != "bam" && ext != "cram") {
@@ -228,7 +230,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (steps.contains("panelprep") || steps.contains("all")) {
+    if (steps.contains("panelprep")) {
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(
             ch_panel, ch_fasta,
@@ -270,18 +272,18 @@ workflow PHASEIMPUTE {
         // Phase panel with Shapeit5
         if (params_panelprep["phase"]) {
             // Use chunks from parameters and use region with buffer region
-            ch_chunks_phase = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
+            ch_chunks_phase_panel = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
-            VCF_PHASE_SHAPEIT5(
+            VCF_PHASE_PANEL(
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_index.combine(channel.of([[], []])), // No pedigree, no region
-                ch_chunks_phase.map{ meta, _regionin, regionout -> [meta, regionout]},
+                ch_chunks_phase_panel.map{ meta, _regionin, regionout -> [meta, regionout]},
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_index.map{ meta, _vcf, _index -> [meta, [], []]}, // No ref
                 VCF_NORMALIZE_BCFTOOLS.out.vcf_index.map{ meta, _vcf, _index -> [meta, [], []]}, // No scaffold
                 ch_map_glimpse,
                 false,
                 params_panelprep["chunk_model"]
             )
-            ch_panel_phased = VCF_PHASE_SHAPEIT5.out.vcf_index
+            ch_panel_phased = VCF_PHASE_PANEL.out.vcf_index
         }
 
         // Create CSVs from panelprep step
@@ -306,10 +308,59 @@ workflow PHASEIMPUTE {
         )
     }
 
+    // Split input files into BAMs and VCFs
+    ch_input_type = ch_input_impute
+        .branch { _meta, file, _index ->
+            bam: file =~ 'bam|cram'
+            vcf: file =~ '(vcf|bcf)(.gz)*'
+            other: true
+        }
+
+    // Check if input files are only BAM/CRAM or VCF/BCF
+    ch_input_type.other
+        .subscribe { error "Input files must be either BAM/CRAM or VCF/BCF" }
+
+    // Use panel from parameters if provided
+    if (sheets_given["input_panel"] && !steps.contains("panelprep")) {
+        ch_panel_phased = ch_panel
+    }
+
+    //
+    // Prephase target files
+    //
+    if (steps.contains("prephase")) {
+        log.info("Prephase target data using reference panel")
+        ch_chunks_phase_target = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
+
+        VCF_PHASE_TARGET(
+            ch_input_type.vcf.combine(channel.of([[], []])), // No pedigree, no region
+            ch_chunks_phase_target.map{ meta, _regionin, regionout -> [meta, regionout]},
+            ch_panel_phased,
+            ch_panel_phased.map{ meta, _file, _index -> [meta, [], []]}, // No scaffold
+            ch_map_glimpse,
+            false,
+            params_panelprep["chunk_model"]
+        )
+
+        CONCAT_PREPHASE(
+            VCF_PHASE_TARGET.out.vcf_index
+            .map{ meta, vcf, index -> [
+                meta + [prephase:"true"], vcf, index
+            ] }
+            .combine(region_count),
+            ["id", "tools", "batch"],
+            false
+        )
+
+        ch_input_vcf = CONCAT_PREPHASE.out.vcf_index
+    } else {
+        ch_input_vcf = ch_input_type.vcf
+    }
+
     //
     // Impute target files
     //
-    if (steps.contains("impute") || steps.contains("all")) {
+    if (steps.contains("impute")) {
 
         if (tools.any{ tool -> tool in ["stitch", "quilt"] }) {
             // Transform posfile to tabulated format shared by QUILT and STITCH
@@ -328,17 +379,6 @@ workflow PHASEIMPUTE {
                 "compress", false, "txt"
             )
         }
-        // Split input files into BAMs and VCFs
-        ch_input_type = ch_input_impute
-            .branch { _meta, file, _index ->
-                bam: file =~ 'bam|cram'
-                vcf: file =~ '(vcf|bcf)(.gz)*'
-                other: true
-            }
-
-        // Check if input files are only BAM/CRAM or VCF/BCF
-        ch_input_type.other
-            .subscribe { error "Input files must be either BAM/CRAM or VCF/BCF" }
 
         // Group BAMs by batch size
         ch_input_bams = ch_input_type.bam
@@ -370,11 +410,6 @@ workflow PHASEIMPUTE {
         ch_input_bams_withlist = ch_input_bams
             .join(LISTTOFILE.out.txt)
 
-        // Use panel from parameters if provided
-        if (sheets_given["input_panel"] && !steps.find { step -> step in ["all", "panelprep"] }) {
-            ch_panel_phased = ch_panel
-        }
-
         if (tools.contains("glimpse1")) {
             log.info("Impute with GLIMPSE1")
 
@@ -400,7 +435,7 @@ workflow PHASEIMPUTE {
             ch_multiqc_files = ch_multiqc_files.mix(GL_GLIMPSE1.out.multiqc_files)
 
             // Combine vcf and processed bam
-            ch_input_glimpse1 = ch_input_type.vcf
+            ch_input_glimpse1 = ch_input_vcf
                 .mix(GL_GLIMPSE1.out.vcf_index)
                 .map{
                     meta, vcf, index -> [
@@ -592,7 +627,7 @@ workflow PHASEIMPUTE {
 
             // Impute with BEAGLE5
             VCF_IMPUTE_BEAGLE5(
-                ch_input_type.vcf,
+                ch_input_vcf,
                 ch_panel_phased,
                 ch_chunks_beagle5,
                 ch_map_plink
@@ -620,7 +655,7 @@ workflow PHASEIMPUTE {
 
             // Impute with MINIMAC4
             VCF_IMPUTE_MINIMAC4(
-                ch_input_type.vcf,
+                ch_input_vcf,
                 ch_panel_phased,
                 ch_posfile.map{
                     meta, site, site_index, _hap, _legend, _posfile -> [
@@ -676,7 +711,7 @@ workflow PHASEIMPUTE {
         )
     }
 
-    if (steps.contains("validate") || steps.contains("all")) {
+    if (steps.contains("validate")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(
             ch_posfile

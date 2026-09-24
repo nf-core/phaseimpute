@@ -58,11 +58,12 @@ workflow VCF_PHASE_SHAPEIT5 {
 
     // Make channel with all parameters
     ch_parameters = ch_vcf
-        .combine(ch_map, by: 0)
-        .combine(ch_ref, by: 0)
-        .combine(ch_scaffold, by: 0)
-        .combine(ch_chunks, by: 0)
-        .combine(ch_chunks_counts, by: 0)
+        .combine(ch_map
+            .combine(ch_ref, by: 0)
+            .combine(ch_scaffold, by: 0)
+            .combine(ch_chunks, by: 0)
+            .combine(ch_chunks_counts, by: 0)
+        )
 
     ch_parameters.ifEmpty{
         error "ERROR: join operation resulted in an empty channel. Please provide a valid ch_map, ch_ref, ch_scaffold and ch_chunks channel as input (same meta map)."
@@ -71,7 +72,7 @@ workflow VCF_PHASE_SHAPEIT5 {
     // Rearrange channel for phasing
     ch_phase_input = ch_parameters
         .map{
-            meta, vcf, index, pedigree, _region, gmap, ref_vcf, ref_index, scaffold_vcf, scaffold_index, regionbuf, region_size ->
+            metaI, vcf, index, pedigree, _region, metaRC, gmap, ref_vcf, ref_index, scaffold_vcf, scaffold_index, regionbuf, region_size ->
             def chr = regionbuf.tokenize(':')[0]
             def region = regionbuf.tokenize(':')[1]
             def start = region.tokenize('-')[0]
@@ -80,7 +81,7 @@ workflow VCF_PHASE_SHAPEIT5 {
             def paddedEnd = String.format('%010d', end as long)
             def regionoutPadded = "${chr}:${paddedStart}-${paddedEnd}"
             [
-                meta + ["regionout": regionbuf, "regionoutPadded": regionoutPadded, "regionSize": region_size],
+                metaI + metaRC + ["regionout": regionbuf, "regionoutPadded": regionoutPadded, "regionSize": region_size],
                 vcf, index,
                 pedigree,
                 regionbuf,

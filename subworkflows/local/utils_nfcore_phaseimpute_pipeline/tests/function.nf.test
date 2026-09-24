@@ -495,6 +495,7 @@ nextflow_function {
                 input[1] = 60
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "glimpse1"]
+                input[4] = ["impute", "validate"]
                 """
             }
         }
@@ -516,6 +517,7 @@ nextflow_function {
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["glimpse1", "quilt2"]
+                input[4] = ["impute", "validate"]
                 """
             }
         }
@@ -537,12 +539,35 @@ nextflow_function {
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["quilt2", "glimpse2"]
+                input[4] = ["impute", "validate"]
                 """
             }
         }
         then {
             assertAll (
                 { assert function.success },
+                { assert snapshot(this.check_stdout(function.stdout)).match() }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools error prephase without VCF") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = channel.of(0..150)
+                input[1] = 60
+                input[2] = "cram"
+                input[3] = ["quilt2", "glimpse2"]
+                input[4] = ["prephase"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
                 { assert snapshot(this.check_stdout(function.stdout)).match() }
             )
         }
@@ -855,6 +880,63 @@ nextflow_function {
                     "BCFtools", "GLIMPSE", "GLIMPSE2", "MultiQC"
                 ].every { function.result.contains(it) } },
                 { assert snapshot(function.result).match() }
+            )
+        }
+    }
+
+    test ("Test parseSteps - steps all") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = ["all"]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "panelprep", "impute", "validate"] }
+            )
+        }
+    }
+
+    test ("Test parseSteps - steps all + prephase") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = ["all", "prephase"]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "panelprep", "impute", "validate", "prephase"] }
+            )
+        }
+    }
+
+    test ("Test parseSteps - steps all + prephase") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = ["simulate", "prephase", "panelprep"]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "prephase", "panelprep"] }
             )
         }
     }
