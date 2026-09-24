@@ -515,13 +515,11 @@ workflow PIPELINE_COMPLETION {
 // Parse steps argument
 //
 def parseSteps(steps) {
-    def stepsList = []
     if (steps.contains("all")) {
-        stepsList = ["simulate", "panelprep", "impute", "validate"]
+        return ["simulate", "panelprep", "impute", "validate"]
     } else {
-        stepsList = steps
+        return steps as List
     }
-    return stepsList
 }
 
 

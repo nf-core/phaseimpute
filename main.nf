@@ -95,7 +95,7 @@ workflow NFCORE_PHASEIMPUTE {
     )
     ch_panel = CHRCHECK_PANEL.out.output
 
-    if (steps.contains("simulate") || steps.contains("all")) {
+    if (steps.contains("simulate")) {
         ch_input_simulate = ch_input
     } else if (steps.contains("impute")) {
         ch_input_impute   = ch_input
@@ -226,7 +226,7 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
-        PIPELINE_INITIALISATION.out.steps,
+        PIPELINE_INITIALISATION.out.steps.get(),
         tools,
         PIPELINE_INITIALISATION.out.ch_input_target,
         PIPELINE_INITIALISATION.out.ch_input_truth,
