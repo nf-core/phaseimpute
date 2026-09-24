@@ -141,7 +141,7 @@ workflow PIPELINE_INITIALISATION {
     validateInputParameters(
         sheet_target, sheet_truth, sheet_panel,
         sheet_posfile, sheet_chunks,
-        genotype, remove_samples, normalize,
+        genotype, depth, remove_samples, normalize,
         chunk_model, chunk_version,
         stepsList, tools
     )
@@ -529,25 +529,13 @@ def parseSteps(steps) {
 def validateInputParameters(
     sheet_target, sheet_truth, sheet_panel,
     sheet_posfile, sheet_chunks,
-    genotype, remove_samples, normalize,
+    genotype, depth, remove_samples, normalize,
     chunk_model, chunk_version,
     steps, tools
 ) {
     // Check that a steps is provided
     if (!steps) {
         error "A step must be provided"
-    }
-
-    // Check that genotype simulation is only used with simulate steps
-    if (genotype) { // && !steps.contains("simulate")) {
-        error("`--genotype` is only supported with `--steps simulate`. Genotype simulation is not yet implemented.")
-    }
-
-    // Check that at least one tool is provided
-    if (steps.contains("impute")) {
-        if (!tools) {
-            error "No tools provided"
-        }
     }
 
     // Check that input is provided for all steps, except panelprep
@@ -557,56 +545,75 @@ def validateInputParameters(
         }
     }
 
-    // Check that posfile and panel are provided when running impute only
-    if (steps.contains("impute") && !steps.contains("panelprep")) {
-        // Required by all tools except glimpse2, quilt2, beagle5, minimac4
-        if (!tools.find { tool -> tool in ["glimpse2", "quilt2", "beagle5", "minimac4"] }) {
-            if (!sheet_posfile) {
-                error "No --posfile provided for --steps impute"
-            }
+    // Check simulate step
+    if (steps.contains("simulate")) {
+        if (genotype) {
+            error("Genotype simulation is not yet implemented.")
         }
-        // Required by panel-backed imputation tools
-        if (tools.find { tool -> tool in ["glimpse1", "glimpse2", "quilt2"] }) {
-            if (!sheet_panel) {
-                error "No --panel provided for imputation with GLIMPSE1, GLIMPSE2 or QUILT2"
-            }
+        if (!depth) {
+            error("No --depth was provided for --steps simulate")
         }
     }
 
-    // Check that input_truth is provided when running validate
-    if (steps.contains("validate") && !steps.contains("simulate")) {
-        if (!sheet_truth) {
-            error "No --input_truth was provided for --steps validate"
+    // Check panel step
+    if (steps.contains("panelprep")) {
+        if (!sheet_panel) {
+            error "No --panel provided for --steps panelprep"
         }
-    }
-
-    // Emit a warning if both panel and (chunks || posfile) are used as input
-    if (sheet_panel && sheet_chunks && steps.contains("panelprep")) {
-        log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps panelprep` mode.")
-    }
-    if (sheet_panel && sheet_posfile && steps.contains("panelprep")) {
-        log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps panelprep` mode.")
-    }
-
-    // Emit an info message when using external panel and impute only
-    if (sheet_panel && steps.contains("impute") && !steps.contains("panelprep")) {
-        log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
-    }
-
-    // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
-    if (steps.contains("panelprep") && remove_samples) {
-        if (!normalize) {
+        if (sheet_panel && sheet_chunks) {
+            log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps panelprep` mode.")
+        }
+        if (sheet_panel && sheet_posfile) {
+            log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps panelprep` mode.")
+        }
+        // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
+        if (remove_samples && !normalize) {
             error "To use `--remove_samples` you need to include `--normalize`."
         }
+
+        // Check that the chunk model is provided
+        if ((!chunk_model || !chunk_version) && !sheet_chunks) {
+            error "No chunk model provided nor --chunks"
+        }
+
+        if (chunk_version == "V1" && chunk_model != "sequential") {
+            error "Glimpse V1 doesn't support custom chunking model `--chunk_model $chunk_model`. Please use `--chunk_version V2` or remove `--chunk_model`."
+        }
     }
 
-    // Check that the chunk model is provided
-    if (!chunk_model) {
-        error "No chunk model provided"
+    // Check impute step
+    if (steps.contains("impute")) {
+        // Check that at least one tool is provided
+        if (!tools) {
+            error "No --tools provided --steps impute"
+        }
+        if (!steps.contains("panelprep")) {
+            if (tools.find { tool -> tool in ["stitch", "quilt", "glimpse1"] }) {
+                if (!sheet_posfile) {
+                    error "No --posfile provided for imputation with STITCH, QUILT or GLIMPSE1"
+                }
+            }
+            // Required by panel-backed imputation tools
+            if (tools.find { tool -> tool in ["glimpse1", "glimpse2", "quilt2", "minimac4", "beagle5"] }) {
+                if (!sheet_panel) {
+                    error "No --panel provided for imputation with GLIMPSE1, GLIMPSE2, QUILT2, MINIMAC4 or BEAGLE5"
+                }
+            }
+            // Emit an info message when using external panel and impute only
+            if (sheet_panel) {
+                log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
+            }
+        }
     }
 
-    if (chunk_version == "V1" && chunk_model != "sequential") {
-        error "Glimpse V1 doesn't support custom chunking model `--chunk_model $chunk_model`. Please use `--chunk_version V2` or remove `--chunk_model`."
+    // Check validate step
+    if (steps.contains("validate")) {
+        if (!sheet_truth && !steps.contains("simulate")) {
+            error "No --input_truth was provided for --steps validate"
+        }
+        if (!sheet_posfile && !steps.contains("panelprep")) {
+            error "No --posfile provided for --steps validate"
+        }
     }
 
     return null
@@ -621,7 +628,7 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
         .map{ nb_input ->
             if (extension ==~ "(vcf|bcf)(.gz)?") {
                 if (tools.contains("stitch") || tools.contains("quilt") || tools.contains("quilt2")) {
-                    error "Stitch, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
+                    error "STITCH, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
                 }
                 if (nb_input > 1) {
                     error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
@@ -630,16 +637,16 @@ def validateInputBatchTools(ch_input, batch_size, extension, tools) {
 
             if (extension ==~ "(bam|cram)?") {
                 if (tools.contains("beagle5") || tools.contains("minimac4")) {
-                    error "Beagle5 and Minimac4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
+                    error "BEAGLE5 and MINIMAC4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
                 }
             }
 
             if (nb_input > batch_size) {
                 if (tools.contains("glimpse2") || tools.contains("quilt") || tools.contains("quilt2")) {
-                    log.warn("Glimpse2, QUILT or QUILT2 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
+                    log.warn("GLIMPSE2, QUILT or QUILT2 software is selected and the number of input files (${nb_input}) is greater than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
                 }
                 if (tools.contains("stitch") || tools.contains("glimpse1")) {
-                    error "Stitch or Glimpse1 software is selected and the number of input files (${nb_input}) is less than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
+                    error "STITCH or GLIMPSE1 software is selected and the number of input files (${nb_input}) is greater than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
                 }
             }
         }
