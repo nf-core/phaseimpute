@@ -131,6 +131,11 @@ workflow PIPELINE_INITIALISATION {
     def batch_size = params_impute["batch_size"]
 
     //
+    // Convert steps to list
+    //
+    stepsList = parseSteps(steps)
+
+    //
     // Custom validation for pipeline parameters
     //
     validateInputParameters(
@@ -138,7 +143,7 @@ workflow PIPELINE_INITIALISATION {
         sheet_posfile, sheet_chunks,
         genotype, remove_samples, normalize,
         chunk_model, chunk_version,
-        steps, tools
+        stepsList, tools
     )
 
     //
@@ -276,11 +281,11 @@ workflow PIPELINE_INITIALISATION {
             .map{ metaPC, _vcf, _index -> [metaPC, [], [], [], [], []]}
     }
 
-    if (!steps.contains("panelprep") & !steps.contains("all")) {
+    if (!stepsList.contains("panelprep")) {
         validatePosfileTools(
             ch_posfile,
             tools,
-            steps,
+            stepsList,
             input_truth_ext
         )
     }
@@ -452,6 +457,7 @@ workflow PIPELINE_INITIALISATION {
     ch_map          = ch_map              // [ [chr], map ]
     ch_posfile      = ch_posfile          // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
     ch_chunks       = ch_chunks           // [ [panel_id, chr], txt ]
+    steps           = stepsList           // [ steps, ...]
 }
 
 /*
@@ -506,6 +512,20 @@ workflow PIPELINE_COMPLETION {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 //
+// Parse steps argument
+//
+def parseSteps(steps) {
+    def stepsList = []
+    if (steps.contains("all")) {
+        stepsList = ["simulate", "panelprep", "impute", "validate"]
+    } else {
+        stepsList = steps
+    }
+    return stepsList
+}
+
+
+//
 // Check and validate pipeline parameters
 //
 def validateInputParameters(
@@ -520,9 +540,9 @@ def validateInputParameters(
         error "A step must be provided"
     }
 
-    // Check that genotype simulation is only used with simulate/all steps
-    if (genotype && !steps.contains("impute") && !steps.contains("all")) {
-        error("`--genotype` is only supported with `--steps simulate` or `--steps all`. Genotype simulation is not yet implemented.")
+    // Check that genotype simulation is only used with simulate steps
+    if (genotype) { // && !steps.contains("simulate")) {
+        error("`--genotype` is only supported with `--steps simulate`. Genotype simulation is not yet implemented.")
     }
 
     // Check that at least one tool is provided
@@ -533,14 +553,14 @@ def validateInputParameters(
     }
 
     // Check that input is provided for all steps, except panelprep
-    if (steps.contains("all") || steps.contains("impute") || steps.contains("simulate") || steps.contains("validate")) {
+    if (steps.contains("impute") || steps.contains("simulate") || steps.contains("validate")) {
         if (!sheet_target) {
             error "No input provided"
         }
     }
 
     // Check that posfile and panel are provided when running impute only
-    if (steps.contains("impute") && !steps.find { step -> step in ["all", "panelprep"] }) {
+    if (steps.contains("impute") && !steps.contains("panelprep")) {
         // Required by all tools except glimpse2, quilt2, beagle5, minimac4
         if (!tools.find { tool -> tool in ["glimpse2", "quilt2", "beagle5", "minimac4"] }) {
             if (!sheet_posfile) {
@@ -556,27 +576,27 @@ def validateInputParameters(
     }
 
     // Check that input_truth is provided when running validate
-    if (steps.find { step -> step in ["validate"] } && !steps.find { step -> step in ["simulate"] }) {
+    if (steps.contains("validate") && !steps.contains("simulate")) {
         if (!sheet_truth) {
             error "No --input_truth was provided for --steps validate"
         }
     }
 
     // Emit a warning if both panel and (chunks || posfile) are used as input
-    if (sheet_panel && sheet_chunks && steps.find { step -> step in ["all", "panelprep"]} ) {
-        log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps impute` mode.")
+    if (sheet_panel && sheet_chunks && steps.contains("panelprep")) {
+        log.warn("Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps panelprep` mode.")
     }
-    if (sheet_panel && sheet_posfile && steps.find { step -> step in ["all", "panelprep"]} ) {
-        log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps impute` mode.")
+    if (sheet_panel && sheet_posfile && steps.contains("panelprep")) {
+        log.warn("Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps panelprep` mode.")
     }
 
     // Emit an info message when using external panel and impute only
-    if (sheet_panel && steps.find { step -> step in ["impute"] } && !steps.find { step -> step in ["all", "panelprep"] } ) {
+    if (sheet_panel && steps.contains("impute") && !steps.contains("panelprep")) {
         log.info("Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`")
     }
 
     // Emit an error if normalizing step is ignored but samples need to be removed from reference panel
-    if (steps.find { step -> step in ["all", "panelprep"] } && remove_samples) {
+    if (steps.contains("panelprep") && remove_samples) {
         if (!normalize) {
             error "To use `--remove_samples` you need to include `--normalize`."
         }
@@ -866,10 +886,6 @@ def toolCitationText(steps, tools, normalize, remove_samples, compute_freq, phas
         GLIMPSE2: "GLIMPSE2 (Rubinacci et al. 2023)",
     ]
 
-    if (steps.contains("all")) {
-        steps = ["simulate", "panelprep", "impute", "validate"]
-    }
-
     def text_simulate = [
         "Low-coverage sequencing data simulation was performed with",
         "${tool_citation.SAMTOOLS} subcommand 'depth' and 'view' for downsampling high-coverage BAM files."
@@ -940,10 +956,6 @@ def toolBibliographyText(steps, tools, phase) {
         GLIMPSE2: '<li>Rubinacci, S., Hofmeister, R.J., Sousa da Mota, B., Delaneau, O., 2023. Imputation of low-coverage sequencing data from 150,119 UK Biobank genomes. Nat Genet 55, 1088-1090. doi: <a href="https://doi.org/10.1038/s41588-023-01438-3">10.1038/s41588-023-01438-3</a></li>',
     ]
 
-    if (steps.contains("all")) {
-        steps = ["simulate", "panelprep", "impute", "validate"]
-    }
-
     def reference_text = [
         steps.contains("validate") || tools.contains("glimpse1") ? tool_biblio.HTSLIB    : "",
         tools.contains("beagle5")  ? tool_biblio.BEAGLE5  : "",
@@ -953,7 +965,7 @@ def toolBibliographyText(steps, tools, phase) {
         tools.contains("quilt")    ? tool_biblio.QUILT    : "",
         tools.contains("quilt2")   ? tool_biblio.QUILT2   : "",
         tool_biblio.MULTIQC,
-        steps.contains("panelprep") && phase        ? tool_biblio.SHAPEIT5 : "",
+        steps.contains("panelprep") && phase ? tool_biblio.SHAPEIT5 : "",
         tools.contains("glimpse1") ? tool_biblio.GLIMPSE1 : "",
         tools.contains("glimpse2") ? tool_biblio.GLIMPSE2 : ""
     ].join(' ').trim().replaceAll("[,|.] +\\.", ".")

@@ -395,7 +395,7 @@ nextflow_function {
                 input[7] = false
                 input[8] = "sequential"
                 input[9] = "V1"
-                input[10] = "all"
+                input[10] = ["simulate", "panelprep", "impute", "validate"]
                 input[11] = "glimpse1"
                 """
             }
@@ -423,7 +423,7 @@ nextflow_function {
                 input[7] = false
                 input[8] = "recursive"
                 input[9] = "V1"
-                input[10] = "all"
+                input[10] = ["simulate", "panelprep", "impute", "validate"]
                 input[11] = "glimpse1"
                 """
             }
@@ -452,7 +452,7 @@ nextflow_function {
                 input[7] = false
                 input[8] = "recursive"
                 input[9] = "V2"
-                input[10] = "all"
+                input[10] = ["simulate", "panelprep", "impute", "validate"]
                 input[11] = "glimpse1"
                 """
             }
@@ -791,7 +791,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all"] // steps
+                input[0] = ["simulate", "panelprep", "impute", "validate"] // steps
                 input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
                 input[2] = true // phase
                 """
@@ -836,7 +836,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all"] // steps
+                input[0] = ["simulate", "panelprep", "impute", "validate"] // steps
                 input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
                 input[2] = true // normalize
                 input[3] = "sample1,sample2" // remove_samples

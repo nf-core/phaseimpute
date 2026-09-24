@@ -226,7 +226,7 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
-        steps,
+        PIPELINE_INITIALISATION.out.steps,
         tools,
         PIPELINE_INITIALISATION.out.ch_input_target,
         PIPELINE_INITIALISATION.out.ch_input_truth,
