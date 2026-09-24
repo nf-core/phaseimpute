@@ -541,14 +541,14 @@ def validateInputParameters(
     // Check that input is provided for all steps, except panelprep
     if (steps.contains("impute") || steps.contains("simulate") || steps.contains("validate")) {
         if (!sheet_target) {
-            error "No input provided"
+            error "No --input provided"
         }
     }
 
     // Check simulate step
     if (steps.contains("simulate")) {
         if (genotype) {
-            error("Genotype simulation is not yet implemented.")
+            error("Genotype simulation is not yet implemented")
         }
         if (!depth) {
             error("No --depth was provided for --steps simulate")
@@ -573,7 +573,7 @@ def validateInputParameters(
 
         // Check that the chunk model is provided
         if ((!chunk_model || !chunk_version) && !sheet_chunks) {
-            error "No chunk model provided nor --chunks"
+            error "No chunk model and chunk_version provided nor --chunks"
         }
 
         if (chunk_version == "V1" && chunk_model != "sequential") {
