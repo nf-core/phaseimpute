@@ -19,8 +19,8 @@ workflow CHRCHECK {
     main:
         // Split the input between VCF and BAM files
         ch_input = ch_input.branch{ _meta, file, _index, _chr_diff ->
-            bam: file =~ 'bam|cram'
-            vcf: file =~ 'vcf|bcf'
+            bam: file =~ '.(bam|cram)$'
+            vcf: file =~ '.(vcf|bcf)(.gz)?$'
             other: file.size() > 0
             empty: true
         }

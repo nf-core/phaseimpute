@@ -64,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#314](https://github.com/nf-core/phaseimpute/pull/314) - Fix chromosome name pattern in map input schema.
 - [#315](https://github.com/nf-core/phaseimpute/pull/315) - Add error message if no fasta provided.
 - [#316](https://github.com/nf-core/phaseimpute/pull/316) - Fix VCF support for `GLIMPSE2` imputation, publish samples split by default.
+- [#320](https://github.com/nf-core/phaseimpute/pull/320) - Use stricter extension check for `CHRCHECK`.
 
 ### `Dependencies`
 
