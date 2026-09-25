@@ -82,11 +82,11 @@
                     "imputation/glimpse1",
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/NA12878.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/NA12878.batch0.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/concat/NA12878.batch0.glimpse1.vcf.gz.tbi",
                     "imputation/glimpse1/concat/NA19401.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/NA19401.batch0.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/concat/NA19401.batch0.glimpse1.vcf.gz.tbi",
                     "imputation/glimpse1/concat/NA20359.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/NA20359.batch0.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/concat/NA20359.batch0.glimpse1.vcf.gz.tbi",
                     "imputation/glimpse1/impute",
                     "imputation/glimpse1/impute/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/impute/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz.tbi",
@@ -116,11 +116,11 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/NA12878.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/NA12878.batch0.glimpse2.vcf.gz.csi",
+                    "imputation/glimpse2/concat/NA12878.batch0.glimpse2.vcf.gz.tbi",
                     "imputation/glimpse2/concat/NA19401.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/NA19401.batch0.glimpse2.vcf.gz.csi",
+                    "imputation/glimpse2/concat/NA19401.batch0.glimpse2.vcf.gz.tbi",
                     "imputation/glimpse2/concat/NA20359.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/NA20359.batch0.glimpse2.vcf.gz.csi",
+                    "imputation/glimpse2/concat/NA20359.batch0.glimpse2.vcf.gz.tbi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -131,11 +131,11 @@
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
                     "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
                     "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
                     "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
@@ -264,15 +264,15 @@
                     ],
                     [
                         "NA12878.batch0.glimpse1.vcf.gz",
-                        "b403b2183628d19f267043dfd0ed80c6"
+                        "ad6af72e35b5df03ae818de389b76c01"
                     ],
                     [
                         "NA19401.batch0.glimpse1.vcf.gz",
-                        "275b04a9a39b44d31e4ff06b31983890"
+                        "8eb18a0f6c4e1a3dfbe06d5fe3d275bf"
                     ],
                     [
                         "NA20359.batch0.glimpse1.vcf.gz",
-                        "4760c0686f5d78e54a58015b8fc28769"
+                        "ca5c35f6b68d8c262a7aeda33ac11dcc"
                     ],
                     [
                         "NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -300,63 +300,63 @@
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "b403b2183628d19f267043dfd0ed80c6"
+                        "ad6af72e35b5df03ae818de389b76c01"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "275b04a9a39b44d31e4ff06b31983890"
+                        "8eb18a0f6c4e1a3dfbe06d5fe3d275bf"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "4760c0686f5d78e54a58015b8fc28769"
+                        "ca5c35f6b68d8c262a7aeda33ac11dcc"
                     ],
                     [
                         "NA12878.batch0.glimpse2.vcf.gz",
-                        "9f03e14d42be660e2248d3371af54052"
+                        "cb02cde37a083c6538be7cb96f0ce2c0"
                     ],
                     [
                         "NA19401.batch0.glimpse2.vcf.gz",
-                        "67a2fa7ad12fc65df7e85763356c9d90"
+                        "d4b09c0ab270b5ee6605f81dee453f45"
                     ],
                     [
                         "NA20359.batch0.glimpse2.vcf.gz",
-                        "7551c27153cf4d4f0e58716ec2ba381e"
+                        "9771f2dbc5d46874f03f1426e12dc36d"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "9f03e14d42be660e2248d3371af54052"
+                        "cb02cde37a083c6538be7cb96f0ce2c0"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "67a2fa7ad12fc65df7e85763356c9d90"
+                        "d4b09c0ab270b5ee6605f81dee453f45"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "7551c27153cf4d4f0e58716ec2ba381e"
+                        "9771f2dbc5d46874f03f1426e12dc36d"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "3cdfd0b2260552007d40ea66664827f0"
+                        "4a1881c85e9ac8dd7acdf93232868156"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "a2e2839795f6ae95a426f4d2f3a5b718"
+                        "2cdb12108237fa523d842020af138b2d"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "48622660727fa3bfbfe70b76aad17719"
+                        "f44ff5d3a7d3c4c6912d4d065659d336"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "3cdfd0b2260552007d40ea66664827f0"
+                        "4a1881c85e9ac8dd7acdf93232868156"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "a2e2839795f6ae95a426f4d2f3a5b718"
+                        "2cdb12108237fa523d842020af138b2d"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "48622660727fa3bfbfe70b76aad17719"
+                        "f44ff5d3a7d3c4c6912d4d065659d336"
                     ]
                 ],
                 "CSV files": [
@@ -381,7 +381,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-25T16:44:24.662529256",
+        "timestamp": "2026-09-25T21:19:25.957419703",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -466,7 +466,7 @@
                     "imputation/glimpse1",
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/ALL_IND.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/ALL_IND.batch0.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/concat/ALL_IND.batch0.glimpse1.vcf.gz.tbi",
                     "imputation/glimpse1/impute",
                     "imputation/glimpse1/impute/ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/impute/ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz.tbi",
@@ -484,7 +484,7 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/ALL_IND.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/ALL_IND.batch0.glimpse2.vcf.gz.csi",
+                    "imputation/glimpse2/concat/ALL_IND.batch0.glimpse2.vcf.gz.tbi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -495,7 +495,7 @@
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
                     "imputation/minimac4/concat/ALL_IND.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/ALL_IND.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/ALL_IND.minimac4.vcf.gz.tbi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
@@ -616,7 +616,7 @@
                     ],
                     [
                         "ALL_IND.batch0.glimpse1.vcf.gz",
-                        "44691837401b2aee40152a656a34e517"
+                        "d233114dee6b167f6e5e2aa2ca3bbb3b"
                     ],
                     [
                         "ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -628,47 +628,47 @@
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "313b7c6faa956b00ff83c8d18abbb23e"
+                        "ae1cc797f52352b0c4846d7eb03c9587"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "3853c7147906ba0fc89fb7e102eeb461"
+                        "3980cd6d6a9a21a9f65aa8c71de68743"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "615bda3b3af1a749325d481c38e74dba"
+                        "671289021a601f95fdeb14f538fc10ad"
                     ],
                     [
                         "ALL_IND.batch0.glimpse2.vcf.gz",
-                        "3506d50e716a1b2c788c67df6e9ae16b"
+                        "6ab5e81e14c6dbf5340318918b4ad5c1"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "f26600a46d4849c5c10e590490581ad2"
+                        "109faa11fd62178e7bcca6c745ed21b9"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "24b06aa342f2c980fdbcdfca8f8871ce"
+                        "f3d73a8e25b047c25072d7611548acb2"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "5fb1f272e4cba76064d8fe15237a3193"
+                        "67e37c9aa7444e7eec68ae394f28e9cb"
                     ],
                     [
                         "ALL_IND.minimac4.vcf.gz",
-                        "369e9c0ee62f6cd370790ab5a5282e5a"
+                        "e5321434cfab2c7aabd20dc81b529c1b"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "75f3790dddd70671bf7fa793918731d6"
+                        "29bfa16b5c0734f261313a04f2303da"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "32b3666b02183ce918a14736d57e82fe"
+                        "3ec31438c3bd9727d1023a51919b1862"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "e2cc41c9ec9476f8a638de2aff216aaf"
+                        "f50855679d5565dca131f782ee91f097"
                     ]
                 ],
                 "CSV files": [
@@ -693,7 +693,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-25T16:45:30.892266467",
+        "timestamp": "2026-09-25T21:20:14.861896932",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

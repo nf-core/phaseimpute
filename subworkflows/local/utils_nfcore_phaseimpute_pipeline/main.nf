@@ -170,7 +170,8 @@ workflow PIPELINE_INITIALISATION {
                 batch_size,
                 extension,
                 tools,
-                force_multi_vcf
+                force_multi_vcf,
+                steps
             )
     }
 
