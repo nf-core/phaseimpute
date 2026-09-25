@@ -657,11 +657,6 @@ workflow PHASEIMPUTE {
             VCF_IMPUTE_MINIMAC4(
                 ch_input_vcf,
                 ch_panel_phased,
-                ch_posfile.map{
-                    meta, site, site_index, _hap, _legend, _posfile -> [
-                        meta, site, site_index
-                    ]
-                },
                 ch_chunks_minimac4,
                 ch_map_minimac
             )
