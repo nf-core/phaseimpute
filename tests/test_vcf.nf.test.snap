@@ -1,5 +1,5 @@
 {
-    "Check test_vcf - three vcf and three samples": {
+    "Check test_vcf - 3 vcf and 3 samples": {
         "content": [
             {
                 "workflow size": 177,
@@ -381,13 +381,13 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-23T15:08:55.088806164",
+        "timestamp": "2026-09-25T21:19:25.957419703",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
         }
     },
-    "Check test_vcf - one vcf and three samples": {
+    "Check test_vcf - 1 vcf and 3 samples": {
         "content": [
             {
                 "workflow size": 71,
@@ -693,7 +693,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-23T15:12:32.106746966",
+        "timestamp": "2026-09-25T21:20:14.861896932",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

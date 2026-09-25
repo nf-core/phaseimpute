@@ -98,7 +98,7 @@ workflow NFCORE_PHASEIMPUTE {
 
     if (steps.contains("simulate")) {
         ch_input_simulate = ch_input
-    } else if (steps.contains("impute")) {
+    } else if (steps.contains("impute") || steps.contains("prephase")) {
         ch_input_impute   = ch_input
     } else if (steps.contains("validate")) {
         ch_input_validate = ch_input
@@ -172,10 +172,11 @@ workflow {
     ]
 
     def params_impute = [
-        batch_size: params.batch_size,
-        k_val     : params.k_val,
-        n_gen     :params.n_gen,
-        buffer    :params.buffer,
+        batch_size      : params.batch_size,
+        k_val           : params.k_val,
+        n_gen           : params.n_gen,
+        buffer          : params.buffer,
+        force_multi_vcf : params.force_multi_vcf
     ]
 
     def params_validate = [

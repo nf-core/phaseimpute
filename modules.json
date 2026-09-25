@@ -153,12 +153,12 @@
                     },
                     "minimac4/compressref": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "e8dac84ca00d68c8cc87fb91b48e691e689e2afe",
                         "installed_by": ["modules", "vcf_impute_minimac4"]
                     },
                     "minimac4/impute": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "e8dac84ca00d68c8cc87fb91b48e691e689e2afe",
                         "installed_by": ["modules", "vcf_impute_minimac4"]
                     },
                     "multiqc": {
@@ -292,7 +292,7 @@
                     },
                     "vcf_impute_minimac4": {
                         "branch": "master",
-                        "git_sha": "9edc097c4904d60808b5c4c9978934e091aded1a",
+                        "git_sha": "e8dac84ca00d68c8cc87fb91b48e691e689e2afe",
                         "installed_by": ["subworkflows"]
                     },
                     "vcf_phase_shapeit5": {
