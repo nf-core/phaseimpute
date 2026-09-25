@@ -56,11 +56,11 @@
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
                     "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.csi",
                     "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.csi",
                     "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
@@ -166,27 +166,27 @@
                 "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "27bb57412f0ddff6dddfadfcc6141ac4"
+                        "c81b6b66477830bfa958be59e42d23a4"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "e619e6764644cf39569ad98aedae74bd"
+                        "70883e9540233d5821afdfedac2dbc6a"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "8e115fb385d2d9b1c589dfc2593ce7d2"
+                        "df4ee7c4182a440e57154b03f62a0012"
                     ],
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "27bb57412f0ddff6dddfadfcc6141ac4"
+                        "c81b6b66477830bfa958be59e42d23a4"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "e619e6764644cf39569ad98aedae74bd"
+                        "70883e9540233d5821afdfedac2dbc6a"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "8e115fb385d2d9b1c589dfc2593ce7d2"
+                        "df4ee7c4182a440e57154b03f62a0012"
                     ]
                 ],
                 "CSV files": [
@@ -210,7 +210,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-23T14:02:49.393463148",
+        "timestamp": "2026-09-25T21:31:09.276610067",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -267,11 +267,11 @@
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
                     "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.csi",
                     "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.csi",
                     "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
@@ -360,27 +360,27 @@
                 "VCF files": [
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "2c8d6729c34e4eec78e7ccff3da8b90b"
+                        "6cb6a00f6927faacc57cd20c1d61a0f9"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "a06bd35cb765d3b610fa5e6ffeb7f8c9"
+                        "3a0db394fc0d2f6b40f4010d19184552"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "7e727ebd5cd6a656c5f7554cad83a351"
+                        "2398a134c6a6b349715417475158aeaf"
                     ],
                     [
                         "NA12878.beagle5.vcf.gz",
-                        "2c8d6729c34e4eec78e7ccff3da8b90b"
+                        "6cb6a00f6927faacc57cd20c1d61a0f9"
                     ],
                     [
                         "NA19401.beagle5.vcf.gz",
-                        "a06bd35cb765d3b610fa5e6ffeb7f8c9"
+                        "3a0db394fc0d2f6b40f4010d19184552"
                     ],
                     [
                         "NA20359.beagle5.vcf.gz",
-                        "7e727ebd5cd6a656c5f7554cad83a351"
+                        "2398a134c6a6b349715417475158aeaf"
                     ]
                 ],
                 "CSV files": [
@@ -404,7 +404,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-23T14:03:41.059540413",
+        "timestamp": "2026-09-25T21:32:01.640460397",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

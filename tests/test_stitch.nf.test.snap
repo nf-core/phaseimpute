@@ -78,7 +78,7 @@
                     "imputation/stitch",
                     "imputation/stitch/concat",
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz",
-                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.csi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
@@ -181,19 +181,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "6526f23d0d31b16b6755dedd8ab131a"
+                        "e53f3469622b5c6f3cefc44da6051477"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "f4a7da17ee1f7f4dec42acc868e5e8ff"
+                        "f56b4699466875d0c8ce3a6af110b25"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "2a563c41859cf920c094825908a3edc3"
+                        "101550570cbd0f0b1442d98aad40be8c"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "4783c6af52b8e8f11cf36224ff11af6d"
+                        "2622d07f08ad435a63918ca5232c1118"
                     ]
                 ],
                 "CSV files": [
@@ -219,10 +219,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-18T11:57:25.129638412",
+        "timestamp": "2026-09-25T21:46:29.309624077",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "Check test_stitch - no map - no chunks": {
@@ -298,7 +298,7 @@
                     "imputation/stitch",
                     "imputation/stitch/concat",
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz",
-                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.csi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
@@ -384,19 +384,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "5289493ecc73af7ed0c1b999021fce15"
+                        "67bf34bb2487c2bd8ecb8c2d73e7ba13"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "3a06d166ebeeb24ed291fdc2f3a42a66"
+                        "a7aade2f71a1fd48e8937328bdd3913c"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "9916b80615dad2939b6f97d882f60b83"
+                        "62307e15ad38408a159a54a362766134"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "cf07a0cc1d678c906d5c9bbe19ff9a03"
+                        "c06e3847423ee765a8955efd255bc1bc"
                     ]
                 ],
                 "CSV files": [
@@ -422,10 +422,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T18:25:41.42929266",
+        "timestamp": "2026-09-25T21:47:21.826420602",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     }
 }

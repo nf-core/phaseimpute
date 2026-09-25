@@ -177,7 +177,7 @@
                     "prep_panel",
                     "prep_panel/concat",
                     "prep_panel/concat/1000GP.panel.vcf.gz",
-                    "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
+                    "prep_panel/concat/1000GP.panel.vcf.gz.csi",
                     "prep_panel/stats",
                     "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
                     "validation",
@@ -262,7 +262,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-23T15:05:38.473190811",
+        "timestamp": "2026-09-25T21:48:09.042102769",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
