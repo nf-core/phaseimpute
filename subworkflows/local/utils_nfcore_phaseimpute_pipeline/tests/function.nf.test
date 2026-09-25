@@ -771,7 +771,7 @@ nextflow_function {
         }
     }
 
-    test ("Test validateInputParameters error - impute & no panelprep & panel") {
+    test ("Test validateInputParameters no error - impute & no panelprep & panel") {
         function "validateInputParameters"
         tag "validateInputParameters"
         when {
