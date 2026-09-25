@@ -867,7 +867,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of("A")
+                input[0] = ["A"]
                 input[1] = 60
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "quilt2"]
@@ -888,7 +888,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of("A", "B", "C", "D", "E")
+                input[0] = ["A", "B", "C", "D", "E"]
                 input[1] = 60
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "glimpse1"]
@@ -910,7 +910,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of("A", "B", "C", "D", "E")
+                input[0] = ["A", "B", "C", "D", "E"]
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["glimpse1", "quilt2"]
@@ -932,7 +932,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of(0..150)
+                input[0] = [0..150]
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["quilt2", "glimpse2"]
@@ -954,7 +954,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of(0..150)
+                input[0] = [0..150]
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["glimpse1"]
@@ -975,7 +975,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of(0..150)
+                input[0] = [0..150]
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["quilt2", "glimpse2"]
@@ -999,11 +999,11 @@ nextflow_function {
                 """
                 input[0] = channel.of([
                     [id: "test"], [], [], [], [],
-                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile", checkIfExists: true),
+                    "bam"
                 ])
                 input[1] = "stitch"
                 input[2] = "impute"
-                input[3] = "bam"
                 """
             }
         }
@@ -1022,11 +1022,11 @@ nextflow_function {
                 """
                 input[0] = channel.of([
                     [id: "test"], [], [], [], [],
-                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile.gz", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile.gz", checkIfExists: true),
+                    "bam"
                 ])
                 input[1] = "stitch"
                 input[2] = "impute"
-                input[3] = "bam"
                 """
             }
         }
@@ -1048,11 +1048,11 @@ nextflow_function {
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz", checkIfExists: true),
                     file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.sites.vcf.gz.csi", checkIfExists: true),
                     [], [],
-                    []
+                    [],
+                    "bam"
                 ])
                 input[1] = "glimpse2"
                 input[2] = "validate"
-                input[3] = "bam"
                 """
             }
         }
@@ -1072,10 +1072,9 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = channel.of( [[id: "test"], [], [], [], [], []] )
+                input[0] = channel.of( [[id: "test"], [], [], [], [], [], "bam"] )
                 input[1] = "glimpse2"
                 input[2] = "impute"
-                input[3] = "bam"
                 """
             }
         }
@@ -1094,11 +1093,11 @@ nextflow_function {
                 """
                 input[0] = channel.of([
                     [id: "test"], [], [], [], [],
-                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile.stitch", checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + "hum_data/panel/chr21/1000GP.chr21.posfile.stitch", checkIfExists: true),
+                    "bam"
                 ])
                 input[1] = "stitch"
                 input[2] = "impute"
-                input[3] = "bam"
                 """
             }
         }
