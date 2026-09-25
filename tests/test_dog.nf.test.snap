@@ -106,7 +106,7 @@
                     "imputation/glimpse1",
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/impute",
                     "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.tbi",
@@ -123,7 +123,7 @@
                     "imputation/glimpse1/variant_calling/all_samples.annotate.vcf.gz",
                     "imputation/glimpse1/variant_calling/all_samples.annotate.vcf.gz.tbi",
                     "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz",
-                    "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz.tbi",
+                    "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz.csi",
                     "imputation/glimpse1/variant_calling/dog_1735_chr21.bcftools_stats.txt",
                     "imputation/glimpse1/variant_calling/dog_1735_chr21.vcf.gz",
                     "imputation/glimpse1/variant_calling/dog_1735_chr21.vcf.gz.tbi",
@@ -133,14 +133,14 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/dog_1735.glimpse2.vcf.gz.tbi",
                     "imputation/quilt",
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
-                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
                     "imputation/quilt/samples/dog_1735.quilt.vcf.gz.tbi",
@@ -298,7 +298,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "7740e8162ec6e258f2fed47b4105f4b8"
+                        "581893c746779574366210e8034b0de2"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -310,15 +310,15 @@
                     ],
                     [
                         "dog_1735.glimpse1.vcf.gz",
-                        "7740e8162ec6e258f2fed47b4105f4b8"
+                        "581893c746779574366210e8034b0de2"
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
-                        "4f968e06b3056bfd87670c9527e04b85"
+                        "80e1bf7f17b200934daa5e68670f4600"
                     ],
                     [
                         "all_samples.concat.vcf.gz",
-                        "4db7f5d951ff790470b8ae238dda7a10"
+                        "352fc84d2b37e62d6ab8d829e0ce81c3"
                     ],
                     [
                         "dog_1735_chr21.vcf.gz",
@@ -330,19 +330,19 @@
                     ],
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "f9ca0078b6cc8441d6bac343f8f10eef"
+                        "3f1298eef33abea583d9d6f8f259a462"
                     ],
                     [
                         "dog_1735.glimpse2.vcf.gz",
-                        "f9ca0078b6cc8441d6bac343f8f10eef"
+                        "3f1298eef33abea583d9d6f8f259a462"
                     ],
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "60adf9dacef131f3e810fb1ab963baa5"
+                        "29f4ab9c405cbc936f4903f33301e901"
                     ],
                     [
                         "dog_1735.quilt.vcf.gz",
-                        "60adf9dacef131f3e810fb1ab963baa5"
+                        "29f4ab9c405cbc936f4903f33301e901"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
@@ -442,7 +442,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-02T15:21:12.966406137",
+        "timestamp": "2026-09-25T21:33:07.019317649",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

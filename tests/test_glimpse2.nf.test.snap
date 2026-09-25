@@ -68,7 +68,7 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -175,19 +175,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "258136e6a05acb6d361bba02bbe1f12"
+                        "85071e1fbd98503d96945d71f93e4e65"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "ec0d1259b383b77c76f65229a814bcfc"
+                        "ff90b894867c933d8f6771d6f016db5d"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "79e3fbd14f8541e65e1eb0f7d9edfbe7"
+                        "f48c5c13b262d31114882c2c671fe1b7"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "8350f3864ba8e8d22ed267e9758a8bcc"
+                        "d21727af6510dbd358ca30bf603d0ebe"
                     ]
                 ],
                 "CSV files": [
@@ -213,10 +213,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-17T18:20:30.932227645",
+        "timestamp": "2026-09-25T21:35:47.667729245",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.2"
+            "nextflow": "26.04.6"
         }
     },
     "Check test_glimpse2 - no map - no chunks": {
@@ -282,7 +282,7 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -372,19 +372,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "877c13b94f736af97f1eb7337403f5cc"
+                        "71fc7f9e78621213a0a7c6f7fb9c3ba2"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "94e0a786ba8ea52e98c5eee7ed8d0d4d"
+                        "b813108bb3776388d4cea79afc3f1d35"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "896e7142a6da08e562adbeb25e4dd85a"
+                        "a0d9acddb55636fb0b9965e8cf234e"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "49f6f16a1dc7e612aa67a0336c80f85c"
+                        "e213e87408a53bbc35684d011e102426"
                     ]
                 ],
                 "CSV files": [
@@ -410,10 +410,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-21T18:12:12.116233033",
+        "timestamp": "2026-09-25T21:36:33.380916386",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     }
 }

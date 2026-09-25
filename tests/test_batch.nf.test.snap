@@ -109,9 +109,9 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/concat/all_samples.batch1.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch1.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch1.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -122,9 +122,9 @@
                     "imputation/quilt",
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
-                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
                     "imputation/quilt/concat/all_samples.batch1.quilt.vcf.gz",
-                    "imputation/quilt/concat/all_samples.batch1.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch1.quilt.vcf.gz.csi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
@@ -272,7 +272,7 @@
                     "prep_panel",
                     "prep_panel/concat",
                     "prep_panel/concat/1000GP.panel.vcf.gz",
-                    "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
+                    "prep_panel/concat/1000GP.panel.vcf.gz.csi",
                     "prep_panel/stats",
                     "prep_panel/stats/1000GP.panel.bcftools_stats.txt",
                     "validation",
@@ -347,43 +347,43 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "c6a8b917e04ed1a4457e06beeb0e399f"
+                        "4272de7f73d84f1ef895bc8cd48269a4"
                     ],
                     [
                         "all_samples.batch1.glimpse2.vcf.gz",
-                        "75e6fdd454f4409279118c7e0ee21c48"
+                        "70ddeda297b0e6d90259b76f37c6ab22"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "d5ad7322d0fc8cb8ae61e1e729bef4ba"
+                        "3c1fe779dc37fccaa4c1e79931b66d13"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "c087a0326342c7fed6e93800961847ab"
+                        "f05e67d11b4186c773018dfe37daf6f1"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "75e6fdd454f4409279118c7e0ee21c48"
+                        "70ddeda297b0e6d90259b76f37c6ab22"
                     ],
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "e73890f188f7692f657cd812e1f4c382"
+                        "881090b4d5a0ed3a61e44fc5136a150d"
                     ],
                     [
                         "all_samples.batch1.quilt.vcf.gz",
-                        "85e47e69e76401fce1c3ee86e2b5be75"
+                        "c245018ca90bae9857e64642cd48f3b7"
                     ],
                     [
                         "NA12878.quilt.vcf.gz",
-                        "ab386c78b9493e32898445a3dd7faa99"
+                        "c4a715a07f032c543d8fac0edf0e8535"
                     ],
                     [
                         "NA19401.quilt.vcf.gz",
-                        "1dd8ed667037b4ba0c9c9acf99b38454"
+                        "35b9de0c996c96b38a55c58befa7d005"
                     ],
                     [
                         "NA20359.quilt.vcf.gz",
-                        "85e47e69e76401fce1c3ee86e2b5be75"
+                        "c245018ca90bae9857e64642cd48f3b7"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
@@ -494,7 +494,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-23T15:36:55.074051209",
+        "timestamp": "2026-09-25T21:30:11.094670438",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

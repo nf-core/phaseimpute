@@ -168,7 +168,7 @@
                     "imputation/glimpse1",
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/impute",
                     "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.tbi",
@@ -207,7 +207,7 @@
                     "imputation/glimpse1/variant_calling/all_samples.annotate.vcf.gz",
                     "imputation/glimpse1/variant_calling/all_samples.annotate.vcf.gz.tbi",
                     "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz",
-                    "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz.tbi",
+                    "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz.csi",
                     "imputation/glimpse1/variant_calling/all_samples_chr21.merge.vcf.gz",
                     "imputation/glimpse1/variant_calling/all_samples_chr21.merge.vcf.gz.tbi",
                     "imputation/glimpse1/variant_calling/all_samples_chr22.merge.vcf.gz",
@@ -215,7 +215,7 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -226,7 +226,7 @@
                     "imputation/quilt",
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
-                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
@@ -264,7 +264,7 @@
                     "imputation/stitch",
                     "imputation/stitch/concat",
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz",
-                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.csi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
@@ -430,7 +430,7 @@
                     "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
                     "prep_panel/concat",
                     "prep_panel/concat/1000GP.panel.vcf.gz",
-                    "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
+                    "prep_panel/concat/1000GP.panel.vcf.gz.csi",
                     "prep_panel/csv",
                     "prep_panel/csv/chunks_glimpse1.csv",
                     "prep_panel/csv/panel.csv",
@@ -684,7 +684,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "5bf099b5b931b569fe527afc0c07342c"
+                        "1876a18bf5e352f7d7c1d602f5683ae2"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -696,15 +696,15 @@
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "dc6a75d709a33c3c42682c91f5dc5b44"
+                        "7d4896c4708c3ab13433f0f94a9bc675"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "23caaf1bb7bde05a556985ff4c9753c5"
+                        "3e8c8961ee3ff02563173fcee0be4a45"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "31714136ea4f495358236cccd0394e20"
+                        "7e7f467f57cebaf48d8a55c0d88a707e"
                     ],
                     [
                         "NA12878_chr21.vcf.gz",
@@ -732,11 +732,11 @@
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
-                        "c1ebdbc293e6737ce8be380f5a97030"
+                        "51f2cc6d9f6bc07a84f80fc383a9591b"
                     ],
                     [
                         "all_samples.concat.vcf.gz",
-                        "255bb30bf2a739cfc07da8366d4a2fac"
+                        "b7462d49e06ec5be6359fa537d18ab68"
                     ],
                     [
                         "all_samples_chr21.merge.vcf.gz",
@@ -748,35 +748,35 @@
                     ],
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "7cc9984da194fb843a0d6ca1868daf2a"
+                        "257a5dcd209bc98105aa38bb62e19260"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "12cd1fa59298258263fc82ac7122bc66"
+                        "3dcace6c0145be0b206c9846d0e3543d"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "667fac4cc933cd932efce7b261dbfdfe"
+                        "d4648eb8291ef37c3f5dcbce86d9852"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "5bae2d0356f5cc59a7021da63b798f99"
+                        "bfe565ed514d027a017452c76885c4b2"
                     ],
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "6f29f20904b85682d1900cdb7067d979"
+                        "dff8385f727c0f42ee56864fe9093581"
                     ],
                     [
                         "NA12878.quilt.vcf.gz",
-                        "f8b3a92e4994f6c7fce496ad00d34432"
+                        "c2be7ce1c61e82f6b6a1cfac247f0235"
                     ],
                     [
                         "NA19401.quilt.vcf.gz",
-                        "bb4cd5642b82951549342a3e147c5bb"
+                        "1ab7098f0a6c7344eab7ae32dc8335b3"
                     ],
                     [
                         "NA20359.quilt.vcf.gz",
-                        "1ff5579fb7c07e08ebc4cfb254f49827"
+                        "df8149d3debf2897d5dc1a7f3aab0fa1"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
@@ -804,19 +804,19 @@
                     ],
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "f6fe22227ab9a96b155c1e80c27ee3d8"
+                        "e134823abbe4242d689c3b7302a7a718"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "cc209f7ecfccf323d2440ae9bb19cb8d"
+                        "d933d0e0606feeca2d4af9fa3298e957"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "dfcc99aaccb50d1e84268ad1bb91b1d3"
+                        "b4b2da8438a11e25a472fe74ab7045bc"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "1d8fa8f4aed022b87ba8f200e2b38ce4"
+                        "1c1a024eb32c72cd0e57f79883e53c72"
                     ],
                     [
                         "1000GP.panel.vcf.gz",
@@ -840,19 +840,19 @@
                     ],
                     [
                         "all_samples.truth.vcf.gz",
-                        "83f2bfc948a3d2a449b0239e73843c56"
+                        "26e9aafb2e52ec650b83df2fb1c1b2a3"
                     ],
                     [
                         "NA12878.truth.vcf.gz",
-                        "7c37879a396314354b76f8a5a90a40fc"
+                        "b09cd2b7f732abeb7b53b79a51bc1ca7"
                     ],
                     [
                         "NA19401.truth.vcf.gz",
-                        "e0722e6af17e3837459a7cf23de886b8"
+                        "8654a2b292ca3193e19f5c022031cb8"
                     ],
                     [
                         "NA20359.truth.vcf.gz",
-                        "b63773c8d5a695b27a0108ec0c7590e7"
+                        "42a61e3b656990a82bc4ad4b904dbd9d"
                     ]
                 ],
                 "CSV files": [
@@ -944,7 +944,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-02T15:11:35.015117606",
+        "timestamp": "2026-09-25T21:28:30.997235759",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1125,7 +1125,7 @@
                     "imputation/glimpse1",
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
-                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.tbi",
+                    "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/impute",
                     "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.tbi",
@@ -1164,7 +1164,7 @@
                     "imputation/glimpse1/variant_calling/all_samples.annotate.vcf.gz",
                     "imputation/glimpse1/variant_calling/all_samples.annotate.vcf.gz.tbi",
                     "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz",
-                    "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz.tbi",
+                    "imputation/glimpse1/variant_calling/all_samples.concat.vcf.gz.csi",
                     "imputation/glimpse1/variant_calling/all_samples_chr21.merge.vcf.gz",
                     "imputation/glimpse1/variant_calling/all_samples_chr21.merge.vcf.gz.tbi",
                     "imputation/glimpse1/variant_calling/all_samples_chr22.merge.vcf.gz",
@@ -1172,7 +1172,7 @@
                     "imputation/glimpse2",
                     "imputation/glimpse2/concat",
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz",
-                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
@@ -1183,7 +1183,7 @@
                     "imputation/quilt",
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
-                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.tbi",
+                    "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz.tbi",
@@ -1221,7 +1221,7 @@
                     "imputation/stitch",
                     "imputation/stitch/concat",
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz",
-                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.tbi",
+                    "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.csi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
@@ -1396,7 +1396,7 @@
                     "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
                     "prep_panel/concat",
                     "prep_panel/concat/1000GP.panel.vcf.gz",
-                    "prep_panel/concat/1000GP.panel.vcf.gz.tbi",
+                    "prep_panel/concat/1000GP.panel.vcf.gz.csi",
                     "prep_panel/csv",
                     "prep_panel/csv/chunks_glimpse1.csv",
                     "prep_panel/csv/panel.csv",
@@ -1658,7 +1658,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "4e89602dffb0967b8df523bdb8331b50"
+                        "73831e20211149ee093a8965c38cad0d"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -1670,15 +1670,15 @@
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "aea834f01e3ca15e5152eda9bf847cdb"
+                        "67b0792c6ed594334bedeefabae66717"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "de0b61f813fe026fb0547491334b8624"
+                        "36351688b9c1145905672e2458d4d7e7"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "60c24c9808829325490e045f5f8823fb"
+                        "ff6184ebf54b16d633003a6ca8085fe0"
                     ],
                     [
                         "NA12878_chr21.vcf.gz",
@@ -1706,11 +1706,11 @@
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
-                        "c1ebdbc293e6737ce8be380f5a97030"
+                        "51f2cc6d9f6bc07a84f80fc383a9591b"
                     ],
                     [
                         "all_samples.concat.vcf.gz",
-                        "255bb30bf2a739cfc07da8366d4a2fac"
+                        "b7462d49e06ec5be6359fa537d18ab68"
                     ],
                     [
                         "all_samples_chr21.merge.vcf.gz",
@@ -1722,35 +1722,35 @@
                     ],
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "94d6919904ca93bbeb9eecc5b3969da5"
+                        "e8d18a5cac16152bf2da7ff63fa87306"
                     ],
                     [
                         "NA12878.glimpse2.vcf.gz",
-                        "538d38a1bedcd9cef430f2c41b1a524f"
+                        "4b75e8c87320227b2da7125970dcb823"
                     ],
                     [
                         "NA19401.glimpse2.vcf.gz",
-                        "b9cc7a497f5d81e561fd93e61f89c90d"
+                        "c3f2be5b24e7456cc6946906cd1ad923"
                     ],
                     [
                         "NA20359.glimpse2.vcf.gz",
-                        "ccbb7745bfcd6333e38cf0234846a603"
+                        "762baf270956714f25526dd8f66d0efb"
                     ],
                     [
                         "all_samples.batch0.quilt.vcf.gz",
-                        "da6887af2e84c1a491bd8142d6005427"
+                        "2741a25f66589f6c7c690f4fbe2fdc8d"
                     ],
                     [
                         "NA12878.quilt.vcf.gz",
-                        "31782045d8a31e74c6fe85799833e5a6"
+                        "e69a986d7b21aff60fafc1737be005aa"
                     ],
                     [
                         "NA19401.quilt.vcf.gz",
-                        "8d1f0210781382b25f04bdbcd915e53c"
+                        "4515caa549848a41a68d6e96cdfcb1e9"
                     ],
                     [
                         "NA20359.quilt.vcf.gz",
-                        "4f3cbdb96f53e0e81535ccfcc2f927a7"
+                        "1fdc14390e565735cbaa15ebc7c72ff2"
                     ],
                     [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
@@ -1778,19 +1778,19 @@
                     ],
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "10dc7b95fdc62f65754e21abfd1be98d"
+                        "71322a0d9f4595e67a988123a675bae3"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "748f77721708105629fd8f9a959abb54"
+                        "1a6b0c68f763b2967d0701af96ee0d61"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "f43ea6874f54629f0f8f901454dde583"
+                        "7b80e9299c87d68a5fcb783d787c84e2"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "33d0ba09cc9ab1d10de053167edc95d1"
+                        "f30408f8e202beb6d11bb6ce75129150"
                     ],
                     [
                         "1000GP.panel.vcf.gz",
@@ -1814,19 +1814,19 @@
                     ],
                     [
                         "all_samples.truth.vcf.gz",
-                        "83f2bfc948a3d2a449b0239e73843c56"
+                        "26e9aafb2e52ec650b83df2fb1c1b2a3"
                     ],
                     [
                         "NA12878.truth.vcf.gz",
-                        "7c37879a396314354b76f8a5a90a40fc"
+                        "b09cd2b7f732abeb7b53b79a51bc1ca7"
                     ],
                     [
                         "NA19401.truth.vcf.gz",
-                        "e0722e6af17e3837459a7cf23de886b8"
+                        "8654a2b292ca3193e19f5c022031cb8"
                     ],
                     [
                         "NA20359.truth.vcf.gz",
-                        "b63773c8d5a695b27a0108ec0c7590e7"
+                        "42a61e3b656990a82bc4ad4b904dbd9d"
                     ]
                 ],
                 "CSV files": [
@@ -1918,7 +1918,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-02T15:09:59.329236171",
+        "timestamp": "2026-09-25T21:26:36.248715959",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
