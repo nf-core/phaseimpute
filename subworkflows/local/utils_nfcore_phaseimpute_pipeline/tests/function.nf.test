@@ -706,7 +706,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert this.check_stdout(function.stdout) == ["No --tools provided --steps impute"] }
+                { assert this.check_stdout(function.stdout) == ["No --tools provided for --steps impute"] }
             )
         }
     }
