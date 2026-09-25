@@ -628,9 +628,9 @@ def validateInputParameters(
 //
 // Check compatibility between input files size, extension and tools
 //
-def validateInputBatchTools(List input_files, Integer batch_size, String extension, List tools, Boolean force_multi_vcf) {
+def validateInputBatchTools(List input_files, Integer batch_size, String extension, List tools, Boolean force_multi_vcf, List steps) {
     def nb_input = input_files.size()
-    if (extension ==~ /(vcf|bcf)/) {
+    if (extension ==~ /(vcf|bcf)(\.gz)?/) {
         if (tools.contains("stitch") || tools.contains("quilt") || tools.contains("quilt2")) {
             error "STITCH, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
         }
@@ -646,6 +646,11 @@ def validateInputBatchTools(List input_files, Integer batch_size, String extensi
         if (tools.contains("beagle5") || tools.contains("minimac4")) {
             error "BEAGLE5 and MINIMAC4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
         }
+        if (steps.contains("prephase")){
+            error "Step 'prephase' can only be done with VCF files as input."
+        }
+    } else {
+        error "Extension ${extension} not recognize."
     }
 
     if (nb_input > batch_size) {

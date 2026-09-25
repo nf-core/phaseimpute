@@ -871,6 +871,8 @@ nextflow_function {
                 input[1] = 60
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "quilt2"]
+                input[4] = false
+                input[5] = ["simulate"]
                 """
             }
         }
@@ -882,7 +884,7 @@ nextflow_function {
         }
     }
 
-    test ("Test validateInputBatchTools only one vcf") {
+    test ("Test validateInputBatchTools multiple vcf") {
         function "validateInputBatchTools"
         tag "validateInputBatchTools"
         when {
@@ -893,13 +895,38 @@ nextflow_function {
                 input[2] = "vcf.gz"
                 input[3] = ["glimpse2", "glimpse1"]
                 input[4] = ["impute", "validate"]
+                input[4] = false
+                input[5] = ["simulate"]
                 """
             }
         }
         then {
             assertAll (
                 { assert function.failed },
-                { assert this.check_stdout(function.stdout) == ["When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."] }
+                { assert this.check_stdout(function.stdout) == ["Multiple VCF/BCF input files (5) detected. Each file will be imputed independently against the reference panel. This is safe only if every file is single-sample; imputing multiple multi-sample VCFs separately can induce batch effects for cohort-aware tools (e.g. Beagle5, Glimpse1). If your files are not single-sample, merge them into one multisample VCF (bcftools merge).To still impute separately each VCF and by-pass this rule, use --force_multi_vcf."] }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools multiple vcf + force_multi_vcf") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = ["A", "B", "C", "D", "E"]
+                input[1] = 60
+                input[2] = "bcf"
+                input[3] = ["glimpse2", "glimpse1"]
+                input[4] = ["impute", "validate"]
+                input[4] = true
+                input[5] = ["simulate"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success },
             )
         }
     }
@@ -913,8 +940,10 @@ nextflow_function {
                 input[0] = ["A", "B", "C", "D", "E"]
                 input[1] = 60
                 input[2] = "cram"
-                input[3] = ["glimpse1", "quilt2"]
+                input[3] = ["beagle5", "quilt2"]
                 input[4] = ["impute", "validate"]
+                input[4] = false
+                input[5] = ["simulate"]
                 """
             }
         }
@@ -932,39 +961,43 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = [0..150]
-                input[1] = 60
+                input[0] = ["A", "B", "C", "D", "E"]
+                input[1] = 2
                 input[2] = "cram"
                 input[3] = ["quilt2", "glimpse2"]
                 input[4] = ["impute", "validate"]
+                input[4] = false
+                input[5] = ["simulate"]
                 """
             }
         }
         then {
             assertAll (
                 { assert function.success },
-                { assert this.check_stdout(function.stdout) == ["WARN: GLIMPSE2, QUILT or QUILT2 software is selected and the number of input files (151) is greater than the batch size (60). The input files will be processed in 3 batches."] }
+                { assert this.check_stdout(function.stdout) == ["WARN: GLIMPSE2, QUILT or QUILT2 software is selected and the number of input files (5) is greater than the batch size (2). The input files will be processed in 3 batches."] }
             )
         }
     }
 
     test ("Test validateInputBatchTools error batch") {
         function "validateInputBatchTools"
-        tag "validateInputBatchTools"
+        tag "validateInputBatchTools1"
         when {
             function {
                 """
-                input[0] = [0..150]
-                input[1] = 60
+                input[0] = ["A", "B", "C", "D", "E"]
+                input[1] = 2
                 input[2] = "cram"
                 input[3] = ["glimpse1"]
+                input[4] = false
+                input[5] = ["simulate"]
                 """
             }
         }
         then {
             assertAll (
                 { assert function.failed },
-                { assert this.check_stdout(function.stdout) == ["STITCH or GLIMPSE1 software is selected and the number of input files (151) is greater than the batch size (60). Splitting the input files in batches would induce batch effect."] }
+                { assert this.check_stdout(function.stdout) == ["STITCH or GLIMPSE1 software is selected and the number of input files (5) is greater than the batch size (2). Splitting the input files in batches would induce batch effect."] }
             )
         }
     }
@@ -975,18 +1008,19 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = [0..150]
-                input[1] = 60
+                input[0] = ["A", "B", "C", "D", "E"]
+                input[1] = 2
                 input[2] = "cram"
                 input[3] = ["quilt2", "glimpse2"]
-                input[4] = ["prephase"]
+                input[4] = false
+                input[5] = ["simulate", "prephase"]
                 """
             }
         }
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert this.check_stdout(function.stdout) == ["Step 'prephase' can only be done with VCF files as input."] }
             )
         }
     }
