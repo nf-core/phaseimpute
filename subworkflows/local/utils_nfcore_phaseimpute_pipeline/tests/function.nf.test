@@ -391,12 +391,13 @@ nextflow_function {
                 input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
                 input[4] = file("${projectDir}/tests/csv/chunks.csv")
                 input[5] = null
-                input[6] = ""
-                input[7] = false
-                input[8] = "sequential"
-                input[9] = "V1"
-                input[10] = "all"
-                input[11] = "glimpse1"
+                input[6] = 1
+                input[7] = ""
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["simulate", "panelprep", "impute", "validate"]
+                input[12] = ["glimpse1"]
                 """
             }
         }
@@ -407,7 +408,7 @@ nextflow_function {
         }
     }
 
-    test ("Test validateInputParameters error incompatible chunk version and model") {
+    test ("Test validateInputParameters error - no steps") {
         function "validateInputParameters"
         tag "validateInputParameters"
         when {
@@ -419,24 +420,85 @@ nextflow_function {
                 input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
                 input[4] = file("${projectDir}/tests/csv/chunks.csv")
                 input[5] = null
-                input[6] = ""
-                input[7] = false
-                input[8] = "recursive"
-                input[9] = "V1"
-                input[10] = "all"
-                input[11] = "glimpse1"
+                input[6] = 1
+                input[7] = ""
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = []
+                input[12] = ["glimpse1"]
                 """
             }
         }
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert this.check_stdout(function.stdout) == ["A step must be provided"] }
             )
         }
     }
 
-    test ("Test validateInputParameters no error compatible chunk version and model") {
+    test ("Test validateInputParameters error - no target sheet") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = null
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = 1
+                input[7] = ""
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["impute"]
+                input[12] = ["glimpse1"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --input provided"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - simulate & genotype") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = file("${projectDir}/tests/csv/chunks.csv")
+                input[6] = 1
+                input[7] = ""
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["simulate"]
+                input[12] = ["glimpse1"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["Genotype simulation is not yet implemented"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - simulate but no depth") {
         function "validateInputParameters"
         tag "validateInputParameters"
         when {
@@ -448,23 +510,358 @@ nextflow_function {
                 input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
                 input[4] = file("${projectDir}/tests/csv/chunks.csv")
                 input[5] = null
-                input[6] = ""
-                input[7] = false
-                input[8] = "recursive"
-                input[9] = "V2"
-                input[10] = "all"
-                input[11] = "glimpse1"
+                input[6] = null
+                input[7] = ""
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["simulate"]
+                input[12] = ["glimpse1"]
                 """
             }
         }
         then {
             assertAll (
-                { assert function.success }
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --depth was provided for --steps simulate"] }
             )
         }
     }
 
-    test ("Test validateInputBatchTools vcf only for glimpse") {
+    test ("Test validateInputParameters error - panelprep but no panel") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = null
+                input[2] = null
+                input[3] = null
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = null
+                input[7] = "NA12878"
+                input[8] = true
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["panelprep"]
+                input[12] = ["glimpse2"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --panel provided for --steps panelprep"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - panelprep & remove_samples but no normalize + warnings") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = null
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = null
+                input[7] = "NA12878"
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["panelprep"]
+                input[12] = ["glimpse2"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == [
+                    "WARN: Both `--chunks` and `--panel` have been provided. Provided `--chunks` will override `--panel` generated chunks in `--steps panelprep` mode.",
+                    "WARN: Both `--posfile` and `--panel` have been provided. Provided `--posfile` will override `--panel` generated posfile in `--steps panelprep` mode.",
+                    "To use `--remove_samples` you need to include `--normalize`."
+                ] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - panelprep & no chunks but no chunk_model") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = null
+                input[1] = null
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = "NA12878"
+                input[8] = true
+                input[9] = null
+                input[10] = null
+                input[11] = ["panelprep"]
+                input[12] = []
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No chunk model and chunk_version provided nor --chunks"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - panelprep & chunk_model different to default with chunk_version V1") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = null
+                input[1] = null
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = "recursive"
+                input[10] = "V1"
+                input[11] = ["panelprep"]
+                input[12] = []
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["Glimpse V1 doesn't support custom chunking model `--chunk_model recursive`. Please use `--chunk_version V2` or remove `--chunk_model`."] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters no error - panelprep & chunk_model different to default with chunk_version V2") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = null
+                input[1] = null
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = "recursive"
+                input[10] = "V2"
+                input[11] = ["panelprep"]
+                input[12] = []
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success },
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - impute but no tools") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = file("${projectDir}/tests/csv/posfile_vcf_index.csv")
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = null
+                input[10] = null
+                input[11] = ["impute"]
+                input[12] = []
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --tools provided for --steps impute"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - impute & no panelprep & no posfile") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = null
+                input[3] = null
+                input[4] = file("${projectDir}/tests/csv/chunks.csv")
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = null
+                input[10] = null
+                input[11] = ["impute"]
+                input[12] = ["glimpse1"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --posfile provided for imputation with STITCH, QUILT or GLIMPSE1"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - impute & no panelprep & no panel") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = null
+                input[2] = null
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = null
+                input[10] = null
+                input[11] = ["impute"]
+                input[12] = ["glimpse2"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --panel provided for imputation with GLIMPSE1, GLIMPSE2, QUILT2, MINIMAC4 or BEAGLE5"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters warning - impute & no panelprep & panel") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = null
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = null
+                input[10] = null
+                input[11] = ["impute"]
+                input[12] = ["glimpse2"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.success },
+                { assert this.check_stdout(function.stdout) == ["Provided `--panel` will be used in `--steps impute`. Make sure it has been previously prepared with `--steps panelprep`"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - validate but no posfile & no panelprep") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = file("${projectDir}/tests/csv/sample_validate_truth.csv")
+                input[2] = null
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = null
+                input[9] = null
+                input[10] = null
+                input[11] = ["validate"]
+                input[12] = []
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --posfile provided for --steps validate"] }
+            )
+        }
+    }
+
+    test ("Test validateInputParameters error - validate but no truth & no simulate") {
+        function "validateInputParameters"
+        tag "validateInputParameters"
+        when {
+            function {
+                """
+                input[0] = file("${projectDir}/tests/csv/sample_validate_imputed.csv")
+                input[1] = null
+                input[2] = file("${projectDir}/tests/csv/panel.csv")
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                input[7] = null
+                input[8] = false
+                input[9] = "sequential"
+                input[10] = "V1"
+                input[11] = ["panelprep", "validate"]
+                input[12] = []
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["No --input_truth was provided for --steps validate"] }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools vcf only not for stitch and quilt") {
         function "validateInputBatchTools"
         tag "validateInputBatchTools"
         when {
@@ -480,7 +877,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert this.check_stdout(function.stdout) == ["STITCH, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."] }
             )
         }
     }
@@ -502,18 +899,18 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert this.check_stdout(function.stdout) == ["When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."] }
             )
         }
     }
 
-    test ("Test validateInputBatchTools error batch") {
+    test ("Test validateInputBatchTools bam not for beagle5 and minimac4") {
         function "validateInputBatchTools"
         tag "validateInputBatchTools"
         when {
             function {
                 """
-                input[0] = channel.of(0..150)
+                input[0] = channel.of("A", "B", "C", "D", "E")
                 input[1] = 60
                 input[2] = "cram"
                 input[3] = ["glimpse1", "quilt2"]
@@ -524,7 +921,7 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.failed },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert this.check_stdout(function.stdout) == ["BEAGLE5 and MINIMAC4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."] }
             )
         }
     }
@@ -546,7 +943,28 @@ nextflow_function {
         then {
             assertAll (
                 { assert function.success },
-                { assert snapshot(this.check_stdout(function.stdout)).match() }
+                { assert this.check_stdout(function.stdout) == ["WARN: GLIMPSE2, QUILT or QUILT2 software is selected and the number of input files (151) is greater than the batch size (60). The input files will be processed in 3 batches."] }
+            )
+        }
+    }
+
+    test ("Test validateInputBatchTools error batch") {
+        function "validateInputBatchTools"
+        tag "validateInputBatchTools"
+        when {
+            function {
+                """
+                input[0] = channel.of(0..150)
+                input[1] = 60
+                input[2] = "cram"
+                input[3] = ["glimpse1"]
+                """
+            }
+        }
+        then {
+            assertAll (
+                { assert function.failed },
+                { assert this.check_stdout(function.stdout) == ["STITCH or GLIMPSE1 software is selected and the number of input files (151) is greater than the batch size (60). Splitting the input files in batches would induce batch effect."] }
             )
         }
     }
@@ -816,7 +1234,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all"] // steps
+                input[0] = ["simulate", "panelprep", "impute", "validate"] // steps
                 input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
                 input[2] = true // phase
                 """
@@ -861,7 +1279,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all"] // steps
+                input[0] = ["simulate", "panelprep", "impute", "validate"] // steps
                 input[1] = ["glimpse1", "glimpse2", "stitch", "quilt", "quilt2", "beagle5", "minimac4"] // tools
                 input[2] = true // normalize
                 input[3] = "sample1,sample2" // remove_samples
@@ -909,7 +1327,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all", "prephase"]
+                input[0] = "all, panelprep,prephase"
                 """
             }
         }
@@ -922,13 +1340,13 @@ nextflow_function {
         }
     }
 
-    test ("Test parseSteps - steps all + prephase") {
+    test ("Test parseSteps - few steps + prephase") {
         function "parseSteps"
         tag "parseSteps"
         when {
             function {
                 """
-                input[0] = ["simulate", "prephase", "panelprep"]
+                input[0] = "simulate, prephase,panelprep"
                 """
             }
         }

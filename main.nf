@@ -20,6 +20,7 @@ include { CHRCHECK as CHRCHECK_TRUTH } from './workflows/chrcheck'
 include { CHRCHECK as CHRCHECK_PANEL } from './workflows/chrcheck'
 include { PIPELINE_INITIALISATION    } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { parseSteps                 } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PREPARE_GENOME             } from './subworkflows/local/prepare_genome'
 include { getGenomeAttribute         } from 'plugin/nf-core-utils'
 
@@ -95,7 +96,7 @@ workflow NFCORE_PHASEIMPUTE {
     )
     ch_panel = CHRCHECK_PANEL.out.output
 
-    if (steps.contains("simulate") || steps.contains("all")) {
+    if (steps.contains("simulate")) {
         ch_input_simulate = ch_input
     } else if (steps.contains("impute") || steps.contains("prephase")) {
         ch_input_impute   = ch_input
@@ -143,7 +144,7 @@ workflow NFCORE_PHASEIMPUTE {
 workflow {
 
     main:
-    def steps = params.steps.split(',') as List
+    def steps = parseSteps(params.steps)
     def tools = params.tools ? params.tools.split(',') as List : []
 
     def sheets_given = [

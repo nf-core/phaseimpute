@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#296](https://github.com/nf-core/phaseimpute/pull/296) - Replace `SAMTOOLS_DEPTH` by `SAMTOOLS_COVERAGE` in downsampling subworkflow to reduce computational load and allow region specificity.
 - [#299](https://github.com/nf-core/phaseimpute/pull/299) - Update modules and subworkflows. Replace `TABIX_TABIX` and `TABIX_BGZIP` by `HTSLIB_BGZIPTABIX`.
 - [#307](https://github.com/nf-core/phaseimpute/pull/307) - Update TEMPLATE to nf-core tools version 4.1.0.
+- [#317](https://github.com/nf-core/phaseimpute/pull/317) - Improve `--steps` management.
 
 ### `Fixed`
 
