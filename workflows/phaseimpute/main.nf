@@ -144,7 +144,7 @@ workflow PHASEIMPUTE {
     //
     // Simulate data if asked
     //
-    if (steps.contains("simulate") || steps.contains("all")) {
+    if (steps.contains("simulate")) {
         // Test if the input are all bam files
         getFilesSameExt(ch_input_sim)
             .map{ ext -> if (ext != "bam" && ext != "cram") {
@@ -228,7 +228,7 @@ workflow PHASEIMPUTE {
     //
     // Prepare panel
     //
-    if (steps.contains("panelprep") || steps.contains("all")) {
+    if (steps.contains("panelprep")) {
         // Normalize indels in panel
         VCF_NORMALIZE_BCFTOOLS(
             ch_panel, ch_fasta,
@@ -309,7 +309,7 @@ workflow PHASEIMPUTE {
     //
     // Impute target files
     //
-    if (steps.contains("impute") || steps.contains("all")) {
+    if (steps.contains("impute")) {
 
         if (tools.any{ tool -> tool in ["stitch", "quilt"] }) {
             // Transform posfile to tabulated format shared by QUILT and STITCH
@@ -371,7 +371,7 @@ workflow PHASEIMPUTE {
             .join(LISTTOFILE.out.txt)
 
         // Use panel from parameters if provided
-        if (sheets_given["input_panel"] && !steps.find { step -> step in ["all", "panelprep"] }) {
+        if (sheets_given["input_panel"] && !steps.contains("panelprep")) {
             ch_panel_phased = ch_panel
         }
 
@@ -683,7 +683,7 @@ workflow PHASEIMPUTE {
         )
     }
 
-    if (steps.contains("validate") || steps.contains("all")) {
+    if (steps.contains("validate")) {
         // Concatenate all sites into a single VCF (for GLIMPSE concordance)
         CONCAT_PANEL(
             ch_posfile

@@ -65,30 +65,6 @@
             "nextflow": "26.04.3"
         }
     },
-    "Test validateInputBatchTools vcf only for glimpse": {
-        "content": [
-            [
-                "Stitch, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
-            ]
-        ],
-        "timestamp": "2026-04-05T15:59:02.030907977",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
-        }
-    },
-    "Test validateInputBatchTools success batch": {
-        "content": [
-            [
-                "WARN: Glimpse2, QUILT or QUILT2 software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches."
-            ]
-        ],
-        "timestamp": "2026-04-05T15:59:35.860398759",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
-        }
-    },
     "Test getFileExtension non empty list": {
         "content": [
             [
@@ -103,19 +79,6 @@
         "meta": {
             "nf-test": "0.9.1",
             "nextflow": "24.10.4"
-        }
-    },
-    "Test validateInputBatchTools error batch": {
-        "content": [
-            [
-                "WARN: Glimpse2, QUILT or QUILT2 software is selected and the number of input files (151) is less than the batch size (60). The input files will be processed in 3 batches.",
-                "Stitch or Glimpse1 software is selected and the number of input files (151) is less than the batch size (60). Splitting the input files in batches would induce batch effect."
-            ]
-        ],
-        "timestamp": "2026-04-05T15:59:25.152279612",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
         }
     },
     "Test getRegionFromFai with specified region without fasta": {
@@ -138,30 +101,6 @@
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
-        }
-    },
-    "Test validateInputBatchTools only one vcf": {
-        "content": [
-            [
-                "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
-            ]
-        ],
-        "timestamp": "2026-04-05T15:59:13.565761606",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "25.10.4"
-        }
-    },
-    "Test validateInputParameters error incompatible chunk version and model": {
-        "content": [
-            [
-                "Glimpse V1 doesn't support custom chunking model `--chunk_model recursive`. Please use `--chunk_version V2` or remove `--chunk_model`."
-            ]
-        ],
-        "timestamp": "2026-09-14T11:27:00.658409305",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
         }
     },
     "Test checkMetaChr warning": {
