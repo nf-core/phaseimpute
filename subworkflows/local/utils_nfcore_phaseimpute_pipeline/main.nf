@@ -585,7 +585,7 @@ def validateInputParameters(
     if (steps.contains("impute")) {
         // Check that at least one tool is provided
         if (!tools) {
-            error "No --tools provided --steps impute"
+            error "No --tools provided for --steps impute"
         }
         if (!steps.contains("panelprep")) {
             if (tools.find { tool -> tool in ["stitch", "quilt", "glimpse1"] }) {
