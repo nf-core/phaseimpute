@@ -20,6 +20,7 @@ include { CHRCHECK as CHRCHECK_TRUTH } from './workflows/chrcheck'
 include { CHRCHECK as CHRCHECK_PANEL } from './workflows/chrcheck'
 include { PIPELINE_INITIALISATION    } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
+include { parseSteps                 } from './subworkflows/local/utils_nfcore_phaseimpute_pipeline'
 include { PREPARE_GENOME             } from './subworkflows/local/prepare_genome'
 include { getGenomeAttribute         } from 'plugin/nf-core-utils'
 
@@ -143,7 +144,7 @@ workflow NFCORE_PHASEIMPUTE {
 workflow {
 
     main:
-    def steps = params.steps.split(',') as List
+    def steps = parseSteps(params.steps)
     def tools = params.tools ? params.tools.split(',') as List : []
 
     def sheets_given = [
@@ -226,7 +227,7 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHASEIMPUTE (
-        PIPELINE_INITIALISATION.out.steps.get(),
+        steps,
         tools,
         PIPELINE_INITIALISATION.out.ch_input_target,
         PIPELINE_INITIALISATION.out.ch_input_truth,

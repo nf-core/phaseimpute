@@ -771,7 +771,7 @@ nextflow_function {
         }
     }
 
-    test ("Test validateInputParameters no error - impute & no panelprep & panel") {
+    test ("Test validateInputParameters warning - impute & no panelprep & panel") {
         function "validateInputParameters"
         tag "validateInputParameters"
         when {
@@ -1283,7 +1283,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all"]
+                input[0] = "all"
                 """
             }
         }
@@ -1302,7 +1302,26 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["simulate", "panelprep"]
+                input[0] = "all, panelprep,"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result == ["simulate", "panelprep", "impute", "validate"] }
+            )
+        }
+    }
+
+    test ("Test parseSteps - few steps") {
+        function "parseSteps"
+        tag "parseSteps"
+        when {
+            function {
+                """
+                input[0] = "simulate, panelprep"
                 """
             }
         }

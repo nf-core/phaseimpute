@@ -131,11 +131,6 @@ workflow PIPELINE_INITIALISATION {
     def batch_size = params_impute["batch_size"]
 
     //
-    // Convert steps to list
-    //
-    stepsList = parseSteps(steps)
-
-    //
     // Custom validation for pipeline parameters
     //
     validateInputParameters(
@@ -143,7 +138,7 @@ workflow PIPELINE_INITIALISATION {
         sheet_posfile, sheet_chunks,
         genotype, depth, remove_samples, normalize,
         chunk_model, chunk_version,
-        stepsList, tools
+        steps, tools
     )
 
     //
@@ -281,11 +276,11 @@ workflow PIPELINE_INITIALISATION {
             .map{ metaPC, _vcf, _index -> [metaPC, [], [], [], [], []]}
     }
 
-    if (!stepsList.contains("panelprep")) {
+    if (!steps.contains("panelprep")) {
         validatePosfileTools(
             ch_posfile,
             tools,
-            stepsList,
+            steps,
             input_truth_ext
         )
     }
@@ -457,7 +452,6 @@ workflow PIPELINE_INITIALISATION {
     ch_map          = ch_map              // [ [chr], map ]
     ch_posfile      = ch_posfile          // [ [panel_id, chr], vcf, index, hap, legend, posfile ]
     ch_chunks       = ch_chunks           // [ [panel_id, chr], txt ]
-    steps           = stepsList           // [ steps, ...]
 }
 
 /*
@@ -514,11 +508,14 @@ workflow PIPELINE_COMPLETION {
 //
 // Parse steps argument
 //
-def parseSteps(steps) {
-    if (steps.contains("all")) {
+def parseSteps(stepsString) {
+    def stepsList = stepsString
+        .split(',')
+        .collect { step -> step.trim() }
+    if (stepsList.contains("all")) {
         return ["simulate", "panelprep", "impute", "validate"]
     } else {
-        return steps as List
+        return stepsList
     }
 }
 
