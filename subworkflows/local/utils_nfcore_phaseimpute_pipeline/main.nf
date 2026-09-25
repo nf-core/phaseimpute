@@ -129,6 +129,7 @@ workflow PIPELINE_INITIALISATION {
     def chunk_version = params_panelprep["chunk_version"]
 
     def batch_size = params_impute["batch_size"]
+    def force_multi_vcf = params_impute["force_multi_vcf"]
 
     //
     // Custom validation for pipeline parameters
@@ -159,12 +160,19 @@ workflow PIPELINE_INITIALISATION {
     }
 
     // Check that the batch size and extension is compatible with the tools
-    validateInputBatchTools(
-        ch_input_target,
-        batch_size,
-        getFilesSameExt(ch_input_target),
-        tools
-    )
+    ch_input_target
+        .map { _meta, input, _index -> [input]}
+        .collect()
+        .map { input_files ->
+            def extension = getFilesSameExt(input_files)
+            validateInputBatchTools(
+                input_files,
+                batch_size,
+                extension,
+                tools,
+                force_multi_vcf
+            )
+    }
 
     //
     // Create channel from input file provided through input_truth
@@ -177,15 +185,12 @@ workflow PIPELINE_INITIALISATION {
                     meta, file, index ->
                         [ meta + [id:meta.id.toString()], file, index ]
                 }
-            // Check if all extension are identical
-            input_truth_ext = getFilesSameExt(ch_input_truth)
         } else {
             // #TODO Wait for `oneOf()` to be supported in the nextflow_schema.json
             error "Panel file provided is of another format than CSV (not yet supported). Please separate your panel by chromosome and use the samplesheet format."
         }
     } else {
         ch_input_truth = channel.of([[], [], []])
-        input_truth_ext = ""
     }
 
     //
@@ -277,11 +282,14 @@ workflow PIPELINE_INITIALISATION {
     }
 
     if (!steps.contains("panelprep")) {
+        ch_input_truth_ext = ch_input_truth
+            .map { _meta, truth, _index -> [truth]}
+            .collect()
+            .map { truth -> getFilesSameExt(truth)}
         validatePosfileTools(
-            ch_posfile,
+            ch_posfile.combine(ch_input_truth_ext),
             tools,
-            steps,
-            input_truth_ext
+            steps
         )
     }
 
@@ -526,9 +534,10 @@ def parseSteps(stepsString) {
 def validateInputParameters(
     sheet_target, sheet_truth, sheet_panel,
     sheet_posfile, sheet_chunks,
-    genotype, depth, remove_samples, normalize,
-    chunk_model, chunk_version,
-    steps, tools
+    genotype,
+    Integer depth, String remove_samples, Boolean normalize,
+    String chunk_model, String chunk_version,
+    List steps, List tools
 ) {
     // Check that a steps is provided
     if (!steps) {
@@ -619,43 +628,42 @@ def validateInputParameters(
 //
 // Check compatibility between input files size, extension and tools
 //
-def validateInputBatchTools(ch_input, batch_size, extension, tools) {
-    ch_input
-        .count()
-        .map{ nb_input ->
-            if (extension ==~ "(vcf|bcf)(.gz)?") {
-                if (tools.contains("stitch") || tools.contains("quilt") || tools.contains("quilt2")) {
-                    error "STITCH, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
-                }
-                if (nb_input > 1) {
-                    error "When using a Variant Calling Format file as input, only one file can be provided. If you have multiple single-sample VCF files, please merge them into a single multisample VCF file."
-                }
-            }
-
-            if (extension ==~ "(bam|cram)?") {
-                if (tools.contains("beagle5") || tools.contains("minimac4")) {
-                    error "BEAGLE5 and MINIMAC4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
-                }
-            }
-
-            if (nb_input > batch_size) {
-                if (tools.contains("glimpse2") || tools.contains("quilt") || tools.contains("quilt2")) {
-                    log.warn("GLIMPSE2, QUILT or QUILT2 software is selected and the number of input files (${nb_input}) is greater than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
-                }
-                if (tools.contains("stitch") || tools.contains("glimpse1")) {
-                    error "STITCH or GLIMPSE1 software is selected and the number of input files (${nb_input}) is greater than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
-                }
-            }
+def validateInputBatchTools(List input_files, Integer batch_size, String extension, List tools, Boolean force_multi_vcf) {
+    def nb_input = input_files.size()
+    if (extension ==~ /(vcf|bcf)/) {
+        if (tools.contains("stitch") || tools.contains("quilt") || tools.contains("quilt2")) {
+            error "STITCH, QUILT and QUILT2 software cannot run with VCF or BCF files. Please provide alignment files (i.e. BAM or CRAM)."
         }
-    return null
+        if (nb_input > 1 & !force_multi_vcf) {
+            error "Multiple VCF/BCF input files (${nb_input}) detected. Each file will be imputed " +
+                "independently against the reference panel. This is safe only if every file is " +
+                "single-sample; imputing multiple multi-sample VCFs separately can induce batch " +
+                "effects for cohort-aware tools (e.g. Beagle5, Glimpse1). If your files are not single-sample, " +
+                "merge them into one multisample VCF (bcftools merge)." +
+                "To still impute separately each VCF and by-pass this rule, use --force_multi_vcf."
+        }
+    } else if (extension ==~ /(bam|cram)/) {
+        if (tools.contains("beagle5") || tools.contains("minimac4")) {
+            error "BEAGLE5 and MINIMAC4 softwares cannot run with BAM or CRAM alignement files. Please provide variant calling format files (i.e. VCF or BCF)."
+        }
+    }
+
+    if (nb_input > batch_size) {
+        if (tools.contains("glimpse2") || tools.contains("quilt") || tools.contains("quilt2")) {
+            log.warn("GLIMPSE2, QUILT or QUILT2 software is selected and the number of input files (${nb_input}) is greater than the batch size (${batch_size}). The input files will be processed in ${Math.ceil(nb_input / batch_size) as int} batches.")
+        }
+        if (tools.contains("stitch") || tools.contains("glimpse1")) {
+            error "STITCH or GLIMPSE1 software is selected and the number of input files (${nb_input}) is greater than the batch size (${batch_size}). Splitting the input files in batches would induce batch effect."
+        }
+    }
 }
 
 //
 // Check if posfile is compatible with tools and steps selected
 //
-def validatePosfileTools(ch_posfile, tools, steps, truth_extension){
+def validatePosfileTools(ch_posfile, tools, steps){
     ch_posfile
-        .map{ _meta, vcf, index, hap, legend, posfile ->
+        .map{ _meta, vcf, index, hap, legend, posfile, truth_extension ->
             if (tools.contains("glimpse1")) {
                 assert posfile : "Glimpse1 tool needs a posfile file with CHROM\tPOS\tREF,ALT columns. This file can be created through the panelprep step."
             }
@@ -669,14 +677,10 @@ def validatePosfileTools(ch_posfile, tools, steps, truth_extension){
             if (steps.contains("validate")) {
                 assert vcf : "Validation step needs a vcf file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
                 assert index : "Validation step needs an index file provided in the posfile for the allele frequency. This file can be created through the panelprep step."
-                if (truth_extension =~ "bam|cram"){
+                if (truth_extension ==~ /(bam|cram)/){
                     assert posfile : "You have not provided a posfile and you've requested to use the validation step with bam files. This step requires a posfile file with CHROM\tPOS\tREF,ALT columns to call the variants from the truth BAM file. This file is generated automatically in the panelprep step."
                 }
             }
-        }
-
-    ch_posfile
-        .map{ _meta, _vcf, _index, _hap, _legend, posfile ->
             if (posfile) {
                 def lines = []
                 def pathFile = posfile instanceof String ? file(posfile) : posfile
@@ -745,7 +749,7 @@ def checkMetaChr(chr_a, chr_b, name, max_chr_names){
 def getRegionFromFai(region_selected, ch_fasta) {
     def ch_regions = channel.empty()
     // Gather regions to use and create the meta map
-    if (region_selected ==~ '^(chr)?[0-9XYM]+$' || region_selected == "all") {
+    if (region_selected ==~ /^(chr)?[0-9XYM]+$/ || region_selected == "all") {
         ch_regions = ch_fasta.map{ _meta, _fasta, fai, _gzi -> fai}
             .splitCsv(header: ["chr", "size", "offset", "lidebase", "linewidth", "qualoffset"], sep: "\t")
             .map{it -> [chr:it.chr, region:"0-"+it.size]}
@@ -755,7 +759,7 @@ def getRegionFromFai(region_selected, ch_fasta) {
         ch_regions = ch_regions
             .map{ it -> [[chr: it.chr, region: it.chr + ":" + it.region], it.chr + ":" + it.region]}
     } else {
-        if (region_selected ==~ '^chr[0-9XYM]+:[0-9]+-[0-9]+$') {
+        if (region_selected ==~ /^chr[0-9XYM]+:[0-9]+-[0-9]+$/) {
             ch_regions = channel.from([region_selected])
                 .map{ it -> [[chr: it.split(":")[0], "region": it], it]}
         } else {
@@ -790,16 +794,14 @@ def getFileExtension(file) {
 //
 // Check if all input files have the same extension
 //
-def getFilesSameExt(ch_input) {
-    return ch_input
-        .map { it -> getFileExtension(it[1]) } // Extract files extensions
-        .toList()  // Collect extensions into a list
-        .map { extensions ->
-            if (extensions.unique().size() > 1) {
-                error "All input files must have the same extension: ${extensions.unique()}"
-            }
-            return extensions[0]
-        }
+def getFilesSameExt(List files) {
+    def extensions = files
+        .collect { file -> getFileExtension(file) }
+        .unique()
+    if (extensions.size() > 1) {
+        error "All input files must have the same extension: ${extensions}"
+    }
+    return extensions[0] as String
 }
 
 //

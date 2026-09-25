@@ -172,10 +172,11 @@ workflow {
     ]
 
     def params_impute = [
-        batch_size: params.batch_size,
-        k_val     : params.k_val,
-        n_gen     : params.n_gen,
-        buffer    : params.buffer
+        batch_size      : params.batch_size,
+        k_val           : params.k_val,
+        n_gen           : params.n_gen,
+        buffer          : params.buffer,
+        force_multi_vcf : params.force_multi_vcf
     ]
 
     def params_validate = [

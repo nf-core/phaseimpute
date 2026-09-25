@@ -52,6 +52,9 @@ class UTILS {
 
 
     public static def getPhaseimputeTest = { Map scenario ->
+        if (!scenario.result) {
+            scenario.result = "success"
+        }
         return {
             tag "pipeline"
             tag "pipeline/phaseimpute"
@@ -76,15 +79,20 @@ class UTILS {
             }
 
             then {
-                assertAll(
-                    { assert workflow.success },
-                    { assert snapshot(
-                        UTILS.getPipelineResults(outputDir, workflow),
-                        *(scenario.details ? [scenario.details(outputDir)] : [])
-                    ).match() }
-                )
+                if (scenario.result == "success") {
+                    assertAll(
+                        { assert workflow.success },
+                        { assert snapshot(
+                            UTILS.getPipelineResults(outputDir, workflow),
+                            *(scenario.details ? [scenario.details(outputDir)] : [])
+                        ).match() }
+                    )
+                } else if (scenario.result == "failed") {
+                    assert workflow.failed
+                } else {
+                    error "Scenario result parameter should be either 'success' or 'failed', found: ${scenario.result}."
+                }
             }
         }
     }
-
 }

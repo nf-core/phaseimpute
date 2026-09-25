@@ -10,18 +10,28 @@ nextflow_pipeline {
 
     def test_scenario = [
         [
-            name: "Check test_vcf - three vcf and three samples",
+            name: "Check test_vcf - 3 vcf and 3 samples",
             config: "../conf/test_vcf.config",
             params: [
-                input: "${projectDir}/tests/csv/sample_3vcf3samples.csv"
+                input: "${projectDir}/tests/csv/sample_3vcf3samples.csv",
+                force_multi_vcf: true
             ]
         ],
         [
-            name: "Check test_vcf - one vcf and three samples",
+            name: "Check test_vcf - 1 vcf and 3 samples",
             config: "../conf/test_vcf.config",
             params: [
                 input: "${projectDir}/tests/csv/sample_1vcf3samples.csv"
             ]
+        ],
+        [
+            name: "Check test_vcf - 3 vcf and 3 samples - error",
+            config: "../conf/test_vcf.config",
+            params: [
+                input: "${projectDir}/tests/csv/sample_3vcf3samples.csv",
+                force_multi_vcf: false
+            ],
+            result: "failed"
         ]
     ]
 

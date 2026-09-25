@@ -35,6 +35,10 @@ SAMPLE3,AEG588A3.bam,AEG588A3.bai
 | `file`   | Full path to an alignment or variant file. File has to have the extension ".bam", ".cram" or ".vcf", ".bcf" and optionally compressed with bgzip ".gz". All files in this column need to have the same extension. |
 | `index`  | Full path to index file. File has to be have the extension ".bai", ".crai", "csi", or "tbi". All files in this column need to have the same extension.                                                            |
 
+> [!WARNING]
+> When using VCF files it is recommended to use one multi-sample VCF to avoid batch effect when imputing with Beagle5 or Glimpse1.
+> A check ensuring this can be by-passed using `--force_multi_vcf` if you want to use only single-sample vcf or if you know what you are doing.
+
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 ## Samplesheet reference panel
@@ -414,9 +418,9 @@ nextflow run nf-core/phaseimpute -profile <test,test_glimpse2,test_quilt,...>,<s
 
 ## Running the pipeline: detailed instructions
 
-nf-core/phaseimpute can be started at different points in the analysis by setting the flag `--steps` and the available options `[simulate, panelprep, impute, validate, all]`. You can also run several steps simultaneously by listing the required processes as `--steps panelprep,impute` or you can choose to run all steps sequentially by using `--steps all`.
+nf-core/phaseimpute can be started at different points in the analysis by setting the flag `--steps` and the available options `[simulate, panelprep, prephase, impute, validate, all]`. You can also run several steps simultaneously by listing the required processes as `--steps panelprep,impute` or you can choose to run all steps sequentially by using `--steps all,prephase`. Step `prephase` is a bit special and will be explain bellow.
 
-## Start with simulation `--steps simulate`
+### Start with simulation `--steps simulate`
 
 <img src="images/metro/Simulate.png" alt="simulate_metro" width="600"/>
 
@@ -447,7 +451,7 @@ resulting depth.
 
 You can find an overview of the results produced by this step in the [Output](output.md).
 
-## Start with panel preparation `--steps panelprep`
+### Start with panel preparation `--steps panelprep`
 
 <img src="images/metro/PanelPrep.png" alt="Panel preparation" width="600"/>
 
@@ -491,7 +495,20 @@ withName: 'NFCORE_PHASEIMPUTE:PHASEIMPUTE:VCF_CHUNK_GLIMPSE:GLIMPSE2_CHUNK' {
 
 You can find an overview of the results produced by this steps in the [Output](output.md).
 
-## Start with imputation `--steps impute`
+### Use `--steps prephase`
+
+This step has been added to solve two use case:
+
+1. People interested to phase large dataset using already phased reference panel without performing
+   imputation
+2. People wanting to impute with `MINIMAC4` with unphased data
+
+This step allows to phase multi-contig multi-sample VCF files passed through `--input`.
+The reference panel given by `--panel` will be used as `--reference` in `SHAPEIT5_phase_common`.
+
+You can first normalize this panel and / or create chunks using `--steps panelprep,prephase`.
+
+### Start with imputation `--steps impute`
 
 <img src="images/metro/Impute.png" alt="Impute target" width="600"/>
 
@@ -555,11 +572,11 @@ To summarize:
   - GLIMPSE1 and STITCH may induce batch effects, so all samples need to be imputed together.
   - GLIMPSE2, QUILT and QUILT2 can process samples in separate batches.
 
-## Imputation tools `--steps impute --tools [glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]`
+#### Imputation tools `--steps impute --tools [glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]`
 
 You can choose different software to perform the imputation. In the following sections, the typical commands for running the pipeline with each software are included. Multiple tools can be selected by separating them with a comma (eg. `--tools glimpse1,quilt`).
 
-### QUILT / QUILT2
+##### QUILT / QUILT2
 
 [QUILT](https://github.com/rwdavies/QUILT) is an R and C++ package for read-aware genotype imputation from low-coverage sequencing using a reference panel. This pipeline contains the original QUILT method (`QUILT.R`, referred to here as `quilt`) and the newer QUILT2 method (`QUILT2.R`, exposed in this pipeline as `quilt2`).
 
@@ -568,8 +585,6 @@ In `nf-core/phaseimpute`, both methods use alignment files from `--input`, optio
 Choose `quilt2` by default for new projects. The official QUILT2 documentation describes it as the recommended modern method for large reference panels and diverse sequencing inputs including short reads, long reads, linked/barcoded reads and ancient DNA. The QUILT2 paper also reports a dedicated cfDNA/NIPT mode upstream; however, the current `nf-core/phaseimpute` integration includes the diploid imputation workflow only.
 
 Choose `quilt` when you specifically want the original QUILT workflow.
-
-#### `quilt` / `quilt2`
 
 The required inputs for `quilt` are BAM/CRAM samples provided in the input samplesheet (`--input`) and a CSV file with the genomic chunks (`--chunks`).
 
@@ -619,7 +634,7 @@ nextflow run nf-core/phaseimpute \
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### STITCH
+##### STITCH
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.posfile.gz` file with the list of positions to genotype (`--posfile`). Internally, the pipeline converts the posfile with CHROM POS REF,ALT file to STITCH’s CHROM POS REF ALT format; users should always provide the comma-separated format described in the [Posfile section](#samplesheet-posfile).
 
@@ -671,7 +686,7 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### GLIMPSE1
+##### GLIMPSE1
 
 [GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels.
 Glimpse1 works with variant (i.e. VCF or BCF) files as input.
@@ -707,7 +722,7 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### GLIMPSE2
+##### GLIMPSE2
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
 
@@ -732,7 +747,7 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### BEAGLE5
+##### BEAGLE5
 
 [BEAGLE5](https://faculty.washington.edu/browning/beagle/beagle.html) is a software package for analyzing large-scale genetic
 data sets with hundreds of thousands of markers genotyped on thousands of samples.
@@ -758,7 +773,7 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### MINIMAC4
+##### MINIMAC4
 
 [MINIMAC4](https://github.com/statgen/Minimac4) is a low memory, computationally efficient implementation of the MaCH algorithm for genotype imputation. It is designed to work on phased haplotypes and can handle very large reference panels.
 
@@ -766,7 +781,7 @@ See [Map section](#samplesheet-map) for more information.
 nextflow run nf-core/phaseimpute \
     --input samplesheet.csv \
     --panel samplesheet_reference.csv \
-    --steps impute \
+    --steps prephase,impute \
     --tools minimac4 \
     --outdir results \
     --genome GRCh37 \
@@ -783,7 +798,10 @@ panel,chr,vcf,index
 
 The CSV file provided in `--panel` must be prepared with `--steps panelprep` and must contain four columns [panel, chr, vcf, index].
 
-MINIMAC4 works only with variant calling format files (VCF or BCF) as input.
+MINIMAC4 works only with prephased variant calling format files (VCF or BCF) as input.
+If your VCF file is not already phased you can add `--steps prephase` which will phase the variants with the `--panel` provided
+using `SHAPEIT5`.
+See [prephase section](#use---steps-prephase) for more information.
 
 You can optionally provide chunks to parallelize the imputation process using `--chunks`.
 If not provided the full region per chromosome will be used.
@@ -792,7 +810,7 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-## Start with validation `--steps validate`
+### Start with validation `--steps validate`
 
 <img src="images/metro/Validate.png" alt="concordance_metro" width="600"/>
 
@@ -826,7 +844,7 @@ panel,chr,vcf,index
 1000GP,chr22,1000GP.s.norel_chr22.sites.vcf.gz,1000GP.s.norel_chr22.sites.csi
 ```
 
-## Run all steps sequentially `--steps all`
+### Run all steps sequentially `--steps all`
 
 This mode runs all the previous steps. This requires several flags:
 
@@ -849,7 +867,7 @@ However, some contigs specified in these files may be absent from other key file
 
 Finally, the pipeline performs a detailed check with the `CHECKCHR` tool to verify that these contigs are present in every `--input` and `--input_truth` file, as well as in the individual reference panel files. This prevents inconsistencies in downstream steps.
 
-### Updating the pipeline
+## Updating the pipeline
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
@@ -857,7 +875,7 @@ When you run the above command, Nextflow automatically pulls the pipeline code f
 nextflow pull nf-core/phaseimpute
 ```
 
-### Reproducibility
+## Reproducibility
 
 It is a good idea to specify the pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 

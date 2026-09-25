@@ -165,6 +165,11 @@
                     "description": "Maximal number of individuals per batch for imputation.",
                     "default": 100
                 },
+                "force_multi_vcf": {
+                    "type": "boolean",
+                    "description": "By-pass one vcf rules when only multiple single-sample vcf are used.",
+                    "default": "false"
+                },
                 "chunks": {
                     "type": "string",
                     "description": "Path to comma or tab-separated file, yaml or json file containing genomic chunks to be used for imputation.",
