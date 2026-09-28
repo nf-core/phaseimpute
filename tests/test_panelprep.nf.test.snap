@@ -113,9 +113,9 @@
                     "prep_panel/sites/1000GP.chr21.posfile.txt",
                     "prep_panel/sites/1000GP.chr22.posfile.txt",
                     "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi"
                 ],
                 "stable path": [
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
@@ -176,8 +176,8 @@
                         "fileName": "posfile.csv",
                         "rows": [
                             "panel,chr,vcf,index,hap,legend,posfile",
-                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.tbi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
-                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.tbi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
+                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.csi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
+                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.csi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
                         ]
                     }
                 ]
@@ -310,9 +310,9 @@
                     "prep_panel/sites/1000GP.chr21.posfile.txt",
                     "prep_panel/sites/1000GP.chr22.posfile.txt",
                     "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.tbi",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
                     "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.tbi"
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi"
                 ],
                 "stable path": [
                     "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
@@ -371,8 +371,8 @@
                         "fileName": "posfile.csv",
                         "rows": [
                             "panel,chr,vcf,index,hap,legend,posfile",
-                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.tbi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
-                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.tbi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
+                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.csi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
+                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.csi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
                         ]
                     }
                 ]

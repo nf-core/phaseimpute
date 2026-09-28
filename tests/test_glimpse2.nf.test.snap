@@ -71,11 +71,11 @@
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
                     "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
@@ -195,9 +195,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.tbi",
-                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.tbi",
-                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.tbi"
+                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.csi",
+                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.csi",
+                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -285,11 +285,11 @@
                     "imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples",
                     "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA12878.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA19401.glimpse2.vcf.gz.csi",
                     "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz",
-                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.tbi",
+                    "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
                     "imputation/stats/NA19401.glimpse2.bcftools_stats.txt",
@@ -392,9 +392,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.tbi",
-                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.tbi",
-                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.tbi"
+                            "NA12878,glimpse2,NA12878.glimpse2.vcf.gz,NA12878.glimpse2.vcf.gz.csi",
+                            "NA19401,glimpse2,NA19401.glimpse2.vcf.gz,NA19401.glimpse2.vcf.gz.csi",
+                            "NA20359,glimpse2,NA20359.glimpse2.vcf.gz,NA20359.glimpse2.vcf.gz.csi"
                         ]
                     }
                 ]

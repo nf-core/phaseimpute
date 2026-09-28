@@ -62,11 +62,11 @@
                     "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
                     "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
@@ -174,9 +174,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
-                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
-                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.csi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.csi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -265,11 +265,11 @@
                     "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
                     "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
@@ -394,9 +394,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
-                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
-                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.csi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.csi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.csi"
                         ]
                     }
                 ]

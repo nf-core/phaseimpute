@@ -63,11 +63,11 @@
                     "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
-                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
-                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
-                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.csi",
                     "imputation/csv",
                     "imputation/csv/impute.csv",
                     "imputation/stats",
@@ -194,9 +194,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,beagle5,NA12878.beagle5.vcf.gz,NA12878.beagle5.vcf.gz.tbi",
-                            "NA19401,beagle5,NA19401.beagle5.vcf.gz,NA19401.beagle5.vcf.gz.tbi",
-                            "NA20359,beagle5,NA20359.beagle5.vcf.gz,NA20359.beagle5.vcf.gz.tbi"
+                            "NA12878,beagle5,NA12878.beagle5.vcf.gz,NA12878.beagle5.vcf.gz.csi",
+                            "NA19401,beagle5,NA19401.beagle5.vcf.gz,NA19401.beagle5.vcf.gz.csi",
+                            "NA20359,beagle5,NA20359.beagle5.vcf.gz,NA20359.beagle5.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -274,11 +274,11 @@
                     "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
-                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples/NA19401.beagle5.vcf.gz",
-                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA19401.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples/NA20359.beagle5.vcf.gz",
-                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.tbi",
+                    "imputation/beagle5/samples/NA20359.beagle5.vcf.gz.csi",
                     "imputation/csv",
                     "imputation/csv/impute.csv",
                     "imputation/stats",
@@ -388,9 +388,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,beagle5,NA12878.beagle5.vcf.gz,NA12878.beagle5.vcf.gz.tbi",
-                            "NA19401,beagle5,NA19401.beagle5.vcf.gz,NA19401.beagle5.vcf.gz.tbi",
-                            "NA20359,beagle5,NA20359.beagle5.vcf.gz,NA20359.beagle5.vcf.gz.tbi"
+                            "NA12878,beagle5,NA12878.beagle5.vcf.gz,NA12878.beagle5.vcf.gz.csi",
+                            "NA19401,beagle5,NA19401.beagle5.vcf.gz,NA19401.beagle5.vcf.gz.csi",
+                            "NA20359,beagle5,NA20359.beagle5.vcf.gz,NA20359.beagle5.vcf.gz.csi"
                         ]
                     }
                 ]

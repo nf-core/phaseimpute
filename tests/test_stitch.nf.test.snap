@@ -81,11 +81,11 @@
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.csi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
-                    "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA12878.stitch.vcf.gz.csi",
                     "imputation/stitch/samples/NA19401.stitch.vcf.gz",
-                    "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA19401.stitch.vcf.gz.csi",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz",
-                    "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA20359.stitch.vcf.gz.csi",
                     "initialisation",
                     "initialisation/map_convertion",
                     "initialisation/map_convertion/1000GP_chr21.glimpse.map",
@@ -201,9 +201,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,stitch,NA12878.stitch.vcf.gz,NA12878.stitch.vcf.gz.tbi",
-                            "NA19401,stitch,NA19401.stitch.vcf.gz,NA19401.stitch.vcf.gz.tbi",
-                            "NA20359,stitch,NA20359.stitch.vcf.gz,NA20359.stitch.vcf.gz.tbi"
+                            "NA12878,stitch,NA12878.stitch.vcf.gz,NA12878.stitch.vcf.gz.csi",
+                            "NA19401,stitch,NA19401.stitch.vcf.gz,NA19401.stitch.vcf.gz.csi",
+                            "NA20359,stitch,NA20359.stitch.vcf.gz,NA20359.stitch.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -301,11 +301,11 @@
                     "imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz.csi",
                     "imputation/stitch/samples",
                     "imputation/stitch/samples/NA12878.stitch.vcf.gz",
-                    "imputation/stitch/samples/NA12878.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA12878.stitch.vcf.gz.csi",
                     "imputation/stitch/samples/NA19401.stitch.vcf.gz",
-                    "imputation/stitch/samples/NA19401.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA19401.stitch.vcf.gz.csi",
                     "imputation/stitch/samples/NA20359.stitch.vcf.gz",
-                    "imputation/stitch/samples/NA20359.stitch.vcf.gz.tbi",
+                    "imputation/stitch/samples/NA20359.stitch.vcf.gz.csi",
                     "initialisation",
                     "initialisation/prepare_genome",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
@@ -404,9 +404,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,stitch,NA12878.stitch.vcf.gz,NA12878.stitch.vcf.gz.tbi",
-                            "NA19401,stitch,NA19401.stitch.vcf.gz,NA19401.stitch.vcf.gz.tbi",
-                            "NA20359,stitch,NA20359.stitch.vcf.gz,NA20359.stitch.vcf.gz.tbi"
+                            "NA12878,stitch,NA12878.stitch.vcf.gz,NA12878.stitch.vcf.gz.csi",
+                            "NA19401,stitch,NA19401.stitch.vcf.gz,NA19401.stitch.vcf.gz.csi",
+                            "NA20359,stitch,NA20359.stitch.vcf.gz,NA20359.stitch.vcf.gz.csi"
                         ]
                     }
                 ]
