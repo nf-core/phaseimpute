@@ -55,18 +55,18 @@
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
                     "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.csi",
                     "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.csi",
                     "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
                     "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
@@ -146,27 +146,27 @@
                 "VCF files": [
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "4a1881c85e9ac8dd7acdf93232868156"
+                        "3cdfd0b2260552007d40ea66664827f0"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "2cdb12108237fa523d842020af138b2d"
+                        "a2e2839795f6ae95a426f4d2f3a5b718"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "f44ff5d3a7d3c4c6912d4d065659d336"
+                        "48622660727fa3bfbfe70b76aad17719"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "4a1881c85e9ac8dd7acdf93232868156"
+                        "3cdfd0b2260552007d40ea66664827f0"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "2cdb12108237fa523d842020af138b2d"
+                        "a2e2839795f6ae95a426f4d2f3a5b718"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "f44ff5d3a7d3c4c6912d4d065659d336"
+                        "48622660727fa3bfbfe70b76aad17719"
                     ]
                 ],
                 "CSV files": [
@@ -174,9 +174,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
-                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
-                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.csi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.csi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -190,7 +190,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:17:18.473450722",
+        "timestamp": "2026-09-25T21:38:05.354957864",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -258,18 +258,18 @@
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
                     "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.csi",
                     "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.csi",
                     "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.tbi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
                     "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
@@ -366,27 +366,27 @@
                 "VCF files": [
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "28f874b436d12855acddd32534155eba"
+                        "c103263da2696f2af4512b1655ddc973"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "2cdb12108237fa523d842020af138b2d"
+                        "a2e2839795f6ae95a426f4d2f3a5b718"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "97b19fb2db81e4c2de36e72279c45e53"
+                        "7dc3ddcbe5e3a84354944ee8863a6ff9"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "28f874b436d12855acddd32534155eba"
+                        "c103263da2696f2af4512b1655ddc973"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "2cdb12108237fa523d842020af138b2d"
+                        "a2e2839795f6ae95a426f4d2f3a5b718"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "97b19fb2db81e4c2de36e72279c45e53"
+                        "7dc3ddcbe5e3a84354944ee8863a6ff9"
                     ]
                 ],
                 "CSV files": [
@@ -394,9 +394,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.tbi",
-                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.tbi",
-                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.tbi"
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.csi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.csi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.csi"
                         ]
                     }
                 ]
