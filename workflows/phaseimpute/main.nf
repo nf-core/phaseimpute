@@ -332,12 +332,28 @@ workflow PHASEIMPUTE {
         log.info("Prephase target data using reference panel")
         ch_chunks_phase_target = chunkPrepareChannel(ch_chunks, ch_region, "glimpse1")
 
+        // Combine meta maps of vcf (all chr) with reference panel (per chr)
+        ch_prephase = ch_input_type.vcf
+            .combine(ch_panel_phased
+                .combine(ch_chunks_phase_target, by:0)
+                .combine(ch_map_glimpse, by: 0)
+            )
+            .multiMap { metaI, vcf, index, metaR, ref_vcf, ref_index, _regionin, regionout, map ->
+                input: [ metaI + metaR, vcf, index, [], [] ] // No pedigree, no region
+                panel: [ metaI + metaR, ref_vcf, ref_index ]
+                chunks: [ metaI + metaR, regionout ]
+                map: [ metaI + metaR, map]
+            }
+            .map{ metaI, vcf, index, metaR, _ref_vcf, _ref_index -> [
+                metaI + metaR, vcf, index, [], [] // No pedigree, no region
+            ]}
+
         VCF_PHASE_TARGET(
-            ch_input_type.vcf.combine(channel.of([[], []])), // No pedigree, no region
-            ch_chunks_phase_target.map{ meta, _regionin, regionout -> [meta, regionout]},
-            ch_panel_phased,
-            ch_panel_phased.map{ meta, _file, _index -> [meta, [], []]}, // No scaffold
-            ch_map_glimpse,
+            ch_prephase.input,
+            ch_prephase.chunks,
+            ch_prephase.panel,
+            ch_prephase.panel.map{ meta, _file, _index -> [meta, [], []]}, // No scaffold
+            ch_prephase.map,
             false,
             params_panelprep["chunk_model"]
         )

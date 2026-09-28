@@ -159,20 +159,22 @@ workflow PIPELINE_INITIALISATION {
         ch_input_target = channel.of([[], [], []])
     }
 
-    // Check that the batch size and extension is compatible with the tools
-    ch_input_target
-        .map { _meta, input, _index -> [input]}
-        .collect()
-        .map { input_files ->
-            def extension = getFilesSameExt(input_files)
-            validateInputBatchTools(
-                input_files,
-                batch_size,
-                extension,
-                tools,
-                force_multi_vcf,
-                steps
-            )
+    if (steps.contains("impute")){
+        // Check that the batch size and extension is compatible with the tools
+        ch_input_target
+            .map { _meta, input, _index -> [input]}
+            .collect()
+            .map { input_files ->
+                def extension = getFilesSameExt(input_files)
+                validateInputBatchTools(
+                    input_files,
+                    batch_size,
+                    extension,
+                    tools,
+                    force_multi_vcf,
+                    steps
+                )
+        }
     }
 
     //
@@ -522,6 +524,9 @@ def parseSteps(stepsString) {
         .split(',')
         .collect { step -> step.trim() }
     if (stepsList.contains("all")) {
+        if (stepsList.contains("prephase")) {
+            return ["simulate", "panelprep", "prephase", "impute", "validate"]
+        }
         return ["simulate", "panelprep", "impute", "validate"]
     } else {
         return stepsList

@@ -1341,7 +1341,7 @@ nextflow_function {
         when {
             function {
                 """
-                input[0] = ["all"]
+                input[0] = "all"
                 """
             }
         }
@@ -1368,7 +1368,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.success },
-                { assert function.result == ["simulate", "panelprep", "impute", "validate", "prephase"] }
+                { assert function.result == ["simulate", "panelprep", "prephase", "impute", "validate"] }
             )
         }
     }
