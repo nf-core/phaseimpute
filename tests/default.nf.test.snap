@@ -231,7 +231,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "382c43720e1187f9e2324e0ac87ea3be"
+                        "b2f8bb6a8d3f2bc5c9c31bfe93f9e53b"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -243,15 +243,15 @@
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "223a9b6ea48ff9c11215bf9c00c8dbcb"
+                        "6b0c2314abffe69605d80dc6e9f702b"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "34dbf34cde4412b1327a72fb8eb14e6f"
+                        "55f060ef3c7eef2b86614ad12ad5a546"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "bd4fde5baf064d7a88c513d6ba3cb62a"
+                        "7f852c7abf2ad567edead407ed11334"
                     ],
                     [
                         "NA12878_chr21.vcf.gz",
@@ -279,11 +279,11 @@
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
-                        "b9a7c83f719a9c3a3d8a39cf5f302a9d"
+                        "df3e9828f8939a468c1aed8b91b6d800"
                     ],
                     [
                         "all_samples.concat.vcf.gz",
-                        "e6f43808fd6787f348d7614bbda9b333"
+                        "b3af1cc28583d6d5f9751bcde0a94999"
                     ],
                     [
                         "all_samples_chr21.merge.vcf.gz",
@@ -317,7 +317,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-18T09:08:05.573711008",
+        "timestamp": "2026-09-28T13:32:37.188236121",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
