@@ -41,7 +41,7 @@
                     },
                     "bcftools/mpileup": {
                         "branch": "master",
-                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
+                        "git_sha": "140a5c4d654dfb1e609334d2543bdfe22f8288db",
                         "installed_by": ["bam_variant_calling_mpileup_bcftools"]
                     },
                     "bcftools/norm": {
@@ -252,7 +252,7 @@
                     },
                     "bam_variant_calling_mpileup_bcftools": {
                         "branch": "master",
-                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
+                        "git_sha": "140a5c4d654dfb1e609334d2543bdfe22f8288db",
                         "installed_by": ["subworkflows"]
                     },
                     "bam_vcf_impute_glimpse2": {

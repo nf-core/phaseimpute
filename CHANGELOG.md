@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#299](https://github.com/nf-core/phaseimpute/pull/299) - Update modules and subworkflows. Replace `TABIX_TABIX` and `TABIX_BGZIP` by `HTSLIB_BGZIPTABIX`.
 - [#307](https://github.com/nf-core/phaseimpute/pull/307) - Update TEMPLATE to nf-core tools version 4.1.0.
 - [#317](https://github.com/nf-core/phaseimpute/pull/317) - Improve `--steps` management.
+- [#321](https://github.com/nf-core/phaseimpute/pull/321) - Use `.csi` index for all configurable index outputs.
 
 ### `Fixed`
 
@@ -65,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#315](https://github.com/nf-core/phaseimpute/pull/315) - Add error message if no fasta provided.
 - [#316](https://github.com/nf-core/phaseimpute/pull/316) - Fix VCF support for `GLIMPSE2` imputation, publish samples split by default.
 - [#320](https://github.com/nf-core/phaseimpute/pull/320) - Use stricter extension check for `CHRCHECK`.
+- [#321](https://github.com/nf-core/phaseimpute/pull/321) - Remove `--ligate` option from `bcftools concat` (remove `PS` field).
 
 ### `Dependencies`
 

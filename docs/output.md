@@ -74,7 +74,7 @@ The directory structure from `--steps panelprep` is:
 
 - `prep_panel/panel/`
   - `*.vcf.gz`: The reference panel VCF files after all the preprocessing steps are completed.
-  - `*.tbi`: The index file for the prepared reference panel.
+  - `*.csi`: The index file for the prepared reference panel.
 
 </details>
 
@@ -154,9 +154,9 @@ The results from `--steps impute` will have the following directory structure:
   - `impute.csv`: A single CSV file containing the path to a VCF file and its index, of each imputed sample with their corresponding tool.
 - `imputation/[glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]/`
   - `concat/all.batch*.vcf.gz`: The concatenated VCF files of all imputed samples by batches.
-  - `concat/all.batch*.vcf.gz.tbi`: The index file for the concatenated imputed VCF files of the samples.
+  - `concat/all.batch*.vcf.gz.csi`: The index file for the concatenated imputed VCF files of the samples.
   - `samples/*.vcf.gz`: A VCF file of each imputed sample.
-  - `samples/*.vcf.gz.tbi`: The index file of the imputed VCF files.
+  - `samples/*.vcf.gz.csi`: The index file of the imputed VCF files.
 - `imputation/*.<tool>.bcftools_stats.txt`: The statistics of the imputed VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
 
 </details>
@@ -198,9 +198,9 @@ The results from `--steps validate` will have the following directory structure:
 
 - `validation/`
   - `concat/all.truth.vcf.gz`: The concatenated VCF file of all truth sample.
-  - `concat/all.truth.vcf.gz.tbi`: The index file of the concatenated truth VCF file of the samples.
+  - `concat/all.truth.vcf.gz.csi`: The index file of the concatenated truth VCF file of the samples.
   - `samples/*.vcf.gz`: A VCF file of each truth sample.
-  - `samples/*.vcf.gz.tbi`: The index file of the truth VCF file.
+  - `samples/*.vcf.gz.csi`: The index file of the truth VCF file.
   - `stats/`:
     - `*.truth.bcftools_stats.txt`: The statistics of the truth VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
     - `*.P<panel name>_T<imputation tool>_SNP.txt`: Concordance metrics of the SNPs variants obtained with [`GLIMPSE2_CONCORDANCE`](https://odelaneau.github.io/GLIMPSE/docs/documentation/concordance/).

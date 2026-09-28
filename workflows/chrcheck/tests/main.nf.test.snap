@@ -9,13 +9,13 @@
             ],
             [
                 "BAM_chr_to_nochr_rename.bam.bai",
-                "VCF_chr_to_nochr_chrrename.vcf.gz.tbi"
+                "VCF_chr_to_nochr_chrrename.vcf.gz.csi"
             ]
         ],
-        "timestamp": "2026-03-18T12:00:28.595127654",
+        "timestamp": "2026-09-28T14:52:59.558019976",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "Rename: VCF no chr + fasta chr": {
@@ -28,13 +28,13 @@
             ],
             [
                 "BAM_nochr_to_chr_rename.bam.bai",
-                "VCF_nochr_to_chr_chrrename.vcf.gz.tbi"
+                "VCF_nochr_to_chr_chrrename.vcf.gz.csi"
             ]
         ],
-        "timestamp": "2026-03-18T12:00:42.368791393",
+        "timestamp": "2026-09-28T14:53:10.742290896",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.02.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }
