@@ -551,7 +551,7 @@ def validateInputParameters(
     }
 
     // Check that input is provided for all steps, except panelprep
-    if (steps.contains("impute") || steps.contains("simulate") || steps.contains("validate")) {
+    if (steps.contains("simulate") || steps.contains("prephase") || steps.contains("impute") || steps.contains("validate")) {
         if (!sheet_target) {
             error "No --input provided"
         }
@@ -590,6 +590,17 @@ def validateInputParameters(
 
         if (chunk_version == "V1" && chunk_model != "sequential") {
             error "Glimpse V1 doesn't support custom chunking model `--chunk_model $chunk_model`. Please use `--chunk_version V2` or remove `--chunk_model`."
+        }
+    }
+
+    // Check prephase step
+    if (steps.contains("prephase")) {
+        if (!sheet_panel){
+            error "Prephase step require --panel to be provided"
+        }
+
+        if (sheet_panel && !steps.contains("panel_prep")) {
+            log.info("Provided `--panel` will be used in `--steps prephase`. Make sure it has been previously prepared with `--steps panelprep`")
         }
     }
 
