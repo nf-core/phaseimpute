@@ -1,0 +1,521 @@
+{
+    "Check test_prephase - no paneprep but with map and chunks": {
+        "content": [
+            {
+                "workflow size": 51,
+                "versions": {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "SHAPEIT5_LIGATE": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "SHAPEIT5_PHASECOMMON": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "imputation",
+                    "imputation/prephase",
+                    "imputation/prephase/NA12878_chr21_16570070-16590513_chunks.bcf",
+                    "imputation/prephase/NA12878_chr21_16570070-16590513_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr21_16590521-16609998_chunks.bcf",
+                    "imputation/prephase/NA12878_chr21_16590521-16609998_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr21_phased.vcf.gz",
+                    "imputation/prephase/NA12878_chr21_phased.vcf.gz.csi",
+                    "imputation/prephase/NA12878_chr22_16570065-16592216_chunks.bcf",
+                    "imputation/prephase/NA12878_chr22_16570065-16592216_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr22_16592229-16609999_chunks.bcf",
+                    "imputation/prephase/NA12878_chr22_16592229-16609999_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr22_phased.vcf.gz",
+                    "imputation/prephase/NA12878_chr22_phased.vcf.gz.csi",
+                    "imputation/prephase/NA19401_chr21_16570070-16590513_chunks.bcf",
+                    "imputation/prephase/NA19401_chr21_16570070-16590513_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr21_16590521-16609998_chunks.bcf",
+                    "imputation/prephase/NA19401_chr21_16590521-16609998_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr21_phased.vcf.gz",
+                    "imputation/prephase/NA19401_chr21_phased.vcf.gz.csi",
+                    "imputation/prephase/NA19401_chr22_16570065-16592216_chunks.bcf",
+                    "imputation/prephase/NA19401_chr22_16570065-16592216_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr22_16592229-16609999_chunks.bcf",
+                    "imputation/prephase/NA19401_chr22_16592229-16609999_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr22_phased.vcf.gz",
+                    "imputation/prephase/NA19401_chr22_phased.vcf.gz.csi",
+                    "imputation/prephase/NA20359_chr21_16570070-16590513_chunks.bcf",
+                    "imputation/prephase/NA20359_chr21_16570070-16590513_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr21_16590521-16609998_chunks.bcf",
+                    "imputation/prephase/NA20359_chr21_16590521-16609998_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr21_phased.vcf.gz",
+                    "imputation/prephase/NA20359_chr21_phased.vcf.gz.csi",
+                    "imputation/prephase/NA20359_chr22_16570065-16592216_chunks.bcf",
+                    "imputation/prephase/NA20359_chr22_16570065-16592216_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr22_16592229-16609999_chunks.bcf",
+                    "imputation/prephase/NA20359_chr22_16592229-16609999_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr22_phased.vcf.gz",
+                    "imputation/prephase/NA20359_chr22_phased.vcf.gz.csi",
+                    "imputation/prephase/concat",
+                    "imputation/prephase/concat/NA12878.batchnull.prephase.vcf.gz",
+                    "imputation/prephase/concat/NA12878.batchnull.prephase.vcf.gz.tbi",
+                    "imputation/prephase/concat/NA19401.batchnull.prephase.vcf.gz",
+                    "imputation/prephase/concat/NA19401.batchnull.prephase.vcf.gz.tbi",
+                    "imputation/prephase/concat/NA20359.batchnull.prephase.vcf.gz",
+                    "imputation/prephase/concat/NA20359.batchnull.prephase.vcf.gz.tbi",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
+                ],
+                "stable path": [
+                    "NA12878_chr21_16570070-16590513_chunks.bcf:md5,9b29b53c6602e6bc4ff9baf67ab0169b",
+                    "NA12878_chr21_16570070-16590513_chunks.bcf.csi:md5,5d69da881a44c07c28f70bdf047b447c",
+                    "NA12878_chr21_16590521-16609998_chunks.bcf:md5,8738fce99a759c4bca50c500eee7084f",
+                    "NA12878_chr21_16590521-16609998_chunks.bcf.csi:md5,f7bd7b0385fe4bf30e6bb72b6d2a48a9",
+                    "NA12878_chr21_phased.vcf.gz:md5,2247a4da1110294b0081257cd15a537f",
+                    "NA12878_chr21_phased.vcf.gz.csi:md5,4ab7bdd3236921eb1fbbe0b954b3e099",
+                    "NA12878_chr22_16570065-16592216_chunks.bcf:md5,baba635a15c953601506e8e9d3d6e00b",
+                    "NA12878_chr22_16570065-16592216_chunks.bcf.csi:md5,459659b42455ad34addf30c9e57c48c4",
+                    "NA12878_chr22_16592229-16609999_chunks.bcf:md5,b0985f62558191d21c34d4f4b354eb25",
+                    "NA12878_chr22_16592229-16609999_chunks.bcf.csi:md5,49f4b1df670a720161a7ee10320e0bd5",
+                    "NA12878_chr22_phased.vcf.gz:md5,269fc089898b977da2dd4394f8956b18",
+                    "NA12878_chr22_phased.vcf.gz.csi:md5,9a1b61d1b4183ec51830f122b62b6f1f",
+                    "NA19401_chr21_16570070-16590513_chunks.bcf:md5,85e7084a527cac1920ac0d3ac4893a56",
+                    "NA19401_chr21_16570070-16590513_chunks.bcf.csi:md5,8be26fb6e35604cdd0ba5749a6eda711",
+                    "NA19401_chr21_16590521-16609998_chunks.bcf:md5,8a22356bee7672a61244f5f5befed8f8",
+                    "NA19401_chr21_16590521-16609998_chunks.bcf.csi:md5,418795070f43cbf146d25ea8f668d0db",
+                    "NA19401_chr21_phased.vcf.gz:md5,11f4db27e014328ff4cda4b862a169d6",
+                    "NA19401_chr21_phased.vcf.gz.csi:md5,6933a47d2aef72d03f4c19440e9730a5",
+                    "NA19401_chr22_16570065-16592216_chunks.bcf:md5,33c4e059bdf01dff4febeb668857e4c6",
+                    "NA19401_chr22_16570065-16592216_chunks.bcf.csi:md5,d6292706270484cc45e5180a677d9eec",
+                    "NA19401_chr22_16592229-16609999_chunks.bcf:md5,c394555ad95b5e602a904b6568ef8319",
+                    "NA19401_chr22_16592229-16609999_chunks.bcf.csi:md5,49f4b1df670a720161a7ee10320e0bd5",
+                    "NA19401_chr22_phased.vcf.gz:md5,4dd91e092f9e918746e5a1a24a16f064",
+                    "NA19401_chr22_phased.vcf.gz.csi:md5,d7b16de1c7c6c812f9255fcf9d97a41b",
+                    "NA20359_chr21_16570070-16590513_chunks.bcf:md5,07e200b829fa3907c4da1743a8c9e4e8",
+                    "NA20359_chr21_16570070-16590513_chunks.bcf.csi:md5,5cdd22f50b2f217fcb44c260733ec7b3",
+                    "NA20359_chr21_16590521-16609998_chunks.bcf:md5,bd58df9bce9bca37e95fe8e360e8eaab",
+                    "NA20359_chr21_16590521-16609998_chunks.bcf.csi:md5,bdaf67d8c52f70b6c8607157f9e52fa6",
+                    "NA20359_chr21_phased.vcf.gz:md5,9e1859815dba4921358c6aeea41d3a9e",
+                    "NA20359_chr21_phased.vcf.gz.csi:md5,d551302597ab9ca9cdfc72080c00f8f7",
+                    "NA20359_chr22_16570065-16592216_chunks.bcf:md5,f8b1ab1119ee2fc45e78acc4817b1465",
+                    "NA20359_chr22_16570065-16592216_chunks.bcf.csi:md5,459659b42455ad34addf30c9e57c48c4",
+                    "NA20359_chr22_16592229-16609999_chunks.bcf:md5,8ad4f7075cf1701ece6f73d0eb699286",
+                    "NA20359_chr22_16592229-16609999_chunks.bcf.csi:md5,2cc3cfbb9edc5a472227bbc998e74f2c",
+                    "NA20359_chr22_phased.vcf.gz:md5,0584a094420f2985b1027c1cb4599405",
+                    "NA20359_chr22_phased.vcf.gz.csi:md5,6d069e5da4d8279f00addfff6668eb60",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "NA12878_chr21_phased.vcf.gz",
+                        "8e319ecf5348fe77ebbaa99dfa0d52e"
+                    ],
+                    [
+                        "NA12878_chr22_phased.vcf.gz",
+                        "f72eeeb7e9b9f0f81a3fdec44e399216"
+                    ],
+                    [
+                        "NA19401_chr21_phased.vcf.gz",
+                        "fba964d172f6683fcd1fefa422f365ac"
+                    ],
+                    [
+                        "NA19401_chr22_phased.vcf.gz",
+                        "a7b66fea079ba093a3e15ea86715fce3"
+                    ],
+                    [
+                        "NA20359_chr21_phased.vcf.gz",
+                        "786df606a95829fdcce7d0f1e25b0665"
+                    ],
+                    [
+                        "NA20359_chr22_phased.vcf.gz",
+                        "1f3c9719c13c5920810789194a8d16c4"
+                    ],
+                    [
+                        "NA12878.batchnull.prephase.vcf.gz",
+                        "b7224244f41b1bd05b04513fe279c267"
+                    ],
+                    [
+                        "NA19401.batchnull.prephase.vcf.gz",
+                        "9d1733029bd2657d6505fd13f7b4adf6"
+                    ],
+                    [
+                        "NA20359.batchnull.prephase.vcf.gz",
+                        "501af1857cf2879aecf8ddd97689c342"
+                    ]
+                ],
+                "CSV files": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-09-28T22:52:42.901575297",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    },
+    "Check test_prephase - with paneprep and map but no chunks": {
+        "content": [
+            {
+                "workflow size": 65,
+                "versions": {
+                    "BCFTOOLS_CONCAT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_CONVERT": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_LIGATE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_INDEX_PHASE": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_NORM": {
+                        "bcftools": "1.23.1"
+                    },
+                    "BCFTOOLS_VIEW": {
+                        "bcftools": "1.23.1"
+                    },
+                    "CUSTOM_GENETICMAPCONVERT": {
+                        "r-base": "4.5.3",
+                        "r-data.table": "1.17.8",
+                        "r-janitor": "2.2.1",
+                        "r-nfcore.utils": "0.0.3"
+                    },
+                    "GAWK": {
+                        "gawk": "5.3.1"
+                    },
+                    "GLIMPSE_CHUNK": {
+                        "glimpse": "1.1.1"
+                    },
+                    "HTSLIB_BGZIPTABIX": {
+                        "htslib": "1.23.1",
+                        "xz": "5.8.3"
+                    },
+                    "SAMTOOLS_FAIDX": {
+                        "samtools": "1.23.1"
+                    },
+                    "SHAPEIT5_LIGATE": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "SHAPEIT5_PHASECOMMON": {
+                        "shapeit5": "5.1.1"
+                    },
+                    "VCFCHREXTRACT": {
+                        "bcftools": "1.22"
+                    },
+                    "Workflow": {
+                        "nf-core/phaseimpute": "v1.2.0dev"
+                    }
+                },
+                "stable name": [
+                    "imputation",
+                    "imputation/prephase",
+                    "imputation/prephase/NA12878_chr21_16570070-16590513_chunks.bcf",
+                    "imputation/prephase/NA12878_chr21_16570070-16590513_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr21_16590521-16609998_chunks.bcf",
+                    "imputation/prephase/NA12878_chr21_16590521-16609998_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr21_phased.vcf.gz",
+                    "imputation/prephase/NA12878_chr21_phased.vcf.gz.csi",
+                    "imputation/prephase/NA12878_chr22_16570065-16592216_chunks.bcf",
+                    "imputation/prephase/NA12878_chr22_16570065-16592216_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr22_16592229-16609999_chunks.bcf",
+                    "imputation/prephase/NA12878_chr22_16592229-16609999_chunks.bcf.csi",
+                    "imputation/prephase/NA12878_chr22_phased.vcf.gz",
+                    "imputation/prephase/NA12878_chr22_phased.vcf.gz.csi",
+                    "imputation/prephase/NA19401_chr21_16570070-16590513_chunks.bcf",
+                    "imputation/prephase/NA19401_chr21_16570070-16590513_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr21_16590521-16609998_chunks.bcf",
+                    "imputation/prephase/NA19401_chr21_16590521-16609998_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr21_phased.vcf.gz",
+                    "imputation/prephase/NA19401_chr21_phased.vcf.gz.csi",
+                    "imputation/prephase/NA19401_chr22_16570065-16592216_chunks.bcf",
+                    "imputation/prephase/NA19401_chr22_16570065-16592216_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr22_16592229-16609999_chunks.bcf",
+                    "imputation/prephase/NA19401_chr22_16592229-16609999_chunks.bcf.csi",
+                    "imputation/prephase/NA19401_chr22_phased.vcf.gz",
+                    "imputation/prephase/NA19401_chr22_phased.vcf.gz.csi",
+                    "imputation/prephase/NA20359_chr21_16570070-16590513_chunks.bcf",
+                    "imputation/prephase/NA20359_chr21_16570070-16590513_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr21_16590521-16609998_chunks.bcf",
+                    "imputation/prephase/NA20359_chr21_16590521-16609998_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr21_phased.vcf.gz",
+                    "imputation/prephase/NA20359_chr21_phased.vcf.gz.csi",
+                    "imputation/prephase/NA20359_chr22_16570065-16592216_chunks.bcf",
+                    "imputation/prephase/NA20359_chr22_16570065-16592216_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr22_16592229-16609999_chunks.bcf",
+                    "imputation/prephase/NA20359_chr22_16592229-16609999_chunks.bcf.csi",
+                    "imputation/prephase/NA20359_chr22_phased.vcf.gz",
+                    "imputation/prephase/NA20359_chr22_phased.vcf.gz.csi",
+                    "imputation/prephase/concat",
+                    "imputation/prephase/concat/NA12878.batchnull.prephase.vcf.gz",
+                    "imputation/prephase/concat/NA12878.batchnull.prephase.vcf.gz.tbi",
+                    "imputation/prephase/concat/NA19401.batchnull.prephase.vcf.gz",
+                    "imputation/prephase/concat/NA19401.batchnull.prephase.vcf.gz.tbi",
+                    "imputation/prephase/concat/NA20359.batchnull.prephase.vcf.gz",
+                    "imputation/prephase/concat/NA20359.batchnull.prephase.vcf.gz.tbi",
+                    "initialisation",
+                    "initialisation/map_convertion",
+                    "initialisation/map_convertion/1000GP_chr21.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr21.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr21.plink.map",
+                    "initialisation/map_convertion/1000GP_chr21.stitch.map",
+                    "initialisation/map_convertion/1000GP_chr22.glimpse.map",
+                    "initialisation/map_convertion/1000GP_chr22.minimac.map",
+                    "initialisation/map_convertion/1000GP_chr22.plink.map",
+                    "initialisation/map_convertion/1000GP_chr22.stitch.map",
+                    "initialisation/prepare_genome",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
+                    "initialisation/prepare_genome/GRCh38.s.fa.gz.gzi",
+                    "multiqc",
+                    "multiqc/multiqc_data",
+                    "multiqc/multiqc_data/llms-full.txt",
+                    "multiqc/multiqc_data/multiqc.log",
+                    "multiqc/multiqc_data/multiqc.parquet",
+                    "multiqc/multiqc_data/multiqc_citations.txt",
+                    "multiqc/multiqc_data/multiqc_data.json",
+                    "multiqc/multiqc_data/multiqc_software_versions.txt",
+                    "multiqc/multiqc_data/multiqc_sources.txt",
+                    "multiqc/multiqc_report.html",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
+                    "prep_panel",
+                    "prep_panel/chunks",
+                    "prep_panel/chunks/glimpse1",
+                    "prep_panel/chunks/glimpse1/1000GP_chr21_chunks_glimpse1.txt",
+                    "prep_panel/chunks/glimpse1/1000GP_chr22_chunks_glimpse1.txt",
+                    "prep_panel/csv",
+                    "prep_panel/csv/chunks_glimpse1.csv",
+                    "prep_panel/csv/panel.csv",
+                    "prep_panel/csv/posfile.csv",
+                    "prep_panel/haplegend",
+                    "prep_panel/haplegend/1000GP_chr21.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr21.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr21.samples",
+                    "prep_panel/haplegend/1000GP_chr22.hap.gz",
+                    "prep_panel/haplegend/1000GP_chr22.legend.gz",
+                    "prep_panel/haplegend/1000GP_chr22.samples",
+                    "prep_panel/panel",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_multiallelic.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr21_normalized.bcf.gz",
+                    "prep_panel/panel/1000GP_chr21_normalized.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_multiallelic.bcf.gz.csi",
+                    "prep_panel/panel/1000GP_chr22_normalized.bcf.gz",
+                    "prep_panel/panel/1000GP_chr22_normalized.bcf.gz.csi",
+                    "prep_panel/posfile",
+                    "prep_panel/posfile/1000GP.chr21.posfile.txt.gz",
+                    "prep_panel/posfile/1000GP.chr22.posfile.txt.gz",
+                    "prep_panel/sites",
+                    "prep_panel/sites/1000GP.chr21.posfile.txt",
+                    "prep_panel/sites/1000GP.chr22.posfile.txt",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
+                    "prep_panel/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi"
+                ],
+                "stable path": [
+                    "NA12878_chr21_16570070-16590513_chunks.bcf:md5,e0f7f60ccd18426e684376a7788207ac",
+                    "NA12878_chr21_16570070-16590513_chunks.bcf.csi:md5,96f0a697306425f02aa319c02d18bc57",
+                    "NA12878_chr21_16590521-16609998_chunks.bcf:md5,da41b23fbfb7f66bb43456c513bccbb5",
+                    "NA12878_chr21_16590521-16609998_chunks.bcf.csi:md5,f7bd7b0385fe4bf30e6bb72b6d2a48a9",
+                    "NA12878_chr21_phased.vcf.gz:md5,e1f8611ad3a5be44d19d4c4f4c3b9ff5",
+                    "NA12878_chr21_phased.vcf.gz.csi:md5,aad598f82440da2d53bdb78ddaa10113",
+                    "NA12878_chr22_16570065-16592216_chunks.bcf:md5,70ede3975d5cb553cf3b36bc30a0f32a",
+                    "NA12878_chr22_16570065-16592216_chunks.bcf.csi:md5,459659b42455ad34addf30c9e57c48c4",
+                    "NA12878_chr22_16592229-16609999_chunks.bcf:md5,68d730f268de7b6c2b48993dbe2e1295",
+                    "NA12878_chr22_16592229-16609999_chunks.bcf.csi:md5,2cc3cfbb9edc5a472227bbc998e74f2c",
+                    "NA12878_chr22_phased.vcf.gz:md5,77c897bd13dfa06a9988fee0bb644a8b",
+                    "NA12878_chr22_phased.vcf.gz.csi:md5,9a1b61d1b4183ec51830f122b62b6f1f",
+                    "NA19401_chr21_16570070-16590513_chunks.bcf:md5,de3f67f4e390a3436b148f36ec69ca6a",
+                    "NA19401_chr21_16570070-16590513_chunks.bcf.csi:md5,8be26fb6e35604cdd0ba5749a6eda711",
+                    "NA19401_chr21_16590521-16609998_chunks.bcf:md5,1051bc27ef6527b4e12efa6a98b5899e",
+                    "NA19401_chr21_16590521-16609998_chunks.bcf.csi:md5,694f91240865e74773a888e565721d4a",
+                    "NA19401_chr21_phased.vcf.gz:md5,80969f9bfe4fea49a8cdea993731d767",
+                    "NA19401_chr21_phased.vcf.gz.csi:md5,bbfcd2ab6676a9f1773f210d48dc7448",
+                    "NA19401_chr22_16570065-16592216_chunks.bcf:md5,5f04f716451e022a73f6a4427388614d",
+                    "NA19401_chr22_16570065-16592216_chunks.bcf.csi:md5,e9dd8aabdc1d0a504fad1b29ea0a5bf3",
+                    "NA19401_chr22_16592229-16609999_chunks.bcf:md5,3b9aea884523ce088ab333b8d44e7aa2",
+                    "NA19401_chr22_16592229-16609999_chunks.bcf.csi:md5,49f4b1df670a720161a7ee10320e0bd5",
+                    "NA19401_chr22_phased.vcf.gz:md5,acb720fd1b679cbad7bc2879f07e7232",
+                    "NA19401_chr22_phased.vcf.gz.csi:md5,d7b16de1c7c6c812f9255fcf9d97a41b",
+                    "NA20359_chr21_16570070-16590513_chunks.bcf:md5,a193ded8b6e2a92dc1696fa8cf2dacf5",
+                    "NA20359_chr21_16570070-16590513_chunks.bcf.csi:md5,056b38434bd2edc6b9b400f64b67d998",
+                    "NA20359_chr21_16590521-16609998_chunks.bcf:md5,7f0481941539b2605d2c1de07cf4837c",
+                    "NA20359_chr21_16590521-16609998_chunks.bcf.csi:md5,bdaf67d8c52f70b6c8607157f9e52fa6",
+                    "NA20359_chr21_phased.vcf.gz:md5,8801fa468fb283fe7d25202b47cb50ba",
+                    "NA20359_chr21_phased.vcf.gz.csi:md5,fd3c1a27fea8491678e3d6e627d203f6",
+                    "NA20359_chr22_16570065-16592216_chunks.bcf:md5,5cf8799dab8f67ecfe429face53bb326",
+                    "NA20359_chr22_16570065-16592216_chunks.bcf.csi:md5,06829810358be5ec9f568fec24cedadd",
+                    "NA20359_chr22_16592229-16609999_chunks.bcf:md5,aa28792e9860bcf10a4528d3b83130bd",
+                    "NA20359_chr22_16592229-16609999_chunks.bcf.csi:md5,49f4b1df670a720161a7ee10320e0bd5",
+                    "NA20359_chr22_phased.vcf.gz:md5,512546bb7127e45b4fbd8ad280c8034f",
+                    "NA20359_chr22_phased.vcf.gz.csi:md5,6d069e5da4d8279f00addfff6668eb60",
+                    "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
+                    "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
+                    "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
+                    "1000GP_chr21.stitch.map:md5,939930334691cc1730c3c322af8c2c32",
+                    "1000GP_chr22.glimpse.map:md5,d541ba3ef55d3cff7ad3273ba4be7c64",
+                    "1000GP_chr22.minimac.map:md5,1e35445b12cf8dfb1273500223a43a70",
+                    "1000GP_chr22.plink.map:md5,b70cfdef56d870e575ab29374cfcecd3",
+                    "1000GP_chr22.stitch.map:md5,24eea1320e0033b04c5f5e6fb7cff690",
+                    "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
+                    "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
+                    "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                    "1000GP_chr21_chunks_glimpse1.txt:md5,64ca4a1655363e4a4e558836e5ac12f9",
+                    "1000GP_chr22_chunks_glimpse1.txt:md5,3344e171251722cf58ae31136da223ac",
+                    "1000GP_chr21.hap.gz:md5,64d7fdfc96ce79848cf9c3c220e6774f",
+                    "1000GP_chr21.legend.gz:md5,3f7edc4c153521a0871c9d51f7da2372",
+                    "1000GP_chr21.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
+                    "1000GP_chr22.hap.gz:md5,9500b831dcfee86a98577dde9e2cce73",
+                    "1000GP_chr22.legend.gz:md5,82f6f97f61e68b4872cc14c0125ff037",
+                    "1000GP_chr22.samples:md5,d8ca3e8336976001de8df6be7ae236cb",
+                    "1000GP.chr21.posfile.txt.gz:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt.gz:md5,f5997df5995dcdbc4ab31e1084b83541",
+                    "1000GP.chr21.posfile.txt:md5,33d064c5132000799f3df9ea31967e12",
+                    "1000GP.chr22.posfile.txt:md5,f5997df5995dcdbc4ab31e1084b83541"
+                ],
+                "BAM files": [
+                    
+                ],
+                "VCF files": [
+                    [
+                        "NA12878_chr21_phased.vcf.gz",
+                        "8e319ecf5348fe77ebbaa99dfa0d52e"
+                    ],
+                    [
+                        "NA12878_chr22_phased.vcf.gz",
+                        "f72eeeb7e9b9f0f81a3fdec44e399216"
+                    ],
+                    [
+                        "NA19401_chr21_phased.vcf.gz",
+                        "fba964d172f6683fcd1fefa422f365ac"
+                    ],
+                    [
+                        "NA19401_chr22_phased.vcf.gz",
+                        "a7b66fea079ba093a3e15ea86715fce3"
+                    ],
+                    [
+                        "NA20359_chr21_phased.vcf.gz",
+                        "786df606a95829fdcce7d0f1e25b0665"
+                    ],
+                    [
+                        "NA20359_chr22_phased.vcf.gz",
+                        "1f3c9719c13c5920810789194a8d16c4"
+                    ],
+                    [
+                        "NA12878.batchnull.prephase.vcf.gz",
+                        "b7224244f41b1bd05b04513fe279c267"
+                    ],
+                    [
+                        "NA19401.batchnull.prephase.vcf.gz",
+                        "9d1733029bd2657d6505fd13f7b4adf6"
+                    ],
+                    [
+                        "NA20359.batchnull.prephase.vcf.gz",
+                        "501af1857cf2879aecf8ddd97689c342"
+                    ],
+                    [
+                        "1000GP_chr21_glimpse1_sites.vcf.gz",
+                        "6a6015e06338ef14f58749dd067f4a78"
+                    ],
+                    [
+                        "1000GP_chr22_glimpse1_sites.vcf.gz",
+                        "321a19489c56a5d670ee49b26d9052b9"
+                    ]
+                ],
+                "CSV files": [
+                    {
+                        "fileName": "chunks_glimpse1.csv",
+                        "rows": [
+                            "panel,chr,file",
+                            "1000GP,chr21,1000GP_chr21_chunks_glimpse1.txt",
+                            "1000GP,chr22,1000GP_chr22_chunks_glimpse1.txt"
+                        ]
+                    },
+                    {
+                        "fileName": "panel.csv",
+                        "rows": [
+                            "panel,chr,vcf,index",
+                            "1000GP,chr21,1000GP_chr21_normalized.bcf.gz,1000GP_chr21_normalized.bcf.gz.csi",
+                            "1000GP,chr22,1000GP_chr22_normalized.bcf.gz,1000GP_chr22_normalized.bcf.gz.csi"
+                        ]
+                    },
+                    {
+                        "fileName": "posfile.csv",
+                        "rows": [
+                            "panel,chr,vcf,index,hap,legend,posfile",
+                            "1000GP,chr21,1000GP_chr21_glimpse1_sites.vcf.gz,1000GP_chr21_glimpse1_sites.vcf.gz.csi,1000GP_chr21.hap.gz,1000GP_chr21.legend.gz,1000GP.chr21.posfile.txt.gz",
+                            "1000GP,chr22,1000GP_chr22_glimpse1_sites.vcf.gz,1000GP_chr22_glimpse1_sites.vcf.gz.csi,1000GP_chr22.hap.gz,1000GP_chr22.legend.gz,1000GP.chr22.posfile.txt.gz"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "timestamp": "2026-09-28T22:51:30.466759743",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    }
+}
