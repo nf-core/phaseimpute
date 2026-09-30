@@ -148,10 +148,15 @@ workflow PHASEIMPUTE {
     //
     if (steps.contains("simulate")) {
         // Test if the input are all bam files
-        getFilesSameExt(ch_input_sim)
-            .map{ ext -> if (ext != "bam" && ext != "cram") {
-                error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${ext}"
-            } }
+        ch_input_sim
+            .map { _meta, bam, _index -> [bam]}
+            .collect()
+            .map { bams ->
+                def ext = getFilesSameExt(bams)
+                if (ext != "bam" && ext != "cram") {
+                    error "All input files must be in the same format, either BAM or CRAM, to perform simulation: ${ext}"
+                }
+            }
 
         if (sheets_given["input_region"]) {
             // Split the bam into the regions specified
@@ -276,13 +281,13 @@ workflow PHASEIMPUTE {
             ch_input_phase_panel = VCF_NORMALIZE_BCFTOOLS.out.vcf_index
                 .combine(ch_map_glimpse, by:0)
                 .combine(ch_chunks_phase_panel.groupTuple(), by:0)
-                .map{ meta, vcf, index, gmap, chunks -> [
+                .map{ meta, vcf, index, gmap, _chunks_in, chunks_out -> [
                     meta, vcf, index,
                     [], // no pedigree
                     [], [], // no panel
                     [], [], // no scaffold
                     [], // no region
-                    gmap, chunks
+                    gmap, chunks_out
                 ]}
 
             VCF_PHASE_PANEL(
