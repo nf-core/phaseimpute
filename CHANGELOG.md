@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#308](https://github.com/nf-core/phaseimpute/pull/308) - Add `chunk_version` parameter to control which Glimpse version to use to chunk.
 - [#313](https://github.com/nf-core/phaseimpute/pull/313) - Add `manifest.diagram` and update authors / contributors.
 - [#316](https://github.com/nf-core/phaseimpute/pull/316) - Add new test for multiple samples in one vcf.
+- [#318](https://github.com/nf-core/phaseimpute/pull/318) - Add new step `prephase` for phasing target data with panel.
 
 ### `Changed`
 

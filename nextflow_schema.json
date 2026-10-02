@@ -68,7 +68,7 @@
                     "type": "string",
                     "description": "Step(s) to run.",
                     "fa_icon": "fas fa-step-forward",
-                    "pattern": "^((all|simulate|panelprep|impute|validate)?,?)*(?<!,)$"
+                    "pattern": "^((all|simulate|panelprep|impute|validate|prephase)?,?)*(?<!,)$"
                 },
                 "tools": {
                     "type": "string",
@@ -164,6 +164,11 @@
                     "type": "integer",
                     "description": "Maximal number of individuals per batch for imputation.",
                     "default": 100
+                },
+                "force_multi_vcf": {
+                    "type": "boolean",
+                    "description": "By-pass one vcf rules when only multiple single-sample vcf are used.",
+                    "default": "false"
                 },
                 "chunks": {
                     "type": "string",
