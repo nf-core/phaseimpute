@@ -365,10 +365,10 @@ workflow PHASEIMPUTE {
         CONCAT_PREPHASE(
             VCF_PHASE_TARGET.out.vcf_index
             .map{ meta, vcf, index -> [
-                meta + [prephase:"true"], vcf, index
+                meta, vcf, index
             ] }
             .combine(region_count),
-            ["id", "prephase"],
+            ["id", "batch"],
             false
         )
 
