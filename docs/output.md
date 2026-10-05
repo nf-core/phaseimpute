@@ -8,7 +8,7 @@ The directories listed below will be created in the results directory after the 
 
 ## Pipeline overview
 
-## Pipeline initialisation
+### Pipeline initialisation
 
 This step of the pipeline ensure that all the files needed for the subsequent step are valid and in the expected format.
 
@@ -37,7 +37,7 @@ The directory structure for this step is:
 
 A directory containing the converted genetic map needed by the different phasing and imputation tools.
 
-## Panel preparation outputs `--steps panelprep`
+### Panel preparation outputs `--steps panelprep`
 
 This step of the pipeline performs a QC of the reference panel data and produces the necessary files for imputation (`--steps impute`).
 
@@ -67,7 +67,7 @@ The directory structure from `--steps panelprep` is:
 ├── csv
 ```
 
-### Panel directory
+#### Panel directory
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -82,7 +82,7 @@ A directory containing the reference panel per chromosome after preprocessing.
 The files will be normalized if the flag `--normalize` is used (with `_normalized` suffix). The files will have their allele frequency computed if the flaq `--compute_freq` is used (with `_fixup` suffix).
 The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
-### Haplegend directory
+#### Haplegend directory
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -96,7 +96,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 [`bcftools convert`](https://samtools.github.io/bcftools/bcftools.html#convert) aids in the conversion of VCF files to `.hap` and `.legend` files. A `.samples` file is also generated. Once that you have generated the hap and legend files for your reference panel, you can skip the reference preparation steps and directly submit these files for imputation. The hap and legend files can be used as input files with the `--tools quilt` option.
 
-### Sites directory
+#### Sites directory
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -109,7 +109,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 [`bcftools query`](https://samtools.github.io/bcftools/bcftools.html#query) produces VCF (`*.vcf.gz`) files per chromosome. These QCed VCF files can be gathered into a CSV file and used with all the tools in `--steps impute` using the flag `--panel`.
 
-### Chunks directory
+#### Chunks directory
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -121,7 +121,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 [Glimpse1 chunk](https://odelaneau.github.io/GLIMPSE/glimpse1/) defines the chunks where imputation will be performed. For further reading and documentation see the [Glimpse1 documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html). Once you have generated the chunks for your reference panel, you can skip the reference preparation steps and directly submit this file for imputation.
 
-### CSV directory
+#### CSV directory
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -133,7 +133,27 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 
 </details>
 
-## Imputation outputs `--steps impute`
+### Prephasing outputs `--steps prephase`
+
+The results from `--steps prephase` will have the following directory structure:
+
+```tree
+└── prephasing
+    ├── chunks
+    ├── ligate
+    └── concat
+```
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `prephasing/chunks/*_*_chunks.bcf{,.csi}`: Phased chunks and related indexes obtained by `SHAPEIT5_PHASECOMMON` for each file provided by `--input` (optional output obtained with `--publish_all`).
+- `prephasing/ligate/*_chr*.vcf.gz{,.csi}`: Ligated chunks by chromosomes (optional output obtained with `--publish_all`).
+- `prephasing/concat/*.vcf.gz{,.csi}`: Concatenated chromosomes.
+
+</details>
+
+### Imputation outputs `--steps impute`
 
 The results from `--steps impute` will have the following directory structure:
 
@@ -163,7 +183,7 @@ The results from `--steps impute` will have the following directory structure:
 
 [`bcftools concat`](https://samtools.github.io/bcftools/bcftools.html#concat) will produce a single VCF file from a list of imputed VCF files in chunks.
 
-## Simulation outputs `--steps simulate`
+### Simulation outputs `--steps simulate`
 
 The results from `--steps simulate` will have the following directory structure:
 
@@ -183,7 +203,7 @@ The results from `--steps simulate` will have the following directory structure:
 
 </details>
 
-## Validation outputs `--steps validate`
+### Validation outputs `--steps validate`
 
 The results from `--steps validate` will have the following directory structure:
 
@@ -208,14 +228,14 @@ The results from `--steps validate` will have the following directory structure:
 
 </details>
 
-## Reports
+### Reports
 
 Reports contain useful metrics and pipeline information for the different modes.
 
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline.
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution.
 
-### MultiQC
+#### MultiQC
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -231,7 +251,7 @@ Reports contain useful metrics and pipeline information for the different modes.
 
 Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQC. The pipeline has special steps which also allow the software versions to be reported in the MultiQC output for future traceability. For more information about how to use MultiQC reports, see <http://multiqc.info>.
 
-### Pipeline information
+#### Pipeline information
 
 <details markdown="1">
 <summary>Output files</summary>
