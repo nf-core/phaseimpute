@@ -11,7 +11,7 @@ multiqc/multiqc_report.html
 fastqc/*_fastqc.{html,zip}
 pipeline_info/*.{html,json,txt,yml}
 simulation/*/*.{bam}{.csi,.bai,}
-prep_panel/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
+panel_preparation/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
 prephasing/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
 imputation/*/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
 validation/*/*.{vcf,bcf}{.gz,}{.tbi,.csi,}
