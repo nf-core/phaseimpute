@@ -14,7 +14,7 @@ nextflow_pipeline {
             config: "../conf/test_beagle5.config",
             details: { outdir ->
                 [
-                    "NA12878.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz"),
+                    "NA12878.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.batch0.beagle5.vcf.gz"),
                 ]
             },
         ],
@@ -27,7 +27,7 @@ nextflow_pipeline {
             ],
             details: { outdir ->
                 [
-                    "NA12878.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.beagle5.vcf.gz"),
+                    "NA12878.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.batch0.beagle5.vcf.gz"),
                 ]
             },
         ]
