@@ -421,8 +421,6 @@
                     "multiqc/multiqc_plots/svg/samtools-coverage_Reads-cnt.svg",
                     "multiqc/multiqc_plots/svg/samtools-coverage_Reads-log.svg",
                     "multiqc/multiqc_report.html",
-                    "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "panel_preparation",
                     "panel_preparation/chunks",
                     "panel_preparation/chunks/glimpse1",
@@ -479,6 +477,8 @@
                     "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi",
                     "panel_preparation/stats",
                     "panel_preparation/stats/1000GP.panel.bcftools_stats.txt",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "simulation",
                     "simulation/csv",
                     "simulation/csv/simulate.csv",
@@ -944,7 +944,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:28:30.997235759",
+        "timestamp": "2026-10-05T11:36:46.839393443",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1387,8 +1387,6 @@
                     "multiqc/multiqc_plots/svg/samtools-coverage_Reads-cnt.svg",
                     "multiqc/multiqc_plots/svg/samtools-coverage_Reads-log.svg",
                     "multiqc/multiqc_report.html",
-                    "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "panel_preparation",
                     "panel_preparation/chunks",
                     "panel_preparation/chunks/glimpse1",
@@ -1445,6 +1443,8 @@
                     "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi",
                     "panel_preparation/stats",
                     "panel_preparation/stats/1000GP.panel.bcftools_stats.txt",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "simulation",
                     "simulation/csv",
                     "simulation/csv/simulate.csv",
@@ -1918,7 +1918,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:26:36.248715959",
+        "timestamp": "2026-10-05T11:34:19.432890213",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

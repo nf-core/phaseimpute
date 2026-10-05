@@ -63,8 +63,6 @@
                     "multiqc/multiqc_data/multiqc_software_versions.txt",
                     "multiqc/multiqc_data/multiqc_sources.txt",
                     "multiqc/multiqc_report.html",
-                    "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "panel_preparation",
                     "panel_preparation/chunks",
                     "panel_preparation/chunks/glimpse1",
@@ -115,7 +113,9 @@
                     "panel_preparation/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                     "panel_preparation/sites/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
                     "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi"
+                    "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
@@ -183,7 +183,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-02T15:28:40.592623143",
+        "timestamp": "2026-10-05T11:40:54.269346846",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -265,8 +265,6 @@
                     "multiqc/multiqc_data/multiqc_software_versions.txt",
                     "multiqc/multiqc_data/multiqc_sources.txt",
                     "multiqc/multiqc_report.html",
-                    "pipeline_info",
-                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml",
                     "panel_preparation",
                     "panel_preparation/csv",
                     "panel_preparation/csv/panel.csv",
@@ -312,7 +310,9 @@
                     "panel_preparation/sites/1000GP_chr21_glimpse1_sites.vcf.gz",
                     "panel_preparation/sites/1000GP_chr21_glimpse1_sites.vcf.gz.csi",
                     "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz",
-                    "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi"
+                    "panel_preparation/sites/1000GP_chr22_glimpse1_sites.vcf.gz.csi",
+                    "pipeline_info",
+                    "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
                     "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
@@ -378,10 +378,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-06-21T18:15:13.97098362",
+        "timestamp": "2026-10-05T11:40:17.093332741",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.6"
         }
     }
 }
