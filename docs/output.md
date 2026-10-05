@@ -143,6 +143,7 @@ The results from `--steps impute` will have the following directory structure:
 ├── <glimpse1|glimpse2|quilt|quilt2|stitch|beagle5|minimac4>
 │   ├── concat/
 |   ├── filtered/
+|   ├── intermediary/
 │   ├── samples/
 │   └── variant_calling/
 ├── stats
@@ -157,9 +158,9 @@ The results from `--steps impute` will have the following directory structure:
 - `imputation/[glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]/`
   - `concat/all.batch*.vcf.gz{,.csi}`: The concatenated VCF with indexes files of all imputed samples by batches
   - `filtered/all.batch*.vcf.gz{,.csi}`: The filtered VCF with indexes files of all imputed samples by batches when using `--min_gl`. Genotypes with a probability inferior to this threshold are set to missing (i.e., `./.`)
+  - `intermediary/*`: Set of intermediary files produced by each tools, needs `--publish_all`
   - `samples/*.vcf.gz{,.csi}`: A VCF file with index of each imputed sample
   - `variant_calling/*`: Variant calling file obtained before running `GLIMPSE_PHASE` with `.bam` files, needs `--publish_all`
-  - `intermediary/*`: Set of intermediary files produced by each tools, needs `--publish_all`
 - `imputation/*.<tool>.bcftools_stats.txt`: The statistics of the imputed VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
 
 </details>
