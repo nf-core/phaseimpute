@@ -260,10 +260,10 @@ workflow PHASEIMPUTE {
             exportCsv(
                 ch_chunks
                 .map{ meta, file ->
-                    [meta, [2:"prep_panel/chunks/glimpse1"], file]
+                    [meta, [2:"panel_preparation/chunks/glimpse1"], file]
                 },
                 ["panel_id", "chr"], "panel,chr,file",
-                "chunks_glimpse1.csv", outdir, "prep_panel/csv"
+                "chunks_glimpse1.csv", outdir, "panel_preparation/csv"
             )
         }
 
@@ -288,21 +288,21 @@ workflow PHASEIMPUTE {
         // Phased panel
         exportCsv(
             ch_panel_phased.map{ meta, vcf, index ->
-                [meta, [2:"prep_panel/panel", 3:"prep_panel/panel"], vcf, index]
+                [meta, [2:"panel_preparation/panel", 3:"panel_preparation/panel"], vcf, index]
             },
             ["panel_id", "chr"], "panel,chr,vcf,index",
-            "panel.csv", outdir, "prep_panel/csv"
+            "panel.csv", outdir, "panel_preparation/csv"
         )
         // Posfile
         exportCsv(
             ch_posfile.map{ meta, vcf, index, hap, legend, posfile ->
                 [
-                    meta, [2:"prep_panel/sites", 3:"prep_panel/sites", 4:"prep_panel/haplegend", 5:"prep_panel/haplegend", 6:"prep_panel/posfile"],
+                    meta, [2:"panel_preparation/sites", 3:"panel_preparation/sites", 4:"panel_preparation/haplegend", 5:"panel_preparation/haplegend", 6:"panel_preparation/posfile"],
                     vcf, index, hap, legend, posfile
                 ]
             },
             ["panel_id", "chr"], "panel,chr,vcf,index,hap,legend,posfile",
-            "posfile.csv", outdir, "prep_panel/csv"
+            "posfile.csv", outdir, "panel_preparation/csv"
         )
     }
 
