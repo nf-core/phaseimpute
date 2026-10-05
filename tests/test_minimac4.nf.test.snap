@@ -61,16 +61,16 @@
                     "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz",
                     "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
-                    "imputation/minimac4/samples/NA12878.batch0.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA12878.batch0.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/samples/NA19401.batch0.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA19401.batch0.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/samples/NA20359.batch0.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA20359.batch0.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.csi",
                     "imputation/stats",
-                    "imputation/stats/NA12878.batch0.minimac4.bcftools_stats.txt",
-                    "imputation/stats/NA19401.batch0.minimac4.bcftools_stats.txt",
-                    "imputation/stats/NA20359.batch0.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
                     "initialisation",
                     "initialisation/prepare_genome",
                     "initialisation/prepare_genome/GRCh38.s.fa.gz.fai",
@@ -125,9 +125,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.batch0.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
-                    "NA19401.batch0.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
-                    "NA20359.batch0.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "GRCh38.s.fa.gz.fai:md5,4f4e0ff133e7a05cb469e345f766ca8c",
                     "GRCh38.s.fa.gz.gzi:md5,09046d9646db2cc5c425f231ce4595d7",
                     "bcftools-stats-subtypes.txt:md5,a6ea6fbba2fab0d9899174bee8f9c68f",
@@ -157,15 +157,15 @@
                         "99fe7b4e1581cf2c4d088190f9163f74"
                     ],
                     [
-                        "NA12878.batch0.minimac4.vcf.gz",
+                        "NA12878.minimac4.vcf.gz",
                         "7b6c33532dc2e5d6a3d6fd87e80b61ed"
                     ],
                     [
-                        "NA19401.batch0.minimac4.vcf.gz",
+                        "NA19401.minimac4.vcf.gz",
                         "ff5987bdac40fa5ff0b93d787e712b48"
                     ],
                     [
-                        "NA20359.batch0.minimac4.vcf.gz",
+                        "NA20359.minimac4.vcf.gz",
                         "99fe7b4e1581cf2c4d088190f9163f74"
                     ]
                 ],
@@ -174,9 +174,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,minimac4,NA12878.batch0.minimac4.vcf.gz,NA12878.batch0.minimac4.vcf.gz.csi",
-                            "NA19401,minimac4,NA19401.batch0.minimac4.vcf.gz,NA19401.batch0.minimac4.vcf.gz.csi",
-                            "NA20359,minimac4,NA20359.batch0.minimac4.vcf.gz,NA20359.batch0.minimac4.vcf.gz.csi"
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.csi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.csi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -190,7 +190,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-05T18:40:58.083680069",
+        "timestamp": "2026-10-05T19:35:30.426605564",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -264,16 +264,16 @@
                     "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz",
                     "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
-                    "imputation/minimac4/samples/NA12878.batch0.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA12878.batch0.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/samples/NA19401.batch0.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA19401.batch0.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/samples/NA20359.batch0.minimac4.vcf.gz",
-                    "imputation/minimac4/samples/NA20359.batch0.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA19401.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz",
+                    "imputation/minimac4/samples/NA20359.minimac4.vcf.gz.csi",
                     "imputation/stats",
-                    "imputation/stats/NA12878.batch0.minimac4.bcftools_stats.txt",
-                    "imputation/stats/NA19401.batch0.minimac4.bcftools_stats.txt",
-                    "imputation/stats/NA20359.batch0.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA12878.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA19401.minimac4.bcftools_stats.txt",
+                    "imputation/stats/NA20359.minimac4.bcftools_stats.txt",
                     "initialisation",
                     "initialisation/map_convertion",
                     "initialisation/map_convertion/1000GP_chr21.glimpse.map",
@@ -337,9 +337,9 @@
                     "pipeline_info/nf_core_phaseimpute_software_mqc_versions.yml"
                 ],
                 "stable path": [
-                    "NA12878.batch0.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
-                    "NA19401.batch0.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
-                    "NA20359.batch0.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
+                    "NA12878.minimac4.bcftools_stats.txt:md5,5af867d3d54f3cdbc9dfcb5e7e651449",
+                    "NA19401.minimac4.bcftools_stats.txt:md5,5b3b724bced2bed3b1c5f646cfaa9f92",
+                    "NA20359.minimac4.bcftools_stats.txt:md5,7b0580f0a386be26e33e724b18647d03",
                     "1000GP_chr21.glimpse.map:md5,eda05f6e81718e00e83085bb0b07e584",
                     "1000GP_chr21.minimac.map:md5,ab83755a9804d27b1086e48e2da64992",
                     "1000GP_chr21.plink.map:md5,57966816771960670e5149fa5c3cec60",
@@ -377,15 +377,15 @@
                         "7bf9e0449eb4f33c3e19f6d505c3b918"
                     ],
                     [
-                        "NA12878.batch0.minimac4.vcf.gz",
+                        "NA12878.minimac4.vcf.gz",
                         "4cd02c6b0a9645ddc6cd75dfb32c5f3c"
                     ],
                     [
-                        "NA19401.batch0.minimac4.vcf.gz",
+                        "NA19401.minimac4.vcf.gz",
                         "ff5987bdac40fa5ff0b93d787e712b48"
                     ],
                     [
-                        "NA20359.batch0.minimac4.vcf.gz",
+                        "NA20359.minimac4.vcf.gz",
                         "7bf9e0449eb4f33c3e19f6d505c3b918"
                     ]
                 ],
@@ -394,9 +394,9 @@
                         "fileName": "impute.csv",
                         "rows": [
                             "sample,tools,file,index",
-                            "NA12878,minimac4,NA12878.batch0.minimac4.vcf.gz,NA12878.batch0.minimac4.vcf.gz.csi",
-                            "NA19401,minimac4,NA19401.batch0.minimac4.vcf.gz,NA19401.batch0.minimac4.vcf.gz.csi",
-                            "NA20359,minimac4,NA20359.batch0.minimac4.vcf.gz,NA20359.batch0.minimac4.vcf.gz.csi"
+                            "NA12878,minimac4,NA12878.minimac4.vcf.gz,NA12878.minimac4.vcf.gz.csi",
+                            "NA19401,minimac4,NA19401.minimac4.vcf.gz,NA19401.minimac4.vcf.gz.csi",
+                            "NA20359,minimac4,NA20359.minimac4.vcf.gz,NA20359.minimac4.vcf.gz.csi"
                         ]
                     }
                 ]
@@ -410,7 +410,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-05T18:40:13.267050169",
+        "timestamp": "2026-10-05T19:34:48.672384443",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
