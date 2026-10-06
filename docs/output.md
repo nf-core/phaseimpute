@@ -72,7 +72,7 @@ The directory structure from `--steps panelprep` is:
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prep_panel/panel/`
+- `panel_preparation/panel/`
   - `*.vcf.gz`: The reference panel VCF files after all the preprocessing steps are completed.
   - `*.csi`: The index file for the prepared reference panel.
 
@@ -87,7 +87,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prep_panel/haplegend/`
+- `panel_preparation/haplegend/`
   - `*.hap`: a `.hap` file for the reference panel containing the genotype.
   - `*.legend*`: a `.legend` file for the reference panel containing the variants informations.
   - `*.samples`: a `.samples` file for the reference panel containing the samples informations.
@@ -101,7 +101,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prep_panel/sites/`
+- `panel_preparation/sites/`
   - `*.vcf.gz`: A VCF file with biallelic SNPs only.
   - `*.csi`: Index file of the VCF file.
 
@@ -114,7 +114,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prep_panel/chunks/`
+- `panel_preparation/chunks/`
   - `*.txt`: Text file containing the chunks obtained after running `GLIMPSE1_CHUNK`.
 
 </details>
@@ -126,7 +126,7 @@ The files will be phased if the flag `--phase` is used (with `_phased` suffix).
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prep_panel/csv/`
+- `panel_preparation/csv/`
   - `chunks_glimpse1.csv`: A CSV file containing the list of chunks obtained for each chromosome and panel.
   - `panel.csv`: A CSV file containing the final phased and prepared for each chromosome and input panel.
   - `posfile.csv`: A CSV file containing the final list of panel positions, in VCF and TSV files, for each chromosome and input panel.
