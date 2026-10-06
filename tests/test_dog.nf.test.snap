@@ -141,9 +141,6 @@
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
-                    "imputation/quilt/samples",
-                    "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
-                    "imputation/quilt/samples/dog_1735.quilt.vcf.gz.csi",
                     "imputation/quilt/intermediary",
                     "imputation/quilt/intermediary/RData",
                     "imputation/quilt/intermediary/all_samples.batch0.chr21.quilt.ligate.vcf.gz",
@@ -158,6 +155,9 @@
                     "imputation/quilt/intermediary/all_samples.batch0.chr22_16570495-16595102.quilt.vcf.gz.tbi",
                     "imputation/quilt/intermediary/all_samples.batch0.chr22_16584983-16609997.quilt.vcf.gz",
                     "imputation/quilt/intermediary/all_samples.batch0.chr22_16584983-16609997.quilt.vcf.gz.tbi",
+                    "imputation/quilt/samples",
+                    "imputation/quilt/samples/dog_1735.quilt.vcf.gz",
+                    "imputation/quilt/samples/dog_1735.quilt.vcf.gz.csi",
                     "imputation/stats",
                     "imputation/stats/dog_1735.glimpse1.bcftools_stats.txt",
                     "imputation/stats/dog_1735.glimpse2.bcftools_stats.txt",
@@ -341,10 +341,6 @@
                         "29f4ab9c405cbc936f4903f33301e901"
                     ],
                     [
-                        "dog_1735.quilt.vcf.gz",
-                        "29f4ab9c405cbc936f4903f33301e901"
-                    ],
-                    [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
                         "c0f5fe09967c320cd7b578128930f45a"
                     ],
@@ -367,6 +363,10 @@
                     [
                         "all_samples.batch0.chr22_16584983-16609997.quilt.vcf.gz",
                         "55384bb6709e771abef187d23e4749ba"
+                    ],
+                    [
+                        "dog_1735.quilt.vcf.gz",
+                        "29f4ab9c405cbc936f4903f33301e901"
                     ],
                     [
                         "658Dog_chr21_phased.vcf.gz",
@@ -442,7 +442,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:33:07.019317649",
+        "timestamp": "2026-10-06T10:22:13.70650217",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
