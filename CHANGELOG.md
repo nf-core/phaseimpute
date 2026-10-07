@@ -16,8 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#316](https://github.com/nf-core/phaseimpute/pull/316) - Add new test for multiple samples in one vcf.
 - [#325](https://github.com/nf-core/phaseimpute/pull/325) - Add post_imputation filtering with `BCFTOOLS_PLUGINSEGT`, setting to missing `./.`
   all variants with GP inferior to a given threshold.
-- [#326](https://github.com/nf-core/phaseimpute/pull/326) - Add `options_TOOL` argument for each imputation software for easier fine tuning.
-  Add common `--effective_size_population` for `GLIMPSE1`, `GLIMPSE2` and `BEAGLE5`.
+- [#326](https://github.com/nf-core/phaseimpute/pull/326) - Add `options_TOOL` argument for each imputation and phasing softwares for easier fine tuning. Add common `--effective_size_population` for `GLIMPSE1`, `GLIMPSE2`, `BEAGLE5` and `SHAPEIT5`.
 
 ### `Changed`
 

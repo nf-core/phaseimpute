@@ -152,6 +152,12 @@
                     "enum": ["V1", "V2"],
                     "default": "V1",
                     "hidden": true
+                },
+                "options_shapeit5": {
+                    "type": "string",
+                    "description": "Additional options to pass to SHAPEIT5. See the [SHAPEIT5_phase_common documentation](https://odelaneau.github.io/shapeit/docs/documentation/phase_common/) for more information.",
+                    "default": "",
+                    "hidden": true
                 }
             }
         },
