@@ -132,7 +132,8 @@
                 "normalize": {
                     "description": "Should the reference panel be normalized",
                     "type": "boolean",
-                    "pattern": "true|false"
+                    "pattern": "true|false",
+                    "default": true
                 },
                 "compute_freq": {
                     "description": "Should the allele frequency for each variant (AC/AN fields necessary for Glimpse1 and the validation step) be computed using BCFtools fill-tags. This can be necessary if the fields are absent from the panel or if samples have been removed.",
@@ -187,6 +188,14 @@
                     "schema": "assets/schema_posfile.json",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|json)$",
                     "mimetype": "text/csv"
+                },
+                "min_gl": {
+                    "type": "number",
+                    "description": "Minimum genotype probability required to retain an imputed genotype; genotypes with `max(GP)` below this threshold are set to missing by `bcftools +setGT`",
+                    "default": 0,
+                    "pattern": "^\\d(.\\d+)?$",
+                    "minimum": 0,
+                    "maximum": 1
                 },
                 "seed": {
                     "type": "integer",

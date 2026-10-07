@@ -64,12 +64,12 @@
                     "imputation",
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
-                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA12878.beagle5.vcf.gz.csi",
-                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA19401.beagle5.vcf.gz.csi",
-                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/NA20359.beagle5.vcf.gz.csi",
+                    "imputation/beagle5/concat/NA12878.batch0.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA12878.batch0.beagle5.vcf.gz.csi",
+                    "imputation/beagle5/concat/NA19401.batch0.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA19401.batch0.beagle5.vcf.gz.csi",
+                    "imputation/beagle5/concat/NA20359.batch0.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/NA20359.batch0.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.csi",
@@ -87,25 +87,25 @@
                     "imputation/glimpse1/concat/NA19401.batch0.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/concat/NA20359.batch0.glimpse1.vcf.gz",
                     "imputation/glimpse1/concat/NA20359.batch0.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute",
-                    "imputation/glimpse1/impute/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/NA12878.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/NA12878.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/NA12878.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/NA12878.batch0.chr22_0-50818468.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/NA19401.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/NA19401.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/NA19401.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/NA19401.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/NA19401.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/NA19401.batch0.chr22_0-50818468.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/NA20359.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/NA20359.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/NA20359.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/NA20359.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/NA20359.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/NA20359.batch0.chr22_0-50818468.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21_0-46709983.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22_0-50818468.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21_0-46709983.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22_0-50818468.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21_0-46709983.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22_0-50818468.glimpse1.bcf.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -130,12 +130,12 @@
                     "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.csi",
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA12878.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA12878.batch0.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA19401.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA19401.batch0.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
@@ -239,15 +239,15 @@
                 ],
                 "VCF files": [
                     [
-                        "NA12878.beagle5.vcf.gz",
+                        "NA12878.batch0.beagle5.vcf.gz",
                         "6cb6a00f6927faacc57cd20c1d61a0f9"
                     ],
                     [
-                        "NA19401.beagle5.vcf.gz",
+                        "NA19401.batch0.beagle5.vcf.gz",
                         "3a0db394fc0d2f6b40f4010d19184552"
                     ],
                     [
-                        "NA20359.beagle5.vcf.gz",
+                        "NA20359.batch0.beagle5.vcf.gz",
                         "2398a134c6a6b349715417475158aeaf"
                     ],
                     [
@@ -335,28 +335,28 @@
                         "7551c27153cf4d4f0e58716ec2ba381e"
                     ],
                     [
+                        "NA12878.batch0.minimac4.vcf.gz",
+                        "7b6c33532dc2e5d6a3d6fd87e80b61ed"
+                    ],
+                    [
+                        "NA19401.batch0.minimac4.vcf.gz",
+                        "ff5987bdac40fa5ff0b93d787e712b48"
+                    ],
+                    [
+                        "NA20359.batch0.minimac4.vcf.gz",
+                        "99fe7b4e1581cf2c4d088190f9163f74"
+                    ],
+                    [
                         "NA12878.minimac4.vcf.gz",
-                        "3cdfd0b2260552007d40ea66664827f0"
+                        "7b6c33532dc2e5d6a3d6fd87e80b61ed"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "a2e2839795f6ae95a426f4d2f3a5b718"
+                        "ff5987bdac40fa5ff0b93d787e712b48"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "48622660727fa3bfbfe70b76aad17719"
-                    ],
-                    [
-                        "NA12878.minimac4.vcf.gz",
-                        "3cdfd0b2260552007d40ea66664827f0"
-                    ],
-                    [
-                        "NA19401.minimac4.vcf.gz",
-                        "a2e2839795f6ae95a426f4d2f3a5b718"
-                    ],
-                    [
-                        "NA20359.minimac4.vcf.gz",
-                        "48622660727fa3bfbfe70b76aad17719"
+                        "99fe7b4e1581cf2c4d088190f9163f74"
                     ]
                 ],
                 "CSV files": [
@@ -452,8 +452,8 @@
                     "imputation",
                     "imputation/beagle5",
                     "imputation/beagle5/concat",
-                    "imputation/beagle5/concat/ALL_IND.beagle5.vcf.gz",
-                    "imputation/beagle5/concat/ALL_IND.beagle5.vcf.gz.csi",
+                    "imputation/beagle5/concat/ALL_IND.batch0.beagle5.vcf.gz",
+                    "imputation/beagle5/concat/ALL_IND.batch0.beagle5.vcf.gz.csi",
                     "imputation/beagle5/samples",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz",
                     "imputation/beagle5/samples/NA12878.beagle5.vcf.gz.csi",
@@ -467,13 +467,13 @@
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/ALL_IND.batch0.glimpse1.vcf.gz",
                     "imputation/glimpse1/concat/ALL_IND.batch0.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute",
-                    "imputation/glimpse1/impute/ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/ALL_IND.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/ALL_IND.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/ALL_IND.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/ALL_IND.batch0.chr22_0-50818468.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary",
+                    "imputation/glimpse1/intermediary/ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/ALL_IND.batch0.chr21_0-46709983.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/ALL_IND.batch0.chr22.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/ALL_IND.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/ALL_IND.batch0.chr22_0-50818468.glimpse1.bcf.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -494,8 +494,8 @@
                     "imputation/glimpse2/samples/NA20359.glimpse2.vcf.gz.csi",
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
-                    "imputation/minimac4/concat/ALL_IND.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/ALL_IND.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/ALL_IND.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/ALL_IND.batch0.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
@@ -599,7 +599,7 @@
                 ],
                 "VCF files": [
                     [
-                        "ALL_IND.beagle5.vcf.gz",
+                        "ALL_IND.batch0.beagle5.vcf.gz",
                         "58a88cbffb871c2b7b5b2ef14b662573"
                     ],
                     [
@@ -655,20 +655,20 @@
                         "5fb1f272e4cba76064d8fe15237a3193"
                     ],
                     [
-                        "ALL_IND.minimac4.vcf.gz",
-                        "369e9c0ee62f6cd370790ab5a5282e5a"
+                        "ALL_IND.batch0.minimac4.vcf.gz",
+                        "82417b6132cb2c026a7bd867c0a9a8af"
                     ],
                     [
                         "NA12878.minimac4.vcf.gz",
-                        "75f3790dddd70671bf7fa793918731d6"
+                        "9650da508e37d766a0ccf32422a5b371"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "32b3666b02183ce918a14736d57e82fe"
+                        "aade74ee8a95bd0178cee94fea792646"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "e2cc41c9ec9476f8a638de2aff216aaf"
+                        "b3ab3e1ca0c749620443a1ca1a6be540"
                     ]
                 ],
                 "CSV files": [

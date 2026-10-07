@@ -169,15 +169,15 @@
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -227,6 +227,20 @@
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
+                    "imputation/quilt/intermediary",
+                    "imputation/quilt/intermediary/RData",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21.quilt.ligate.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21.quilt.ligate.vcf.gz.csi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz.tbi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz.tbi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22.quilt.ligate.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22.quilt.ligate.vcf.gz.csi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz.tbi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz.tbi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz.csi",
@@ -234,20 +248,6 @@
                     "imputation/quilt/samples/NA19401.quilt.vcf.gz.csi",
                     "imputation/quilt/samples/NA20359.quilt.vcf.gz",
                     "imputation/quilt/samples/NA20359.quilt.vcf.gz.csi",
-                    "imputation/quilt/variant_calling",
-                    "imputation/quilt/variant_calling/RData",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21.quilt.ligate.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21.quilt.ligate.vcf.gz.csi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz.tbi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz.tbi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22.quilt.ligate.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22.quilt.ligate.vcf.gz.csi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz.tbi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz.tbi",
                     "imputation/stats",
                     "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
@@ -767,18 +767,6 @@
                         "dff8385f727c0f42ee56864fe9093581"
                     ],
                     [
-                        "NA12878.quilt.vcf.gz",
-                        "c2be7ce1c61e82f6b6a1cfac247f0235"
-                    ],
-                    [
-                        "NA19401.quilt.vcf.gz",
-                        "1ab7098f0a6c7344eab7ae32dc8335b3"
-                    ],
-                    [
-                        "NA20359.quilt.vcf.gz",
-                        "df8149d3debf2897d5dc1a7f3aab0fa1"
-                    ],
-                    [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
                         "b93a82813117be0c428acf893bd8cc1f"
                     ],
@@ -801,6 +789,18 @@
                     [
                         "all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
                         "bc4824dc99916f4a112a905ddc9dcd1"
+                    ],
+                    [
+                        "NA12878.quilt.vcf.gz",
+                        "c2be7ce1c61e82f6b6a1cfac247f0235"
+                    ],
+                    [
+                        "NA19401.quilt.vcf.gz",
+                        "1ab7098f0a6c7344eab7ae32dc8335b3"
+                    ],
+                    [
+                        "NA20359.quilt.vcf.gz",
+                        "df8149d3debf2897d5dc1a7f3aab0fa1"
                     ],
                     [
                         "all_samples.batch0.stitch.vcf.gz",
@@ -944,7 +944,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-05T11:36:46.839393443",
+        "timestamp": "2026-10-06T10:33:18.416315585",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1126,15 +1126,15 @@
                     "imputation/glimpse1/concat",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
-                    "imputation/glimpse1/impute/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -1184,6 +1184,20 @@
                     "imputation/quilt/concat",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz",
                     "imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz.csi",
+                    "imputation/quilt/intermediary",
+                    "imputation/quilt/intermediary/RData",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21.quilt.ligate.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21.quilt.ligate.vcf.gz.csi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz.tbi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz.tbi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22.quilt.ligate.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22.quilt.ligate.vcf.gz.csi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz.tbi",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
+                    "imputation/quilt/intermediary/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz.tbi",
                     "imputation/quilt/samples",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz",
                     "imputation/quilt/samples/NA12878.quilt.vcf.gz.csi",
@@ -1191,20 +1205,6 @@
                     "imputation/quilt/samples/NA19401.quilt.vcf.gz.csi",
                     "imputation/quilt/samples/NA20359.quilt.vcf.gz",
                     "imputation/quilt/samples/NA20359.quilt.vcf.gz.csi",
-                    "imputation/quilt/variant_calling",
-                    "imputation/quilt/variant_calling/RData",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21.quilt.ligate.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21.quilt.ligate.vcf.gz.csi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16570070-16595525.quilt.vcf.gz.tbi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr21_16585483-16609998.quilt.vcf.gz.tbi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22.quilt.ligate.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22.quilt.ligate.vcf.gz.csi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16570065-16597215.quilt.vcf.gz.tbi",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
-                    "imputation/quilt/variant_calling/all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz.tbi",
                     "imputation/stats",
                     "imputation/stats/NA12878.glimpse1.bcftools_stats.txt",
                     "imputation/stats/NA12878.glimpse2.bcftools_stats.txt",
@@ -1741,18 +1741,6 @@
                         "2741a25f66589f6c7c690f4fbe2fdc8d"
                     ],
                     [
-                        "NA12878.quilt.vcf.gz",
-                        "e69a986d7b21aff60fafc1737be005aa"
-                    ],
-                    [
-                        "NA19401.quilt.vcf.gz",
-                        "4515caa549848a41a68d6e96cdfcb1e9"
-                    ],
-                    [
-                        "NA20359.quilt.vcf.gz",
-                        "1fdc14390e565735cbaa15ebc7c72ff2"
-                    ],
-                    [
                         "all_samples.batch0.chr21.quilt.ligate.vcf.gz",
                         "f8063466c4001562d280b77f81918aa7"
                     ],
@@ -1775,6 +1763,18 @@
                     [
                         "all_samples.batch0.chr22_16587172-16609999.quilt.vcf.gz",
                         "4074cfc634fce293f8cd8e07841310d7"
+                    ],
+                    [
+                        "NA12878.quilt.vcf.gz",
+                        "e69a986d7b21aff60fafc1737be005aa"
+                    ],
+                    [
+                        "NA19401.quilt.vcf.gz",
+                        "4515caa549848a41a68d6e96cdfcb1e9"
+                    ],
+                    [
+                        "NA20359.quilt.vcf.gz",
+                        "1fdc14390e565735cbaa15ebc7c72ff2"
                     ],
                     [
                         "all_samples.batch0.stitch.vcf.gz",
@@ -1918,7 +1918,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-05T11:34:19.432890213",
+        "timestamp": "2026-10-06T10:31:05.767728929",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

@@ -176,6 +176,7 @@ workflow {
         k_val           : params.k_val,
         n_gen           : params.n_gen,
         buffer          : params.buffer,
+        min_gl          : params.min_gl,
         force_multi_vcf : params.force_multi_vcf
     ]
 
