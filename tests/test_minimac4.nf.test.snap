@@ -477,12 +477,12 @@
                     "imputation/csv/impute.csv",
                     "imputation/minimac4",
                     "imputation/minimac4/concat",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA12878.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA19401.minimac4.vcf.gz.csi",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz",
-                    "imputation/minimac4/concat/NA20359.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA12878.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA12878.batch0.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA19401.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA19401.batch0.minimac4.vcf.gz.csi",
+                    "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz",
+                    "imputation/minimac4/concat/NA20359.batch0.minimac4.vcf.gz.csi",
                     "imputation/minimac4/samples",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz",
                     "imputation/minimac4/samples/NA12878.minimac4.vcf.gz.csi",
@@ -585,28 +585,28 @@
                 ],
                 "VCF files": [
                     [
+                        "NA12878.batch0.minimac4.vcf.gz",
+                        "4cd02c6b0a9645ddc6cd75dfb32c5f3c"
+                    ],
+                    [
+                        "NA19401.batch0.minimac4.vcf.gz",
+                        "ff5987bdac40fa5ff0b93d787e712b48"
+                    ],
+                    [
+                        "NA20359.batch0.minimac4.vcf.gz",
+                        "7bf9e0449eb4f33c3e19f6d505c3b918"
+                    ],
+                    [
                         "NA12878.minimac4.vcf.gz",
-                        "c103263da2696f2af4512b1655ddc973"
+                        "4cd02c6b0a9645ddc6cd75dfb32c5f3c"
                     ],
                     [
                         "NA19401.minimac4.vcf.gz",
-                        "a2e2839795f6ae95a426f4d2f3a5b718"
+                        "ff5987bdac40fa5ff0b93d787e712b48"
                     ],
                     [
                         "NA20359.minimac4.vcf.gz",
-                        "7dc3ddcbe5e3a84354944ee8863a6ff9"
-                    ],
-                    [
-                        "NA12878.minimac4.vcf.gz",
-                        "c103263da2696f2af4512b1655ddc973"
-                    ],
-                    [
-                        "NA19401.minimac4.vcf.gz",
-                        "a2e2839795f6ae95a426f4d2f3a5b718"
-                    ],
-                    [
-                        "NA20359.minimac4.vcf.gz",
-                        "7dc3ddcbe5e3a84354944ee8863a6ff9"
+                        "7bf9e0449eb4f33c3e19f6d505c3b918"
                     ]
                 ],
                 "CSV files": [
@@ -630,10 +630,10 @@
                 }
             }
         ],
-        "timestamp": "2026-09-28T21:03:18.524621706",
+        "timestamp": "2026-10-07T18:58:33.533870477",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     }
 }
