@@ -32,6 +32,7 @@ nextflow_pipeline {
             config: "../conf/test_vcf.config",
             params: [
                 min_gl: 0.995,
+                force_multi_vcf: true
             ],
             details: { outdir ->
                 [

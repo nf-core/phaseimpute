@@ -1,0 +1,36 @@
+def projectDir = new File('.').absolutePath
+
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_prephase"
+
+    def test_scenario = [
+        [
+            name: "Check test_prephase - with paneprep and map but no chunks",
+            config: "../conf/test_prephase.config",
+        ],
+        [
+            name: "Check test_prephase - no paneprep but with map and chunks",
+            config: "../conf/test_prephase.config",
+            params: [
+                chunks : "${projectDir}/tests/csv/chunks.csv",
+                steps  : "prephase"
+            ]
+        ],
+        [
+            name: "Check test_prephase - no paneprep, no chunks but with map",
+            config: "../conf/test_prephase.config",
+            params: [
+                steps  : "prephase"
+            ]
+        ]
+    ]
+
+    test_scenario.each { scenario ->
+        test(scenario.name, UTILS.getPhaseimputeTest(scenario))
+    }
+}
