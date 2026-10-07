@@ -508,6 +508,7 @@ Optionnaly you can provide the following flags:
 
 - `--chunks chunks.csv`: An optional samplesheet containing chunks per chromosome. These are produced by `--steps panelprep` using `GLIMPSE1` or `GLIMPSE2`. See [chunks section](#samplesheet-chunks) for more informations.
 - `--map map.csv`: An optional samplesheet containing genetic map per chromosome. See [map section](#samplesheet-map) for more informations.
+- `options_TOOL-NAME`: An optional string containing fine tuning parameter passed to each imputation process.
 
 #### Summary table of mandatory (m) and optional (o) parameters in `--steps impute`
 
@@ -619,7 +620,10 @@ nextflow run nf-core/phaseimpute \
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### STITCH
+Fine tuning arguments can be passed to Quilt and Quilt2 using respectively `--options_quilt` and `--options_quilt2`.
+Available parameters can be found at [QUILT documentation](https://github.com/rwdavies/QUILT/blob/master/QUILT.R) and [QUILT2 documentation](https://github.com/rwdavies/QUILT/blob/master/QUILT2.R).
+
+### `stitch`
 
 [STITCH](https://github.com/rwdavies/STITCH) is an R program for low coverage sequencing genotype imputation without using a reference panel. The required inputs for this program are bam samples provided in the input samplesheet (`--input`) and a `.posfile.gz` file with the list of positions to genotype (`--posfile`). Internally, the pipeline converts the posfile with CHROM POS REF,ALT file to STITCH’s CHROM POS REF ALT format; users should always provide the comma-separated format described in the [Posfile section](#samplesheet-posfile).
 
@@ -671,7 +675,10 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### GLIMPSE1
+Fine tuning arguments can be passed to Stitch using `--options_stitch`.
+Available parameters can be found at [STITCH documentation](https://github.com/rwdavies/STITCH/blob/master/STITCH.R).
+
+### `glimpse1`
 
 [GLIMPSE1](https://github.com/odelaneau/GLIMPSE/tree/glimpse1) is a set of tools for phasing and imputation for low-coverage sequencing datasets. Recommended for many samples at >0.5x coverage and small reference panels.
 Glimpse1 works with variant (i.e. VCF or BCF) files as input.
@@ -707,7 +714,10 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### GLIMPSE2
+Fine tuning arguments can be passed to Glimpse1 using `--options_glimpse1`.
+Available parameters can be found at [GLIMPSE_phase documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html#phase).
+
+### `glimpse2`
 
 [GLIMPSE2](https://github.com/odelaneau/GLIMPSE) is a set of tools for phasing and imputation for low-coverage sequencing datasets. This is an example command to run this tool from the `--steps impute`:
 
@@ -732,7 +742,10 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### BEAGLE5
+Fine tuning arguments can be passed to Glimpse2 using `--options_glimpse2`.
+Available parameters can be found at [GLIMPSE2_phase documentation](https://odelaneau.github.io/GLIMPSE/docs/documentation/phase/).
+
+### `beagle5`
 
 [BEAGLE5](https://faculty.washington.edu/browning/beagle/beagle.html) is a software package for analyzing large-scale genetic
 data sets with hundreds of thousands of markers genotyped on thousands of samples.
@@ -758,7 +771,10 @@ See [Chunks section](#samplesheet-chunks) for more information.
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
 
-### MINIMAC4
+Fine tuning arguments can be passed to Beagle5 using `--options_beagle5`.
+Available parameters can be found at [BEAGLE5 documentation](https://faculty.washington.edu/browning/beagle/beagle_5.5_17Dec24.pdf).
+
+### `minimac4`
 
 [MINIMAC4](https://github.com/statgen/Minimac4) is a low memory, computationally efficient implementation of the MaCH algorithm for genotype imputation. It is designed to work on phased haplotypes and can handle very large reference panels.
 
@@ -791,6 +807,9 @@ See [Chunks section](#samplesheet-chunks) for more information.
 
 Genetic map can also be provided for better accuracy.
 See [Map section](#samplesheet-map) for more information.
+
+Fine tuning arguments can be passed to Minimac4 using `--options_minimac4`.
+Available parameters can be found at [MINIMAC4 documentation](https://genome.sph.umich.edu/wiki/Minimac4_Documentation)
 
 ## Start with validation `--steps validate`
 
