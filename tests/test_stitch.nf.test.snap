@@ -181,19 +181,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "e53f3469622b5c6f3cefc44da6051477"
+                        "243dda1af9be5f4e9ca7c66ef8fc06f1"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "f56b4699466875d0c8ce3a6af110b25"
+                        "65600772b6c45c482e9e87700b5a8575"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "101550570cbd0f0b1442d98aad40be8c"
+                        "770c8694415d50516af524f12349bc70"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "2622d07f08ad435a63918ca5232c1118"
+                        "f8e00b0d359c5c9d707a78425e368a6b"
                     ]
                 ],
                 "CSV files": [
@@ -219,7 +219,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:46:29.309624077",
+        "timestamp": "2026-10-07T21:04:44.045950446",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -384,19 +384,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "67bf34bb2487c2bd8ecb8c2d73e7ba13"
+                        "b2c19bd87a37815e4d84c264002b6611"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "a7aade2f71a1fd48e8937328bdd3913c"
+                        "9261df56972bbc5774186335027eeb60"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "62307e15ad38408a159a54a362766134"
+                        "fcc6fe2d4af63836a450ab32a49fa931"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "c06e3847423ee765a8955efd255bc1bc"
+                        "a45f2f4323038a160cd4bffd56f8cab"
                     ]
                 ],
                 "CSV files": [
@@ -422,7 +422,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:47:21.826420602",
+        "timestamp": "2026-10-07T21:05:29.290337054",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
