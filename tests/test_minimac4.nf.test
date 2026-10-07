@@ -39,7 +39,7 @@ nextflow_pipeline {
             ],
             details: { outdir ->
                 [
-                    "NA12878.minimac4": UTILS.vcfDetails("$outdir/imputation/minimac4/concat/NA12878.minimac4.vcf.gz"),
+                    "NA12878.minimac4": UTILS.vcfDetails("$outdir/imputation/minimac4/concat/NA12878.batch0.minimac4.vcf.gz"),
                 ]
             },
         ]
