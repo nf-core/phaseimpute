@@ -221,13 +221,13 @@
                 "options_glimpse1": {
                     "type": "string",
                     "description": "Additional options to pass to GLIMPSE1. See the [GLIMPSE_phase documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html#phase) for more information.",
-                    "default": "",
+                    "default": "--impute-reference-only-variants",
                     "hidden": true
                 },
                 "options_glimpse2": {
                     "type": "string",
                     "description": "Additional options to pass to GLIMPSE2. See the [GLIMPSE2_phase documentation](https://odelaneau.github.io/GLIMPSE/docs/documentation/phase/) for more information.",
-                    "default": "",
+                    "default": "--keep-monomorphic-ref-sites",
                     "hidden": true
                 },
                 "options_quilt": {
@@ -239,7 +239,7 @@
                 "options_quilt2": {
                     "type": "string",
                     "description": "Additional options to pass to QUILT2. See the [QUILT2 documentation](https://github.com/rwdavies/QUILT/blob/master/QUILT2.R) for more information.",
-                    "default": "",
+                    "default": "--use_mspbwt=TRUE --impute_rare_common=FALSE",
                     "hidden": true
                 },
                 "options_stitch": {
@@ -251,13 +251,13 @@
                 "options_beagle5": {
                     "type": "string",
                     "description": "Additional options to pass to BEAGLE5. See the [BEAGLE5 documentation](https://faculty.washington.edu/browning/beagle/beagle_5.5_17Dec24.pdf) for more information.",
-                    "default": "",
+                    "default": "gp=true ap=true",
                     "hidden": true
                 },
                 "options_minimac4": {
                     "type": "string",
                     "description": "Additional options to pass to MINIMAC4. See the [MINIMAC4 documentation](https://genome.sph.umich.edu/wiki/Minimac4_Documentation) for more information.",
-                    "default": "",
+                    "default": "--format GT,GP,DS --output-format vcf.gz",
                     "hidden": true
                 },
                 "seed": {
