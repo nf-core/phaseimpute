@@ -174,8 +174,9 @@ workflow {
     def params_impute = [
         batch_size: params.batch_size,
         k_val     : params.k_val,
-        n_gen     :params.n_gen,
-        buffer    :params.buffer,
+        n_gen     : params.n_gen,
+        buffer    : params.buffer,
+        min_gl    : params.min_gl
     ]
 
     def params_validate = [

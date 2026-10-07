@@ -142,21 +142,25 @@ The results from `--steps impute` will have the following directory structure:
 ├── csv
 ├── <glimpse1|glimpse2|quilt|quilt2|stitch|beagle5|minimac4>
 │   ├── concat/
-│   └── samples/
+|   ├── filtered/
+|   ├── intermediary/
+│   ├── samples/
+│   └── variant_calling/
 ├── stats
 ```
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `imputation/batch/all.batchi.id.txt`: List of samples names processed in the i^th^ batch.
+- `imputation/batch/all.batchi.id.txt`: List of samples names processed in the i^th^ batch
 - `imputation/csv/`
   - `impute.csv`: A single CSV file containing the path to a VCF file and its index, of each imputed sample with their corresponding tool.
 - `imputation/[glimpse1,glimpse2,quilt,quilt2,stitch,beagle5,minimac4]/`
-  - `concat/all.batch*.vcf.gz`: The concatenated VCF files of all imputed samples by batches.
-  - `concat/all.batch*.vcf.gz.csi`: The index file for the concatenated imputed VCF files of the samples.
-  - `samples/*.vcf.gz`: A VCF file of each imputed sample.
-  - `samples/*.vcf.gz.csi`: The index file of the imputed VCF files.
+  - `concat/all.batch*.vcf.gz{,.csi}`: The concatenated VCF with indexes files of all imputed samples by batches
+  - `filtered/all.batch*.vcf.gz{,.csi}`: The filtered VCF with indexes files of all imputed samples by batches when using `--min_gl`. Genotypes with a probability inferior to this threshold are set to missing (i.e., `./.`)
+  - `intermediary/*`: Set of intermediary files produced by each tools, needs `--publish_all`
+  - `samples/*.vcf.gz{,.csi}`: A VCF file with index of each imputed sample
+  - `variant_calling/*`: Variant calling file obtained before running `GLIMPSE_PHASE` with `.bam` files, needs `--publish_all`
 - `imputation/*.<tool>.bcftools_stats.txt`: The statistics of the imputed VCF target file produced by [`BCFTOOLS_STATS`](https://samtools.github.io/bcftools/bcftools.html#stats.)
 
 </details>

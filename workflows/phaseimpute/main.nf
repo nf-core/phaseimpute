@@ -46,6 +46,8 @@ include { LISTTOFILE                                 } from '../../modules/local
 include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_IMPUTED   } from '../../modules/nf-core/bcftools/query'
 include { GAWK as GAWK_IMPUTED                       } from '../../modules/nf-core/gawk'
 include { VCF_SPLIT_BCFTOOLS as SPLIT_IMPUTED        } from '../../subworkflows/local/vcf_split_bcftools'
+include { BCFTOOLS_PLUGINSETGT                       } from '../../modules/nf-core/bcftools/pluginsetgt'
+
 
 // GLIMPSE1 subworkflows
 include { BAM_VARIANT_CALLING_MPILEUP_BCFTOOLS as GL_GLIMPSE1 } from '../../subworkflows/nf-core/bam_variant_calling_mpileup_bcftools'
@@ -651,6 +653,20 @@ workflow PHASEIMPUTE {
 
             // Add results to input validate
             ch_input_validate = ch_input_validate.mix(CONCAT_MINIMAC4.out.vcf_index)
+        }
+
+        if (params_impute["min_gl"] != 0) {
+            BCFTOOLS_PLUGINSETGT(
+                ch_input_validate.map{ meta, vcf, index -> [
+                    meta + [min_gl: "${params_impute["min_gl"]}"], vcf, index
+                ]},
+                "q",
+                ".",
+                [],
+                []
+            )
+            ch_input_validate = BCFTOOLS_PLUGINSETGT.out.vcf
+                .join(BCFTOOLS_PLUGINSETGT.out.index)
         }
 
         // Prepare renaming file

@@ -54,6 +54,11 @@
                         "git_sha": "315b3434ffc4bead2ddac59c75e0e2d7fcf79f0c",
                         "installed_by": ["modules"]
                     },
+                    "bcftools/pluginsetgt": {
+                        "branch": "master",
+                        "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/pluginsplit": {
                         "branch": "master",
                         "git_sha": "feef37435aea56816adf4b3bde1fc76aac327a8d",

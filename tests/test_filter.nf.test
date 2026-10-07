@@ -1,0 +1,50 @@
+def projectDir = new File('.').absolutePath
+
+nextflow_pipeline {
+
+    name "Test phaseimpute workflow"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline/phaseimpute"
+    tag "test_filter"
+
+    def test_scenario = [
+        [
+            name: "Check test_filter - with bam - min_gl=0.8",
+            config: "../conf/test.config",
+            params: [
+                min_gl: 0.995,
+                tools: "glimpse1,glimpse2,stitch,quilt,quilt2",
+                posfile: "${projectDir}/tests/csv/posfile.csv"
+            ],
+            details: { outdir ->
+                [
+                    "all_samples.batch0.glimpse1": UTILS.vcfDetails("$outdir/imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz"),
+                    "all_samples.batch0.glimpse2": UTILS.vcfDetails("$outdir/imputation/glimpse2/concat/all_samples.batch0.glimpse2.vcf.gz"),
+                    "all_samples.batch0.stitch": UTILS.vcfDetails("$outdir/imputation/stitch/concat/all_samples.batch0.stitch.vcf.gz"),
+                    "all_samples.batch0.quilt": UTILS.vcfDetails("$outdir/imputation/quilt/concat/all_samples.batch0.quilt.vcf.gz"),
+                    "all_samples.batch0.quilt2": UTILS.vcfDetails("$outdir/imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz")
+                ]
+            },
+        ],
+        [
+            name: "Check test_filter - with vcf - min_gl=0.8",
+            config: "../conf/test_vcf.config",
+            params: [
+                min_gl: 0.995,
+            ],
+            details: { outdir ->
+                [
+                    "NA12878.batch0.glimpse1": UTILS.vcfDetails("$outdir/imputation/glimpse1/concat/NA12878.batch0.glimpse1.vcf.gz"),
+                    "NA12878.batch0.glimpse2": UTILS.vcfDetails("$outdir/imputation/glimpse2/concat/NA12878.batch0.glimpse2.vcf.gz"),
+                    "NA12878.batch0.minimac4": UTILS.vcfDetails("$outdir/imputation/minimac4/concat/NA12878.batch0.minimac4.vcf.gz"),
+                    "NA12878.batch0.beagle5": UTILS.vcfDetails("$outdir/imputation/beagle5/concat/NA12878.batch0.beagle5.vcf.gz")
+                ]
+            },
+        ]
+    ]
+
+    test_scenario.each { scenario ->
+        test(scenario.name, UTILS.getPhaseimputeTest(scenario))
+    }
+}
