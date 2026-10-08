@@ -239,7 +239,7 @@
                 "options_quilt2": {
                     "type": "string",
                     "description": "Additional options to pass to QUILT2. See the [QUILT2 documentation](https://github.com/rwdavies/QUILT/blob/master/QUILT2.R) for more information.",
-                    "default": "--use_mspbwt=TRUE --impute_rare_common=FALSE",
+                    "default": "",
                     "hidden": true
                 },
                 "options_stitch": {
