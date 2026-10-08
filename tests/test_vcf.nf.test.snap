@@ -264,51 +264,51 @@
                     ],
                     [
                         "NA12878.batch0.glimpse1.vcf.gz",
-                        "b403b2183628d19f267043dfd0ed80c6"
+                        "9c4b62190a708e96a9067c8f0ad5a7ad"
                     ],
                     [
                         "NA19401.batch0.glimpse1.vcf.gz",
-                        "275b04a9a39b44d31e4ff06b31983890"
+                        "d45e8a6939a10bea06f5daa6f5f66433"
                     ],
                     [
                         "NA20359.batch0.glimpse1.vcf.gz",
-                        "4760c0686f5d78e54a58015b8fc28769"
+                        "6fd2c810b92ba6262de8242b5f3c1675"
                     ],
                     [
                         "NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "f52634a172e1901fcabfda278cf3d7f6"
+                        "ffad8042dff1426aa3619d946e3897c4"
                     ],
                     [
                         "NA12878.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "369d102f6af7d9804d68b683307a30c0"
+                        "b61668c65f224bc2f8031b2a54dc1303"
                     ],
                     [
                         "NA19401.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "a1fb944ff37c14a70fc7c513bc72697f"
+                        "4d50d630346a184dbb70df7a1c0abcaa"
                     ],
                     [
                         "NA19401.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "343386fdb89481e04c4cb92ff4ccae4a"
+                        "434156b683842a75d2c4c90aa9bdd6e7"
                     ],
                     [
                         "NA20359.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "78c568b3d1dbc67c80c8a640d7c80b8d"
+                        "3a59bf14d85d9bfa914014b9fffe5049"
                     ],
                     [
                         "NA20359.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "6bdec3080002c8d8157ca882facfc977"
+                        "8db9cb20f62cf4fee649c7e982a703fc"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "b403b2183628d19f267043dfd0ed80c6"
+                        "9c4b62190a708e96a9067c8f0ad5a7ad"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "275b04a9a39b44d31e4ff06b31983890"
+                        "d45e8a6939a10bea06f5daa6f5f66433"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "4760c0686f5d78e54a58015b8fc28769"
+                        "6fd2c810b92ba6262de8242b5f3c1675"
                     ],
                     [
                         "NA12878.batch0.glimpse2.vcf.gz",
@@ -381,7 +381,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-10-05T19:36:56.182676476",
+        "timestamp": "2026-10-07T19:50:01.581359364",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -616,27 +616,27 @@
                     ],
                     [
                         "ALL_IND.batch0.glimpse1.vcf.gz",
-                        "44691837401b2aee40152a656a34e517"
+                        "e61ef38c21546c9fccce99ae2967309c"
                     ],
                     [
                         "ALL_IND.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "7b0c24952e532ab5ecfaeae419fc4327"
+                        "6f360da62704d3fa69b80dbef8eae191"
                     ],
                     [
                         "ALL_IND.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "582999777647c843a106dab627323a53"
+                        "171e7baecd743a2921a47e362cf43eb"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "313b7c6faa956b00ff83c8d18abbb23e"
+                        "474d5ab0ed798884db36e87cf90ed477"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "3853c7147906ba0fc89fb7e102eeb461"
+                        "197f4ba94e47d2ebff8562391197ff93"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "615bda3b3af1a749325d481c38e74dba"
+                        "5e0443a8640bf756b05ccf0fb6b6eb14"
                     ],
                     [
                         "ALL_IND.batch0.glimpse2.vcf.gz",
@@ -693,7 +693,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-10-05T19:37:44.691984837",
+        "timestamp": "2026-10-07T19:50:51.432601488",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

@@ -206,7 +206,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "7e82abf33d378aa97227b2254719bb80"
+                        "44a956adbeb8f61baea9248cf950c2f9"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
@@ -214,19 +214,19 @@
                     ],
                     [
                         "all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "713b689c40f9e69b1ae530a339946201"
+                        "f5cb65bc87b6bc4b5e8193734f7978fb"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "585082dc08ed688dbe2ebe2c5651fd16"
+                        "7de57c3bb4c983b4bb7c9d39cd6b017e"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "c88f04da1684db2a3219db956f4c8327"
+                        "b8adcfd40b0ba76547a4f9eebb408bc3"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "fbd720a840a2367dd4638d8048936ed4"
+                        "9607a8a4f491d1a01920338dd5111ba3"
                     ],
                     [
                         "NA12878_chr21.vcf.gz",
@@ -292,7 +292,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-25T21:34:55.670531419",
+        "timestamp": "2026-10-07T19:30:48.655131149",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

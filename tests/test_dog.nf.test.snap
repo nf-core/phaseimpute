@@ -298,19 +298,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "581893c746779574366210e8034b0de2"
+                        "bbf1b030d090cda8e44fd373833d36a1"
                     ],
                     [
                         "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "9bafd64a823bb04417744f87cf0ffa11"
+                        "3d1b964b524c35a205be08142d5cec4c"
                     ],
                     [
                         "all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "fb829b73a78ea6e6b10c25a058275503"
+                        "704de8e7435a4a99599c6248a889401"
                     ],
                     [
                         "dog_1735.glimpse1.vcf.gz",
-                        "581893c746779574366210e8034b0de2"
+                        "bbf1b030d090cda8e44fd373833d36a1"
                     ],
                     [
                         "all_samples.annotate.vcf.gz",
@@ -330,11 +330,11 @@
                     ],
                     [
                         "all_samples.batch0.glimpse2.vcf.gz",
-                        "3f1298eef33abea583d9d6f8f259a462"
+                        "1149ad2cdeaba1db98ce374a498e8946"
                     ],
                     [
                         "dog_1735.glimpse2.vcf.gz",
-                        "3f1298eef33abea583d9d6f8f259a462"
+                        "1149ad2cdeaba1db98ce374a498e8946"
                     ],
                     [
                         "all_samples.batch0.quilt.vcf.gz",
@@ -370,11 +370,11 @@
                     ],
                     [
                         "658Dog_chr21_phased.vcf.gz",
-                        "c5f49189fb225bf23c9f7d04f3ccca2b"
+                        "f1bd57244ec8c6ebd8e0e1ac19a971a2"
                     ],
                     [
                         "658Dog_chr22_phased.vcf.gz",
-                        "88141b79a8d26241a15e319a513c1279"
+                        "15d41d2805c86c6a41fc3ea7355b64eb"
                     ],
                     [
                         "658Dog_chr21_glimpse1_sites.vcf.gz",
@@ -442,7 +442,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-06T10:22:13.70650217",
+        "timestamp": "2026-10-07T19:46:24.032398467",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

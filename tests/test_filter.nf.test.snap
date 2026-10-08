@@ -307,63 +307,63 @@
                     ],
                     [
                         "NA12878.batch0.glimpse1.vcf.gz",
-                        "b403b2183628d19f267043dfd0ed80c6"
+                        "9c4b62190a708e96a9067c8f0ad5a7ad"
                     ],
                     [
                         "NA19401.batch0.glimpse1.vcf.gz",
-                        "275b04a9a39b44d31e4ff06b31983890"
+                        "d45e8a6939a10bea06f5daa6f5f66433"
                     ],
                     [
                         "NA20359.batch0.glimpse1.vcf.gz",
-                        "4760c0686f5d78e54a58015b8fc28769"
+                        "6fd2c810b92ba6262de8242b5f3c1675"
                     ],
                     [
                         "NA12878.batch0.glimpse1.GP0.995.vcf.gz",
-                        "39e9af6b8945a3d58cf4d10e66bcf7fb"
+                        "5e5da729da112806e017f799c8cd7ba2"
                     ],
                     [
                         "NA19401.batch0.glimpse1.GP0.995.vcf.gz",
-                        "a526a4be71c0ab602c0d946d78e6f626"
+                        "fb53b10973295dc6da6ecd1c75e4628f"
                     ],
                     [
                         "NA20359.batch0.glimpse1.GP0.995.vcf.gz",
-                        "8f9dd95495c580d18b9da07a0098d434"
+                        "9275f262f01723a12f52dcebe695c606"
                     ],
                     [
                         "NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "f52634a172e1901fcabfda278cf3d7f6"
+                        "ffad8042dff1426aa3619d946e3897c4"
                     ],
                     [
                         "NA12878.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "369d102f6af7d9804d68b683307a30c0"
+                        "b61668c65f224bc2f8031b2a54dc1303"
                     ],
                     [
                         "NA19401.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "a1fb944ff37c14a70fc7c513bc72697f"
+                        "4d50d630346a184dbb70df7a1c0abcaa"
                     ],
                     [
                         "NA19401.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "343386fdb89481e04c4cb92ff4ccae4a"
+                        "434156b683842a75d2c4c90aa9bdd6e7"
                     ],
                     [
                         "NA20359.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "78c568b3d1dbc67c80c8a640d7c80b8d"
+                        "3a59bf14d85d9bfa914014b9fffe5049"
                     ],
                     [
                         "NA20359.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "6bdec3080002c8d8157ca882facfc977"
+                        "8db9cb20f62cf4fee649c7e982a703fc"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "39e9af6b8945a3d58cf4d10e66bcf7fb"
+                        "5e5da729da112806e017f799c8cd7ba2"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "a526a4be71c0ab602c0d946d78e6f626"
+                        "fb53b10973295dc6da6ecd1c75e4628f"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "8f9dd95495c580d18b9da07a0098d434"
+                        "9275f262f01723a12f52dcebe695c606"
                     ],
                     [
                         "NA12878.batch0.glimpse2.vcf.gz",
@@ -486,7 +486,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-05T19:11:15.517715828",
+        "timestamp": "2026-10-07T20:19:23.400124629",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1043,23 +1043,23 @@
                     ],
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "e53f3469622b5c6f3cefc44da6051477"
+                        "243dda1af9be5f4e9ca7c66ef8fc06f1"
                     ],
                     [
                         "all_samples.batch0.stitch.GP0.995.vcf.gz",
-                        "1ad835108d5fe7bf0e65302f644c152c"
+                        "e5f0bad4887a395976d61ea5766afb45"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
-                        "73a6fb53ead0dc318e4766bde3900171"
+                        "95f962fe64c55c0d4bf12480336aa014"
                     ],
                     [
                         "NA19401.stitch.vcf.gz",
-                        "570919a3d609d368c0d8e99f0ce72386"
+                        "864ea9bae98165a3dde92fd1965cc8b3"
                     ],
                     [
                         "NA20359.stitch.vcf.gz",
-                        "84feebc2746ac70a74a625043a8e11b8"
+                        "174a9b79babf29255e3b8f204ad03a03"
                     ]
                 ],
                 "CSV files": [
@@ -1129,7 +1129,7 @@
                 }
             }
         ],
-        "timestamp": "2026-10-06T10:25:53.979882724",
+        "timestamp": "2026-10-07T20:18:03.051730897",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

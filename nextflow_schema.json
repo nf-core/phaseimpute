@@ -152,6 +152,12 @@
                     "enum": ["V1", "V2"],
                     "default": "V1",
                     "hidden": true
+                },
+                "options_shapeit5": {
+                    "type": "string",
+                    "description": "Additional options to pass to SHAPEIT5. See the [SHAPEIT5_phase_common documentation](https://odelaneau.github.io/shapeit/docs/documentation/phase_common/) for more information.",
+                    "default": "--seed ${params.seed} --hmm-ne ${params.effective_population_size}",
+                    "hidden": true
                 }
             }
         },
@@ -192,9 +198,71 @@
                     "minimum": 0,
                     "maximum": 1
                 },
+                "buffer": {
+                    "type": "integer",
+                    "default": 10000,
+                    "description": "Buffer of region to perform imputation over. So imputation is run form regionStart-buffer to regionEnd+buffer, and reported for regionStart to regionEnd, including the bases of regionStart and regionEnd. Used by QUILT, QUILT2 and STITCH."
+                },
+                "n_gen": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Number of generations since founding of the population to use for imputation.  Used by QUILT, QUILT2 and STITCH. Use nGen = 4 * Ne / K if unsure"
+                },
+                "k_val": {
+                    "type": "integer",
+                    "default": 4,
+                    "description": "Number of ancestral haplotypes to use for imputation by STITCH. Refer to the documentation for the `--K` argument of STITCH for more information."
+                },
+                "effective_population_size": {
+                    "type": "integer",
+                    "default": 100000,
+                    "description": "Effective population size (Ne) to use for imputation. Used by GLIMPSE1, GLIMPSE2, BEAGLE5."
+                },
+                "options_glimpse1": {
+                    "type": "string",
+                    "description": "Additional options to pass to GLIMPSE1. See the [GLIMPSE_phase documentation](https://odelaneau.github.io/GLIMPSE/glimpse1/commands.html#phase) for more information.",
+                    "default": "--seed ${params.seed} --ne ${params.effective_population_size} --impute-reference-only-variants",
+                    "hidden": true
+                },
+                "options_glimpse2": {
+                    "type": "string",
+                    "description": "Additional options to pass to GLIMPSE2. See the [GLIMPSE2_phase documentation](https://odelaneau.github.io/GLIMPSE/docs/documentation/phase/) for more information.",
+                    "default": "--seed ${params.seed} --ne ${params.effective_population_size} --keep-monomorphic-ref-sites",
+                    "hidden": true
+                },
+                "options_quilt": {
+                    "type": "string",
+                    "description": "Additional options to pass to QUILT. See the [QUILT documentation](https://github.com/rwdavies/QUILT/blob/master/QUILT.R) for more information.",
+                    "default": "--seed=${params.seed}",
+                    "hidden": true
+                },
+                "options_quilt2": {
+                    "type": "string",
+                    "description": "Additional options to pass to QUILT2. See the [QUILT2 documentation](https://github.com/rwdavies/QUILT/blob/master/QUILT2.R) for more information.",
+                    "default": "--seed=${params.seed}",
+                    "hidden": true
+                },
+                "options_stitch": {
+                    "type": "string",
+                    "description": "Additional options to pass to STITCH. See the [STITCH documentation](https://github.com/rwdavies/STITCH/blob/master/STITCH.R) for more information.",
+                    "default": "",
+                    "hidden": true
+                },
+                "options_beagle5": {
+                    "type": "string",
+                    "description": "Additional options to pass to BEAGLE5. See the [BEAGLE5 documentation](https://faculty.washington.edu/browning/beagle/beagle_5.5_17Dec24.pdf) for more information.",
+                    "default": "seed=${params.seed} ne=${params.effective_population_size} gp=true ap=true",
+                    "hidden": true
+                },
+                "options_minimac4": {
+                    "type": "string",
+                    "description": "Additional options to pass to MINIMAC4. See the [MINIMAC4 documentation](https://genome.sph.umich.edu/wiki/Minimac4_Documentation) for more information.",
+                    "default": "--format GT,GP,DS --output-format vcf.gz",
+                    "hidden": true
+                },
                 "seed": {
                     "type": "integer",
-                    "description": "Seed for random number generation in Stitch, QUILT and QUILT2 software",
+                    "description": "Seed for random number generation.",
                     "hidden": true,
                     "default": 1
                 }
@@ -465,37 +533,6 @@
                     "description": "Display hidden parameters in the help message (only works when --help or --help_full are provided)."
                 }
             }
-        },
-        "quilt_parameters": {
-            "title": "QUILT parameters",
-            "type": "object",
-            "description": "Arguments to customize QUILT run",
-            "default": "",
-            "properties": {
-                "buffer": {
-                    "type": "integer",
-                    "default": 10000,
-                    "description": "Buffer of region to perform imputation over. So imputation is run form regionStart-buffer to regionEnd+buffer, and reported for regionStart to regionEnd, including the bases of regionStart and regionEnd."
-                },
-                "n_gen": {
-                    "type": "integer",
-                    "default": 100,
-                    "description": "Number of generations since founding of the population to use for imputation."
-                }
-            }
-        },
-        "stitch_parameters": {
-            "title": "STITCH parameters",
-            "type": "object",
-            "description": "Arguments to customize STITCH run",
-            "default": "",
-            "properties": {
-                "k_val": {
-                    "type": "integer",
-                    "default": 2,
-                    "description": "Number of ancestral haplotypes to use for imputation. Refer to the documentation for the `--K` argument of STITCH for more information."
-                }
-            }
         }
     },
     "allOf": [
@@ -522,12 +559,6 @@
         },
         {
             "$ref": "#/$defs/generic_options"
-        },
-        {
-            "$ref": "#/$defs/quilt_parameters"
-        },
-        {
-            "$ref": "#/$defs/stitch_parameters"
         }
     ]
 }

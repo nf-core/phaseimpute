@@ -140,11 +140,11 @@
                 "VCF files": [
                     [
                         "1000GP_chr21_phased.vcf.gz",
-                        "52bcbe4476db8398ac7c5cf3ce089a50"
+                        "f7809231baa0b3e8921aef3108cc48f3"
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "40ff314e91993a89f6ca95aa06f5ad86"
+                        "11593c2a4bba70c106a58d32054e8e7c"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
@@ -183,7 +183,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-10-05T11:40:54.269346846",
+        "timestamp": "2026-10-07T21:02:14.968069667",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -343,11 +343,11 @@
                 "VCF files": [
                     [
                         "1000GP_chr21_phased.vcf.gz",
-                        "377fc1bc7cf1602b55833a2d2e3caa97"
+                        "bcfc0499640f3a2d68cdec00a9c1d3ee"
                     ],
                     [
                         "1000GP_chr22_phased.vcf.gz",
-                        "546dc3c1f9b47c9a3aa568a55614881d"
+                        "21d458d3a18059fcb1cde7a3ab556e44"
                     ],
                     [
                         "1000GP_chr21_glimpse1_sites.vcf.gz",
@@ -378,7 +378,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-10-05T11:40:17.093332741",
+        "timestamp": "2026-10-07T21:01:38.058957261",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
