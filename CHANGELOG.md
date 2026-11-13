@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#328](https://github.com/nf-core/phaseimpute/pull/328) - Update genetic map convertion module.
 - [#329](https://github.com/nf-core/phaseimpute/pull/329) - Update modules and subworkflows.
 - [#330](https://github.com/nf-core/phaseimpute/pull/330) - Update `BCFTOOLS_MPILEUP` and `BCFTOOLS_STATS` (md5sum changes).
+- [#333](https://github.com/nf-core/phaseimpute/pull/333) - Update TEMPLATE to nf-core tools version 4.2.2.
 
 ### `Fixed`
 

@@ -1,6 +1,7 @@
 def check_stdout(function_stdout) {
     function_stdout[2..-1]
         .findAll {
+            !it.matches(/Launching `.*` \[.*\] - revision: .*/) &&
             !it.matches(/.*Nextflow [0-9]+\.[0-9]+\.[0-9]+ is available.*/) &&
             !it.matches(/.*Downloading plugin.*/) &&
             !it.matches(/WARN: Unrecognized config option.*/) &&
@@ -82,7 +83,7 @@ nextflow_function {
         }
         then {
             assert function.failed
-            assert snapshot(this.check_stdout(function.stdout)).match()
+            assert snapshot(this.check_stdout(function.stdout + function.stderr)).match()
         }
     }
 
