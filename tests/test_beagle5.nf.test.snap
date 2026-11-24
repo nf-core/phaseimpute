@@ -2,12 +2,9 @@
     "Check test_beagle5 - with map - with chunks": {
         "content": [
             {
-                "workflow size": 51,
+                "workflow size": 39,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -33,9 +30,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -166,15 +160,15 @@
                 "VCF files": [
                     [
                         "NA12878.batch0.beagle5.vcf.gz",
-                        "c81b6b66477830bfa958be59e42d23a4"
+                        "d4cff21728b09a269afbb748d99c6f0e"
                     ],
                     [
                         "NA19401.batch0.beagle5.vcf.gz",
-                        "70883e9540233d5821afdfedac2dbc6a"
+                        "42f2a6fcadd0a57b3fbd27118372643e"
                     ],
                     [
                         "NA20359.batch0.beagle5.vcf.gz",
-                        "df4ee7c4182a440e57154b03f62a0012"
+                        "4fe654632e2277a7c29baa87d8b2dae0"
                     ],
                     [
                         "NA12878.beagle5.vcf.gz",
@@ -210,7 +204,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:04:30.364282223",
+        "timestamp": "2026-11-23T17:22:48.455944614",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -219,12 +213,9 @@
     "Check test_beagle5 - no map - no chunks": {
         "content": [
             {
-                "workflow size": 49,
+                "workflow size": 37,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -244,9 +235,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -360,15 +348,15 @@
                 "VCF files": [
                     [
                         "NA12878.batch0.beagle5.vcf.gz",
-                        "6cb6a00f6927faacc57cd20c1d61a0f9"
+                        "dc2aee121c37be0d9da86d78860b97c8"
                     ],
                     [
                         "NA19401.batch0.beagle5.vcf.gz",
-                        "3a0db394fc0d2f6b40f4010d19184552"
+                        "11b157dbdb6368d60eb872bd778295af"
                     ],
                     [
                         "NA20359.batch0.beagle5.vcf.gz",
-                        "2398a134c6a6b349715417475158aeaf"
+                        "47a03732049dc2d92862823f5f6210"
                     ],
                     [
                         "NA12878.beagle5.vcf.gz",
@@ -404,7 +392,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:05:29.573952094",
+        "timestamp": "2026-11-23T17:22:48.902732905",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

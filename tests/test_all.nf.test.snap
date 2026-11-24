@@ -172,12 +172,12 @@
                     "imputation/glimpse1/intermediary",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -952,7 +952,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:01:12.604036765",
+        "timestamp": "2026-11-23T17:25:13.635831129",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -1137,12 +1137,12 @@
                     "imputation/glimpse1/intermediary",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -1934,7 +1934,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T11:59:12.895252919",
+        "timestamp": "2026-11-23T17:25:42.280938473",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

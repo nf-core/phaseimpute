@@ -228,15 +228,12 @@
     "Check test_stitch - no map - no chunks": {
         "content": [
             {
-                "workflow size": 26,
+                "workflow size": 22,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -260,9 +257,6 @@
                     },
                     "GAWK_POSFILE_IMPUTE": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -384,7 +378,7 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.stitch.vcf.gz",
-                        "67bf34bb2487c2bd8ecb8c2d73e7ba13"
+                        "885d82d683bbb8a003cc721d8fdcca72"
                     ],
                     [
                         "NA12878.stitch.vcf.gz",
@@ -422,7 +416,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:53:46.882946332",
+        "timestamp": "2026-11-23T17:23:32.024021652",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

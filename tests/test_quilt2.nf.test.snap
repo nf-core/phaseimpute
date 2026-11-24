@@ -2,15 +2,12 @@
     "Check test_quilt2 - no map - no chunks": {
         "content": [
             {
-                "workflow size": 22,
+                "workflow size": 18,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_PLUGINSPLIT": {
@@ -24,9 +21,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -63,12 +57,8 @@
                     "imputation/quilt2/concat/all_samples.batch0.quilt2.vcf.gz.csi",
                     "imputation/quilt2/intermediary",
                     "imputation/quilt2/intermediary/RData",
-                    "imputation/quilt2/intermediary/all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
-                    "imputation/quilt2/intermediary/all_samples.batch0.chr21.quilt2.ligate.vcf.gz.csi",
                     "imputation/quilt2/intermediary/all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz",
                     "imputation/quilt2/intermediary/all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz.tbi",
-                    "imputation/quilt2/intermediary/all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
-                    "imputation/quilt2/intermediary/all_samples.batch0.chr22.quilt2.ligate.vcf.gz.csi",
                     "imputation/quilt2/intermediary/all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz",
                     "imputation/quilt2/intermediary/all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz.tbi",
                     "imputation/quilt2/samples",
@@ -160,19 +150,11 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.quilt2.vcf.gz",
-                        "e95e92f01bcd3b7231c4cc872bea3f4c"
-                    ],
-                    [
-                        "all_samples.batch0.chr21.quilt2.ligate.vcf.gz",
-                        "6ba188da786905b9c4857dd800ee45f5"
+                        "130fdcaf4898dea1452aa40ed1923e9d"
                     ],
                     [
                         "all_samples.batch0.chr21_16570000-16610000.quilt2.vcf.gz",
                         "c50153f002611d6e62b8d434781cea60"
-                    ],
-                    [
-                        "all_samples.batch0.chr22.quilt2.ligate.vcf.gz",
-                        "63843cb986b001f6d7a24124f8a43570"
                     ],
                     [
                         "all_samples.batch0.chr22_16570000-16610000.quilt2.vcf.gz",
@@ -214,7 +196,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:48:26.580744247",
+        "timestamp": "2026-11-23T17:28:31.16399561",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

@@ -2,12 +2,9 @@
     "Check test_minimac4 - no map - no chunks": {
         "content": [
             {
-                "workflow size": 51,
+                "workflow size": 39,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -24,9 +21,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -190,7 +184,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:23:14.123685935",
+        "timestamp": "2026-11-23T18:03:25.74889353",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -199,12 +193,9 @@
     "Check test_minimac4 - with map - with chunks": {
         "content": [
             {
-                "workflow size": 53,
+                "workflow size": 41,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -227,9 +218,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -410,7 +398,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:21:02.489907418",
+        "timestamp": "2026-11-23T17:22:35.915978767",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -419,12 +407,9 @@
     "Check test_minimac4 - with map - with chunks - with prephase step": {
         "content": [
             {
-                "workflow size": 53,
+                "workflow size": 41,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -447,9 +432,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "HTSLIB_BGZIPTABIX": {
                         "htslib": "1.25",
@@ -630,7 +612,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:25:47.299556845",
+        "timestamp": "2026-11-23T17:22:36.94363705",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

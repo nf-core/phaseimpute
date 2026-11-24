@@ -188,7 +188,7 @@ nextflow_function {
         then {
             assertAll(
                 { assert function.failed },
-                { assert function.stdout.join("\n").contains("ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got glimpse2") }
+                { assert (function.stdout + function.stderr).join("\n").contains("ERROR: Only 'glimpse1' and 'quilt' output format are supported. Got glimpse2") }
             )
         }
     }

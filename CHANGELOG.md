@@ -76,6 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#320](https://github.com/nf-core/phaseimpute/pull/320) - Use stricter extension check for `CHRCHECK`.
 - [#321](https://github.com/nf-core/phaseimpute/pull/321) - Remove `--ligate` option from `bcftools concat` (remove `PS` field).
 - [#332](https://github.com/nf-core/phaseimpute/pull/332) - Fix unittest errors with Nextflow 26.10.5 (`stdout` migration to `stderr`).
+- [#336](https://github.com/nf-core/phaseimpute/pull/336) - Skip ligation when a chromosome has only one chunk (all imputation tools).
 
 ### `Dependencies`
 

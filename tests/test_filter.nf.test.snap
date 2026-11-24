@@ -2,12 +2,9 @@
     "Check test_filter - with vcf - min_gl=0.8": {
         "content": [
             {
-                "workflow size": 189,
+                "workflow size": 141,
                 "versions": {
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -31,14 +28,8 @@
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
                     },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
-                    },
                     "GLIMPSE2_PHASE": {
                         "glimpse2": "2.0.0"
-                    },
-                    "GLIMPSE_LIGATE": {
-                        "glimpse": "1.1.1"
                     },
                     "GLIMPSE_PHASE": {
                         "glimpse": "1.1.1"
@@ -105,24 +96,12 @@
                     "imputation/glimpse1/filtered/NA20359.batch0.glimpse1.GP0.995.vcf.gz",
                     "imputation/glimpse1/filtered/NA20359.batch0.glimpse1.GP0.995.vcf.gz.csi",
                     "imputation/glimpse1/intermediary",
-                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22_0-50818468.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22_0-50818468.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21_0-46709983.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22_0-50818468.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr21_0-46709983.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA12878.batch0.chr22_0-50818468.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr21_0-46709983.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA19401.batch0.chr22_0-50818468.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr21_0-46709983.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/NA20359.batch0.chr22_0-50818468.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -271,15 +250,15 @@
                 "VCF files": [
                     [
                         "NA12878.batch0.beagle5.vcf.gz",
-                        "6cb6a00f6927faacc57cd20c1d61a0f9"
+                        "dc2aee121c37be0d9da86d78860b97c8"
                     ],
                     [
                         "NA19401.batch0.beagle5.vcf.gz",
-                        "3a0db394fc0d2f6b40f4010d19184552"
+                        "11b157dbdb6368d60eb872bd778295af"
                     ],
                     [
                         "NA20359.batch0.beagle5.vcf.gz",
-                        "2398a134c6a6b349715417475158aeaf"
+                        "47a03732049dc2d92862823f5f6210"
                     ],
                     [
                         "NA12878.batch0.beagle5.GP0.995.vcf.gz",
@@ -307,63 +286,39 @@
                     ],
                     [
                         "NA12878.batch0.glimpse1.vcf.gz",
-                        "b403b2183628d19f267043dfd0ed80c6"
+                        "6261a96086f98519803c920b3a22c407"
                     ],
                     [
                         "NA19401.batch0.glimpse1.vcf.gz",
-                        "275b04a9a39b44d31e4ff06b31983890"
+                        "63bdaf4a4e5819ecd9184ded05fc89d8"
                     ],
                     [
                         "NA20359.batch0.glimpse1.vcf.gz",
-                        "4760c0686f5d78e54a58015b8fc28769"
+                        "fb72136a404febfd5ad3576bc114cbf8"
                     ],
                     [
                         "NA12878.batch0.glimpse1.GP0.995.vcf.gz",
-                        "39e9af6b8945a3d58cf4d10e66bcf7fb"
+                        "48cd7267c5a405c4a866a4bea0c90b14"
                     ],
                     [
                         "NA19401.batch0.glimpse1.GP0.995.vcf.gz",
-                        "a526a4be71c0ab602c0d946d78e6f626"
+                        "f083393821de996272ffc50b2ef27718"
                     ],
                     [
                         "NA20359.batch0.glimpse1.GP0.995.vcf.gz",
-                        "8f9dd95495c580d18b9da07a0098d434"
-                    ],
-                    [
-                        "NA12878.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "f52634a172e1901fcabfda278cf3d7f6"
-                    ],
-                    [
-                        "NA12878.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "369d102f6af7d9804d68b683307a30c0"
-                    ],
-                    [
-                        "NA19401.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "a1fb944ff37c14a70fc7c513bc72697f"
-                    ],
-                    [
-                        "NA19401.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "343386fdb89481e04c4cb92ff4ccae4a"
-                    ],
-                    [
-                        "NA20359.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "78c568b3d1dbc67c80c8a640d7c80b8d"
-                    ],
-                    [
-                        "NA20359.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "6bdec3080002c8d8157ca882facfc977"
+                        "50aa5dbca5c56fbd2b8b328d6c5143d5"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "39e9af6b8945a3d58cf4d10e66bcf7fb"
+                        "48cd7267c5a405c4a866a4bea0c90b14"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "a526a4be71c0ab602c0d946d78e6f626"
+                        "f083393821de996272ffc50b2ef27718"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "8f9dd95495c580d18b9da07a0098d434"
+                        "50aa5dbca5c56fbd2b8b328d6c5143d5"
                     ],
                     [
                         "NA12878.batch0.glimpse2.vcf.gz",
@@ -486,7 +441,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:11:12.978274179",
+        "timestamp": "2026-11-23T17:26:29.497445865",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -609,12 +564,12 @@
                     "imputation/glimpse1/intermediary",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -1129,7 +1084,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:09:43.372202609",
+        "timestamp": "2026-11-23T17:27:09.188748689",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

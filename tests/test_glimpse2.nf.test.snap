@@ -222,15 +222,12 @@
     "Check test_glimpse2 - no map - no chunks": {
         "content": [
             {
-                "workflow size": 24,
+                "workflow size": 20,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -247,9 +244,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE2_LIGATE": {
-                        "glimpse2": "2.0.0"
                     },
                     "GLIMPSE2_PHASE": {
                         "glimpse2": "2.0.0"
@@ -410,7 +404,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:19:14.452964005",
+        "timestamp": "2026-11-23T17:22:01.228292764",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"

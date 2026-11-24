@@ -2,7 +2,7 @@
     "Check test_glimpse1 - no map - no chunks": {
         "content": [
             {
-                "workflow size": 35,
+                "workflow size": 31,
                 "versions": {
                     "BAMCHREXTRACT": {
                         "samtools": "1.23"
@@ -11,9 +11,6 @@
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_CONCAT": {
-                        "bcftools": "1.25"
-                    },
-                    "BCFTOOLS_INDEX_LIGATE": {
                         "bcftools": "1.25"
                     },
                     "BCFTOOLS_INDEX_PHASE": {
@@ -36,9 +33,6 @@
                     },
                     "GAWK_IMPUTED": {
                         "gawk": "5.3.1"
-                    },
-                    "GLIMPSE_LIGATE": {
-                        "glimpse": "1.1.1"
                     },
                     "GLIMPSE_PHASE": {
                         "glimpse": "1.1.1"
@@ -73,12 +67,8 @@
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz",
                     "imputation/glimpse1/concat/all_samples.batch0.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/intermediary",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570000-16610000.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570000-16610000.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570000-16610000.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570000-16610000.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -206,27 +196,19 @@
                 "VCF files": [
                     [
                         "all_samples.batch0.glimpse1.vcf.gz",
-                        "7e82abf33d378aa97227b2254719bb80"
-                    ],
-                    [
-                        "all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
-                        "c177398366bbe151add96bc659fdaaf7"
-                    ],
-                    [
-                        "all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
-                        "713b689c40f9e69b1ae530a339946201"
+                        "39f722af2ab7a47c838a809707dae3fb"
                     ],
                     [
                         "NA12878.glimpse1.vcf.gz",
-                        "585082dc08ed688dbe2ebe2c5651fd16"
+                        "c0faa30a2c2ca5b7bec66decdc617f0b"
                     ],
                     [
                         "NA19401.glimpse1.vcf.gz",
-                        "c88f04da1684db2a3219db956f4c8327"
+                        "5c04c8424dd6cd281beccb6b62cc6eec"
                     ],
                     [
                         "NA20359.glimpse1.vcf.gz",
-                        "fbd720a840a2367dd4638d8048936ed4"
+                        "879f0884109bf8a283553e789413bf2b"
                     ],
                     [
                         "NA12878_chr21.vcf.gz",
@@ -292,7 +274,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:15:51.46506112",
+        "timestamp": "2026-11-23T17:22:07.143126797",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -380,12 +362,12 @@
                     "imputation/glimpse1/intermediary",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr21.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16570070-16590513.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr21_16590521-16609998.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz",
                     "imputation/glimpse1/intermediary/all_samples.batch0.chr22.ligate.glimpse1.vcf.gz.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.bcf.csi",
-                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.bcf.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16570065-16592216.glimpse1.vcf.gz.csi",
+                    "imputation/glimpse1/intermediary/all_samples.batch0.chr22_16592229-16609999.glimpse1.vcf.gz.csi",
                     "imputation/glimpse1/samples",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz",
                     "imputation/glimpse1/samples/NA12878.glimpse1.vcf.gz.csi",
@@ -616,7 +598,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-13T12:12:25.74453932",
+        "timestamp": "2026-11-23T17:22:14.391950775",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
